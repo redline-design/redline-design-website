@@ -4,9 +4,11 @@ import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import logoLarge from "@assets/v2h5UOvchlYvZ2HIPfl8w5dPIc_1762037727160.avif";
+import { useTheme } from "./ThemeProvider";
 
 export default function Hero() {
   const [scrollY, setScrollY] = useState(0);
+  const { theme } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -46,7 +48,7 @@ export default function Hero() {
               src={logoLarge} 
               alt="Redline Design" 
               className="w-full max-w-xs md:max-w-sm lg:max-w-md mx-auto"
-              style={{ filter: 'brightness(0) invert(1)' }}
+              style={{ filter: theme === 'dark' ? 'brightness(0) invert(1)' : 'brightness(0)' }}
               data-testid="img-hero-logo"
             />
           </div>
