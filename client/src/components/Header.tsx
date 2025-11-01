@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
+import logoImage from "@assets/Asset 1_1762033090173.png";
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -34,9 +35,7 @@ export default function Header() {
         <div className="flex items-center justify-between h-16 md:h-20">
           <Link href="/" data-testid="link-home">
             <div className="hover-elevate active-elevate-2 rounded-md px-2 py-1 -ml-2 cursor-pointer">
-              <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M5 35 Q20 5, 35 35" stroke="#EF4444" strokeWidth="3" strokeLinecap="round" fill="none"/>
-              </svg>
+              <img src={logoImage} alt="Redline Design" className="h-8 w-auto" data-testid="img-logo" />
             </div>
           </Link>
 

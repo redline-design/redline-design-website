@@ -1,4 +1,5 @@
 import { Link } from "wouter";
+import logoImage from "@assets/Asset 1_1762033090173.png";
 
 export default function Footer() {
   const services = [
@@ -32,9 +33,7 @@ export default function Footer() {
           <div>
             <Link href="/">
               <div className="flex items-center gap-2 mb-4 cursor-pointer hover-elevate active-elevate-2 rounded-md px-2 py-1 -ml-2 w-fit">
-                <svg width="32" height="32" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M5 35 Q20 5, 35 35" stroke="#EF4444" strokeWidth="3" strokeLinecap="round" fill="none"/>
-                </svg>
+                <img src={logoImage} alt="Redline Design" className="h-6 w-auto" />
               </div>
             </Link>
             <p className="text-sm text-muted-foreground mb-4">
