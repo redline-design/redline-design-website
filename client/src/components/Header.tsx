@@ -3,6 +3,7 @@ import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import logoImage from "@assets/Asset 1_1762033090173.png";
+import ThemeToggle from "./ThemeToggle";
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -55,8 +56,9 @@ export default function Header() {
             ))}
           </nav>
 
-          {/* Right: Get Started Button */}
-          <div className="flex justify-end items-center gap-4">
+          {/* Right: Get Started Button + Theme Toggle */}
+          <div className="flex justify-end items-center gap-2">
+            <ThemeToggle />
             <Link href="/book-a-demo" className="hidden md:block">
               <Button size="default" variant="default" className="button-recessed fill-on-hover" data-testid="button-nav-get-started">
                 Get Started
