@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import AnimatedBackground from "@/components/AnimatedBackground";
-import logoLarge from "@assets/Asset 1_1762033090173.png";
+import logoLarge from "@assets/Asset 3_1762033498074.png";
 
 export default function Hero() {
   const [scrollY, setScrollY] = useState(0);
