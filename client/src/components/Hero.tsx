@@ -41,7 +41,7 @@ export default function Hero() {
             <img 
               src={logoLarge} 
               alt="Redline Design" 
-              className="w-full max-w-md md:max-w-xl lg:max-w-2xl mx-auto"
+              className="w-full max-w-xs md:max-w-sm lg:max-w-md mx-auto"
               data-testid="img-hero-logo"
             />
           </div>
