@@ -42,7 +42,7 @@ export default function ServiceCard({ icon: Icon, title, description, link, stat
 
           <CardContent className="p-8 relative z-10">
             <motion.div
-              className="mb-4 inline-flex items-center justify-center w-14 h-14 rounded-xl bg-primary/10 text-primary"
+              className="mb-6 inline-flex items-center justify-center w-14 h-14 rounded-xl bg-primary/10 text-primary"
               whileHover={{ scale: 1.1, rotate: 5 }}
               transition={{ type: "spring", stiffness: 300 }}
             >
