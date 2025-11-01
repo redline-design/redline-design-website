@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import { SiGoogle, SiMeta, SiLinkedin, SiTiktok, SiYoutube, SiTwitter } from "react-icons/si";
+import { SiGoogle, SiMeta, SiLinkedin, SiTiktok, SiYoutube, SiX } from "react-icons/si";
 
 export default function PartnerLogos() {
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 });
@@ -11,7 +11,7 @@ export default function PartnerLogos() {
     { Icon: SiLinkedin, name: "LinkedIn" },
     { Icon: SiTiktok, name: "TikTok" },
     { Icon: SiYoutube, name: "YouTube" },
-    { Icon: SiTwitter, name: "Twitter" },
+    { Icon: SiX, name: "X" },
   ];
 
   return (
