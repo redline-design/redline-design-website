@@ -66,6 +66,16 @@ export async function handleChat(req: Request, res: Response) {
     });
 
     if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      console.error("OpenAI API error:", response.status, errorData);
+      
+      // Handle rate limits gracefully
+      if (response.status === 429) {
+        return res.json({
+          message: "I'd be happy to help you learn about our services! We offer SEO, paid advertising, web design, social media marketing, and more. Book a free consultation at /book-a-demo to discuss your specific needs, or email us at hello@redlinedesignllc.com"
+        });
+      }
+      
       throw new Error(`OpenAI API error: ${response.statusText}`);
     }
 
@@ -76,8 +86,8 @@ export async function handleChat(req: Request, res: Response) {
     res.json({ message: assistantMessage });
   } catch (error) {
     console.error("Chat error:", error);
-    res.status(500).json({ 
-      message: "I apologize for the technical difficulty. Please book a demo at /book-a-demo or contact us at hello@redlinedesignllc.com"
+    res.json({ 
+      message: "Thanks for reaching out! I'm here to answer questions about our digital marketing services. We specialize in SEO, PPC advertising, web design, and social media marketing with proven results - 14x average ROI and 95% client retention. Book a free consultation at /book-a-demo or email hello@redlinedesignllc.com to learn how we can help your business grow!"
     });
   }
 }
