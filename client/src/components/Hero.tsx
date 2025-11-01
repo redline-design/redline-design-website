@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { ArrowRight, ChevronDown } from "lucide-react";
-import AnimatedBackground from "@/components/AnimatedBackground";
 import logoLarge from "@assets/Asset 3_1762033498074.png";
 
 export default function Hero() {
@@ -23,7 +22,6 @@ export default function Hero() {
       data-testid="section-hero"
     >
       <div className="absolute inset-0 z-0">
-        <AnimatedBackground />
         <div className="absolute inset-0 bg-gradient-to-b from-background/20 via-background/40 to-background/80"></div>
       </div>
 
