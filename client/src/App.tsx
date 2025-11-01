@@ -10,6 +10,7 @@ import Home from "@/pages/Home";
 import Services from "@/pages/Services";
 import WhyUs from "@/pages/WhyUs";
 import BookDemo from "@/pages/BookDemo";
+import Onboarding from "@/pages/Onboarding";
 import Articles from "@/pages/Articles";
 import PolicyPage from "@/pages/PolicyPage";
 import NotFound from "@/pages/not-found";
@@ -21,6 +22,7 @@ function Router() {
       <Route path="/services" component={Services} />
       <Route path="/why-us" component={WhyUs} />
       <Route path="/book-a-demo" component={BookDemo} />
+      <Route path="/onboarding" component={Onboarding} />
       <Route path="/digital-marketing" component={Articles} />
       
       <Route path="/tos">

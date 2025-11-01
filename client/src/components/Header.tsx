@@ -22,6 +22,7 @@ export default function Header() {
     { href: "/why-us", label: "Why Us?" },
     { href: "/#partners", label: "Our Partners" },
     { href: "/book-a-demo", label: "Get Started" },
+    { href: "/onboarding", label: "Client Onboarding" },
   ];
 
   return (
