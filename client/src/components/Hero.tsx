@@ -33,7 +33,7 @@ export default function Hero() {
           className="mb-8"
         >
           <Link href="/book-a-demo">
-            <div className="inline-block px-6 py-2 border-2 border-primary bg-primary/10 rounded-full text-sm font-semibold uppercase tracking-wider text-primary mb-8 cursor-pointer hover-elevate active-elevate-2 badge-pulse transition-all">
+            <div className="inline-block px-6 py-2 border-2 border-primary bg-primary/10 rounded-full text-sm font-semibold uppercase tracking-wider text-primary mb-8 cursor-pointer hover-elevate active-elevate-2 badge-pulse transition-all fill-on-hover">
               Free Consultation
             </div>
           </Link>

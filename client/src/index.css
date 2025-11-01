@@ -593,4 +593,32 @@
     display: inline-block;
     animation: number-pop 0.5s ease-out;
   }
+
+  /* Progress bar fill on hover */
+  .fill-on-hover {
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+  }
+
+  .fill-on-hover::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      rgba(239, 68, 68, 0.3) 0%,
+      rgba(239, 68, 68, 0.5) 50%,
+      rgba(239, 68, 68, 0.3) 100%
+    );
+    z-index: -1;
+    transition: width 1s ease-out;
+  }
+
+  .fill-on-hover:hover::after {
+    width: 100%;
+  }
 }
