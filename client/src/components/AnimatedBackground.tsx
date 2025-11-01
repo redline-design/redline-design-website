@@ -31,15 +31,15 @@ export default function AnimatedBackground() {
     window.addEventListener("resize", resizeCanvas);
 
     // Initialize particles
-    const particleCount = Math.min(50, Math.floor((canvas.width * canvas.height) / 15000));
+    const particleCount = Math.min(60, Math.floor((canvas.width * canvas.height) / 12000));
     for (let i = 0; i < particleCount; i++) {
       particles.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
         vx: (Math.random() - 0.5) * 0.5,
         vy: (Math.random() - 0.5) * 0.5,
-        radius: Math.random() * 2 + 1,
-        opacity: Math.random() * 0.4 + 0.5,
+        radius: Math.random() * 2.5 + 1,
+        opacity: Math.random() * 0.3 + 0.6,
       });
     }
 
@@ -47,7 +47,7 @@ export default function AnimatedBackground() {
       const gridSize = 50;
       const time = Date.now() * 0.0002;
       
-      ctx.strokeStyle = `rgba(239, 68, 68, 0.05)`;
+      ctx.strokeStyle = `rgba(239, 68, 68, 0.15)`;
       ctx.lineWidth = 1;
 
       // Vertical lines
@@ -99,12 +99,12 @@ export default function AnimatedBackground() {
           const distance = Math.sqrt(dx * dx + dy * dy);
 
           if (distance < maxDistance) {
-            const opacity = (1 - distance / maxDistance) * 0.3;
+            const opacity = (1 - distance / maxDistance) * 0.5;
             ctx.beginPath();
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
             ctx.strokeStyle = `rgba(239, 68, 68, ${opacity})`;
-            ctx.lineWidth = 1;
+            ctx.lineWidth = 1.5;
             ctx.stroke();
           }
         }
@@ -133,7 +133,7 @@ export default function AnimatedBackground() {
     <canvas
       ref={canvasRef}
       className="absolute inset-0 z-0 pointer-events-none"
-      style={{ opacity: 0.6 }}
+      style={{ opacity: 0.8 }}
     />
   );
 }
