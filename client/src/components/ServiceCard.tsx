@@ -42,7 +42,7 @@ export default function ServiceCard({ icon: Icon, title, description, link, stat
 
           <CardContent className="p-8 relative z-10">
             <motion.div
-              className="mb-6 inline-flex items-center justify-center w-14 h-14 rounded-xl bg-primary/10 text-primary"
+              className="mb-4 inline-flex items-center justify-center w-14 h-14 rounded-xl bg-primary/10 text-primary"
               whileHover={{ scale: 1.1, rotate: 5 }}
               transition={{ type: "spring", stiffness: 300 }}
             >
@@ -52,7 +52,7 @@ export default function ServiceCard({ icon: Icon, title, description, link, stat
             {status && (
               <Badge 
                 variant={status === "accepting" ? "default" : "secondary"} 
-                className="mb-4 uppercase text-xs inline-flex items-center gap-2"
+                className="mb-5 uppercase text-xs inline-flex items-center gap-2"
               >
                 <span className="relative flex h-2 w-2">
                   <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${status === "accepting" ? "bg-green-400" : "bg-yellow-400"}`}></span>
