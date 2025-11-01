@@ -3,7 +3,7 @@ import { useEffect, useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { ChevronDown, Sparkles } from "lucide-react";
-import logoLarge from "@assets/v2h5UOvchlYvZ2HIPfl8w5dPIc_1762037727160.avif";
+import logoLarge from "@assets/v2h5UOvchlYvZ2HIPfl8w5dPIc_1762041101932.avif";
 import { useTheme } from "./ThemeProvider";
 
 export default function Hero() {
