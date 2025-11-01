@@ -52,7 +52,7 @@ export default function ServiceCard({ icon: Icon, title, description, link, stat
             {status && (
               <Badge 
                 variant={status === "accepting" ? "default" : "secondary"} 
-                className="mb-5 uppercase text-xs inline-flex items-center gap-2"
+                className="mb-6 uppercase text-xs inline-flex items-center gap-2"
               >
                 <span className="relative flex h-2 w-2">
                   <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${status === "accepting" ? "bg-green-400" : "bg-yellow-400"}`}></span>
