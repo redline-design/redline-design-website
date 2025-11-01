@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { LucideIcon } from "lucide-react";
 import { Link } from "wouter";
