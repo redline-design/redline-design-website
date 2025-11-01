@@ -33,7 +33,7 @@ export default function Header() {
         <div className="flex items-center justify-between h-16 md:h-20">
           <Link href="/" data-testid="link-home">
             <div className="hover-elevate active-elevate-2 rounded-md px-2 py-1 -ml-2 cursor-pointer">
-              <img src={logoImage} alt="Redline Design" className="h-8 w-auto" data-testid="img-logo" />
+              <img src={logoImage} alt="Redline Design" className="h-12 md:h-14 w-auto" data-testid="img-logo" />
             </div>
           </Link>
 
