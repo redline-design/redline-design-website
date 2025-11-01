@@ -23,7 +23,7 @@ export default function Hero() {
     >
       <div className="absolute inset-0 z-0">
         <AnimatedBackground />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/60 to-background"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-background/20 via-background/40 to-background/80"></div>
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16 text-center">
