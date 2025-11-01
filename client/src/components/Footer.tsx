@@ -1,5 +1,6 @@
 import { Link } from "wouter";
 import logoImage from "@assets/Asset 1_1762033090173.png";
+import { FaFacebook, FaInstagram } from "react-icons/fa";
 
 export default function Footer() {
   const services = [
@@ -39,9 +40,31 @@ export default function Footer() {
             <p className="text-sm text-muted-foreground mb-4">
               Digital marketing that doesn't suck. Data-driven campaigns that turn clicks into customers.
             </p>
-            <p className="text-xs text-muted-foreground">
+            <p className="text-xs text-muted-foreground mb-4">
               Average response in &lt;24 business hours
             </p>
+            <div className="flex gap-4">
+              <a
+                href="https://www.facebook.com/redlinedesignllc"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground hover:text-primary transition-colors"
+                aria-label="Facebook"
+                data-testid="link-facebook"
+              >
+                <FaFacebook className="h-6 w-6" />
+              </a>
+              <a
+                href="https://www.instagram.com/redlinedesignllc"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground hover:text-primary transition-colors"
+                aria-label="Instagram"
+                data-testid="link-instagram"
+              >
+                <FaInstagram className="h-6 w-6" />
+              </a>
+            </div>
           </div>
 
           <div>
