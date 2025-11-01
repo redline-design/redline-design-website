@@ -127,7 +127,7 @@ export default function Services() {
       </section>
 
       <section className="py-20 px-4 sm:px-6 lg:px-8 relative" data-testid="section-service-details">
-        <div className="max-w-5xl mx-auto" style={{ paddingBottom: "400px" }}>
+        <div className="max-w-5xl mx-auto">
           <ServiceSection
             id="seo"
             icon={Search}
