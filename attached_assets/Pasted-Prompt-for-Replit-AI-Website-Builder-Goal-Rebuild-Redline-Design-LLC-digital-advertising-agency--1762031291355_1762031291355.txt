@@ -1,0 +1,237 @@
+Prompt for Replit AI Website Builder
+
+Goal: Rebuild Redline Design LLC (digital advertising agency) as a sleek, performant, mobile-first site with subtle animations and conversion-focused UX. Keep the brand’s bold tone (“Digital Marketing that doesn’t suck”) and emphasize results, speed, and affordability.
+
+References to mirror voice & content:
+
+Homepage sections: Services (Websites, Paid Ads, SEO/SEM), “Why Us,” partners row, data-driven tabs, “Book a Free Consultation” CTA. 
+redlinedesignllc.com
+
+Tagline/voice: “Digital marketing that doesn’t suck.” 
+redlinedesignllc.com
+
+Value props to incorporate: up to “14x” ROI, quick turnaround (<24 business hours), affordability (budgets from $500/mo). 
+redlinedesignllc.com
+
+Educational blog tone for digital marketing pages. 
+redlinedesignllc.com
++1
+
+Book-a-demo contact form language and consent note (SMS consent snippet). 
+redlinedesignllc.com
+
+Policies footer links (TOS, Privacy, Data Use, Information Security, NDA, IRP, SDA). 
+redlinedesignllc.com
+
+Tech + Performance
+
+Stack: Next.js 14 (App Router) + React + TypeScript + Tailwind CSS.
+
+Animations: Framer Motion for section reveals (fade/slide/scale), micro-interactions on buttons/cards, parallax hero background, stat counters. Prefers subtle movement; respect reduced-motion.
+
+Images: Use optimized next/image; prefer PNG for static brand assets.
+
+Speed: Lighthouse 95+ on mobile; lazy-load media; code-split; prefetch above-the-fold fonts only.
+
+Accessibility: WCAG 2.2 AA, keyboard-navigable, visible focus states, ARIA where needed.
+
+Brand & UI
+
+Palette: Deep charcoal/near-black background, high-contrast white text, accent red for CTAs, trims, and underline effects.
+
+Typography: Strong display for headlines (e.g., Inter/Oswald), geometric sans for body (Inter).
+
+Components: Rounded-2xl cards, soft drop-shadows, glassy headers on scroll, sticky top nav.
+
+Site Map & Page Specs
+1) Home (/)
+
+Hero:
+
+H1: “Digital Marketing that Doesn’t Suck.” 
+redlinedesignllc.com
+
+Subhead: “Data-driven campaigns that turn clicks into customers.”
+
+Primary CTA: “Book a Free Consultation” → /book-a-demo
+
+Secondary CTA: “See What We Do” → /services
+
+Background: motion parallax with subtle gradient + animated red line motif.
+
+What We Do (3 cards):
+
+World-Class Websites — “Unique websites at reasonable prices.” 
+redlinedesignllc.com
+
+Paid Advertising — “Focusing on maximum ROI.” 
+redlinedesignllc.com
+
+SEO/SEM — “Get found everywhere, by everyone.” 
+redlinedesignllc.com
+
+Each card animates on hover (lift + shadow), includes “Get Started” mini-CTA.
+
+The Redline Difference (icon tabs):
+Tabs with animated underline + content transitions:
+
+Measurable Results — “Data-Driven Results. Facts, Not Feelings.” (include mini chart/metric block) 
+redlinedesignllc.com
+
+Keys to Digital Success
+
+ROI That Stacks Up (mention “up to 14x returns”) 
+redlinedesignllc.com
+
+It’s a Big World (cross-platform reach) 
+redlinedesignllc.com
+
+Why Us (value tiles):
+
+Maximum ROI, Surprisingly Affordable (budgets from $500/mo), Quick Turnaround (<24 business hours), Success Driven, Full Service, Individual Focus. Each tile has a small reveal animation. 
+redlinedesignllc.com
+
+Logos/Partners row: social/media platform icons with grayscale → color on hover. 
+redlinedesignllc.com
+
+CTA band: “Book a Free Consultation Today!” with big button → /book-a-demo. 
+redlinedesignllc.com
+
+Footer: nav + policy links (TOS, Privacy, Data Use, Info Security, NDA, IRP, SDA) 
+redlinedesignllc.com
+
+2) Services (/services)
+
+Intro: “From Clicks to Customers: Mastering the Art of Digital Marketing.” 
+redlinedesignllc.com
+
+Sections (accordions or cards):
+
+SEO (technical + content + authority)
+
+PPC (Google Ads, Meta, retargeting)
+
+Web Design & Dev (Next.js, conversions, speed)
+
+Social Media Marketing
+
+Email/Lifecycle
+Each section includes outcomes, brief process, and a “Get a Plan” CTA → /book-a-demo.
+
+Data callouts: Add metric blocks (CPL, ROAS, CTR) with animated counters.
+
+3) Why Us (/why-us)
+
+Lead copy: Bold, personable tone; focus on retention, partnerships, and measurable outcomes. Mirror site’s “We think we’re pretty cool.” voice. 
+redlinedesignllc.com
+
+Proof points: ROI, affordability, turnaround, full-service support, industry-specific focus (tiles with icons/animations). 
+redlinedesignllc.com
+
+CTA: “See Pricing Options” (opens modal with contact to discuss budgets from $500/mo). 
+redlinedesignllc.com
+
+4) Book a Demo (/book-a-demo)
+
+Header: “Let’s Get in Touch.” 
+redlinedesignllc.com
+
+Form (name, email, phone, message) with explicit SMS consent language:
+“You agree to receive automated follow-up, reminder, and promotional messages…” and “Reply STOP to end / HELP for help,” with links to Terms of Service and Privacy Policy. 
+redlinedesignllc.com
+
+Integrations:
+
+Submit → email + store in basic backend (sendgrid/mail API)
+
+Optional: add Calendly embed (User uses Calendly) for instant booking.
+Micro-copy: “Average response in <24 business hours.” (aligns with turnaround claim) 
+redlinedesignllc.com
+
+5) Articles (/digital-marketing)
+
+Blog index with author cards and category filters. Tone similar to current educational pages (conversational, no fluff). Include two starter posts seeded from existing headings. 
+redlinedesignllc.com
++1
+
+6) Policies (/tos, /privacy, /data-use, /information-security, /nda, /irp, /sda)
+
+Create simple, readable markdown pages; link all in footer. Use current titles/structure. 
+redlinedesignllc.com
+
+Content & Copy (ready-to-use)
+
+Hero subhead:
+“We build and run high-ROI campaigns—including websites, SEO, and PPC—so you get measurable growth without the fluff.”
+
+What We Do snippets (cards):
+
+World-Class Websites: “Custom Next.js sites that load fast, look premium, and convert.”
+
+Paid Advertising: “Strategic media buying focused on ROAS—search, social, and retargeting.”
+
+SEO/SEM: “Technical, content, and authority work so you’re found everywhere.”
+
+Why Us tiles (examples):
+
+Maximum ROI: “We’ve seen returns up to 14x.” 
+redlinedesignllc.com
+
+Surprisingly Affordable: “Plans start at $500/mo.” 
+redlinedesignllc.com
+
+Quick Turnaround: “Most updates in <24 business hours.” 
+redlinedesignllc.com
+
+Full Service: “Web, CRM, creative—one team.” 
+redlinedesignllc.com
+
+SEO & Meta
+
+Global title format: {Page Title} | Redline Design LLC
+
+Home meta description: “Redline Design LLC delivers data-driven digital marketing—websites, PPC, and SEO—for measurable growth. Book a free strategy session.”
+
+/book-a-demo meta: “Schedule a free strategy session to see how our SEO, PPC, and web solutions grow your business.”
+
+Schema: Organization, WebSite (with Sitelinks SearchBox), and ContactPoint; add Article schema on blog posts.
+
+Open Graph/Twitter: OG image with red accent “R” ribbon; proper og:url, og:site_name.
+
+Integrations
+
+GA4 + Google Tag Manager (track CTA clicks, form submits, Calendly events).
+
+Privacy/Consent: simple cookie banner; store consent state.
+
+Email via SendGrid or Resend for form notifications.
+
+Optional: CRM webhook placeholder.
+
+Code Quality
+
+Routing: App Router, metadata API.
+
+Components: /components/ui with reusable Card, Section, Stat, LogoRow, CTA, Form.
+
+CMS option: Markdown/MDX for blog posts.
+
+Testing: Add basic Playwright test for nav and form submission.
+
+CI: Minimal GitHub Action (build/lint).
+
+Animation Notes
+
+Section enters: fade-up 20px, 300–450ms stagger.
+
+Buttons: scale 1.02 on hover; ripple on tap (reduced-motion safe).
+
+Counter for stats in “Differentiators.”
+
+Parallax hero bg at 10–15% movement.
+
+Deliverables
+
+Fully responsive site with pages above, seeded copy, animations, Lighthouse-friendly.
+
+Deployed preview + README with edit instructions.
