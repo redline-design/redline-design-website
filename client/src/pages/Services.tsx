@@ -30,7 +30,7 @@ function ServiceSection({ id, icon: Icon, title, description, features, outcomes
       className="scroll-mt-24"
       data-testid={`section-service-${id}`}
     >
-      <Card className="rounded-2xl overflow-hidden">
+      <Card className="rounded-2xl overflow-hidden backdrop-blur-md bg-card/40 border-white/10">
         <CardContent className="p-8 md:p-12">
           <div className="flex items-start gap-6 mb-6">
             <div className="flex-shrink-0 p-4 rounded-xl bg-primary/10">

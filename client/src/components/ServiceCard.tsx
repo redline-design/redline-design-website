@@ -26,7 +26,7 @@ export default function ServiceCard({ icon: Icon, title, description, link, stat
       transition={{ duration: 0.5, delay }}
     >
       <Card
-        className="h-full hover-elevate active-elevate-2 transition-all duration-300 rounded-2xl group cursor-pointer"
+        className="h-full hover-elevate active-elevate-2 transition-all duration-300 rounded-2xl group cursor-pointer backdrop-blur-md bg-card/40 border-white/10"
         data-testid={`card-service-${title.toLowerCase().replace(/\s/g, "-")}`}
       >
         <CardContent className="p-8">

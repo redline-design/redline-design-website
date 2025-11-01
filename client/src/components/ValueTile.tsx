@@ -21,7 +21,7 @@ export default function ValueTile({ icon: Icon, title, description, delay = 0 }:
       transition={{ duration: 0.4, delay }}
     >
       <Card
-        className="h-full hover-elevate active-elevate-2 transition-all duration-300 rounded-2xl"
+        className="h-full hover-elevate active-elevate-2 transition-all duration-300 rounded-2xl backdrop-blur-md bg-card/40 border-white/10"
         data-testid={`card-value-${title.toLowerCase().replace(/\s/g, "-")}`}
       >
         <CardContent className="p-6">

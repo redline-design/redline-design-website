@@ -26,7 +26,7 @@ export default function ArticleCard({ title, excerpt, category, readTime, slug, 
     >
       <Link href={`/digital-marketing/${slug}`}>
         <Card
-          className="h-full hover-elevate active-elevate-2 transition-all duration-300 rounded-2xl cursor-pointer"
+          className="h-full hover-elevate active-elevate-2 transition-all duration-300 rounded-2xl cursor-pointer backdrop-blur-md bg-card/40 border-white/10"
           data-testid={`card-article-${slug}`}
         >
           <CardContent className="p-6">

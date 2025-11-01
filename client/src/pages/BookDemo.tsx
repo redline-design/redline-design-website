@@ -28,7 +28,7 @@ export default function BookDemo() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <Card className="text-center rounded-2xl h-full">
+              <Card className="text-center rounded-2xl h-full backdrop-blur-md bg-card/40 border-white/10">
                 <CardContent className="p-6">
                   <div className="inline-flex p-4 rounded-xl bg-primary/10 mb-4">
                     <Clock className="h-8 w-8 text-primary" />
@@ -46,7 +46,7 @@ export default function BookDemo() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
             >
-              <Card className="text-center rounded-2xl h-full">
+              <Card className="text-center rounded-2xl h-full backdrop-blur-md bg-card/40 border-white/10">
                 <CardContent className="p-6">
                   <div className="inline-flex p-4 rounded-xl bg-primary/10 mb-4">
                     <CheckCircle2 className="h-8 w-8 text-primary" />
@@ -64,7 +64,7 @@ export default function BookDemo() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
             >
-              <Card className="text-center rounded-2xl h-full">
+              <Card className="text-center rounded-2xl h-full backdrop-blur-md bg-card/40 border-white/10">
                 <CardContent className="p-6">
                   <div className="inline-flex p-4 rounded-xl bg-primary/10 mb-4">
                     <MessageSquare className="h-8 w-8 text-primary" />
@@ -83,7 +83,7 @@ export default function BookDemo() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.5 }}
           >
-            <Card className="rounded-2xl">
+            <Card className="rounded-2xl backdrop-blur-md bg-card/40 border-white/10">
               <CardContent className="p-8 md:p-12">
                 <ContactForm />
               </CardContent>

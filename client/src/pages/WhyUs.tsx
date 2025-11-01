@@ -41,7 +41,7 @@ export default function WhyUs() {
                   See Pricing Options
                 </Button>
               </DialogTrigger>
-              <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+              <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto backdrop-blur-2xl bg-background/90 border-white/20">
                 <DialogHeader>
                   <DialogTitle>Let's Discuss Your Budget</DialogTitle>
                   <DialogDescription>

@@ -24,7 +24,7 @@ export default function PolicyPage({ title, content }: PolicyPageProps) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <Card className="rounded-2xl">
+            <Card className="rounded-2xl backdrop-blur-md bg-card/40 border-white/10">
               <CardContent className="p-8 md:p-12 prose prose-lg max-w-none">
                 {content}
               </CardContent>

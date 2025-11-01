@@ -126,7 +126,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-card/50" data-testid="section-differentiators">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-card/30 backdrop-blur-sm" data-testid="section-differentiators">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-foreground mb-4">
@@ -187,7 +187,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="partners" className="py-16 px-4 sm:px-6 lg:px-8 bg-card/30" data-testid="section-partners">
+      <section id="partners" className="py-16 px-4 sm:px-6 lg:px-8 bg-card/20 backdrop-blur-sm" data-testid="section-partners">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <p className="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-2">
