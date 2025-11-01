@@ -58,7 +58,7 @@ export default function Hero() {
           transition={{ duration: 0.6, delay: 0.2 }}
         >
           <Link href="/book-a-demo">
-            <Button size="lg" variant="default" className="text-base px-10 py-6 text-lg button-recessed" data-testid="button-hero-book-demo">
+            <Button size="lg" variant="default" className="text-base px-10 py-6 text-lg button-recessed fill-on-hover" data-testid="button-hero-book-demo">
               Book a Free Consultation
             </Button>
           </Link>
