@@ -463,6 +463,56 @@
       inset 0 -1px 3px rgba(255, 255, 255, 0.05);
   }
 
+  /* Recessed Button - looks pushed in, then pops out on hover */
+  .button-recessed {
+    position: relative;
+    overflow: hidden;
+    animation: glow-pulse 2s ease-in-out infinite;
+    /* Recessed look - inset shadows to appear sunken */
+    box-shadow: 
+      inset 0 3px 8px rgba(0, 0, 0, 0.5),
+      inset 0 -1px 3px rgba(255, 255, 255, 0.05),
+      0 1px 2px rgba(239, 68, 68, 0.1);
+    transform: translateY(0);
+    transition: all 0.3s ease-out;
+  }
+
+  .button-recessed::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.4) 50%,
+      transparent 100%
+    );
+    animation: shimmer 2.5s infinite;
+  }
+
+  /* On hover - pops out with 3D raised effect */
+  .button-recessed:hover {
+    transform: translateY(-3px);
+    box-shadow: 
+      0 6px 12px rgba(0, 0, 0, 0.4),
+      0 12px 25px rgba(239, 68, 68, 0.4),
+      0 20px 40px rgba(239, 68, 68, 0.2),
+      inset 0 -2px 5px rgba(0, 0, 0, 0.2),
+      inset 0 2px 5px rgba(255, 255, 255, 0.15);
+  }
+
+  /* On active/click - pushes back in */
+  .button-recessed:active {
+    transform: translateY(1px);
+    box-shadow: 
+      inset 0 4px 10px rgba(0, 0, 0, 0.6),
+      inset 0 -1px 3px rgba(255, 255, 255, 0.03),
+      0 1px 2px rgba(239, 68, 68, 0.1);
+  }
+
   /* Card hover glow effects */
   @keyframes card-glow {
     0%, 100% {
