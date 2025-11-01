@@ -84,9 +84,9 @@ export default {
         },
       },
       fontFamily: {
-        sans: ["var(--font-sans)"],
-        serif: ["var(--font-serif)"],
-        mono: ["var(--font-mono)"],
+        sans: ["Space Grotesk", "system-ui", "sans-serif"],
+        serif: ["Georgia", "serif"],
+        mono: ["ui-monospace", "monospace"],
       },
       keyframes: {
         "accordion-down": {
