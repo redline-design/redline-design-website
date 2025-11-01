@@ -33,8 +33,12 @@ export default function ServiceCard({ icon: Icon, title, description, link, stat
           {status && (
             <Badge 
               variant={status === "accepting" ? "default" : "secondary"} 
-              className="mb-4 uppercase text-xs badge-pulse"
+              className="mb-4 uppercase text-xs badge-pulse inline-flex items-center gap-2"
             >
+              <span className="relative flex h-2 w-2">
+                <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${status === "accepting" ? "bg-green-400" : "bg-yellow-400"}`}></span>
+                <span className={`relative inline-flex rounded-full h-2 w-2 ${status === "accepting" ? "bg-green-500" : "bg-yellow-500"}`}></span>
+              </span>
               {status === "accepting" ? "Now Accepting New Clients" : "Waiting List"}
             </Badge>
           )}
