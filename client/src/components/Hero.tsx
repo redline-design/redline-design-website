@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { ArrowRight, ChevronDown } from "lucide-react";
-import logoLarge from "@assets/Asset 3_1762033498074.png";
+import logoLarge from "@assets/v2h5UOvchlYvZ2HIPfl8w5dPIc_1762037727160.avif";
 
 export default function Hero() {
   const [scrollY, setScrollY] = useState(0);
