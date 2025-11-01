@@ -26,9 +26,7 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? "backdrop-blur-xl bg-background/60 border-b border-white/10 shadow-lg" : "backdrop-blur-sm bg-background/20"
-      }`}
+      className="fixed top-0 left-0 right-0 z-50 backdrop-blur-2xl bg-background/40 border-b border-white/20 shadow-lg transition-all duration-300"
       data-testid="header-main"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -67,7 +65,7 @@ export default function Header() {
       </div>
 
       {isMobileMenuOpen && (
-        <div className="md:hidden border-t border-border bg-background/95 backdrop-blur-lg" data-testid="nav-mobile">
+        <div className="md:hidden border-t border-white/20 bg-background/60 backdrop-blur-2xl" data-testid="nav-mobile">
           <div className="px-4 py-4 space-y-3">
             {navLinks.map((link) => (
               <Link key={link.href} href={link.href}>
