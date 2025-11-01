@@ -52,8 +52,9 @@ export default function Hero() {
               data-testid="img-hero-logo"
             />
           </div>
-          <h2 className="text-xl sm:text-2xl md:text-3xl font-medium text-primary mb-8 uppercase tracking-wide">
-            Digital Marketing That Doesn't Suck
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-medium mb-8 tracking-wide">
+            <span className="text-foreground">Digital Marketing That Drives </span>
+            <span className="italic text-primary font-semibold">Real Results</span>
           </h2>
         </motion.div>
 
