@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { useTheme } from "./ThemeProvider";
 
 interface Particle {
   x: number;
@@ -11,6 +12,7 @@ interface Particle {
 
 export default function AnimatedBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const { theme } = useTheme();
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -47,7 +49,9 @@ export default function AnimatedBackground() {
       const gridSize = 50;
       const time = Date.now() * 0.0002;
       
-      ctx.strokeStyle = `rgba(239, 68, 68, 0.15)`;
+      // Use blue in light mode, red in dark mode
+      const color = theme === 'dark' ? '239, 68, 68' : '59, 130, 246';
+      ctx.strokeStyle = `rgba(${color}, 0.15)`;
       ctx.lineWidth = 1;
 
       // Vertical lines
@@ -84,7 +88,8 @@ export default function AnimatedBackground() {
         // Draw particle
         ctx.beginPath();
         ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(239, 68, 68, ${particle.opacity})`;
+        const color = theme === 'dark' ? '239, 68, 68' : '59, 130, 246';
+        ctx.fillStyle = `rgba(${color}, ${particle.opacity})`;
         ctx.fill();
       });
     };
@@ -100,10 +105,11 @@ export default function AnimatedBackground() {
 
           if (distance < maxDistance) {
             const opacity = (1 - distance / maxDistance) * 0.5;
+            const color = theme === 'dark' ? '239, 68, 68' : '59, 130, 246';
             ctx.beginPath();
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.strokeStyle = `rgba(239, 68, 68, ${opacity})`;
+            ctx.strokeStyle = `rgba(${color}, ${opacity})`;
             ctx.lineWidth = 1.5;
             ctx.stroke();
           }
@@ -127,7 +133,7 @@ export default function AnimatedBackground() {
       window.removeEventListener("resize", resizeCanvas);
       cancelAnimationFrame(animationFrameId);
     };
-  }, []);
+  }, [theme]);
 
   return (
     <canvas
