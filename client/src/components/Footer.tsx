@@ -45,7 +45,7 @@ export default function Footer() {
             </p>
             <div className="flex gap-4">
               <a
-                href="https://www.facebook.com/redlinedesignllc"
+                href="https://www.facebook.com/profile.php?id=61573886695631"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-muted-foreground hover:text-primary transition-colors"
