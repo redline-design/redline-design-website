@@ -20,7 +20,6 @@ export default function Header() {
   const navLinks = [
     { href: "/services", label: "What We Do" },
     { href: "/why-us", label: "Why Us?" },
-    { href: "/book-a-demo", label: "Get Started" },
     { href: "/onboarding", label: "Client Onboarding" },
   ];
 
@@ -30,14 +29,18 @@ export default function Header() {
       data-testid="header-main"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 md:h-20">
-          <Link href="/" data-testid="link-home">
-            <div className="hover-elevate active-elevate-2 rounded-md px-2 py-1 -ml-2 cursor-pointer">
-              <img src={logoImage} alt="Redline Design" className="h-12 md:h-14 w-auto" data-testid="img-logo" />
-            </div>
-          </Link>
+        <div className="grid grid-cols-3 items-center h-16 md:h-20">
+          {/* Left: Logo */}
+          <div className="flex justify-start">
+            <Link href="/" data-testid="link-home">
+              <div className="hover-elevate active-elevate-2 rounded-md px-2 py-1 -ml-2 cursor-pointer">
+                <img src={logoImage} alt="Redline Design" className="h-12 md:h-14 w-auto" data-testid="img-logo" />
+              </div>
+            </Link>
+          </div>
 
-          <nav className="hidden md:flex items-center gap-8" data-testid="nav-desktop">
+          {/* Center: Navigation Links */}
+          <nav className="hidden md:flex items-center justify-center gap-8" data-testid="nav-desktop">
             {navLinks.map((link) => (
               <Link key={link.href} href={link.href}>
                 <span
@@ -52,15 +55,23 @@ export default function Header() {
             ))}
           </nav>
 
-
-          <button
-            className="md:hidden p-2 hover-elevate active-elevate-2 rounded-md"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            aria-label="Toggle menu"
-            data-testid="button-mobile-menu-toggle"
-          >
-            {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </button>
+          {/* Right: Get Started Button */}
+          <div className="flex justify-end items-center gap-4">
+            <Link href="/book-a-demo" className="hidden md:block">
+              <Button size="default" variant="default" className="shimmer" data-testid="button-nav-get-started">
+                Get Started
+              </Button>
+            </Link>
+            
+            <button
+              className="md:hidden p-2 hover-elevate active-elevate-2 rounded-md"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              aria-label="Toggle menu"
+              data-testid="button-mobile-menu-toggle"
+            >
+              {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </button>
+          </div>
         </div>
       </div>
 
@@ -80,6 +91,15 @@ export default function Header() {
                 </div>
               </Link>
             ))}
+            <Link href="/book-a-demo">
+              <div
+                className="block px-3 py-2 rounded-md text-base font-medium hover-elevate active-elevate-2 cursor-pointer text-primary"
+                onClick={() => setIsMobileMenuOpen(false)}
+                data-testid="link-mobile-get-started"
+              >
+                Get Started
+              </div>
+            </Link>
           </div>
         </div>
       )}
