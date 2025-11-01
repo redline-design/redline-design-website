@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { LucideIcon } from "lucide-react";
 import { Link } from "wouter";
 
@@ -10,10 +11,11 @@ interface ServiceCardProps {
   title: string;
   description: string;
   link: string;
+  status?: "accepting" | "waitlist";
   delay?: number;
 }
 
-export default function ServiceCard({ icon: Icon, title, description, link, delay = 0 }: ServiceCardProps) {
+export default function ServiceCard({ icon: Icon, title, description, link, status, delay = 0 }: ServiceCardProps) {
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 });
 
   return (
@@ -28,9 +30,14 @@ export default function ServiceCard({ icon: Icon, title, description, link, dela
         data-testid={`card-service-${title.toLowerCase().replace(/\s/g, "-")}`}
       >
         <CardContent className="p-8">
-          <div className="mb-6 inline-flex p-4 rounded-xl bg-primary/10">
-            <Icon className="h-8 w-8 text-primary" data-testid={`icon-service-${title.toLowerCase().replace(/\s/g, "-")}`} />
-          </div>
+          {status && (
+            <Badge 
+              variant={status === "accepting" ? "default" : "secondary"} 
+              className="mb-4 uppercase text-xs"
+            >
+              {status === "accepting" ? "Now Accepting New Clients" : "Waiting List"}
+            </Badge>
+          )}
           <h3 className="text-2xl font-bold text-foreground mb-3" data-testid={`text-service-title-${title.toLowerCase().replace(/\s/g, "-")}`}>
             {title}
           </h3>

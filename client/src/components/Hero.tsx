@@ -31,45 +31,32 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
+          className="mb-8"
         >
+          <div className="inline-block px-4 py-2 border border-primary/30 rounded-full text-xs uppercase tracking-wider text-muted-foreground mb-8">
+            Free Consultation
+          </div>
           <h1
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-foreground mb-6 leading-tight"
+            className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-foreground mb-6 leading-tight tracking-tight"
             data-testid="text-hero-title"
+            style={{ fontWeight: 300, letterSpacing: '0.02em' }}
           >
-            Digital Marketing that <span className="text-primary">Doesn't Suck</span>
+            REDL<span className="text-primary inline-block" style={{ transform: 'scaleX(-1)', display: 'inline-block' }}>/</span>NE
           </h1>
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-medium text-primary mb-8 uppercase tracking-wide">
+            Digital Marketing That Doesn't Suck
+          </h2>
         </motion.div>
-
-        <motion.p
-          className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto mb-8"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          data-testid="text-hero-subtitle"
-        >
-          We build and run high-ROI campaigns—including websites, SEO, and PPC—so you get measurable growth without the fluff.
-        </motion.p>
 
         <motion.div
           className="flex flex-col sm:flex-row gap-4 justify-center items-center"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
         >
           <Link href="/book-a-demo">
-            <Button size="lg" variant="default" className="text-base px-8" data-testid="button-hero-book-demo">
+            <Button size="lg" variant="default" className="text-base px-10 py-6 text-lg" data-testid="button-hero-book-demo">
               Book a Free Consultation
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
-          </Link>
-          <Link href="/services">
-            <Button
-              size="lg"
-              variant="outline"
-              className="text-base px-8 backdrop-blur-sm bg-background/40"
-              data-testid="button-hero-see-services"
-            >
-              See What We Do
             </Button>
           </Link>
         </motion.div>

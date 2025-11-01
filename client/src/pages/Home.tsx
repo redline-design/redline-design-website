@@ -101,22 +101,25 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <ServiceCard
               icon={Globe}
-              title="World-Class Websites"
-              description="Custom Next.js sites that load fast, look premium, and convert."
+              title="World Class Websites"
+              description="Unique websites at reasonable prices."
               link="/services#web"
+              status="accepting"
             />
             <ServiceCard
               icon={TrendingUp}
               title="Paid Advertising"
-              description="Strategic media buying focused on ROAS—search, social, and retargeting."
+              description="Focusing on maximum ROI."
               link="/services#ppc"
+              status="accepting"
               delay={0.1}
             />
             <ServiceCard
               icon={Search}
               title="SEO/SEM"
-              description="Technical, content, and authority work so you're found everywhere."
+              description="Get found everywhere, by everyone."
               link="/services#seo"
+              status="waitlist"
               delay={0.2}
             />
           </div>
@@ -184,8 +187,19 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-card/30" data-testid="section-partners">
+      <section id="partners" className="py-16 px-4 sm:px-6 lg:px-8 bg-card/30" data-testid="section-partners">
         <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <p className="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-2">
+              Who We Work With
+            </p>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-foreground mb-4">
+              Some of Our Partners
+            </h2>
+            <p className="text-lg text-muted-foreground">
+              We have a variety of partners across different platforms.
+            </p>
+          </div>
           <PartnerLogos />
         </div>
       </section>

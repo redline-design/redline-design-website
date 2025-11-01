@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
-import logoImage from "@assets/generated_images/Redline_R_ribbon_logo_b3fc5c04.png";
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -18,10 +17,10 @@ export default function Header() {
   }, []);
 
   const navLinks = [
-    { href: "/", label: "Home" },
-    { href: "/services", label: "Services" },
-    { href: "/why-us", label: "Why Us" },
-    { href: "/digital-marketing", label: "Articles" },
+    { href: "/services", label: "What We Do" },
+    { href: "/why-us", label: "Why Us?" },
+    { href: "/#partners", label: "Our Partners" },
+    { href: "/book-a-demo", label: "Get Started" },
   ];
 
   return (
@@ -34,9 +33,10 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
           <Link href="/" data-testid="link-home">
-            <div className="flex items-center gap-3 hover-elevate active-elevate-2 rounded-md px-2 py-1 -ml-2 cursor-pointer">
-              <img src={logoImage} alt="Redline Design" className="h-8 w-8 md:h-10 md:w-10" data-testid="img-logo" />
-              <span className="text-lg md:text-xl font-bold text-foreground">Redline Design</span>
+            <div className="hover-elevate active-elevate-2 rounded-md px-2 py-1 -ml-2 cursor-pointer">
+              <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M5 35 Q20 5, 35 35" stroke="#EF4444" strokeWidth="3" strokeLinecap="round" fill="none"/>
+              </svg>
             </div>
           </Link>
 
@@ -55,13 +55,6 @@ export default function Header() {
             ))}
           </nav>
 
-          <div className="hidden md:block">
-            <Link href="/book-a-demo">
-              <Button variant="default" data-testid="button-book-demo">
-                Book Free Consultation
-              </Button>
-            </Link>
-          </div>
 
           <button
             className="md:hidden p-2 hover-elevate active-elevate-2 rounded-md"
@@ -90,16 +83,6 @@ export default function Header() {
                 </div>
               </Link>
             ))}
-            <Link href="/book-a-demo">
-              <Button
-                variant="default"
-                className="w-full"
-                onClick={() => setIsMobileMenuOpen(false)}
-                data-testid="button-mobile-book-demo"
-              >
-                Book Free Consultation
-              </Button>
-            </Link>
           </div>
         </div>
       )}
