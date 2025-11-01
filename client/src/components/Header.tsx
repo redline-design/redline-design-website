@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import logoImage from "@assets/Asset 1_1762033090173.png";
 import ThemeToggle from "./ThemeToggle";
 
@@ -19,49 +20,77 @@ export default function Header() {
   }, []);
 
   const navLinks = [
-    { href: "/services", label: "What We Do" },
-    { href: "/why-us", label: "Why Us?" },
-    { href: "/onboarding", label: "Client Onboarding" },
+    { href: "/services", label: "Services" },
+    { href: "/why-us", label: "Why Us" },
+    { href: "/onboarding", label: "Onboarding" },
   ];
 
   return (
-    <header
-      className="fixed top-0 left-0 right-0 z-50 backdrop-blur-2xl bg-background/40 border-b border-white/20 shadow-lg transition-all duration-300"
+    <motion.header
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        isScrolled 
+          ? "backdrop-blur-xl bg-background/80 border-b border-border/50" 
+          : "bg-transparent"
+      }`}
       data-testid="header-main"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-3 items-center h-16 md:h-20">
-          {/* Left: Logo */}
-          <div className="flex justify-start">
-            <Link href="/" data-testid="link-home">
-              <div className="hover-elevate active-elevate-2 rounded-md px-2 py-1 -ml-2 cursor-pointer">
-                <img src={logoImage} alt="Redline Design" className="h-12 md:h-14 w-auto" data-testid="img-logo" />
-              </div>
-            </Link>
-          </div>
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <div className="flex items-center justify-between h-20">
+          {/* Logo */}
+          <Link href="/" data-testid="link-home">
+            <motion.div 
+              className="hover-elevate active-elevate-2 rounded-md px-2 py-1 -ml-2 cursor-pointer"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <img src={logoImage} alt="Redline Design" className="h-10 md:h-12 w-auto" data-testid="img-logo" />
+            </motion.div>
+          </Link>
 
-          {/* Center: Navigation Links */}
-          <nav className="hidden md:flex items-center justify-center gap-8" data-testid="nav-desktop">
-            {navLinks.map((link) => (
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center gap-1" data-testid="nav-desktop">
+            {navLinks.map((link, index) => (
               <Link key={link.href} href={link.href}>
-                <span
-                  className={`text-sm font-medium transition-colors hover:text-primary cursor-pointer ${
-                    location === link.href ? "text-primary" : "text-foreground"
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 + 0.2 }}
+                  className={`relative px-4 py-2 text-sm font-medium transition-colors cursor-pointer group ${
+                    location === link.href ? "text-primary" : "text-foreground/80 hover:text-foreground"
                   }`}
                   data-testid={`link-nav-${link.label.toLowerCase().replace(/\s/g, "-")}`}
                 >
                   {link.label}
-                </span>
+                  <span 
+                    className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 bg-primary transition-all duration-300 ${
+                      location === link.href ? "w-8" : "w-0 group-hover:w-8"
+                    }`}
+                  />
+                </motion.div>
               </Link>
             ))}
           </nav>
 
-          {/* Right: Get Started Button + Theme Toggle */}
-          <div className="flex justify-end items-center gap-2">
+          {/* Right Side */}
+          <div className="flex items-center gap-3">
             <Link href="/book-a-demo" className="hidden md:block">
-              <Button size="default" variant="default" className="button-recessed fill-on-hover" data-testid="button-nav-get-started">
-                Get Started
-              </Button>
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.5 }}
+              >
+                <Button 
+                  size="default" 
+                  variant="default" 
+                  className="button-recessed fill-on-hover font-medium" 
+                  data-testid="button-nav-get-started"
+                >
+                  Get Started
+                </Button>
+              </motion.div>
             </Link>
             <ThemeToggle />
             
@@ -77,34 +106,50 @@ export default function Header() {
         </div>
       </div>
 
-      {isMobileMenuOpen && (
-        <div className="md:hidden border-t border-white/20 bg-background/60 backdrop-blur-2xl" data-testid="nav-mobile">
-          <div className="px-4 py-4 space-y-3">
-            {navLinks.map((link) => (
-              <Link key={link.href} href={link.href}>
-                <div
-                  className={`block px-3 py-2 rounded-md text-base font-medium hover-elevate active-elevate-2 cursor-pointer ${
-                    location === link.href ? "text-primary" : "text-foreground"
-                  }`}
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div 
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3 }}
+            className="md:hidden border-t border-border/50 bg-background/95 backdrop-blur-xl overflow-hidden" 
+            data-testid="nav-mobile"
+          >
+            <div className="px-6 py-6 space-y-2">
+              {navLinks.map((link, index) => (
+                <Link key={link.href} href={link.href}>
+                  <motion.div
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                    className={`block px-4 py-3 rounded-lg text-base font-medium hover-elevate active-elevate-2 cursor-pointer transition-colors ${
+                      location === link.href ? "text-primary bg-primary/10" : "text-foreground"
+                    }`}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    data-testid={`link-mobile-${link.label.toLowerCase().replace(/\s/g, "-")}`}
+                  >
+                    {link.label}
+                  </motion.div>
+                </Link>
+              ))}
+              <Link href="/book-a-demo">
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: navLinks.length * 0.1 }}
+                  className="block px-4 py-3 rounded-lg text-base font-medium bg-primary/20 text-primary hover-elevate active-elevate-2 cursor-pointer mt-4"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  data-testid={`link-mobile-${link.label.toLowerCase().replace(/\s/g, "-")}`}
+                  data-testid="link-mobile-get-started"
                 >
-                  {link.label}
-                </div>
+                  Get Started
+                </motion.div>
               </Link>
-            ))}
-            <Link href="/book-a-demo">
-              <div
-                className="block px-3 py-2 rounded-md text-base font-medium hover-elevate active-elevate-2 cursor-pointer text-primary"
-                onClick={() => setIsMobileMenuOpen(false)}
-                data-testid="link-mobile-get-started"
-              >
-                Get Started
-              </div>
-            </Link>
-          </div>
-        </div>
-      )}
-    </header>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.header>
   );
 }
