@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { ArrowRight, ChevronDown } from "lucide-react";
-import heroBackground from "@assets/generated_images/Hero_parallax_background_7cd88366.png";
+import AnimatedBackground from "@/components/AnimatedBackground";
 
 export default function Hero() {
   const [scrollY, setScrollY] = useState(0);
@@ -21,16 +21,9 @@ export default function Hero() {
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
       data-testid="section-hero"
     >
-      <div
-        className="absolute inset-0 z-0"
-        style={{
-          transform: `translateY(${scrollY * 0.15}px)`,
-          backgroundImage: `url(${heroBackground})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
-        <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/60 to-background"></div>
+      <div className="absolute inset-0 z-0">
+        <AnimatedBackground />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/60 to-background"></div>
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16 text-center">
