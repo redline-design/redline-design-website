@@ -58,12 +58,12 @@ export default function Header() {
 
           {/* Right: Get Started Button + Theme Toggle */}
           <div className="flex justify-end items-center gap-2">
-            <ThemeToggle />
             <Link href="/book-a-demo" className="hidden md:block">
               <Button size="default" variant="default" className="button-recessed fill-on-hover" data-testid="button-nav-get-started">
                 Get Started
               </Button>
             </Link>
+            <ThemeToggle />
             
             <button
               className="md:hidden p-2 hover-elevate active-elevate-2 rounded-md"

@@ -10,7 +10,6 @@ export default function ThemeToggle() {
       size="icon"
       variant="ghost"
       onClick={toggleTheme}
-      className="button-recessed"
       data-testid="button-theme-toggle"
     >
       {theme === "dark" ? (
