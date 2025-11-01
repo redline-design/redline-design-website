@@ -30,10 +30,10 @@ function ServiceSection({ id, icon: Icon, title, description, features, outcomes
       className="scroll-mt-24"
       data-testid={`section-service-${id}`}
     >
-      <Card className="rounded-2xl overflow-hidden backdrop-blur-md bg-card/40 border-white/10">
+      <Card className="rounded-2xl overflow-hidden backdrop-blur-md bg-card/40 border-white/10 card-float">
         <CardContent className="p-8 md:p-12">
           <div className="flex items-start gap-6 mb-6">
-            <div className="flex-shrink-0 p-4 rounded-xl bg-primary/10">
+            <div className="flex-shrink-0 p-4 rounded-xl bg-primary/10 icon-glow">
               <Icon className="h-10 w-10 text-primary" />
             </div>
             <div>
@@ -68,7 +68,7 @@ function ServiceSection({ id, icon: Icon, title, description, features, outcomes
           </div>
 
           <Link href="/book-a-demo">
-            <Button size="lg" variant="default" data-testid={`button-get-plan-${id}`}>
+            <Button size="lg" variant="default" className="shimmer" data-testid={`button-get-plan-${id}`}>
               Get a Plan
             </Button>
           </Link>

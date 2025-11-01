@@ -33,7 +33,7 @@ export default function CTABand({ title, subtitle, buttonText, buttonLink }: CTA
           </p>
         )}
         <Link href={buttonLink}>
-          <Button size="lg" variant="default" className="text-base px-8" data-testid="button-cta">
+          <Button size="lg" variant="default" className="text-base px-8 shimmer" data-testid="button-cta">
             {buttonText}
             <ArrowRight className="ml-2 h-5 w-5" />
           </Button>

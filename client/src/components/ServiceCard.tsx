@@ -26,14 +26,14 @@ export default function ServiceCard({ icon: Icon, title, description, link, stat
       transition={{ duration: 0.5, delay }}
     >
       <Card
-        className="h-full hover-elevate active-elevate-2 transition-all duration-300 rounded-2xl group cursor-pointer backdrop-blur-md bg-card/40 border-white/10"
+        className="h-full hover-elevate active-elevate-2 transition-all duration-300 rounded-2xl group cursor-pointer backdrop-blur-md bg-card/40 border-white/10 card-float"
         data-testid={`card-service-${title.toLowerCase().replace(/\s/g, "-")}`}
       >
         <CardContent className="p-8">
           {status && (
             <Badge 
               variant={status === "accepting" ? "default" : "secondary"} 
-              className="mb-4 uppercase text-xs"
+              className="mb-4 uppercase text-xs badge-pulse"
             >
               {status === "accepting" ? "Now Accepting New Clients" : "Waiting List"}
             </Badge>

@@ -43,7 +43,7 @@ export default function StatCounter({ value, suffix = "", prefix = "", label, de
       className="text-center"
       data-testid={`stat-${label.toLowerCase().replace(/\s/g, "-")}`}
     >
-      <div className="text-4xl md:text-5xl font-black text-primary mb-2" data-testid={`text-stat-value-${label.toLowerCase().replace(/\s/g, "-")}`}>
+      <div className="text-4xl md:text-5xl font-black text-primary mb-2 number-pop" data-testid={`text-stat-value-${label.toLowerCase().replace(/\s/g, "-")}`}>
         {prefix}{count}{suffix}
       </div>
       <div className="text-sm md:text-base text-muted-foreground" data-testid={`text-stat-label-${label.toLowerCase().replace(/\s/g, "-")}`}>

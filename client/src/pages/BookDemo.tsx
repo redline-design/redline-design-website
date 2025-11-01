@@ -28,9 +28,9 @@ export default function BookDemo() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <Card className="text-center rounded-2xl h-full backdrop-blur-md bg-card/40 border-white/10">
+              <Card className="text-center rounded-2xl h-full backdrop-blur-md bg-card/40 border-white/10 card-float">
                 <CardContent className="p-6">
-                  <div className="inline-flex p-4 rounded-xl bg-primary/10 mb-4">
+                  <div className="inline-flex p-4 rounded-xl bg-primary/10 mb-4 icon-glow">
                     <Clock className="h-8 w-8 text-primary" />
                   </div>
                   <h3 className="text-lg font-bold text-foreground mb-2">Quick Response</h3>
@@ -46,9 +46,9 @@ export default function BookDemo() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
             >
-              <Card className="text-center rounded-2xl h-full backdrop-blur-md bg-card/40 border-white/10">
+              <Card className="text-center rounded-2xl h-full backdrop-blur-md bg-card/40 border-white/10 card-float">
                 <CardContent className="p-6">
-                  <div className="inline-flex p-4 rounded-xl bg-primary/10 mb-4">
+                  <div className="inline-flex p-4 rounded-xl bg-primary/10 mb-4 icon-glow">
                     <CheckCircle2 className="h-8 w-8 text-primary" />
                   </div>
                   <h3 className="text-lg font-bold text-foreground mb-2">No Obligation</h3>
@@ -64,9 +64,9 @@ export default function BookDemo() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
             >
-              <Card className="text-center rounded-2xl h-full backdrop-blur-md bg-card/40 border-white/10">
+              <Card className="text-center rounded-2xl h-full backdrop-blur-md bg-card/40 border-white/10 card-float">
                 <CardContent className="p-6">
-                  <div className="inline-flex p-4 rounded-xl bg-primary/10 mb-4">
+                  <div className="inline-flex p-4 rounded-xl bg-primary/10 mb-4 icon-glow">
                     <MessageSquare className="h-8 w-8 text-primary" />
                   </div>
                   <h3 className="text-lg font-bold text-foreground mb-2">Custom Solutions</h3>
