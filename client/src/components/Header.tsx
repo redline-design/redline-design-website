@@ -58,7 +58,7 @@ export default function Header() {
           {/* Right: Get Started Button */}
           <div className="flex justify-end items-center gap-4">
             <Link href="/book-a-demo" className="hidden md:block">
-              <Button size="default" variant="default" className="shimmer" data-testid="button-nav-get-started">
+              <Button size="default" variant="default" className="button-3d" data-testid="button-nav-get-started">
                 Get Started
               </Button>
             </Link>
