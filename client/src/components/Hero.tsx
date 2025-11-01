@@ -32,9 +32,11 @@ export default function Hero() {
           transition={{ duration: 0.6 }}
           className="mb-8"
         >
-          <div className="inline-block px-4 py-2 border border-primary/30 rounded-full text-xs uppercase tracking-wider text-muted-foreground mb-8">
-            Free Consultation
-          </div>
+          <Link href="/book-a-demo">
+            <div className="inline-block px-6 py-2 border-2 border-primary bg-primary/10 rounded-full text-sm font-semibold uppercase tracking-wider text-primary mb-8 cursor-pointer hover-elevate active-elevate-2 badge-pulse transition-all">
+              Free Consultation
+            </div>
+          </Link>
           <div className="mb-6">
             <img 
               src={logoLarge} 
