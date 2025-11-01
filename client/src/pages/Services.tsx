@@ -1,5 +1,6 @@
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { useInView } from "react-intersection-observer";
+import { useRef } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import StatCounter from "@/components/StatCounter";
@@ -18,24 +19,36 @@ interface ServiceSectionProps {
 }
 
 function ServiceSection({ id, icon: Icon, title, description, features, outcomes, delay = 0 }: ServiceSectionProps) {
-  const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 });
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "start 150px"]
+  });
+
+  const scale = useTransform(scrollYProgress, [0, 1], [0.85, 1]);
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [0.3, 1]);
 
   return (
     <motion.div
       ref={ref}
       id={id}
-      initial={{ opacity: 0, y: 30 }}
-      animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-      transition={{ duration: 0.6, delay }}
-      className="scroll-mt-24"
+      style={{ 
+        scale,
+        opacity,
+      }}
+      className="scroll-mt-24 sticky top-[100px] mb-6"
       data-testid={`section-service-${id}`}
     >
-      <Card className="rounded-2xl overflow-hidden backdrop-blur-md bg-card/40 border-white/10 card-float">
+      <Card className="rounded-2xl overflow-hidden backdrop-blur-xl bg-card/95 border-border/50 shadow-2xl">
         <CardContent className="p-8 md:p-12">
           <div className="flex items-start gap-6 mb-6">
-            <div className="flex-shrink-0 p-4 rounded-xl bg-primary/10 icon-glow">
+            <motion.div 
+              className="flex-shrink-0 p-4 rounded-xl bg-primary/10"
+              whileHover={{ scale: 1.1, rotate: 5 }}
+              transition={{ type: "spring", stiffness: 300 }}
+            >
               <Icon className="h-10 w-10 text-primary" />
-            </div>
+            </motion.div>
             <div>
               <h2 className="text-3xl md:text-4xl font-black text-foreground mb-3">{title}</h2>
               <p className="text-lg text-muted-foreground">{description}</p>
@@ -68,7 +81,7 @@ function ServiceSection({ id, icon: Icon, title, description, features, outcomes
           </div>
 
           <Link href="/book-a-demo">
-            <Button size="lg" variant="default" className="shimmer" data-testid={`button-get-plan-${id}`}>
+            <Button size="lg" variant="default" className="button-recessed fill-on-hover" data-testid={`button-get-plan-${id}`}>
               Get a Plan
             </Button>
           </Link>
@@ -113,8 +126,8 @@ export default function Services() {
         </div>
       </section>
 
-      <section className="py-20 px-4 sm:px-6 lg:px-8" data-testid="section-service-details">
-        <div className="max-w-5xl mx-auto space-y-12">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 relative" data-testid="section-service-details">
+        <div className="max-w-5xl mx-auto" style={{ paddingBottom: "400px" }}>
           <ServiceSection
             id="seo"
             icon={Search}
