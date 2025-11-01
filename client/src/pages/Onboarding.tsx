@@ -24,24 +24,6 @@ export default function Onboarding() {
               className="w-full"
             />
           </motion.div>
-          
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.5 }}
-            className="mt-8 text-center"
-          >
-            <p className="text-sm text-muted-foreground">
-              Questions? Contact us at{" "}
-              <a
-                href="mailto:hello@redlinedesignllc.com"
-                className="text-primary hover:underline"
-                data-testid="link-contact-email"
-              >
-                hello@redlinedesignllc.com
-              </a>
-            </p>
-          </motion.div>
         </div>
       </section>
     </div>
