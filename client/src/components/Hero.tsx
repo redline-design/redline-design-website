@@ -79,7 +79,7 @@ export default function Hero() {
 
         {/* Headline */}
         <motion.h1 
-          className="text-sm sm:text-base md:text-lg font-bold uppercase tracking-[0.3em] mb-6"
+          className="text-sm sm:text-base md:text-lg font-bold uppercase tracking-[0.3em] mb-12"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.3 }}
@@ -89,16 +89,6 @@ export default function Hero() {
         >
           Digital Marketing That Doesn't Suck
         </motion.h1>
-
-        {/* Subheadline */}
-        <motion.p
-          className="text-lg sm:text-xl md:text-2xl text-foreground max-w-3xl mx-auto mb-12"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.4 }}
-        >
-          No fluff. No BS. Just digital marketing that actually works and drives real ROI.
-        </motion.p>
 
         {/* CTA Buttons */}
         <motion.div
