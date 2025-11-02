@@ -148,11 +148,18 @@ export default function HorizontalScrollServices() {
       data-testid="section-services-horizontal"
     >
       <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden px-4 md:px-8">
-        <div 
+        <motion.div 
           ref={containerRef}
-          className="max-w-6xl mx-auto px-4 sm:px-6 md:px-8 w-full backdrop-blur-md bg-card/40 border border-border/30 rounded-3xl py-8 md:py-12"
+          className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 w-full backdrop-blur-md bg-card/40 border-2 rounded-3xl py-8 md:py-12 transition-all duration-300"
           onMouseEnter={() => setIsHovering(true)}
           onMouseLeave={() => setIsHovering(false)}
+          animate={{
+            borderColor: isHovering ? "rgba(255, 0, 0, 0.6)" : "rgba(255, 255, 255, 0.1)",
+            boxShadow: isHovering 
+              ? "0 0 20px rgba(255, 0, 0, 0.4), 0 0 40px rgba(255, 0, 0, 0.2), 0 0 60px rgba(255, 0, 0, 0.1)"
+              : "0 0 0 rgba(255, 0, 0, 0)"
+          }}
+          transition={{ duration: 0.3 }}
         >
           <div className="text-center mb-6 md:mb-12">
             <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold uppercase tracking-[0.3em] mb-2 md:mb-4 red-glow-pulse" style={{ color: "#ff0000" }}>
@@ -207,7 +214,7 @@ export default function HorizontalScrollServices() {
               Scroll to explore all services
             </p>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

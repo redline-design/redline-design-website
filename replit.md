@@ -23,8 +23,10 @@ The project targets digital marketing clients looking for SEO, PPC, web design, 
   - Uses Framer Motion's useScroll and useTransform for scroll-linked horizontal translation (70% translation)
   - Progress bar indicator showing scroll position through services with accessible aria-valuenow updates
   - Sticky positioning with minimal container height (120vh on mobile, 150vh on desktop) allowing users to easily scroll past without viewing all services
-  - Glassmorphism background (backdrop-blur-md, bg-card/40) with subtle border and rounded corners matching site theme
-  - Contained within max-w-6xl centered container (wider than before) with overflow-hidden to clip cards within the section
+  - Glassmorphism background (backdrop-blur-md, bg-card/40) with rounded corners matching site theme
+  - **Interactive hover effects**: Red shimmer/glow around border when hovering (animated border color and multi-layer box shadow)
+  - **Scroll-locking behavior**: When hovering over section with progress < 100%, prevents scrolling past until services are viewed
+  - Contained within max-w-7xl centered container (enlarged) with overflow-hidden to clip cards within the section
   - Services centered on screen for optimal viewing while scrolling
   - Each service card has unique accent color and icon for visual differentiation
   - Uniform card sizes (280px × 280px on mobile/tablet, 320px × 280px on desktop) to prevent cutoff
