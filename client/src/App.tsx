@@ -18,6 +18,7 @@ const BookDemo = lazy(() => import("@/pages/BookDemo"));
 const Onboarding = lazy(() => import("@/pages/Onboarding"));
 const OurWork = lazy(() => import("@/pages/OurWork"));
 const Blog = lazy(() => import("@/pages/Blog"));
+const BlogPost = lazy(() => import("@/pages/BlogPost"));
 const Articles = lazy(() => import("@/pages/Articles"));
 const PolicyPage = lazy(() => import("@/pages/PolicyPage"));
 const NotFound = lazy(() => import("@/pages/not-found"));
@@ -166,6 +167,8 @@ function Router() {
           }
         />
       </Route>
+
+      <Route path="/blog/:slug" component={BlogPost} />
 
       <Route component={NotFound} />
     </Switch>

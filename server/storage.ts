@@ -1,13 +1,21 @@
-import { type User, type InsertUser, type Review, type InsertReview } from "@shared/schema";
+import { 
+  type User, 
+  type UpsertUser, 
+  type Review, 
+  type InsertReview,
+  type BlogPost,
+  type InsertBlogPost,
+  type UpdateBlogPost
+} from "@shared/schema";
 import { randomUUID } from "crypto";
 
 // modify the interface with any CRUD methods
 // you might need
 
 export interface IStorage {
+  // User methods (Replit Auth)
   getUser(id: string): Promise<User | undefined>;
-  getUserByUsername(username: string): Promise<User | undefined>;
-  createUser(user: InsertUser): Promise<User>;
+  upsertUser(user: UpsertUser): Promise<User>;
   
   // Review methods
   getReviews(): Promise<Review[]>;
@@ -16,6 +24,13 @@ export interface IStorage {
   createReview(review: InsertReview): Promise<Review>;
   upsertReview(review: InsertReview): Promise<Review>;
   deleteReview(id: string): Promise<void>;
+
+  // Blog post methods
+  getBlogPosts(filters?: { published?: boolean; category?: string }): Promise<BlogPost[]>;
+  getBlogPost(slug: string): Promise<BlogPost | undefined>;
+  createBlogPost(post: InsertBlogPost): Promise<BlogPost>;
+  updateBlogPost(id: string, post: UpdateBlogPost): Promise<BlogPost>;
+  deleteBlogPost(id: string): Promise<void>;
 }
 
 export class MemStorage implements IStorage {
@@ -29,17 +44,20 @@ export class MemStorage implements IStorage {
     return this.users.get(id);
   }
 
-  async getUserByUsername(username: string): Promise<User | undefined> {
-    return Array.from(this.users.values()).find(
-      (user) => user.username === username,
-    );
-  }
-
-  async createUser(insertUser: InsertUser): Promise<User> {
-    const id = randomUUID();
-    const user: User = { ...insertUser, id };
-    this.users.set(id, user);
-    return user;
+  async upsertUser(user: UpsertUser): Promise<User> {
+    const id = user.id || randomUUID();
+    const now = new Date();
+    const fullUser: User = { 
+      id,
+      email: user.email ?? null,
+      firstName: user.firstName ?? null,
+      lastName: user.lastName ?? null,
+      profileImageUrl: user.profileImageUrl ?? null,
+      createdAt: user.createdAt ?? now,
+      updatedAt: now
+    };
+    this.users.set(id, fullUser);
+    return fullUser;
   }
 
   async getReviews(): Promise<Review[]> {
@@ -65,11 +83,31 @@ export class MemStorage implements IStorage {
   async deleteReview(id: string): Promise<void> {
     throw new Error("Reviews not implemented in MemStorage");
   }
+
+  async getBlogPosts(filters?: { published?: boolean; category?: string }): Promise<BlogPost[]> {
+    throw new Error("Blog posts not implemented in MemStorage");
+  }
+
+  async getBlogPost(slug: string): Promise<BlogPost | undefined> {
+    throw new Error("Blog posts not implemented in MemStorage");
+  }
+
+  async createBlogPost(post: InsertBlogPost): Promise<BlogPost> {
+    throw new Error("Blog posts not implemented in MemStorage");
+  }
+
+  async updateBlogPost(id: string, post: UpdateBlogPost): Promise<BlogPost> {
+    throw new Error("Blog posts not implemented in MemStorage");
+  }
+
+  async deleteBlogPost(id: string): Promise<void> {
+    throw new Error("Blog posts not implemented in MemStorage");
+  }
 }
 
 import { db } from "./db";
-import { reviews, users } from "@shared/schema";
-import { eq, desc } from "drizzle-orm";
+import { reviews, users, blogPosts } from "@shared/schema";
+import { eq, desc, and, sql } from "drizzle-orm";
 
 export class DbStorage implements IStorage {
   async getUser(id: string): Promise<User | undefined> {
@@ -77,13 +115,18 @@ export class DbStorage implements IStorage {
     return result[0];
   }
 
-  async getUserByUsername(username: string): Promise<User | undefined> {
-    const result = await db.select().from(users).where(eq(users.username, username));
-    return result[0];
-  }
-
-  async createUser(insertUser: InsertUser): Promise<User> {
-    const result = await db.insert(users).values(insertUser).returning();
+  async upsertUser(userData: UpsertUser): Promise<User> {
+    const result = await db
+      .insert(users)
+      .values(userData)
+      .onConflictDoUpdate({
+        target: users.id,
+        set: {
+          ...userData,
+          updatedAt: new Date(),
+        },
+      })
+      .returning();
     return result[0];
   }
 
@@ -126,6 +169,50 @@ export class DbStorage implements IStorage {
 
   async deleteReview(id: string): Promise<void> {
     await db.delete(reviews).where(eq(reviews.id, id));
+  }
+
+  async getBlogPosts(filters?: { published?: boolean; category?: string }): Promise<BlogPost[]> {
+    let query = db.select().from(blogPosts);
+    
+    const conditions = [];
+    if (filters?.published !== undefined) {
+      conditions.push(eq(blogPosts.published, filters.published));
+    }
+    if (filters?.category) {
+      conditions.push(eq(blogPosts.category, filters.category));
+    }
+    
+    if (conditions.length > 0) {
+      query = query.where(and(...conditions)) as any;
+    }
+    
+    return await query.orderBy(desc(blogPosts.publishedAt), desc(blogPosts.createdAt));
+  }
+
+  async getBlogPost(slug: string): Promise<BlogPost | undefined> {
+    const result = await db.select().from(blogPosts).where(eq(blogPosts.slug, slug));
+    return result[0];
+  }
+
+  async createBlogPost(post: InsertBlogPost): Promise<BlogPost> {
+    const result = await db.insert(blogPosts).values(post).returning();
+    return result[0];
+  }
+
+  async updateBlogPost(id: string, post: UpdateBlogPost): Promise<BlogPost> {
+    const result = await db
+      .update(blogPosts)
+      .set({
+        ...post,
+        updatedAt: new Date(),
+      })
+      .where(eq(blogPosts.id, id))
+      .returning();
+    return result[0];
+  }
+
+  async deleteBlogPost(id: string): Promise<void> {
+    await db.delete(blogPosts).where(eq(blogPosts.id, id));
   }
 }
 

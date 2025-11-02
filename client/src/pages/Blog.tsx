@@ -3,26 +3,28 @@ import { useInView } from "react-intersection-observer";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Skeleton } from "@/components/ui/skeleton";
 import { Link } from "wouter";
 import { Calendar, Clock, ArrowRight, TrendingUp } from "lucide-react";
 import { useState, useMemo } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { format } from "date-fns";
+import type { BlogPost as BlogPostType } from "@shared/schema";
 
-interface BlogPostProps {
-  title: string;
-  excerpt: string;
-  category: string;
-  readTime: string;
-  date: string;
-  slug: string;
-  featured?: boolean;
+interface BlogPostCardProps {
+  post: BlogPostType;
   delay?: number;
 }
 
-function BlogPost({ title, excerpt, category, readTime, date, slug, featured = false, delay = 0 }: BlogPostProps) {
+function BlogPostCard({ post, delay = 0 }: BlogPostCardProps) {
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
   });
+
+  const formattedDate = post.publishedAt 
+    ? format(new Date(post.publishedAt), "MMM d, yyyy")
+    : "";
 
   return (
     <motion.div
@@ -30,14 +32,14 @@ function BlogPost({ title, excerpt, category, readTime, date, slug, featured = f
       initial={{ opacity: 0, y: 40 }}
       animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
       transition={{ duration: 0.6, delay }}
-      className={featured ? "md:col-span-2" : ""}
-      data-testid={`blog-post-${slug}`}
+      className={post.featured ? "md:col-span-2" : ""}
+      data-testid={`blog-post-${post.slug}`}
     >
       <Card className="rounded-2xl overflow-hidden backdrop-blur-md bg-white/10 border-white/20 shadow-2xl hover-elevate h-full group red-border-shimmer">
         <CardContent className="p-8">
           <div className="flex items-center gap-3 mb-4">
-            <Badge variant="secondary">{category}</Badge>
-            {featured && (
+            <Badge variant="secondary">{post.category}</Badge>
+            {post.featured && (
               <Badge variant="default" className="bg-primary">
                 <TrendingUp className="h-3 w-3 mr-1" />
                 Featured
@@ -45,35 +47,37 @@ function BlogPost({ title, excerpt, category, readTime, date, slug, featured = f
             )}
           </div>
 
-          <h3 className={`font-bold text-foreground mb-3 ${featured ? "text-2xl md:text-3xl" : "text-xl"}`}>
-            {title}
+          <h3 className={`font-bold text-foreground mb-3 ${post.featured ? "text-2xl md:text-3xl" : "text-xl"}`}>
+            {post.title}
           </h3>
 
-          <p className={`text-foreground mb-6 ${featured ? "text-lg" : "text-base"}`}>
-            {excerpt}
+          <p className={`text-foreground mb-6 ${post.featured ? "text-lg" : "text-base"}`}>
+            {post.excerpt}
           </p>
 
           <div className="flex items-center justify-between pt-6 border-t border-border/50">
             <div className="flex items-center gap-4 text-sm text-muted-foreground">
               <div className="flex items-center gap-1">
                 <Calendar className="h-4 w-4" />
-                <span>{date}</span>
+                <span>{formattedDate}</span>
               </div>
               <div className="flex items-center gap-1">
                 <Clock className="h-4 w-4" />
-                <span>{readTime}</span>
+                <span>{post.readTime}</span>
               </div>
             </div>
 
-            <Button 
-              variant="ghost" 
-              size="sm" 
-              className="group-hover:text-primary transition-colors"
-              data-testid={`button-read-${slug}`}
-            >
-              Read More
-              <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-            </Button>
+            <Link href={`/blog/${post.slug}`}>
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                className="group-hover:text-primary transition-colors"
+                data-testid={`button-read-${post.slug}`}
+              >
+                Read More
+                <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+              </Button>
+            </Link>
           </div>
         </CardContent>
       </Card>
@@ -81,88 +85,50 @@ function BlogPost({ title, excerpt, category, readTime, date, slug, featured = f
   );
 }
 
-const blogPosts: BlogPostProps[] = [
-  {
-    title: "The Complete Guide to SEO in 2024: What's Changed and What Still Works",
-    excerpt: "Search algorithms are constantly evolving. Learn the latest SEO strategies that are driving real results in 2024, from Core Web Vitals to AI-generated content considerations.",
-    category: "SEO",
-    readTime: "8 min read",
-    date: "Oct 28, 2024",
-    slug: "seo-guide-2024",
-    featured: true,
-  },
-  {
-    title: "5 PPC Mistakes That Are Wasting Your Ad Budget",
-    excerpt: "Stop throwing money away on ineffective ads. Discover the most common PPC pitfalls and how to avoid them for better ROI.",
-    category: "PPC",
-    readTime: "6 min read",
-    date: "Oct 25, 2024",
-    slug: "ppc-mistakes",
-  },
-  {
-    title: "How to Build a High-Converting Landing Page",
-    excerpt: "Your landing page can make or break your campaign. Learn the psychology and design principles behind pages that convert visitors into customers.",
-    category: "Web Design",
-    readTime: "7 min read",
-    date: "Oct 22, 2024",
-    slug: "high-converting-landing-page",
-  },
-  {
-    title: "Social Media Marketing: Platform-Specific Strategies That Work",
-    excerpt: "One size doesn't fit all in social media. Get platform-specific tactics for Facebook, Instagram, LinkedIn, and TikTok.",
-    category: "Social Media",
-    readTime: "10 min read",
-    date: "Oct 19, 2024",
-    slug: "social-media-strategies",
-  },
-  {
-    title: "Email Marketing Automation: Set It and Watch It Convert",
-    excerpt: "Create automated email sequences that nurture leads and drive sales while you sleep. Complete with templates and best practices.",
-    category: "Email Marketing",
-    readTime: "9 min read",
-    date: "Oct 15, 2024",
-    slug: "email-automation",
-  },
-  {
-    title: "Local SEO: How to Dominate Your Geographic Market",
-    excerpt: "For local businesses, showing up in local search results is crucial. Master Google Business Profile optimization and local citation strategies.",
-    category: "SEO",
-    readTime: "7 min read",
-    date: "Oct 12, 2024",
-    slug: "local-seo-guide",
-  },
-  {
-    title: "The ROI of Content Marketing: Measuring What Matters",
-    excerpt: "Content marketing is a long game, but you need to track progress. Learn which metrics actually indicate success and how to measure them.",
-    category: "Content Marketing",
-    readTime: "8 min read",
-    date: "Oct 8, 2024",
-    slug: "content-marketing-roi",
-  },
-  {
-    title: "Mobile-First Design: Why Your Website Must Adapt",
-    excerpt: "With mobile traffic exceeding desktop, your website's mobile experience can't be an afterthought. Design principles for the mobile-first era.",
-    category: "Web Design",
-    readTime: "6 min read",
-    date: "Oct 5, 2024",
-    slug: "mobile-first-design",
-  },
-];
+function LoadingSkeleton() {
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      {[1, 2, 3, 4].map((i) => (
+        <Card key={i} className="rounded-2xl overflow-hidden backdrop-blur-md bg-white/10 border-white/20 shadow-2xl">
+          <CardContent className="p-8">
+            <div className="flex items-center gap-3 mb-4">
+              <Skeleton className="h-6 w-20" />
+            </div>
+            <Skeleton className="h-8 w-full mb-3" />
+            <Skeleton className="h-6 w-3/4 mb-3" />
+            <Skeleton className="h-20 w-full mb-6" />
+            <div className="flex items-center justify-between pt-6 border-t border-border/50">
+              <div className="flex items-center gap-4">
+                <Skeleton className="h-4 w-24" />
+                <Skeleton className="h-4 w-20" />
+              </div>
+              <Skeleton className="h-8 w-24" />
+            </div>
+          </CardContent>
+        </Card>
+      ))}
+    </div>
+  );
+}
 
 export default function Blog() {
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
 
+  const { data: blogPosts = [], isLoading } = useQuery<BlogPostType[]>({
+    queryKey: ["/api/blog/posts"],
+  });
+
   const categories = useMemo(() => {
     const uniqueCategories = Array.from(new Set(blogPosts.map(post => post.category)));
     return ["All", ...uniqueCategories.sort()];
-  }, []);
+  }, [blogPosts]);
 
   const filteredPosts = useMemo(() => {
     if (selectedCategory === "All") {
       return blogPosts;
     }
     return blogPosts.filter(post => post.category === selectedCategory);
-  }, [selectedCategory]);
+  }, [selectedCategory, blogPosts]);
 
   return (
     <div className="pt-20">
@@ -226,21 +192,25 @@ export default function Blog() {
 
       <section className="py-12 px-4 sm:px-6 lg:px-8" data-testid="section-blog-posts">
         <div className="max-w-7xl mx-auto">
-          <motion.div
-            key={selectedCategory}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.3 }}
-            className="grid grid-cols-1 md:grid-cols-2 gap-8"
-          >
-            {filteredPosts.map((post, index) => (
-              <BlogPost
-                key={post.slug}
-                {...post}
-                delay={index * 0.05}
-              />
-            ))}
-          </motion.div>
+          {isLoading ? (
+            <LoadingSkeleton />
+          ) : (
+            <motion.div
+              key={selectedCategory}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.3 }}
+              className="grid grid-cols-1 md:grid-cols-2 gap-8"
+            >
+              {filteredPosts.map((post, index) => (
+                <BlogPostCard
+                  key={post.slug}
+                  post={post}
+                  delay={index * 0.05}
+                />
+              ))}
+            </motion.div>
+          )}
         </div>
       </section>
 
