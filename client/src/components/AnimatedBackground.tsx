@@ -135,28 +135,6 @@ export default function AnimatedBackground() {
         drawHexagon(hex.x, hex.y, currentRadius, opacity);
       });
 
-      // Draw flowing lines connecting some hexagons (technical look)
-      const lineTime = time * 0.5;
-      for (let i = 0; i < hexGrid.length; i += 8) {
-        const hex = hexGrid[i];
-        const progress = ((lineTime + hex.offset) % (Math.PI * 2)) / (Math.PI * 2);
-        
-        if (progress > 0.3 && progress < 0.7) {
-          const opacity = Math.sin(progress * Math.PI) * 0.3;
-          
-          // Draw a line from this hex to a neighboring one
-          const nextIndex = Math.min(i + 1, hexGrid.length - 1);
-          const nextHex = hexGrid[nextIndex];
-          
-          ctx.beginPath();
-          ctx.moveTo(hex.x, hex.y);
-          ctx.lineTo(nextHex.x, nextHex.y);
-          ctx.strokeStyle = `rgba(255, 255, 255, ${opacity})`;
-          ctx.lineWidth = 1;
-          ctx.stroke();
-        }
-      }
-
       animationFrameId = requestAnimationFrame(animate);
     };
 
