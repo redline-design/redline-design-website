@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { MessageSquare, X, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
+import logoImage from "@assets/Asset 1_1762033090173.png";
 
 interface Message {
   role: "user" | "assistant";
@@ -83,8 +84,8 @@ export default function ChatWidget() {
             {/* Header */}
             <div className="p-4 bg-primary/10 border-b border-white/10 flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
-                  <MessageSquare className="w-5 h-5 text-white" />
+                <div className="w-10 h-10 rounded-full flex items-center justify-center overflow-hidden bg-white/10">
+                  <img src={logoImage} alt="Redline Design" className="w-full h-full object-contain p-1" />
                 </div>
                 <div>
                   <h3 className="font-semibold text-foreground">Redline Design</h3>
@@ -163,15 +164,15 @@ export default function ChatWidget() {
       {/* Toggle Button */}
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-14 h-14 bg-primary hover:bg-primary/90 rounded-full shadow-2xl flex items-center justify-center transition-all button-recessed fill-on-hover"
+        className="w-14 h-14 bg-white hover:bg-white/90 rounded-full shadow-2xl flex items-center justify-center transition-all button-recessed fill-on-hover overflow-hidden p-2"
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         data-testid="button-toggle-chat"
       >
         {isOpen ? (
-          <X className="w-6 h-6 text-white" />
+          <X className="w-6 h-6 text-black" />
         ) : (
-          <MessageSquare className="w-6 h-6 text-white" />
+          <img src={logoImage} alt="Chat" className="w-full h-full object-contain" />
         )}
       </motion.button>
     </div>

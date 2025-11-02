@@ -3,7 +3,6 @@ import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import logoImage from "@assets/Asset 1_1762033090173.png";
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -34,17 +33,6 @@ export default function Header() {
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
-          {/* Logo */}
-          <Link href="/" data-testid="link-home">
-            <motion.div 
-              className="hover-elevate active-elevate-2 rounded-md px-2 py-1 -ml-2 cursor-pointer relative z-10"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <img src={logoImage} alt="Redline Design" className="h-10 md:h-12 w-auto" data-testid="img-logo" />
-            </motion.div>
-          </Link>
-
           {/* Desktop Navigation - Centered pill */}
           <nav 
             className="hidden md:flex items-center gap-1 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full px-4 py-2"
