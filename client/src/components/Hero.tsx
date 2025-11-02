@@ -84,18 +84,18 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.3 }}
         >
-          <span className="text-foreground">Digital Marketing That Drives </span>
-          <span className="italic text-foreground font-extrabold">Real Results</span>
+          <span className="text-foreground">Digital Marketing That </span>
+          <span className="italic text-foreground font-extrabold">Doesn't Suck</span>
         </motion.h1>
 
         {/* Subheadline */}
         <motion.p
-          className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto mb-12"
+          className="text-lg sm:text-xl md:text-2xl text-foreground max-w-3xl mx-auto mb-12"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.4 }}
         >
-          We help ambitious brands dominate their market with data-driven strategies and measurable ROI
+          No fluff. No BS. Just digital marketing that actually works and drives real ROI.
         </motion.p>
 
         {/* CTA Buttons */}

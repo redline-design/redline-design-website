@@ -10,13 +10,13 @@ export default function Home() {
   const tabs = [
     {
       id: 'results',
-      label: 'Measurable Results',
+      label: 'Marketing That Works',
       icon: BarChart3,
       content: (
         <div>
-          <h3 className="text-2xl font-bold mb-4">Data-Driven Results. Facts, Not Feelings.</h3>
+          <h3 className="text-2xl font-bold mb-4">No BS. Just Results.</h3>
           <p className="text-foreground mb-4">
-            Every campaign is tracked, measured, and optimized for maximum performance. We don't guess—we know what works.
+            We cut through the marketing nonsense and focus on what actually drives revenue. Real strategies. Real metrics. Real growth.
           </p>
           <div className="grid grid-cols-3 gap-4 mt-6">
             <div className="text-center p-4 bg-card rounded-lg">
