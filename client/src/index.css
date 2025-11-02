@@ -554,6 +554,29 @@ a, button, [role="button"], input[type="submit"], input[type="button"] {
       0 1px 2px rgba(var(--glow-rgb), 0.1);
   }
 
+  /* Subtle shimmer effect for buttons */
+  .subtle-shimmer {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .subtle-shimmer::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.15) 50%,
+      transparent 100%
+    );
+    animation: shimmer 3s infinite;
+    pointer-events: none;
+  }
+
   /* Card hover glow effects */
   @keyframes card-glow {
     0%, 100% {
