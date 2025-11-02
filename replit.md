@@ -38,9 +38,10 @@ The project targets digital marketing clients looking for SEO, PPC, web design, 
     - Fills proportionally based on how many services have been viewed
     - Formula: `(currentIndex + cardsPerPage) / totalServices * 100%`
     - Smooth transition animations as window advances
-  - **Animated Scroll Hint**: Pulsing text and bouncing down arrow
+  - **Animated Scroll Hint**: Pulsing text with horizontal card animation
     - Text fades in/out (opacity: 0.5 → 1 → 0.5) showing "Scroll to explore all services"
-    - Red down arrow bounces vertically (y: 0 → 8px → 0)
+    - Three small card boxes slide from right to left with staggered delays
+    - Suggests horizontal scrolling will reveal more services from the right
     - Infinite loop animations with smooth easing
   - Sticky positioning with minimal container height (120vh on mobile, 150vh on desktop)
   - Glassmorphism background (backdrop-blur-md, bg-card/40) with rounded corners and z-50 layering

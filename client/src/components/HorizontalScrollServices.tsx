@@ -264,7 +264,7 @@ export default function HorizontalScrollServices() {
                 style={{ width: `${((currentIndex + cardsPerPage) / services.length) * 100}%` }}
               />
             </div>
-            <div className="flex flex-col items-center gap-2 mt-3">
+            <div className="flex flex-col items-center gap-3 mt-3">
               <motion.p 
                 className="text-center text-xs sm:text-sm text-muted-foreground"
                 data-testid="text-services-scroll-hint"
@@ -273,24 +273,24 @@ export default function HorizontalScrollServices() {
               >
                 Scroll to explore all services
               </motion.p>
-              <motion.div
-                animate={{ y: [0, 8, 0] }}
-                transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-                className="text-primary"
-              >
-                <svg 
-                  width="24" 
-                  height="24" 
-                  viewBox="0 0 24 24" 
-                  fill="none" 
-                  stroke="currentColor" 
-                  strokeWidth="2" 
-                  strokeLinecap="round" 
-                  strokeLinejoin="round"
-                >
-                  <path d="M12 5v14M19 12l-7 7-7-7"/>
-                </svg>
-              </motion.div>
+              <div className="flex items-center gap-1 overflow-hidden w-20 h-8">
+                {[0, 1, 2].map((i) => (
+                  <motion.div
+                    key={i}
+                    className="w-6 h-6 rounded bg-primary/20 border border-primary/40 flex-shrink-0"
+                    animate={{
+                      x: [20, -40],
+                      opacity: [0, 1, 1, 0]
+                    }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      delay: i * 0.3,
+                      ease: "easeInOut"
+                    }}
+                  />
+                ))}
+              </div>
             </div>
           </div>
         </motion.div>
