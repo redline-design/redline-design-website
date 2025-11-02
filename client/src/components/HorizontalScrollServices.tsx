@@ -5,55 +5,21 @@ import { Globe, TrendingUp, Search, Database, BarChart3, Palette, MessageSquare,
 
 export default function HorizontalScrollServices() {
   const targetRef = useRef<HTMLDivElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
   const [progressPercent, setProgressPercent] = useState(0);
-  const [isHovering, setIsHovering] = useState(false);
   
   const { scrollYProgress } = useScroll({
     target: targetRef,
     offset: ["start end", "end start"]
   });
 
-  // Calculate how far to translate based on scroll
-  // Increased translation for much faster scrolling (was -85%, now -110%)
-  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-110%"]);
+  // Calculate how far to translate based on scroll - snap to show full cards
+  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-70%"]);
   const progressWidth = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
   
   // Update progress value for accessibility - properly handles cleanup
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
     setProgressPercent(Math.round(latest * 100));
   });
-
-  // Handle scroll locking when hovering
-  useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
-
-    const handleWheel = (e: WheelEvent) => {
-      if (isHovering && progressPercent < 100) {
-        e.preventDefault();
-        e.stopPropagation();
-        
-        // Allow vertical scrolling within the section
-        const scrollAmount = e.deltaY;
-        const currentScroll = window.scrollY;
-        const newScroll = currentScroll + scrollAmount;
-        
-        window.scrollTo({
-          top: newScroll,
-          behavior: 'auto'
-        });
-      }
-    };
-
-    if (isHovering && progressPercent < 100) {
-      container.addEventListener('wheel', handleWheel, { passive: false });
-    }
-
-    return () => {
-      container.removeEventListener('wheel', handleWheel);
-    };
-  }, [isHovering, progressPercent]);
 
   const services = [
     {
@@ -145,12 +111,7 @@ export default function HorizontalScrollServices() {
       data-testid="section-services-horizontal"
     >
       <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden px-4 md:px-8">
-        <div 
-          ref={containerRef}
-          className="max-w-6xl mx-auto px-4 sm:px-6 md:px-8 w-full backdrop-blur-md bg-card/40 border border-border/30 rounded-3xl py-8 md:py-12"
-          onMouseEnter={() => setIsHovering(true)}
-          onMouseLeave={() => setIsHovering(false)}
-        >
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-8 w-full backdrop-blur-md bg-card/40 border border-border/30 rounded-3xl py-8 md:py-12">
           <div className="text-center mb-6 md:mb-12">
             <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold uppercase tracking-[0.3em] mb-2 md:mb-4 red-glow-pulse" style={{ color: "#ff0000" }}>
               What We Do
@@ -160,16 +121,16 @@ export default function HorizontalScrollServices() {
             </p>
           </div>
 
-          {/* Horizontal scrolling container */}
+          {/* Horizontal scrolling container with snap */}
           <div className="overflow-hidden">
             <motion.div 
               style={{ x }}
-              className="flex gap-4 md:gap-8 pb-4 md:pb-8"
+              className="flex gap-6 md:gap-8 pb-4 md:pb-8"
             >
             {services.map((service, index) => (
               <div 
                 key={service.title} 
-                className="flex-shrink-0 w-[85vw] h-[240px] sm:w-[300px] sm:h-[260px] md:w-[320px] md:h-[280px]"
+                className="flex-shrink-0 w-[280px] h-[280px] md:w-[320px] md:h-[280px]"
               >
                 <ServiceCard
                   icon={service.icon}

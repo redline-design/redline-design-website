@@ -20,19 +20,15 @@ The project targets digital marketing clients looking for SEO, PPC, web design, 
   - Seeded with 6 example blog posts covering SEO, PPC, Web Design, Social Media, Email Marketing, and Local SEO
 - **Horizontal Scrolling Services Section**: Interactive "What We Do" section with scroll-based horizontal movement
   - Displays 10 service cards: World Class Websites, Paid Advertising, SEO/SEM, CRM Setup & Automation, Analytics & Data Analysis, Graphic Design, Social Media Marketing, Email Marketing, Consulting, and AI Automation
-  - Uses Framer Motion's useScroll and useTransform for scroll-linked horizontal translation (110% translation for very fast scrolling)
+  - Uses Framer Motion's useScroll and useTransform for scroll-linked horizontal translation (70% translation)
   - Progress bar indicator showing scroll position through services with accessible aria-valuenow updates
   - Sticky positioning with minimal container height (120vh on mobile, 150vh on desktop) allowing users to easily scroll past without viewing all services
   - Glassmorphism background (backdrop-blur-md, bg-card/40) with subtle border and rounded corners matching site theme
   - Contained within max-w-6xl centered container (wider than before) with overflow-hidden to clip cards within the section
-  - **Scroll Locking Behavior**: When hovering over the section, scrolling is locked until horizontal scroll completes (progress reaches 100%). When not hovering, users can freely scroll past the section
   - Services centered on screen for optimal viewing while scrolling
   - Each service card has unique accent color and icon for visual differentiation
-  - **Mobile-responsive design**:
-    - Card sizes: 85vw × 240px (mobile), 300px × 260px (sm), 320px × 280px (md+)
-    - Gap between cards: 16px (mobile), 32px (desktop)
-    - Reduced padding and text sizes on smaller screens
-    - Optimized touch-friendly scrolling experience
+  - Uniform card sizes (280px × 280px on mobile/tablet, 320px × 280px on desktop) to prevent cutoff
+  - Gap between cards: 24px (mobile), 32px (desktop)
   - Cards use flexbox layout with "Learn More" buttons positioned at bottom
 
 ## User Preferences
