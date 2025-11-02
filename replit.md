@@ -38,11 +38,11 @@ Preferred communication style: Simple, everyday language.
 - Typography using Inter font family (loaded from Google Fonts)
 - Glassmorphism effects with backdrop-blur for cards and overlays
 - Consistent animation patterns: fade/slide/scale reveals, hover elevations, stat counters
-- **Custom Cursor**: Dual-cursor system with red accent
-  - Inner cursor: 12px red circular dot that follows mouse precisely with mix-blend-mode for visibility
-  - Outer ring: 40px white ring that trails behind with smooth easing for depth effect
-  - Interactive states: Cursor expands and changes to white when hovering over clickable elements
-  - Implemented in App.tsx with real-time mouse tracking and smooth transitions
+- **Custom Cursor**: Single glowing dot cursor with red accent
+  - 8px red dot with glowing shadow (15-25px blur radius)
+  - Interactive states: Expands 2.5x and changes to white when hovering over clickable elements
+  - Smooth transitions with cubic-bezier easing
+  - Implemented in App.tsx with real-time mouse tracking
 - **Brand Tagline Styling**: All section headers use red (#ff0000), uppercase text with wide letter spacing (0.3em), and a pulsing red glow animation (text-lg to text-2xl responsive sizing)
   - Applied to main tagline "Digital Marketing That Doesn't Suck" and all h2 section headers across the website
   - Glow animation: 3-second cycle with tight text-shadow (8-16px blur radius) for a subtle pulsing effect

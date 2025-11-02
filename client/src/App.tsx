@@ -168,19 +168,11 @@ function Router() {
 
 function CustomCursor() {
   const [position, setPosition] = useState({ x: 0, y: 0 });
-  const [ringPosition, setRingPosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
 
   useEffect(() => {
     const updatePosition = (e: MouseEvent) => {
       setPosition({ x: e.clientX, y: e.clientY });
-    };
-
-    const updateRingPosition = () => {
-      setRingPosition(prev => ({
-        x: prev.x + (position.x - prev.x) * 0.15,
-        y: prev.y + (position.y - prev.y) * 0.15,
-      }));
     };
 
     const handleMouseOver = (e: MouseEvent) => {
@@ -200,33 +192,21 @@ function CustomCursor() {
 
     window.addEventListener('mousemove', updatePosition);
     window.addEventListener('mouseover', handleMouseOver);
-    
-    const interval = setInterval(updateRingPosition, 16);
 
     return () => {
       window.removeEventListener('mousemove', updatePosition);
       window.removeEventListener('mouseover', handleMouseOver);
-      clearInterval(interval);
     };
-  }, [position]);
+  }, []);
 
   return (
-    <>
-      <div
-        className={`custom-cursor ${isHovering ? 'hover' : ''}`}
-        style={{
-          left: `${position.x}px`,
-          top: `${position.y}px`,
-        }}
-      />
-      <div
-        className="custom-cursor-ring"
-        style={{
-          left: `${ringPosition.x}px`,
-          top: `${ringPosition.y}px`,
-        }}
-      />
-    </>
+    <div
+      className={`custom-cursor ${isHovering ? 'hover' : ''}`}
+      style={{
+        left: `${position.x}px`,
+        top: `${position.y}px`,
+      }}
+    />
   );
 }
 
