@@ -718,15 +718,15 @@ a, button, [role="button"], input[type="submit"], input[type="button"] {
   /* Red border shimmer animation */
   @keyframes red-border-shimmer {
     0%, 100% {
-      box-shadow: 0 0 15px rgba(255, 0, 0, 0.3), 0 0 30px rgba(255, 0, 0, 0.1), inset 0 0 15px rgba(255, 0, 0, 0.05);
+      box-shadow: 0 0 10px rgba(255, 0, 0, 0.15), 0 0 20px rgba(255, 0, 0, 0.08), inset 0 0 10px rgba(255, 0, 0, 0.03);
     }
     50% {
-      box-shadow: 0 0 25px rgba(255, 0, 0, 0.5), 0 0 45px rgba(255, 0, 0, 0.2), inset 0 0 20px rgba(255, 0, 0, 0.1);
+      box-shadow: 0 0 15px rgba(255, 0, 0, 0.25), 0 0 30px rgba(255, 0, 0, 0.12), inset 0 0 15px rgba(255, 0, 0, 0.06);
     }
   }
 
   .red-border-shimmer {
-    animation: red-border-shimmer 3s ease-in-out infinite;
+    animation: red-border-shimmer 4s ease-in-out infinite;
   }
 }
 
