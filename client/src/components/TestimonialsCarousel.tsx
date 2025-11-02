@@ -271,22 +271,9 @@ function TestimonialCard({ review, isActive, starBursts, prefersReducedMotion }:
             ))}
           </AnimatePresence>
 
-          {/* Profile with Parallax */}
+          {/* Profile */}
           <div className="flex items-center gap-4 mb-6">
-            <motion.div
-              style={{
-                transform: isHovered && !prefersReducedMotion
-                  ? `translate3d(${mousePosition.x * 5}px, ${mousePosition.y * 5}px, 20px)`
-                  : "translate3d(0px, 0px, 0px)",
-              }}
-              transition={{ 
-                type: prefersReducedMotion ? "tween" : "spring", 
-                stiffness: 150, 
-                damping: 15,
-                duration: prefersReducedMotion ? 0.2 : undefined
-              }}
-              className="relative"
-            >
+            <div className="relative">
               {review.profilePhotoUrl ? (
                 <img
                   src={review.profilePhotoUrl}
@@ -301,7 +288,7 @@ function TestimonialCard({ review, isActive, starBursts, prefersReducedMotion }:
                   </span>
                 </div>
               )}
-            </motion.div>
+            </div>
             <div>
               <h3 className="font-bold text-lg text-foreground" data-testid={`text-reviewer-name-${review.id}`}>
                 {review.name}

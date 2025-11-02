@@ -20,7 +20,6 @@ The project targets digital marketing clients looking for SEO, PPC, web design, 
   - **Autoplay**: Automatically advances every 5 seconds, pauses on hover for better UX
   - Mouse-tracking 3D tilt effect: Cards rotate dynamically based on cursor position (rotateX/rotateY transforms)
   - Star burst particles: 5 animated stars explode outward when sliding to new testimonials
-  - Depth-tracked parallax: Profile photos move independently creating realistic depth perception
   - Embla Carousel integration: Smooth looping carousel with prev/next navigation and dot indicators
   - Glassmorphism cards: backdrop-blur-md with bg-card/40 for premium aesthetic
   - Responsive design: Card widths adapt (100% mobile → 70% desktop)
