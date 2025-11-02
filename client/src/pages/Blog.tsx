@@ -226,21 +226,23 @@ export default function Blog() {
 
       <section className="py-12 px-4 sm:px-6 lg:px-8" data-testid="section-blog-posts">
         <div className="max-w-7xl mx-auto">
-          <motion.div
-            key={selectedCategory}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.3 }}
-            className="grid grid-cols-1 md:grid-cols-2 gap-8"
-          >
-            {filteredPosts.map((post, index) => (
-              <BlogPost
-                key={post.slug}
-                {...post}
-                delay={index * 0.05}
-              />
-            ))}
-          </motion.div>
+          <div className="bg-white/10 backdrop-blur-md rounded-2xl border border-white/10 p-8 md:p-12">
+            <motion.div
+              key={selectedCategory}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.3 }}
+              className="grid grid-cols-1 md:grid-cols-2 gap-8"
+            >
+              {filteredPosts.map((post, index) => (
+                <BlogPost
+                  key={post.slug}
+                  {...post}
+                  delay={index * 0.05}
+                />
+              ))}
+            </motion.div>
+          </div>
         </div>
       </section>
 
