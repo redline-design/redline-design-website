@@ -1,11 +1,13 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion, useScroll, useTransform, useMotionValueEvent } from "framer-motion";
 import ServiceCard from "@/components/ServiceCard";
 import { Globe, TrendingUp, Search, Database, BarChart3, Palette, MessageSquare, Mail, Users, Bot } from "lucide-react";
 
 export default function HorizontalScrollServices() {
   const targetRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const [progressPercent, setProgressPercent] = useState(0);
+  const [isHovering, setIsHovering] = useState(false);
   
   const { scrollYProgress } = useScroll({
     target: targetRef,
@@ -21,6 +23,37 @@ export default function HorizontalScrollServices() {
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
     setProgressPercent(Math.round(latest * 100));
   });
+
+  // Handle scroll locking when hovering
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const handleWheel = (e: WheelEvent) => {
+      if (isHovering && progressPercent < 100) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        // Allow vertical scrolling within the section
+        const scrollAmount = e.deltaY;
+        const currentScroll = window.scrollY;
+        const newScroll = currentScroll + scrollAmount;
+        
+        window.scrollTo({
+          top: newScroll,
+          behavior: 'auto'
+        });
+      }
+    };
+
+    if (isHovering && progressPercent < 100) {
+      container.addEventListener('wheel', handleWheel, { passive: false });
+    }
+
+    return () => {
+      container.removeEventListener('wheel', handleWheel);
+    };
+  }, [isHovering, progressPercent]);
 
   const services = [
     {
@@ -111,8 +144,13 @@ export default function HorizontalScrollServices() {
       className="relative h-[120vh] md:h-[150vh]"
       data-testid="section-services-horizontal"
     >
-      <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 md:px-8 w-full backdrop-blur-md bg-card/40 border border-border/30 rounded-3xl py-8 md:py-12">
+      <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden px-4 md:px-8">
+        <div 
+          ref={containerRef}
+          className="max-w-6xl mx-auto px-4 sm:px-6 md:px-8 w-full backdrop-blur-md bg-card/40 border border-border/30 rounded-3xl py-8 md:py-12"
+          onMouseEnter={() => setIsHovering(true)}
+          onMouseLeave={() => setIsHovering(false)}
+        >
           <div className="text-center mb-6 md:mb-12">
             <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold uppercase tracking-[0.3em] mb-2 md:mb-4 red-glow-pulse" style={{ color: "#ff0000" }}>
               What We Do

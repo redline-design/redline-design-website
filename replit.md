@@ -24,7 +24,8 @@ The project targets digital marketing clients looking for SEO, PPC, web design, 
   - Progress bar indicator showing scroll position through services with accessible aria-valuenow updates
   - Sticky positioning with minimal container height (120vh on mobile, 150vh on desktop) allowing users to easily scroll past without viewing all services
   - Glassmorphism background (backdrop-blur-md, bg-card/40) with subtle border and rounded corners matching site theme
-  - Contained within max-w-5xl centered container with overflow-hidden to clip cards within the section
+  - Contained within max-w-6xl centered container (wider than before) with overflow-hidden to clip cards within the section
+  - **Scroll Locking Behavior**: When hovering over the section, scrolling is locked until horizontal scroll completes (progress reaches 100%). When not hovering, users can freely scroll past the section
   - Services centered on screen for optimal viewing while scrolling
   - Each service card has unique accent color and icon for visual differentiation
   - **Mobile-responsive design**:
