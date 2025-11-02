@@ -153,7 +153,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-card/20 backdrop-blur-sm">
+      <section className="py-8 px-4 sm:px-6 lg:px-8 bg-card/20 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto">
           <TestimonialsCarousel />
         </div>

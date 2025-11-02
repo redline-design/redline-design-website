@@ -1,10 +1,8 @@
-import { useState, useEffect, useCallback, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { ChevronLeft, ChevronRight, Star } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
+import { Star } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { useQuery } from "@tanstack/react-query";
-import useEmblaCarousel from "embla-carousel-react";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 interface Review {
@@ -17,95 +15,17 @@ interface Review {
   profilePhotoUrl: string | null;
 }
 
-interface StarBurst {
-  id: number;
-  x: number;
-  y: number;
-}
-
 export default function TestimonialsCarousel() {
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: "center" });
-  const [selectedIndex, setSelectedIndex] = useState(0);
-  const [starBursts, setStarBursts] = useState<StarBurst[]>([]);
   const [isHovered, setIsHovered] = useState(false);
-  const burstCounter = useRef(0);
-  const burstTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const autoplayIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const prefersReducedMotion = useReducedMotion();
 
   const { data: reviews, isLoading } = useQuery<Review[]>({
     queryKey: ["/api/reviews"],
   });
 
-  const onSelect = useCallback(() => {
-    if (!emblaApi) return;
-    setSelectedIndex(emblaApi.selectedScrollSnap());
-    
-    // Clear any existing timeout
-    if (burstTimeoutRef.current) {
-      clearTimeout(burstTimeoutRef.current);
-    }
-    
-    // Only trigger star burst animation if reduced motion is not preferred
-    if (!prefersReducedMotion) {
-      const newBursts: StarBurst[] = [];
-      for (let i = 0; i < 5; i++) {
-        newBursts.push({
-          id: burstCounter.current++,
-          x: Math.random() * 100 - 50,
-          y: Math.random() * 100 - 50,
-        });
-      }
-      setStarBursts(newBursts);
-      
-      // Clear bursts after animation
-      burstTimeoutRef.current = setTimeout(() => setStarBursts([]), 1000);
-    }
-  }, [emblaApi, prefersReducedMotion]);
-
-  useEffect(() => {
-    if (!emblaApi) return;
-    onSelect();
-    emblaApi.on("select", onSelect);
-    return () => {
-      emblaApi.off("select", onSelect);
-      // Clear timeout on cleanup
-      if (burstTimeoutRef.current) {
-        clearTimeout(burstTimeoutRef.current);
-      }
-    };
-  }, [emblaApi, onSelect]);
-
-  // Autoplay functionality
-  useEffect(() => {
-    if (!emblaApi || prefersReducedMotion) return;
-
-    const startAutoplay = () => {
-      if (autoplayIntervalRef.current) {
-        clearInterval(autoplayIntervalRef.current);
-      }
-      autoplayIntervalRef.current = setInterval(() => {
-        if (!isHovered) {
-          emblaApi.scrollNext();
-        }
-      }, 5000); // Auto-advance every 5 seconds
-    };
-
-    startAutoplay();
-
-    return () => {
-      if (autoplayIntervalRef.current) {
-        clearInterval(autoplayIntervalRef.current);
-      }
-    };
-  }, [emblaApi, isHovered, prefersReducedMotion]);
-
-  const scrollPrev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi]);
-  const scrollNext = useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
-
   if (isLoading) {
     return (
-      <div className="text-center py-12">
+      <div className="text-center py-8">
         <p className="text-muted-foreground">Loading reviews...</p>
       </div>
     );
@@ -115,72 +35,49 @@ export default function TestimonialsCarousel() {
     return null;
   }
 
+  // Duplicate reviews to create seamless loop
+  const duplicatedReviews = [...reviews, ...reviews, ...reviews];
+
   return (
-    <div 
-      className="relative"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      <div className="text-center mb-12">
-        <h2 className="text-lg sm:text-xl md:text-2xl font-bold uppercase tracking-[0.3em] mb-4 red-glow-pulse" style={{ color: "#ff0000" }}>
+    <div className="relative">
+      <div className="text-center mb-8">
+        <h2 className="text-base sm:text-lg md:text-xl font-bold uppercase tracking-[0.3em] mb-2 red-glow-pulse" style={{ color: "#ff0000" }}>
           What Our Clients Say
         </h2>
-        <p className="text-lg text-foreground">Real Results. Real Reviews.</p>
+        <p className="text-sm text-foreground">Real Results. Real Reviews.</p>
       </div>
 
-      <div className="relative overflow-hidden" ref={emblaRef}>
-        <div className="flex">
-          {reviews.map((review, index) => (
-            <div key={review.id} className="flex-[0_0_100%] min-w-0 sm:flex-[0_0_90%] md:flex-[0_0_80%] lg:flex-[0_0_70%] px-4">
-              <TestimonialCard
-                review={review}
-                isActive={index === selectedIndex}
-                starBursts={index === selectedIndex ? starBursts : []}
-                prefersReducedMotion={prefersReducedMotion}
-              />
+      <div 
+        className="relative overflow-hidden"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
+        <motion.div
+          className="flex gap-4"
+          animate={{
+            x: prefersReducedMotion || isHovered ? 0 : [0, -100 * reviews.length],
+          }}
+          transition={{
+            x: {
+              duration: prefersReducedMotion ? 0 : reviews.length * 20,
+              repeat: Infinity,
+              ease: "linear",
+            },
+          }}
+        >
+          {duplicatedReviews.map((review, index) => (
+            <div 
+              key={`${review.id}-${index}`}
+              className="flex-shrink-0 w-[300px] sm:w-[350px]"
+            >
+              <TestimonialCard review={review} prefersReducedMotion={prefersReducedMotion} />
             </div>
           ))}
-        </div>
-      </div>
+        </motion.div>
 
-      {/* Navigation */}
-      <div className="flex justify-center gap-4 mt-8">
-        <Button
-          size="icon"
-          variant="outline"
-          onClick={scrollPrev}
-          className="rounded-full hover:bg-primary/10 hover:border-primary"
-          data-testid="button-carousel-prev"
-          aria-label="Previous testimonial"
-        >
-          <ChevronLeft className="h-5 w-5" />
-        </Button>
-        <Button
-          size="icon"
-          variant="outline"
-          onClick={scrollNext}
-          className="rounded-full hover:bg-primary/10 hover:border-primary"
-          data-testid="button-carousel-next"
-          aria-label="Next testimonial"
-        >
-          <ChevronRight className="h-5 w-5" />
-        </Button>
-      </div>
-
-      {/* Dots */}
-      <div className="flex justify-center gap-2 mt-4">
-        {reviews.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => emblaApi?.scrollTo(index)}
-            className={`h-2 rounded-full transition-all duration-300 ${
-              index === selectedIndex ? "w-8 bg-primary" : "w-2 bg-muted-foreground/30"
-            }`}
-            data-testid={`button-carousel-dot-${index}`}
-            aria-label={`Go to testimonial ${index + 1}`}
-            aria-current={index === selectedIndex ? "true" : undefined}
-          />
-        ))}
+        {/* Gradient overlays for fade effect */}
+        <div className="absolute top-0 left-0 w-20 h-full bg-gradient-to-r from-card/20 to-transparent pointer-events-none z-10" />
+        <div className="absolute top-0 right-0 w-20 h-full bg-gradient-to-l from-card/20 to-transparent pointer-events-none z-10" />
       </div>
     </div>
   );
@@ -188,18 +85,15 @@ export default function TestimonialsCarousel() {
 
 interface TestimonialCardProps {
   review: Review;
-  isActive: boolean;
-  starBursts: StarBurst[];
   prefersReducedMotion: boolean;
 }
 
-function TestimonialCard({ review, isActive, starBursts, prefersReducedMotion }: TestimonialCardProps) {
+function TestimonialCard({ review, prefersReducedMotion }: TestimonialCardProps) {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    // Skip mouse tracking if reduced motion is preferred
     if (prefersReducedMotion || !cardRef.current) return;
     const rect = cardRef.current.getBoundingClientRect();
     const x = (e.clientX - rect.left - rect.width / 2) / (rect.width / 2);
@@ -218,9 +112,8 @@ function TestimonialCard({ review, isActive, starBursts, prefersReducedMotion }:
     setMousePosition({ x: 0, y: 0 });
   };
 
-  // Disable 3D tilt effects when reduced motion is preferred
-  const rotateX = isHovered && !prefersReducedMotion ? mousePosition.y * -10 : 0;
-  const rotateY = isHovered && !prefersReducedMotion ? mousePosition.x * 10 : 0;
+  const rotateX = isHovered && !prefersReducedMotion ? mousePosition.y * -5 : 0;
+  const rotateY = isHovered && !prefersReducedMotion ? mousePosition.x * 5 : 0;
 
   return (
     <motion.div
@@ -228,83 +121,54 @@ function TestimonialCard({ review, isActive, starBursts, prefersReducedMotion }:
       onMouseMove={handleMouseMove}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      initial={{ opacity: 0, scale: prefersReducedMotion ? 1 : 0.8 }}
       animate={{ 
-        opacity: isActive ? 1 : 0.6,
-        scale: isActive ? 1 : 0.9,
         rotateX,
         rotateY,
       }}
-      transition={{ duration: prefersReducedMotion ? 0.2 : 0.6, ease: "easeOut" }}
+      transition={{ duration: 0.3, ease: "easeOut" }}
       style={{ 
         transformStyle: prefersReducedMotion ? "flat" : "preserve-3d",
         perspective: prefersReducedMotion ? undefined : 1000,
       }}
-      className="relative"
+      className="h-full"
       data-testid={`card-testimonial-${review.id}`}
     >
-      <Card className="rounded-2xl backdrop-blur-md bg-card/40 border-white/10 overflow-hidden">
-        <CardContent className="p-8 md:p-12 relative">
-          {/* Star Burst Particles */}
-          <AnimatePresence>
-            {starBursts.map((burst) => (
-              <motion.div
-                key={burst.id}
-                initial={{ 
-                  opacity: 1, 
-                  scale: 0,
-                  x: "50%",
-                  y: "0%",
-                }}
-                animate={{ 
-                  opacity: 0, 
-                  scale: [0, 1.5, 0],
-                  x: `calc(50% + ${burst.x}px)`,
-                  y: `calc(0% + ${burst.y}px)`,
-                }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 1, ease: "easeOut" }}
-                className="absolute top-0 left-0 pointer-events-none z-20"
-              >
-                <Star className="h-4 w-4 text-primary fill-primary" />
-              </motion.div>
-            ))}
-          </AnimatePresence>
-
+      <Card className="rounded-xl backdrop-blur-md bg-card/40 border-white/10 h-full">
+        <CardContent className="p-6">
           {/* Profile */}
-          <div className="flex items-center gap-4 mb-6">
+          <div className="flex items-center gap-3 mb-4">
             <div className="relative">
               {review.profilePhotoUrl ? (
                 <img
                   src={review.profilePhotoUrl}
                   alt={review.name}
-                  className="w-16 h-16 rounded-full object-cover ring-2 ring-primary/20"
+                  className="w-12 h-12 rounded-full object-cover ring-2 ring-primary/20"
                   data-testid={`img-profile-${review.id}`}
                 />
               ) : (
-                <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center ring-2 ring-primary/20">
-                  <span className="text-2xl font-bold text-primary">
+                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center ring-2 ring-primary/20">
+                  <span className="text-xl font-bold text-primary">
                     {review.name.charAt(0)}
                   </span>
                 </div>
               )}
             </div>
             <div>
-              <h3 className="font-bold text-lg text-foreground" data-testid={`text-reviewer-name-${review.id}`}>
+              <h3 className="font-bold text-base text-foreground" data-testid={`text-reviewer-name-${review.id}`}>
                 {review.name}
               </h3>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-xs text-muted-foreground">
                 {review.role} {review.company && `at ${review.company}`}
               </p>
             </div>
           </div>
 
           {/* Rating Stars */}
-          <div className="flex gap-1 mb-4">
+          <div className="flex gap-1 mb-3">
             {[...Array(5)].map((_, i) => (
               <Star
                 key={i}
-                className={`h-5 w-5 ${
+                className={`h-4 w-4 ${
                   i < review.rating ? "text-primary fill-primary" : "text-muted-foreground/30"
                 }`}
               />
@@ -312,7 +176,7 @@ function TestimonialCard({ review, isActive, starBursts, prefersReducedMotion }:
           </div>
 
           {/* Review Content */}
-          <p className="text-foreground text-lg leading-relaxed italic" data-testid={`text-review-content-${review.id}`}>
+          <p className="text-foreground text-sm leading-relaxed italic line-clamp-4" data-testid={`text-review-content-${review.id}`}>
             "{review.content}"
           </p>
         </CardContent>

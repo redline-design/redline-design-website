@@ -16,15 +16,15 @@ The project targets digital marketing clients looking for SEO, PPC, web design, 
   - Icon-based selection with visual feedback: green highlight when selected, grayed out otherwise
   - Responsive grid layout (3 columns mobile, 4 tablet, 5 desktop)
   - Smooth transitions and hover states for better UX
-- **3D Testimonials Carousel**: Premium floating carousel with advanced animations
-  - **Autoplay**: Automatically advances every 5 seconds, pauses on hover for better UX
-  - Mouse-tracking 3D tilt effect: Cards rotate dynamically based on cursor position (rotateX/rotateY transforms)
-  - Star burst particles: 5 animated stars explode outward when sliding to new testimonials
-  - Embla Carousel integration: Smooth looping carousel with prev/next navigation and dot indicators
+- **Continuous Scrolling Testimonials**: Compact infinite scrolling reviews section
+  - **Continuous Auto-Scroll**: Reviews smoothly scroll horizontally in an infinite loop
+  - **Pause on Hover**: Scrolling pauses when hovering over the section for easy reading
+  - Mouse-tracking 3D tilt effect: Cards rotate subtly based on cursor position (rotateX/rotateY transforms)
+  - Compact design: Smaller cards (300-350px wide), reduced padding (py-8), condensed text sizes
   - Glassmorphism cards: backdrop-blur-md with bg-card/40 for premium aesthetic
-  - Responsive design: Card widths adapt (100% mobile → 70% desktop)
-  - Accessibility: Full ARIA labels, keyboard navigation, reduced motion support
-  - Performance: All 3D effects and autoplay respect prefers-reduced-motion for accessibility
+  - Gradient overlays: Fade effect on left/right edges for smooth visual transition
+  - Accessibility: Reduced motion support disables auto-scroll and 3D effects
+  - Seamless loop: Reviews duplicated 3x for continuous infinite scrolling effect
 - **Blog Management System**: Complete blog platform with database-backed content, admin dashboard, and external API integration
   - Database schema for blog posts with all necessary fields (title, slug, content, excerpt, category, author, etc.)
   - Replit Auth integration for admin authentication and authorization
