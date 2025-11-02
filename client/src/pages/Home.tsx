@@ -3,7 +3,7 @@ import HorizontalScrollServices from "@/components/HorizontalScrollServices";
 import TabbedContent from "@/components/TabbedContent";
 import ValueTile from "@/components/ValueTile";
 import PartnerLogos from "@/components/PartnerLogos";
-import TestimonialsSlider from "@/components/TestimonialsSlider";
+import TestimonialsCarousel from "@/components/TestimonialsCarousel";
 import StatCounter from "@/components/StatCounter";
 import CTABand from "@/components/CTABand";
 import { BarChart3, Sparkles, Globe as GlobeIcon, DollarSign, Zap, Target, Users, Briefcase, TrendingUp } from "lucide-react";
@@ -155,7 +155,7 @@ export default function Home() {
 
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-card/20 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto">
-          <TestimonialsSlider />
+          <TestimonialsCarousel />
         </div>
       </section>
 
