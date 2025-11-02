@@ -29,18 +29,18 @@ export default function Footer() {
 
   return (
     <footer className="border-t border-white/10 bg-card/30 backdrop-blur-xl relative z-10" data-testid="footer-main">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 md:py-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
           <div>
             <Link href="/">
-              <div className="flex items-center gap-2 mb-3 cursor-pointer hover-elevate active-elevate-2 rounded-md px-2 py-1 -ml-2 w-fit">
+              <div className="flex items-center gap-2 mb-2 cursor-pointer hover-elevate active-elevate-2 rounded-md px-2 py-1 -ml-2 w-fit">
                 <img src={logoImage} alt="Redline Design" className="h-5 w-auto" />
               </div>
             </Link>
-            <p className="text-sm text-muted-foreground mb-2">
+            <p className="text-sm text-muted-foreground mb-1.5">
               Digital marketing that doesn't suck. Data-driven campaigns that turn clicks into customers.
             </p>
-            <p className="text-xs text-muted-foreground mb-3">
+            <p className="text-xs text-muted-foreground mb-2">
               Average response in &lt;24 business hours
             </p>
             <div className="flex gap-3">
@@ -68,8 +68,8 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="text-sm font-semibold text-foreground mb-3 uppercase tracking-wide">Services</h3>
-            <ul className="space-y-2">
+            <h3 className="text-sm font-semibold text-foreground mb-2 uppercase tracking-wide">Services</h3>
+            <ul className="space-y-1">
               {services.map((link) => (
                 <li key={link.href}>
                   <Link href={link.href}>
@@ -86,8 +86,8 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="text-sm font-semibold text-foreground mb-3 uppercase tracking-wide">Company</h3>
-            <ul className="space-y-2">
+            <h3 className="text-sm font-semibold text-foreground mb-2 uppercase tracking-wide">Company</h3>
+            <ul className="space-y-1">
               {company.map((link) => (
                 <li key={link.href}>
                   <Link href={link.href}>
@@ -104,8 +104,8 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="text-sm font-semibold text-foreground mb-3 uppercase tracking-wide">Legal</h3>
-            <ul className="space-y-2">
+            <h3 className="text-sm font-semibold text-foreground mb-2 uppercase tracking-wide">Legal</h3>
+            <ul className="space-y-1">
               {policies.map((link) => (
                 <li key={link.href}>
                   <Link href={link.href}>
@@ -121,7 +121,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          <div className="col-span-1 md:col-span-2 lg:col-span-4 mt-4">
+          <div className="col-span-1 md:col-span-2 lg:col-span-4 mt-3">
             <p className="text-sm text-muted-foreground text-center">
               © {new Date().getFullYear()} Redline Design LLC. All rights reserved.
             </p>
