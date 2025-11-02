@@ -169,7 +169,7 @@ export default function ChatWidget() {
       {/* Toggle Button */}
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-16 h-16 bg-white/10 backdrop-blur-3xl rounded-full flex items-center justify-center transition-all overflow-hidden p-2 hover-elevate active-elevate-2 relative group"
+        className="w-16 h-16 bg-white/10 backdrop-blur-3xl rounded-full flex items-center justify-center transition-all overflow-hidden p-2 hover-elevate active-elevate-2 relative"
         whileHover={{ scale: 1.08 }}
         whileTap={{ scale: 0.92 }}
         style={{
@@ -179,33 +179,37 @@ export default function ChatWidget() {
         }}
         data-testid="button-toggle-chat"
       >
-        {/* Red Shimmer Fill Effect */}
-        <div 
-          className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-          style={{
-            background: 'linear-gradient(to top, rgba(255, 0, 0, 0.4) 0%, rgba(255, 0, 0, 0.2) 50%, transparent 100%)',
-            animation: 'shimmerFill 1.5s ease-out forwards',
-            animationPlayState: 'paused'
-          }}
-        />
-        <style>{`
-          .group:hover > div {
-            animation-play-state: running !important;
-          }
-          @keyframes shimmerFill {
-            0% {
-              clip-path: inset(100% 0 0 0);
-            }
-            100% {
-              clip-path: inset(0 0 0 0);
-            }
-          }
-        `}</style>
-        
         {isOpen ? (
           <X className="w-7 h-7 text-white relative z-10" />
         ) : (
-          <img src={logoImage} alt="Chat" loading="lazy" className="w-full h-full object-contain relative z-10" />
+          <div className="w-full h-full relative">
+            <style>{`
+              @keyframes logoShimmer {
+                0% {
+                  clip-path: inset(100% 0 0 0);
+                }
+                50% {
+                  clip-path: inset(0 0 0 0);
+                }
+                100% {
+                  clip-path: inset(0 0 100% 0);
+                }
+              }
+            `}</style>
+            {/* Base logo */}
+            <img src={logoImage} alt="Chat" loading="lazy" className="w-full h-full object-contain" />
+            {/* Brightened logo overlay */}
+            <img 
+              src={logoImage} 
+              alt="" 
+              loading="lazy" 
+              className="w-full h-full object-contain absolute inset-0"
+              style={{
+                filter: 'brightness(2) saturate(1.5)',
+                animation: 'logoShimmer 3s ease-in-out infinite'
+              }}
+            />
+          </div>
         )}
       </motion.button>
     </div>
