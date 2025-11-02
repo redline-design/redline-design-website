@@ -27,8 +27,10 @@ export default function TestimonialsCarousel() {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: "center" });
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [starBursts, setStarBursts] = useState<StarBurst[]>([]);
+  const [isHovered, setIsHovered] = useState(false);
   const burstCounter = useRef(0);
   const burstTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const autoplayIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const prefersReducedMotion = useReducedMotion();
 
   const { data: reviews, isLoading } = useQuery<Review[]>({
@@ -74,6 +76,30 @@ export default function TestimonialsCarousel() {
     };
   }, [emblaApi, onSelect]);
 
+  // Autoplay functionality
+  useEffect(() => {
+    if (!emblaApi || prefersReducedMotion) return;
+
+    const startAutoplay = () => {
+      if (autoplayIntervalRef.current) {
+        clearInterval(autoplayIntervalRef.current);
+      }
+      autoplayIntervalRef.current = setInterval(() => {
+        if (!isHovered) {
+          emblaApi.scrollNext();
+        }
+      }, 5000); // Auto-advance every 5 seconds
+    };
+
+    startAutoplay();
+
+    return () => {
+      if (autoplayIntervalRef.current) {
+        clearInterval(autoplayIntervalRef.current);
+      }
+    };
+  }, [emblaApi, isHovered, prefersReducedMotion]);
+
   const scrollPrev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi]);
   const scrollNext = useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
 
@@ -90,7 +116,11 @@ export default function TestimonialsCarousel() {
   }
 
   return (
-    <div className="relative">
+    <div 
+      className="relative"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
       <div className="text-center mb-12">
         <h2 className="text-lg sm:text-xl md:text-2xl font-bold uppercase tracking-[0.3em] mb-4 red-glow-pulse" style={{ color: "#ff0000" }}>
           What Our Clients Say
