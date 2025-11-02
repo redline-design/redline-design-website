@@ -108,6 +108,39 @@ export default function Home() {
               Keys to Digital Success
             </p>
           </div>
+
+          {/* Industry Statistics */}
+          <div className="mb-16">
+            <div className="text-center mb-10">
+              <h3 className="text-xl font-bold mb-2 text-foreground">Why Digital Marketing Matters</h3>
+              <p className="text-sm text-muted-foreground max-w-2xl mx-auto">
+                Industry insights that prove the power of strategic digital marketing
+              </p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div className="text-center p-6 bg-card rounded-lg transition-all duration-300 cursor-pointer" style={{ transition: 'transform 0.3s ease, box-shadow 0.3s ease' }} onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = '0 8px 16px -4px rgba(255, 0, 0, 0.12), 0 4px 8px -2px rgba(255, 0, 0, 0.08)'; }} onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; }}>
+                <div className="text-4xl font-bold text-primary mb-2">76%</div>
+                <div className="text-sm text-foreground font-medium mb-1">of consumers</div>
+                <div className="text-xs text-muted-foreground">research online before purchasing</div>
+              </div>
+              <div className="text-center p-6 bg-card rounded-lg transition-all duration-300 cursor-pointer" style={{ transition: 'transform 0.3s ease, box-shadow 0.3s ease' }} onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = '0 8px 16px -4px rgba(255, 0, 0, 0.12), 0 4px 8px -2px rgba(255, 0, 0, 0.08)'; }} onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; }}>
+                <div className="text-4xl font-bold text-primary mb-2">5.3x</div>
+                <div className="text-sm text-foreground font-medium mb-1">higher revenue</div>
+                <div className="text-xs text-muted-foreground">for businesses with strong SEO</div>
+              </div>
+              <div className="text-center p-6 bg-card rounded-lg transition-all duration-300 cursor-pointer" style={{ transition: 'transform 0.3s ease, box-shadow 0.3s ease' }} onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = '0 8px 16px -4px rgba(255, 0, 0, 0.12), 0 4px 8px -2px rgba(255, 0, 0, 0.08)'; }} onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; }}>
+                <div className="text-4xl font-bold text-primary mb-2">$42</div>
+                <div className="text-sm text-foreground font-medium mb-1">average ROI</div>
+                <div className="text-xs text-muted-foreground">for every $1 spent on email marketing</div>
+              </div>
+              <div className="text-center p-6 bg-card rounded-lg transition-all duration-300 cursor-pointer" style={{ transition: 'transform 0.3s ease, box-shadow 0.3s ease' }} onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = '0 8px 16px -4px rgba(255, 0, 0, 0.12), 0 4px 8px -2px rgba(255, 0, 0, 0.08)'; }} onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; }}>
+                <div className="text-4xl font-bold text-primary mb-2">200%</div>
+                <div className="text-sm text-foreground font-medium mb-1">average increase</div>
+                <div className="text-xs text-muted-foreground">in conversion with PPC campaigns</div>
+              </div>
+            </div>
+          </div>
+
           <TabbedContent tabs={tabs} />
         </div>
       </section>
