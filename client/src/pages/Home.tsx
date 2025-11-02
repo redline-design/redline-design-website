@@ -4,6 +4,7 @@ import TabbedContent from "@/components/TabbedContent";
 import ValueTile from "@/components/ValueTile";
 import PartnerLogos from "@/components/PartnerLogos";
 import TestimonialsSlider from "@/components/TestimonialsSlider";
+import StatCounter from "@/components/StatCounter";
 import CTABand from "@/components/CTABand";
 import { Globe, TrendingUp, Search, BarChart3, Sparkles, Globe as GlobeIcon, DollarSign, Zap, Target, Users, Briefcase } from "lucide-react";
 
@@ -194,6 +195,17 @@ export default function Home() {
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-card/20 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto">
           <TestimonialsSlider />
+        </div>
+      </section>
+
+      <section className="py-12 px-4 sm:px-6 lg:px-8 bg-card/50" data-testid="section-metrics">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <StatCounter value={98} suffix="%" label="Client Satisfaction" />
+            <StatCounter value={14} suffix="x" label="Average ROI" delay={0.1} />
+            <StatCounter value={500} suffix="+" label="Success Stories" delay={0.2} />
+            <StatCounter value={95} suffix="%" label="Client Retention" delay={0.3} />
+          </div>
         </div>
       </section>
 

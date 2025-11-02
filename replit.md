@@ -6,6 +6,12 @@ This is a modern, conversion-focused website for Redline Design LLC, a digital m
 
 The project targets digital marketing clients looking for SEO, PPC, web design, social media marketing, and email marketing services, with a focus on demonstrating ROI (14x average return) and quick turnaround times.
 
+**Recent Changes (November 2025)**
+- Integrated Google Business Profile API for automatic 5-star review syncing with profile photos
+- Reviews stored in PostgreSQL with automatic deduplication
+- Moved metrics section (Client Satisfaction, ROI, Success Stories, Retention) from standalone Testimonials page to Home page
+- Removed standalone Testimonials page and navigation link
+
 ## User Preferences
 
 Preferred communication style: Simple, everyday language.
@@ -57,6 +63,8 @@ Preferred communication style: Simple, everyday language.
 **API Structure**
 - RESTful endpoint pattern at `/api/*`
 - `/api/chat` endpoint for AI assistant chat functionality using OpenAI API
+- `/api/reviews` endpoint (GET) - Fetches 5-star reviews from database for testimonials display
+- `/api/reviews/sync` endpoint (POST) - Triggers Google Business Profile API sync for new reviews
 - Request/response logging with duration tracking
 - Error handling with status code propagation
 
@@ -76,6 +84,9 @@ Preferred communication style: Simple, everyday language.
 
 **Schema Design**
 - **Users table**: Basic authentication structure with id (UUID), username, password
+- **Reviews table**: Stores Google Business Profile reviews with profile photos
+  - Fields: id (UUID), googleReviewId (unique), name, role, company, content, rating, profilePhotoUrl, reviewDate, createdAt
+  - Seeded with 3 existing Google reviews from Pete Gallego, Mason Small, and Emily Check
 - Drizzle-Zod integration for runtime schema validation
 - Type inference for Insert and Select operations
 
@@ -89,6 +100,7 @@ Preferred communication style: Simple, everyday language.
 **Third-Party Services**
 - **OpenAI API**: Powers the chat widget AI assistant for customer inquiries (requires `OPENAI_API_KEY` environment variable)
 - **Neon Database**: Serverless PostgreSQL database (requires `DATABASE_URL` environment variable)
+- **Google Business Profile API**: Syncs 5-star reviews with profile photos (requires `GOOGLE_BUSINESS_API_KEY`, `GOOGLE_BUSINESS_ACCOUNT_ID`, `GOOGLE_BUSINESS_LOCATION_ID`)
 - **Google Fonts**: Inter font family loaded via CDN
 
 **UI Libraries**
