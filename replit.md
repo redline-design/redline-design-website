@@ -18,6 +18,14 @@ The project targets digital marketing clients looking for SEO, PPC, web design, 
   - External API endpoint (`POST /api/external/blog/posts`) with API key authentication for automated content creation
   - Security: Unpublished posts protected from unauthenticated access on both listing and individual post endpoints
   - Seeded with 6 example blog posts covering SEO, PPC, Web Design, Social Media, Email Marketing, and Local SEO
+- **Horizontal Scrolling Services Section**: Interactive "What We Do" section with scroll-based horizontal movement
+  - Displays 10 service cards: World Class Websites, Paid Advertising, SEO/SEM, CRM Setup & Automation, Analytics & Data Analysis, Graphic Design, Social Media Marketing, Email Marketing, Consulting, and AI Automation
+  - Uses Framer Motion's useScroll and useTransform for scroll-linked horizontal translation (85% translation for faster scrolling)
+  - Progress bar indicator showing scroll position through services with accessible aria-valuenow updates
+  - Sticky positioning with 300vh container height for extended scroll interaction
+  - Each service card has unique accent color and icon for visual differentiation
+  - Uniform card sizes (320px × 280px) with flex layout for consistent appearance
+  - Cards use flexbox layout with "Learn More" buttons positioned at bottom
 
 ## User Preferences
 

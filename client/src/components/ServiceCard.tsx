@@ -30,33 +30,37 @@ export default function ServiceCard({ icon: Icon, title, description, link, stat
         stiffness: 100,
         damping: 15
       }}
+      className="h-full"
     >
-      <Link href={link}>
+      <Link href={link} className="block h-full">
         <Card
-          className="h-full hover-elevate active-elevate-2 transition-all duration-300 rounded-2xl group backdrop-blur-md bg-card/40 border-border/30 relative overflow-hidden"
+          className="hover-elevate active-elevate-2 transition-all duration-300 rounded-2xl group backdrop-blur-md bg-card/40 border-border/30 relative overflow-hidden flex flex-col"
+          style={{ height: '100%' }}
           data-testid={`card-service-${title.toLowerCase().replace(/\s/g, "-")}`}
         >
-          <CardContent className="p-8 relative z-10">
-            <motion.div
-              className="mb-6 inline-flex items-center justify-center w-14 h-14 rounded-xl"
-              style={{ 
-                backgroundColor: `${accentColor}20`,
-                color: accentColor
-              }}
-              whileHover={{ scale: 1.1, rotate: 5 }}
-              transition={{ type: "spring", stiffness: 300 }}
-            >
-              <Icon className="h-7 w-7" />
-            </motion.div>
+          <CardContent className="p-6 relative z-10 flex flex-col h-full justify-between">
+            <div>
+              <motion.div
+                className="mb-4 inline-flex items-center justify-center w-12 h-12 rounded-xl"
+                style={{ 
+                  backgroundColor: `${accentColor}20`,
+                  color: accentColor
+                }}
+                whileHover={{ scale: 1.1, rotate: 5 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                <Icon className="h-6 w-6" />
+              </motion.div>
 
-            <h3 className="text-2xl font-bold text-foreground mb-3 transition-colors" data-testid={`text-service-title-${title.toLowerCase().replace(/\s/g, "-")}`}>
-              {title}
-            </h3>
-            <p className="text-foreground mb-6 leading-relaxed" data-testid={`text-service-description-${title.toLowerCase().replace(/\s/g, "-")}`}>
-              {description}
-            </p>
+              <h3 className="text-xl font-bold text-foreground mb-2 transition-colors" data-testid={`text-service-title-${title.toLowerCase().replace(/\s/g, "-")}`}>
+                {title}
+              </h3>
+              <p className="text-foreground text-sm leading-relaxed" data-testid={`text-service-description-${title.toLowerCase().replace(/\s/g, "-")}`}>
+                {description}
+              </p>
+            </div>
 
-            <div className="inline-flex items-center gap-2 text-foreground font-medium group-hover:gap-3 transition-all" data-testid={`button-service-${title.toLowerCase().replace(/\s/g, "-")}`}>
+            <div className="inline-flex items-center gap-2 text-foreground font-medium group-hover:gap-3 transition-all mt-4" data-testid={`button-service-${title.toLowerCase().replace(/\s/g, "-")}`}>
               <span>Learn More</span>
               <motion.span
                 animate={{ x: [0, 5, 0] }}

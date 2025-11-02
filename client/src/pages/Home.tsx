@@ -1,12 +1,12 @@
 import Hero from "@/components/Hero";
-import ServiceCard from "@/components/ServiceCard";
+import HorizontalScrollServices from "@/components/HorizontalScrollServices";
 import TabbedContent from "@/components/TabbedContent";
 import ValueTile from "@/components/ValueTile";
 import PartnerLogos from "@/components/PartnerLogos";
 import TestimonialsSlider from "@/components/TestimonialsSlider";
 import StatCounter from "@/components/StatCounter";
 import CTABand from "@/components/CTABand";
-import { Globe, TrendingUp, Search, BarChart3, Sparkles, Globe as GlobeIcon, DollarSign, Zap, Target, Users, Briefcase } from "lucide-react";
+import { BarChart3, Sparkles, Globe as GlobeIcon, DollarSign, Zap, Target, Users, Briefcase, TrendingUp } from "lucide-react";
 
 export default function Home() {
   const tabs = [
@@ -90,46 +90,7 @@ export default function Home() {
     <div>
       <Hero />
       
-      <section className="py-20 px-4 sm:px-6 lg:px-8" data-testid="section-services">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-lg sm:text-xl md:text-2xl font-bold uppercase tracking-[0.3em] mb-4 red-glow-pulse" style={{ color: "#ff0000" }}>
-              What We Do
-            </h2>
-            <p className="text-lg text-foreground max-w-2xl mx-auto">
-              Full-service digital marketing designed to drive results
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <ServiceCard
-              icon={Globe}
-              title="World Class Websites"
-              description="Unique websites at reasonable prices."
-              link="/services#web"
-              status="accepting"
-              accentColor="rgb(96, 165, 250)"
-            />
-            <ServiceCard
-              icon={TrendingUp}
-              title="Paid Advertising"
-              description="Focusing on maximum ROI."
-              link="/services#ppc"
-              status="accepting"
-              delay={0.1}
-              accentColor="rgb(167, 139, 250)"
-            />
-            <ServiceCard
-              icon={Search}
-              title="SEO/SEM"
-              description="Get found everywhere, by everyone."
-              link="/services#seo"
-              status="waitlist"
-              delay={0.2}
-              accentColor="rgb(110, 231, 183)"
-            />
-          </div>
-        </div>
-      </section>
+      <HorizontalScrollServices />
 
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-card/30 backdrop-blur-sm" data-testid="section-differentiators">
         <div className="max-w-7xl mx-auto">
