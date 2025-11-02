@@ -65,27 +65,23 @@ export default function Header() {
                 </motion.div>
               </Link>
             ))}
+            
+            {/* Get Started Button */}
+            <Link href="/book-a-demo">
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: navLinks.length * 0.1 + 0.2 }}
+                className="px-4 py-2 text-sm font-medium bg-primary text-white rounded-lg cursor-pointer hover-elevate active-elevate-2 transition-all ml-1"
+                data-testid="button-nav-get-started"
+              >
+                Get Started
+              </motion.div>
+            </Link>
           </nav>
 
           {/* Right Side */}
           <div className="flex items-center gap-3 relative z-10">
-            <Link href="/book-a-demo" className="hidden md:block">
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.5 }}
-              >
-                <Button 
-                  size="default" 
-                  variant="default" 
-                  className="button-recessed fill-on-hover font-medium" 
-                  data-testid="button-nav-get-started"
-                >
-                  Get Started
-                </Button>
-              </motion.div>
-            </Link>
-            
             <button
               className="md:hidden p-2 hover-elevate active-elevate-2 rounded-md"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
