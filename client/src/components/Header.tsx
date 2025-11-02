@@ -45,22 +45,9 @@ export default function Header() {
             </motion.div>
           </Link>
 
-          {/* Desktop Navigation - Expands to full width and height on scroll */}
-          <motion.nav 
-            className="hidden md:flex items-center gap-1 absolute justify-center"
-            animate={{
-              left: isScrolled ? "0%" : "50%",
-              right: isScrolled ? "0%" : "auto",
-              top: isScrolled ? "0%" : "50%",
-              bottom: isScrolled ? "0%" : "auto",
-              x: isScrolled ? "0%" : "-50%",
-              y: isScrolled ? "0%" : "-50%",
-              borderRadius: isScrolled ? "0px" : "9999px",
-              paddingLeft: isScrolled ? "24px" : "16px",
-              paddingRight: isScrolled ? "24px" : "16px",
-              paddingTop: isScrolled ? "0px" : "8px",
-              paddingBottom: isScrolled ? "0px" : "8px",
-            }}
+          {/* Desktop Navigation - Centered pill */}
+          <nav 
+            className="hidden md:flex items-center gap-1 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full px-4 py-2"
             style={{
               backgroundColor: "hsl(var(--background) / 0.7)",
               backdropFilter: "blur(20px)",
@@ -68,7 +55,6 @@ export default function Header() {
               border: "1px solid hsl(var(--border) / 0.2)",
               boxShadow: "0 8px 32px 0 rgba(0, 0, 0, 0.1)",
             }}
-            transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
             data-testid="nav-desktop"
           >
             {navLinks.map((link, index) => (
@@ -91,7 +77,7 @@ export default function Header() {
                 </motion.div>
               </Link>
             ))}
-          </motion.nav>
+          </nav>
 
           {/* Right Side */}
           <div className="flex items-center gap-3 relative z-10">
