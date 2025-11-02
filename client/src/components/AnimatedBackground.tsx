@@ -20,111 +20,99 @@ export default function AnimatedBackground() {
     resizeCanvas();
     window.addEventListener("resize", resizeCanvas);
 
-    // Geometric pattern with floating hexagons
-    interface Hexagon {
+    // Hexagon grid with wave animation
+    const hexRadius = 35;
+    const hexHeight = hexRadius * 2;
+    const hexWidth = Math.sqrt(3) * hexRadius;
+    const hexSpacing = 5;
+
+    interface HexCell {
       x: number;
       y: number;
-      vx: number;
-      vy: number;
-      size: number;
-      rotation: number;
-      rotationSpeed: number;
-      opacity: number;
-      fadeDirection: number;
+      offset: number;
     }
 
-    const hexagons: Hexagon[] = [];
-    const hexCount = Math.floor((canvas.width * canvas.height) / 25000); // More hexagons
+    const hexGrid: HexCell[] = [];
+    
+    // Create honeycomb grid
+    const cols = Math.ceil(canvas.width / (hexWidth + hexSpacing)) + 2;
+    const rows = Math.ceil(canvas.height / (hexHeight * 0.75 + hexSpacing)) + 2;
 
-    for (let i = 0; i < hexCount; i++) {
-      hexagons.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.3,
-        vy: (Math.random() - 0.5) * 0.3,
-        size: Math.random() * 60 + 30, // Larger hexagons
-        rotation: Math.random() * Math.PI * 2,
-        rotationSpeed: (Math.random() - 0.5) * 0.01, // Faster rotation
-        opacity: Math.random() * 0.2 + 0.1, // More visible
-        fadeDirection: Math.random() > 0.5 ? 1 : -1,
-      });
+    for (let row = 0; row < rows; row++) {
+      for (let col = 0; col < cols; col++) {
+        const x = col * (hexWidth + hexSpacing) + (row % 2) * ((hexWidth + hexSpacing) / 2);
+        const y = row * (hexHeight * 0.75 + hexSpacing);
+        hexGrid.push({
+          x,
+          y,
+          offset: Math.random() * Math.PI * 2
+        });
+      }
     }
 
-    const drawHexagon = (x: number, y: number, size: number, rotation: number, opacity: number) => {
-      ctx.save();
-      ctx.translate(x, y);
-      ctx.rotate(rotation);
+    const drawHexagon = (x: number, y: number, radius: number, opacity: number) => {
       ctx.beginPath();
-
       for (let i = 0; i < 6; i++) {
-        const angle = (Math.PI / 3) * i;
-        const xPos = size * Math.cos(angle);
-        const yPos = size * Math.sin(angle);
+        const angle = (Math.PI / 3) * i - Math.PI / 6;
+        const xPos = x + radius * Math.cos(angle);
+        const yPos = y + radius * Math.sin(angle);
         if (i === 0) {
           ctx.moveTo(xPos, yPos);
         } else {
           ctx.lineTo(xPos, yPos);
         }
       }
-
       ctx.closePath();
       ctx.strokeStyle = `rgba(255, 255, 255, ${opacity})`;
-      ctx.lineWidth = 2; // Thicker lines
+      ctx.lineWidth = 1.5;
       ctx.stroke();
-
-      ctx.restore();
-    };
-
-    const drawDots = () => {
-      const gridSize = 60; // Tighter grid
-      const time = Date.now() * 0.0005; // Faster animation
-
-      for (let x = 0; x < canvas.width; x += gridSize) {
-        for (let y = 0; y < canvas.height; y += gridSize) {
-          const distanceFromCenter = Math.sqrt(
-            Math.pow(x - canvas.width / 2, 2) + Math.pow(y - canvas.height / 2, 2)
-          );
-          const wave = Math.sin(distanceFromCenter * 0.005 - time) * 0.5 + 0.5;
-          const opacity = wave * 0.4; // Much more visible
-
-          ctx.beginPath();
-          ctx.arc(x, y, 2.5, 0, Math.PI * 2); // Larger dots
-          ctx.fillStyle = `rgba(255, 255, 255, ${opacity})`;
-          ctx.fill();
-        }
-      }
     };
 
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Draw dot grid with wave effect
-      drawDots();
+      const time = Date.now() * 0.001;
 
-      // Draw and animate hexagons
-      hexagons.forEach((hex) => {
-        // Move hexagons
-        hex.x += hex.vx;
-        hex.y += hex.vy;
-
-        // Wrap around edges
-        if (hex.x < -hex.size) hex.x = canvas.width + hex.size;
-        if (hex.x > canvas.width + hex.size) hex.x = -hex.size;
-        if (hex.y < -hex.size) hex.y = canvas.height + hex.size;
-        if (hex.y > canvas.height + hex.size) hex.y = -hex.size;
-
-        hex.rotation += hex.rotationSpeed;
+      // Draw hexagon grid with wave effect
+      hexGrid.forEach((hex) => {
+        // Create diagonal wave pattern
+        const waveX = Math.sin((hex.x * 0.005) + (hex.y * 0.003) + time) * 0.5 + 0.5;
+        const waveY = Math.cos((hex.y * 0.005) + (hex.x * 0.003) + time * 0.7) * 0.5 + 0.5;
         
-        // Fade in/out
-        hex.opacity += hex.fadeDirection * 0.0005;
-        if (hex.opacity > 0.35) { // More visible
-          hex.fadeDirection = -1;
-        } else if (hex.opacity < 0.1) {
-          hex.fadeDirection = 1;
-        }
+        // Combine waves for complex pattern
+        const wave = (waveX + waveY) / 2;
+        
+        // Map wave to opacity (more visible range)
+        const opacity = wave * 0.4 + 0.05;
+        
+        // Scale effect - hexagons pulse with the wave
+        const scale = wave * 0.15 + 0.85;
+        const currentRadius = hexRadius * scale;
 
-        drawHexagon(hex.x, hex.y, hex.size, hex.rotation, hex.opacity);
+        drawHexagon(hex.x, hex.y, currentRadius, opacity);
       });
+
+      // Draw flowing lines connecting some hexagons (technical look)
+      const lineTime = time * 0.5;
+      for (let i = 0; i < hexGrid.length; i += 8) {
+        const hex = hexGrid[i];
+        const progress = ((lineTime + hex.offset) % (Math.PI * 2)) / (Math.PI * 2);
+        
+        if (progress > 0.3 && progress < 0.7) {
+          const opacity = Math.sin(progress * Math.PI) * 0.3;
+          
+          // Draw a line from this hex to a neighboring one
+          const nextIndex = Math.min(i + 1, hexGrid.length - 1);
+          const nextHex = hexGrid[nextIndex];
+          
+          ctx.beginPath();
+          ctx.moveTo(hex.x, hex.y);
+          ctx.lineTo(nextHex.x, nextHex.y);
+          ctx.strokeStyle = `rgba(255, 255, 255, ${opacity})`;
+          ctx.lineWidth = 1;
+          ctx.stroke();
+        }
+      }
 
       animationFrameId = requestAnimationFrame(animate);
     };
