@@ -8,6 +8,7 @@ import Footer from "@/components/Footer";
 import DiagonalStripes from "@/components/DiagonalStripes";
 import AnimatedBackground from "@/components/AnimatedBackground";
 import ChatWidget from "@/components/ChatWidget";
+import ScrollProgressBar from "@/components/ScrollProgressBar";
 import Home from "@/pages/Home";
 import Services from "@/pages/Services";
 import WhyUs from "@/pages/WhyUs";
@@ -225,6 +226,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <CustomCursor />
+        <ScrollProgressBar />
         <div className="flex flex-col min-h-screen relative">
           <AnimatedBackground />
           <DiagonalStripes />
