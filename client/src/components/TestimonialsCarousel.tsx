@@ -1,4 +1,3 @@
-import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { Star } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
@@ -16,7 +15,6 @@ interface Review {
 }
 
 export default function TestimonialsCarousel() {
-  const [isHovered, setIsHovered] = useState(false);
   const prefersReducedMotion = useReducedMotion();
 
   const { data: reviews, isLoading } = useQuery<Review[]>({
@@ -47,15 +45,11 @@ export default function TestimonialsCarousel() {
         <p className="text-sm text-foreground">Real Results. Real Reviews.</p>
       </div>
 
-      <div 
-        className="relative overflow-hidden"
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-      >
+      <div className="relative overflow-hidden">
         <motion.div
-          className="flex gap-4"
+          className="flex gap-4 pointer-events-none"
           animate={{
-            x: prefersReducedMotion || isHovered ? 0 : [0, -100 * reviews.length],
+            x: prefersReducedMotion ? 0 : [0, -100 * reviews.length],
           }}
           transition={{
             x: {
@@ -70,7 +64,7 @@ export default function TestimonialsCarousel() {
               key={`${review.id}-${index}`}
               className="flex-shrink-0 w-[300px] sm:w-[350px]"
             >
-              <TestimonialCard review={review} prefersReducedMotion={prefersReducedMotion} />
+              <TestimonialCard review={review} />
             </div>
           ))}
         </motion.div>
@@ -85,54 +79,11 @@ export default function TestimonialsCarousel() {
 
 interface TestimonialCardProps {
   review: Review;
-  prefersReducedMotion: boolean;
 }
 
-function TestimonialCard({ review, prefersReducedMotion }: TestimonialCardProps) {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [isHovered, setIsHovered] = useState(false);
-  const cardRef = useRef<HTMLDivElement>(null);
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (prefersReducedMotion || !cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    const x = (e.clientX - rect.left - rect.width / 2) / (rect.width / 2);
-    const y = (e.clientY - rect.top - rect.height / 2) / (rect.height / 2);
-    setMousePosition({ x, y });
-  };
-
-  const handleMouseEnter = () => {
-    if (!prefersReducedMotion) {
-      setIsHovered(true);
-    }
-  };
-  
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-    setMousePosition({ x: 0, y: 0 });
-  };
-
-  const rotateX = isHovered && !prefersReducedMotion ? mousePosition.y * -5 : 0;
-  const rotateY = isHovered && !prefersReducedMotion ? mousePosition.x * 5 : 0;
-
+function TestimonialCard({ review }: TestimonialCardProps) {
   return (
-    <motion.div
-      ref={cardRef}
-      onMouseMove={handleMouseMove}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      animate={{ 
-        rotateX,
-        rotateY,
-      }}
-      transition={{ duration: 0.3, ease: "easeOut" }}
-      style={{ 
-        transformStyle: prefersReducedMotion ? "flat" : "preserve-3d",
-        perspective: prefersReducedMotion ? undefined : 1000,
-      }}
-      className="h-full"
-      data-testid={`card-testimonial-${review.id}`}
-    >
+    <div className="h-full" data-testid={`card-testimonial-${review.id}`}>
       <Card className="rounded-xl backdrop-blur-md bg-card/40 border-white/10 h-full">
         <CardContent className="p-6">
           {/* Profile */}
@@ -181,6 +132,6 @@ function TestimonialCard({ review, prefersReducedMotion }: TestimonialCardProps)
           </p>
         </CardContent>
       </Card>
-    </motion.div>
+    </div>
   );
 }
