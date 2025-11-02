@@ -5,7 +5,9 @@ import { Globe, TrendingUp, Search, Database, BarChart3, Palette, MessageSquare,
 
 export default function HorizontalScrollServices() {
   const targetRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const [progressPercent, setProgressPercent] = useState(0);
+  const [isHovering, setIsHovering] = useState(false);
   
   const { scrollYProgress } = useScroll({
     target: targetRef,
@@ -20,6 +22,41 @@ export default function HorizontalScrollServices() {
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
     setProgressPercent(Math.round(latest * 100));
   });
+
+  // Scroll locking when hovering over the section
+  useEffect(() => {
+    if (!isHovering || progressPercent >= 100) return;
+
+    const preventScroll = (e: WheelEvent) => {
+      const target = targetRef.current;
+      if (!target) return;
+
+      const rect = target.getBoundingClientRect();
+      const isInSection = rect.top <= 0 && rect.bottom > window.innerHeight;
+      
+      // If we're scrolling down and still in the section and progress < 100%
+      if (e.deltaY > 0 && isInSection && progressPercent < 100) {
+        // Allow scrolling to continue within section
+        return;
+      }
+      
+      // If trying to scroll up past section start
+      if (e.deltaY < 0 && rect.top >= 0) {
+        e.preventDefault();
+      }
+      
+      // If trying to scroll down past section when not complete
+      if (e.deltaY > 0 && progressPercent >= 99 && rect.bottom <= window.innerHeight * 1.5) {
+        e.preventDefault();
+      }
+    };
+
+    document.addEventListener('wheel', preventScroll, { passive: false });
+
+    return () => {
+      document.removeEventListener('wheel', preventScroll);
+    };
+  }, [isHovering, progressPercent]);
 
   const services = [
     {
@@ -111,7 +148,12 @@ export default function HorizontalScrollServices() {
       data-testid="section-services-horizontal"
     >
       <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden px-4 md:px-8">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-8 w-full backdrop-blur-md bg-card/40 border border-border/30 rounded-3xl py-8 md:py-12">
+        <div 
+          ref={containerRef}
+          className="max-w-6xl mx-auto px-4 sm:px-6 md:px-8 w-full backdrop-blur-md bg-card/40 border border-border/30 rounded-3xl py-8 md:py-12"
+          onMouseEnter={() => setIsHovering(true)}
+          onMouseLeave={() => setIsHovering(false)}
+        >
           <div className="text-center mb-6 md:mb-12">
             <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold uppercase tracking-[0.3em] mb-2 md:mb-4 red-glow-pulse" style={{ color: "#ff0000" }}>
               What We Do
