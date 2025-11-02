@@ -64,7 +64,7 @@ export default function Hero() {
 
         {/* Logo */}
         <motion.div 
-          className="mb-8"
+          className="mb-8 -my-12"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2 }}
@@ -72,8 +72,12 @@ export default function Hero() {
           <img 
             src={logoLarge} 
             alt="Redline Design" 
-            className="w-full max-w-sm md:max-w-md lg:max-w-lg mx-auto"
+            className="w-full max-w-sm md:max-w-md lg:max-w-lg mx-auto scale-150"
             data-testid="img-hero-logo"
+            style={{
+              objectFit: "cover",
+              objectPosition: "center"
+            }}
           />
         </motion.div>
 
