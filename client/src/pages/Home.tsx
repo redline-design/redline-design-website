@@ -21,15 +21,15 @@ export default function Home() {
             We cut through the marketing nonsense and focus on what actually drives revenue. Real strategies. Real metrics. Real growth.
           </p>
           <div className="grid grid-cols-3 gap-4 mt-6">
-            <div className="text-center p-4 bg-card rounded-lg transition-all duration-300 cursor-pointer" style={{ transition: 'transform 0.3s ease, box-shadow 0.3s ease' }} onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = '0 12px 24px rgba(255, 0, 0, 0.2), 0 6px 12px rgba(255, 0, 0, 0.15)'; }} onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; }}>
+            <div className="text-center p-4 bg-card rounded-lg transition-all duration-300 cursor-pointer" style={{ transition: 'transform 0.3s ease, box-shadow 0.3s ease' }} onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = '0 8px 16px -4px rgba(255, 0, 0, 0.12), 0 4px 8px -2px rgba(255, 0, 0, 0.08)'; }} onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; }}>
               <div className="text-3xl font-bold text-primary">14x</div>
               <div className="text-sm text-foreground">ROI</div>
             </div>
-            <div className="text-center p-4 bg-card rounded-lg transition-all duration-300 cursor-pointer" style={{ transition: 'transform 0.3s ease, box-shadow 0.3s ease' }} onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = '0 12px 24px rgba(255, 0, 0, 0.2), 0 6px 12px rgba(255, 0, 0, 0.15)'; }} onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; }}>
+            <div className="text-center p-4 bg-card rounded-lg transition-all duration-300 cursor-pointer" style={{ transition: 'transform 0.3s ease, box-shadow 0.3s ease' }} onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = '0 8px 16px -4px rgba(255, 0, 0, 0.12), 0 4px 8px -2px rgba(255, 0, 0, 0.08)'; }} onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; }}>
               <div className="text-3xl font-bold text-primary">350%</div>
               <div className="text-sm text-foreground">Traffic Growth</div>
             </div>
-            <div className="text-center p-4 bg-card rounded-lg transition-all duration-300 cursor-pointer" style={{ transition: 'transform 0.3s ease, box-shadow 0.3s ease' }} onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = '0 12px 24px rgba(255, 0, 0, 0.2), 0 6px 12px rgba(255, 0, 0, 0.15)'; }} onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; }}>
+            <div className="text-center p-4 bg-card rounded-lg transition-all duration-300 cursor-pointer" style={{ transition: 'transform 0.3s ease, box-shadow 0.3s ease' }} onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = '0 8px 16px -4px rgba(255, 0, 0, 0.12), 0 4px 8px -2px rgba(255, 0, 0, 0.08)'; }} onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; }}>
               <div className="text-3xl font-bold text-primary">95%</div>
               <div className="text-sm text-foreground">Client Retention</div>
             </div>
@@ -80,7 +80,7 @@ export default function Home() {
                 key={platform} 
                 className="p-3 bg-card rounded-lg text-center text-sm font-medium transition-all duration-300 cursor-pointer" 
                 style={{ transition: 'transform 0.3s ease, box-shadow 0.3s ease' }} 
-                onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = '0 12px 24px rgba(255, 0, 0, 0.2), 0 6px 12px rgba(255, 0, 0, 0.15)'; }} 
+                onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = '0 8px 16px -4px rgba(255, 0, 0, 0.12), 0 4px 8px -2px rgba(255, 0, 0, 0.08)'; }} 
                 onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; }}
               >
                 {platform}
