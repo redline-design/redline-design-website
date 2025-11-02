@@ -48,9 +48,6 @@ export default function Footer() {
                 <img src={logoImage} alt="Redline Design" className="h-4 w-auto" />
               </div>
             </Link>
-            <p className="text-xs text-muted-foreground mb-1">
-              Digital marketing that doesn't suck.
-            </p>
             <p className="text-xs text-muted-foreground mb-1.5">
               Average response in &lt;24 business hours
             </p>
