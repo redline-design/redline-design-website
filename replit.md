@@ -37,7 +37,7 @@ The project targets digital marketing clients looking for SEO, PPC, web design, 
   - Sticky positioning with minimal container height (120vh on mobile, 150vh on desktop)
   - Glassmorphism background (backdrop-blur-md, bg-card/40) with rounded corners
   - **Interactive hover effects**: Red shimmer/glow around border when hovering (animated border and multi-layer box shadow)
-  - **Strict scroll-locking behavior**: When hovering over section, completely prevents all page scrolling (overflow hidden, wheel/touch/scroll event prevention)
+  - **Smart scroll-locking behavior**: When hovering over section, allows scrolling through services but prevents scrolling to other parts of the page (traps user in section until mouse leaves)
   - Contained within max-w-7xl centered container with overflow-hidden
   - Uniform card sizes (280px × 280px on mobile/tablet, 320px × 280px on desktop)
   - Gap between cards: 16px (mobile), 24px (desktop)

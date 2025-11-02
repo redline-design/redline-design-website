@@ -57,26 +57,41 @@ export default function HorizontalScrollServices() {
     }
   });
 
-  // Strict scroll locking - completely prevent all scrolling when hovering
+  // Smart scroll locking - allow scrolling within section, prevent scrolling past it
   useEffect(() => {
     if (!isHovering) return;
 
-    const preventScroll = (e: Event) => {
-      e.preventDefault();
-      e.stopPropagation();
+    const handleWheel = (e: WheelEvent) => {
+      const target = targetRef.current;
+      if (!target) return;
+
+      const rect = target.getBoundingClientRect();
+      const scrollingDown = e.deltaY > 0;
+      const scrollingUp = e.deltaY < 0;
+
+      // Calculate progress through the section
+      const sectionHeight = rect.height;
+      const viewportHeight = window.innerHeight;
+      const sectionTop = rect.top;
+      const sectionBottom = rect.bottom;
+
+      // If trying to scroll up but we're at the top of the section
+      if (scrollingUp && sectionTop >= -10) {
+        e.preventDefault();
+        return;
+      }
+
+      // If trying to scroll down but we're at the bottom of the section
+      if (scrollingDown && sectionBottom <= viewportHeight + 10) {
+        e.preventDefault();
+        return;
+      }
     };
 
-    // Completely lock the page from scrolling
-    document.body.style.overflow = 'hidden';
-    document.addEventListener('wheel', preventScroll, { passive: false });
-    document.addEventListener('touchmove', preventScroll, { passive: false });
-    document.addEventListener('scroll', preventScroll, { passive: false });
+    document.addEventListener('wheel', handleWheel, { passive: false });
 
     return () => {
-      document.body.style.overflow = '';
-      document.removeEventListener('wheel', preventScroll);
-      document.removeEventListener('touchmove', preventScroll);
-      document.removeEventListener('scroll', preventScroll);
+      document.removeEventListener('wheel', handleWheel);
     };
   }, [isHovering]);
 
