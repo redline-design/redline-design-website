@@ -82,8 +82,9 @@ export default function BookDemo() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.5 }}
+            className="group"
           >
-            <Card className="rounded-2xl backdrop-blur-md bg-card/40 border-white/10">
+            <Card className="rounded-2xl backdrop-blur-md bg-card/40 border-white/10 transition-all duration-500 ease-out hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,0,0,0.15),0_0_60px_rgba(255,0,0,0.1),inset_0_0_30px_rgba(255,0,0,0.05)] hover:border-primary/30">
               <CardContent className="p-8 md:p-12">
                 <ContactForm />
               </CardContent>
