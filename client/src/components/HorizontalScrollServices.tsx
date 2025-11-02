@@ -13,8 +13,8 @@ export default function HorizontalScrollServices() {
   });
 
   // Calculate how far to translate based on scroll
-  // Increased translation for faster scrolling (was -70%, now -85%)
-  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-85%"]);
+  // Increased translation for much faster scrolling (was -85%, now -110%)
+  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-110%"]);
   const progressWidth = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
   
   // Update progress value for accessibility - properly handles cleanup
@@ -108,16 +108,16 @@ export default function HorizontalScrollServices() {
   return (
     <section 
       ref={targetRef} 
-      className="relative h-[300vh] bg-background"
+      className="relative h-[200vh] md:h-[300vh] bg-background"
       data-testid="section-services-horizontal"
     >
       <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-          <div className="text-center mb-12">
-            <h2 className="text-lg sm:text-xl md:text-2xl font-bold uppercase tracking-[0.3em] mb-4 red-glow-pulse" style={{ color: "#ff0000" }}>
+        <div className="max-w-7xl mx-auto px-2 sm:px-4 md:px-6 lg:px-8 w-full">
+          <div className="text-center mb-6 md:mb-12">
+            <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold uppercase tracking-[0.3em] mb-2 md:mb-4 red-glow-pulse" style={{ color: "#ff0000" }}>
               What We Do
             </h2>
-            <p className="text-lg text-foreground max-w-2xl mx-auto">
+            <p className="text-sm sm:text-base md:text-lg text-foreground max-w-2xl mx-auto px-4">
               Full-service digital marketing designed to drive results
             </p>
           </div>
@@ -125,13 +125,12 @@ export default function HorizontalScrollServices() {
           {/* Horizontal scrolling container */}
           <motion.div 
             style={{ x }}
-            className="flex gap-8 pb-8"
+            className="flex gap-4 md:gap-8 pb-4 md:pb-8"
           >
             {services.map((service, index) => (
               <div 
                 key={service.title} 
-                className="flex-shrink-0"
-                style={{ width: '320px', height: '280px' }}
+                className="flex-shrink-0 w-[85vw] h-[240px] sm:w-[300px] sm:h-[260px] md:w-[320px] md:h-[280px]"
               >
                 <ServiceCard
                   icon={service.icon}
@@ -147,7 +146,7 @@ export default function HorizontalScrollServices() {
           </motion.div>
 
           {/* Progress bar */}
-          <div className="mt-8 w-full max-w-3xl mx-auto">
+          <div className="mt-4 md:mt-8 w-full max-w-3xl mx-auto px-4">
             <div 
               role="progressbar" 
               aria-label="Service scroll progress"
@@ -161,7 +160,7 @@ export default function HorizontalScrollServices() {
                 className="h-full bg-primary rounded-full"
               />
             </div>
-            <p className="text-center text-sm text-muted-foreground mt-3">
+            <p className="text-center text-xs sm:text-sm text-muted-foreground mt-2 md:mt-3">
               Scroll to explore all services
             </p>
           </div>

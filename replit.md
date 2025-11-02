@@ -20,11 +20,15 @@ The project targets digital marketing clients looking for SEO, PPC, web design, 
   - Seeded with 6 example blog posts covering SEO, PPC, Web Design, Social Media, Email Marketing, and Local SEO
 - **Horizontal Scrolling Services Section**: Interactive "What We Do" section with scroll-based horizontal movement
   - Displays 10 service cards: World Class Websites, Paid Advertising, SEO/SEM, CRM Setup & Automation, Analytics & Data Analysis, Graphic Design, Social Media Marketing, Email Marketing, Consulting, and AI Automation
-  - Uses Framer Motion's useScroll and useTransform for scroll-linked horizontal translation (85% translation for faster scrolling)
+  - Uses Framer Motion's useScroll and useTransform for scroll-linked horizontal translation (110% translation for very fast scrolling)
   - Progress bar indicator showing scroll position through services with accessible aria-valuenow updates
-  - Sticky positioning with 300vh container height for extended scroll interaction
+  - Sticky positioning with responsive container height (200vh on mobile, 300vh on desktop)
   - Each service card has unique accent color and icon for visual differentiation
-  - Uniform card sizes (320px × 280px) with flex layout for consistent appearance
+  - **Mobile-responsive design**:
+    - Card sizes: 85vw × 240px (mobile), 300px × 260px (sm), 320px × 280px (md+)
+    - Gap between cards: 16px (mobile), 32px (desktop)
+    - Reduced padding and text sizes on smaller screens
+    - Optimized touch-friendly scrolling experience
   - Cards use flexbox layout with "Learn More" buttons positioned at bottom
 
 ## User Preferences
