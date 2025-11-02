@@ -75,6 +75,12 @@ export const updateBlogPostSchema = createInsertSchema(blogPosts).omit({
   id: true,
   createdAt: true,
   updatedAt: true,
+}).extend({
+  publishedAt: z.union([z.string(), z.date(), z.null()]).transform((val) => {
+    if (val === null) return null;
+    if (typeof val === 'string') return new Date(val);
+    return val;
+  }).optional(),
 }).partial();
 
 export type InsertBlogPost = z.infer<typeof insertBlogPostSchema>;

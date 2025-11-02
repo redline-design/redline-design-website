@@ -70,7 +70,9 @@ const categories = [
   "Content Marketing",
 ];
 
-const formSchema = insertBlogPostSchema.extend({
+const formSchema = insertBlogPostSchema.omit({
+  publishedAt: true,
+}).extend({
   title: z.string().min(1, "Title is required"),
   slug: z.string().min(1, "Slug is required"),
   excerpt: z.string().min(1, "Excerpt is required"),
@@ -136,7 +138,6 @@ export default function Admin() {
       readTime: "",
       featured: false,
       published: false,
-      publishedAt: null,
     },
   });
 
@@ -252,7 +253,6 @@ export default function Admin() {
         readTime: post.readTime,
         featured: post.featured,
         published: post.published,
-        publishedAt: post.publishedAt,
       });
     } else {
       setEditingPost(null);
@@ -269,7 +269,6 @@ export default function Admin() {
         readTime: "",
         featured: false,
         published: false,
-        publishedAt: null,
       });
     }
     setIsDialogOpen(true);
@@ -282,9 +281,16 @@ export default function Admin() {
   };
 
   const onSubmit = (data: FormData) => {
+    let publishedAt: Date | null = null;
+    
+    if (data.published) {
+      // If publishing, preserve existing publishedAt or set to now
+      publishedAt = editingPost?.publishedAt ? new Date(editingPost.publishedAt) : new Date();
+    }
+    
     const postData: InsertBlogPost = {
       ...data,
-      publishedAt: data.published ? new Date() : null,
+      publishedAt,
     };
 
     if (editingPost) {
