@@ -16,7 +16,7 @@ import Onboarding from "@/pages/Onboarding";
 import Articles from "@/pages/Articles";
 import PolicyPage from "@/pages/PolicyPage";
 import NotFound from "@/pages/not-found";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 function Router() {
   return (
@@ -167,12 +167,16 @@ function Router() {
 }
 
 function CustomCursor() {
-  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const cursorRef = useRef<HTMLDivElement>(null);
   const [isHovering, setIsHovering] = useState(false);
 
   useEffect(() => {
+    const cursor = cursorRef.current;
+    if (!cursor) return;
+
     const updatePosition = (e: MouseEvent) => {
-      setPosition({ x: e.clientX, y: e.clientY });
+      cursor.style.left = `${e.clientX}px`;
+      cursor.style.top = `${e.clientY}px`;
     };
 
     const handleMouseOver = (e: MouseEvent) => {
@@ -190,8 +194,8 @@ function CustomCursor() {
       }
     };
 
-    window.addEventListener('mousemove', updatePosition);
-    window.addEventListener('mouseover', handleMouseOver);
+    window.addEventListener('mousemove', updatePosition, { passive: true });
+    window.addEventListener('mouseover', handleMouseOver, { passive: true });
 
     return () => {
       window.removeEventListener('mousemove', updatePosition);
@@ -201,11 +205,8 @@ function CustomCursor() {
 
   return (
     <div
+      ref={cursorRef}
       className={`custom-cursor ${isHovering ? 'hover' : ''}`}
-      style={{
-        left: `${position.x}px`,
-        top: `${position.y}px`,
-      }}
     />
   );
 }
