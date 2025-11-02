@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "wouter";
 import { Calendar, Clock, ArrowRight, TrendingUp } from "lucide-react";
+import { useState, useMemo } from "react";
 
 interface BlogPostProps {
   title: string;
@@ -149,6 +150,20 @@ const blogPosts: BlogPostProps[] = [
 ];
 
 export default function Blog() {
+  const [selectedCategory, setSelectedCategory] = useState<string>("All");
+
+  const categories = useMemo(() => {
+    const uniqueCategories = Array.from(new Set(blogPosts.map(post => post.category)));
+    return ["All", ...uniqueCategories.sort()];
+  }, []);
+
+  const filteredPosts = useMemo(() => {
+    if (selectedCategory === "All") {
+      return blogPosts;
+    }
+    return blogPosts.filter(post => post.category === selectedCategory);
+  }, [selectedCategory]);
+
   return (
     <div className="pt-20">
       <section className="py-20 px-4 sm:px-6 lg:px-8 text-center" data-testid="section-blog-intro">
@@ -181,17 +196,51 @@ export default function Blog() {
         </div>
       </section>
 
+      <section className="py-8 px-4 sm:px-6 lg:px-8" data-testid="section-blog-categories">
+        <div className="max-w-7xl mx-auto">
+          <motion.div
+            className="flex flex-wrap justify-center gap-3"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+          >
+            {categories.map((category) => (
+              <Button
+                key={category}
+                onClick={() => setSelectedCategory(category)}
+                variant={selectedCategory === category ? "default" : "outline"}
+                size="default"
+                className={`font-semibold ${
+                  selectedCategory === category 
+                    ? "bg-primary text-primary-foreground" 
+                    : ""
+                }`}
+                data-testid={`button-category-${category.toLowerCase().replace(/\s/g, "-")}`}
+              >
+                {category}
+              </Button>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
       <section className="py-12 px-4 sm:px-6 lg:px-8" data-testid="section-blog-posts">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {blogPosts.map((post, index) => (
+          <motion.div
+            key={selectedCategory}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3 }}
+            className="grid grid-cols-1 md:grid-cols-2 gap-8"
+          >
+            {filteredPosts.map((post, index) => (
               <BlogPost
                 key={post.slug}
                 {...post}
                 delay={index * 0.05}
               />
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
