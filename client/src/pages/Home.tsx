@@ -3,6 +3,7 @@ import ServiceCard from "@/components/ServiceCard";
 import TabbedContent from "@/components/TabbedContent";
 import ValueTile from "@/components/ValueTile";
 import PartnerLogos from "@/components/PartnerLogos";
+import TestimonialsSlider from "@/components/TestimonialsSlider";
 import CTABand from "@/components/CTABand";
 import { Globe, TrendingUp, Search, BarChart3, Sparkles, Globe as GlobeIcon, DollarSign, Zap, Target, Users, Briefcase } from "lucide-react";
 
@@ -190,7 +191,13 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="partners" className="py-16 px-4 sm:px-6 lg:px-8 bg-card/20 backdrop-blur-sm" data-testid="section-partners">
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-card/20 backdrop-blur-sm">
+        <div className="max-w-7xl mx-auto">
+          <TestimonialsSlider />
+        </div>
+      </section>
+
+      <section id="partners" className="py-16 px-4 sm:px-6 lg:px-8" data-testid="section-partners">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <p className="text-sm font-semibold text-foreground uppercase tracking-wide mb-2">
