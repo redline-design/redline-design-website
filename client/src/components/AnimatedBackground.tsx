@@ -61,7 +61,7 @@ export default function AnimatedBackground() {
       }
     }
 
-    const drawHexagon = (x: number, y: number, radius: number, opacity: number) => {
+    const drawHexagon = (x: number, y: number, radius: number, opacity: number, hue: number) => {
       ctx.beginPath();
       for (let i = 0; i < 6; i++) {
         const angle = (Math.PI / 3) * i - Math.PI / 6;
@@ -74,7 +74,8 @@ export default function AnimatedBackground() {
         }
       }
       ctx.closePath();
-      ctx.strokeStyle = `rgba(255, 255, 255, ${opacity})`;
+      // Mix of white and subtle color based on position
+      ctx.strokeStyle = `hsla(${hue}, 70%, 70%, ${opacity})`;
       ctx.lineWidth = 1.5;
       ctx.stroke();
     };
@@ -132,7 +133,10 @@ export default function AnimatedBackground() {
         hex.x = hex.baseX + displacementX;
         hex.y = hex.baseY + displacementY;
 
-        drawHexagon(hex.x, hex.y, currentRadius, opacity);
+        // Color variance based on position - creates gradient effect across screen
+        const hue = (hex.baseX / canvas.width) * 60 + 180; // Range from cyan (180) to blue (240)
+
+        drawHexagon(hex.x, hex.y, currentRadius, opacity, hue);
       });
 
       animationFrameId = requestAnimationFrame(animate);

@@ -12,9 +12,10 @@ interface ServiceCardProps {
   link: string;
   status?: "accepting" | "waitlist";
   delay?: number;
+  accentColor?: string;
 }
 
-export default function ServiceCard({ icon: Icon, title, description, link, status, delay = 0 }: ServiceCardProps) {
+export default function ServiceCard({ icon: Icon, title, description, link, status, delay = 0, accentColor = "rgb(96, 165, 250)" }: ServiceCardProps) {
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.15 });
 
   return (
@@ -37,7 +38,11 @@ export default function ServiceCard({ icon: Icon, title, description, link, stat
         >
           <CardContent className="p-8 relative z-10">
             <motion.div
-              className="mb-6 inline-flex items-center justify-center w-14 h-14 rounded-xl bg-foreground/10 text-foreground"
+              className="mb-6 inline-flex items-center justify-center w-14 h-14 rounded-xl"
+              style={{ 
+                backgroundColor: `${accentColor}20`,
+                color: accentColor
+              }}
               whileHover={{ scale: 1.1, rotate: 5 }}
               transition={{ type: "spring", stiffness: 300 }}
             >

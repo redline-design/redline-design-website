@@ -105,6 +105,7 @@ export default function Home() {
               description="Unique websites at reasonable prices."
               link="/services#web"
               status="accepting"
+              accentColor="rgb(96, 165, 250)"
             />
             <ServiceCard
               icon={TrendingUp}
@@ -113,6 +114,7 @@ export default function Home() {
               link="/services#ppc"
               status="accepting"
               delay={0.1}
+              accentColor="rgb(167, 139, 250)"
             />
             <ServiceCard
               icon={Search}
@@ -121,6 +123,7 @@ export default function Home() {
               link="/services#seo"
               status="waitlist"
               delay={0.2}
+              accentColor="rgb(110, 231, 183)"
             />
           </div>
         </div>
