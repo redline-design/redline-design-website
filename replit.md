@@ -18,9 +18,12 @@ The project targets digital marketing clients looking for SEO, PPC, web design, 
   - External API endpoint (`POST /api/external/blog/posts`) with API key authentication for automated content creation
   - Security: Unpublished posts protected from unauthenticated access on both listing and individual post endpoints
   - Seeded with 6 example blog posts covering SEO, PPC, Web Design, Social Media, Email Marketing, and Local SEO
-- **Horizontal Scrolling Services Section**: Interactive "What We Do" section with snap-based pagination and 3D layering animations
+- **Horizontal Scrolling Services Section**: Interactive "What We Do" section with hover-activated snap pagination and 3D layering animations
   - Displays 10 service cards: World Class Websites, Paid Advertising, SEO/SEM, CRM Setup & Automation, Analytics & Data Analysis, Graphic Design, Social Media Marketing, Email Marketing, Consulting, and AI Automation
-  - **Snap Scrolling**: Cards snap to discrete pages instead of continuous scrolling
+  - **Hover-Activated Interaction**: Services only change when hovering inside the glassmorphism box
+    - Outside the box: Normal page scrolling, services remain static
+    - Inside the box: Complete scroll-lock on page, wheel events advance/retreat through service pages
+  - **Snap Scrolling**: Cards snap to discrete pages controlled by wheel events
     - Mobile (<640px): 1 card per page = 10 pages total
     - Tablet (640-1024px): 2 cards per page = 5 pages total
     - Desktop (>1024px): 3 cards per page = 4 pages total
@@ -35,9 +38,10 @@ The project targets digital marketing clients looking for SEO, PPC, web design, 
     - Progress text shows "current/total" (e.g., "2/4")
   - **Responsive Logic**: Automatically clamps currentPage when viewport resizes to prevent blank carousel
   - Sticky positioning with minimal container height (120vh on mobile, 150vh on desktop)
-  - Glassmorphism background (backdrop-blur-md, bg-card/40) with rounded corners
+  - Glassmorphism background (backdrop-blur-md, bg-card/40) with rounded corners and z-50 layering
   - **Interactive hover effects**: Red shimmer/glow around border when hovering (animated border and multi-layer box shadow)
-  - **Smart scroll-locking behavior**: When hovering over section, allows scrolling through services but prevents scrolling to other parts of the page (traps user in section until mouse leaves)
+  - **Complete Scroll-Locking**: When hovering, completely prevents all page scrolling (body overflow hidden + wheel/touch event prevention)
+  - **Smart Pointer Events**: Parent div has pointer-events-none, glassmorphism box has pointer-events-auto for precise hover detection
   - Contained within max-w-7xl centered container with overflow-hidden
   - Uniform card sizes (280px × 280px on mobile/tablet, 320px × 280px on desktop)
   - Gap between cards: 16px (mobile), 24px (desktop)

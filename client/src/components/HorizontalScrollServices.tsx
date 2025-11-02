@@ -1,20 +1,14 @@
 import { useRef, useState, useEffect } from "react";
-import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import ServiceCard from "@/components/ServiceCard";
 import { Globe, TrendingUp, Search, Database, BarChart3, Palette, MessageSquare, Mail, Users, Bot } from "lucide-react";
 
 export default function HorizontalScrollServices() {
   const targetRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const [progressPercent, setProgressPercent] = useState(0);
   const [isHovering, setIsHovering] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const [cardsPerPage, setCardsPerPage] = useState(3);
-  
-  const { scrollYProgress } = useScroll({
-    target: targetRef,
-    offset: ["start end", "end start"]
-  });
   
   // Calculate cards per page based on viewport width
   useEffect(() => {
@@ -42,56 +36,46 @@ export default function HorizontalScrollServices() {
     }
   }, [cardsPerPage, currentPage]);
 
-  // Update progress value for accessibility - properly handles cleanup
-  useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    const percent = Math.round(latest * 100);
-    setProgressPercent(percent);
-    
-    // Calculate which page we should be on (snap points)
-    const totalPages = Math.ceil(services.length / cardsPerPage);
-    const newPage = Math.min(Math.floor((percent / 100) * totalPages), totalPages - 1);
-    
-    // Only update if page actually changed to avoid redundant renders
-    if (newPage !== currentPage) {
-      setCurrentPage(newPage);
-    }
-  });
-
-  // Smart scroll locking - trap scrolling when hovering over the box
+  // Handle wheel events when hovering - completely lock page scrolling and advance through services
   useEffect(() => {
     if (!isHovering) return;
 
     const handleWheel = (e: WheelEvent) => {
-      const section = targetRef.current;
-      if (!section) return;
+      // Completely prevent all page scrolling
+      e.preventDefault();
+      e.stopPropagation();
 
-      const rect = section.getBoundingClientRect();
+      const totalPages = Math.ceil(services.length / cardsPerPage);
       const scrollingDown = e.deltaY > 0;
       const scrollingUp = e.deltaY < 0;
 
-      const sectionTop = rect.top;
-      const sectionBottom = rect.bottom;
-      const viewportHeight = window.innerHeight;
-
-      // Prevent scrolling up past the section start
-      if (scrollingUp && sectionTop >= -10) {
-        e.preventDefault();
-        return;
+      // Advance to next page
+      if (scrollingDown && currentPage < totalPages - 1) {
+        setCurrentPage(prev => Math.min(prev + 1, totalPages - 1));
       }
-
-      // Prevent scrolling down past the section end
-      if (scrollingDown && sectionBottom <= viewportHeight + 10) {
-        e.preventDefault();
-        return;
+      
+      // Go to previous page
+      if (scrollingUp && currentPage > 0) {
+        setCurrentPage(prev => Math.max(prev - 1, 0));
       }
     };
 
+    const handleTouchMove = (e: TouchEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+    };
+
+    // Lock all forms of scrolling
+    document.body.style.overflow = 'hidden';
     document.addEventListener('wheel', handleWheel, { passive: false });
+    document.addEventListener('touchmove', handleTouchMove, { passive: false });
 
     return () => {
+      document.body.style.overflow = '';
       document.removeEventListener('wheel', handleWheel);
+      document.removeEventListener('touchmove', handleTouchMove);
     };
-  }, [isHovering]);
+  }, [isHovering, currentPage, cardsPerPage]);
 
   const services = [
     {
@@ -271,7 +255,7 @@ export default function HorizontalScrollServices() {
               aria-label="Service scroll progress"
               aria-valuemin={0}
               aria-valuemax={100}
-              aria-valuenow={progressPercent}
+              aria-valuenow={Math.round(((currentPage + 1) / Math.ceil(services.length / cardsPerPage)) * 100)}
               className="h-1 bg-border/30 rounded-full overflow-hidden"
               data-testid="progressbar-services"
             >
