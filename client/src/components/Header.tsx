@@ -45,19 +45,19 @@ export default function Header() {
             </motion.div>
           </Link>
 
-          {/* Desktop Navigation - Expands to full width on scroll */}
+          {/* Desktop Navigation - Expands to full width and height on scroll */}
           <motion.nav 
-            className={`hidden md:flex items-center gap-1 backdrop-blur-xl ${isScrolled ? 'absolute inset-x-0 top-1/2 -translate-y-1/2' : 'absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2'}`}
+            className={`hidden md:flex items-center gap-1 backdrop-blur-xl ${isScrolled ? 'absolute inset-x-0 inset-y-0' : 'absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2'}`}
             animate={{
-              borderRadius: isScrolled ? "12px" : "9999px",
-              padding: isScrolled ? "8px 24px" : "8px 16px",
+              borderRadius: isScrolled ? "0px" : "9999px",
+              padding: isScrolled ? "0 24px" : "8px 16px",
               justifyContent: isScrolled ? "center" : "center",
             }}
             style={{
               backgroundColor: "hsl(var(--background) / 0.8)",
               border: "1px solid hsl(var(--border) / 0.25)",
             }}
-            transition={{ duration: 0.4, ease: "easeInOut" }}
+            transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
             data-testid="nav-desktop"
           >
             {navLinks.map((link, index) => (
