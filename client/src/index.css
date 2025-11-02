@@ -674,17 +674,17 @@ a, button, [role="button"], input[type="submit"], input[type="button"] {
   .primary-button-fill::before {
     content: "";
     position: absolute;
-    bottom: 0;
+    top: 0;
     left: 0;
-    width: 100%;
-    height: 0%;
-    background: linear-gradient(to top, hsl(0, 100%, 55%), hsl(0, 100%, 50%));
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(to right, hsl(0, 100%, 55%), hsl(0, 100%, 50%));
     z-index: -1;
-    transition: height 1s ease-out;
+    transition: width 1s ease-out;
   }
 
   .primary-button-fill:hover::before {
-    height: 100%;
+    width: 100%;
   }
 
   .primary-button-fill > * {
@@ -857,10 +857,10 @@ a, button, [role="button"], input[type="submit"], input[type="button"] {
   /* Disable primary button fill animation */
   .primary-button-fill::before {
     transition: none !important;
-    height: 100% !important;
+    width: 100% !important;
   }
 
   .primary-button-fill {
-    opacity: 1 !important;
+    background: rgba(255, 0, 0, 1) !important;
   }
 }
