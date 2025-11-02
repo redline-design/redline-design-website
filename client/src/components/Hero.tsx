@@ -33,7 +33,7 @@ export default function Hero() {
       {/* Fixed animated gradient background */}
       <div className="fixed inset-0 z-0">
         <motion.div 
-          className="absolute inset-0 bg-gradient-to-br from-primary/20 via-background to-primary/20"
+          className="absolute inset-0 bg-gradient-to-br from-primary/40 via-background to-primary/40"
           animate={{
             backgroundPosition: ["0% 0%", "100% 100%"],
           }}
@@ -44,7 +44,7 @@ export default function Hero() {
           }}
           style={{ backgroundSize: "200% 200%" }}
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/30 to-background/80"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/20 to-background/60"></div>
       </div>
 
       <section
