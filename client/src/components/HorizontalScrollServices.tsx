@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from "react";
-import { motion, useScroll, useTransform, useMotionValueEvent } from "framer-motion";
+import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "framer-motion";
 import ServiceCard from "@/components/ServiceCard";
 import { Globe, TrendingUp, Search, Database, BarChart3, Palette, MessageSquare, Mail, Users, Bot } from "lucide-react";
 
@@ -8,20 +8,42 @@ export default function HorizontalScrollServices() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [progressPercent, setProgressPercent] = useState(0);
   const [isHovering, setIsHovering] = useState(false);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [cardsPerPage, setCardsPerPage] = useState(3);
   
   const { scrollYProgress } = useScroll({
     target: targetRef,
     offset: ["start end", "end start"]
   });
-
-  // Calculate how far to translate based on scroll - snap to show full cards
-  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-70%"]);
-  const progressWidth = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
   
   // Update progress value for accessibility - properly handles cleanup
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    setProgressPercent(Math.round(latest * 100));
+    const percent = Math.round(latest * 100);
+    setProgressPercent(percent);
+    
+    // Calculate which page we should be on (snap points)
+    const totalPages = Math.ceil(10 / cardsPerPage);
+    const newPage = Math.min(Math.floor((percent / 100) * totalPages), totalPages - 1);
+    setCurrentPage(newPage);
   });
+
+  // Calculate cards per page based on viewport width
+  useEffect(() => {
+    const updateCardsPerPage = () => {
+      const width = window.innerWidth;
+      if (width < 640) {
+        setCardsPerPage(1); // Mobile: 1 card
+      } else if (width < 1024) {
+        setCardsPerPage(2); // Tablet: 2 cards
+      } else {
+        setCardsPerPage(3); // Desktop: 3 cards
+      }
+    };
+
+    updateCardsPerPage();
+    window.addEventListener('resize', updateCardsPerPage);
+    return () => window.removeEventListener('resize', updateCardsPerPage);
+  }, []);
 
   // Scroll locking when hovering over the section
   useEffect(() => {
@@ -170,48 +192,77 @@ export default function HorizontalScrollServices() {
             </p>
           </div>
 
-          {/* Horizontal scrolling container with snap */}
-          <div className="overflow-hidden">
-            <motion.div 
-              style={{ x }}
-              className="flex gap-6 md:gap-8 pb-4 md:pb-8"
-            >
-            {services.map((service, index) => (
-              <div 
-                key={service.title} 
-                className="flex-shrink-0 w-[280px] h-[280px] md:w-[320px] md:h-[280px]"
-              >
-                <ServiceCard
-                  icon={service.icon}
-                  title={service.title}
-                  description={service.description}
-                  link={service.link}
-                  status={service.status}
-                  accentColor={service.accentColor}
-                  delay={0}
-                />
-              </div>
-            ))}
-            </motion.div>
+          {/* Snapping horizontal cards with layering animation */}
+          <div className="relative h-[300px] md:h-[320px] overflow-hidden">
+            <div className="flex justify-center items-center gap-4 md:gap-6 h-full">
+              <AnimatePresence mode="popLayout">
+                {services
+                  .slice(currentPage * cardsPerPage, (currentPage + 1) * cardsPerPage)
+                  .map((service, index) => (
+                    <motion.div
+                      key={`${currentPage}-${service.title}`}
+                      className="flex-shrink-0 w-[280px] h-[280px] md:w-[320px] md:h-[280px]"
+                      initial={{ 
+                        opacity: 0, 
+                        x: 100,
+                        scale: 0.8,
+                        rotateY: -20
+                      }}
+                      animate={{ 
+                        opacity: 1, 
+                        x: 0,
+                        scale: 1,
+                        rotateY: 0,
+                        zIndex: index
+                      }}
+                      exit={{ 
+                        opacity: 0, 
+                        x: -100,
+                        scale: 0.8,
+                        rotateY: 20
+                      }}
+                      transition={{
+                        duration: 0.5,
+                        delay: index * 0.1,
+                        type: "spring",
+                        stiffness: 100
+                      }}
+                      style={{
+                        transformStyle: "preserve-3d",
+                        perspective: "1000px"
+                      }}
+                    >
+                      <ServiceCard
+                        icon={service.icon}
+                        title={service.title}
+                        description={service.description}
+                        link={service.link}
+                        status={service.status}
+                        accentColor={service.accentColor}
+                        delay={0}
+                      />
+                    </motion.div>
+                  ))}
+              </AnimatePresence>
+            </div>
           </div>
 
-          {/* Progress bar */}
+          {/* Progress bar and page indicator */}
           <div className="mt-4 md:mt-8 w-full max-w-3xl mx-auto">
-            <div 
-              role="progressbar" 
-              aria-label="Service scroll progress"
-              aria-valuemin={0}
-              aria-valuemax={100}
-              aria-valuenow={progressPercent}
-              className="h-1 bg-border/30 rounded-full overflow-hidden"
-            >
-              <motion.div 
-                style={{ width: progressWidth }}
-                className="h-full bg-primary rounded-full"
-              />
+            <div className="flex justify-center gap-2 mb-4">
+              {Array.from({ length: Math.ceil(10 / cardsPerPage) }).map((_, idx) => (
+                <div
+                  key={idx}
+                  className={`h-2 rounded-full transition-all duration-300 ${
+                    idx === currentPage 
+                      ? 'w-8 bg-primary' 
+                      : 'w-2 bg-border/30'
+                  }`}
+                />
+              ))}
             </div>
-            <p className="text-center text-xs sm:text-sm text-muted-foreground mt-2 md:mt-3">
-              Scroll to explore all services
+            <p className="text-center text-xs sm:text-sm text-muted-foreground">
+              Scroll to explore all services ({currentPage + 1}/{Math.ceil(10 / cardsPerPage)})
             </p>
           </div>
         </motion.div>
