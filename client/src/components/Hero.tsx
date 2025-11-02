@@ -64,18 +64,46 @@ export default function Hero() {
 
         {/* Logo */}
         <motion.div 
-          className="mb-8"
+          className="mb-8 relative"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2 }}
         >
-          <img 
-            src={logoLarge} 
-            alt="Redline Design" 
-            loading="eager"
-            className="w-full max-w-sm md:max-w-md lg:max-w-lg mx-auto"
-            data-testid="img-hero-logo"
-          />
+          <style>{`
+            @keyframes heroLogoShimmer {
+              0% {
+                clip-path: inset(100% 0 0 0);
+              }
+              50% {
+                clip-path: inset(0 0 0 0);
+              }
+              100% {
+                clip-path: inset(0 0 100% 0);
+              }
+            }
+          `}</style>
+          <div className="relative w-full max-w-sm md:max-w-md lg:max-w-lg mx-auto">
+            {/* Base logo */}
+            <img 
+              src={logoLarge} 
+              alt="Redline Design" 
+              loading="eager"
+              className="w-full"
+              data-testid="img-hero-logo"
+            />
+            {/* Brightened red overlay */}
+            <img 
+              src={logoLarge} 
+              alt="" 
+              loading="eager"
+              className="w-full absolute inset-0"
+              style={{
+                filter: 'brightness(1.8) saturate(2) contrast(1.2)',
+                animation: 'heroLogoShimmer 4s ease-in-out infinite',
+                mixBlendMode: 'screen'
+              }}
+            />
+          </div>
         </motion.div>
 
         {/* Headline */}
