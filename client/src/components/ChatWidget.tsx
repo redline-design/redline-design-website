@@ -79,7 +79,10 @@ export default function ChatWidget() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="mb-4 w-96 h-[500px] bg-card/95 backdrop-blur-xl border border-white/20 rounded-2xl shadow-2xl flex flex-col overflow-hidden"
+            className="mb-4 w-96 h-[500px] bg-card/80 backdrop-blur-2xl rounded-2xl flex flex-col overflow-hidden"
+            style={{
+              boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1) inset, 0 8px 16px rgba(0, 0, 0, 0.3)'
+            }}
           >
             {/* Header */}
             <div className="p-4 bg-primary/10 border-b border-white/10 flex items-center justify-between">
@@ -164,13 +167,16 @@ export default function ChatWidget() {
       {/* Toggle Button */}
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-14 h-14 bg-white/10 backdrop-blur-md border border-white/20 rounded-full shadow-2xl flex items-center justify-center transition-all overflow-hidden p-2 hover-elevate active-elevate-2"
+        className="w-16 h-16 bg-white/10 backdrop-blur-2xl rounded-full flex items-center justify-center transition-all overflow-hidden p-2 hover-elevate active-elevate-2"
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
+        style={{
+          boxShadow: '0 20px 40px -10px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.15) inset, 0 4px 12px rgba(0, 0, 0, 0.4)'
+        }}
         data-testid="button-toggle-chat"
       >
         {isOpen ? (
-          <X className="w-6 h-6 text-white" />
+          <X className="w-7 h-7 text-white" />
         ) : (
           <img src={logoImage} alt="Chat" loading="lazy" className="w-full h-full object-contain" />
         )}
