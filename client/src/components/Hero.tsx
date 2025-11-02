@@ -28,21 +28,9 @@ export default function Hero() {
 
   return (
     <>
-      {/* Fixed animated gradient background */}
+      {/* Subtle gradient overlay */}
       <div className="fixed inset-0 z-0">
-        <motion.div 
-          className="absolute inset-0 bg-gradient-to-br from-primary/10 via-background to-primary/10"
-          animate={{
-            backgroundPosition: ["0% 0%", "100% 100%"],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            repeatType: "reverse",
-          }}
-          style={{ backgroundSize: "200% 200%" }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/20 to-background/60"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/20 to-background/80"></div>
       </div>
 
       <section
@@ -64,7 +52,7 @@ export default function Hero() {
         >
           <Link href="/book-a-demo">
             <motion.div 
-              className="inline-flex items-center gap-2 px-5 py-2.5 border border-primary/30 bg-primary/10 backdrop-blur-sm rounded-full text-xs font-semibold uppercase tracking-wider text-primary mb-8 cursor-pointer hover-elevate active-elevate-2 transition-all"
+              className="inline-flex items-center gap-2 px-5 py-2.5 border border-border/50 bg-card/30 backdrop-blur-sm rounded-full text-xs font-semibold uppercase tracking-wider text-foreground mb-8 cursor-pointer hover-elevate active-elevate-2 transition-all"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -98,7 +86,7 @@ export default function Hero() {
           transition={{ duration: 0.7, delay: 0.3 }}
         >
           <span className="text-foreground">Digital Marketing That Drives </span>
-          <span className="italic text-primary font-extrabold bg-clip-text">Real Results</span>
+          <span className="italic text-foreground font-extrabold">Real Results</span>
         </motion.h1>
 
         {/* Subheadline */}
@@ -123,7 +111,7 @@ export default function Hero() {
               <Button 
                 size="lg" 
                 variant="default" 
-                className="text-base px-8 py-6 font-semibold button-recessed fill-on-hover shadow-lg shadow-primary/20" 
+                className="text-base px-8 py-6 font-semibold" 
                 data-testid="button-hero-book-demo"
               >
                 Book Your Free Consultation
@@ -135,7 +123,7 @@ export default function Hero() {
               <Button 
                 size="lg" 
                 variant="outline" 
-                className="text-base px-8 py-6 font-semibold border-primary/30 hover:bg-primary/10" 
+                className="text-base px-8 py-6 font-semibold" 
                 data-testid="button-hero-view-services"
               >
                 Explore Our Services
@@ -154,7 +142,7 @@ export default function Hero() {
       >
         <div className="flex flex-col items-center gap-2">
           <span className="text-xs text-muted-foreground uppercase tracking-wider">Scroll</span>
-          <ChevronDown className="h-6 w-6 text-primary" data-testid="icon-scroll-indicator" />
+          <ChevronDown className="h-6 w-6 text-foreground" data-testid="icon-scroll-indicator" />
         </div>
       </motion.div>
     </section>

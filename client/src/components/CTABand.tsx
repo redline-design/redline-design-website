@@ -20,7 +20,7 @@ export default function CTABand({ title, subtitle, buttonText, buttonLink }: CTA
       initial={{ opacity: 0, y: 30 }}
       animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
       transition={{ duration: 0.6 }}
-      className="py-20 bg-gradient-to-r from-primary/10 via-primary/5 to-primary/10 rounded-2xl backdrop-blur-xl border border-white/10"
+      className="py-20 bg-card/30 rounded-2xl backdrop-blur-xl border border-border/30"
       data-testid="section-cta-band"
     >
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -33,7 +33,7 @@ export default function CTABand({ title, subtitle, buttonText, buttonLink }: CTA
           </p>
         )}
         <Link href={buttonLink}>
-          <Button size="lg" variant="default" className="text-base px-8 button-recessed fill-on-hover" data-testid="button-cta">
+          <Button size="lg" variant="default" className="text-base px-8" data-testid="button-cta">
             {buttonText}
             <ArrowRight className="ml-2 h-5 w-5" />
           </Button>

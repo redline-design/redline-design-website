@@ -35,28 +35,23 @@ export default function ServiceCard({ icon: Icon, title, description, link, stat
           className="h-full hover-elevate active-elevate-2 transition-all duration-300 rounded-2xl group cursor-pointer backdrop-blur-md bg-card/40 border-border/30 relative overflow-hidden"
           data-testid={`card-service-${title.toLowerCase().replace(/\s/g, "-")}`}
         >
-          {/* Animated border glow on hover */}
-          <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-primary/20 blur-xl" />
-          </div>
-
           <CardContent className="p-8 relative z-10">
             <motion.div
-              className="mb-6 inline-flex items-center justify-center w-14 h-14 rounded-xl bg-primary/10 text-primary"
+              className="mb-6 inline-flex items-center justify-center w-14 h-14 rounded-xl bg-foreground/10 text-foreground"
               whileHover={{ scale: 1.1, rotate: 5 }}
               transition={{ type: "spring", stiffness: 300 }}
             >
               <Icon className="h-7 w-7" />
             </motion.div>
 
-            <h3 className="text-2xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors" data-testid={`text-service-title-${title.toLowerCase().replace(/\s/g, "-")}`}>
+            <h3 className="text-2xl font-bold text-foreground mb-3 transition-colors" data-testid={`text-service-title-${title.toLowerCase().replace(/\s/g, "-")}`}>
               {title}
             </h3>
             <p className="text-muted-foreground mb-6 leading-relaxed" data-testid={`text-service-description-${title.toLowerCase().replace(/\s/g, "-")}`}>
               {description}
             </p>
 
-            <div className="inline-flex items-center gap-2 text-primary font-medium group-hover:gap-3 transition-all" data-testid={`button-service-${title.toLowerCase().replace(/\s/g, "-")}`}>
+            <div className="inline-flex items-center gap-2 text-foreground font-medium group-hover:gap-3 transition-all" data-testid={`button-service-${title.toLowerCase().replace(/\s/g, "-")}`}>
               <span>Learn More</span>
               <motion.span
                 animate={{ x: [0, 5, 0] }}

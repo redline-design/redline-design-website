@@ -1,14 +1,5 @@
 import { useEffect, useRef } from "react";
 
-interface Particle {
-  x: number;
-  y: number;
-  vx: number;
-  vy: number;
-  radius: number;
-  opacity: number;
-}
-
 export default function AnimatedBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -20,7 +11,6 @@ export default function AnimatedBackground() {
     if (!ctx) return;
 
     let animationFrameId: number;
-    let particles: Particle[] = [];
 
     const resizeCanvas = () => {
       canvas.width = window.innerWidth;
@@ -30,97 +20,97 @@ export default function AnimatedBackground() {
     resizeCanvas();
     window.addEventListener("resize", resizeCanvas);
 
-    // Initialize particles
-    const particleCount = Math.min(60, Math.floor((canvas.width * canvas.height) / 12000));
-    for (let i = 0; i < particleCount; i++) {
-      particles.push({
+    // Geometric pattern with floating hexagons
+    interface Hexagon {
+      x: number;
+      y: number;
+      size: number;
+      rotation: number;
+      rotationSpeed: number;
+      opacity: number;
+      fadeDirection: number;
+    }
+
+    const hexagons: Hexagon[] = [];
+    const hexCount = Math.floor((canvas.width * canvas.height) / 50000);
+
+    for (let i = 0; i < hexCount; i++) {
+      hexagons.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.5,
-        vy: (Math.random() - 0.5) * 0.5,
-        radius: Math.random() * 2.5 + 1,
-        opacity: Math.random() * 0.3 + 0.6,
+        size: Math.random() * 40 + 20,
+        rotation: Math.random() * Math.PI * 2,
+        rotationSpeed: (Math.random() - 0.5) * 0.002,
+        opacity: Math.random() * 0.1 + 0.02,
+        fadeDirection: Math.random() > 0.5 ? 1 : -1,
       });
     }
 
-    const drawGrid = () => {
-      const gridSize = 50;
-      const time = Date.now() * 0.0002;
-      
-      // Red color for dark mode
-      const color = '239, 68, 68';
-      ctx.strokeStyle = `rgba(${color}, 0.15)`;
+    const drawHexagon = (x: number, y: number, size: number, rotation: number, opacity: number) => {
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.rotate(rotation);
+      ctx.beginPath();
+
+      for (let i = 0; i < 6; i++) {
+        const angle = (Math.PI / 3) * i;
+        const xPos = size * Math.cos(angle);
+        const yPos = size * Math.sin(angle);
+        if (i === 0) {
+          ctx.moveTo(xPos, yPos);
+        } else {
+          ctx.lineTo(xPos, yPos);
+        }
+      }
+
+      ctx.closePath();
+      ctx.strokeStyle = `rgba(255, 255, 255, ${opacity})`;
       ctx.lineWidth = 1;
+      ctx.stroke();
 
-      // Vertical lines
+      ctx.restore();
+    };
+
+    const drawDots = () => {
+      const gridSize = 80;
+      const time = Date.now() * 0.0003;
+
       for (let x = 0; x < canvas.width; x += gridSize) {
-        const offset = Math.sin(time + x * 0.01) * 10;
-        ctx.beginPath();
-        ctx.moveTo(x + offset, 0);
-        ctx.lineTo(x + offset, canvas.height);
-        ctx.stroke();
-      }
+        for (let y = 0; y < canvas.height; y += gridSize) {
+          const distanceFromCenter = Math.sqrt(
+            Math.pow(x - canvas.width / 2, 2) + Math.pow(y - canvas.height / 2, 2)
+          );
+          const wave = Math.sin(distanceFromCenter * 0.005 - time) * 0.5 + 0.5;
+          const opacity = wave * 0.15;
 
-      // Horizontal lines
-      for (let y = 0; y < canvas.height; y += gridSize) {
-        const offset = Math.cos(time + y * 0.01) * 10;
-        ctx.beginPath();
-        ctx.moveTo(0, y + offset);
-        ctx.lineTo(canvas.width, y + offset);
-        ctx.stroke();
-      }
-    };
-
-    const drawParticles = () => {
-      particles.forEach((particle) => {
-        // Update position
-        particle.x += particle.vx;
-        particle.y += particle.vy;
-
-        // Wrap around edges
-        if (particle.x < 0) particle.x = canvas.width;
-        if (particle.x > canvas.width) particle.x = 0;
-        if (particle.y < 0) particle.y = canvas.height;
-        if (particle.y > canvas.height) particle.y = 0;
-
-        // Draw particle
-        ctx.beginPath();
-        ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
-        const color = '239, 68, 68';
-        ctx.fillStyle = `rgba(${color}, ${particle.opacity})`;
-        ctx.fill();
-      });
-    };
-
-    const drawConnections = () => {
-      const maxDistance = 150;
-      
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-          const dx = particles[i].x - particles[j].x;
-          const dy = particles[i].y - particles[j].y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
-
-          if (distance < maxDistance) {
-            const opacity = (1 - distance / maxDistance) * 0.5;
-            const color = '239, 68, 68';
-            ctx.beginPath();
-            ctx.moveTo(particles[i].x, particles[i].y);
-            ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.strokeStyle = `rgba(${color}, ${opacity})`;
-            ctx.lineWidth = 1.5;
-            ctx.stroke();
-          }
+          ctx.beginPath();
+          ctx.arc(x, y, 1.5, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(255, 255, 255, ${opacity})`;
+          ctx.fill();
         }
       }
     };
 
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      
-      drawGrid();
-      drawParticles();
-      drawConnections();
+
+      // Draw dot grid with wave effect
+      drawDots();
+
+      // Draw and animate hexagons
+      hexagons.forEach((hex) => {
+        hex.rotation += hex.rotationSpeed;
+        
+        // Subtle fade in/out
+        hex.opacity += hex.fadeDirection * 0.0001;
+        if (hex.opacity > 0.12) {
+          hex.fadeDirection = -1;
+        } else if (hex.opacity < 0.02) {
+          hex.fadeDirection = 1;
+        }
+
+        drawHexagon(hex.x, hex.y, hex.size, hex.rotation, hex.opacity);
+      });
 
       animationFrameId = requestAnimationFrame(animate);
     };
@@ -137,7 +127,7 @@ export default function AnimatedBackground() {
     <canvas
       ref={canvasRef}
       className="absolute inset-0 z-0 pointer-events-none"
-      style={{ opacity: 0.8 }}
+      style={{ opacity: 0.4 }}
     />
   );
 }
