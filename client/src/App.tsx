@@ -169,14 +169,20 @@ function Router() {
 function CustomCursor() {
   const cursorRef = useRef<HTMLDivElement>(null);
   const [isHovering, setIsHovering] = useState(false);
+  const rafRef = useRef<number>();
 
   useEffect(() => {
     const cursor = cursorRef.current;
     if (!cursor) return;
 
     const updatePosition = (e: MouseEvent) => {
-      cursor.style.left = `${e.clientX}px`;
-      cursor.style.top = `${e.clientY}px`;
+      if (rafRef.current) {
+        cancelAnimationFrame(rafRef.current);
+      }
+      
+      rafRef.current = requestAnimationFrame(() => {
+        cursor.style.transform = `translate(${e.clientX - 8}px, ${e.clientY - 8}px)`;
+      });
     };
 
     const handleMouseOver = (e: MouseEvent) => {
@@ -200,6 +206,9 @@ function CustomCursor() {
     return () => {
       window.removeEventListener('mousemove', updatePosition);
       window.removeEventListener('mouseover', handleMouseOver);
+      if (rafRef.current) {
+        cancelAnimationFrame(rafRef.current);
+      }
     };
   }, []);
 

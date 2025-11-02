@@ -17,22 +17,24 @@ a, button, [role="button"], input[type="submit"], input[type="button"] {
 
 /* Custom cursor dot */
 .custom-cursor {
-  width: 8px;
-  height: 8px;
+  width: 16px;
+  height: 16px;
   background: #ff0000;
   border-radius: 50%;
   position: fixed;
+  top: 0;
+  left: 0;
   pointer-events: none;
   z-index: 9999;
-  transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  transform: translate(-50%, -50%);
-  box-shadow: 0 0 15px rgba(255, 0, 0, 0.6), 0 0 25px rgba(255, 0, 0, 0.3);
+  will-change: transform;
+  box-shadow: 0 0 20px rgba(255, 0, 0, 0.7), 0 0 35px rgba(255, 0, 0, 0.4);
 }
 
 .custom-cursor.hover {
-  transform: translate(-50%, -50%) scale(2.5);
   background: #ffffff;
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 35px rgba(255, 255, 255, 0.4);
+  box-shadow: 0 0 25px rgba(255, 255, 255, 0.9), 0 0 45px rgba(255, 255, 255, 0.5);
+  width: 24px;
+  height: 24px;
 }
 
 /* LIGHT MODE (DEFAULT) */
