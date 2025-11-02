@@ -182,10 +182,10 @@ export default function HorizontalScrollServices() {
       className="relative h-[120vh] md:h-[150vh]"
       data-testid="section-services-horizontal"
     >
-      <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden px-4 md:px-8">
+      <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden px-4 md:px-8 pointer-events-none">
         <motion.div 
           ref={containerRef}
-          className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 w-full backdrop-blur-md bg-card/40 border-2 rounded-3xl py-8 md:py-12 transition-all duration-300"
+          className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 w-full backdrop-blur-md bg-card/40 border-2 rounded-3xl py-8 md:py-12 transition-all duration-300 relative z-50 pointer-events-auto"
           onMouseEnter={() => setIsHovering(true)}
           onMouseLeave={() => setIsHovering(false)}
           animate={{
