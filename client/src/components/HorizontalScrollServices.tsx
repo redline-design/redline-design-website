@@ -270,9 +270,8 @@ export default function HorizontalScrollServices() {
                 data-testid="text-services-scroll-hint"
                 animate={{ opacity: [0.5, 1, 0.5] }}
                 transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                aria-live="polite"
               >
-                Scroll to explore all services ({currentIndex + 1}-{currentIndex + cardsPerPage} of {services.length})
+                Scroll to explore all services
               </motion.p>
               <motion.div
                 animate={{ y: [0, 8, 0] }}
