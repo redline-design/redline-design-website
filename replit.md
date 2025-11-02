@@ -11,6 +11,13 @@ The project targets digital marketing clients looking for SEO, PPC, web design, 
 - Reviews stored in PostgreSQL with automatic deduplication
 - Moved metrics section (Client Satisfaction, ROI, Success Stories, Retention) from standalone Testimonials page to Home page
 - Removed standalone Testimonials page and navigation link
+- **Blog Management System**: Complete blog platform with database-backed content, admin dashboard, and external API integration
+  - Database schema for blog posts with all necessary fields (title, slug, content, excerpt, category, author, etc.)
+  - Replit Auth integration for admin authentication and authorization
+  - Admin dashboard at `/admin` for creating, editing, and deleting blog posts
+  - External API endpoint (`POST /api/external/blog/posts`) with API key authentication for automated content creation
+  - Security: Unpublished posts protected from unauthenticated access on both listing and individual post endpoints
+  - Seeded with 6 example blog posts covering SEO, PPC, Web Design, Social Media, Email Marketing, and Local SEO
 
 ## User Preferences
 
@@ -65,6 +72,12 @@ Preferred communication style: Simple, everyday language.
 - `/api/chat` endpoint for AI assistant chat functionality using OpenAI API
 - `/api/reviews` endpoint (GET) - Fetches 5-star reviews from database for testimonials display
 - `/api/reviews/sync` endpoint (POST) - Triggers Google Business Profile API sync for new reviews
+- `/api/blog/posts` endpoint (GET) - Fetches published blog posts (requires auth for unpublished posts via `?includeUnpublished=true`)
+- `/api/blog/posts/:slug` endpoint (GET) - Fetches individual blog post by slug (returns 404 for unpublished posts to unauthenticated users)
+- `/api/blog/posts` endpoint (POST) - Creates new blog post (requires authentication)
+- `/api/blog/posts/:id` endpoint (PUT) - Updates existing blog post (requires authentication)
+- `/api/blog/posts/:id` endpoint (DELETE) - Deletes blog post (requires authentication)
+- `/api/external/blog/posts` endpoint (POST) - External API for automated blog post creation/updates (requires API key via X-API-Key header)
 - Request/response logging with duration tracking
 - Error handling with status code propagation
 
@@ -83,10 +96,16 @@ Preferred communication style: Simple, everyday language.
 - Migration files output to `./migrations` directory
 
 **Schema Design**
-- **Users table**: Basic authentication structure with id (UUID), username, password
+- **Users table**: Authentication structure with id (UUID), username, email
+  - Used by Replit Auth for session management
+- **Sessions table**: Stores user sessions for Replit Auth
+  - Fields: sid (primary key), sess (JSON), expire (timestamp)
 - **Reviews table**: Stores Google Business Profile reviews with profile photos
   - Fields: id (UUID), googleReviewId (unique), name, role, company, content, rating, profilePhotoUrl, reviewDate, createdAt
   - Seeded with 3 existing Google reviews from Pete Gallego, Mason Small, and Emily Check
+- **Blog Posts table**: Stores all blog content with full metadata
+  - Fields: id (UUID), title, slug (unique), content (text), excerpt, category, author, readTime, featured (boolean), published (boolean), publishedAt (nullable timestamp), createdAt, updatedAt
+  - Seeded with 6 example posts covering SEO, PPC, Web Design, Social Media, Email Marketing, and Local SEO
 - Drizzle-Zod integration for runtime schema validation
 - Type inference for Insert and Select operations
 
