@@ -112,21 +112,22 @@ export default function HorizontalScrollServices() {
       data-testid="section-services-horizontal"
     >
       <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden">
-        <div className="max-w-7xl mx-auto px-2 sm:px-4 md:px-6 lg:px-8 w-full">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 md:px-8 w-full">
           <div className="text-center mb-6 md:mb-12">
             <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold uppercase tracking-[0.3em] mb-2 md:mb-4 red-glow-pulse" style={{ color: "#ff0000" }}>
               What We Do
             </h2>
-            <p className="text-sm sm:text-base md:text-lg text-foreground max-w-2xl mx-auto px-4">
+            <p className="text-sm sm:text-base md:text-lg text-foreground max-w-2xl mx-auto">
               Full-service digital marketing designed to drive results
             </p>
           </div>
 
           {/* Horizontal scrolling container */}
-          <motion.div 
-            style={{ x }}
-            className="flex gap-4 md:gap-8 pb-4 md:pb-8"
-          >
+          <div className="overflow-hidden">
+            <motion.div 
+              style={{ x }}
+              className="flex gap-4 md:gap-8 pb-4 md:pb-8"
+            >
             {services.map((service, index) => (
               <div 
                 key={service.title} 
@@ -143,10 +144,11 @@ export default function HorizontalScrollServices() {
                 />
               </div>
             ))}
-          </motion.div>
+            </motion.div>
+          </div>
 
           {/* Progress bar */}
-          <div className="mt-4 md:mt-8 w-full max-w-3xl mx-auto px-4">
+          <div className="mt-4 md:mt-8 w-full max-w-3xl mx-auto">
             <div 
               role="progressbar" 
               aria-label="Service scroll progress"

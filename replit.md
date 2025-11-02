@@ -24,6 +24,7 @@ The project targets digital marketing clients looking for SEO, PPC, web design, 
   - Progress bar indicator showing scroll position through services with accessible aria-valuenow updates
   - Sticky positioning with minimal container height (120vh on mobile, 150vh on desktop) allowing users to easily scroll past without viewing all services
   - No background - transparent design allows content behind to show through naturally
+  - Contained within max-w-5xl centered container with overflow-hidden to clip cards within the section
   - Services centered on screen for optimal viewing while scrolling
   - Each service card has unique accent color and icon for visual differentiation
   - **Mobile-responsive design**:
