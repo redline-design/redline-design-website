@@ -173,9 +173,9 @@ export default function HorizontalScrollServices() {
           onMouseEnter={() => setIsHovering(true)}
           onMouseLeave={() => setIsHovering(false)}
           animate={{
-            borderColor: isHovering ? "rgba(255, 0, 0, 0.6)" : "rgba(255, 255, 255, 0.1)",
+            borderColor: isHovering ? "rgba(255, 0, 0, 0.25)" : "rgba(255, 255, 255, 0.1)",
             boxShadow: isHovering 
-              ? "0 0 20px rgba(255, 0, 0, 0.4), 0 0 40px rgba(255, 0, 0, 0.2), 0 0 60px rgba(255, 0, 0, 0.1)"
+              ? "0 0 15px rgba(255, 0, 0, 0.15), 0 0 30px rgba(255, 0, 0, 0.08)"
               : "0 0 0 rgba(255, 0, 0, 0)"
           }}
           transition={{ duration: 0.3 }}
