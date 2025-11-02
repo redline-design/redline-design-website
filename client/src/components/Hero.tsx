@@ -73,7 +73,6 @@ export default function Hero() {
             src={logoLarge} 
             alt="Redline Design" 
             className="w-full max-w-sm md:max-w-md lg:max-w-lg mx-auto"
-            style={{ filter: 'brightness(0) invert(1)' }}
             data-testid="img-hero-logo"
           />
         </motion.div>
