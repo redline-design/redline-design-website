@@ -16,17 +16,6 @@ export default function HorizontalScrollServices() {
     offset: ["start end", "end start"]
   });
   
-  // Update progress value for accessibility - properly handles cleanup
-  useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    const percent = Math.round(latest * 100);
-    setProgressPercent(percent);
-    
-    // Calculate which page we should be on (snap points)
-    const totalPages = Math.ceil(10 / cardsPerPage);
-    const newPage = Math.min(Math.floor((percent / 100) * totalPages), totalPages - 1);
-    setCurrentPage(newPage);
-  });
-
   // Calculate cards per page based on viewport width
   useEffect(() => {
     const updateCardsPerPage = () => {
@@ -44,6 +33,29 @@ export default function HorizontalScrollServices() {
     window.addEventListener('resize', updateCardsPerPage);
     return () => window.removeEventListener('resize', updateCardsPerPage);
   }, []);
+
+  // Clamp currentPage when cardsPerPage changes to prevent empty carousel
+  useEffect(() => {
+    const totalPages = Math.ceil(services.length / cardsPerPage);
+    if (currentPage >= totalPages) {
+      setCurrentPage(Math.max(0, totalPages - 1));
+    }
+  }, [cardsPerPage, currentPage]);
+
+  // Update progress value for accessibility - properly handles cleanup
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    const percent = Math.round(latest * 100);
+    setProgressPercent(percent);
+    
+    // Calculate which page we should be on (snap points)
+    const totalPages = Math.ceil(services.length / cardsPerPage);
+    const newPage = Math.min(Math.floor((percent / 100) * totalPages), totalPages - 1);
+    
+    // Only update if page actually changed to avoid redundant renders
+    if (newPage !== currentPage) {
+      setCurrentPage(newPage);
+    }
+  });
 
   // Scroll locking when hovering over the section
   useEffect(() => {
@@ -193,7 +205,10 @@ export default function HorizontalScrollServices() {
           </div>
 
           {/* Snapping horizontal cards with layering animation */}
-          <div className="relative h-[300px] md:h-[320px] overflow-hidden">
+          <div 
+            className="relative h-[300px] md:h-[320px] overflow-hidden"
+            data-testid="container-services-carousel"
+          >
             <div className="flex justify-center items-center gap-4 md:gap-6 h-full">
               <AnimatePresence mode="popLayout">
                 {services
@@ -202,6 +217,7 @@ export default function HorizontalScrollServices() {
                     <motion.div
                       key={`${currentPage}-${service.title}`}
                       className="flex-shrink-0 w-[280px] h-[280px] md:w-[320px] md:h-[280px]"
+                      data-testid={`container-service-card-${service.title.toLowerCase().replace(/\s/g, "-")}`}
                       initial={{ 
                         opacity: 0, 
                         x: 100,
@@ -249,20 +265,26 @@ export default function HorizontalScrollServices() {
 
           {/* Progress bar and page indicator */}
           <div className="mt-4 md:mt-8 w-full max-w-3xl mx-auto">
-            <div className="flex justify-center gap-2 mb-4">
-              {Array.from({ length: Math.ceil(10 / cardsPerPage) }).map((_, idx) => (
+            <div className="flex justify-center gap-2 mb-4" data-testid="container-page-indicators">
+              {Array.from({ length: Math.ceil(services.length / cardsPerPage) }).map((_, idx) => (
                 <div
                   key={idx}
+                  data-testid={`indicator-page-${idx + 1}`}
                   className={`h-2 rounded-full transition-all duration-300 ${
                     idx === currentPage 
                       ? 'w-8 bg-primary' 
                       : 'w-2 bg-border/30'
                   }`}
+                  aria-current={idx === currentPage ? 'true' : 'false'}
                 />
               ))}
             </div>
-            <p className="text-center text-xs sm:text-sm text-muted-foreground">
-              Scroll to explore all services ({currentPage + 1}/{Math.ceil(10 / cardsPerPage)})
+            <p 
+              className="text-center text-xs sm:text-sm text-muted-foreground"
+              data-testid="text-services-progress"
+              aria-live="polite"
+            >
+              Scroll to explore all services ({currentPage + 1}/{Math.ceil(services.length / cardsPerPage)})
             </p>
           </div>
         </motion.div>
