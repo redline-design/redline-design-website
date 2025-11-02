@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import logoImage from "@assets/Asset 1_1762033090173.png";
-import ThemeToggle from "./ThemeToggle";
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -100,7 +99,6 @@ export default function Header() {
                 </Button>
               </motion.div>
             </Link>
-            <ThemeToggle />
             
             <button
               className="md:hidden p-2 hover-elevate active-elevate-2 rounded-md"

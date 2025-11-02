@@ -8,7 +8,6 @@ import Footer from "@/components/Footer";
 import DiagonalStripes from "@/components/DiagonalStripes";
 import AnimatedBackground from "@/components/AnimatedBackground";
 import ChatWidget from "@/components/ChatWidget";
-import { ThemeProvider } from "@/components/ThemeProvider";
 import Home from "@/pages/Home";
 import Services from "@/pages/Services";
 import WhyUs from "@/pages/WhyUs";
@@ -169,21 +168,19 @@ function Router() {
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider>
-        <TooltipProvider>
-          <div className="flex flex-col min-h-screen relative">
-            <AnimatedBackground />
-            <DiagonalStripes />
-            <Header />
-            <main className="flex-1 relative z-10">
-              <Router />
-            </main>
-            <Footer />
-            <ChatWidget />
-          </div>
-          <Toaster />
-        </TooltipProvider>
-      </ThemeProvider>
+      <TooltipProvider>
+        <div className="flex flex-col min-h-screen relative">
+          <AnimatedBackground />
+          <DiagonalStripes />
+          <Header />
+          <main className="flex-1 relative z-10">
+            <Router />
+          </main>
+          <Footer />
+          <ChatWidget />
+        </div>
+        <Toaster />
+      </TooltipProvider>
     </QueryClientProvider>
   );
 }

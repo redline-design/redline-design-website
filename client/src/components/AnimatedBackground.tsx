@@ -1,5 +1,4 @@
 import { useEffect, useRef } from "react";
-import { useTheme } from "./ThemeProvider";
 
 interface Particle {
   x: number;
@@ -12,7 +11,6 @@ interface Particle {
 
 export default function AnimatedBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const { theme } = useTheme();
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -49,8 +47,8 @@ export default function AnimatedBackground() {
       const gridSize = 50;
       const time = Date.now() * 0.0002;
       
-      // Use blue in light mode, red in dark mode
-      const color = theme === 'dark' ? '239, 68, 68' : '59, 130, 246';
+      // Red color for dark mode
+      const color = '239, 68, 68';
       ctx.strokeStyle = `rgba(${color}, 0.15)`;
       ctx.lineWidth = 1;
 
@@ -88,7 +86,7 @@ export default function AnimatedBackground() {
         // Draw particle
         ctx.beginPath();
         ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
-        const color = theme === 'dark' ? '239, 68, 68' : '59, 130, 246';
+        const color = '239, 68, 68';
         ctx.fillStyle = `rgba(${color}, ${particle.opacity})`;
         ctx.fill();
       });
@@ -105,7 +103,7 @@ export default function AnimatedBackground() {
 
           if (distance < maxDistance) {
             const opacity = (1 - distance / maxDistance) * 0.5;
-            const color = theme === 'dark' ? '239, 68, 68' : '59, 130, 246';
+            const color = '239, 68, 68';
             ctx.beginPath();
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
@@ -133,7 +131,7 @@ export default function AnimatedBackground() {
       window.removeEventListener("resize", resizeCanvas);
       cancelAnimationFrame(animationFrameId);
     };
-  }, [theme]);
+  }, []);
 
   return (
     <canvas

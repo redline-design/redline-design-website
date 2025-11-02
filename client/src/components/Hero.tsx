@@ -4,11 +4,9 @@ import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { ChevronDown, Sparkles } from "lucide-react";
 import logoLarge from "@assets/v2h5UOvchlYvZ2HIPfl8w5dPIc_1762041101932.avif";
-import { useTheme } from "./ThemeProvider";
 
 export default function Hero() {
   const [scrollY, setScrollY] = useState(0);
-  const { theme } = useTheme();
   const containerRef = useRef(null);
   
   const { scrollYProgress } = useScroll({
@@ -87,7 +85,7 @@ export default function Hero() {
             src={logoLarge} 
             alt="Redline Design" 
             className="w-full max-w-sm md:max-w-md lg:max-w-lg mx-auto"
-            style={{ filter: theme === 'dark' ? 'brightness(0) invert(1)' : 'brightness(0)' }}
+            style={{ filter: 'brightness(0) invert(1)' }}
             data-testid="img-hero-logo"
           />
         </motion.div>
