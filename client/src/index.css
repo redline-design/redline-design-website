@@ -715,3 +715,99 @@ a, button, [role="button"], input[type="submit"], input[type="button"] {
     animation: red-glow 3s ease-in-out infinite;
   }
 }
+
+/* Accessibility: Respect user's reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Disable custom cursor animations for reduced motion */
+  .custom-cursor {
+    will-change: auto;
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+  }
+
+  .custom-cursor.hover {
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.6);
+    width: 16px;
+    height: 16px;
+  }
+
+  /* Disable shimmer and glow effects */
+  .shimmer,
+  .button-3d,
+  .button-recessed {
+    animation: none !important;
+  }
+
+  .shimmer::before,
+  .button-3d::before,
+  .button-recessed::before {
+    animation: none !important;
+  }
+
+  /* Disable transform animations on hover/active */
+  .shimmer:hover,
+  .button-3d:hover,
+  .button-recessed:hover,
+  .card-float:hover,
+  .icon-glow:hover {
+    transform: none !important;
+  }
+
+  .shimmer:active,
+  .button-3d:active,
+  .button-recessed:active {
+    transform: none !important;
+  }
+
+  /* Disable card animations */
+  .card-float:hover {
+    animation: none !important;
+  }
+
+  /* Disable scroll animations */
+  .animate-scroll {
+    animation: none !important;
+  }
+
+  /* Keep gradient text visible but disable animation */
+  .animate-gradient {
+    animation: none !important;
+    background-position: 0% 50%;
+  }
+
+  /* Disable glow effects */
+  .red-glow-pulse {
+    animation: none !important;
+    text-shadow: none;
+  }
+
+  /* Disable badge pulse */
+  .badge-pulse {
+    animation: none !important;
+  }
+
+  /* Disable fade-up animations */
+  .fade-up {
+    animation: none !important;
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Disable number pop animation */
+  .number-pop {
+    animation: none !important;
+  }
+
+  /* Disable fill-on-hover animation */
+  .fill-on-hover::after {
+    transition: none !important;
+  }
+}

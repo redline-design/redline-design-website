@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, memo } from "react";
 import { motion } from "framer-motion";
 import { LucideIcon } from "lucide-react";
 
@@ -13,7 +13,7 @@ interface TabbedContentProps {
   tabs: Tab[];
 }
 
-export default function TabbedContent({ tabs }: TabbedContentProps) {
+const TabbedContent = memo(function TabbedContent({ tabs }: TabbedContentProps) {
   const [activeTab, setActiveTab] = useState(tabs[0].id);
 
   return (
@@ -66,4 +66,6 @@ export default function TabbedContent({ tabs }: TabbedContentProps) {
       </div>
     </div>
   );
-}
+});
+
+export default TabbedContent;

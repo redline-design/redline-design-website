@@ -1,7 +1,7 @@
 import { Link } from "wouter";
 import logoImage from "@assets/Asset 1_1762033090173.png";
 import { FaFacebook, FaInstagram } from "react-icons/fa";
-import { useState } from "react";
+import { useState, memo } from "react";
 import { ChevronDown } from "lucide-react";
 import {
   Collapsible,
@@ -9,34 +9,34 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 
-export default function Footer() {
+const SERVICES = [
+  { href: "/services#seo", label: "SEO & SEM" },
+  { href: "/services#ppc", label: "Paid Advertising" },
+  { href: "/services#web", label: "Web Design" },
+  { href: "/services#social", label: "Social Media" },
+];
+
+const COMPANY = [
+  { href: "/services", label: "What We Do" },
+  { href: "/why-us", label: "Why Us?" },
+  { href: "/#partners", label: "Our Partners" },
+  { href: "/book-a-demo", label: "Book a Demo" },
+];
+
+const POLICIES = [
+  { href: "/tos", label: "TOS" },
+  { href: "/privacy", label: "Privacy" },
+  { href: "/data-use", label: "Data Use" },
+  { href: "/information-security", label: "Information Security" },
+  { href: "/nda", label: "NDA" },
+  { href: "/irp", label: "IRP" },
+  { href: "/sda", label: "SDA" },
+];
+
+const Footer = memo(function Footer() {
   const [servicesOpen, setServicesOpen] = useState(false);
   const [companyOpen, setCompanyOpen] = useState(false);
   const [legalOpen, setLegalOpen] = useState(false);
-
-  const services = [
-    { href: "/services#seo", label: "SEO & SEM" },
-    { href: "/services#ppc", label: "Paid Advertising" },
-    { href: "/services#web", label: "Web Design" },
-    { href: "/services#social", label: "Social Media" },
-  ];
-
-  const company = [
-    { href: "/services", label: "What We Do" },
-    { href: "/why-us", label: "Why Us?" },
-    { href: "/#partners", label: "Our Partners" },
-    { href: "/book-a-demo", label: "Book a Demo" },
-  ];
-
-  const policies = [
-    { href: "/tos", label: "TOS" },
-    { href: "/privacy", label: "Privacy" },
-    { href: "/data-use", label: "Data Use" },
-    { href: "/information-security", label: "Information Security" },
-    { href: "/nda", label: "NDA" },
-    { href: "/irp", label: "IRP" },
-    { href: "/sda", label: "SDA" },
-  ];
 
   return (
     <footer className="border-t border-white/10 bg-card/30 backdrop-blur-xl relative z-10" data-testid="footer-main">
@@ -45,7 +45,7 @@ export default function Footer() {
           <div className="flex items-center gap-6">
             <Link href="/">
               <div className="cursor-pointer hover-elevate active-elevate-2 rounded-md p-2">
-                <img src={logoImage} alt="Redline Design" className="h-8 w-auto" />
+                <img src={logoImage} alt="Redline Design" loading="lazy" className="h-8 w-auto" />
               </div>
             </Link>
             <div className="flex gap-4">
@@ -80,7 +80,7 @@ export default function Footer() {
               </CollapsibleTrigger>
               <CollapsibleContent className="mt-2">
                 <ul className="space-y-1">
-                  {services.map((link) => (
+                  {SERVICES.map((link) => (
                     <li key={link.href}>
                       <Link href={link.href}>
                         <span
@@ -103,7 +103,7 @@ export default function Footer() {
               </CollapsibleTrigger>
               <CollapsibleContent className="mt-2">
                 <ul className="space-y-1">
-                  {company.map((link) => (
+                  {COMPANY.map((link) => (
                     <li key={link.href}>
                       <Link href={link.href}>
                         <span
@@ -126,7 +126,7 @@ export default function Footer() {
               </CollapsibleTrigger>
               <CollapsibleContent className="mt-2">
                 <ul className="space-y-1">
-                  {policies.map((link) => (
+                  {POLICIES.map((link) => (
                     <li key={link.href}>
                       <Link href={link.href}>
                         <span
@@ -152,4 +152,6 @@ export default function Footer() {
       </div>
     </footer>
   );
-}
+});
+
+export default Footer;

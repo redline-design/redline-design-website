@@ -1,3 +1,4 @@
+import { lazy, Suspense, useEffect, useState, useRef } from "react";
 import { Switch, Route } from "wouter";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
@@ -9,15 +10,15 @@ import DiagonalStripes from "@/components/DiagonalStripes";
 import AnimatedBackground from "@/components/AnimatedBackground";
 import ChatWidget from "@/components/ChatWidget";
 import ScrollProgressBar from "@/components/ScrollProgressBar";
-import Home from "@/pages/Home";
-import Services from "@/pages/Services";
-import WhyUs from "@/pages/WhyUs";
-import BookDemo from "@/pages/BookDemo";
-import Onboarding from "@/pages/Onboarding";
-import Articles from "@/pages/Articles";
-import PolicyPage from "@/pages/PolicyPage";
-import NotFound from "@/pages/not-found";
-import { useEffect, useState, useRef } from "react";
+
+const Home = lazy(() => import("@/pages/Home"));
+const Services = lazy(() => import("@/pages/Services"));
+const WhyUs = lazy(() => import("@/pages/WhyUs"));
+const BookDemo = lazy(() => import("@/pages/BookDemo"));
+const Onboarding = lazy(() => import("@/pages/Onboarding"));
+const Articles = lazy(() => import("@/pages/Articles"));
+const PolicyPage = lazy(() => import("@/pages/PolicyPage"));
+const NotFound = lazy(() => import("@/pages/not-found"));
 
 function Router() {
   return (
@@ -167,6 +168,17 @@ function Router() {
   );
 }
 
+function LoadingFallback() {
+  return (
+    <div className="flex items-center justify-center min-h-screen bg-background">
+      <div className="text-center">
+        <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+        <p className="text-muted-foreground">Loading...</p>
+      </div>
+    </div>
+  );
+}
+
 function CustomCursor() {
   const cursorRef = useRef<HTMLDivElement>(null);
   const [isHovering, setIsHovering] = useState(false);
@@ -232,7 +244,9 @@ function App() {
           <DiagonalStripes />
           <Header />
           <main className="flex-1 relative z-10">
-            <Router />
+            <Suspense fallback={<LoadingFallback />}>
+              <Router />
+            </Suspense>
           </main>
           <Footer />
           <ChatWidget />

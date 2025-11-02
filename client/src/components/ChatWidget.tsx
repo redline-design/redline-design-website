@@ -85,7 +85,7 @@ export default function ChatWidget() {
             <div className="p-4 bg-primary/10 border-b border-white/10 flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full flex items-center justify-center overflow-hidden bg-white/10">
-                  <img src={logoImage} alt="Redline Design" className="w-full h-full object-contain p-1" />
+                  <img src={logoImage} alt="Redline Design" loading="lazy" className="w-full h-full object-contain p-1" />
                 </div>
                 <div>
                   <h3 className="font-semibold text-foreground">Redline Design</h3>
@@ -172,7 +172,7 @@ export default function ChatWidget() {
         {isOpen ? (
           <X className="w-6 h-6 text-white" />
         ) : (
-          <img src={logoImage} alt="Chat" className="w-full h-full object-contain" />
+          <img src={logoImage} alt="Chat" loading="lazy" className="w-full h-full object-contain" />
         )}
       </motion.button>
     </div>

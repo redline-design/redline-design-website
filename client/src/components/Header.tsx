@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Home } from "lucide-react";
@@ -10,30 +10,41 @@ export default function Header() {
   const [showNav, setShowNav] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [location] = useLocation();
+  const rafRef = useRef<number>();
 
   useEffect(() => {
     const handleScroll = () => {
-      const currentScrollY = window.scrollY;
+      if (rafRef.current) return; // Skip if update already scheduled
       
-      setIsScrolled(currentScrollY > 50);
-      
-      // Show nav when scrolling up, hide when scrolling down
-      if (currentScrollY < 100) {
-        // Always show when near top
-        setShowNav(true);
-      } else if (currentScrollY < lastScrollY) {
-        // Scrolling up
-        setShowNav(true);
-      } else if (currentScrollY > lastScrollY) {
-        // Scrolling down
-        setShowNav(false);
-      }
-      
-      setLastScrollY(currentScrollY);
+      rafRef.current = requestAnimationFrame(() => {
+        const currentScrollY = window.scrollY;
+        
+        setIsScrolled(currentScrollY > 50);
+        
+        // Show nav when scrolling up, hide when scrolling down
+        if (currentScrollY < 100) {
+          // Always show when near top
+          setShowNav(true);
+        } else if (currentScrollY < lastScrollY) {
+          // Scrolling up
+          setShowNav(true);
+        } else if (currentScrollY > lastScrollY) {
+          // Scrolling down
+          setShowNav(false);
+        }
+        
+        setLastScrollY(currentScrollY);
+        rafRef.current = undefined;
+      });
     };
     
     window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (rafRef.current) {
+        cancelAnimationFrame(rafRef.current);
+      }
+    };
   }, [lastScrollY]);
 
   const navLinks = [

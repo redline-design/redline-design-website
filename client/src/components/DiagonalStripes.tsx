@@ -1,4 +1,6 @@
-export default function DiagonalStripes() {
+import { memo } from "react";
+
+const DiagonalStripes = memo(function DiagonalStripes() {
   return (
     <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
       <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
@@ -26,4 +28,8 @@ export default function DiagonalStripes() {
       </svg>
     </div>
   );
-}
+});
+
+DiagonalStripes.displayName = "DiagonalStripes";
+
+export default DiagonalStripes;
