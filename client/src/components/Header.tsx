@@ -51,7 +51,7 @@ export default function Header() {
       data-testid="header-main"
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
+        <div className="relative h-20 flex items-center justify-center">
           {/* Desktop Navigation - Centered pill */}
           <AnimatePresence>
             {showNav && (
@@ -60,7 +60,7 @@ export default function Header() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.3, ease: "easeInOut" }}
-                className="hidden md:flex items-center gap-1 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full px-4 py-2"
+                className="hidden md:flex items-center gap-1 rounded-full px-4 py-2"
                 style={{
                   backgroundColor: "hsl(var(--background) / 0.7)",
                   backdropFilter: "blur(20px)",
@@ -107,8 +107,8 @@ export default function Header() {
             )}
           </AnimatePresence>
 
-          {/* Right Side */}
-          <div className="flex items-center gap-3 relative z-10">
+          {/* Mobile Menu Button */}
+          <div className="absolute right-0 top-1/2 -translate-y-1/2">
             <button
               className="md:hidden p-2 hover-elevate active-elevate-2 rounded-md"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
