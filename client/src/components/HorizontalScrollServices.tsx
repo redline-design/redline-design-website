@@ -112,7 +112,7 @@ export default function HorizontalScrollServices() {
       data-testid="section-services-horizontal"
     >
       <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 md:px-8 w-full">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 md:px-8 w-full backdrop-blur-md bg-card/40 border border-border/30 rounded-3xl py-8 md:py-12">
           <div className="text-center mb-6 md:mb-12">
             <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold uppercase tracking-[0.3em] mb-2 md:mb-4 red-glow-pulse" style={{ color: "#ff0000" }}>
               What We Do
