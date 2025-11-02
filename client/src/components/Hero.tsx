@@ -29,13 +29,9 @@ export default function Hero() {
   }, []);
 
   return (
-    <section
-      ref={containerRef}
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
-      data-testid="section-hero"
-    >
-      {/* Animated gradient background */}
-      <div className="absolute inset-0 z-0">
+    <>
+      {/* Fixed animated gradient background */}
+      <div className="fixed inset-0 z-0">
         <motion.div 
           className="absolute inset-0 bg-gradient-to-br from-primary/20 via-background to-primary/20"
           animate={{
@@ -50,6 +46,12 @@ export default function Hero() {
         />
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/30 to-background/80"></div>
       </div>
+
+      <section
+        ref={containerRef}
+        className="relative min-h-screen flex items-center justify-center overflow-hidden"
+        data-testid="section-hero"
+      >
 
       <motion.div 
         className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 pt-32 pb-20 text-center"
@@ -158,5 +160,6 @@ export default function Hero() {
         </div>
       </motion.div>
     </section>
+    </>
   );
 }
