@@ -16,6 +16,15 @@ The project targets digital marketing clients looking for SEO, PPC, web design, 
   - Icon-based selection with visual feedback: green highlight when selected, grayed out otherwise
   - Responsive grid layout (3 columns mobile, 4 tablet, 5 desktop)
   - Smooth transitions and hover states for better UX
+- **3D Testimonials Carousel**: Premium floating carousel with advanced animations
+  - Mouse-tracking 3D tilt effect: Cards rotate dynamically based on cursor position (rotateX/rotateY transforms)
+  - Star burst particles: 5 animated stars explode outward when sliding to new testimonials
+  - Depth-tracked parallax: Profile photos move independently creating realistic depth perception
+  - Embla Carousel integration: Smooth looping carousel with prev/next navigation and dot indicators
+  - Glassmorphism cards: backdrop-blur-md with bg-card/40 for premium aesthetic
+  - Responsive design: Card widths adapt (100% mobile → 70% desktop)
+  - Accessibility: Full ARIA labels, keyboard navigation, reduced motion support
+  - Performance: All 3D effects respect prefers-reduced-motion for accessibility
 - **Blog Management System**: Complete blog platform with database-backed content, admin dashboard, and external API integration
   - Database schema for blog posts with all necessary fields (title, slug, content, excerpt, category, author, etc.)
   - Replit Auth integration for admin authentication and authorization
