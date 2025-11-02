@@ -71,14 +71,11 @@ export default function Hero() {
         >
           <style>{`
             @keyframes heroLogoShimmer {
-              0% {
-                clip-path: inset(100% 0 0 0);
+              0%, 100% {
+                clip-path: inset(0 0 100% 0);
               }
               50% {
                 clip-path: inset(0 0 0 0);
-              }
-              100% {
-                clip-path: inset(0 0 100% 0);
               }
             }
           `}</style>
