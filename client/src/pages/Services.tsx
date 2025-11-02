@@ -81,7 +81,7 @@ function ServiceSection({ id, icon: Icon, title, description, features, outcomes
           </div>
 
           <Link href="/book-a-demo">
-            <Button size="lg" variant="default" className="button-recessed fill-on-hover" data-testid={`button-get-plan-${id}`}>
+            <Button size="lg" variant="default" data-testid={`button-get-plan-${id}`}>
               Get a Plan
             </Button>
           </Link>
