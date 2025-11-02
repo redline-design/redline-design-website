@@ -18,25 +18,24 @@ The project targets digital marketing clients looking for SEO, PPC, web design, 
   - External API endpoint (`POST /api/external/blog/posts`) with API key authentication for automated content creation
   - Security: Unpublished posts protected from unauthenticated access on both listing and individual post endpoints
   - Seeded with 6 example blog posts covering SEO, PPC, Web Design, Social Media, Email Marketing, and Local SEO
-- **Horizontal Scrolling Services Section**: Interactive "What We Do" section with hover-activated snap pagination and 3D layering animations
-  - Displays 10 service cards: World Class Websites, Paid Advertising, SEO/SEM, CRM Setup & Automation, Analytics & Data Analysis, Graphic Design, Social Media Marketing, Email Marketing, Consulting, and AI Automation
+- **Horizontal Scrolling Services Section**: Interactive "What We Do" section with hover-activated one-at-a-time service scrolling and 3D layering animations
+  - Displays 10 service cards one at a time: World Class Websites, Paid Advertising, SEO/SEM, CRM Setup & Automation, Analytics & Data Analysis, Graphic Design, Social Media Marketing, Email Marketing, Consulting, and AI Automation
   - **Hover-Activated Interaction**: Services only change when hovering inside the glassmorphism box
-    - Outside the box: Normal page scrolling, services remain static
-    - Inside the box: Complete scroll-lock on page, wheel events advance/retreat through service pages
-  - **Snap Scrolling**: Cards snap to discrete pages controlled by wheel events
-    - Mobile (<640px): 1 card per page = 10 pages total
-    - Tablet (640-1024px): 2 cards per page = 5 pages total
-    - Desktop (>1024px): 3 cards per page = 4 pages total
-  - **3D Layering Animation**: Uses Framer Motion's AnimatePresence with "popLayout" mode
+    - Outside the box: Normal page scrolling, services remain static on first card
+    - Inside the box: Complete scroll-lock on page, wheel events advance/retreat one service at a time
+  - **One-at-a-Time Scrolling**: Each scroll advances to the next single service (not pages)
+    - Scroll down = next service
+    - Scroll up = previous service
+    - All screen sizes show one service at a time for consistent experience
+  - **3D Layering Animation**: Uses Framer Motion's AnimatePresence with "wait" mode
     - Cards slide in from right with 3D rotation (rotateY: -20° → 0°) and scale (0.8 → 1.0)
     - Exit animation slides cards left with opposite rotation
-    - Staggered delays (0.1s per card index) create cascading effect
     - Spring-based transitions for smooth, natural movement
-  - **Progress Bar**: Red progress bar showing completion through all service pages
-    - Fills proportionally based on current page vs total pages
-    - Smooth transition animations when snapping to new pages
-    - Progress text shows "current/total" (e.g., "2/4")
-  - **Responsive Logic**: Automatically clamps currentPage when viewport resizes to prevent blank carousel
+    - Each service transitions individually with full animation
+  - **Animated Scroll Hint**: Pulsing text and bouncing down arrow encourage exploration
+    - Text fades in/out (opacity: 0.5 → 1 → 0.5)
+    - Red down arrow bounces vertically (y: 0 → 8px → 0)
+    - Infinite loop animations with smooth easing
   - Sticky positioning with minimal container height (120vh on mobile, 150vh on desktop)
   - Glassmorphism background (backdrop-blur-md, bg-card/40) with rounded corners and z-50 layering
   - **Interactive hover effects**: Red shimmer/glow around border when hovering (animated border and multi-layer box shadow)
@@ -44,7 +43,6 @@ The project targets digital marketing clients looking for SEO, PPC, web design, 
   - **Smart Pointer Events**: Parent div has pointer-events-none, glassmorphism box has pointer-events-auto for precise hover detection
   - Contained within max-w-7xl centered container with overflow-hidden
   - Uniform card sizes (280px × 280px on mobile/tablet, 320px × 280px on desktop)
-  - Gap between cards: 16px (mobile), 24px (desktop)
   - Comprehensive test IDs for accessibility and automated testing
 
 ## User Preferences
