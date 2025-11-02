@@ -120,12 +120,12 @@ export default function Footer() {
               ))}
             </ul>
           </div>
-        </div>
 
-        <div className="mt-6 pt-4 border-t border-border">
-          <p className="text-sm text-muted-foreground text-center">
-            © {new Date().getFullYear()} Redline Design LLC. All rights reserved.
-          </p>
+          <div className="col-span-1 md:col-span-2 lg:col-span-4 mt-4">
+            <p className="text-sm text-muted-foreground text-center">
+              © {new Date().getFullYear()} Redline Design LLC. All rights reserved.
+            </p>
+          </div>
         </div>
       </div>
     </footer>
