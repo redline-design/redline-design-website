@@ -33,7 +33,7 @@ function BlogPost({ title, excerpt, category, readTime, date, slug, featured = f
       className={featured ? "md:col-span-2" : ""}
       data-testid={`blog-post-${slug}`}
     >
-      <Card className="rounded-2xl overflow-hidden backdrop-blur-md bg-white/10 border-white/20 shadow-2xl hover-elevate h-full group">
+      <Card className="rounded-2xl overflow-hidden backdrop-blur-md bg-white/10 border-white/20 shadow-2xl hover-elevate h-full group red-border-shimmer">
         <CardContent className="p-8">
           <div className="flex items-center gap-3 mb-4">
             <Badge variant="secondary">{category}</Badge>

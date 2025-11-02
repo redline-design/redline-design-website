@@ -714,6 +714,20 @@ a, button, [role="button"], input[type="submit"], input[type="button"] {
   .red-glow-pulse {
     animation: red-glow 3s ease-in-out infinite;
   }
+
+  /* Red border shimmer animation */
+  @keyframes red-border-shimmer {
+    0%, 100% {
+      box-shadow: 0 0 15px rgba(255, 0, 0, 0.3), 0 0 30px rgba(255, 0, 0, 0.1), inset 0 0 15px rgba(255, 0, 0, 0.05);
+    }
+    50% {
+      box-shadow: 0 0 25px rgba(255, 0, 0, 0.5), 0 0 45px rgba(255, 0, 0, 0.2), inset 0 0 20px rgba(255, 0, 0, 0.1);
+    }
+  }
+
+  .red-border-shimmer {
+    animation: red-border-shimmer 3s ease-in-out infinite;
+  }
 }
 
 /* Accessibility: Respect user's reduced motion preference */
