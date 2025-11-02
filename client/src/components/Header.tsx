@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Home } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function Header() {
@@ -70,6 +70,26 @@ export default function Header() {
                 }}
                 data-testid="nav-desktop"
               >
+            {/* Home Icon */}
+            <Link href="/">
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 }}
+                className={`relative px-3 py-2 text-sm font-medium transition-colors cursor-pointer group rounded-lg ${
+                  location === "/" ? "text-primary" : "text-foreground"
+                }`}
+                data-testid="link-nav-home"
+              >
+                <Home className="h-5 w-5" />
+                <span 
+                  className={`absolute bottom-1 left-1/2 -translate-x-1/2 h-0.5 bg-primary rounded-full transition-all duration-300 ${
+                    location === "/" ? "w-6" : "w-0 group-hover:w-6"
+                  }`}
+                />
+              </motion.div>
+            </Link>
+            
             {navLinks.map((link, index) => (
               <Link key={link.href} href={link.href}>
                 <motion.div
@@ -133,6 +153,23 @@ export default function Header() {
             data-testid="nav-mobile"
           >
             <div className="px-6 py-6 space-y-2">
+              {/* Home Link */}
+              <Link href="/">
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0 }}
+                  className={`flex items-center gap-3 px-4 py-3 rounded-lg text-base font-medium hover-elevate active-elevate-2 cursor-pointer transition-colors ${
+                    location === "/" ? "text-primary bg-primary/10" : "text-foreground"
+                  }`}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  data-testid="link-mobile-home"
+                >
+                  <Home className="h-5 w-5" />
+                  <span>Home</span>
+                </motion.div>
+              </Link>
+              
               {navLinks.map((link, index) => (
                 <Link key={link.href} href={link.href}>
                   <motion.div
