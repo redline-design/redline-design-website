@@ -18,25 +18,28 @@ The project targets digital marketing clients looking for SEO, PPC, web design, 
   - External API endpoint (`POST /api/external/blog/posts`) with API key authentication for automated content creation
   - Security: Unpublished posts protected from unauthenticated access on both listing and individual post endpoints
   - Seeded with 6 example blog posts covering SEO, PPC, Web Design, Social Media, Email Marketing, and Local SEO
-- **Horizontal Scrolling Services Section**: Interactive "What We Do" section with hover-activated page-based scrolling and 3D layering animations
+- **Horizontal Scrolling Services Section**: Interactive "What We Do" section with hover-activated one-card-at-a-time scrolling and 3D layering animations
   - Displays 10 service cards: World Class Websites, Paid Advertising, SEO/SEM, CRM Setup & Automation, Analytics & Data Analysis, Graphic Design, Social Media Marketing, Email Marketing, Consulting, and AI Automation
   - **Hover-Activated Interaction**: Services only change when hovering inside the glassmorphism box
     - Outside the box: Normal page scrolling, services remain static
-    - Inside the box: Complete scroll-lock on page, wheel events advance/retreat through service pages
-  - **Responsive Card Display**: Multiple cards shown at once
-    - Mobile (<640px): 1 card per page = 10 pages total
-    - Tablet (640-1024px): 2 cards per page = 5 pages total
-    - Desktop (>1024px): 3 cards per page = 4 pages total
+    - Inside the box: Complete scroll-lock on page, wheel events advance/retreat one card at a time
+  - **One-Card-at-a-Time Scrolling**: Sliding window approach replacing leftmost card with new card from right
+    - Each scroll replaces only ONE card while keeping others visible
+    - Mobile (<640px): Shows 1 card, advances 1 at a time
+    - Tablet (640-1024px): Shows 2 cards, replaces leftmost with new card from right
+    - Desktop (>1024px): Shows 3 cards, replaces leftmost with new card from right
+    - Window slides through all 10 services one position at a time
   - **3D Layering Animation**: Uses Framer Motion's AnimatePresence with "popLayout" mode
-    - Cards slide in from right (x: 100) with 3D rotation (rotateY: -20° → 0°) and scale (0.8 → 1.0)
-    - Exit animation slides cards left (x: -100) with opposite rotation (rotateY: 20°)
+    - New cards slide in from right (x: 100) with 3D rotation (rotateY: -20° → 0°) and scale (0.8 → 1.0)
+    - Exiting cards slide out to left (x: -100) with opposite rotation (rotateY: 20°)
     - Staggered delays (0.1s per card index) create cascading effect
     - Spring-based transitions for smooth, natural movement
-  - **Progress Bar**: Red progress bar showing completion through all service pages
-    - Fills proportionally based on current page vs total pages
-    - Smooth transition animations when snapping to new pages
-  - **Animated Scroll Hint**: Pulsing text with page counter and bouncing down arrow
-    - Text fades in/out (opacity: 0.5 → 1 → 0.5) showing "Scroll to explore all services (X/Y)"
+  - **Progress Bar**: Red progress bar showing completion through all 10 services
+    - Fills proportionally based on how many services have been viewed
+    - Formula: `(currentIndex + cardsPerPage) / totalServices * 100%`
+    - Smooth transition animations as window advances
+  - **Animated Scroll Hint**: Pulsing text with service counter and bouncing down arrow
+    - Text fades in/out (opacity: 0.5 → 1 → 0.5) showing "Scroll to explore all services (X-Y of 10)"
     - Red down arrow bounces vertically (y: 0 → 8px → 0)
     - Infinite loop animations with smooth easing
   - Sticky positioning with minimal container height (120vh on mobile, 150vh on desktop)

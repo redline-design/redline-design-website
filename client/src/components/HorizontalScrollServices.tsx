@@ -7,7 +7,7 @@ export default function HorizontalScrollServices() {
   const targetRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [isHovering, setIsHovering] = useState(false);
-  const [currentPage, setCurrentPage] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [cardsPerPage, setCardsPerPage] = useState(3);
   
   // Calculate cards per page based on viewport width
@@ -28,15 +28,15 @@ export default function HorizontalScrollServices() {
     return () => window.removeEventListener('resize', updateCardsPerPage);
   }, []);
 
-  // Clamp currentPage when cardsPerPage changes to prevent empty carousel
+  // Clamp currentIndex when cardsPerPage changes to prevent overflow
   useEffect(() => {
-    const totalPages = Math.ceil(services.length / cardsPerPage);
-    if (currentPage >= totalPages) {
-      setCurrentPage(Math.max(0, totalPages - 1));
+    const maxIndex = services.length - cardsPerPage;
+    if (currentIndex > maxIndex) {
+      setCurrentIndex(Math.max(0, maxIndex));
     }
-  }, [cardsPerPage, currentPage]);
+  }, [cardsPerPage, currentIndex]);
 
-  // Handle wheel events when hovering - completely lock page scrolling and advance through service pages
+  // Handle wheel events when hovering - completely lock page scrolling and advance one card at a time
   useEffect(() => {
     if (!isHovering) return;
 
@@ -45,18 +45,18 @@ export default function HorizontalScrollServices() {
       e.preventDefault();
       e.stopPropagation();
 
-      const totalPages = Math.ceil(services.length / cardsPerPage);
+      const maxIndex = services.length - cardsPerPage;
       const scrollingDown = e.deltaY > 0;
       const scrollingUp = e.deltaY < 0;
 
-      // Advance to next page
-      if (scrollingDown && currentPage < totalPages - 1) {
-        setCurrentPage(prev => Math.min(prev + 1, totalPages - 1));
+      // Advance to next card (shift window by 1)
+      if (scrollingDown && currentIndex < maxIndex) {
+        setCurrentIndex(prev => Math.min(prev + 1, maxIndex));
       }
       
-      // Go to previous page
-      if (scrollingUp && currentPage > 0) {
-        setCurrentPage(prev => Math.max(prev - 1, 0));
+      // Go to previous card (shift window by 1)
+      if (scrollingUp && currentIndex > 0) {
+        setCurrentIndex(prev => Math.max(prev - 1, 0));
       }
     };
 
@@ -75,7 +75,7 @@ export default function HorizontalScrollServices() {
       document.removeEventListener('wheel', handleWheel);
       document.removeEventListener('touchmove', handleTouchMove);
     };
-  }, [isHovering, currentPage, cardsPerPage]);
+  }, [isHovering, currentIndex, cardsPerPage]);
 
   const services = [
     {
@@ -189,7 +189,7 @@ export default function HorizontalScrollServices() {
             </p>
           </div>
 
-          {/* Horizontal cards scrolling right to left with layering animation */}
+          {/* Horizontal cards scrolling right to left, replacing one at a time */}
           <div 
             className="relative h-[300px] md:h-[320px] overflow-hidden"
             data-testid="container-services-carousel"
@@ -197,10 +197,10 @@ export default function HorizontalScrollServices() {
             <div className="flex justify-center items-center gap-4 md:gap-6 h-full">
               <AnimatePresence mode="popLayout">
                 {services
-                  .slice(currentPage * cardsPerPage, (currentPage + 1) * cardsPerPage)
+                  .slice(currentIndex, currentIndex + cardsPerPage)
                   .map((service, index) => (
                     <motion.div
-                      key={`${currentPage}-${service.title}`}
+                      key={service.title}
                       className="flex-shrink-0 w-[280px] h-[280px] md:w-[320px] md:h-[280px]"
                       data-testid={`container-service-card-${service.title.toLowerCase().replace(/\s/g, "-")}`}
                       initial={{ 
@@ -255,13 +255,13 @@ export default function HorizontalScrollServices() {
               aria-label="Service scroll progress"
               aria-valuemin={0}
               aria-valuemax={100}
-              aria-valuenow={Math.round(((currentPage + 1) / Math.ceil(services.length / cardsPerPage)) * 100)}
+              aria-valuenow={Math.round(((currentIndex + cardsPerPage) / services.length) * 100)}
               className="h-1 bg-border/30 rounded-full overflow-hidden"
               data-testid="progressbar-services"
             >
               <div 
                 className="h-full bg-primary rounded-full transition-all duration-300 ease-out"
-                style={{ width: `${(currentPage + 1) / Math.ceil(services.length / cardsPerPage) * 100}%` }}
+                style={{ width: `${((currentIndex + cardsPerPage) / services.length) * 100}%` }}
               />
             </div>
             <div className="flex flex-col items-center gap-2 mt-3">
@@ -272,7 +272,7 @@ export default function HorizontalScrollServices() {
                 transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
                 aria-live="polite"
               >
-                Scroll to explore all services ({currentPage + 1}/{Math.ceil(services.length / cardsPerPage)})
+                Scroll to explore all services ({currentIndex + 1}-{currentIndex + cardsPerPage} of {services.length})
               </motion.p>
               <motion.div
                 animate={{ y: [0, 8, 0] }}
