@@ -73,7 +73,6 @@ export default function Hero() {
             src={logoLarge} 
             alt="Redline Design" 
             loading="eager"
-            fetchPriority="high"
             className="w-full max-w-sm md:max-w-md lg:max-w-lg mx-auto"
             data-testid="img-hero-logo"
           />
