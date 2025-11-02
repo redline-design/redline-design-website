@@ -16,6 +16,7 @@ import Onboarding from "@/pages/Onboarding";
 import Articles from "@/pages/Articles";
 import PolicyPage from "@/pages/PolicyPage";
 import NotFound from "@/pages/not-found";
+import { useEffect, useState } from "react";
 
 function Router() {
   return (
@@ -165,10 +166,75 @@ function Router() {
   );
 }
 
+function CustomCursor() {
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [ringPosition, setRingPosition] = useState({ x: 0, y: 0 });
+  const [isHovering, setIsHovering] = useState(false);
+
+  useEffect(() => {
+    const updatePosition = (e: MouseEvent) => {
+      setPosition({ x: e.clientX, y: e.clientY });
+    };
+
+    const updateRingPosition = () => {
+      setRingPosition(prev => ({
+        x: prev.x + (position.x - prev.x) * 0.15,
+        y: prev.y + (position.y - prev.y) * 0.15,
+      }));
+    };
+
+    const handleMouseOver = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (
+        target.tagName === 'A' ||
+        target.tagName === 'BUTTON' ||
+        target.closest('button') ||
+        target.closest('a') ||
+        target.getAttribute('role') === 'button'
+      ) {
+        setIsHovering(true);
+      } else {
+        setIsHovering(false);
+      }
+    };
+
+    window.addEventListener('mousemove', updatePosition);
+    window.addEventListener('mouseover', handleMouseOver);
+    
+    const interval = setInterval(updateRingPosition, 16);
+
+    return () => {
+      window.removeEventListener('mousemove', updatePosition);
+      window.removeEventListener('mouseover', handleMouseOver);
+      clearInterval(interval);
+    };
+  }, [position]);
+
+  return (
+    <>
+      <div
+        className={`custom-cursor ${isHovering ? 'hover' : ''}`}
+        style={{
+          left: `${position.x}px`,
+          top: `${position.y}px`,
+        }}
+      />
+      <div
+        className="custom-cursor-ring"
+        style={{
+          left: `${ringPosition.x}px`,
+          top: `${ringPosition.y}px`,
+        }}
+      />
+    </>
+  );
+}
+
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
+        <CustomCursor />
         <div className="flex flex-col min-h-screen relative">
           <AnimatedBackground />
           <DiagonalStripes />
