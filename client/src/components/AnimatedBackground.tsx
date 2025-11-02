@@ -1,7 +1,8 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function AnimatedBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -20,6 +21,12 @@ export default function AnimatedBackground() {
     resizeCanvas();
     window.addEventListener("resize", resizeCanvas);
 
+    // Track mouse position
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePos({ x: e.clientX, y: e.clientY });
+    };
+    window.addEventListener("mousemove", handleMouseMove);
+
     // Hexagon grid with wave animation
     const hexRadius = 35;
     const hexHeight = hexRadius * 2;
@@ -30,6 +37,8 @@ export default function AnimatedBackground() {
       x: number;
       y: number;
       offset: number;
+      baseX: number;
+      baseY: number;
     }
 
     const hexGrid: HexCell[] = [];
@@ -45,6 +54,8 @@ export default function AnimatedBackground() {
         hexGrid.push({
           x,
           y,
+          baseX: x,
+          baseY: y,
           offset: Math.random() * Math.PI * 2
         });
       }
@@ -73,21 +84,53 @@ export default function AnimatedBackground() {
 
       const time = Date.now() * 0.001;
 
-      // Draw hexagon grid with wave effect
+      // Draw hexagon grid with wave effect and mouse interaction
       hexGrid.forEach((hex) => {
+        // Calculate distance from mouse
+        const dx = mousePos.x - hex.baseX;
+        const dy = mousePos.y - hex.baseY;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        const maxDistance = 200; // Range of mouse influence
+
+        // Mouse displacement effect
+        let displacementX = 0;
+        let displacementY = 0;
+        let mouseInfluence = 0;
+
+        if (distance < maxDistance) {
+          mouseInfluence = 1 - (distance / maxDistance);
+          const angle = Math.atan2(dy, dx);
+          const pushStrength = mouseInfluence * 30; // How far to push hexagons
+          
+          // Push hexagons away from mouse
+          displacementX = -Math.cos(angle) * pushStrength;
+          displacementY = -Math.sin(angle) * pushStrength;
+        }
+
         // Create diagonal wave pattern
-        const waveX = Math.sin((hex.x * 0.005) + (hex.y * 0.003) + time) * 0.5 + 0.5;
-        const waveY = Math.cos((hex.y * 0.005) + (hex.x * 0.003) + time * 0.7) * 0.5 + 0.5;
+        const waveX = Math.sin((hex.baseX * 0.005) + (hex.baseY * 0.003) + time) * 0.5 + 0.5;
+        const waveY = Math.cos((hex.baseY * 0.005) + (hex.baseX * 0.003) + time * 0.7) * 0.5 + 0.5;
         
         // Combine waves for complex pattern
         const wave = (waveX + waveY) / 2;
         
         // Map wave to opacity (more visible range)
-        const opacity = wave * 0.4 + 0.05;
+        let opacity = wave * 0.4 + 0.05;
         
-        // Scale effect - hexagons pulse with the wave
-        const scale = wave * 0.15 + 0.85;
+        // Brighten hexagons near mouse
+        if (mouseInfluence > 0) {
+          opacity = Math.min(0.8, opacity + mouseInfluence * 0.4);
+        }
+        
+        // Scale effect - hexagons pulse with the wave and mouse proximity
+        const waveScale = wave * 0.15 + 0.85;
+        const mouseScale = mouseInfluence * 0.2;
+        const scale = waveScale + mouseScale;
         const currentRadius = hexRadius * scale;
+
+        // Update position with displacement
+        hex.x = hex.baseX + displacementX;
+        hex.y = hex.baseY + displacementY;
 
         drawHexagon(hex.x, hex.y, currentRadius, opacity);
       });
@@ -121,9 +164,10 @@ export default function AnimatedBackground() {
 
     return () => {
       window.removeEventListener("resize", resizeCanvas);
+      window.removeEventListener("mousemove", handleMouseMove);
       cancelAnimationFrame(animationFrameId);
     };
-  }, []);
+  }, [mousePos]);
 
   return (
     <canvas
