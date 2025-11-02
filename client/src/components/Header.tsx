@@ -45,12 +45,13 @@ export default function Header() {
             </motion.div>
           </Link>
 
-          {/* Desktop Navigation - Solaax-inspired centered pill */}
+          {/* Desktop Navigation - Expands to full width on scroll */}
           <motion.nav 
-            className="hidden md:flex items-center gap-1 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 backdrop-blur-xl"
+            className={`hidden md:flex items-center gap-1 backdrop-blur-xl ${isScrolled ? 'absolute inset-x-0 top-1/2 -translate-y-1/2' : 'absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2'}`}
             animate={{
               borderRadius: isScrolled ? "12px" : "9999px",
               padding: isScrolled ? "8px 24px" : "8px 16px",
+              justifyContent: isScrolled ? "center" : "center",
             }}
             style={{
               backgroundColor: "hsl(var(--background) / 0.8)",
