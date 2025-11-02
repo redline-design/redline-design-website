@@ -108,10 +108,10 @@ export default function HorizontalScrollServices() {
   return (
     <section 
       ref={targetRef} 
-      className="relative h-[200vh] md:h-[300vh] bg-background"
+      className="relative h-[150vh] md:h-[200vh]"
       data-testid="section-services-horizontal"
     >
-      <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden">
+      <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden bg-background/50 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto px-2 sm:px-4 md:px-6 lg:px-8 w-full">
           <div className="text-center mb-6 md:mb-12">
             <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold uppercase tracking-[0.3em] mb-2 md:mb-4 red-glow-pulse" style={{ color: "#ff0000" }}>

@@ -22,7 +22,8 @@ The project targets digital marketing clients looking for SEO, PPC, web design, 
   - Displays 10 service cards: World Class Websites, Paid Advertising, SEO/SEM, CRM Setup & Automation, Analytics & Data Analysis, Graphic Design, Social Media Marketing, Email Marketing, Consulting, and AI Automation
   - Uses Framer Motion's useScroll and useTransform for scroll-linked horizontal translation (110% translation for very fast scrolling)
   - Progress bar indicator showing scroll position through services with accessible aria-valuenow updates
-  - Sticky positioning with responsive container height (200vh on mobile, 300vh on desktop)
+  - Sticky positioning with reduced container height (150vh on mobile, 200vh on desktop) allowing users to scroll past without viewing all services
+  - Semi-transparent background (bg-background/50) with backdrop blur for glassmorphism effect
   - Each service card has unique accent color and icon for visual differentiation
   - **Mobile-responsive design**:
     - Card sizes: 85vw × 240px (mobile), 300px × 260px (sm), 320px × 280px (md+)
