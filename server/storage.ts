@@ -5,9 +5,14 @@ import {
   type InsertReview,
   type BlogPost,
   type InsertBlogPost,
-  type UpdateBlogPost
+  type UpdateBlogPost,
+  reviews,
+  users,
+  blogPosts
 } from "@shared/schema";
 import { randomUUID } from "crypto";
+import { db } from "./db";
+import { eq, desc, and, sql } from "drizzle-orm";
 
 // modify the interface with any CRUD methods
 // you might need
@@ -104,10 +109,6 @@ export class MemStorage implements IStorage {
     throw new Error("Blog posts not implemented in MemStorage");
   }
 }
-
-import { db } from "./db";
-import { reviews, users, blogPosts } from "@shared/schema";
-import { eq, desc, and, sql } from "drizzle-orm";
 
 export class DbStorage implements IStorage {
   async getUser(id: string): Promise<User | undefined> {

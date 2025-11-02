@@ -21,6 +21,7 @@ const Blog = lazy(() => import("@/pages/Blog"));
 const BlogPost = lazy(() => import("@/pages/BlogPost"));
 const Articles = lazy(() => import("@/pages/Articles"));
 const PolicyPage = lazy(() => import("@/pages/PolicyPage"));
+const Admin = lazy(() => import("@/pages/Admin"));
 const NotFound = lazy(() => import("@/pages/not-found"));
 
 function Router() {
@@ -34,6 +35,7 @@ function Router() {
       <Route path="/book-a-demo" component={BookDemo} />
       <Route path="/onboarding" component={Onboarding} />
       <Route path="/digital-marketing" component={Articles} />
+      <Route path="/admin" component={Admin} />
       
       <Route path="/tos">
         <PolicyPage

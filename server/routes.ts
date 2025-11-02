@@ -1,10 +1,26 @@
-import type { Express } from "express";
+import type { Express, RequestHandler } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { handleChat } from "./chat";
 import { insertReviewSchema, insertBlogPostSchema, updateBlogPostSchema } from "@shared/schema";
 import { googleBusinessService } from "./google-business-api";
 import { setupAuth, isAuthenticated } from "./replitAuth";
+
+// API key middleware for external integrations
+const requireApiKey: RequestHandler = (req, res, next) => {
+  const apiKey = req.headers['x-api-key'];
+  const validApiKey = process.env.BLOG_API_KEY;
+  
+  if (!validApiKey) {
+    return res.status(500).json({ error: "API key not configured on server" });
+  }
+  
+  if (apiKey !== validApiKey) {
+    return res.status(401).json({ error: "Invalid or missing API key" });
+  }
+  
+  next();
+};
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Auth middleware
@@ -55,11 +71,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Blog post endpoints
   app.get("/api/blog/posts", async (req, res) => {
     try {
-      const { category } = req.query;
-      const posts = await storage.getBlogPosts({ 
-        published: true,
+      const { category, includeUnpublished } = req.query;
+      const filters: any = {
         category: category as string | undefined
-      });
+      };
+      
+      if (includeUnpublished !== 'true') {
+        filters.published = true;
+      }
+      
+      const posts = await storage.getBlogPosts(filters);
       res.json(posts);
     } catch (error: any) {
       console.error("Error fetching blog posts:", error);
@@ -109,6 +130,30 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error: any) {
       console.error("Error deleting blog post:", error);
       res.status(500).json({ error: "Failed to delete blog post" });
+    }
+  });
+
+  // External API endpoint for automated blog post creation/updates
+  app.post("/api/external/blog/posts", requireApiKey, async (req, res) => {
+    try {
+      const validatedData = insertBlogPostSchema.parse(req.body);
+      
+      // Check if post with this slug already exists
+      const existingPost = await storage.getBlogPost(validatedData.slug);
+      
+      let post;
+      if (existingPost) {
+        // Update existing post
+        post = await storage.updateBlogPost(existingPost.id, validatedData);
+        res.json({ action: "updated", post });
+      } else {
+        // Create new post
+        post = await storage.createBlogPost(validatedData);
+        res.status(201).json({ action: "created", post });
+      }
+    } catch (error: any) {
+      console.error("Error upserting blog post via external API:", error);
+      res.status(400).json({ error: "Failed to upsert blog post", details: error.message });
     }
   });
 

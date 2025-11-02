@@ -111,24 +111,40 @@ function LoadingSkeleton() {
   );
 }
 
+function EmptyState() {
+  return (
+    <div className="text-center py-20">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+      >
+        <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
+          No posts found
+        </h3>
+        <p className="text-lg text-muted-foreground mb-8">
+          We couldn't find any blog posts in this category. Check back soon!
+        </p>
+      </motion.div>
+    </div>
+  );
+}
+
 export default function Blog() {
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
 
+  const queryKey = selectedCategory === "All" 
+    ? ["/api/blog/posts"]
+    : ["/api/blog/posts", { category: selectedCategory }];
+
   const { data: blogPosts = [], isLoading } = useQuery<BlogPostType[]>({
-    queryKey: ["/api/blog/posts"],
+    queryKey,
   });
 
   const categories = useMemo(() => {
     const uniqueCategories = Array.from(new Set(blogPosts.map(post => post.category)));
     return ["All", ...uniqueCategories.sort()];
   }, [blogPosts]);
-
-  const filteredPosts = useMemo(() => {
-    if (selectedCategory === "All") {
-      return blogPosts;
-    }
-    return blogPosts.filter(post => post.category === selectedCategory);
-  }, [selectedCategory, blogPosts]);
 
   return (
     <div className="pt-20">
@@ -194,6 +210,8 @@ export default function Blog() {
         <div className="max-w-7xl mx-auto">
           {isLoading ? (
             <LoadingSkeleton />
+          ) : blogPosts.length === 0 ? (
+            <EmptyState />
           ) : (
             <motion.div
               key={selectedCategory}
@@ -202,7 +220,7 @@ export default function Blog() {
               transition={{ duration: 0.3 }}
               className="grid grid-cols-1 md:grid-cols-2 gap-8"
             >
-              {filteredPosts.map((post, index) => (
+              {blogPosts.map((post, index) => (
                 <BlogPostCard
                   key={post.slug}
                   post={post}
