@@ -7,9 +7,36 @@ export default function HorizontalScrollServices() {
   const targetRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [isHovering, setIsHovering] = useState(false);
-  const [currentServiceIndex, setCurrentServiceIndex] = useState(0);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [cardsPerPage, setCardsPerPage] = useState(3);
+  
+  // Calculate cards per page based on viewport width
+  useEffect(() => {
+    const updateCardsPerPage = () => {
+      const width = window.innerWidth;
+      if (width < 640) {
+        setCardsPerPage(1); // Mobile: 1 card
+      } else if (width < 1024) {
+        setCardsPerPage(2); // Tablet: 2 cards
+      } else {
+        setCardsPerPage(3); // Desktop: 3 cards
+      }
+    };
 
-  // Handle wheel events when hovering - completely lock page scrolling and advance through services
+    updateCardsPerPage();
+    window.addEventListener('resize', updateCardsPerPage);
+    return () => window.removeEventListener('resize', updateCardsPerPage);
+  }, []);
+
+  // Clamp currentPage when cardsPerPage changes to prevent empty carousel
+  useEffect(() => {
+    const totalPages = Math.ceil(services.length / cardsPerPage);
+    if (currentPage >= totalPages) {
+      setCurrentPage(Math.max(0, totalPages - 1));
+    }
+  }, [cardsPerPage, currentPage]);
+
+  // Handle wheel events when hovering - completely lock page scrolling and advance through service pages
   useEffect(() => {
     if (!isHovering) return;
 
@@ -18,17 +45,18 @@ export default function HorizontalScrollServices() {
       e.preventDefault();
       e.stopPropagation();
 
+      const totalPages = Math.ceil(services.length / cardsPerPage);
       const scrollingDown = e.deltaY > 0;
       const scrollingUp = e.deltaY < 0;
 
-      // Advance to next service (one at a time)
-      if (scrollingDown && currentServiceIndex < services.length - 1) {
-        setCurrentServiceIndex(prev => Math.min(prev + 1, services.length - 1));
+      // Advance to next page
+      if (scrollingDown && currentPage < totalPages - 1) {
+        setCurrentPage(prev => Math.min(prev + 1, totalPages - 1));
       }
       
-      // Go to previous service (one at a time)
-      if (scrollingUp && currentServiceIndex > 0) {
-        setCurrentServiceIndex(prev => Math.max(prev - 1, 0));
+      // Go to previous page
+      if (scrollingUp && currentPage > 0) {
+        setCurrentPage(prev => Math.max(prev - 1, 0));
       }
     };
 
@@ -47,7 +75,7 @@ export default function HorizontalScrollServices() {
       document.removeEventListener('wheel', handleWheel);
       document.removeEventListener('touchmove', handleTouchMove);
     };
-  }, [isHovering, currentServiceIndex]);
+  }, [isHovering, currentPage, cardsPerPage]);
 
   const services = [
     {
@@ -161,87 +189,110 @@ export default function HorizontalScrollServices() {
             </p>
           </div>
 
-          {/* Single service card with layering animation */}
+          {/* Horizontal cards scrolling right to left with layering animation */}
           <div 
             className="relative h-[300px] md:h-[320px] overflow-hidden"
             data-testid="container-services-carousel"
           >
-            <div className="flex justify-center items-center h-full">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={currentServiceIndex}
-                  className="flex-shrink-0 w-[280px] h-[280px] md:w-[320px] md:h-[280px]"
-                  data-testid={`container-service-card-${services[currentServiceIndex].title.toLowerCase().replace(/\s/g, "-")}`}
-                  initial={{ 
-                    opacity: 0, 
-                    x: 100,
-                    scale: 0.8,
-                    rotateY: -20
-                  }}
-                  animate={{ 
-                    opacity: 1, 
-                    x: 0,
-                    scale: 1,
-                    rotateY: 0
-                  }}
-                  exit={{ 
-                    opacity: 0, 
-                    x: -100,
-                    scale: 0.8,
-                    rotateY: 20
-                  }}
-                  transition={{
-                    duration: 0.5,
-                    type: "spring",
-                    stiffness: 100
-                  }}
-                  style={{
-                    transformStyle: "preserve-3d",
-                    perspective: "1000px"
-                  }}
-                >
-                  <ServiceCard
-                    icon={services[currentServiceIndex].icon}
-                    title={services[currentServiceIndex].title}
-                    description={services[currentServiceIndex].description}
-                    link={services[currentServiceIndex].link}
-                    status={services[currentServiceIndex].status}
-                    accentColor={services[currentServiceIndex].accentColor}
-                    delay={0}
-                  />
-                </motion.div>
+            <div className="flex justify-center items-center gap-4 md:gap-6 h-full">
+              <AnimatePresence mode="popLayout">
+                {services
+                  .slice(currentPage * cardsPerPage, (currentPage + 1) * cardsPerPage)
+                  .map((service, index) => (
+                    <motion.div
+                      key={`${currentPage}-${service.title}`}
+                      className="flex-shrink-0 w-[280px] h-[280px] md:w-[320px] md:h-[280px]"
+                      data-testid={`container-service-card-${service.title.toLowerCase().replace(/\s/g, "-")}`}
+                      initial={{ 
+                        opacity: 0, 
+                        x: 100,
+                        scale: 0.8,
+                        rotateY: -20
+                      }}
+                      animate={{ 
+                        opacity: 1, 
+                        x: 0,
+                        scale: 1,
+                        rotateY: 0,
+                        zIndex: index
+                      }}
+                      exit={{ 
+                        opacity: 0, 
+                        x: -100,
+                        scale: 0.8,
+                        rotateY: 20
+                      }}
+                      transition={{
+                        duration: 0.5,
+                        delay: index * 0.1,
+                        type: "spring",
+                        stiffness: 100
+                      }}
+                      style={{
+                        transformStyle: "preserve-3d",
+                        perspective: "1000px"
+                      }}
+                    >
+                      <ServiceCard
+                        icon={service.icon}
+                        title={service.title}
+                        description={service.description}
+                        link={service.link}
+                        status={service.status}
+                        accentColor={service.accentColor}
+                        delay={0}
+                      />
+                    </motion.div>
+                  ))}
               </AnimatePresence>
             </div>
           </div>
 
-          {/* Scroll suggestion with animation */}
-          <div className="mt-4 md:mt-8 flex flex-col items-center gap-2">
-            <motion.p 
-              className="text-center text-xs sm:text-sm text-muted-foreground"
-              data-testid="text-services-scroll-hint"
-              animate={{ opacity: [0.5, 1, 0.5] }}
-              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          {/* Progress bar with scroll hint animation */}
+          <div className="mt-4 md:mt-8 w-full max-w-3xl mx-auto">
+            <div 
+              role="progressbar" 
+              aria-label="Service scroll progress"
+              aria-valuemin={0}
+              aria-valuemax={100}
+              aria-valuenow={Math.round(((currentPage + 1) / Math.ceil(services.length / cardsPerPage)) * 100)}
+              className="h-1 bg-border/30 rounded-full overflow-hidden"
+              data-testid="progressbar-services"
             >
-              Scroll to explore all services
-            </motion.p>
-            <motion.div
-              animate={{ y: [0, 8, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-              className="text-primary"
-            >
-              <svg 
-                width="24" 
-                height="24" 
-                viewBox="0 0 24 24" 
-                fill="none" 
-                stroke="currentColor" 
-                strokeWidth="2" 
-                strokeLinecap="round" 
-                strokeLinejoin="round"
+              <div 
+                className="h-full bg-primary rounded-full transition-all duration-300 ease-out"
+                style={{ width: `${(currentPage + 1) / Math.ceil(services.length / cardsPerPage) * 100}%` }}
+              />
+            </div>
+            <div className="flex flex-col items-center gap-2 mt-3">
+              <motion.p 
+                className="text-center text-xs sm:text-sm text-muted-foreground"
+                data-testid="text-services-scroll-hint"
+                animate={{ opacity: [0.5, 1, 0.5] }}
+                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                aria-live="polite"
               >
-                <path d="M12 5v14M19 12l-7 7-7-7"/>
-              </svg>
-            </motion.div>
+                Scroll to explore all services ({currentPage + 1}/{Math.ceil(services.length / cardsPerPage)})
+              </motion.p>
+              <motion.div
+                animate={{ y: [0, 8, 0] }}
+                transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                className="text-primary"
+              >
+                <svg 
+                  width="24" 
+                  height="24" 
+                  viewBox="0 0 24 24" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  strokeWidth="2" 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round"
+                >
+                  <path d="M12 5v14M19 12l-7 7-7-7"/>
+                </svg>
+              </motion.div>
+            </div>
           </div>
         </motion.div>
       </div>
