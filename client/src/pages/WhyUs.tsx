@@ -58,7 +58,7 @@ export default function WhyUs() {
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-card/30" data-testid="section-core-values">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-black text-foreground mb-4">
+            <h2 className="text-lg sm:text-xl md:text-2xl font-bold uppercase tracking-[0.3em] mb-4 red-glow-pulse" style={{ color: "#ff0000" }}>
               What Sets Us Apart
             </h2>
             <p className="text-lg text-foreground">
@@ -108,7 +108,7 @@ export default function WhyUs() {
       <section className="py-20 px-4 sm:px-6 lg:px-8" data-testid="section-additional-benefits">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-black text-foreground mb-4">
+            <h2 className="text-lg sm:text-xl md:text-2xl font-bold uppercase tracking-[0.3em] mb-4 red-glow-pulse" style={{ color: "#ff0000" }}>
               More Reasons to Choose Redline
             </h2>
           </div>

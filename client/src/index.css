@@ -669,10 +669,10 @@
   /* Red glow pulse animation */
   @keyframes red-glow {
     0%, 100% {
-      text-shadow: 0 0 10px rgba(255, 0, 0, 0.3), 0 0 20px rgba(255, 0, 0, 0.2);
+      text-shadow: 0 0 8px rgba(255, 0, 0, 0.4), 0 0 12px rgba(255, 0, 0, 0.2);
     }
     50% {
-      text-shadow: 0 0 20px rgba(255, 0, 0, 0.5), 0 0 30px rgba(255, 0, 0, 0.3), 0 0 40px rgba(255, 0, 0, 0.2);
+      text-shadow: 0 0 12px rgba(255, 0, 0, 0.6), 0 0 16px rgba(255, 0, 0, 0.3);
     }
   }
 

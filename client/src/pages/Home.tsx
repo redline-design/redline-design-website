@@ -91,7 +91,7 @@ export default function Home() {
       <section className="py-20 px-4 sm:px-6 lg:px-8" data-testid="section-services">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-sm sm:text-base md:text-lg font-bold uppercase tracking-[0.3em] mb-4 red-glow-pulse" style={{ color: "#ff0000" }}>
+            <h2 className="text-lg sm:text-xl md:text-2xl font-bold uppercase tracking-[0.3em] mb-4 red-glow-pulse" style={{ color: "#ff0000" }}>
               What We Do
             </h2>
             <p className="text-lg text-foreground max-w-2xl mx-auto">
@@ -132,7 +132,7 @@ export default function Home() {
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-card/30 backdrop-blur-sm" data-testid="section-differentiators">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-sm sm:text-base md:text-lg font-bold uppercase tracking-[0.3em] mb-4 red-glow-pulse" style={{ color: "#ff0000" }}>
+            <h2 className="text-lg sm:text-xl md:text-2xl font-bold uppercase tracking-[0.3em] mb-4 red-glow-pulse" style={{ color: "#ff0000" }}>
               The Redline Difference
             </h2>
             <p className="text-lg text-foreground">
@@ -146,7 +146,7 @@ export default function Home() {
       <section className="py-20 px-4 sm:px-6 lg:px-8" data-testid="section-why-us">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-sm sm:text-base md:text-lg font-bold uppercase tracking-[0.3em] mb-4 red-glow-pulse" style={{ color: "#ff0000" }}>
+            <h2 className="text-lg sm:text-xl md:text-2xl font-bold uppercase tracking-[0.3em] mb-4 red-glow-pulse" style={{ color: "#ff0000" }}>
               Why Choose Us
             </h2>
           </div>

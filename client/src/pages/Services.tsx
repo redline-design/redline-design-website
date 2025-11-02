@@ -50,7 +50,7 @@ function ServiceSection({ id, icon: Icon, title, description, features, outcomes
               <Icon className="h-10 w-10 text-primary" />
             </motion.div>
             <div>
-              <h2 className="text-3xl md:text-4xl font-black text-foreground mb-3">{title}</h2>
+              <h2 className="text-lg sm:text-xl md:text-2xl font-bold uppercase tracking-[0.3em] mb-3 red-glow-pulse" style={{ color: "#ff0000" }}>{title}</h2>
               <p className="text-lg text-foreground">{description}</p>
             </div>
           </div>
