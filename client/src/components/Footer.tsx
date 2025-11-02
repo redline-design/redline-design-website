@@ -40,15 +40,15 @@ export default function Footer() {
 
   return (
     <footer className="border-t border-white/10 bg-card/30 backdrop-blur-xl relative z-10" data-testid="footer-main">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          <div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
+          <div className="flex items-center gap-6">
             <Link href="/">
-              <div className="flex items-center gap-2 mb-1.5 cursor-pointer hover-elevate active-elevate-2 rounded-md px-2 py-1 -ml-2 w-fit">
-                <img src={logoImage} alt="Redline Design" className="h-4 w-auto" />
+              <div className="cursor-pointer hover-elevate active-elevate-2 rounded-md p-2">
+                <img src={logoImage} alt="Redline Design" className="h-8 w-auto" />
               </div>
             </Link>
-            <div className="flex gap-2.5">
+            <div className="flex gap-4">
               <a
                 href="https://www.facebook.com/profile.php?id=61573886695631"
                 target="_blank"
@@ -57,7 +57,7 @@ export default function Footer() {
                 aria-label="Facebook"
                 data-testid="link-facebook"
               >
-                <FaFacebook className="h-4 w-4" />
+                <FaFacebook className="h-6 w-6" />
               </a>
               <a
                 href="https://www.instagram.com/redlinedesignllc"
@@ -67,85 +67,87 @@ export default function Footer() {
                 aria-label="Instagram"
                 data-testid="link-instagram"
               >
-                <FaInstagram className="h-4 w-4" />
+                <FaInstagram className="h-6 w-6" />
               </a>
             </div>
           </div>
 
-          <Collapsible open={servicesOpen} onOpenChange={setServicesOpen}>
-            <CollapsibleTrigger className="flex items-center justify-between w-full hover-elevate active-elevate-2 rounded px-2 py-1 -ml-2" data-testid="button-toggle-services">
-              <h3 className="text-xs font-semibold text-foreground uppercase tracking-wide">Services</h3>
-              <ChevronDown className={`h-3 w-3 transition-transform ${servicesOpen ? 'rotate-180' : ''}`} />
-            </CollapsibleTrigger>
-            <CollapsibleContent className="mt-1">
-              <ul className="space-y-0.5">
-                {services.map((link) => (
-                  <li key={link.href}>
-                    <Link href={link.href}>
-                      <span
-                        className="text-xs text-muted-foreground hover:text-primary transition-colors cursor-pointer block py-0.5"
-                        data-testid={`link-footer-${link.label.toLowerCase().replace(/\s/g, "-")}`}
-                      >
-                        {link.label}
-                      </span>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </CollapsibleContent>
-          </Collapsible>
+          <div className="flex flex-wrap gap-6">
+            <Collapsible open={servicesOpen} onOpenChange={setServicesOpen}>
+              <CollapsibleTrigger className="flex items-center gap-1 hover-elevate active-elevate-2 rounded px-2 py-1" data-testid="button-toggle-services">
+                <h3 className="text-sm font-semibold text-foreground uppercase tracking-wide">Services</h3>
+                <ChevronDown className={`h-4 w-4 transition-transform ${servicesOpen ? 'rotate-180' : ''}`} />
+              </CollapsibleTrigger>
+              <CollapsibleContent className="mt-2">
+                <ul className="space-y-1">
+                  {services.map((link) => (
+                    <li key={link.href}>
+                      <Link href={link.href}>
+                        <span
+                          className="text-sm text-muted-foreground hover:text-primary transition-colors cursor-pointer block py-0.5"
+                          data-testid={`link-footer-${link.label.toLowerCase().replace(/\s/g, "-")}`}
+                        >
+                          {link.label}
+                        </span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </CollapsibleContent>
+            </Collapsible>
 
-          <Collapsible open={companyOpen} onOpenChange={setCompanyOpen}>
-            <CollapsibleTrigger className="flex items-center justify-between w-full hover-elevate active-elevate-2 rounded px-2 py-1 -ml-2" data-testid="button-toggle-company">
-              <h3 className="text-xs font-semibold text-foreground uppercase tracking-wide">Company</h3>
-              <ChevronDown className={`h-3 w-3 transition-transform ${companyOpen ? 'rotate-180' : ''}`} />
-            </CollapsibleTrigger>
-            <CollapsibleContent className="mt-1">
-              <ul className="space-y-0.5">
-                {company.map((link) => (
-                  <li key={link.href}>
-                    <Link href={link.href}>
-                      <span
-                        className="text-xs text-muted-foreground hover:text-primary transition-colors cursor-pointer block py-0.5"
-                        data-testid={`link-footer-${link.label.toLowerCase().replace(/\s/g, "-")}`}
-                      >
-                        {link.label}
-                      </span>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </CollapsibleContent>
-          </Collapsible>
+            <Collapsible open={companyOpen} onOpenChange={setCompanyOpen}>
+              <CollapsibleTrigger className="flex items-center gap-1 hover-elevate active-elevate-2 rounded px-2 py-1" data-testid="button-toggle-company">
+                <h3 className="text-sm font-semibold text-foreground uppercase tracking-wide">Company</h3>
+                <ChevronDown className={`h-4 w-4 transition-transform ${companyOpen ? 'rotate-180' : ''}`} />
+              </CollapsibleTrigger>
+              <CollapsibleContent className="mt-2">
+                <ul className="space-y-1">
+                  {company.map((link) => (
+                    <li key={link.href}>
+                      <Link href={link.href}>
+                        <span
+                          className="text-sm text-muted-foreground hover:text-primary transition-colors cursor-pointer block py-0.5"
+                          data-testid={`link-footer-${link.label.toLowerCase().replace(/\s/g, "-")}`}
+                        >
+                          {link.label}
+                        </span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </CollapsibleContent>
+            </Collapsible>
 
-          <Collapsible open={legalOpen} onOpenChange={setLegalOpen}>
-            <CollapsibleTrigger className="flex items-center justify-between w-full hover-elevate active-elevate-2 rounded px-2 py-1 -ml-2" data-testid="button-toggle-legal">
-              <h3 className="text-xs font-semibold text-foreground uppercase tracking-wide">Legal</h3>
-              <ChevronDown className={`h-3 w-3 transition-transform ${legalOpen ? 'rotate-180' : ''}`} />
-            </CollapsibleTrigger>
-            <CollapsibleContent className="mt-1">
-              <ul className="space-y-0.5">
-                {policies.map((link) => (
-                  <li key={link.href}>
-                    <Link href={link.href}>
-                      <span
-                        className="text-xs text-muted-foreground hover:text-primary transition-colors cursor-pointer block py-0.5"
-                        data-testid={`link-footer-${link.label.toLowerCase().replace(/\s/g, "-")}`}
-                      >
-                        {link.label}
-                      </span>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </CollapsibleContent>
-          </Collapsible>
-
-          <div className="col-span-1 md:col-span-2 lg:col-span-4 mt-2">
-            <p className="text-xs text-muted-foreground text-center">
-              © {new Date().getFullYear()} Redline Design LLC. All rights reserved.
-            </p>
+            <Collapsible open={legalOpen} onOpenChange={setLegalOpen}>
+              <CollapsibleTrigger className="flex items-center gap-1 hover-elevate active-elevate-2 rounded px-2 py-1" data-testid="button-toggle-legal">
+                <h3 className="text-sm font-semibold text-foreground uppercase tracking-wide">Legal</h3>
+                <ChevronDown className={`h-4 w-4 transition-transform ${legalOpen ? 'rotate-180' : ''}`} />
+              </CollapsibleTrigger>
+              <CollapsibleContent className="mt-2">
+                <ul className="space-y-1">
+                  {policies.map((link) => (
+                    <li key={link.href}>
+                      <Link href={link.href}>
+                        <span
+                          className="text-sm text-muted-foreground hover:text-primary transition-colors cursor-pointer block py-0.5"
+                          data-testid={`link-footer-${link.label.toLowerCase().replace(/\s/g, "-")}`}
+                        >
+                          {link.label}
+                        </span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </CollapsibleContent>
+            </Collapsible>
           </div>
+        </div>
+
+        <div className="mt-6 pt-4 border-t border-white/10">
+          <p className="text-xs text-muted-foreground text-center">
+            © {new Date().getFullYear()} Redline Design LLC. All rights reserved.
+          </p>
         </div>
       </div>
     </footer>
