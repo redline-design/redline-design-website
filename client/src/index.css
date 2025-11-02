@@ -640,4 +640,29 @@
   .animate-scroll {
     animation: scroll 30s linear infinite;
   }
+
+  /* Red gradient slogan styling */
+  .slogan-gradient {
+    background: linear-gradient(135deg, #ff0000 0%, #cc0000 50%, #ff0000 100%);
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  @keyframes gradient-shift {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  .animate-gradient {
+    animation: gradient-shift 3s ease-in-out infinite;
+  }
 }

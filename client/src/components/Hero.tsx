@@ -85,7 +85,15 @@ export default function Hero() {
           transition={{ duration: 0.7, delay: 0.3 }}
         >
           <span className="text-foreground">Digital Marketing That </span>
-          <span className="italic text-foreground font-extrabold">Doesn't Suck</span>
+          <br />
+          <span 
+            className="inline-block text-sm sm:text-base md:text-lg font-bold uppercase tracking-[0.3em]"
+            style={{
+              color: "#ff0000"
+            }}
+          >
+            Doesn't Suck
+          </span>
         </motion.h1>
 
         {/* Subheadline */}
