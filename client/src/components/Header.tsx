@@ -129,7 +129,7 @@ export default function Header() {
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: navLinks.length * 0.1 + 0.2 }}
-                className="px-4 py-2 text-sm font-medium bg-primary text-white rounded-lg hover-elevate active-elevate-2 transition-all ml-1"
+                className="px-4 py-2 text-sm font-medium bg-primary text-white rounded-lg hover-elevate active-elevate-2 transition-all ml-1 primary-button-fill"
                 data-testid="button-nav-get-started"
               >
                 Get Started
@@ -203,7 +203,7 @@ export default function Header() {
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: navLinks.length * 0.1 }}
-                  className="block px-4 py-3 rounded-lg text-base font-medium bg-primary/20 text-primary hover-elevate active-elevate-2 mt-4"
+                  className="block px-4 py-3 rounded-lg text-base font-medium bg-primary text-white hover-elevate active-elevate-2 mt-4 primary-button-fill"
                   onClick={() => setIsMobileMenuOpen(false)}
                   data-testid="link-mobile-get-started"
                 >
