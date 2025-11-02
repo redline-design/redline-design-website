@@ -2,7 +2,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useEffect, useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
-import { ChevronDown, Sparkles } from "lucide-react";
+import { ChevronDown, Sparkles, CalendarCheck } from "lucide-react";
 import logoLarge from "@assets/v2h5UOvchlYvZ2HIPfl8w5dPIc_1762041101932.avif";
 
 export default function Hero() {
@@ -106,6 +106,7 @@ export default function Hero() {
                 className="text-base px-8 py-6 font-semibold" 
                 data-testid="button-hero-book-demo"
               >
+                <CalendarCheck className="w-5 h-5" />
                 Book Your Free Consultation
               </Button>
             </motion.div>
