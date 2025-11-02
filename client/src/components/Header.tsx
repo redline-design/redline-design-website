@@ -7,15 +7,34 @@ import { motion, AnimatePresence } from "framer-motion";
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [showNav, setShowNav] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
   const [location] = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      const currentScrollY = window.scrollY;
+      
+      setIsScrolled(currentScrollY > 50);
+      
+      // Show nav when scrolling up, hide when scrolling down
+      if (currentScrollY < 100) {
+        // Always show when near top
+        setShowNav(true);
+      } else if (currentScrollY < lastScrollY) {
+        // Scrolling up
+        setShowNav(true);
+      } else if (currentScrollY > lastScrollY) {
+        // Scrolling down
+        setShowNav(false);
+      }
+      
+      setLastScrollY(currentScrollY);
     };
-    window.addEventListener("scroll", handleScroll);
+    
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [lastScrollY]);
 
   const navLinks = [
     { href: "/services", label: "Services" },
@@ -34,17 +53,23 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Desktop Navigation - Centered pill */}
-          <nav 
-            className="hidden md:flex items-center gap-1 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full px-4 py-2"
-            style={{
-              backgroundColor: "hsl(var(--background) / 0.7)",
-              backdropFilter: "blur(20px)",
-              WebkitBackdropFilter: "blur(20px)",
-              border: "1px solid hsl(var(--border) / 0.2)",
-              boxShadow: "0 8px 32px 0 rgba(0, 0, 0, 0.1)",
-            }}
-            data-testid="nav-desktop"
-          >
+          <AnimatePresence>
+            {showNav && (
+              <motion.nav 
+                initial={{ opacity: 1, y: 0 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.3, ease: "easeInOut" }}
+                className="hidden md:flex items-center gap-1 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full px-4 py-2"
+                style={{
+                  backgroundColor: "hsl(var(--background) / 0.7)",
+                  backdropFilter: "blur(20px)",
+                  WebkitBackdropFilter: "blur(20px)",
+                  border: "1px solid hsl(var(--border) / 0.2)",
+                  boxShadow: "0 8px 32px 0 rgba(0, 0, 0, 0.1)",
+                }}
+                data-testid="nav-desktop"
+              >
             {navLinks.map((link, index) => (
               <Link key={link.href} href={link.href}>
                 <motion.div
@@ -78,7 +103,9 @@ export default function Header() {
                 Get Started
               </motion.div>
             </Link>
-          </nav>
+              </motion.nav>
+            )}
+          </AnimatePresence>
 
           {/* Right Side */}
           <div className="flex items-center gap-3 relative z-10">
