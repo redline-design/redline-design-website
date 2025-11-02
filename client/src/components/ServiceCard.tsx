@@ -33,7 +33,7 @@ export default function ServiceCard({ icon: Icon, title, description, link, stat
     >
       <Link href={link}>
         <Card
-          className="h-full hover-elevate active-elevate-2 transition-all duration-300 rounded-2xl group cursor-pointer backdrop-blur-md bg-card/40 border-border/30 relative overflow-hidden"
+          className="h-full hover-elevate active-elevate-2 transition-all duration-300 rounded-2xl group backdrop-blur-md bg-card/40 border-border/30 relative overflow-hidden"
           data-testid={`card-service-${title.toLowerCase().replace(/\s/g, "-")}`}
         >
           <CardContent className="p-8 relative z-10">

@@ -52,7 +52,7 @@ export default function Hero() {
         >
           <Link href="/book-a-demo">
             <motion.div 
-              className="inline-flex items-center gap-2 px-5 py-2.5 border border-border/50 bg-card/30 backdrop-blur-sm rounded-full text-xs font-semibold uppercase tracking-wider text-foreground mb-8 cursor-pointer hover-elevate active-elevate-2 transition-all"
+              className="inline-flex items-center gap-2 px-5 py-2.5 border border-border/50 bg-card/30 backdrop-blur-sm rounded-full text-xs font-semibold uppercase tracking-wider text-foreground mb-8 hover-elevate active-elevate-2 transition-all"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >

@@ -88,7 +88,7 @@ export default function Header() {
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
-                className={`relative px-3 py-2 text-sm font-medium transition-colors cursor-pointer group rounded-lg ${
+                className={`relative px-3 py-2 text-sm font-medium transition-colors group rounded-lg ${
                   location === "/" ? "text-primary" : "text-foreground"
                 }`}
                 data-testid="link-nav-home"
@@ -108,7 +108,7 @@ export default function Header() {
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 + 0.2 }}
-                  className={`relative px-4 py-2 text-sm font-medium transition-colors cursor-pointer group rounded-lg ${
+                  className={`relative px-4 py-2 text-sm font-medium transition-colors group rounded-lg ${
                     location === link.href ? "text-primary" : "text-foreground"
                   }`}
                   data-testid={`link-nav-${link.label.toLowerCase().replace(/\s/g, "-")}`}
@@ -129,7 +129,7 @@ export default function Header() {
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: navLinks.length * 0.1 + 0.2 }}
-                className="px-4 py-2 text-sm font-medium bg-primary text-white rounded-lg cursor-pointer hover-elevate active-elevate-2 transition-all ml-1"
+                className="px-4 py-2 text-sm font-medium bg-primary text-white rounded-lg hover-elevate active-elevate-2 transition-all ml-1"
                 data-testid="button-nav-get-started"
               >
                 Get Started
@@ -171,7 +171,7 @@ export default function Header() {
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0 }}
-                  className={`flex items-center gap-3 px-4 py-3 rounded-lg text-base font-medium hover-elevate active-elevate-2 cursor-pointer transition-colors ${
+                  className={`flex items-center gap-3 px-4 py-3 rounded-lg text-base font-medium hover-elevate active-elevate-2 transition-colors ${
                     location === "/" ? "text-primary bg-primary/10" : "text-foreground"
                   }`}
                   onClick={() => setIsMobileMenuOpen(false)}
@@ -188,7 +188,7 @@ export default function Header() {
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.1 }}
-                    className={`block px-4 py-3 rounded-lg text-base font-medium hover-elevate active-elevate-2 cursor-pointer transition-colors ${
+                    className={`block px-4 py-3 rounded-lg text-base font-medium hover-elevate active-elevate-2 transition-colors ${
                       location === link.href ? "text-primary bg-primary/10" : "text-foreground"
                     }`}
                     onClick={() => setIsMobileMenuOpen(false)}
@@ -203,7 +203,7 @@ export default function Header() {
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: navLinks.length * 0.1 }}
-                  className="block px-4 py-3 rounded-lg text-base font-medium bg-primary/20 text-primary hover-elevate active-elevate-2 cursor-pointer mt-4"
+                  className="block px-4 py-3 rounded-lg text-base font-medium bg-primary/20 text-primary hover-elevate active-elevate-2 mt-4"
                   onClick={() => setIsMobileMenuOpen(false)}
                   data-testid="link-mobile-get-started"
                 >

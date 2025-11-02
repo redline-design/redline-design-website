@@ -87,16 +87,16 @@ export default function ContactForm() {
           data-testid="checkbox-sms-consent"
         />
         <div className="text-sm text-muted-foreground">
-          <Label htmlFor="smsConsent" className="cursor-pointer font-normal">
+          <Label htmlFor="smsConsent" className="font-normal">
             You agree to receive automated follow-up, reminder, and promotional messages at the phone number provided.
             Consent is not a condition of purchase. Reply STOP to end or HELP for help. Message and data rates may apply.
             View our{" "}
             <Link href="/tos">
-              <span className="text-primary hover:underline cursor-pointer">Terms of Service</span>
+              <span className="text-primary hover:underline">Terms of Service</span>
             </Link>{" "}
             and{" "}
             <Link href="/privacy">
-              <span className="text-primary hover:underline cursor-pointer">Privacy Policy</span>
+              <span className="text-primary hover:underline">Privacy Policy</span>
             </Link>
             .
           </Label>

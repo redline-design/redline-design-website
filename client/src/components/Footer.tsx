@@ -45,7 +45,7 @@ const Footer = memo(function Footer() {
         <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
           <div className="flex items-center gap-6">
             <Link href="/">
-              <div className="cursor-pointer hover-elevate active-elevate-2 rounded-md p-2">
+              <div className="hover-elevate active-elevate-2 rounded-md p-2">
                 <img src={logoImage} alt="Redline Design" loading="lazy" className="h-8 w-auto" />
               </div>
             </Link>
@@ -85,7 +85,7 @@ const Footer = memo(function Footer() {
                     <li key={link.href}>
                       <Link href={link.href}>
                         <span
-                          className="text-sm text-muted-foreground hover:text-primary transition-colors cursor-pointer block py-0.5"
+                          className="text-sm text-muted-foreground hover:text-primary transition-colors block py-0.5"
                           data-testid={`link-footer-${link.label.toLowerCase().replace(/\s/g, "-")}`}
                         >
                           {link.label}
@@ -108,7 +108,7 @@ const Footer = memo(function Footer() {
                     <li key={link.href}>
                       <Link href={link.href}>
                         <span
-                          className="text-sm text-muted-foreground hover:text-primary transition-colors cursor-pointer block py-0.5"
+                          className="text-sm text-muted-foreground hover:text-primary transition-colors block py-0.5"
                           data-testid={`link-footer-${link.label.toLowerCase().replace(/\s/g, "-")}`}
                         >
                           {link.label}
@@ -131,7 +131,7 @@ const Footer = memo(function Footer() {
                     <li key={link.href}>
                       <Link href={link.href}>
                         <span
-                          className="text-sm text-muted-foreground hover:text-primary transition-colors cursor-pointer block py-0.5"
+                          className="text-sm text-muted-foreground hover:text-primary transition-colors block py-0.5"
                           data-testid={`link-footer-${link.label.toLowerCase().replace(/\s/g, "-")}`}
                         >
                           {link.label}
