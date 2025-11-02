@@ -24,6 +24,8 @@ export default function AnimatedBackground() {
     interface Hexagon {
       x: number;
       y: number;
+      vx: number;
+      vy: number;
       size: number;
       rotation: number;
       rotationSpeed: number;
@@ -32,16 +34,18 @@ export default function AnimatedBackground() {
     }
 
     const hexagons: Hexagon[] = [];
-    const hexCount = Math.floor((canvas.width * canvas.height) / 50000);
+    const hexCount = Math.floor((canvas.width * canvas.height) / 25000); // More hexagons
 
     for (let i = 0; i < hexCount; i++) {
       hexagons.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
-        size: Math.random() * 40 + 20,
+        vx: (Math.random() - 0.5) * 0.3,
+        vy: (Math.random() - 0.5) * 0.3,
+        size: Math.random() * 60 + 30, // Larger hexagons
         rotation: Math.random() * Math.PI * 2,
-        rotationSpeed: (Math.random() - 0.5) * 0.002,
-        opacity: Math.random() * 0.1 + 0.02,
+        rotationSpeed: (Math.random() - 0.5) * 0.01, // Faster rotation
+        opacity: Math.random() * 0.2 + 0.1, // More visible
         fadeDirection: Math.random() > 0.5 ? 1 : -1,
       });
     }
@@ -65,15 +69,15 @@ export default function AnimatedBackground() {
 
       ctx.closePath();
       ctx.strokeStyle = `rgba(255, 255, 255, ${opacity})`;
-      ctx.lineWidth = 1;
+      ctx.lineWidth = 2; // Thicker lines
       ctx.stroke();
 
       ctx.restore();
     };
 
     const drawDots = () => {
-      const gridSize = 80;
-      const time = Date.now() * 0.0003;
+      const gridSize = 60; // Tighter grid
+      const time = Date.now() * 0.0005; // Faster animation
 
       for (let x = 0; x < canvas.width; x += gridSize) {
         for (let y = 0; y < canvas.height; y += gridSize) {
@@ -81,10 +85,10 @@ export default function AnimatedBackground() {
             Math.pow(x - canvas.width / 2, 2) + Math.pow(y - canvas.height / 2, 2)
           );
           const wave = Math.sin(distanceFromCenter * 0.005 - time) * 0.5 + 0.5;
-          const opacity = wave * 0.15;
+          const opacity = wave * 0.4; // Much more visible
 
           ctx.beginPath();
-          ctx.arc(x, y, 1.5, 0, Math.PI * 2);
+          ctx.arc(x, y, 2.5, 0, Math.PI * 2); // Larger dots
           ctx.fillStyle = `rgba(255, 255, 255, ${opacity})`;
           ctx.fill();
         }
@@ -99,13 +103,23 @@ export default function AnimatedBackground() {
 
       // Draw and animate hexagons
       hexagons.forEach((hex) => {
+        // Move hexagons
+        hex.x += hex.vx;
+        hex.y += hex.vy;
+
+        // Wrap around edges
+        if (hex.x < -hex.size) hex.x = canvas.width + hex.size;
+        if (hex.x > canvas.width + hex.size) hex.x = -hex.size;
+        if (hex.y < -hex.size) hex.y = canvas.height + hex.size;
+        if (hex.y > canvas.height + hex.size) hex.y = -hex.size;
+
         hex.rotation += hex.rotationSpeed;
         
-        // Subtle fade in/out
-        hex.opacity += hex.fadeDirection * 0.0001;
-        if (hex.opacity > 0.12) {
+        // Fade in/out
+        hex.opacity += hex.fadeDirection * 0.0005;
+        if (hex.opacity > 0.35) { // More visible
           hex.fadeDirection = -1;
-        } else if (hex.opacity < 0.02) {
+        } else if (hex.opacity < 0.1) {
           hex.fadeDirection = 1;
         }
 
@@ -127,7 +141,7 @@ export default function AnimatedBackground() {
     <canvas
       ref={canvasRef}
       className="absolute inset-0 z-0 pointer-events-none"
-      style={{ opacity: 0.4 }}
+      style={{ opacity: 1 }}
     />
   );
 }
