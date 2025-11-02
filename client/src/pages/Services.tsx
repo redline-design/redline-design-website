@@ -51,7 +51,7 @@ function ServiceSection({ id, icon: Icon, title, description, features, outcomes
             </motion.div>
             <div>
               <h2 className="text-3xl md:text-4xl font-black text-foreground mb-3">{title}</h2>
-              <p className="text-lg text-muted-foreground">{description}</p>
+              <p className="text-lg text-foreground">{description}</p>
             </div>
           </div>
 
@@ -60,7 +60,7 @@ function ServiceSection({ id, icon: Icon, title, description, features, outcomes
               <h3 className="text-xl font-bold text-foreground mb-4">What We Do</h3>
               <ul className="space-y-3">
                 {features.map((feature, index) => (
-                  <li key={index} className="flex items-start gap-3 text-muted-foreground">
+                  <li key={index} className="flex items-start gap-3 text-foreground">
                     <span className="text-primary mt-1">✓</span>
                     <span>{feature}</span>
                   </li>
@@ -71,7 +71,7 @@ function ServiceSection({ id, icon: Icon, title, description, features, outcomes
               <h3 className="text-xl font-bold text-foreground mb-4">Expected Outcomes</h3>
               <ul className="space-y-3">
                 {outcomes.map((outcome, index) => (
-                  <li key={index} className="flex items-start gap-3 text-muted-foreground">
+                  <li key={index} className="flex items-start gap-3 text-foreground">
                     <span className="text-primary mt-1">→</span>
                     <span>{outcome}</span>
                   </li>
@@ -105,7 +105,7 @@ export default function Services() {
             From Clicks to Customers: <span className="text-primary">Mastering the Art</span> of Digital Marketing
           </motion.h1>
           <motion.p
-            className="text-lg md:text-xl text-muted-foreground"
+            className="text-lg md:text-xl text-foreground"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}

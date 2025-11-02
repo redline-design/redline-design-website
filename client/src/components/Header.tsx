@@ -64,7 +64,7 @@ export default function Header() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 + 0.2 }}
                   className={`relative px-4 py-2 text-sm font-medium transition-colors cursor-pointer group rounded-lg ${
-                    location === link.href ? "text-primary" : "text-foreground/80 hover:text-foreground"
+                    location === link.href ? "text-primary" : "text-foreground"
                   }`}
                   data-testid={`link-nav-${link.label.toLowerCase().replace(/\s/g, "-")}`}
                 >

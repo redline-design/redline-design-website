@@ -23,7 +23,7 @@ export default function WhyUs() {
             We Think We're <span className="text-primary">Pretty Cool</span>
           </motion.h1>
           <motion.p
-            className="text-lg md:text-xl text-muted-foreground mb-8"
+            className="text-lg md:text-xl text-foreground mb-8"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
@@ -61,7 +61,7 @@ export default function WhyUs() {
             <h2 className="text-3xl md:text-4xl font-black text-foreground mb-4">
               What Sets Us Apart
             </h2>
-            <p className="text-lg text-muted-foreground">
+            <p className="text-lg text-foreground">
               Our commitment to results, transparency, and partnership
             </p>
           </div>
@@ -123,7 +123,7 @@ export default function WhyUs() {
                 <Award className="h-12 w-12 text-primary" />
               </div>
               <h3 className="text-2xl font-bold text-foreground mb-3">Industry Expertise</h3>
-              <p className="text-muted-foreground">
+              <p className="text-foreground">
                 We've worked across dozens of industries and know what works. From e-commerce to B2B SaaS, we've got you covered.
               </p>
             </motion.div>
@@ -138,7 +138,7 @@ export default function WhyUs() {
                 <Shield className="h-12 w-12 text-primary" />
               </div>
               <h3 className="text-2xl font-bold text-foreground mb-3">Transparency & Trust</h3>
-              <p className="text-muted-foreground">
+              <p className="text-foreground">
                 No black boxes. We show you exactly what we're doing, why we're doing it, and what results we're getting.
               </p>
             </motion.div>
@@ -153,7 +153,7 @@ export default function WhyUs() {
                 <Lightbulb className="h-12 w-12 text-primary" />
               </div>
               <h3 className="text-2xl font-bold text-foreground mb-3">Strategic Partnership</h3>
-              <p className="text-muted-foreground">
+              <p className="text-foreground">
                 We're not just vendors—we're partners in your success. Your wins are our wins, and we're invested in your growth.
               </p>
             </motion.div>
@@ -174,7 +174,7 @@ export default function WhyUs() {
             <div className="flex items-center justify-center gap-4">
               <div>
                 <div className="font-bold text-foreground">Sarah Johnson</div>
-                <div className="text-sm text-muted-foreground">CEO, TechStart Inc.</div>
+                <div className="text-sm text-foreground">CEO, TechStart Inc.</div>
               </div>
             </div>
           </motion.div>

@@ -52,7 +52,7 @@ export default function ServiceCard({ icon: Icon, title, description, link, stat
             <h3 className="text-2xl font-bold text-foreground mb-3 transition-colors" data-testid={`text-service-title-${title.toLowerCase().replace(/\s/g, "-")}`}>
               {title}
             </h3>
-            <p className="text-muted-foreground mb-6 leading-relaxed" data-testid={`text-service-description-${title.toLowerCase().replace(/\s/g, "-")}`}>
+            <p className="text-foreground mb-6 leading-relaxed" data-testid={`text-service-description-${title.toLowerCase().replace(/\s/g, "-")}`}>
               {description}
             </p>
 

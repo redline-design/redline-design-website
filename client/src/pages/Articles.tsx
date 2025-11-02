@@ -71,7 +71,7 @@ export default function Articles() {
             Digital Marketing <span className="text-primary">Insights</span>
           </motion.h1>
           <motion.p
-            className="text-lg md:text-xl text-muted-foreground"
+            className="text-lg md:text-xl text-foreground"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
@@ -112,7 +112,7 @@ export default function Articles() {
 
           {filteredArticles.length === 0 && (
             <div className="text-center py-16">
-              <p className="text-lg text-muted-foreground">No articles found in this category.</p>
+              <p className="text-lg text-foreground">No articles found in this category.</p>
             </div>
           )}
         </div>

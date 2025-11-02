@@ -33,7 +33,7 @@ export default function ValueTile({ icon: Icon, title, description, delay = 0 }:
               <h3 className="text-lg font-semibold text-foreground mb-2" data-testid={`text-value-title-${title.toLowerCase().replace(/\s/g, "-")}`}>
                 {title}
               </h3>
-              <p className="text-sm text-muted-foreground" data-testid={`text-value-description-${title.toLowerCase().replace(/\s/g, "-")}`}>
+              <p className="text-sm text-foreground" data-testid={`text-value-description-${title.toLowerCase().replace(/\s/g, "-")}`}>
                 {description}
               </p>
             </div>

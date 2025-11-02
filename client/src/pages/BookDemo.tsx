@@ -17,7 +17,7 @@ export default function BookDemo() {
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-foreground mb-6">
               Let's Get in Touch
             </h1>
-            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-lg md:text-xl text-foreground max-w-2xl mx-auto">
               Ready to take your digital marketing to the next level? Fill out the form below and we'll get back to you within 24 business hours.
             </p>
           </motion.div>
@@ -34,7 +34,7 @@ export default function BookDemo() {
                     <Clock className="h-8 w-8 text-primary" />
                   </div>
                   <h3 className="text-lg font-bold text-foreground mb-2">Quick Response</h3>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-sm text-foreground">
                     Average response in &lt;24 business hours
                   </p>
                 </CardContent>
@@ -52,7 +52,7 @@ export default function BookDemo() {
                     <CheckCircle2 className="h-8 w-8 text-primary" />
                   </div>
                   <h3 className="text-lg font-bold text-foreground mb-2">No Obligation</h3>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-sm text-foreground">
                     Free consultation with no strings attached
                   </p>
                 </CardContent>
@@ -70,7 +70,7 @@ export default function BookDemo() {
                     <MessageSquare className="h-8 w-8 text-primary" />
                   </div>
                   <h3 className="text-lg font-bold text-foreground mb-2">Custom Solutions</h3>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-sm text-foreground">
                     Tailored strategies for your unique needs
                   </p>
                 </CardContent>

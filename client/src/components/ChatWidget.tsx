@@ -88,7 +88,7 @@ export default function ChatWidget() {
                 </div>
                 <div>
                   <h3 className="font-semibold text-foreground">Redline Design</h3>
-                  <p className="text-xs text-muted-foreground">Ask me anything!</p>
+                  <p className="text-xs text-foreground">Ask me anything!</p>
                 </div>
               </div>
               <button
