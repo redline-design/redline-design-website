@@ -20,6 +20,7 @@ const COMPANY = [
   { href: "/services", label: "What We Do" },
   { href: "/why-us", label: "Why Us?" },
   { href: "/#partners", label: "Our Partners" },
+  { href: "/onboarding", label: "Onboarding" },
   { href: "/book-a-demo", label: "Book a Demo" },
 ];
 

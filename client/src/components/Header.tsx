@@ -50,7 +50,9 @@ export default function Header() {
   const navLinks = [
     { href: "/services", label: "Services" },
     { href: "/why-us", label: "Why Us" },
-    { href: "/onboarding", label: "Onboarding" },
+    { href: "/our-work", label: "Our Work" },
+    { href: "/testimonials", label: "Testimonials" },
+    { href: "/blog", label: "Blog" },
   ];
 
   return (
