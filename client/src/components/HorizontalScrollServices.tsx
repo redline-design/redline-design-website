@@ -57,31 +57,29 @@ export default function HorizontalScrollServices() {
     }
   });
 
-  // Smart scroll locking - allow scrolling within section, prevent scrolling past it
+  // Smart scroll locking - trap scrolling when hovering over the box
   useEffect(() => {
     if (!isHovering) return;
 
     const handleWheel = (e: WheelEvent) => {
-      const target = targetRef.current;
-      if (!target) return;
+      const section = targetRef.current;
+      if (!section) return;
 
-      const rect = target.getBoundingClientRect();
+      const rect = section.getBoundingClientRect();
       const scrollingDown = e.deltaY > 0;
       const scrollingUp = e.deltaY < 0;
 
-      // Calculate progress through the section
-      const sectionHeight = rect.height;
-      const viewportHeight = window.innerHeight;
       const sectionTop = rect.top;
       const sectionBottom = rect.bottom;
+      const viewportHeight = window.innerHeight;
 
-      // If trying to scroll up but we're at the top of the section
+      // Prevent scrolling up past the section start
       if (scrollingUp && sectionTop >= -10) {
         e.preventDefault();
         return;
       }
 
-      // If trying to scroll down but we're at the bottom of the section
+      // Prevent scrolling down past the section end
       if (scrollingDown && sectionBottom <= viewportHeight + 10) {
         e.preventDefault();
         return;
