@@ -164,13 +164,13 @@ export default function ChatWidget() {
       {/* Toggle Button */}
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-14 h-14 bg-white hover:bg-white/90 rounded-full shadow-2xl flex items-center justify-center transition-all button-recessed fill-on-hover overflow-hidden p-2"
+        className="w-14 h-14 bg-white/10 backdrop-blur-md border border-white/20 rounded-full shadow-2xl flex items-center justify-center transition-all overflow-hidden p-2 hover-elevate active-elevate-2"
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         data-testid="button-toggle-chat"
       >
         {isOpen ? (
-          <X className="w-6 h-6 text-black" />
+          <X className="w-6 h-6 text-white" />
         ) : (
           <img src={logoImage} alt="Chat" className="w-full h-full object-contain" />
         )}
