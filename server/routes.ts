@@ -69,9 +69,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Blog post endpoints
-  app.get("/api/blog/posts", async (req, res) => {
+  app.get("/api/blog/posts", async (req: any, res) => {
     try {
       const { category, includeUnpublished } = req.query;
+      
+      // Require authentication to view unpublished posts
+      if (includeUnpublished === 'true') {
+        if (!req.user || !req.user.claims) {
+          return res.status(401).json({ error: "Authentication required to view unpublished posts" });
+        }
+      }
+      
       const filters: any = {
         category: category as string | undefined
       };
@@ -88,12 +96,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.get("/api/blog/posts/:slug", async (req, res) => {
+  app.get("/api/blog/posts/:slug", async (req: any, res) => {
     try {
       const post = await storage.getBlogPost(req.params.slug);
       if (!post) {
         return res.status(404).json({ error: "Blog post not found" });
       }
+      
+      // Don't allow unauthenticated users to view unpublished posts
+      if (!post.published && (!req.user || !req.user.claims)) {
+        return res.status(404).json({ error: "Blog post not found" });
+      }
+      
       res.json(post);
     } catch (error: any) {
       console.error("Error fetching blog post:", error);

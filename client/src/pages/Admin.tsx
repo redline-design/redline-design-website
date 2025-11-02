@@ -112,8 +112,16 @@ export default function Admin() {
   }, [isAuthenticated, isLoading, toast]);
 
   const { data: blogPosts = [], isLoading: isLoadingPosts } = useQuery<BlogPost[]>({
-    queryKey: ["/api/blog/posts", { includeUnpublished: "true" }],
+    queryKey: ["/api/blog/posts", "includeUnpublished"],
+    queryFn: async () => {
+      const response = await fetch("/api/blog/posts?includeUnpublished=true");
+      if (!response.ok) {
+        throw new Error("Failed to fetch blog posts");
+      }
+      return response.json();
+    },
     retry: false,
+    enabled: isAuthenticated,
   });
 
   const form = useForm<FormData>({
