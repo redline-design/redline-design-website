@@ -57,40 +57,28 @@ export default function HorizontalScrollServices() {
     }
   });
 
-  // Scroll locking when hovering over the section
+  // Strict scroll locking - completely prevent all scrolling when hovering
   useEffect(() => {
-    if (!isHovering || progressPercent >= 100) return;
+    if (!isHovering) return;
 
-    const preventScroll = (e: WheelEvent) => {
-      const target = targetRef.current;
-      if (!target) return;
-
-      const rect = target.getBoundingClientRect();
-      const isInSection = rect.top <= 0 && rect.bottom > window.innerHeight;
-      
-      // If we're scrolling down and still in the section and progress < 100%
-      if (e.deltaY > 0 && isInSection && progressPercent < 100) {
-        // Allow scrolling to continue within section
-        return;
-      }
-      
-      // If trying to scroll up past section start
-      if (e.deltaY < 0 && rect.top >= 0) {
-        e.preventDefault();
-      }
-      
-      // If trying to scroll down past section when not complete
-      if (e.deltaY > 0 && progressPercent >= 99 && rect.bottom <= window.innerHeight * 1.5) {
-        e.preventDefault();
-      }
+    const preventScroll = (e: Event) => {
+      e.preventDefault();
+      e.stopPropagation();
     };
 
+    // Completely lock the page from scrolling
+    document.body.style.overflow = 'hidden';
     document.addEventListener('wheel', preventScroll, { passive: false });
+    document.addEventListener('touchmove', preventScroll, { passive: false });
+    document.addEventListener('scroll', preventScroll, { passive: false });
 
     return () => {
+      document.body.style.overflow = '';
       document.removeEventListener('wheel', preventScroll);
+      document.removeEventListener('touchmove', preventScroll);
+      document.removeEventListener('scroll', preventScroll);
     };
-  }, [isHovering, progressPercent]);
+  }, [isHovering]);
 
   const services = [
     {
@@ -263,24 +251,24 @@ export default function HorizontalScrollServices() {
             </div>
           </div>
 
-          {/* Progress bar and page indicator */}
+          {/* Progress bar */}
           <div className="mt-4 md:mt-8 w-full max-w-3xl mx-auto">
-            <div className="flex justify-center gap-2 mb-4" data-testid="container-page-indicators">
-              {Array.from({ length: Math.ceil(services.length / cardsPerPage) }).map((_, idx) => (
-                <div
-                  key={idx}
-                  data-testid={`indicator-page-${idx + 1}`}
-                  className={`h-2 rounded-full transition-all duration-300 ${
-                    idx === currentPage 
-                      ? 'w-8 bg-primary' 
-                      : 'w-2 bg-border/30'
-                  }`}
-                  aria-current={idx === currentPage ? 'true' : 'false'}
-                />
-              ))}
+            <div 
+              role="progressbar" 
+              aria-label="Service scroll progress"
+              aria-valuemin={0}
+              aria-valuemax={100}
+              aria-valuenow={progressPercent}
+              className="h-1 bg-border/30 rounded-full overflow-hidden"
+              data-testid="progressbar-services"
+            >
+              <div 
+                className="h-full bg-primary rounded-full transition-all duration-300 ease-out"
+                style={{ width: `${(currentPage + 1) / Math.ceil(services.length / cardsPerPage) * 100}%` }}
+              />
             </div>
             <p 
-              className="text-center text-xs sm:text-sm text-muted-foreground"
+              className="text-center text-xs sm:text-sm text-muted-foreground mt-2 md:mt-3"
               data-testid="text-services-progress"
               aria-live="polite"
             >

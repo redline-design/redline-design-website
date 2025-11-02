@@ -29,15 +29,15 @@ The project targets digital marketing clients looking for SEO, PPC, web design, 
     - Exit animation slides cards left with opposite rotation
     - Staggered delays (0.1s per card index) create cascading effect
     - Spring-based transitions for smooth, natural movement
-  - **Page Indicators**: Dot-based pagination showing current page
-    - Active page: elongated red dot (8px wide)
-    - Inactive pages: small circular dots (2px wide)
+  - **Progress Bar**: Red progress bar showing completion through all service pages
+    - Fills proportionally based on current page vs total pages
+    - Smooth transition animations when snapping to new pages
     - Progress text shows "current/total" (e.g., "2/4")
   - **Responsive Logic**: Automatically clamps currentPage when viewport resizes to prevent blank carousel
   - Sticky positioning with minimal container height (120vh on mobile, 150vh on desktop)
   - Glassmorphism background (backdrop-blur-md, bg-card/40) with rounded corners
   - **Interactive hover effects**: Red shimmer/glow around border when hovering (animated border and multi-layer box shadow)
-  - **Scroll-locking behavior**: When hovering over section with progress < 100%, prevents scrolling past until services are viewed
+  - **Strict scroll-locking behavior**: When hovering over section, completely prevents all page scrolling (overflow hidden, wheel/touch/scroll event prevention)
   - Contained within max-w-7xl centered container with overflow-hidden
   - Uniform card sizes (280px × 280px on mobile/tablet, 320px × 280px on desktop)
   - Gap between cards: 16px (mobile), 24px (desktop)
