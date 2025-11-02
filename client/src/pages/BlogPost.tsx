@@ -80,6 +80,13 @@ export default function BlogPost() {
 
   const { data: post, isLoading, error } = useQuery<BlogPostType>({
     queryKey: ["/api/blog/posts", slug],
+    queryFn: async () => {
+      const response = await fetch(`/api/blog/posts/${slug}`);
+      if (!response.ok) {
+        throw new Error('Failed to fetch blog post');
+      }
+      return response.json();
+    },
     enabled: !!slug,
   });
 
