@@ -21,15 +21,15 @@ export default function Home() {
             We cut through the marketing nonsense and focus on what actually drives revenue. Real strategies. Real metrics. Real growth.
           </p>
           <div className="grid grid-cols-3 gap-4 mt-6">
-            <div className="text-center p-4 bg-card rounded-lg">
+            <div className="text-center p-4 bg-card rounded-lg transition-all duration-300 hover:scale-105 cursor-pointer" style={{ transition: 'transform 0.3s ease, box-shadow 0.3s ease' }} onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 8px 20px rgba(255, 0, 0, 0.15), 0 4px 10px rgba(255, 0, 0, 0.1)'} onMouseLeave={(e) => e.currentTarget.style.boxShadow = 'none'}>
               <div className="text-3xl font-bold text-primary">14x</div>
               <div className="text-sm text-foreground">ROI</div>
             </div>
-            <div className="text-center p-4 bg-card rounded-lg">
+            <div className="text-center p-4 bg-card rounded-lg transition-all duration-300 hover:scale-105 cursor-pointer" style={{ transition: 'transform 0.3s ease, box-shadow 0.3s ease' }} onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 8px 20px rgba(255, 0, 0, 0.15), 0 4px 10px rgba(255, 0, 0, 0.1)'} onMouseLeave={(e) => e.currentTarget.style.boxShadow = 'none'}>
               <div className="text-3xl font-bold text-primary">350%</div>
               <div className="text-sm text-foreground">Traffic Growth</div>
             </div>
-            <div className="text-center p-4 bg-card rounded-lg">
+            <div className="text-center p-4 bg-card rounded-lg transition-all duration-300 hover:scale-105 cursor-pointer" style={{ transition: 'transform 0.3s ease, box-shadow 0.3s ease' }} onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 8px 20px rgba(255, 0, 0, 0.15), 0 4px 10px rgba(255, 0, 0, 0.1)'} onMouseLeave={(e) => e.currentTarget.style.boxShadow = 'none'}>
               <div className="text-3xl font-bold text-primary">95%</div>
               <div className="text-sm text-foreground">Client Retention</div>
             </div>
@@ -76,7 +76,13 @@ export default function Home() {
           </p>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-6">
             {['Google Ads', 'Meta Ads', 'LinkedIn', 'TikTok', 'YouTube', 'Twitter', 'Reddit', 'Pinterest'].map((platform) => (
-              <div key={platform} className="p-3 bg-card rounded-lg text-center text-sm font-medium">
+              <div 
+                key={platform} 
+                className="p-3 bg-card rounded-lg text-center text-sm font-medium transition-all duration-300 hover:scale-105 cursor-pointer" 
+                style={{ transition: 'transform 0.3s ease, box-shadow 0.3s ease' }} 
+                onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 8px 20px rgba(255, 0, 0, 0.15), 0 4px 10px rgba(255, 0, 0, 0.1)'} 
+                onMouseLeave={(e) => e.currentTarget.style.boxShadow = 'none'}
+              >
                 {platform}
               </div>
             ))}
