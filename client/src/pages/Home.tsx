@@ -196,7 +196,7 @@ export default function Home() {
             <p className="text-sm font-semibold text-foreground uppercase tracking-wide mb-2">
               Who We Work With
             </p>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-foreground mb-4">
+            <h2 className="text-lg sm:text-xl md:text-2xl font-bold uppercase tracking-[0.3em] mb-4 red-glow-pulse" style={{ color: "#ff0000" }}>
               Some of Our Partners
             </h2>
             <p className="text-lg text-foreground">

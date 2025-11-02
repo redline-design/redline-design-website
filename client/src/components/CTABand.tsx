@@ -24,7 +24,7 @@ export default function CTABand({ title, subtitle, buttonText, buttonLink }: CTA
       data-testid="section-cta-band"
     >
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-foreground mb-4" data-testid="text-cta-title">
+        <h2 className="text-lg sm:text-xl md:text-2xl font-bold uppercase tracking-[0.3em] mb-4 red-glow-pulse" style={{ color: "#ff0000" }} data-testid="text-cta-title">
           {title}
         </h2>
         {subtitle && (
