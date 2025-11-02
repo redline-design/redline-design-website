@@ -33,7 +33,7 @@ export default function Hero() {
       {/* Fixed animated gradient background */}
       <div className="fixed inset-0 z-0">
         <motion.div 
-          className="absolute inset-0 bg-gradient-to-br from-primary/40 via-background to-primary/40"
+          className="absolute inset-0 bg-gradient-to-br from-primary/30 via-background to-primary/30"
           animate={{
             backgroundPosition: ["0% 0%", "100% 100%"],
           }}
