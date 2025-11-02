@@ -35,6 +35,20 @@ export default function ServiceCard({ icon: Icon, title, description, link, stat
           className="h-full hover-elevate active-elevate-2 transition-all duration-300 rounded-2xl group cursor-pointer backdrop-blur-md bg-card/40 border-border/30 relative overflow-hidden"
           data-testid={`card-service-${title.toLowerCase().replace(/\s/g, "-")}`}
         >
+          {/* Status Badge - Top Right Corner */}
+          {status && (
+            <Badge 
+              variant={status === "accepting" ? "default" : "secondary"} 
+              className="absolute top-4 right-4 z-20 uppercase text-[10px] inline-flex items-center gap-1.5 px-2.5 py-1"
+            >
+              <span className="relative flex h-1.5 w-1.5">
+                <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${status === "accepting" ? "bg-green-400" : "bg-yellow-400"}`}></span>
+                <span className={`relative inline-flex rounded-full h-1.5 w-1.5 ${status === "accepting" ? "bg-green-500" : "bg-yellow-500"}`}></span>
+              </span>
+              {status === "accepting" ? "Accepting" : "Waitlist"}
+            </Badge>
+          )}
+
           {/* Animated border glow on hover */}
           <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
             <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-primary/20 blur-xl" />
@@ -48,19 +62,6 @@ export default function ServiceCard({ icon: Icon, title, description, link, stat
             >
               <Icon className="h-7 w-7" />
             </motion.div>
-
-            {status && (
-              <Badge 
-                variant={status === "accepting" ? "default" : "secondary"} 
-                className="mb-6 uppercase text-xs inline-flex items-center gap-2"
-              >
-                <span className="relative flex h-2 w-2">
-                  <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${status === "accepting" ? "bg-green-400" : "bg-yellow-400"}`}></span>
-                  <span className={`relative inline-flex rounded-full h-2 w-2 ${status === "accepting" ? "bg-green-500" : "bg-yellow-500"}`}></span>
-                </span>
-                {status === "accepting" ? "Now Accepting Clients" : "Waiting List"}
-              </Badge>
-            )}
 
             <h3 className="text-2xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors" data-testid={`text-service-title-${title.toLowerCase().replace(/\s/g, "-")}`}>
               {title}
