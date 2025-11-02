@@ -48,9 +48,6 @@ export default function Footer() {
                 <img src={logoImage} alt="Redline Design" className="h-4 w-auto" />
               </div>
             </Link>
-            <p className="text-xs text-muted-foreground mb-1.5">
-              Average response in &lt;24 business hours
-            </p>
             <div className="flex gap-2.5">
               <a
                 href="https://www.facebook.com/profile.php?id=61573886695631"
