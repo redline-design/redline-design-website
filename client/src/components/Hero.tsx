@@ -79,7 +79,7 @@ export default function Hero() {
 
         {/* Headline */}
         <motion.h1 
-          className="text-sm sm:text-base md:text-lg font-bold uppercase tracking-[0.3em] mb-12"
+          className="text-sm sm:text-base md:text-lg font-bold uppercase tracking-[0.3em] mb-12 red-glow-pulse"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.3 }}

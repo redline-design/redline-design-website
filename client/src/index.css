@@ -665,4 +665,18 @@
   .animate-gradient {
     animation: gradient-shift 3s ease-in-out infinite;
   }
+
+  /* Red glow pulse animation */
+  @keyframes red-glow {
+    0%, 100% {
+      text-shadow: 0 0 10px rgba(255, 0, 0, 0.3), 0 0 20px rgba(255, 0, 0, 0.2);
+    }
+    50% {
+      text-shadow: 0 0 20px rgba(255, 0, 0, 0.5), 0 0 30px rgba(255, 0, 0, 0.3), 0 0 40px rgba(255, 0, 0, 0.2);
+    }
+  }
+
+  .red-glow-pulse {
+    animation: red-glow 3s ease-in-out infinite;
+  }
 }
