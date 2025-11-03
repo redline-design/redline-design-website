@@ -2,17 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Custom Cursor */
-* {
-  cursor: none;
-}
+/* Custom Cursor - Desktop Only */
+@media (hover: hover) and (pointer: fine) {
+  *,
+  *::before,
+  *::after {
+    cursor: none !important;
+  }
 
-body {
-  cursor: none;
-}
+  body,
+  html {
+    cursor: none !important;
+  }
 
-a, button, [role="button"], input[type="submit"], input[type="button"] {
-  cursor: none !important;
+  a, button, [role="button"], input[type="submit"], input[type="button"] {
+    cursor: none !important;
+  }
 }
 
 /* Custom cursor dot */

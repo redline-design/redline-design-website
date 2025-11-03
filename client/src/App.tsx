@@ -193,9 +193,31 @@ function LoadingFallback() {
 function CustomCursor() {
   const cursorRef = useRef<HTMLDivElement>(null);
   const [isHovering, setIsHovering] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const rafRef = useRef<number>();
 
   useEffect(() => {
+    const checkMobile = () => {
+      const viewportWidth = window.innerWidth;
+      const userAgent = navigator.userAgent.toLowerCase();
+      const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+      const isMobileUA = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent);
+      
+      const isMobileDevice = viewportWidth < 768 || isMobileUA || (isTouchDevice && viewportWidth < 1024);
+      setIsMobile(isMobileDevice);
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (isMobile) return;
+
     const cursor = cursorRef.current;
     if (!cursor) return;
 
@@ -234,7 +256,9 @@ function CustomCursor() {
         cancelAnimationFrame(rafRef.current);
       }
     };
-  }, []);
+  }, [isMobile]);
+
+  if (isMobile) return null;
 
   return (
     <div
