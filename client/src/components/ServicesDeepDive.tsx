@@ -142,7 +142,7 @@ export default function ServicesDeepDive() {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" data-testid="section-services-deep-dive">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center" data-testid="section-services-deep-dive">
         {services.map((service) => {
           const isExpanded = expandedId === service.id;
           const Icon = service.icon;
@@ -150,13 +150,13 @@ export default function ServicesDeepDive() {
           return (
             <Card
               key={service.id}
-              className="hover-elevate transition-all duration-300"
+              className="hover-elevate active-elevate-2 transition-all duration-300 w-full cursor-pointer"
+              onClick={() => setExpandedId(isExpanded ? null : service.id)}
               data-testid={`card-service-deep-dive-${service.id}`}
             >
               <CardHeader className="space-y-0 p-6">
-                <button
-                  onClick={() => setExpandedId(isExpanded ? null : service.id)}
-                  className="w-full text-left flex items-start gap-4 hover-elevate active-elevate-2 -m-6 p-6"
+                <div
+                  className="w-full text-left flex items-start gap-4"
                   data-testid={`button-expand-service-${service.id}`}
                 >
                   <div
@@ -192,7 +192,7 @@ export default function ServicesDeepDive() {
                       </motion.div>
                     </div>
                   </div>
-                </button>
+                </div>
               </CardHeader>
 
               <AnimatePresence>
