@@ -25,10 +25,6 @@ export default function PartnerLogos() {
         transition={{ duration: 0.6 }}
         className="relative"
       >
-        <h3 className="text-center text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-12">
-          Platforms We Excel At
-        </h3>
-        
         <div className="relative">
           <div className="flex gap-12 animate-scroll">
             {[...partners, ...partners, ...partners].map(({ Icon, name }, index) => (
