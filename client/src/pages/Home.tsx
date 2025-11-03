@@ -253,42 +253,6 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Industry Statistics - Auto-Scrolling */}
-          <div className="mb-16" data-testid="section-stats-carousel">
-            <div className="relative overflow-hidden">
-              <motion.div
-                className="flex gap-4 pointer-events-none"
-                animate={{
-                  x: prefersReducedMotion ? 0 : [0, -100 * stats.length],
-                }}
-                transition={{
-                  x: {
-                    duration: prefersReducedMotion ? 0 : stats.length * 8,
-                    repeat: Infinity,
-                    ease: "linear",
-                  },
-                }}
-              >
-                {duplicatedStats.map((stat, index) => (
-                  <div 
-                    key={`${stat.testId}-${index}`}
-                    className="flex-shrink-0 w-[280px] sm:w-[320px]"
-                  >
-                    <div className="text-center p-4 bg-card rounded-lg" data-testid={index < stats.length ? stat.testId : undefined}>
-                      <div className="text-3xl sm:text-4xl font-bold text-primary mb-1">{stat.value}</div>
-                      <div className="text-sm text-foreground font-medium mb-0.5">{stat.label}</div>
-                      <div className="text-xs text-muted-foreground">{stat.subtitle}</div>
-                    </div>
-                  </div>
-                ))}
-              </motion.div>
-
-              {/* Gradient overlays for fade effect */}
-              <div className="absolute top-0 left-0 w-16 h-full bg-gradient-to-r from-card/30 to-transparent pointer-events-none z-10" />
-              <div className="absolute top-0 right-0 w-16 h-full bg-gradient-to-l from-card/30 to-transparent pointer-events-none z-10" />
-            </div>
-          </div>
-
           <TabbedContent tabs={tabs} />
         </div>
       </section>
@@ -360,17 +324,47 @@ export default function Home() {
       <section id="partners" className="py-16 px-4 sm:px-6 lg:px-8" data-testid="section-partners">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <p className="text-sm font-semibold text-foreground uppercase tracking-wide mb-2">
-              Who We Work With
-            </p>
             <h2 className="text-lg sm:text-xl md:text-2xl font-bold uppercase tracking-[0.3em] mb-4 red-glow-pulse" style={{ color: "#ff0000" }}>
               Some of Our Partners
             </h2>
-            <p className="text-lg text-foreground">
-              We have a variety of partners across different platforms.
-            </p>
           </div>
           <PartnerLogos />
+
+          {/* Industry Statistics - Auto-Scrolling */}
+          <div className="mt-16" data-testid="section-stats-carousel">
+            <div className="relative overflow-hidden">
+              <motion.div
+                className="flex gap-4 pointer-events-none"
+                animate={{
+                  x: prefersReducedMotion ? 0 : [0, -100 * stats.length],
+                }}
+                transition={{
+                  x: {
+                    duration: prefersReducedMotion ? 0 : stats.length * 8,
+                    repeat: Infinity,
+                    ease: "linear",
+                  },
+                }}
+              >
+                {duplicatedStats.map((stat, index) => (
+                  <div 
+                    key={`${stat.testId}-${index}`}
+                    className="flex-shrink-0 w-[280px] sm:w-[320px]"
+                  >
+                    <div className="text-center p-4 bg-card rounded-lg" data-testid={index < stats.length ? stat.testId : undefined}>
+                      <div className="text-3xl sm:text-4xl font-bold text-primary mb-1">{stat.value}</div>
+                      <div className="text-sm text-foreground font-medium mb-0.5">{stat.label}</div>
+                      <div className="text-xs text-muted-foreground">{stat.subtitle}</div>
+                    </div>
+                  </div>
+                ))}
+              </motion.div>
+
+              {/* Gradient overlays for fade effect */}
+              <div className="absolute top-0 left-0 w-16 h-full bg-gradient-to-r from-card/30 to-transparent pointer-events-none z-10" />
+              <div className="absolute top-0 right-0 w-16 h-full bg-gradient-to-l from-card/30 to-transparent pointer-events-none z-10" />
+            </div>
+          </div>
         </div>
       </section>
 
