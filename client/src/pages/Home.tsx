@@ -7,7 +7,6 @@ import PartnerLogos from "@/components/PartnerLogos";
 import TestimonialsCarousel from "@/components/TestimonialsCarousel";
 import StatCounter from "@/components/StatCounter";
 import CTABand from "@/components/CTABand";
-import BeginnerExplainer from "@/components/BeginnerExplainer";
 import StickyConversionBar from "@/components/StickyConversionBar";
 import { BarChart3, Sparkles, Globe, DollarSign, Zap, Target, Users, Briefcase, TrendingUp, AlertTriangle, MousePointerClick, LayoutGrid, BarChart2, Monitor, Database, Eye } from "lucide-react";
 import { motion } from "framer-motion";
@@ -112,10 +111,8 @@ export default function Home() {
       <Hero />
       
       <div id="learn-more">
-        <BeginnerExplainer />
+        <HorizontalScrollServices />
       </div>
-      
-      <HorizontalScrollServices />
 
       {/* Service Deep Dive - Progressive Disclosure */}
       <section className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 bg-card/20" data-testid="section-services-detail">
