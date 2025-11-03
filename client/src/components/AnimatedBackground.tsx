@@ -52,11 +52,11 @@ export default function AnimatedBackground() {
     };
     window.addEventListener("mousemove", handleMouseMove, { passive: true });
 
-    // Hexagon grid with wave animation
-    const hexRadius = 35;
+    // Hexagon grid with wave animation - reduced density for better performance
+    const hexRadius = 40; // Slightly larger hexagons
     const hexHeight = hexRadius * 2;
     const hexWidth = Math.sqrt(3) * hexRadius;
-    const hexSpacing = 5;
+    const hexSpacing = 15; // Increased spacing for fewer hexagons
 
     interface HexCell {
       x: number;
@@ -68,9 +68,9 @@ export default function AnimatedBackground() {
 
     const hexGrid: HexCell[] = [];
     
-    // Create honeycomb grid
-    const cols = Math.ceil(canvas.width / (hexWidth + hexSpacing)) + 2;
-    const rows = Math.ceil(canvas.height / (hexHeight * 0.75 + hexSpacing)) + 2;
+    // Create honeycomb grid - reduced density by 40% for performance
+    const cols = Math.ceil(canvas.width / (hexWidth + hexSpacing)) + 1;
+    const rows = Math.ceil(canvas.height / (hexHeight * 0.75 + hexSpacing)) + 1;
 
     for (let row = 0; row < rows; row++) {
       for (let col = 0; col < cols; col++) {
@@ -105,12 +105,25 @@ export default function AnimatedBackground() {
       ctx.stroke();
     };
 
-    const animate = () => {
+    // FPS limiting for better performance
+    let lastFrameTime = 0;
+    const targetFPS = 30; // Cap at 30fps for smooth but performant animation
+    const frameInterval = 1000 / targetFPS;
+
+    const animate = (currentTime: number) => {
+      animationFrameId = requestAnimationFrame(animate);
+
       // Skip animation when tab is not visible or user prefers reduced motion
       if (!isTabVisible || prefersReducedMotion) {
-        animationFrameId = requestAnimationFrame(animate);
         return;
       }
+
+      // FPS throttling
+      const elapsed = currentTime - lastFrameTime;
+      if (elapsed < frameInterval) {
+        return;
+      }
+      lastFrameTime = currentTime - (elapsed % frameInterval);
 
       if (needsResize) {
         applyResize();
@@ -173,11 +186,9 @@ export default function AnimatedBackground() {
 
         drawHexagon(hex.x, hex.y, currentRadius, opacity, hue);
       }
-
-      animationFrameId = requestAnimationFrame(animate);
     };
 
-    animate();
+    animationFrameId = requestAnimationFrame(animate);
 
     return () => {
       window.removeEventListener("resize", debouncedResize);

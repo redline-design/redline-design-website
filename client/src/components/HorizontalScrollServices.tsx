@@ -1,7 +1,91 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import ServiceCard from "@/components/ServiceCard";
 import { Globe, TrendingUp, Search, Database, BarChart3, Palette, MessageSquare, Mail, Users, Bot } from "lucide-react";
+
+// Services data moved outside component to prevent re-creation on every render
+const SERVICES_DATA = [
+  {
+    icon: Globe,
+    title: "World Class Websites",
+    description: "Unique websites at reasonable prices.",
+    link: "/services#web",
+    status: "accepting" as const,
+    accentColor: "rgb(96, 165, 250)"
+  },
+  {
+    icon: TrendingUp,
+    title: "Paid Advertising",
+    description: "Focusing on maximum ROI.",
+    link: "/services#ppc",
+    status: "accepting" as const,
+    accentColor: "rgb(167, 139, 250)"
+  },
+  {
+    icon: Search,
+    title: "SEO/SEM",
+    description: "Get found everywhere, by everyone.",
+    link: "/services#seo",
+    status: "waitlist" as const,
+    accentColor: "rgb(110, 231, 183)"
+  },
+  {
+    icon: Database,
+    title: "CRM Setup & Automation",
+    description: "Streamline your customer relationships and automate workflows.",
+    link: "/services#crm",
+    status: "accepting" as const,
+    accentColor: "rgb(251, 146, 60)"
+  },
+  {
+    icon: BarChart3,
+    title: "Analytics & Data Analysis",
+    description: "Track everything. Understand your customers. Make data-driven decisions.",
+    link: "/services#analytics",
+    status: "accepting" as const,
+    accentColor: "rgb(236, 72, 153)"
+  },
+  {
+    icon: Palette,
+    title: "Graphic Design",
+    description: "Eye-catching visuals that convert.",
+    link: "/services#design",
+    status: "accepting" as const,
+    accentColor: "rgb(249, 115, 22)"
+  },
+  {
+    icon: MessageSquare,
+    title: "Social Media Marketing",
+    description: "Build your brand and engage your audience.",
+    link: "/services#social",
+    status: "accepting" as const,
+    accentColor: "rgb(59, 130, 246)"
+  },
+  {
+    icon: Mail,
+    title: "Email Marketing",
+    description: "Nurture leads and drive conversions with targeted campaigns.",
+    link: "/services#email",
+    status: "accepting" as const,
+    accentColor: "rgb(34, 197, 94)"
+  },
+  {
+    icon: Users,
+    title: "Consulting",
+    description: "Strategic guidance to grow your business.",
+    link: "/services#consulting",
+    status: "accepting" as const,
+    accentColor: "rgb(168, 85, 247)"
+  },
+  {
+    icon: Bot,
+    title: "AI Automation",
+    description: "Automate tasks and workflows with cutting-edge AI.",
+    link: "/services#ai",
+    status: "accepting" as const,
+    accentColor: "rgb(234, 88, 12)"
+  }
+] as const;
 
 export default function HorizontalScrollServices() {
   const targetRef = useRef<HTMLDivElement>(null);
@@ -9,174 +93,99 @@ export default function HorizontalScrollServices() {
   const [isHovering, setIsHovering] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [cardsPerPage, setCardsPerPage] = useState(3);
-  
-  // Services data
-  const services = [
-    {
-      icon: Globe,
-      title: "World Class Websites",
-      description: "Unique websites at reasonable prices.",
-      link: "/services#web",
-      status: "accepting" as const,
-      accentColor: "rgb(96, 165, 250)"
-    },
-    {
-      icon: TrendingUp,
-      title: "Paid Advertising",
-      description: "Focusing on maximum ROI.",
-      link: "/services#ppc",
-      status: "accepting" as const,
-      accentColor: "rgb(167, 139, 250)"
-    },
-    {
-      icon: Search,
-      title: "SEO/SEM",
-      description: "Get found everywhere, by everyone.",
-      link: "/services#seo",
-      status: "waitlist" as const,
-      accentColor: "rgb(110, 231, 183)"
-    },
-    {
-      icon: Database,
-      title: "CRM Setup & Automation",
-      description: "Streamline your customer relationships and automate workflows.",
-      link: "/services#crm",
-      status: "accepting" as const,
-      accentColor: "rgb(251, 146, 60)"
-    },
-    {
-      icon: BarChart3,
-      title: "Analytics & Data Analysis",
-      description: "Track everything. Understand your customers. Make data-driven decisions.",
-      link: "/services#analytics",
-      status: "accepting" as const,
-      accentColor: "rgb(236, 72, 153)"
-    },
-    {
-      icon: Palette,
-      title: "Graphic Design",
-      description: "Eye-catching visuals that convert.",
-      link: "/services#design",
-      status: "accepting" as const,
-      accentColor: "rgb(249, 115, 22)"
-    },
-    {
-      icon: MessageSquare,
-      title: "Social Media Marketing",
-      description: "Build your brand and engage your audience.",
-      link: "/services#social",
-      status: "accepting" as const,
-      accentColor: "rgb(59, 130, 246)"
-    },
-    {
-      icon: Mail,
-      title: "Email Marketing",
-      description: "Nurture leads and drive conversions with targeted campaigns.",
-      link: "/services#email",
-      status: "accepting" as const,
-      accentColor: "rgb(34, 197, 94)"
-    },
-    {
-      icon: Users,
-      title: "Consulting",
-      description: "Strategic guidance to grow your business.",
-      link: "/services#consulting",
-      status: "accepting" as const,
-      accentColor: "rgb(168, 85, 247)"
-    },
-    {
-      icon: Bot,
-      title: "AI Automation",
-      description: "Automate tasks and workflows with cutting-edge AI.",
-      link: "/services#ai",
-      status: "accepting" as const,
-      accentColor: "rgb(234, 88, 12)"
-    }
-  ];
+
+  const servicesLength = useMemo(() => SERVICES_DATA.length, []);
 
   // Calculate cards per page based on viewport width
   useEffect(() => {
+    let resizeTimeout: NodeJS.Timeout;
     const updateCardsPerPage = () => {
-      const width = window.innerWidth;
-      if (width < 640) {
-        setCardsPerPage(1); // Mobile: 1 card
-      } else if (width < 1024) {
-        setCardsPerPage(2); // Tablet: 2 cards
-      } else {
-        setCardsPerPage(3); // Desktop: 3 cards
-      }
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        const width = window.innerWidth;
+        if (width < 640) {
+          setCardsPerPage(1); // Mobile: 1 card
+        } else if (width < 1024) {
+          setCardsPerPage(2); // Tablet: 2 cards
+        } else {
+          setCardsPerPage(3); // Desktop: 3 cards
+        }
+      }, 100); // Debounce resize
     };
 
     updateCardsPerPage();
     window.addEventListener('resize', updateCardsPerPage);
-    return () => window.removeEventListener('resize', updateCardsPerPage);
+    return () => {
+      clearTimeout(resizeTimeout);
+      window.removeEventListener('resize', updateCardsPerPage);
+    };
   }, []);
 
   // Clamp currentIndex when cardsPerPage changes to prevent overflow
   useEffect(() => {
-    const maxIndex = services.length - cardsPerPage;
+    const maxIndex = servicesLength - cardsPerPage;
     if (currentIndex > maxIndex) {
       setCurrentIndex(Math.max(0, maxIndex));
     }
-  }, [cardsPerPage, currentIndex, services.length]);
+  }, [cardsPerPage, currentIndex, servicesLength]);
 
   // Check if we're at the last service
-  const isAtLastService = currentIndex + cardsPerPage >= services.length;
+  const isAtLastService = useMemo(
+    () => currentIndex + cardsPerPage >= servicesLength,
+    [currentIndex, cardsPerPage, servicesLength]
+  );
 
-  // Handle wheel events when hovering - completely lock page scrolling and advance one card at a time
+  // Handle wheel events on container with RAF throttling - no document.body manipulation
   useEffect(() => {
-    if (!isHovering) return;
+    const container = containerRef.current;
+    if (!container || !isHovering) return;
+
+    let rafId: number | null = null;
+    let accumulatedDelta = 0;
+    const DELTA_THRESHOLD = 30; // Minimum delta to trigger change
 
     const handleWheel = (e: WheelEvent) => {
-      const maxIndex = services.length - cardsPerPage;
-      const scrollingDown = e.deltaY > 0;
-      const scrollingUp = e.deltaY < 0;
-
-      // If at last service and scrolling down, allow normal page scroll to continue
-      if (currentIndex >= maxIndex && scrollingDown) {
-        // Don't prevent default - let the page scroll normally
-        return;
-      }
-
-      // Otherwise prevent page scrolling and handle card navigation
-      e.preventDefault();
-      e.stopPropagation();
-
-      // Advance to next card (shift window by 1)
-      if (scrollingDown && currentIndex < maxIndex) {
-        setCurrentIndex(prev => Math.min(prev + 1, maxIndex));
-      }
+      const maxIndex = servicesLength - cardsPerPage;
       
-      // Go to previous card (shift window by 1)
-      if (scrollingUp && currentIndex > 0) {
-        setCurrentIndex(prev => Math.max(prev - 1, 0));
-      }
-    };
-
-    const handleTouchMove = (e: TouchEvent) => {
-      const maxIndex = services.length - cardsPerPage;
-      // Allow touch scrolling when at the last service
-      if (currentIndex >= maxIndex) {
+      // If at last service and scrolling down, allow normal page scroll
+      if (currentIndex >= maxIndex && e.deltaY > 0) {
         return;
       }
+
       e.preventDefault();
       e.stopPropagation();
+
+      accumulatedDelta += e.deltaY;
+
+      // Use RAF to throttle updates
+      if (rafId === null) {
+        rafId = requestAnimationFrame(() => {
+          if (Math.abs(accumulatedDelta) >= DELTA_THRESHOLD) {
+            const scrollingDown = accumulatedDelta > 0;
+            const scrollingUp = accumulatedDelta < 0;
+
+            if (scrollingDown && currentIndex < maxIndex) {
+              setCurrentIndex(prev => Math.min(prev + 1, maxIndex));
+            } else if (scrollingUp && currentIndex > 0) {
+              setCurrentIndex(prev => Math.max(prev - 1, 0));
+            }
+
+            accumulatedDelta = 0;
+          }
+          rafId = null;
+        });
+      }
     };
 
-    // Only lock scrolling if not at the last service
-    if (!isAtLastService) {
-      document.body.style.overflow = 'hidden';
-    }
-    
-    document.addEventListener('wheel', handleWheel, { passive: false });
-    document.addEventListener('touchmove', handleTouchMove, { passive: false });
+    container.addEventListener('wheel', handleWheel, { passive: false });
 
     return () => {
-      document.body.style.overflow = '';
-      document.removeEventListener('wheel', handleWheel);
-      document.removeEventListener('touchmove', handleTouchMove);
+      if (rafId !== null) {
+        cancelAnimationFrame(rafId);
+      }
+      container.removeEventListener('wheel', handleWheel);
     };
-  }, [isHovering, currentIndex, cardsPerPage, services.length, isAtLastService]);
+  }, [isHovering, currentIndex, cardsPerPage, servicesLength]);
 
   return (
     <section 
@@ -214,7 +223,7 @@ export default function HorizontalScrollServices() {
           >
             <div className="flex justify-center items-center gap-4 md:gap-6 h-full">
               <AnimatePresence mode="popLayout">
-                {services
+                {SERVICES_DATA
                   .slice(currentIndex, currentIndex + cardsPerPage)
                   .map((service, index) => (
                     <motion.div
@@ -273,13 +282,13 @@ export default function HorizontalScrollServices() {
               aria-label="Service scroll progress"
               aria-valuemin={0}
               aria-valuemax={100}
-              aria-valuenow={Math.round(((currentIndex + cardsPerPage) / services.length) * 100)}
+              aria-valuenow={Math.round(((currentIndex + cardsPerPage) / servicesLength) * 100)}
               className="h-1 bg-border/30 rounded-full overflow-hidden"
               data-testid="progressbar-services"
             >
               <div 
                 className="h-full bg-primary rounded-full transition-all duration-300 ease-out"
-                style={{ width: `${((currentIndex + cardsPerPage) / services.length) * 100}%` }}
+                style={{ width: `${((currentIndex + cardsPerPage) / servicesLength) * 100}%` }}
               />
             </div>
             <div className="flex flex-col items-center gap-3 mt-3">
