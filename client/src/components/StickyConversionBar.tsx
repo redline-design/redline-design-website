@@ -96,21 +96,22 @@ export default function StickyConversionBar() {
                   >
                     <div className="flex items-center justify-between gap-4">
                       <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                        <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
                           <Lightbulb className="w-5 h-5 text-primary" />
                         </div>
-                        <div>
-                          <h4 className="text-base sm:text-lg font-bold text-foreground mb-0.5">
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <h4 className="text-sm sm:text-base font-bold text-foreground">
                             New to Digital Marketing?
                           </h4>
-                          <p className="text-xs text-foreground/70">
+                          <span className="text-xs text-foreground/70">
                             {isExpanded ? "Click to hide" : "Click to learn the basics"}
-                          </p>
+                          </span>
                         </div>
                       </div>
                       <motion.div
                         animate={{ rotate: isExpanded ? 180 : 0 }}
                         transition={{ duration: 0.3 }}
+                        className="flex-shrink-0"
                       >
                         <ChevronDown className="w-5 h-5 text-foreground/60" />
                       </motion.div>
