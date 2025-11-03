@@ -156,42 +156,40 @@ export default function ServicesDeepDive() {
               <CardHeader className="p-0">
                 <button
                   onClick={() => setExpandedId(isExpanded ? null : service.id)}
-                  className="w-full text-left p-3 flex flex-col gap-2 hover-elevate active-elevate-2"
+                  className="w-full text-left p-2 flex items-center gap-2 hover-elevate active-elevate-2"
                   data-testid={`button-expand-service-${service.id}`}
                 >
-                  <div className="flex items-center justify-between gap-2">
-                    <div
-                      className="flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center"
-                      style={{
-                        backgroundColor: `${service.accentColor}20`,
-                        color: service.accentColor
-                      }}
-                    >
-                      <Icon className="w-4 h-4" />
-                    </div>
-                    <motion.div
-                      animate={{ rotate: isExpanded ? 180 : 0 }}
-                      transition={{ duration: 0.3 }}
-                      className="flex-shrink-0"
-                    >
-                      <ChevronDown className="w-4 h-4 text-muted-foreground" />
-                    </motion.div>
+                  <div
+                    className="flex-shrink-0 w-7 h-7 rounded-lg flex items-center justify-center"
+                    style={{
+                      backgroundColor: `${service.accentColor}20`,
+                      color: service.accentColor
+                    }}
+                  >
+                    <Icon className="w-3.5 h-3.5" />
                   </div>
-                  <div>
-                    <div className="flex items-center gap-1.5 mb-0.5">
-                      <h3 className="text-sm font-bold text-foreground">
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-1 mb-0.5">
+                      <h3 className="text-xs font-bold text-foreground">
                         {service.title}
                       </h3>
                       {service.status === "waitlist" && (
-                        <Badge variant="secondary" className="text-xs px-1.5 py-0">
+                        <Badge variant="secondary" className="text-[10px] px-1 py-0">
                           Waitlist
                         </Badge>
                       )}
                     </div>
-                    <p className="text-muted-foreground text-xs line-clamp-2">
+                    <p className="text-muted-foreground text-[10px] line-clamp-1">
                       {service.tagline}
                     </p>
                   </div>
+                  <motion.div
+                    animate={{ rotate: isExpanded ? 180 : 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="flex-shrink-0"
+                  >
+                    <ChevronDown className="w-3.5 h-3.5 text-muted-foreground" />
+                  </motion.div>
                 </button>
               </CardHeader>
 
