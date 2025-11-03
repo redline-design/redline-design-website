@@ -30,7 +30,7 @@ export default function Home() {
 
   // Simplified statistics - outcome-focused for beginners
   const stats = [
-    { value: "14x", label: "Average ROI", subtitle: "returns on your marketing investment", testId: "stat-roi" },
+    { value: "7x", label: "Average ROI", subtitle: "average 7x ROI, up to 14x seen", testId: "stat-roi" },
     { value: "76%", label: "of consumers", subtitle: "research online before purchasing", testId: "stat-online-research" },
     { value: "3x", label: "More Leads", subtitle: "with digital vs traditional marketing", testId: "stat-lead-increase" },
   ];
@@ -51,8 +51,8 @@ export default function Home() {
           </p>
           <div className="grid grid-cols-3 gap-4 mt-6">
             <div className="text-center p-4 bg-card rounded-lg cursor-pointer hover-elevate active-elevate-2" data-testid="stat-roi">
-              <div className="text-3xl font-bold text-primary">14x</div>
-              <div className="text-sm text-foreground">ROI</div>
+              <div className="text-3xl font-bold text-primary">7x</div>
+              <div className="text-sm text-foreground">Avg ROI</div>
             </div>
             <div className="text-center p-4 bg-card rounded-lg cursor-pointer hover-elevate active-elevate-2" data-testid="stat-traffic">
               <div className="text-3xl font-bold text-primary">350%</div>
@@ -74,7 +74,7 @@ export default function Home() {
         <div>
           <h3 className="text-2xl font-bold mb-4">Returns up to 14x Your Investment</h3>
           <p className="text-foreground mb-4">
-            Our clients see an average return of 8-14x on their marketing spend. We focus on what matters: revenue growth and customer acquisition at scale.
+            Our clients see an average return of 7x on their marketing spend, with some achieving up to 14x. We focus on what matters: revenue growth and customer acquisition at scale.
           </p>
           <ul className="space-y-2 text-foreground">
             <li className="flex items-start gap-2">
@@ -331,8 +331,8 @@ export default function Home() {
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             <StatCounter value={98} suffix="%" label="Client Satisfaction" />
-            <StatCounter value={14} suffix="x" label="Average ROI" delay={0.1} />
-            <StatCounter value={500} suffix="+" label="Success Stories" delay={0.2} />
+            <StatCounter value={7} suffix="x" label="Average ROI" delay={0.1} />
+            <StatCounter value={50} suffix="+" label="Active Clients" delay={0.2} />
             <StatCounter value={95} suffix="%" label="Client Retention" delay={0.3} />
           </div>
         </div>
