@@ -10,73 +10,7 @@ export default function HorizontalScrollServices() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [cardsPerPage, setCardsPerPage] = useState(3);
   
-  // Calculate cards per page based on viewport width
-  useEffect(() => {
-    const updateCardsPerPage = () => {
-      const width = window.innerWidth;
-      if (width < 640) {
-        setCardsPerPage(1); // Mobile: 1 card
-      } else if (width < 1024) {
-        setCardsPerPage(2); // Tablet: 2 cards
-      } else {
-        setCardsPerPage(3); // Desktop: 3 cards
-      }
-    };
-
-    updateCardsPerPage();
-    window.addEventListener('resize', updateCardsPerPage);
-    return () => window.removeEventListener('resize', updateCardsPerPage);
-  }, []);
-
-  // Clamp currentIndex when cardsPerPage changes to prevent overflow
-  useEffect(() => {
-    const maxIndex = services.length - cardsPerPage;
-    if (currentIndex > maxIndex) {
-      setCurrentIndex(Math.max(0, maxIndex));
-    }
-  }, [cardsPerPage, currentIndex]);
-
-  // Handle wheel events when hovering - completely lock page scrolling and advance one card at a time
-  useEffect(() => {
-    if (!isHovering) return;
-
-    const handleWheel = (e: WheelEvent) => {
-      // Completely prevent all page scrolling
-      e.preventDefault();
-      e.stopPropagation();
-
-      const maxIndex = services.length - cardsPerPage;
-      const scrollingDown = e.deltaY > 0;
-      const scrollingUp = e.deltaY < 0;
-
-      // Advance to next card (shift window by 1)
-      if (scrollingDown && currentIndex < maxIndex) {
-        setCurrentIndex(prev => Math.min(prev + 1, maxIndex));
-      }
-      
-      // Go to previous card (shift window by 1)
-      if (scrollingUp && currentIndex > 0) {
-        setCurrentIndex(prev => Math.max(prev - 1, 0));
-      }
-    };
-
-    const handleTouchMove = (e: TouchEvent) => {
-      e.preventDefault();
-      e.stopPropagation();
-    };
-
-    // Lock all forms of scrolling
-    document.body.style.overflow = 'hidden';
-    document.addEventListener('wheel', handleWheel, { passive: false });
-    document.addEventListener('touchmove', handleTouchMove, { passive: false });
-
-    return () => {
-      document.body.style.overflow = '';
-      document.removeEventListener('wheel', handleWheel);
-      document.removeEventListener('touchmove', handleTouchMove);
-    };
-  }, [isHovering, currentIndex, cardsPerPage]);
-
+  // Services data
   const services = [
     {
       icon: Globe,
@@ -159,6 +93,90 @@ export default function HorizontalScrollServices() {
       accentColor: "rgb(234, 88, 12)"
     }
   ];
+
+  // Calculate cards per page based on viewport width
+  useEffect(() => {
+    const updateCardsPerPage = () => {
+      const width = window.innerWidth;
+      if (width < 640) {
+        setCardsPerPage(1); // Mobile: 1 card
+      } else if (width < 1024) {
+        setCardsPerPage(2); // Tablet: 2 cards
+      } else {
+        setCardsPerPage(3); // Desktop: 3 cards
+      }
+    };
+
+    updateCardsPerPage();
+    window.addEventListener('resize', updateCardsPerPage);
+    return () => window.removeEventListener('resize', updateCardsPerPage);
+  }, []);
+
+  // Clamp currentIndex when cardsPerPage changes to prevent overflow
+  useEffect(() => {
+    const maxIndex = services.length - cardsPerPage;
+    if (currentIndex > maxIndex) {
+      setCurrentIndex(Math.max(0, maxIndex));
+    }
+  }, [cardsPerPage, currentIndex, services.length]);
+
+  // Check if we're at the last service
+  const isAtLastService = currentIndex + cardsPerPage >= services.length;
+
+  // Handle wheel events when hovering - completely lock page scrolling and advance one card at a time
+  useEffect(() => {
+    if (!isHovering) return;
+
+    const handleWheel = (e: WheelEvent) => {
+      const maxIndex = services.length - cardsPerPage;
+      const scrollingDown = e.deltaY > 0;
+      const scrollingUp = e.deltaY < 0;
+
+      // If at last service and scrolling down, allow normal page scroll to continue
+      if (currentIndex >= maxIndex && scrollingDown) {
+        // Don't prevent default - let the page scroll normally
+        return;
+      }
+
+      // Otherwise prevent page scrolling and handle card navigation
+      e.preventDefault();
+      e.stopPropagation();
+
+      // Advance to next card (shift window by 1)
+      if (scrollingDown && currentIndex < maxIndex) {
+        setCurrentIndex(prev => Math.min(prev + 1, maxIndex));
+      }
+      
+      // Go to previous card (shift window by 1)
+      if (scrollingUp && currentIndex > 0) {
+        setCurrentIndex(prev => Math.max(prev - 1, 0));
+      }
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      const maxIndex = services.length - cardsPerPage;
+      // Allow touch scrolling when at the last service
+      if (currentIndex >= maxIndex) {
+        return;
+      }
+      e.preventDefault();
+      e.stopPropagation();
+    };
+
+    // Only lock scrolling if not at the last service
+    if (!isAtLastService) {
+      document.body.style.overflow = 'hidden';
+    }
+    
+    document.addEventListener('wheel', handleWheel, { passive: false });
+    document.addEventListener('touchmove', handleTouchMove, { passive: false });
+
+    return () => {
+      document.body.style.overflow = '';
+      document.removeEventListener('wheel', handleWheel);
+      document.removeEventListener('touchmove', handleTouchMove);
+    };
+  }, [isHovering, currentIndex, cardsPerPage, services.length, isAtLastService]);
 
   return (
     <section 
@@ -265,32 +283,81 @@ export default function HorizontalScrollServices() {
               />
             </div>
             <div className="flex flex-col items-center gap-3 mt-3">
-              <motion.p 
-                className="text-center text-xs sm:text-sm text-muted-foreground"
-                data-testid="text-services-scroll-hint"
-                animate={{ opacity: [0.5, 1, 0.5] }}
-                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-              >
-                Scroll to explore all services
-              </motion.p>
-              <div className="flex items-center gap-1 overflow-hidden w-20 h-8">
-                {[0, 1, 2].map((i) => (
+              <AnimatePresence mode="wait">
+                {isAtLastService ? (
+                  // Show "scroll outside" message when at last service
                   <motion.div
-                    key={i}
-                    className="w-6 h-6 rounded bg-primary/20 border border-primary/40 flex-shrink-0"
-                    animate={{
-                      x: [20, -40],
-                      opacity: [0, 1, 1, 0]
-                    }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      delay: i * 0.3,
-                      ease: "easeInOut"
-                    }}
-                  />
-                ))}
-              </div>
+                    key="scroll-outside"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    className="flex flex-col items-center gap-3"
+                  >
+                    <motion.p 
+                      className="text-center text-xs sm:text-sm text-primary font-medium"
+                      data-testid="text-services-scroll-outside"
+                      animate={{ opacity: [0.6, 1, 0.6] }}
+                      transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                    >
+                      Scroll outside the box to continue
+                    </motion.p>
+                    <div className="flex flex-col items-center gap-1 h-12">
+                      {[0, 1, 2].map((i) => (
+                        <motion.div
+                          key={i}
+                          className="w-8 h-2 rounded-full bg-primary/30 border border-primary/50"
+                          animate={{
+                            y: [-5, 15],
+                            opacity: [0, 1, 1, 0]
+                          }}
+                          transition={{
+                            duration: 1.5,
+                            repeat: Infinity,
+                            delay: i * 0.2,
+                            ease: "easeInOut"
+                          }}
+                        />
+                      ))}
+                    </div>
+                  </motion.div>
+                ) : (
+                  // Show normal scroll hint
+                  <motion.div
+                    key="scroll-inside"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    className="flex flex-col items-center gap-3"
+                  >
+                    <motion.p 
+                      className="text-center text-xs sm:text-sm text-muted-foreground"
+                      data-testid="text-services-scroll-hint"
+                      animate={{ opacity: [0.5, 1, 0.5] }}
+                      transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                    >
+                      Scroll to explore all services
+                    </motion.p>
+                    <div className="flex items-center gap-1 overflow-hidden w-20 h-8">
+                      {[0, 1, 2].map((i) => (
+                        <motion.div
+                          key={i}
+                          className="w-6 h-6 rounded bg-primary/20 border border-primary/40 flex-shrink-0"
+                          animate={{
+                            x: [20, -40],
+                            opacity: [0, 1, 1, 0]
+                          }}
+                          transition={{
+                            duration: 2,
+                            repeat: Infinity,
+                            delay: i * 0.3,
+                            ease: "easeInOut"
+                          }}
+                        />
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           </div>
         </motion.div>
