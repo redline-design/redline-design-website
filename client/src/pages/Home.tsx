@@ -54,9 +54,9 @@ export default function Home() {
               <div className="text-3xl font-bold text-primary">7x</div>
               <div className="text-sm text-foreground">Avg ROI</div>
             </div>
-            <div className="text-center p-4 bg-card rounded-lg cursor-pointer hover-elevate active-elevate-2" data-testid="stat-traffic">
-              <div className="text-3xl font-bold text-primary">350%</div>
-              <div className="text-sm text-foreground">Traffic Growth</div>
+            <div className="text-center p-4 bg-card rounded-lg cursor-pointer hover-elevate active-elevate-2" data-testid="stat-leads">
+              <div className="text-3xl font-bold text-primary">50k+</div>
+              <div className="text-sm text-foreground">Leads Generated</div>
             </div>
             <div className="text-center p-4 bg-card rounded-lg cursor-pointer hover-elevate active-elevate-2" data-testid="stat-retention">
               <div className="text-3xl font-bold text-primary">95%</div>
