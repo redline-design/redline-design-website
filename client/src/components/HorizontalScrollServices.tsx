@@ -6,84 +6,224 @@ import { Globe, TrendingUp, Search, Database, BarChart3, Palette, MessageSquare,
 // Services data moved outside component to prevent re-creation on every render
 const SERVICES_DATA = [
   {
+    id: "web",
     icon: Globe,
     title: "World Class Websites",
     description: "Unique websites at reasonable prices.",
+    tagline: "Your digital storefront that works 24/7",
     link: "/services#web",
     status: "accepting" as const,
-    accentColor: "rgb(96, 165, 250)"
+    accentColor: "rgb(96, 165, 250)",
+    details: {
+      whatYouGet: [
+        "Mobile-responsive design that looks great on any device",
+        "Fast loading speeds (under 3 seconds)",
+        "SEO-optimized structure from day one",
+        "Easy-to-update content management system",
+        "Secure hosting and SSL certificate included"
+      ],
+      perfectFor: "Businesses that need a professional online presence without breaking the bank",
+      timeline: "2-4 weeks",
+      investment: "Starting at $2,500"
+    }
   },
   {
+    id: "ppc",
     icon: TrendingUp,
     title: "Paid Advertising",
     description: "Focusing on maximum ROI.",
+    tagline: "Get customers today, not months from now",
     link: "/services#ppc",
     status: "accepting" as const,
-    accentColor: "rgb(167, 139, 250)"
+    accentColor: "rgb(167, 139, 250)",
+    details: {
+      whatYouGet: [
+        "Google Ads campaigns targeting your ideal customers",
+        "Facebook & Instagram ads that actually convert",
+        "A/B tested ad copy and creative",
+        "Daily monitoring and optimization",
+        "Transparent reporting on every dollar spent"
+      ],
+      perfectFor: "Businesses ready to invest in immediate, measurable growth",
+      timeline: "See results in 1-2 weeks",
+      investment: "10-20% of ad spend (min $500/month)"
+    }
   },
   {
+    id: "seo",
     icon: Search,
     title: "SEO/SEM",
     description: "Get found everywhere, by everyone.",
+    tagline: "Show up when customers are searching for you",
     link: "/services#seo",
     status: "waitlist" as const,
-    accentColor: "rgb(110, 231, 183)"
+    accentColor: "rgb(110, 231, 183)",
+    details: {
+      whatYouGet: [
+        "Keyword research to find what your customers search",
+        "On-page optimization for better rankings",
+        "Content strategy that attracts organic traffic",
+        "Local SEO for Google Maps visibility",
+        "Monthly reports showing your progress"
+      ],
+      perfectFor: "Businesses committed to long-term sustainable growth",
+      timeline: "3-6 months to see significant results",
+      investment: "Starting at $1,500/month"
+    }
   },
   {
+    id: "crm",
     icon: Database,
     title: "CRM Setup & Automation",
     description: "Streamline your customer relationships and automate workflows.",
+    tagline: "Never lose track of a lead again",
     link: "/services#crm",
     status: "accepting" as const,
-    accentColor: "rgb(251, 146, 60)"
+    accentColor: "rgb(251, 146, 60)",
+    details: {
+      whatYouGet: [
+        "Custom CRM setup tailored to your business",
+        "Automated follow-up sequences",
+        "Lead scoring and qualification",
+        "Integration with your existing tools",
+        "Team training and ongoing support"
+      ],
+      perfectFor: "Businesses drowning in spreadsheets and missed opportunities",
+      timeline: "1-2 weeks setup, ongoing optimization",
+      investment: "Starting at $1,200 one-time + $300/month"
+    }
   },
   {
+    id: "analytics",
     icon: BarChart3,
     title: "Analytics & Data Analysis",
     description: "Track everything. Understand your customers. Make data-driven decisions.",
+    tagline: "Know exactly what's working (and what's not)",
     link: "/services#analytics",
     status: "accepting" as const,
-    accentColor: "rgb(236, 72, 153)"
+    accentColor: "rgb(236, 72, 153)",
+    details: {
+      whatYouGet: [
+        "Google Analytics 4 setup and configuration",
+        "Custom dashboards showing your key metrics",
+        "Conversion tracking for all your goals",
+        "Monthly insights reports in plain English",
+        "Data-driven recommendations"
+      ],
+      perfectFor: "Businesses tired of guessing what drives results",
+      timeline: "1 week setup, ongoing monthly reports",
+      investment: "Starting at $800 one-time + $400/month"
+    }
   },
   {
+    id: "design",
     icon: Palette,
     title: "Graphic Design",
     description: "Eye-catching visuals that convert.",
+    tagline: "Stand out in a sea of boring brands",
     link: "/services#design",
     status: "accepting" as const,
-    accentColor: "rgb(249, 115, 22)"
+    accentColor: "rgb(249, 115, 22)",
+    details: {
+      whatYouGet: [
+        "Custom logo and brand identity",
+        "Social media graphics that stop the scroll",
+        "Email templates that get opened",
+        "Ad creatives optimized for conversions",
+        "Unlimited revisions until you love it"
+      ],
+      perfectFor: "Businesses that know first impressions matter",
+      timeline: "1-3 weeks depending on scope",
+      investment: "Starting at $500 per project"
+    }
   },
   {
+    id: "social",
     icon: MessageSquare,
     title: "Social Media Marketing",
     description: "Build your brand and engage your audience.",
+    tagline: "Turn followers into customers",
     link: "/services#social",
     status: "accepting" as const,
-    accentColor: "rgb(59, 130, 246)"
+    accentColor: "rgb(59, 130, 246)",
+    details: {
+      whatYouGet: [
+        "Content calendar with engaging posts",
+        "Professional copywriting and graphics",
+        "Community management and engagement",
+        "Paid social advertising campaigns",
+        "Monthly performance analytics"
+      ],
+      perfectFor: "Businesses looking to build brand awareness and community",
+      timeline: "Ongoing monthly retainer",
+      investment: "Starting at $1,200/month"
+    }
   },
   {
+    id: "email",
     icon: Mail,
     title: "Email Marketing",
     description: "Nurture leads and drive conversions with targeted campaigns.",
+    tagline: "Build relationships that convert",
     link: "/services#email",
     status: "accepting" as const,
-    accentColor: "rgb(34, 197, 94)"
+    accentColor: "rgb(34, 197, 94)",
+    details: {
+      whatYouGet: [
+        "Automated welcome and nurture sequences",
+        "Monthly newsletter campaigns",
+        "Segmentation and personalization",
+        "A/B testing for optimization",
+        "List growth strategies"
+      ],
+      perfectFor: "Businesses with an audience ready to be nurtured",
+      timeline: "1 week setup, ongoing campaigns",
+      investment: "Starting at $800/month"
+    }
   },
   {
+    id: "consulting",
     icon: Users,
     title: "Consulting",
     description: "Strategic guidance to grow your business.",
+    tagline: "Expert advice without the agency price tag",
     link: "/services#consulting",
     status: "accepting" as const,
-    accentColor: "rgb(168, 85, 247)"
+    accentColor: "rgb(168, 85, 247)",
+    details: {
+      whatYouGet: [
+        "Strategic marketing planning sessions",
+        "Channel and budget recommendations",
+        "Competitive analysis and positioning",
+        "Growth roadmap and implementation plan",
+        "Ongoing advisory support"
+      ],
+      perfectFor: "Business owners who want expert guidance, not full service",
+      timeline: "Flexible engagement",
+      investment: "Starting at $200/hour"
+    }
   },
   {
+    id: "ai",
     icon: Bot,
     title: "AI Automation",
     description: "Automate tasks and workflows with cutting-edge AI.",
+    tagline: "Work smarter with AI-powered automation",
     link: "/services#ai",
     status: "accepting" as const,
-    accentColor: "rgb(234, 88, 12)"
+    accentColor: "rgb(234, 88, 12)",
+    details: {
+      whatYouGet: [
+        "Custom AI chatbots for customer service",
+        "Automated content generation workflows",
+        "Data analysis and reporting automation",
+        "Integration with existing tools",
+        "Training and ongoing optimization"
+      ],
+      perfectFor: "Forward-thinking businesses ready to leverage AI",
+      timeline: "2-4 weeks implementation",
+      investment: "Starting at $2,000 one-time + $300/month"
+    }
   }
 ] as const;
 
