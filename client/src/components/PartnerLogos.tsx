@@ -1,13 +1,17 @@
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import { SiGoogle, SiMeta, SiLinkedin, SiTiktok, SiYoutube, SiX, SiShopify, SiWordpress, SiWix } from "react-icons/si";
+import { SiGoogle, SiMeta, SiLinkedin, SiTiktok, SiYoutube, SiX, SiShopify, SiWordpress, SiWix, SiSnapchat, SiFacebook, SiGoogleads, SiGoogleanalytics, SiFramer, SiYelp } from "react-icons/si";
 
 export default function PartnerLogos() {
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 });
 
   const partners = [
     { Icon: SiGoogle, name: "Google" },
+    { Icon: SiGoogleads, name: "Google Ads" },
+    { Icon: SiGoogleanalytics, name: "Google Analytics" },
     { Icon: SiMeta, name: "Meta" },
+    { Icon: SiFacebook, name: "Facebook" },
+    { Icon: SiSnapchat, name: "Snapchat" },
     { Icon: SiLinkedin, name: "LinkedIn" },
     { Icon: SiTiktok, name: "TikTok" },
     { Icon: SiYoutube, name: "YouTube" },
@@ -15,6 +19,8 @@ export default function PartnerLogos() {
     { Icon: SiShopify, name: "Shopify" },
     { Icon: SiWordpress, name: "WordPress" },
     { Icon: SiWix, name: "Wix" },
+    { Icon: SiFramer, name: "Framer" },
+    { Icon: SiYelp, name: "Yelp" },
   ];
 
   return (
