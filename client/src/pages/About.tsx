@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Zap, MessageSquare, Globe } from "lucide-react";
+import { Target, Zap, TrendingUp, Users } from "lucide-react";
 
 export default function About() {
   return (
@@ -14,7 +14,7 @@ export default function About() {
             transition={{ duration: 0.6 }}
             style={{ color: "#ff0000" }}
           >
-            Meet the Team
+            About Redline Design
           </motion.h1>
           <motion.p 
             className="text-lg sm:text-xl text-foreground max-w-3xl mx-auto"
@@ -22,105 +22,114 @@ export default function About() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
-            The people behind Digital Marketing That Doesn't Suck
+            Digital Marketing That Doesn't Suck
           </motion.p>
         </div>
       </section>
 
-      {/* Team Members */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8" data-testid="section-team-members">
+      {/* Mission Section */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8" data-testid="section-about-mission">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            
-            {/* Ryan Howard */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, x: -30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              <h2 className="text-3xl font-bold text-foreground mb-6">Our Mission</h2>
+              <p className="text-lg text-foreground mb-4">
+                We exist to deliver digital marketing that actually works. No fluff, no empty promises, just data-driven strategies that drive real ROI for your business.
+              </p>
+              <p className="text-lg text-foreground mb-4">
+                In a world full of agencies that over-promise and under-deliver, we're different. We focus on what matters: measurable results, transparent reporting, and partnerships built on trust.
+              </p>
+              <p className="text-lg text-foreground">
+                Whether it's SEO, PPC, web design, or social media marketing, we bring expertise, energy, and execution to every project.
+              </p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="grid grid-cols-2 gap-6"
+            >
+              <div className="bg-card rounded-xl p-6 hover-elevate active-elevate-2">
+                <Target className="h-8 w-8 text-primary mb-4" />
+                <h3 className="text-xl font-bold text-foreground mb-2">Results-Focused</h3>
+                <p className="text-sm text-muted-foreground">Data-driven strategies that deliver measurable ROI</p>
+              </div>
+
+              <div className="bg-card rounded-xl p-6 hover-elevate active-elevate-2">
+                <Zap className="h-8 w-8 text-primary mb-4" />
+                <h3 className="text-xl font-bold text-foreground mb-2">Fast Execution</h3>
+                <p className="text-sm text-muted-foreground">Quick turnaround without sacrificing quality</p>
+              </div>
+
+              <div className="bg-card rounded-xl p-6 hover-elevate active-elevate-2">
+                <TrendingUp className="h-8 w-8 text-primary mb-4" />
+                <h3 className="text-xl font-bold text-foreground mb-2">Growth-Minded</h3>
+                <p className="text-sm text-muted-foreground">Strategies designed to scale with your business</p>
+              </div>
+
+              <div className="bg-card rounded-xl p-6 hover-elevate active-elevate-2">
+                <Users className="h-8 w-8 text-primary mb-4" />
+                <h3 className="text-xl font-bold text-foreground mb-2">Partner Approach</h3>
+                <p className="text-sm text-muted-foreground">We succeed when you succeed</p>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* What Sets Us Apart */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-card/20" data-testid="section-about-differentiation">
+        <div className="max-w-4xl mx-auto">
+          <motion.h2
+            className="text-3xl font-bold text-foreground mb-12 text-center"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            What Sets Us Apart
+          </motion.h2>
+
+          <div className="space-y-8">
+            <motion.div
+              className="bg-card rounded-xl p-8"
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="bg-card rounded-2xl p-8 cursor-pointer hover-elevate active-elevate-2"
-              data-testid="card-team-ryan"
             >
-              <div className="mb-6">
-                <h2 className="text-3xl font-bold text-foreground mb-2">Ryan Howard</h2>
-                <p className="text-xl text-primary font-semibold">President</p>
-                <p className="text-sm text-muted-foreground italic mt-2">"Work hard, play harder."</p>
-              </div>
-
-              <div className="space-y-4 mb-6">
-                <p className="text-foreground">
-                  Lives life 100 MPH at a time, plays with fire.
-                </p>
-                <ul className="space-y-2 text-sm text-foreground">
-                  <li className="flex items-start gap-2">
-                    <span className="text-primary">•</span>
-                    <span>Fast Lane Drive Member</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-primary">•</span>
-                    <span>Co-Owner of Heroes Coaching & Rehabilitation</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-primary">•</span>
-                    <span>Co-Founder of Cosmos Digital Marketing</span>
-                  </li>
-                </ul>
-              </div>
-
-              <blockquote className="border-l-4 border-primary pl-4 mb-6 italic text-foreground">
-                "Burning rubber or the midnight oil, I'm all about momentum. I thrive on fast-paced work, great music, spontaneous travel, and meeting people who challenge the norm. Marketing is my playground, and I bring energy, precision, and a relentless work ethic to every project I take on. Life isn't meant to be static—so I'm always moving forward."
-              </blockquote>
-
-              <div className="flex flex-wrap gap-3">
-                <div className="flex items-center gap-2 px-4 py-2 bg-background/50 rounded-lg">
-                  <Zap className="h-4 w-4 text-primary" />
-                  <span className="text-sm font-medium">Marketing Strategy</span>
-                </div>
-                <div className="flex items-center gap-2 px-4 py-2 bg-background/50 rounded-lg">
-                  <Zap className="h-4 w-4 text-primary" />
-                  <span className="text-sm font-medium">High-Velocity Execution</span>
-                </div>
-              </div>
+              <h3 className="text-xl font-bold text-foreground mb-3">No BS, Just Results</h3>
+              <p className="text-foreground">
+                We cut through the marketing jargon and focus on what matters: driving traffic, generating leads, and increasing revenue. Our transparent reporting shows exactly what's working and what's not.
+              </p>
             </motion.div>
 
-            {/* Peru Mendoza */}
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
+              className="bg-card rounded-xl p-8"
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="bg-card rounded-2xl p-8 cursor-pointer hover-elevate active-elevate-2"
-              data-testid="card-team-peru"
             >
-              <div className="mb-6">
-                <h2 className="text-3xl font-bold text-foreground mb-2">Peru Mendoza</h2>
-                <p className="text-xl text-primary font-semibold">Director of Development</p>
-                <p className="text-sm text-muted-foreground italic mt-2">"Like a mullet. Business in the front, party in the back."</p>
-              </div>
-
-              <div className="space-y-4 mb-6">
-                <p className="text-foreground">
-                  Officially, I'm the Director of Development at Redline Design. Unofficially? I make sure our brilliant team builds robust digital solutions that work exceptionally and actually help your bottom line.
-                </p>
-                <p className="text-foreground">
-                  I focus on smart technical strategy and clear oversight – no confusing jargon, just effective execution explained clearly (in English or Spanish!). We build solutions designed to deliver results, not confusion, because great communication is key to digital marketing that doesn't suck.
-                </p>
-              </div>
-
-              <blockquote className="border-l-4 border-primary pl-4 mb-6 italic text-foreground">
-                "If that sounds like the approach you need, book a meeting with me. Let's talk impressive outcomes."
-              </blockquote>
-
-              <div className="flex flex-wrap gap-3">
-                <div className="flex items-center gap-2 px-4 py-2 bg-background/50 rounded-lg">
-                  <Globe className="h-4 w-4 text-primary" />
-                  <span className="text-sm font-medium">Bilingual (English/Spanish)</span>
-                </div>
-                <div className="flex items-center gap-2 px-4 py-2 bg-background/50 rounded-lg">
-                  <MessageSquare className="h-4 w-4 text-primary" />
-                  <span className="text-sm font-medium">Strategic Partnerships</span>
-                </div>
-              </div>
+              <h3 className="text-xl font-bold text-foreground mb-3">Full-Service Excellence</h3>
+              <p className="text-foreground">
+                From SEO and PPC to web design and social media, we handle everything under one roof. No need to juggle multiple vendors—we've got you covered.
+              </p>
             </motion.div>
 
+            <motion.div
+              className="bg-card rounded-xl p-8"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+            >
+              <h3 className="text-xl font-bold text-foreground mb-3">Speed & Agility</h3>
+              <p className="text-foreground">
+                We move fast because we know your business can't wait. Quick turnarounds, rapid deployment, and agile adjustments based on real-time data.
+              </p>
+            </motion.div>
           </div>
         </div>
       </section>
