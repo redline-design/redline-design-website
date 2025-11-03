@@ -94,7 +94,9 @@ export default function HorizontalScrollServices() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [cardsPerPage, setCardsPerPage] = useState(3);
 
-  const servicesLength = useMemo(() => SERVICES_DATA.length, []);
+  // Memoize services data to prevent re-creation
+  const services = useMemo(() => SERVICES_DATA, []);
+  const servicesLength = useMemo(() => services.length, [services]);
 
   // Calculate cards per page based on viewport width
   useEffect(() => {
@@ -142,7 +144,7 @@ export default function HorizontalScrollServices() {
 
     let rafId: number | null = null;
     let accumulatedDelta = 0;
-    const DELTA_THRESHOLD = 30; // Minimum delta to trigger change
+    const DELTA_THRESHOLD = 50; // Minimum delta to trigger change - optimized for performance
 
     const handleWheel = (e: WheelEvent) => {
       const maxIndex = servicesLength - cardsPerPage;
@@ -223,7 +225,7 @@ export default function HorizontalScrollServices() {
           >
             <div className="flex justify-center items-center gap-4 md:gap-6 h-full">
               <AnimatePresence mode="popLayout">
-                {SERVICES_DATA
+                {services
                   .slice(currentIndex, currentIndex + cardsPerPage)
                   .map((service, index) => (
                     <motion.div
