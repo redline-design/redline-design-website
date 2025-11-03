@@ -290,7 +290,7 @@ export default function HorizontalScrollServices() {
 
         <motion.div 
           ref={containerRef}
-          className="max-w-5xl mx-auto px-3 sm:px-4 md:px-6 w-full backdrop-blur-md bg-card/40 border-2 rounded-3xl py-6 md:py-8 transition-all duration-300 relative z-50 pointer-events-auto"
+          className="max-w-5xl mx-auto px-3 sm:px-4 md:px-6 w-full backdrop-blur-md bg-card/40 border-2 rounded-3xl py-4 md:py-5 transition-all duration-300 relative z-50 pointer-events-auto"
           onMouseEnter={() => setIsHovering(true)}
           onMouseLeave={() => setIsHovering(false)}
           animate={{
@@ -301,8 +301,8 @@ export default function HorizontalScrollServices() {
           }}
           transition={{ duration: 0.3 }}
         >
-          <div className="text-center mb-6 md:mb-12">
-            <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold uppercase tracking-[0.3em] mb-2 md:mb-4 red-glow-pulse" style={{ color: "#ff0000" }}>
+          <div className="text-center mb-4 md:mb-6">
+            <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold uppercase tracking-[0.3em] mb-2 red-glow-pulse" style={{ color: "#ff0000" }}>
               What We Do
             </h2>
             <p className="text-sm sm:text-base md:text-lg text-foreground max-w-2xl mx-auto">
@@ -312,7 +312,7 @@ export default function HorizontalScrollServices() {
 
           {/* Horizontal cards scrolling right to left, replacing one at a time */}
           <div 
-            className="relative h-[320px] md:h-[340px] overflow-visible py-4"
+            className="relative h-[320px] md:h-[340px] overflow-visible py-2"
             data-testid="container-services-carousel"
           >
             <div className="flex justify-center items-center gap-4 md:gap-6 h-full px-2">
@@ -370,7 +370,7 @@ export default function HorizontalScrollServices() {
           </div>
 
           {/* Progress bar with scroll hint animation */}
-          <div className="mt-4 md:mt-8 w-full max-w-3xl mx-auto">
+          <div className="mt-3 md:mt-4 w-full max-w-3xl mx-auto">
             <div 
               role="progressbar" 
               aria-label="Service scroll progress"
@@ -385,7 +385,7 @@ export default function HorizontalScrollServices() {
                 style={{ width: `${((currentIndex + cardsPerPage) / servicesLength) * 100}%` }}
               />
             </div>
-            <div className="flex flex-col items-center gap-3 mt-3">
+            <div className="flex flex-col items-center gap-2 mt-2">
               <AnimatePresence mode="wait">
                 {isAtLastService ? (
                   // Show "scroll outside" message when at last service
