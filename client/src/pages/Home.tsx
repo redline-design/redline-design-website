@@ -19,7 +19,7 @@ export default function Home() {
   const stats = [
     { value: "14x", label: "Average ROI", subtitle: "returns on your marketing investment", testId: "stat-roi" },
     { value: "76%", label: "of consumers", subtitle: "research online before purchasing", testId: "stat-online-research" },
-    { value: "3-6", label: "Months", subtitle: "to see significant growth", testId: "stat-time-to-results" },
+    { value: "3x", label: "More Leads", subtitle: "with digital vs traditional marketing", testId: "stat-lead-increase" },
   ];
 
   // Duplicate stats for seamless infinite loop
