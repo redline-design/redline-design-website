@@ -18,6 +18,13 @@ interface ServiceCardProps {
 const ServiceCard = memo(function ServiceCard({ icon: Icon, title, description, onClick, status, delay = 0, accentColor = "rgb(96, 165, 250)" }: ServiceCardProps) {
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.15 });
 
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if ((e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') && onClick) {
+      e.preventDefault();
+      onClick();
+    }
+  };
+
   return (
     <motion.div
       ref={ref}
@@ -32,11 +39,18 @@ const ServiceCard = memo(function ServiceCard({ icon: Icon, title, description, 
       }}
       className="h-full"
     >
-      <div onClick={onClick} className="block h-full cursor-pointer">
+      <div 
+        onClick={onClick} 
+        onKeyDown={handleKeyDown}
+        role="button"
+        tabIndex={0}
+        aria-label={`Learn more about ${title}`}
+        className="block h-full cursor-pointer"
+        data-testid={`button-service-${title.toLowerCase().replace(/\s/g, "-")}`}
+      >
         <Card
           className="hover-elevate active-elevate-2 transition-all duration-300 rounded-2xl group backdrop-blur-md bg-card/40 border-border/30 relative overflow-hidden flex flex-col"
           style={{ height: '100%' }}
-          data-testid={`card-service-${title.toLowerCase().replace(/\s/g, "-")}`}
         >
           <CardContent className="p-4 sm:p-5 md:p-6 relative z-10 flex flex-col h-full justify-between">
             <div>
@@ -60,7 +74,7 @@ const ServiceCard = memo(function ServiceCard({ icon: Icon, title, description, 
               </p>
             </div>
 
-            <div className="inline-flex items-center gap-2 text-foreground text-sm font-medium group-hover:gap-3 transition-all mt-3 sm:mt-4" data-testid={`button-service-${title.toLowerCase().replace(/\s/g, "-")}`}>
+            <div className="inline-flex items-center gap-2 text-foreground text-sm font-medium group-hover:gap-3 transition-all mt-3 sm:mt-4">
               <span>Learn More</span>
               <motion.span
                 animate={{ x: [0, 5, 0] }}

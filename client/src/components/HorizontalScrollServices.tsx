@@ -611,7 +611,7 @@ export default function HorizontalScrollServices() {
       </div>
 
       {/* Service Details Dialog */}
-      <Dialog open={!!selectedService} onOpenChange={() => setSelectedService(null)}>
+      <Dialog open={!!selectedService} onOpenChange={(open) => { if (!open) setSelectedService(null); }}>
         <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto" data-testid="dialog-service-details">
           {selectedService && (
             <>
