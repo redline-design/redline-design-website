@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { Card, CardContent } from "@/components/ui/card";
@@ -14,7 +15,7 @@ interface ArticleCardProps {
   delay?: number;
 }
 
-export default function ArticleCard({ title, excerpt, category, readTime, slug, delay = 0 }: ArticleCardProps) {
+const ArticleCard = memo(function ArticleCard({ title, excerpt, category, readTime, slug, delay = 0 }: ArticleCardProps) {
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 });
 
   return (
@@ -50,4 +51,6 @@ export default function ArticleCard({ title, excerpt, category, readTime, slug, 
       </Link>
     </motion.div>
   );
-}
+});
+
+export default ArticleCard;

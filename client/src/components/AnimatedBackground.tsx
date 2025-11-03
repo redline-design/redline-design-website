@@ -1,18 +1,27 @@
 import { useEffect, useRef } from "react";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 export default function AnimatedBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const mousePosRef = useRef({ x: 0, y: 0 });
+  const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext("2d", { alpha: false });
+    const ctx = canvas.getContext("2d", { alpha: false, desynchronized: true });
     if (!ctx) return;
 
     let animationFrameId: number;
     let needsResize = false;
+    let isTabVisible = true;
+
+    // Check if tab is visible
+    const handleVisibilityChange = () => {
+      isTabVisible = !document.hidden;
+    };
+    document.addEventListener("visibilitychange", handleVisibilityChange);
 
     const resizeCanvas = () => {
       needsResize = true;
@@ -25,10 +34,20 @@ export default function AnimatedBackground() {
     };
 
     applyResize();
-    window.addEventListener("resize", resizeCanvas, { passive: true });
+    
+    let resizeTimeout: number;
+    const debouncedResize = () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = window.setTimeout(resizeCanvas, 150);
+    };
+    window.addEventListener("resize", debouncedResize);
 
-    // Track mouse position with ref to avoid re-renders
+    // Track mouse position with throttling
+    let mouseThrottle = false;
     const handleMouseMove = (e: MouseEvent) => {
+      if (mouseThrottle) return;
+      mouseThrottle = true;
+      setTimeout(() => mouseThrottle = false, 16); // ~60fps
       mousePosRef.current = { x: e.clientX, y: e.clientY };
     };
     window.addEventListener("mousemove", handleMouseMove, { passive: true });
@@ -87,6 +106,12 @@ export default function AnimatedBackground() {
     };
 
     const animate = () => {
+      // Skip animation when tab is not visible or user prefers reduced motion
+      if (!isTabVisible || prefersReducedMotion) {
+        animationFrameId = requestAnimationFrame(animate);
+        return;
+      }
+
       if (needsResize) {
         applyResize();
       }
@@ -98,7 +123,7 @@ export default function AnimatedBackground() {
       const mouseX = mousePosRef.current.x;
       const mouseY = mousePosRef.current.y;
       const maxDistance = 200;
-      const maxDistanceSq = maxDistance * maxDistance; // Use squared distance to avoid sqrt
+      const maxDistanceSq = maxDistance * maxDistance;
 
       // Draw hexagon grid with wave effect and mouse interaction
       for (let i = 0; i < hexGrid.length; i++) {
@@ -155,11 +180,13 @@ export default function AnimatedBackground() {
     animate();
 
     return () => {
-      window.removeEventListener("resize", resizeCanvas);
+      window.removeEventListener("resize", debouncedResize);
       window.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      clearTimeout(resizeTimeout);
       cancelAnimationFrame(animationFrameId);
     };
-  }, []);
+  }, [prefersReducedMotion]);
 
   return (
     <canvas

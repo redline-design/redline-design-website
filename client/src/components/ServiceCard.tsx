@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { Card, CardContent } from "@/components/ui/card";
@@ -15,7 +16,7 @@ interface ServiceCardProps {
   accentColor?: string;
 }
 
-export default function ServiceCard({ icon: Icon, title, description, link, status, delay = 0, accentColor = "rgb(96, 165, 250)" }: ServiceCardProps) {
+const ServiceCard = memo(function ServiceCard({ icon: Icon, title, description, link, status, delay = 0, accentColor = "rgb(96, 165, 250)" }: ServiceCardProps) {
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.15 });
 
   return (
@@ -74,4 +75,6 @@ export default function ServiceCard({ icon: Icon, title, description, link, stat
       </Link>
     </motion.div>
   );
-}
+});
+
+export default ServiceCard;

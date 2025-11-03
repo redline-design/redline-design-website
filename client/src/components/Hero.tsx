@@ -1,30 +1,23 @@
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useEffect, useState, useRef } from "react";
+import { useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { ChevronDown, Sparkles, CalendarCheck } from "lucide-react";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 import logoLarge from "@assets/v2h5UOvchlYvZ2HIPfl8w5dPIc_1762041101932.avif";
 
 export default function Hero() {
-  const [scrollY, setScrollY] = useState(0);
   const containerRef = useRef(null);
+  const prefersReducedMotion = useReducedMotion();
   
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end start"]
   });
 
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.9]);
-  const y = useTransform(scrollYProgress, [0, 0.5], [0, 100]);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrollY(window.scrollY);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  const opacity = prefersReducedMotion ? 1 : useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+  const scale = prefersReducedMotion ? 1 : useTransform(scrollYProgress, [0, 0.5], [1, 0.9]);
+  const y = prefersReducedMotion ? 0 : useTransform(scrollYProgress, [0, 0.5], [0, 100]);
 
   return (
     <>

@@ -190,9 +190,9 @@ function LoadingFallback() {
 
 function CustomCursor() {
   const cursorRef = useRef<HTMLDivElement>(null);
-  const [isHovering, setIsHovering] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const rafRef = useRef<number>();
+  const isHoveringRef = useRef(false);
 
   useEffect(() => {
     const checkMobile = () => {
@@ -206,10 +206,18 @@ function CustomCursor() {
     };
 
     checkMobile();
-    window.addEventListener('resize', checkMobile);
+    
+    let resizeTimeout: number;
+    const debouncedResize = () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = window.setTimeout(checkMobile, 150);
+    };
+    
+    window.addEventListener('resize', debouncedResize);
     
     return () => {
-      window.removeEventListener('resize', checkMobile);
+      window.removeEventListener('resize', debouncedResize);
+      clearTimeout(resizeTimeout);
     };
   }, []);
 
@@ -231,16 +239,16 @@ function CustomCursor() {
 
     const handleMouseOver = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
-      if (
+      const shouldHover = 
         target.tagName === 'A' ||
         target.tagName === 'BUTTON' ||
-        target.closest('button') ||
-        target.closest('a') ||
-        target.getAttribute('role') === 'button'
-      ) {
-        setIsHovering(true);
-      } else {
-        setIsHovering(false);
+        !!target.closest('button') ||
+        !!target.closest('a') ||
+        target.getAttribute('role') === 'button';
+      
+      if (shouldHover !== isHoveringRef.current) {
+        isHoveringRef.current = shouldHover;
+        cursor.classList.toggle('hover', shouldHover);
       }
     };
 
@@ -261,7 +269,7 @@ function CustomCursor() {
   return (
     <div
       ref={cursorRef}
-      className={`custom-cursor ${isHovering ? 'hover' : ''}`}
+      className="custom-cursor"
     />
   );
 }
