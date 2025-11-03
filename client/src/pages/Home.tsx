@@ -6,6 +6,8 @@ import PartnerLogos from "@/components/PartnerLogos";
 import TestimonialsCarousel from "@/components/TestimonialsCarousel";
 import StatCounter from "@/components/StatCounter";
 import CTABand from "@/components/CTABand";
+import BeginnerExplainer from "@/components/BeginnerExplainer";
+import StickyConversionBar from "@/components/StickyConversionBar";
 import { BarChart3, Sparkles, Globe, DollarSign, Zap, Target, Users, Briefcase, TrendingUp, AlertTriangle, MousePointerClick, LayoutGrid, BarChart2, Monitor, Database, Eye } from "lucide-react";
 import { motion } from "framer-motion";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
@@ -13,15 +15,11 @@ import { useReducedMotion } from "@/hooks/useReducedMotion";
 export default function Home() {
   const prefersReducedMotion = useReducedMotion();
 
-  // Combined statistics for auto-scrolling carousel
+  // Simplified statistics - outcome-focused for beginners
   const stats = [
-    { value: "5.35B", label: "Internet Users", subtitle: "globally connected and searching", testId: "stat-internet-users" },
-    { value: "248M", label: "Americans Shop Online", subtitle: "ready to buy from businesses like yours", testId: "stat-online-shoppers" },
-    { value: "66%", label: "Global Population Online", subtitle: "and that number keeps growing", testId: "stat-global-online" },
+    { value: "14x", label: "Average ROI", subtitle: "returns on your marketing investment", testId: "stat-roi" },
     { value: "76%", label: "of consumers", subtitle: "research online before purchasing", testId: "stat-online-research" },
-    { value: "5.3x", label: "higher revenue", subtitle: "for businesses with strong SEO", testId: "stat-seo-revenue" },
-    { value: "$42", label: "average ROI", subtitle: "for every $1 spent on email marketing", testId: "stat-email-roi" },
-    { value: "200%", label: "average increase", subtitle: "in conversion with PPC campaigns", testId: "stat-ppc-conversion" },
+    { value: "3-6", label: "Months", subtitle: "to see significant growth", testId: "stat-time-to-results" },
   ];
 
   // Duplicate stats for seamless infinite loop
@@ -111,6 +109,10 @@ export default function Home() {
   return (
     <div>
       <Hero />
+      
+      <div id="learn-more">
+        <BeginnerExplainer />
+      </div>
       
       <HorizontalScrollServices />
 
@@ -384,6 +386,8 @@ export default function Home() {
           />
         </div>
       </section>
+
+      <StickyConversionBar />
     </div>
   );
 }

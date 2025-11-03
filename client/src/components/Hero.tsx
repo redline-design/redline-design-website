@@ -96,18 +96,33 @@ export default function Hero() {
           </div>
         </motion.div>
 
-        {/* Headline */}
-        <motion.h1 
-          className="text-lg sm:text-xl md:text-2xl font-bold uppercase tracking-[0.3em] mb-12 red-glow-pulse"
+        {/* Value Proposition */}
+        <motion.div
+          className="mb-8"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.3 }}
+        >
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4">
+            We grow your business online
+          </h1>
+          <p className="text-lg sm:text-xl text-foreground/80 max-w-2xl mx-auto">
+            Real marketing strategies. Measurable results. No nonsense.
+          </p>
+        </motion.div>
+
+        {/* Tagline */}
+        <motion.h2 
+          className="text-sm sm:text-base md:text-lg font-bold uppercase tracking-[0.3em] mb-12 red-glow-pulse"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.4 }}
           style={{
             color: "#ff0000"
           }}
         >
           Digital Marketing That Doesn't Suck
-        </motion.h1>
+        </motion.h2>
 
         {/* CTA Buttons */}
         <motion.div
@@ -129,18 +144,18 @@ export default function Hero() {
               </Button>
             </motion.div>
           </Link>
-          <Link href="/services">
+          <a href="#learn-more">
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <Button 
                 size="lg" 
                 variant="outline" 
                 className="text-base px-8 py-6 font-semibold" 
-                data-testid="button-hero-view-services"
+                data-testid="button-hero-learn-more"
               >
-                Explore Our Services
+                Learn More
               </Button>
             </motion.div>
-          </Link>
+          </a>
         </motion.div>
       </motion.div>
 
