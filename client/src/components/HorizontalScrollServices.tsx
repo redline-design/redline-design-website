@@ -312,10 +312,10 @@ export default function HorizontalScrollServices() {
 
           {/* Horizontal cards scrolling right to left, replacing one at a time */}
           <div 
-            className="relative h-[300px] md:h-[320px] overflow-hidden"
+            className="relative h-[320px] md:h-[340px] overflow-visible py-4"
             data-testid="container-services-carousel"
           >
-            <div className="flex justify-center items-center gap-4 md:gap-6 h-full">
+            <div className="flex justify-center items-center gap-4 md:gap-6 h-full px-2">
               <AnimatePresence mode="popLayout">
                 {services
                   .slice(currentIndex, currentIndex + cardsPerPage)
