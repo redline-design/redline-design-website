@@ -8,7 +8,7 @@ import TestimonialsCarousel from "@/components/TestimonialsCarousel";
 import StatCounter from "@/components/StatCounter";
 import CTABand from "@/components/CTABand";
 import StickyConversionBar from "@/components/StickyConversionBar";
-import { BarChart3, Sparkles, Globe, DollarSign, Zap, Target, Users, Briefcase, TrendingUp, AlertTriangle, MousePointerClick, LayoutGrid, BarChart2, Monitor, Database, Eye, Mail, FileText, LineChart, MapPin, Smartphone } from "lucide-react";
+import { BarChart3, Sparkles, Globe, DollarSign, Zap, Target, Users, Briefcase, TrendingUp, AlertTriangle, MousePointerClick, LayoutGrid, BarChart2, Monitor, Database, Eye, FileText, LineChart, MapPin, Smartphone } from "lucide-react";
 import { SiGoogleads, SiMeta, SiLinkedin, SiTiktok, SiYoutube, SiX, SiReddit, SiPinterest } from "react-icons/si";
 import { motion } from "framer-motion";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
@@ -147,43 +147,6 @@ export default function Home() {
             <li className="flex items-start gap-2">
               <span className="text-primary">✓</span>
               <span>Local SEO optimization for Google Business Profile</span>
-            </li>
-          </ul>
-        </div>
-      ),
-    },
-    {
-      id: 'email',
-      label: 'Email Marketing',
-      icon: Mail,
-      content: (
-        <div>
-          <h3 className="text-2xl font-bold mb-4">Email Campaigns That Convert</h3>
-          <p className="text-foreground mb-4">
-            Email marketing delivers the highest ROI of any digital channel. We create automated drip campaigns, personalized newsletters, and targeted promotional sequences that nurture leads and drive repeat purchases.
-          </p>
-          <div className="grid grid-cols-2 gap-4 mt-6">
-            <div className="p-4 bg-card rounded-lg cursor-pointer hover-elevate active-elevate-2" data-testid="email-stat-open">
-              <div className="text-2xl font-bold text-primary mb-1">45%+</div>
-              <div className="text-sm text-foreground">Average Open Rate</div>
-            </div>
-            <div className="p-4 bg-card rounded-lg cursor-pointer hover-elevate active-elevate-2" data-testid="email-stat-conversion">
-              <div className="text-2xl font-bold text-primary mb-1">12%+</div>
-              <div className="text-sm text-foreground">Click-Through Rate</div>
-            </div>
-          </div>
-          <ul className="space-y-2 text-foreground mt-4">
-            <li className="flex items-start gap-2">
-              <span className="text-primary">✓</span>
-              <span>Automated welcome and nurture sequences</span>
-            </li>
-            <li className="flex items-start gap-2">
-              <span className="text-primary">✓</span>
-              <span>A/B testing for subject lines and content</span>
-            </li>
-            <li className="flex items-start gap-2">
-              <span className="text-primary">✓</span>
-              <span>List segmentation and personalization</span>
             </li>
           </ul>
         </div>
