@@ -7,8 +7,26 @@ import TestimonialsCarousel from "@/components/TestimonialsCarousel";
 import StatCounter from "@/components/StatCounter";
 import CTABand from "@/components/CTABand";
 import { BarChart3, Sparkles, Globe, DollarSign, Zap, Target, Users, Briefcase, TrendingUp, AlertTriangle, MousePointerClick, LayoutGrid, BarChart2, Monitor, Database, Eye } from "lucide-react";
+import { motion } from "framer-motion";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 export default function Home() {
+  const prefersReducedMotion = useReducedMotion();
+
+  // Combined statistics for auto-scrolling carousel
+  const stats = [
+    { value: "5.35B", label: "Internet Users", subtitle: "globally connected and searching", testId: "stat-internet-users" },
+    { value: "248M", label: "Americans Shop Online", subtitle: "ready to buy from businesses like yours", testId: "stat-online-shoppers" },
+    { value: "66%", label: "Global Population Online", subtitle: "and that number keeps growing", testId: "stat-global-online" },
+    { value: "76%", label: "of consumers", subtitle: "research online before purchasing", testId: "stat-online-research" },
+    { value: "5.3x", label: "higher revenue", subtitle: "for businesses with strong SEO", testId: "stat-seo-revenue" },
+    { value: "$42", label: "average ROI", subtitle: "for every $1 spent on email marketing", testId: "stat-email-roi" },
+    { value: "200%", label: "average increase", subtitle: "in conversion with PPC campaigns", testId: "stat-ppc-conversion" },
+  ];
+
+  // Duplicate stats for seamless infinite loop
+  const duplicatedStats = [...stats, ...stats, ...stats];
+
   const tabs = [
     {
       id: 'results',
@@ -228,56 +246,46 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Industry Statistics */}
+          {/* Industry Statistics - Auto-Scrolling */}
           <div className="mb-16">
-            <div className="text-center mb-10">
-              <h3 className="text-xl font-bold mb-2 text-foreground">Why Digital Marketing Matters</h3>
-              <p className="text-sm text-muted-foreground max-w-2xl mx-auto">
+            <div className="text-center mb-6">
+              <h3 className="text-lg font-bold mb-2 text-foreground">Why Digital Marketing Matters</h3>
+              <p className="text-xs text-muted-foreground max-w-2xl mx-auto">
                 The digital landscape is massive—and your business needs to be visible in it
               </p>
             </div>
             
-            {/* Global Reach Stats */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-              <div className="text-center p-6 bg-card rounded-lg cursor-pointer hover-elevate active-elevate-2" data-testid="stat-internet-users">
-                <div className="text-4xl font-bold text-primary mb-2">5.35B</div>
-                <div className="text-sm text-foreground font-medium mb-1">Internet Users</div>
-                <div className="text-xs text-muted-foreground">globally connected and searching</div>
-              </div>
-              <div className="text-center p-6 bg-card rounded-lg cursor-pointer hover-elevate active-elevate-2" data-testid="stat-online-shoppers">
-                <div className="text-4xl font-bold text-primary mb-2">248M</div>
-                <div className="text-sm text-foreground font-medium mb-1">Americans Shop Online</div>
-                <div className="text-xs text-muted-foreground">ready to buy from businesses like yours</div>
-              </div>
-              <div className="text-center p-6 bg-card rounded-lg cursor-pointer hover-elevate active-elevate-2" data-testid="stat-global-online">
-                <div className="text-4xl font-bold text-primary mb-2">66%</div>
-                <div className="text-sm text-foreground font-medium mb-1">Global Population Online</div>
-                <div className="text-xs text-muted-foreground">and that number keeps growing</div>
-              </div>
-            </div>
+            <div className="relative overflow-hidden">
+              <motion.div
+                className="flex gap-4 pointer-events-none"
+                animate={{
+                  x: prefersReducedMotion ? 0 : [0, -100 * stats.length],
+                }}
+                transition={{
+                  x: {
+                    duration: prefersReducedMotion ? 0 : stats.length * 8,
+                    repeat: Infinity,
+                    ease: "linear",
+                  },
+                }}
+              >
+                {duplicatedStats.map((stat, index) => (
+                  <div 
+                    key={`${stat.testId}-${index}`}
+                    className="flex-shrink-0 w-[280px] sm:w-[320px]"
+                  >
+                    <div className="text-center p-4 bg-card rounded-lg" data-testid={index < stats.length ? stat.testId : undefined}>
+                      <div className="text-3xl sm:text-4xl font-bold text-primary mb-1">{stat.value}</div>
+                      <div className="text-sm text-foreground font-medium mb-0.5">{stat.label}</div>
+                      <div className="text-xs text-muted-foreground">{stat.subtitle}</div>
+                    </div>
+                  </div>
+                ))}
+              </motion.div>
 
-            {/* Marketing Performance Stats */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              <div className="text-center p-6 bg-card rounded-lg cursor-pointer hover-elevate active-elevate-2" data-testid="stat-online-research">
-                <div className="text-4xl font-bold text-primary mb-2">76%</div>
-                <div className="text-sm text-foreground font-medium mb-1">of consumers</div>
-                <div className="text-xs text-muted-foreground">research online before purchasing</div>
-              </div>
-              <div className="text-center p-6 bg-card rounded-lg cursor-pointer hover-elevate active-elevate-2" data-testid="stat-seo-revenue">
-                <div className="text-4xl font-bold text-primary mb-2">5.3x</div>
-                <div className="text-sm text-foreground font-medium mb-1">higher revenue</div>
-                <div className="text-xs text-muted-foreground">for businesses with strong SEO</div>
-              </div>
-              <div className="text-center p-6 bg-card rounded-lg cursor-pointer hover-elevate active-elevate-2" data-testid="stat-email-roi">
-                <div className="text-4xl font-bold text-primary mb-2">$42</div>
-                <div className="text-sm text-foreground font-medium mb-1">average ROI</div>
-                <div className="text-xs text-muted-foreground">for every $1 spent on email marketing</div>
-              </div>
-              <div className="text-center p-6 bg-card rounded-lg cursor-pointer hover-elevate active-elevate-2" data-testid="stat-ppc-conversion">
-                <div className="text-4xl font-bold text-primary mb-2">200%</div>
-                <div className="text-sm text-foreground font-medium mb-1">average increase</div>
-                <div className="text-xs text-muted-foreground">in conversion with PPC campaigns</div>
-              </div>
+              {/* Gradient overlays for fade effect */}
+              <div className="absolute top-0 left-0 w-16 h-full bg-gradient-to-r from-card/30 to-transparent pointer-events-none z-10" />
+              <div className="absolute top-0 right-0 w-16 h-full bg-gradient-to-l from-card/30 to-transparent pointer-events-none z-10" />
             </div>
           </div>
 
