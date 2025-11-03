@@ -142,7 +142,7 @@ export default function ServicesDeepDive() {
         </p>
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2" data-testid="section-services-deep-dive">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" data-testid="section-services-deep-dive">
         {services.map((service) => {
           const isExpanded = expandedId === service.id;
           const Icon = service.icon;
@@ -153,43 +153,45 @@ export default function ServicesDeepDive() {
               className="hover-elevate transition-all duration-300"
               data-testid={`card-service-deep-dive-${service.id}`}
             >
-              <CardHeader className="p-0">
+              <CardHeader className="space-y-0 p-6">
                 <button
                   onClick={() => setExpandedId(isExpanded ? null : service.id)}
-                  className="w-full text-left p-3 flex items-center gap-3 hover-elevate active-elevate-2"
+                  className="w-full text-left flex items-start gap-4 hover-elevate active-elevate-2 -m-6 p-6"
                   data-testid={`button-expand-service-${service.id}`}
                 >
                   <div
-                    className="flex-shrink-0 w-9 h-9 rounded-lg flex items-center justify-center"
+                    className="flex-shrink-0 w-12 h-12 rounded-lg flex items-center justify-center"
                     style={{
                       backgroundColor: `${service.accentColor}20`,
                       color: service.accentColor
                     }}
                   >
-                    <Icon className="w-5 h-5" />
+                    <Icon className="w-6 h-6" />
                   </div>
-                  <div className="min-w-0">
-                    <div className="flex items-center gap-1.5 mb-0.5">
-                      <h3 className="text-sm font-bold text-foreground">
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 mb-1">
+                      <h3 className="text-base font-bold text-foreground">
                         {service.title}
                       </h3>
                       {service.status === "waitlist" && (
-                        <Badge variant="secondary" className="text-xs px-1.5 py-0">
+                        <Badge variant="secondary" className="text-xs">
                           Waitlist
                         </Badge>
                       )}
                     </div>
-                    <p className="text-muted-foreground text-xs line-clamp-1">
+                    <p className="text-muted-foreground text-sm line-clamp-2 mb-3">
                       {service.tagline}
                     </p>
+                    <div className="flex items-center gap-2 text-sm font-medium" style={{ color: service.accentColor }}>
+                      <span>{isExpanded ? "Hide Details" : "View Details"}</span>
+                      <motion.div
+                        animate={{ rotate: isExpanded ? 180 : 0 }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        <ChevronDown className="w-4 h-4" />
+                      </motion.div>
+                    </div>
                   </div>
-                  <motion.div
-                    animate={{ rotate: isExpanded ? 180 : 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="flex-shrink-0 ml-auto"
-                  >
-                    <ChevronDown className="w-4 h-4 text-muted-foreground" />
-                  </motion.div>
                 </button>
               </CardHeader>
 
@@ -202,17 +204,17 @@ export default function ServicesDeepDive() {
                     transition={{ duration: 0.3, ease: "easeInOut" }}
                     className="overflow-hidden"
                   >
-                    <CardContent className="p-3 pt-0 border-t border-border/30">
-                      <div className="space-y-3">
+                    <CardContent className="px-6 pb-6 pt-0 border-t border-border/30">
+                      <div className="space-y-4 mt-4">
                         {/* What You Get */}
                         <div>
-                          <h4 className="font-semibold text-foreground mb-1.5 text-xs">
+                          <h4 className="font-semibold text-foreground mb-2 text-sm">
                             What You Get:
                           </h4>
-                          <ul className="space-y-1">
+                          <ul className="space-y-2">
                             {service.details.whatYouGet.map((item, idx) => (
-                              <li key={idx} className="flex items-start gap-1.5 text-xs text-muted-foreground">
-                                <Check className="w-3 h-3 flex-shrink-0 mt-0.5" style={{ color: service.accentColor }} />
+                              <li key={idx} className="flex items-start gap-2 text-sm text-muted-foreground">
+                                <Check className="w-4 h-4 flex-shrink-0 mt-0.5" style={{ color: service.accentColor }} />
                                 <span>{item}</span>
                               </li>
                             ))}
@@ -220,41 +222,41 @@ export default function ServicesDeepDive() {
                         </div>
 
                         {/* Perfect For */}
-                        <div className="bg-card/50 rounded-lg p-2">
-                          <h4 className="font-semibold text-foreground mb-1 text-xs">
+                        <div className="bg-card/50 rounded-lg p-4">
+                          <h4 className="font-semibold text-foreground mb-2 text-sm">
                             Perfect For:
                           </h4>
-                          <p className="text-xs text-muted-foreground">
+                          <p className="text-sm text-muted-foreground">
                             {service.details.perfectFor}
                           </p>
                         </div>
 
                         {/* Timeline & Investment */}
-                        <div className="grid grid-cols-2 gap-2">
+                        <div className="grid grid-cols-2 gap-4">
                           <div>
-                            <h4 className="font-semibold text-foreground mb-0.5 text-xs">
+                            <h4 className="font-semibold text-foreground mb-1 text-sm">
                               Timeline:
                             </h4>
-                            <p className="text-xs text-muted-foreground">
+                            <p className="text-sm text-muted-foreground">
                               {service.details.timeline}
                             </p>
                           </div>
                           <div>
-                            <h4 className="font-semibold text-foreground mb-0.5 text-xs">
+                            <h4 className="font-semibold text-foreground mb-1 text-sm">
                               Investment:
                             </h4>
-                            <p className="text-xs text-muted-foreground">
+                            <p className="text-sm text-muted-foreground">
                               {service.details.investment}
                             </p>
                           </div>
                         </div>
 
                         {/* CTA */}
-                        <div className="pt-1">
+                        <div className="pt-2">
                           <Button
                             asChild
-                            size="sm"
-                            className="w-full text-xs"
+                            size="default"
+                            className="w-full"
                             data-testid={`button-book-${service.id}`}
                           >
                             <a href="#contact">
