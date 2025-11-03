@@ -4,7 +4,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { isUnauthorizedError } from "@/lib/authUtils";
-import type { BlogPost, InsertBlogPost, UpdateBlogPost, User } from "@shared/schema";
+import type { BlogPost, InsertBlogPost, UpdateBlogPost, User, Review } from "@shared/schema";
 import { insertBlogPostSchema } from "@shared/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -19,6 +19,8 @@ import {
   CheckCircle2,
   XCircle,
   Loader2,
+  RefreshCw,
+  Star,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -124,6 +126,42 @@ export default function Admin() {
     },
     retry: false,
     enabled: isAuthenticated,
+  });
+
+  const { data: reviews = [], isLoading: isLoadingReviews } = useQuery<Review[]>({
+    queryKey: ["/api/reviews"],
+    enabled: isAuthenticated,
+  });
+
+  const syncReviewsMutation = useMutation({
+    mutationFn: async () => {
+      return await apiRequest("POST", "/api/reviews/sync");
+    },
+    onSuccess: (data: any) => {
+      queryClient.invalidateQueries({ queryKey: ["/api/reviews"] });
+      toast({
+        title: "Success",
+        description: data.message || "Reviews synced successfully",
+      });
+    },
+    onError: (error) => {
+      if (isUnauthorizedError(error)) {
+        toast({
+          title: "Unauthorized",
+          description: "You are logged out. Logging in again...",
+          variant: "destructive",
+        });
+        setTimeout(() => {
+          window.location.href = "/api/login";
+        }, 500);
+        return;
+      }
+      toast({
+        title: "Error",
+        description: "Failed to sync reviews",
+        variant: "destructive",
+      });
+    },
   });
 
   const form = useForm<FormData>({
@@ -349,6 +387,112 @@ export default function Admin() {
               Manage your blog posts and content
             </p>
           </motion.div>
+
+          {/* Reviews Management Section */}
+          <motion.div
+            className="mb-12"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+          >
+            <Card className="rounded-2xl backdrop-blur-md bg-card/40 border-border/50 shadow-lg">
+              <CardHeader>
+                <div className="flex flex-wrap items-center justify-between gap-4">
+                  <div>
+                    <CardTitle className="text-2xl font-bold flex items-center gap-2">
+                      <Star className="h-6 w-6 text-primary" />
+                      Google Reviews
+                    </CardTitle>
+                    <p className="text-sm text-muted-foreground mt-1">
+                      Sync 5-star reviews from Google Business Profile
+                    </p>
+                  </div>
+                  <Button
+                    onClick={() => syncReviewsMutation.mutate()}
+                    disabled={syncReviewsMutation.isPending}
+                    data-testid="button-sync-reviews"
+                  >
+                    {syncReviewsMutation.isPending ? (
+                      <>
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        Syncing...
+                      </>
+                    ) : (
+                      <>
+                        <RefreshCw className="mr-2 h-4 w-4" />
+                        Sync Reviews
+                      </>
+                    )}
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent>
+                {isLoadingReviews ? (
+                  <div className="flex items-center justify-center py-8">
+                    <Loader2 className="h-8 w-8 animate-spin text-primary" />
+                  </div>
+                ) : reviews.length === 0 ? (
+                  <div className="text-center py-8">
+                    <p className="text-muted-foreground">
+                      No reviews synced yet. Click "Sync Reviews" to fetch 5-star reviews from Google.
+                    </p>
+                  </div>
+                ) : (
+                  <div className="space-y-4">
+                    <p className="text-sm font-medium text-foreground">
+                      {reviews.length} review{reviews.length !== 1 ? 's' : ''} synced
+                    </p>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                      {reviews.slice(0, 6).map((review) => (
+                        <div
+                          key={review.id}
+                          className="p-4 bg-background rounded-lg border border-border"
+                          data-testid={`review-${review.id}`}
+                        >
+                          <div className="flex items-center gap-2 mb-2">
+                            {review.profilePhotoUrl ? (
+                              <img
+                                src={review.profilePhotoUrl}
+                                alt={review.name}
+                                className="w-8 h-8 rounded-full"
+                              />
+                            ) : (
+                              <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
+                                <span className="text-sm font-bold text-primary">
+                                  {review.name.charAt(0)}
+                                </span>
+                              </div>
+                            )}
+                            <div className="flex-1 min-w-0">
+                              <p className="text-sm font-medium text-foreground truncate">
+                                {review.name}
+                              </p>
+                              <div className="flex gap-0.5">
+                                {[...Array(5)].map((_, i) => (
+                                  <Star
+                                    key={i}
+                                    className="h-3 w-3 text-primary fill-primary"
+                                  />
+                                ))}
+                              </div>
+                            </div>
+                          </div>
+                          <p className="text-xs text-muted-foreground line-clamp-3">
+                            {review.content}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </motion.div>
+
+          {/* Blog Posts Section */}
+          <div className="mb-4">
+            <h2 className="text-2xl font-bold text-foreground">Blog Posts</h2>
+          </div>
 
           {isLoadingPosts ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
