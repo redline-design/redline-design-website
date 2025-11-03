@@ -159,18 +159,6 @@ export default function StickyConversionBar() {
                               </p>
                             </div>
                           </div>
-
-                          {/* CTA */}
-                          <div className="pt-4 border-t border-border/30 text-center">
-                            <p className="text-sm text-foreground/90 mb-3">
-                              Still have questions? Let's talk. No jargon, no pressure—just honest advice.
-                            </p>
-                            <Link href="/contact">
-                              <Button size="default" className="bg-primary hover:bg-primary/90" data-testid="button-explainer-cta">
-                                Book a Free Consultation
-                              </Button>
-                            </Link>
-                          </div>
                         </div>
                       </motion.div>
                     )}
