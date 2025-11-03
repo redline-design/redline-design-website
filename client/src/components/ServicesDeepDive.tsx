@@ -156,30 +156,30 @@ export default function ServicesDeepDive() {
               <CardHeader className="p-0">
                 <button
                   onClick={() => setExpandedId(isExpanded ? null : service.id)}
-                  className="w-full text-left p-2 flex items-center gap-2 hover-elevate active-elevate-2"
+                  className="w-full text-left p-3 flex items-center gap-3 hover-elevate active-elevate-2"
                   data-testid={`button-expand-service-${service.id}`}
                 >
                   <div
-                    className="flex-shrink-0 w-7 h-7 rounded-lg flex items-center justify-center"
+                    className="flex-shrink-0 w-9 h-9 rounded-lg flex items-center justify-center"
                     style={{
                       backgroundColor: `${service.accentColor}20`,
                       color: service.accentColor
                     }}
                   >
-                    <Icon className="w-3.5 h-3.5" />
+                    <Icon className="w-5 h-5" />
                   </div>
                   <div className="min-w-0">
-                    <div className="flex items-center gap-1 mb-0.5">
-                      <h3 className="text-xs font-bold text-foreground">
+                    <div className="flex items-center gap-1.5 mb-0.5">
+                      <h3 className="text-sm font-bold text-foreground">
                         {service.title}
                       </h3>
                       {service.status === "waitlist" && (
-                        <Badge variant="secondary" className="text-[10px] px-1 py-0">
+                        <Badge variant="secondary" className="text-xs px-1.5 py-0">
                           Waitlist
                         </Badge>
                       )}
                     </div>
-                    <p className="text-muted-foreground text-[10px] line-clamp-1">
+                    <p className="text-muted-foreground text-xs line-clamp-1">
                       {service.tagline}
                     </p>
                   </div>
@@ -188,7 +188,7 @@ export default function ServicesDeepDive() {
                     transition={{ duration: 0.3 }}
                     className="flex-shrink-0 ml-auto"
                   >
-                    <ChevronDown className="w-3.5 h-3.5 text-muted-foreground" />
+                    <ChevronDown className="w-4 h-4 text-muted-foreground" />
                   </motion.div>
                 </button>
               </CardHeader>
