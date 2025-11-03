@@ -12,7 +12,9 @@ Preferred communication style: Simple, everyday language.
 
 ### Frontend Architecture
 
-The frontend is built with **React 18** and **TypeScript**, using **Vite** for fast development and optimized builds. It follows an **SPA Architecture** with client-side routing via **Wouter**. **shadcn/ui** components, based on Radix UI, are styled with **Tailwind CSS** using a custom design system. **Framer Motion** handles declarative animations. State management uses **TanStack Query** for server state and React hooks for local component state. The design emphasizes deep charcoal backgrounds, bold red accents, Inter font, glassmorphism effects, and consistent animation patterns including a custom glowing cursor and pulsing red glow for brand taglines and section headers.
+The frontend is built with **React 18** and **TypeScript**, using **Vite** for fast development and optimized builds. It follows an **SPA Architecture** with client-side routing via **Wouter**. **shadcn/ui** components, based on Radix UI, are styled with **Tailwind CSS** using a custom design system. **Framer Motion** handles declarative animations. State management uses **TanStack Query** for server state and React hooks for local component state. The design emphasizes deep charcoal backgrounds, bold red accents, Inter font, and consistent animation patterns including a custom glowing cursor and pulsing red glow for brand taglines and section headers.
+
+**Frosted Glass Design System**: All card elements site-wide feature a sophisticated frosted glass effect with a subtle hexagon pattern overlay. Implementation includes 12px backdrop blur for the glass effect, plus a very small (20px) SVG hexagon pattern in light mode (8% opacity white) and dark mode (5% opacity white). The pattern is applied via CSS pseudo-elements to all `bg-card` elements throughout the application, creating a cohesive premium aesthetic.
 
 ### Backend Architecture
 
