@@ -9,11 +9,24 @@ import StatCounter from "@/components/StatCounter";
 import CTABand from "@/components/CTABand";
 import StickyConversionBar from "@/components/StickyConversionBar";
 import { BarChart3, Sparkles, Globe, DollarSign, Zap, Target, Users, Briefcase, TrendingUp, AlertTriangle, MousePointerClick, LayoutGrid, BarChart2, Monitor, Database, Eye } from "lucide-react";
+import { SiGoogleads, SiMeta, SiLinkedin, SiTiktok, SiYoutube, SiX, SiReddit, SiPinterest } from "react-icons/si";
 import { motion } from "framer-motion";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 export default function Home() {
   const prefersReducedMotion = useReducedMotion();
+
+  // Platform icons mapping
+  const platforms = [
+    { name: 'Google Ads', icon: SiGoogleads },
+    { name: 'Meta Ads', icon: SiMeta },
+    { name: 'LinkedIn', icon: SiLinkedin },
+    { name: 'TikTok', icon: SiTiktok },
+    { name: 'YouTube', icon: SiYoutube },
+    { name: 'Twitter', icon: SiX },
+    { name: 'Reddit', icon: SiReddit },
+    { name: 'Pinterest', icon: SiPinterest },
+  ];
 
   // Simplified statistics - outcome-focused for beginners
   const stats = [
@@ -91,15 +104,19 @@ export default function Home() {
             From Google to Meta, TikTok to LinkedIn—we help you reach your audience wherever they are, with messaging that converts.
           </p>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-6">
-            {['Google Ads', 'Meta Ads', 'LinkedIn', 'TikTok', 'YouTube', 'Twitter', 'Reddit', 'Pinterest'].map((platform) => (
-              <div 
-                key={platform} 
-                className="p-3 bg-card rounded-lg text-center text-sm font-medium cursor-pointer hover-elevate active-elevate-2" 
-                data-testid={`platform-${platform.toLowerCase().replace(/\s+/g, '-')}`}
-              >
-                {platform}
-              </div>
-            ))}
+            {platforms.map((platform) => {
+              const Icon = platform.icon;
+              return (
+                <div 
+                  key={platform.name} 
+                  className="p-4 bg-card rounded-lg flex flex-col items-center justify-center gap-2 cursor-pointer hover-elevate active-elevate-2" 
+                  data-testid={`platform-${platform.name.toLowerCase().replace(/\s+/g, '-')}`}
+                >
+                  <Icon className="w-8 h-8 text-foreground" />
+                  <span className="text-xs font-medium text-foreground">{platform.name}</span>
+                </div>
+              );
+            })}
           </div>
         </div>
       ),
