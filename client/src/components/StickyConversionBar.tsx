@@ -54,7 +54,7 @@ export default function StickyConversionBar() {
               
               <div className="relative p-4 sm:p-5">
                 {/* Main CTA Row */}
-                <div className="flex items-center justify-between gap-4 flex-wrap sm:flex-nowrap mb-4">
+                <div className="flex items-center justify-between gap-4 flex-wrap sm:flex-nowrap">
                   <div className="flex-1 min-w-0">
                     <h3 className="text-base sm:text-lg font-bold text-foreground mb-1">
                       Ready to grow your business?
@@ -64,7 +64,7 @@ export default function StickyConversionBar() {
                     </p>
                   </div>
 
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-2">
                     <Link href="/contact">
                       <Button 
                         size="lg" 
@@ -77,6 +77,23 @@ export default function StickyConversionBar() {
                     </Link>
 
                     <button
+                      onClick={() => setIsExpanded(!isExpanded)}
+                      className="p-2 rounded-lg hover-elevate active-elevate-2 text-foreground/60 hover:text-foreground transition-colors"
+                      data-testid="button-toggle-explainer"
+                      aria-label="New to Digital Marketing?"
+                    >
+                      <div className="flex items-center gap-1">
+                        <Lightbulb className="h-5 w-5" />
+                        <motion.div
+                          animate={{ rotate: isExpanded ? 180 : 0 }}
+                          transition={{ duration: 0.3 }}
+                        >
+                          <ChevronDown className="h-4 w-4" />
+                        </motion.div>
+                      </div>
+                    </button>
+
+                    <button
                       onClick={handleDismiss}
                       className="p-2 rounded-lg hover-elevate active-elevate-2 text-foreground/60 hover:text-foreground transition-colors"
                       data-testid="button-dismiss-sticky-bar"
@@ -87,47 +104,17 @@ export default function StickyConversionBar() {
                   </div>
                 </div>
 
-                {/* Beginner Explainer Section */}
-                <div className="border-t border-border/30 pt-4">
-                  <button
-                    onClick={() => setIsExpanded(!isExpanded)}
-                    className="w-full text-left group"
-                    data-testid="button-toggle-explainer"
-                  >
-                    <div className="flex items-center justify-between gap-4">
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
-                          <Lightbulb className="w-5 h-5 text-primary" />
-                        </div>
-                        <div className="flex items-center gap-2 flex-wrap">
-                          <h4 className="text-sm sm:text-base font-bold text-foreground">
-                            New to Digital Marketing?
-                          </h4>
-                          <span className="text-xs text-foreground/70">
-                            {isExpanded ? "Click to hide" : "Click to learn the basics"}
-                          </span>
-                        </div>
-                      </div>
-                      <motion.div
-                        animate={{ rotate: isExpanded ? 180 : 0 }}
-                        transition={{ duration: 0.3 }}
-                        className="flex-shrink-0"
-                      >
-                        <ChevronDown className="w-5 h-5 text-foreground/60" />
-                      </motion.div>
-                    </div>
-                  </button>
-
-                  <AnimatePresence>
-                    {isExpanded && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.3 }}
-                        className="overflow-hidden"
-                      >
-                        <div className="mt-4 pt-4 border-t border-border/30 space-y-4">
+                {/* Beginner Explainer Content */}
+                <AnimatePresence>
+                  {isExpanded && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="overflow-hidden"
+                    >
+                      <div className="mt-4 pt-4 border-t border-border/30 space-y-4">
                           {/* Simple Explanation */}
                           <div>
                             <h5 className="text-sm font-semibold text-foreground mb-2">
@@ -191,9 +178,8 @@ export default function StickyConversionBar() {
                 </div>
               </div>
             </div>
-          </div>
-        </motion.div>
-      )}
-    </AnimatePresence>
-  );
+          </motion.div>
+        )}
+      </AnimatePresence>
+    );
 }
