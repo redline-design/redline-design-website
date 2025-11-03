@@ -257,7 +257,7 @@ export default function Home() {
           </div>
 
           {/* Industry Statistics - Auto-Scrolling */}
-          <div className="mb-16">
+          <div className="mb-16" data-testid="section-stats-carousel">
             <div className="text-center mb-6">
               <h3 className="text-lg font-bold mb-2 text-foreground">Why Digital Marketing Matters</h3>
               <p className="text-xs text-muted-foreground max-w-2xl mx-auto">

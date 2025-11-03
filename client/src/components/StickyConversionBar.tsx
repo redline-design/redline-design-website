@@ -6,7 +6,13 @@ import { Link } from "wouter";
 
 export default function StickyConversionBar() {
   const [isVisible, setIsVisible] = useState(false);
-  const [isDismissed, setIsDismissed] = useState(false);
+  const [isDismissed, setIsDismissed] = useState(() => {
+    // Check localStorage on mount
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('stickyBarDismissed') === 'true';
+    }
+    return false;
+  });
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,6 +31,8 @@ export default function StickyConversionBar() {
   const handleDismiss = () => {
     setIsDismissed(true);
     setIsVisible(false);
+    // Persist dismissal to localStorage
+    localStorage.setItem('stickyBarDismissed', 'true');
   };
 
   return (
@@ -36,7 +44,7 @@ export default function StickyConversionBar() {
           exit={{ y: 100, opacity: 0 }}
           transition={{ type: "spring", damping: 25, stiffness: 300 }}
           className="fixed bottom-0 left-0 right-0 z-50 pointer-events-none"
-          data-testid="sticky-conversion-bar"
+          data-testid="section-sticky-conversion-bar"
         >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-4 pointer-events-auto">
             <div className="bg-card border border-primary/30 rounded-2xl shadow-2xl backdrop-blur-xl p-4 sm:p-5 relative overflow-hidden">
