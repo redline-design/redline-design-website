@@ -142,7 +142,7 @@ export default function ServicesDeepDive() {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2" data-testid="section-services-deep-dive">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2" data-testid="section-services-deep-dive">
         {services.map((service) => {
           const isExpanded = expandedId === service.id;
           const Icon = service.icon;
@@ -168,7 +168,7 @@ export default function ServicesDeepDive() {
                   >
                     <Icon className="w-3.5 h-3.5" />
                   </div>
-                  <div className="flex-1 min-w-0">
+                  <div className="min-w-0">
                     <div className="flex items-center gap-1 mb-0.5">
                       <h3 className="text-xs font-bold text-foreground">
                         {service.title}
@@ -186,7 +186,7 @@ export default function ServicesDeepDive() {
                   <motion.div
                     animate={{ rotate: isExpanded ? 180 : 0 }}
                     transition={{ duration: 0.3 }}
-                    className="flex-shrink-0"
+                    className="flex-shrink-0 ml-auto"
                   >
                     <ChevronDown className="w-3.5 h-3.5 text-muted-foreground" />
                   </motion.div>
