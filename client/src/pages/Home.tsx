@@ -32,6 +32,7 @@ export default function Home() {
     { value: "7x", label: "Average ROI", subtitle: "average 7x ROI, up to 14x seen", testId: "stat-roi" },
     { value: "76%", label: "of consumers", subtitle: "research online before purchasing", testId: "stat-online-research" },
     { value: "3x", label: "More Leads", subtitle: "with digital vs traditional marketing", testId: "stat-lead-increase" },
+    { value: "5.1B", label: "Social Users", subtitle: "active social media users worldwide", testId: "stat-social-users" },
   ];
 
   // Duplicate stats for seamless infinite loop
