@@ -8,7 +8,7 @@ import TestimonialsCarousel from "@/components/TestimonialsCarousel";
 import StatCounter from "@/components/StatCounter";
 import CTABand from "@/components/CTABand";
 import StickyConversionBar from "@/components/StickyConversionBar";
-import { BarChart3, Sparkles, Globe, DollarSign, Zap, Target, Users, Briefcase, TrendingUp, AlertTriangle, MousePointerClick, LayoutGrid, BarChart2, Monitor, Database, Eye } from "lucide-react";
+import { BarChart3, Sparkles, Globe, DollarSign, Zap, Target, Users, Briefcase, TrendingUp, AlertTriangle, MousePointerClick, LayoutGrid, BarChart2, Monitor, Database, Eye, Mail, FileText, LineChart, MapPin, Smartphone } from "lucide-react";
 import { SiGoogleads, SiMeta, SiLinkedin, SiTiktok, SiYoutube, SiX, SiReddit, SiPinterest } from "react-icons/si";
 import { motion } from "framer-motion";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
@@ -118,6 +118,181 @@ export default function Home() {
               );
             })}
           </div>
+        </div>
+      ),
+    },
+    {
+      id: 'content',
+      label: 'Content & SEO',
+      icon: FileText,
+      content: (
+        <div>
+          <h3 className="text-2xl font-bold mb-4">Content Marketing That Ranks</h3>
+          <p className="text-foreground mb-4">
+            Quality content drives organic traffic and establishes authority. Our SEO-optimized content strategy combines keyword research, competitive analysis, and engaging storytelling to boost your search rankings and attract qualified leads.
+          </p>
+          <ul className="space-y-2 text-foreground">
+            <li className="flex items-start gap-2">
+              <span className="text-primary">✓</span>
+              <span>Keyword-optimized blog posts and landing pages</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-primary">✓</span>
+              <span>Technical SEO audits and implementation</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-primary">✓</span>
+              <span>Link building and domain authority growth</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-primary">✓</span>
+              <span>Local SEO optimization for Google Business Profile</span>
+            </li>
+          </ul>
+        </div>
+      ),
+    },
+    {
+      id: 'email',
+      label: 'Email Marketing',
+      icon: Mail,
+      content: (
+        <div>
+          <h3 className="text-2xl font-bold mb-4">Email Campaigns That Convert</h3>
+          <p className="text-foreground mb-4">
+            Email marketing delivers the highest ROI of any digital channel. We create automated drip campaigns, personalized newsletters, and targeted promotional sequences that nurture leads and drive repeat purchases.
+          </p>
+          <div className="grid grid-cols-2 gap-4 mt-6">
+            <div className="p-4 bg-card rounded-lg cursor-pointer hover-elevate active-elevate-2" data-testid="email-stat-open">
+              <div className="text-2xl font-bold text-primary mb-1">45%+</div>
+              <div className="text-sm text-foreground">Average Open Rate</div>
+            </div>
+            <div className="p-4 bg-card rounded-lg cursor-pointer hover-elevate active-elevate-2" data-testid="email-stat-conversion">
+              <div className="text-2xl font-bold text-primary mb-1">12%+</div>
+              <div className="text-sm text-foreground">Click-Through Rate</div>
+            </div>
+          </div>
+          <ul className="space-y-2 text-foreground mt-4">
+            <li className="flex items-start gap-2">
+              <span className="text-primary">✓</span>
+              <span>Automated welcome and nurture sequences</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-primary">✓</span>
+              <span>A/B testing for subject lines and content</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-primary">✓</span>
+              <span>List segmentation and personalization</span>
+            </li>
+          </ul>
+        </div>
+      ),
+    },
+    {
+      id: 'analytics',
+      label: 'Data-Driven Growth',
+      icon: LineChart,
+      content: (
+        <div>
+          <h3 className="text-2xl font-bold mb-4">Analytics That Drive Decisions</h3>
+          <p className="text-foreground mb-4">
+            Stop guessing. Start growing. We implement comprehensive analytics tracking across all channels, providing real-time dashboards and actionable insights that optimize your marketing spend and maximize conversions.
+          </p>
+          <ul className="space-y-2 text-foreground">
+            <li className="flex items-start gap-2">
+              <span className="text-primary">✓</span>
+              <span>Google Analytics 4 setup and custom event tracking</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-primary">✓</span>
+              <span>Conversion funnel analysis and optimization</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-primary">✓</span>
+              <span>Attribution modeling for multi-channel campaigns</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-primary">✓</span>
+              <span>Custom dashboards with real-time performance metrics</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-primary">✓</span>
+              <span>Competitive benchmarking and market analysis</span>
+            </li>
+          </ul>
+        </div>
+      ),
+    },
+    {
+      id: 'local',
+      label: 'Local Marketing',
+      icon: MapPin,
+      content: (
+        <div>
+          <h3 className="text-2xl font-bold mb-4">Dominate Your Local Market</h3>
+          <p className="text-foreground mb-4">
+            For local businesses, visibility in your area is everything. We optimize your Google Business Profile, manage local citations, and run geo-targeted ad campaigns to ensure customers in your area find you first.
+          </p>
+          <ul className="space-y-2 text-foreground">
+            <li className="flex items-start gap-2">
+              <span className="text-primary">✓</span>
+              <span>Google Business Profile optimization and management</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-primary">✓</span>
+              <span>Local citation building across 50+ directories</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-primary">✓</span>
+              <span>Location-based PPC campaigns on Google and Meta</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-primary">✓</span>
+              <span>Review generation and reputation management</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-primary">✓</span>
+              <span>Neighborhood-targeted social media advertising</span>
+            </li>
+          </ul>
+        </div>
+      ),
+    },
+    {
+      id: 'mobile',
+      label: 'Mobile Strategy',
+      icon: Smartphone,
+      content: (
+        <div>
+          <h3 className="text-2xl font-bold mb-4">Mobile-First Marketing</h3>
+          <p className="text-foreground mb-4">
+            Over 60% of searches happen on mobile devices. Our mobile-first approach ensures your website, ads, and landing pages deliver seamless experiences on smartphones and tablets, maximizing conversions from mobile traffic.
+          </p>
+          <div className="grid grid-cols-2 gap-4 mt-6">
+            <div className="p-4 bg-card rounded-lg cursor-pointer hover-elevate active-elevate-2" data-testid="mobile-stat-traffic">
+              <div className="text-2xl font-bold text-primary mb-1">63%</div>
+              <div className="text-sm text-foreground">Mobile Search Traffic</div>
+            </div>
+            <div className="p-4 bg-card rounded-lg cursor-pointer hover-elevate active-elevate-2" data-testid="mobile-stat-conversion">
+              <div className="text-2xl font-bold text-primary mb-1">2.5x</div>
+              <div className="text-sm text-foreground">Mobile Conversion Lift</div>
+            </div>
+          </div>
+          <ul className="space-y-2 text-foreground mt-4">
+            <li className="flex items-start gap-2">
+              <span className="text-primary">✓</span>
+              <span>Mobile-responsive website design and optimization</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-primary">✓</span>
+              <span>Mobile-specific ad creative and landing pages</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-primary">✓</span>
+              <span>Click-to-call and location-based mobile ads</span>
+            </li>
+          </ul>
         </div>
       ),
     },
