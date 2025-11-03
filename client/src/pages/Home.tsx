@@ -1,5 +1,6 @@
 import Hero from "@/components/Hero";
 import HorizontalScrollServices from "@/components/HorizontalScrollServices";
+import ServicesDeepDive from "@/components/ServicesDeepDive";
 import TabbedContent from "@/components/TabbedContent";
 import ValueTile from "@/components/ValueTile";
 import PartnerLogos from "@/components/PartnerLogos";
@@ -115,6 +116,13 @@ export default function Home() {
       </div>
       
       <HorizontalScrollServices />
+
+      {/* Service Deep Dive - Progressive Disclosure */}
+      <section className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 bg-card/20" data-testid="section-services-detail">
+        <div className="max-w-7xl mx-auto">
+          <ServicesDeepDive />
+        </div>
+      </section>
 
       {/* Common Challenges We Solve */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-background" data-testid="section-challenges">
