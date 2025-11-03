@@ -132,17 +132,17 @@ export default function ServicesDeepDive() {
   const [expandedId, setExpandedId] = useState<string | null>(null);
 
   return (
-    <div className="w-full max-w-6xl mx-auto">
-      <div className="text-center mb-8">
-        <h2 className="text-3xl sm:text-4xl font-bold mb-3 text-foreground">
+    <div className="w-full max-w-7xl mx-auto">
+      <div className="text-center mb-6">
+        <h2 className="text-2xl sm:text-3xl font-bold mb-2 text-foreground">
           Want the Details?
         </h2>
-        <p className="text-muted-foreground text-base sm:text-lg">
-          Click any service below to learn exactly what you get, who it's for, and what it costs
+        <p className="text-muted-foreground text-sm sm:text-base">
+          Click any service to learn exactly what you get, who it's for, and what it costs
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-3" data-testid="section-services-deep-dive">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2" data-testid="section-services-deep-dive">
         {services.map((service) => {
           const isExpanded = expandedId === service.id;
           const Icon = service.icon;
@@ -156,42 +156,42 @@ export default function ServicesDeepDive() {
               <CardHeader className="p-0">
                 <button
                   onClick={() => setExpandedId(isExpanded ? null : service.id)}
-                  className="w-full text-left p-4 sm:p-6 flex items-center justify-between gap-4 hover-elevate active-elevate-2"
+                  className="w-full text-left p-3 flex flex-col gap-2 hover-elevate active-elevate-2"
                   data-testid={`button-expand-service-${service.id}`}
                 >
-                  <div className="flex items-center gap-3 sm:gap-4 flex-1 min-w-0">
+                  <div className="flex items-center justify-between gap-2">
                     <div
-                      className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center"
+                      className="flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center"
                       style={{
                         backgroundColor: `${service.accentColor}20`,
                         color: service.accentColor
                       }}
                     >
-                      <Icon className="w-5 h-5 sm:w-6 sm:h-6" />
+                      <Icon className="w-4 h-4" />
                     </div>
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2 mb-1">
-                        <h3 className="text-base sm:text-lg font-bold text-foreground">
-                          {service.title}
-                        </h3>
-                        {service.status === "waitlist" && (
-                          <Badge variant="secondary" className="text-xs">
-                            Waitlist
-                          </Badge>
-                        )}
-                      </div>
-                      <p className="text-muted-foreground text-sm">
-                        {service.tagline}
-                      </p>
-                    </div>
+                    <motion.div
+                      animate={{ rotate: isExpanded ? 180 : 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="flex-shrink-0"
+                    >
+                      <ChevronDown className="w-4 h-4 text-muted-foreground" />
+                    </motion.div>
                   </div>
-                  <motion.div
-                    animate={{ rotate: isExpanded ? 180 : 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="flex-shrink-0"
-                  >
-                    <ChevronDown className="w-5 h-5 text-muted-foreground" />
-                  </motion.div>
+                  <div>
+                    <div className="flex items-center gap-1.5 mb-0.5">
+                      <h3 className="text-sm font-bold text-foreground">
+                        {service.title}
+                      </h3>
+                      {service.status === "waitlist" && (
+                        <Badge variant="secondary" className="text-xs px-1.5 py-0">
+                          Waitlist
+                        </Badge>
+                      )}
+                    </div>
+                    <p className="text-muted-foreground text-xs line-clamp-2">
+                      {service.tagline}
+                    </p>
+                  </div>
                 </button>
               </CardHeader>
 
@@ -204,17 +204,17 @@ export default function ServicesDeepDive() {
                     transition={{ duration: 0.3, ease: "easeInOut" }}
                     className="overflow-hidden"
                   >
-                    <CardContent className="p-4 sm:p-6 pt-0 border-t border-border/30">
-                      <div className="space-y-4 sm:space-y-6">
+                    <CardContent className="p-3 pt-0 border-t border-border/30">
+                      <div className="space-y-3">
                         {/* What You Get */}
                         <div>
-                          <h4 className="font-semibold text-foreground mb-3 text-sm sm:text-base">
+                          <h4 className="font-semibold text-foreground mb-1.5 text-xs">
                             What You Get:
                           </h4>
-                          <ul className="space-y-2">
+                          <ul className="space-y-1">
                             {service.details.whatYouGet.map((item, idx) => (
-                              <li key={idx} className="flex items-start gap-2 text-sm text-muted-foreground">
-                                <Check className="w-4 h-4 flex-shrink-0 mt-0.5" style={{ color: service.accentColor }} />
+                              <li key={idx} className="flex items-start gap-1.5 text-xs text-muted-foreground">
+                                <Check className="w-3 h-3 flex-shrink-0 mt-0.5" style={{ color: service.accentColor }} />
                                 <span>{item}</span>
                               </li>
                             ))}
@@ -222,40 +222,41 @@ export default function ServicesDeepDive() {
                         </div>
 
                         {/* Perfect For */}
-                        <div className="bg-card/50 rounded-lg p-3 sm:p-4">
-                          <h4 className="font-semibold text-foreground mb-2 text-sm sm:text-base">
+                        <div className="bg-card/50 rounded-lg p-2">
+                          <h4 className="font-semibold text-foreground mb-1 text-xs">
                             Perfect For:
                           </h4>
-                          <p className="text-sm text-muted-foreground">
+                          <p className="text-xs text-muted-foreground">
                             {service.details.perfectFor}
                           </p>
                         </div>
 
                         {/* Timeline & Investment */}
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                        <div className="grid grid-cols-2 gap-2">
                           <div>
-                            <h4 className="font-semibold text-foreground mb-1 text-sm">
+                            <h4 className="font-semibold text-foreground mb-0.5 text-xs">
                               Timeline:
                             </h4>
-                            <p className="text-sm text-muted-foreground">
+                            <p className="text-xs text-muted-foreground">
                               {service.details.timeline}
                             </p>
                           </div>
                           <div>
-                            <h4 className="font-semibold text-foreground mb-1 text-sm">
+                            <h4 className="font-semibold text-foreground mb-0.5 text-xs">
                               Investment:
                             </h4>
-                            <p className="text-sm text-muted-foreground">
+                            <p className="text-xs text-muted-foreground">
                               {service.details.investment}
                             </p>
                           </div>
                         </div>
 
                         {/* CTA */}
-                        <div className="pt-2">
+                        <div className="pt-1">
                           <Button
                             asChild
-                            className="w-full sm:w-auto"
+                            size="sm"
+                            className="w-full text-xs"
                             data-testid={`button-book-${service.id}`}
                           >
                             <a href="#contact">
