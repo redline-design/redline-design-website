@@ -1,7 +1,10 @@
 import { useRef, useState, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import ServiceCard from "@/components/ServiceCard";
-import { Globe, TrendingUp, Search, Database, BarChart3, Palette, MessageSquare, Mail, Users, Bot, ChevronDown } from "lucide-react";
+import { Globe, TrendingUp, Search, Database, BarChart3, Palette, MessageSquare, Mail, Users, Bot, ChevronDown, Check } from "lucide-react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 
 // Services data moved outside component to prevent re-creation on every render
 const SERVICES_DATA = [
@@ -233,6 +236,7 @@ export default function HorizontalScrollServices() {
   const [isHovering, setIsHovering] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [cardsPerPage, setCardsPerPage] = useState(3);
+  const [selectedService, setSelectedService] = useState<typeof SERVICES_DATA[number] | null>(null);
 
   // Memoize services data to prevent re-creation
   const services = useMemo(() => SERVICES_DATA, []);
@@ -498,10 +502,10 @@ export default function HorizontalScrollServices() {
                         icon={service.icon}
                         title={service.title}
                         description={service.description}
-                        link={service.link}
                         status={service.status}
                         accentColor={service.accentColor}
                         delay={0}
+                        onClick={() => setSelectedService(service)}
                       />
                     </motion.div>
                   ))}
@@ -605,6 +609,105 @@ export default function HorizontalScrollServices() {
           </div>
         </motion.div>
       </div>
+
+      {/* Service Details Dialog */}
+      <Dialog open={!!selectedService} onOpenChange={() => setSelectedService(null)}>
+        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto" data-testid="dialog-service-details">
+          {selectedService && (
+            <>
+              <DialogHeader>
+                <div className="flex items-start gap-4">
+                  <div
+                    className="flex-shrink-0 w-14 h-14 rounded-lg flex items-center justify-center"
+                    style={{
+                      backgroundColor: `${selectedService.accentColor}20`,
+                      color: selectedService.accentColor
+                    }}
+                  >
+                    <selectedService.icon className="w-7 h-7" />
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 mb-2">
+                      <DialogTitle className="text-xl font-bold text-foreground" data-testid={`text-dialog-title-${selectedService.id}`}>
+                        {selectedService.title}
+                      </DialogTitle>
+                      {selectedService.status === "waitlist" && (
+                        <Badge variant="secondary" className="text-xs">
+                          Waitlist
+                        </Badge>
+                      )}
+                    </div>
+                    <p className="text-muted-foreground text-sm">
+                      {selectedService.tagline}
+                    </p>
+                  </div>
+                </div>
+              </DialogHeader>
+
+              <div className="space-y-6 mt-4">
+                {/* What You Get */}
+                <div>
+                  <h4 className="font-semibold text-foreground mb-3 text-base">
+                    What You Get:
+                  </h4>
+                  <ul className="space-y-2.5">
+                    {selectedService.details.whatYouGet.map((item, idx) => (
+                      <li key={idx} className="flex items-start gap-3 text-sm text-muted-foreground">
+                        <Check className="w-5 h-5 flex-shrink-0 mt-0.5" style={{ color: selectedService.accentColor }} />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Perfect For */}
+                <div className="bg-card/50 rounded-lg p-4 border border-border/30">
+                  <h4 className="font-semibold text-foreground mb-2 text-base">
+                    Perfect For:
+                  </h4>
+                  <p className="text-sm text-muted-foreground">
+                    {selectedService.details.perfectFor}
+                  </p>
+                </div>
+
+                {/* Timeline & Investment */}
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="bg-card/30 rounded-lg p-4 border border-border/20">
+                    <h4 className="font-semibold text-foreground mb-2 text-sm">
+                      Timeline:
+                    </h4>
+                    <p className="text-sm text-muted-foreground">
+                      {selectedService.details.timeline}
+                    </p>
+                  </div>
+                  <div className="bg-card/30 rounded-lg p-4 border border-border/20">
+                    <h4 className="font-semibold text-foreground mb-2 text-sm">
+                      Investment:
+                    </h4>
+                    <p className="text-sm text-muted-foreground">
+                      {selectedService.details.investment}
+                    </p>
+                  </div>
+                </div>
+
+                {/* CTA */}
+                <div className="pt-2">
+                  <Button
+                    asChild
+                    size="default"
+                    className="w-full"
+                    data-testid={`button-book-${selectedService.id}`}
+                  >
+                    <a href="#contact">
+                      {selectedService.status === "waitlist" ? "Join Waitlist" : "Book Free Consultation"}
+                    </a>
+                  </Button>
+                </div>
+              </div>
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
     </section>
   );
 }
