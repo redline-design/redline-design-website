@@ -182,7 +182,7 @@ export default function ChatWidget() {
         {isOpen ? (
           <X className="w-7 h-7 text-white relative z-10" />
         ) : (
-          <div className="w-full h-full relative">
+          <div className="w-full h-full relative flex items-center justify-center">
             <style>{`
               @keyframes logoShimmer {
                 0% {
@@ -197,13 +197,13 @@ export default function ChatWidget() {
               }
             `}</style>
             {/* Base logo */}
-            <img src={logoImage} alt="Chat" loading="lazy" className="w-full h-full object-contain" />
+            <img src={logoImage} alt="Chat" loading="lazy" className="w-9 h-9 object-contain" />
             {/* Brightened logo overlay */}
             <img 
               src={logoImage} 
               alt="" 
               loading="lazy" 
-              className="w-full h-full object-contain absolute inset-0"
+              className="w-9 h-9 object-contain absolute"
               style={{
                 filter: 'brightness(2) saturate(1.5)',
                 animation: 'logoShimmer 3s ease-in-out infinite'
