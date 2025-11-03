@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import ServiceCard from "@/components/ServiceCard";
-import { Globe, TrendingUp, Search, Database, BarChart3, Palette, MessageSquare, Mail, Users, Bot } from "lucide-react";
+import { Globe, TrendingUp, Search, Database, BarChart3, Palette, MessageSquare, Mail, Users, Bot, ChevronDown } from "lucide-react";
 
 // Services data moved outside component to prevent re-creation on every render
 const SERVICES_DATA = [
@@ -196,6 +196,98 @@ export default function HorizontalScrollServices() {
       data-testid="section-services-horizontal"
     >
       <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden px-4 md:px-8 pointer-events-none">
+        {/* Left scroll indicator */}
+        <motion.div
+          className="absolute left-2 md:left-8 top-1/2 -translate-y-1/2 flex flex-col items-center gap-2 pointer-events-none z-40"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.6 }}
+          transition={{ delay: 0.5 }}
+          data-testid="indicator-scroll-left"
+        >
+          <motion.div
+            animate={{
+              y: [0, 10, 0],
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          >
+            <ChevronDown 
+              className="w-8 h-8 md:w-10 md:h-10 text-primary" 
+              style={{
+                filter: "drop-shadow(0 0 8px rgba(255, 0, 0, 0.6))"
+              }}
+            />
+          </motion.div>
+          <motion.p
+            className="text-xs md:text-sm text-primary font-medium vertical-text"
+            style={{
+              writingMode: "vertical-rl",
+              textOrientation: "mixed",
+              filter: "drop-shadow(0 0 4px rgba(255, 0, 0, 0.4))"
+            }}
+            animate={{
+              opacity: [0.5, 1, 0.5]
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          >
+            Scroll Down
+          </motion.p>
+        </motion.div>
+
+        {/* Right scroll indicator */}
+        <motion.div
+          className="absolute right-2 md:right-8 top-1/2 -translate-y-1/2 flex flex-col items-center gap-2 pointer-events-none z-40"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.6 }}
+          transition={{ delay: 0.5 }}
+          data-testid="indicator-scroll-right"
+        >
+          <motion.div
+            animate={{
+              y: [0, 10, 0],
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 0.3
+            }}
+          >
+            <ChevronDown 
+              className="w-8 h-8 md:w-10 md:h-10 text-primary" 
+              style={{
+                filter: "drop-shadow(0 0 8px rgba(255, 0, 0, 0.6))"
+              }}
+            />
+          </motion.div>
+          <motion.p
+            className="text-xs md:text-sm text-primary font-medium vertical-text"
+            style={{
+              writingMode: "vertical-rl",
+              textOrientation: "mixed",
+              filter: "drop-shadow(0 0 4px rgba(255, 0, 0, 0.4))"
+            }}
+            animate={{
+              opacity: [0.5, 1, 0.5]
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 0.3
+            }}
+          >
+            Scroll Down
+          </motion.p>
+        </motion.div>
+
         <motion.div 
           ref={containerRef}
           className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 w-full backdrop-blur-md bg-card/40 border-2 rounded-3xl py-8 md:py-12 transition-all duration-300 relative z-50 pointer-events-auto"
