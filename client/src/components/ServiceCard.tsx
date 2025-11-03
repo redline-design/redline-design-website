@@ -4,19 +4,18 @@ import { useInView } from "react-intersection-observer";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { LucideIcon } from "lucide-react";
-import { Link } from "wouter";
 
 interface ServiceCardProps {
   icon: LucideIcon;
   title: string;
   description: string;
-  link: string;
+  onClick?: () => void;
   status?: "accepting" | "waitlist";
   delay?: number;
   accentColor?: string;
 }
 
-const ServiceCard = memo(function ServiceCard({ icon: Icon, title, description, link, status, delay = 0, accentColor = "rgb(96, 165, 250)" }: ServiceCardProps) {
+const ServiceCard = memo(function ServiceCard({ icon: Icon, title, description, onClick, status, delay = 0, accentColor = "rgb(96, 165, 250)" }: ServiceCardProps) {
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.15 });
 
   return (
@@ -33,7 +32,7 @@ const ServiceCard = memo(function ServiceCard({ icon: Icon, title, description, 
       }}
       className="h-full"
     >
-      <Link href={link} className="block h-full">
+      <div onClick={onClick} className="block h-full cursor-pointer">
         <Card
           className="hover-elevate active-elevate-2 transition-all duration-300 rounded-2xl group backdrop-blur-md bg-card/40 border-border/30 relative overflow-hidden flex flex-col"
           style={{ height: '100%' }}
@@ -72,7 +71,7 @@ const ServiceCard = memo(function ServiceCard({ icon: Icon, title, description, 
             </div>
           </CardContent>
         </Card>
-      </Link>
+      </div>
     </motion.div>
   );
 });
