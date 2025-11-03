@@ -96,18 +96,6 @@ export default function Hero() {
           </div>
         </motion.div>
 
-        {/* Value Proposition */}
-        <motion.div
-          className="mb-8"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.3 }}
-        >
-          <p className="text-lg sm:text-xl text-foreground/80 max-w-2xl mx-auto">
-            Real marketing strategies. Measurable results. No nonsense.
-          </p>
-        </motion.div>
-
         {/* Tagline */}
         <motion.h2 
           className="text-sm sm:text-base md:text-lg font-bold uppercase tracking-[0.3em] mb-12 red-glow-pulse"
