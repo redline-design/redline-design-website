@@ -255,13 +255,6 @@ export default function Home() {
 
           {/* Industry Statistics - Auto-Scrolling */}
           <div className="mb-16" data-testid="section-stats-carousel">
-            <div className="text-center mb-6">
-              <h3 className="text-lg font-bold mb-2 text-foreground">Why Digital Marketing Matters</h3>
-              <p className="text-xs text-muted-foreground max-w-2xl mx-auto">
-                The digital landscape is massive—and your business needs to be visible in it
-              </p>
-            </div>
-            
             <div className="relative overflow-hidden">
               <motion.div
                 className="flex gap-4 pointer-events-none"
