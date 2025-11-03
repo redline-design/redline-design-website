@@ -16,12 +16,26 @@ export default function StickyConversionBar() {
   });
 
   useEffect(() => {
+    let lastScrollY = window.scrollY;
+    let ticking = false;
+
     const handleScroll = () => {
-      // Show bar after scrolling 300px
-      if (window.scrollY > 300 && !isDismissed) {
-        setIsVisible(true);
-      } else if (window.scrollY <= 300) {
-        setIsVisible(false);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const currentScrollY = window.scrollY;
+          const scrollingDown = currentScrollY > lastScrollY;
+          
+          // Only show if scrolled past 300px, not dismissed, and scrolling up
+          if (currentScrollY > 300 && !isDismissed && !scrollingDown) {
+            setIsVisible(true);
+          } else if (currentScrollY <= 300 || scrollingDown) {
+            setIsVisible(false);
+          }
+
+          lastScrollY = currentScrollY;
+          ticking = false;
+        });
+        ticking = true;
       }
     };
 
