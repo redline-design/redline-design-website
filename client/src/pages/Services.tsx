@@ -5,7 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import StatCounter from "@/components/StatCounter";
 import CTABand from "@/components/CTABand";
-import { Search, TrendingUp, Globe, Share2, Mail, Globe as GlobeIcon, MessageCircle, Palette, Pencil, MousePointerClick, Layout, Users, Database as DatabaseIcon, GraduationCap, BarChart } from "lucide-react";
+import { Search, TrendingUp, Globe, Share2, Mail, MessageCircle, Palette, Pencil, MousePointerClick, Layout, Users, Database as DatabaseIcon, GraduationCap, BarChart } from "lucide-react";
 import { Link } from "wouter";
 
 interface ServiceSectionProps {
@@ -123,39 +123,6 @@ export default function Services() {
             <StatCounter value={2} suffix="x" label="Conversion Rate" delay={0.2} />
             <StatCounter value={95} suffix="%" label="Client Retention" delay={0.3} />
           </div>
-        </div>
-      </section>
-
-      {/* Bilingual Services Badge */}
-      <section className="py-12 px-4 sm:px-6 lg:px-8" data-testid="section-bilingual-services">
-        <div className="max-w-5xl mx-auto">
-          <motion.div 
-            className="bg-gradient-to-r from-primary/10 via-primary/5 to-primary/10 rounded-2xl p-8 border-2 border-primary/20 cursor-pointer hover-elevate active-elevate-2" 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            data-testid="card-bilingual-callout"
-          >
-            <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-              <div className="flex items-center gap-4">
-                <div className="p-4 bg-primary rounded-xl">
-                  <GlobeIcon className="h-8 w-8 text-white" />
-                </div>
-                <div>
-                  <h3 className="text-2xl font-bold text-foreground mb-1">Bilingual Services Available</h3>
-                  <p className="text-muted-foreground">We speak your language—English & Spanish</p>
-                </div>
-              </div>
-              <div className="flex gap-3">
-                <div className="px-6 py-3 bg-card rounded-lg border border-border">
-                  <span className="font-bold text-foreground">English</span>
-                </div>
-                <div className="px-6 py-3 bg-card rounded-lg border border-border">
-                  <span className="font-bold text-foreground">Español</span>
-                </div>
-              </div>
-            </div>
-          </motion.div>
         </div>
       </section>
 

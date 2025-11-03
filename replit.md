@@ -32,6 +32,10 @@ The project targets digital marketing clients looking for SEO, PPC, web design, 
   - External API endpoint (`POST /api/external/blog/posts`) with API key authentication for automated content creation
   - Security: Unpublished posts protected from unauthenticated access on both listing and individual post endpoints
   - Seeded with 6 example blog posts covering SEO, PPC, Web Design, Social Media, Email Marketing, and Local SEO
+- **About Page**: Team member bios for Ryan Howard and Peru Mendoza with personalities, skills, and bilingual note in Peru's bio
+- **Common Challenges Section**: 7 pain point cards on Home page (low visibility, poor conversion, fragmented marketing, no ROI tracking, outdated websites, no CRM integration, ad fatigue)
+- **Enhanced Statistics**: Global reach stats (5.35B internet users, 248M online shoppers, 66% population online) and marketing performance metrics
+- **Process Timeline**: Visual 9-step process on Services page showing workflow from consultation to analytics
 - **Horizontal Scrolling Services Section**: Interactive "What We Do" section with hover-activated one-card-at-a-time scrolling and 3D layering animations
   - Displays 10 service cards: World Class Websites, Paid Advertising, SEO/SEM, CRM Setup & Automation, Analytics & Data Analysis, Graphic Design, Social Media Marketing, Email Marketing, Consulting, and AI Automation
   - **Hover-Activated Interaction**: Services only change when hovering inside the glassmorphism box

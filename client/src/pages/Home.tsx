@@ -6,7 +6,7 @@ import PartnerLogos from "@/components/PartnerLogos";
 import TestimonialsCarousel from "@/components/TestimonialsCarousel";
 import StatCounter from "@/components/StatCounter";
 import CTABand from "@/components/CTABand";
-import { BarChart3, Sparkles, Globe as GlobeIcon, DollarSign, Zap, Target, Users, Briefcase, TrendingUp, AlertTriangle, MousePointerClick, LayoutGrid, BarChart2, Monitor, Database, Eye } from "lucide-react";
+import { BarChart3, Sparkles, Globe, DollarSign, Zap, Target, Users, Briefcase, TrendingUp, AlertTriangle, MousePointerClick, LayoutGrid, BarChart2, Monitor, Database, Eye } from "lucide-react";
 
 export default function Home() {
   const tabs = [
@@ -67,7 +67,7 @@ export default function Home() {
     {
       id: 'reach',
       label: "It's a Big World",
-      icon: GlobeIcon,
+      icon: Globe,
       content: (
         <div>
           <h3 className="text-2xl font-bold mb-4">Cross-Platform Reach</h3>
@@ -95,36 +95,6 @@ export default function Home() {
       <Hero />
       
       <HorizontalScrollServices />
-
-      {/* Bilingual Services Badge */}
-      <section className="py-12 px-4 sm:px-6 lg:px-8 bg-card/20 backdrop-blur-sm" data-testid="section-bilingual">
-        <div className="max-w-5xl mx-auto">
-          <div 
-            className="bg-gradient-to-r from-primary/10 via-primary/5 to-primary/10 rounded-2xl p-8 border-2 border-primary/20 cursor-pointer hover-elevate active-elevate-2" 
-            data-testid="card-bilingual-services"
-          >
-            <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-              <div className="flex items-center gap-4">
-                <div className="p-4 bg-primary rounded-xl">
-                  <GlobeIcon className="h-8 w-8 text-white" />
-                </div>
-                <div>
-                  <h3 className="text-2xl font-bold text-foreground mb-1">Bilingual Services Available</h3>
-                  <p className="text-muted-foreground">We speak your language—English & Spanish</p>
-                </div>
-              </div>
-              <div className="flex gap-3">
-                <div className="px-6 py-3 bg-card rounded-lg border border-border">
-                  <span className="font-bold text-foreground">English</span>
-                </div>
-                <div className="px-6 py-3 bg-card rounded-lg border border-border">
-                  <span className="font-bold text-foreground">Español</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Common Challenges We Solve */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-background" data-testid="section-challenges">
