@@ -6,7 +6,7 @@ import PartnerLogos from "@/components/PartnerLogos";
 import TestimonialsCarousel from "@/components/TestimonialsCarousel";
 import StatCounter from "@/components/StatCounter";
 import CTABand from "@/components/CTABand";
-import { BarChart3, Sparkles, Globe as GlobeIcon, DollarSign, Zap, Target, Users, Briefcase, TrendingUp } from "lucide-react";
+import { BarChart3, Sparkles, Globe as GlobeIcon, DollarSign, Zap, Target, Users, Briefcase, TrendingUp, AlertTriangle, MousePointerClick, LayoutGrid, BarChart2, Monitor, Database, Eye } from "lucide-react";
 
 export default function Home() {
   const tabs = [
@@ -21,15 +21,15 @@ export default function Home() {
             We cut through the marketing nonsense and focus on what actually drives revenue. Real strategies. Real metrics. Real growth.
           </p>
           <div className="grid grid-cols-3 gap-4 mt-6">
-            <div className="text-center p-4 bg-card rounded-lg transition-all duration-300 cursor-pointer" style={{ transition: 'transform 0.3s ease, box-shadow 0.3s ease' }} onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = '0 8px 16px -4px rgba(255, 0, 0, 0.12), 0 4px 8px -2px rgba(255, 0, 0, 0.08)'; }} onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; }}>
+            <div className="text-center p-4 bg-card rounded-lg cursor-pointer hover-elevate active-elevate-2" data-testid="stat-roi">
               <div className="text-3xl font-bold text-primary">14x</div>
               <div className="text-sm text-foreground">ROI</div>
             </div>
-            <div className="text-center p-4 bg-card rounded-lg transition-all duration-300 cursor-pointer" style={{ transition: 'transform 0.3s ease, box-shadow 0.3s ease' }} onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = '0 8px 16px -4px rgba(255, 0, 0, 0.12), 0 4px 8px -2px rgba(255, 0, 0, 0.08)'; }} onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; }}>
+            <div className="text-center p-4 bg-card rounded-lg cursor-pointer hover-elevate active-elevate-2" data-testid="stat-traffic">
               <div className="text-3xl font-bold text-primary">350%</div>
               <div className="text-sm text-foreground">Traffic Growth</div>
             </div>
-            <div className="text-center p-4 bg-card rounded-lg transition-all duration-300 cursor-pointer" style={{ transition: 'transform 0.3s ease, box-shadow 0.3s ease' }} onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = '0 8px 16px -4px rgba(255, 0, 0, 0.12), 0 4px 8px -2px rgba(255, 0, 0, 0.08)'; }} onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; }}>
+            <div className="text-center p-4 bg-card rounded-lg cursor-pointer hover-elevate active-elevate-2" data-testid="stat-retention">
               <div className="text-3xl font-bold text-primary">95%</div>
               <div className="text-sm text-foreground">Client Retention</div>
             </div>
@@ -78,10 +78,8 @@ export default function Home() {
             {['Google Ads', 'Meta Ads', 'LinkedIn', 'TikTok', 'YouTube', 'Twitter', 'Reddit', 'Pinterest'].map((platform) => (
               <div 
                 key={platform} 
-                className="p-3 bg-card rounded-lg text-center text-sm font-medium transition-all duration-300 cursor-pointer" 
-                style={{ transition: 'transform 0.3s ease, box-shadow 0.3s ease' }} 
-                onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = '0 8px 16px -4px rgba(255, 0, 0, 0.12), 0 4px 8px -2px rgba(255, 0, 0, 0.08)'; }} 
-                onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; }}
+                className="p-3 bg-card rounded-lg text-center text-sm font-medium cursor-pointer hover-elevate active-elevate-2" 
+                data-testid={`platform-${platform.toLowerCase().replace(/\s+/g, '-')}`}
               >
                 {platform}
               </div>
@@ -97,6 +95,157 @@ export default function Home() {
       <Hero />
       
       <HorizontalScrollServices />
+
+      {/* Bilingual Services Badge */}
+      <section className="py-12 px-4 sm:px-6 lg:px-8 bg-card/20 backdrop-blur-sm" data-testid="section-bilingual">
+        <div className="max-w-5xl mx-auto">
+          <div 
+            className="bg-gradient-to-r from-primary/10 via-primary/5 to-primary/10 rounded-2xl p-8 border-2 border-primary/20 cursor-pointer hover-elevate active-elevate-2" 
+            data-testid="card-bilingual-services"
+          >
+            <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+              <div className="flex items-center gap-4">
+                <div className="p-4 bg-primary rounded-xl">
+                  <GlobeIcon className="h-8 w-8 text-white" />
+                </div>
+                <div>
+                  <h3 className="text-2xl font-bold text-foreground mb-1">Bilingual Services Available</h3>
+                  <p className="text-muted-foreground">We speak your language—English & Spanish</p>
+                </div>
+              </div>
+              <div className="flex gap-3">
+                <div className="px-6 py-3 bg-card rounded-lg border border-border">
+                  <span className="font-bold text-foreground">English</span>
+                </div>
+                <div className="px-6 py-3 bg-card rounded-lg border border-border">
+                  <span className="font-bold text-foreground">Español</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Common Challenges We Solve */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-background" data-testid="section-challenges">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-lg sm:text-xl md:text-2xl font-bold uppercase tracking-[0.3em] mb-4 red-glow-pulse" style={{ color: "#ff0000" }}>
+              Common Challenges We Solve
+            </h2>
+            <p className="text-lg text-foreground max-w-3xl mx-auto">
+              Are you struggling with any of these pain points? You're not alone.
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div 
+              className="bg-card rounded-xl p-6 cursor-pointer hover-elevate active-elevate-2" 
+              data-testid="card-challenge-visibility"
+            >
+              <div className="flex items-start gap-4">
+                <div className="p-3 bg-primary/10 rounded-lg">
+                  <Eye className="h-6 w-6 text-primary" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-foreground mb-2">Low Visibility & High Ad Costs</h3>
+                  <p className="text-sm text-muted-foreground">Struggling to get found online while watching ad costs skyrocket? We optimize your presence for maximum visibility at minimal cost.</p>
+                </div>
+              </div>
+            </div>
+
+            <div 
+              className="bg-card rounded-xl p-6 cursor-pointer hover-elevate active-elevate-2" 
+              data-testid="card-challenge-conversion"
+            >
+              <div className="flex items-start gap-4">
+                <div className="p-3 bg-primary/10 rounded-lg">
+                  <MousePointerClick className="h-6 w-6 text-primary" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-foreground mb-2">Poor Website Conversion</h3>
+                  <p className="text-sm text-muted-foreground">Traffic without conversions is just noise. We design and optimize for one thing: turning visitors into customers.</p>
+                </div>
+              </div>
+            </div>
+
+            <div 
+              className="bg-card rounded-xl p-6 cursor-pointer hover-elevate active-elevate-2" 
+              data-testid="card-challenge-fragmented"
+            >
+              <div className="flex items-start gap-4">
+                <div className="p-3 bg-primary/10 rounded-lg">
+                  <LayoutGrid className="h-6 w-6 text-primary" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-foreground mb-2">Fragmented Marketing</h3>
+                  <p className="text-sm text-muted-foreground">Juggling multiple agencies and tools that don't talk to each other? We unify your marketing under one roof.</p>
+                </div>
+              </div>
+            </div>
+
+            <div 
+              className="bg-card rounded-xl p-6 cursor-pointer hover-elevate active-elevate-2" 
+              data-testid="card-challenge-tracking"
+            >
+              <div className="flex items-start gap-4">
+                <div className="p-3 bg-primary/10 rounded-lg">
+                  <BarChart2 className="h-6 w-6 text-primary" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-foreground mb-2">No ROI Tracking</h3>
+                  <p className="text-sm text-muted-foreground">Can't measure what's working? Our transparent analytics show you exactly where every dollar goes and what it returns.</p>
+                </div>
+              </div>
+            </div>
+
+            <div 
+              className="bg-card rounded-xl p-6 cursor-pointer hover-elevate active-elevate-2" 
+              data-testid="card-challenge-outdated"
+            >
+              <div className="flex items-start gap-4">
+                <div className="p-3 bg-primary/10 rounded-lg">
+                  <Monitor className="h-6 w-6 text-primary" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-foreground mb-2">Outdated Websites</h3>
+                  <p className="text-sm text-muted-foreground">Your website should be your best salesperson. We build modern, fast, conversion-focused sites that work 24/7.</p>
+                </div>
+              </div>
+            </div>
+
+            <div 
+              className="bg-card rounded-xl p-6 cursor-pointer hover-elevate active-elevate-2" 
+              data-testid="card-challenge-crm"
+            >
+              <div className="flex items-start gap-4">
+                <div className="p-3 bg-primary/10 rounded-lg">
+                  <Database className="h-6 w-6 text-primary" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-foreground mb-2">No CRM Integration</h3>
+                  <p className="text-sm text-muted-foreground">Leads slipping through the cracks? We set up and optimize your CRM so no opportunity is ever missed.</p>
+                </div>
+              </div>
+            </div>
+
+            <div 
+              className="bg-card rounded-xl p-6 cursor-pointer md:col-span-2 lg:col-span-3 hover-elevate active-elevate-2" 
+              data-testid="card-challenge-fatigue"
+            >
+              <div className="flex items-start gap-4">
+                <div className="p-3 bg-primary/10 rounded-lg">
+                  <AlertTriangle className="h-6 w-6 text-primary" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-foreground mb-2">Ad Fatigue & Wasted Spend</h3>
+                  <p className="text-sm text-muted-foreground">Burning through ad budgets with diminishing returns? Our data-driven approach ensures every campaign stays fresh and effective.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-card/30 backdrop-blur-sm" data-testid="section-differentiators">
         <div className="max-w-7xl mx-auto">
@@ -114,26 +263,47 @@ export default function Home() {
             <div className="text-center mb-10">
               <h3 className="text-xl font-bold mb-2 text-foreground">Why Digital Marketing Matters</h3>
               <p className="text-sm text-muted-foreground max-w-2xl mx-auto">
-                Industry insights that prove the power of strategic digital marketing
+                The digital landscape is massive—and your business needs to be visible in it
               </p>
             </div>
+            
+            {/* Global Reach Stats */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+              <div className="text-center p-6 bg-card rounded-lg cursor-pointer hover-elevate active-elevate-2" data-testid="stat-internet-users">
+                <div className="text-4xl font-bold text-primary mb-2">5.35B</div>
+                <div className="text-sm text-foreground font-medium mb-1">Internet Users</div>
+                <div className="text-xs text-muted-foreground">globally connected and searching</div>
+              </div>
+              <div className="text-center p-6 bg-card rounded-lg cursor-pointer hover-elevate active-elevate-2" data-testid="stat-online-shoppers">
+                <div className="text-4xl font-bold text-primary mb-2">248M</div>
+                <div className="text-sm text-foreground font-medium mb-1">Americans Shop Online</div>
+                <div className="text-xs text-muted-foreground">ready to buy from businesses like yours</div>
+              </div>
+              <div className="text-center p-6 bg-card rounded-lg cursor-pointer hover-elevate active-elevate-2" data-testid="stat-global-online">
+                <div className="text-4xl font-bold text-primary mb-2">66%</div>
+                <div className="text-sm text-foreground font-medium mb-1">Global Population Online</div>
+                <div className="text-xs text-muted-foreground">and that number keeps growing</div>
+              </div>
+            </div>
+
+            {/* Marketing Performance Stats */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              <div className="text-center p-6 bg-card rounded-lg transition-all duration-300 cursor-pointer" style={{ transition: 'transform 0.3s ease, box-shadow 0.3s ease' }} onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = '0 8px 16px -4px rgba(255, 0, 0, 0.12), 0 4px 8px -2px rgba(255, 0, 0, 0.08)'; }} onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; }}>
+              <div className="text-center p-6 bg-card rounded-lg cursor-pointer hover-elevate active-elevate-2" data-testid="stat-online-research">
                 <div className="text-4xl font-bold text-primary mb-2">76%</div>
                 <div className="text-sm text-foreground font-medium mb-1">of consumers</div>
                 <div className="text-xs text-muted-foreground">research online before purchasing</div>
               </div>
-              <div className="text-center p-6 bg-card rounded-lg transition-all duration-300 cursor-pointer" style={{ transition: 'transform 0.3s ease, box-shadow 0.3s ease' }} onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = '0 8px 16px -4px rgba(255, 0, 0, 0.12), 0 4px 8px -2px rgba(255, 0, 0, 0.08)'; }} onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; }}>
+              <div className="text-center p-6 bg-card rounded-lg cursor-pointer hover-elevate active-elevate-2" data-testid="stat-seo-revenue">
                 <div className="text-4xl font-bold text-primary mb-2">5.3x</div>
                 <div className="text-sm text-foreground font-medium mb-1">higher revenue</div>
                 <div className="text-xs text-muted-foreground">for businesses with strong SEO</div>
               </div>
-              <div className="text-center p-6 bg-card rounded-lg transition-all duration-300 cursor-pointer" style={{ transition: 'transform 0.3s ease, box-shadow 0.3s ease' }} onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = '0 8px 16px -4px rgba(255, 0, 0, 0.12), 0 4px 8px -2px rgba(255, 0, 0, 0.08)'; }} onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; }}>
+              <div className="text-center p-6 bg-card rounded-lg cursor-pointer hover-elevate active-elevate-2" data-testid="stat-email-roi">
                 <div className="text-4xl font-bold text-primary mb-2">$42</div>
                 <div className="text-sm text-foreground font-medium mb-1">average ROI</div>
                 <div className="text-xs text-muted-foreground">for every $1 spent on email marketing</div>
               </div>
-              <div className="text-center p-6 bg-card rounded-lg transition-all duration-300 cursor-pointer" style={{ transition: 'transform 0.3s ease, box-shadow 0.3s ease' }} onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = '0 8px 16px -4px rgba(255, 0, 0, 0.12), 0 4px 8px -2px rgba(255, 0, 0, 0.08)'; }} onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; }}>
+              <div className="text-center p-6 bg-card rounded-lg cursor-pointer hover-elevate active-elevate-2" data-testid="stat-ppc-conversion">
                 <div className="text-4xl font-bold text-primary mb-2">200%</div>
                 <div className="text-sm text-foreground font-medium mb-1">average increase</div>
                 <div className="text-xs text-muted-foreground">in conversion with PPC campaigns</div>

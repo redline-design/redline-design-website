@@ -5,7 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import StatCounter from "@/components/StatCounter";
 import CTABand from "@/components/CTABand";
-import { Search, TrendingUp, Globe, Share2, Mail } from "lucide-react";
+import { Search, TrendingUp, Globe, Share2, Mail, Globe as GlobeIcon, MessageCircle, Palette, Pencil, MousePointerClick, Layout, Users, Database as DatabaseIcon, GraduationCap, BarChart } from "lucide-react";
 import { Link } from "wouter";
 
 interface ServiceSectionProps {
@@ -126,6 +126,39 @@ export default function Services() {
         </div>
       </section>
 
+      {/* Bilingual Services Badge */}
+      <section className="py-12 px-4 sm:px-6 lg:px-8" data-testid="section-bilingual-services">
+        <div className="max-w-5xl mx-auto">
+          <motion.div 
+            className="bg-gradient-to-r from-primary/10 via-primary/5 to-primary/10 rounded-2xl p-8 border-2 border-primary/20 cursor-pointer hover-elevate active-elevate-2" 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            data-testid="card-bilingual-callout"
+          >
+            <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+              <div className="flex items-center gap-4">
+                <div className="p-4 bg-primary rounded-xl">
+                  <GlobeIcon className="h-8 w-8 text-white" />
+                </div>
+                <div>
+                  <h3 className="text-2xl font-bold text-foreground mb-1">Bilingual Services Available</h3>
+                  <p className="text-muted-foreground">We speak your language—English & Spanish</p>
+                </div>
+              </div>
+              <div className="flex gap-3">
+                <div className="px-6 py-3 bg-card rounded-lg border border-border">
+                  <span className="font-bold text-foreground">English</span>
+                </div>
+                <div className="px-6 py-3 bg-card rounded-lg border border-border">
+                  <span className="font-bold text-foreground">Español</span>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
       <section className="py-20 px-4 sm:px-6 lg:px-8 relative" data-testid="section-service-details">
         <div className="max-w-5xl mx-auto">
           <ServiceSection
@@ -231,6 +264,220 @@ export default function Services() {
             ]}
             delay={0.4}
           />
+        </div>
+      </section>
+
+      {/* Process Timeline */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-card/20" data-testid="section-process-timeline">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-lg sm:text-xl md:text-2xl font-bold uppercase tracking-[0.3em] mb-4 red-glow-pulse" style={{ color: "#ff0000" }}>
+              Our Process
+            </h2>
+            <p className="text-lg text-foreground max-w-3xl mx-auto">
+              From consultation to analytics, we guide you through every step of your digital transformation
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {/* Step 1: Free Consultation */}
+            <motion.div
+              className="bg-card rounded-xl p-6 border border-border cursor-pointer hover-elevate active-elevate-2"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0 }}
+              data-testid="step-consultation"
+            >
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                  <MessageCircle className="h-6 w-6 text-primary" />
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-xs font-bold text-primary uppercase tracking-wider">Step 1</span>
+                  </div>
+                  <h3 className="text-lg font-bold text-foreground mb-2">Free Consultation</h3>
+                  <p className="text-sm text-muted-foreground">Understand your goals, challenges, and opportunities</p>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Step 2: Branding */}
+            <motion.div
+              className="bg-card rounded-xl p-6 border border-border cursor-pointer hover-elevate active-elevate-2"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              data-testid="step-branding"
+            >
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                  <Palette className="h-6 w-6 text-primary" />
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-xs font-bold text-primary uppercase tracking-wider">Step 2</span>
+                  </div>
+                  <h3 className="text-lg font-bold text-foreground mb-2">Branding</h3>
+                  <p className="text-sm text-muted-foreground">Logo, colors, and voice that represents your business</p>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Step 3: Design */}
+            <motion.div
+              className="bg-card rounded-xl p-6 border border-border cursor-pointer hover-elevate active-elevate-2"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              data-testid="step-design"
+            >
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                  <Pencil className="h-6 w-6 text-primary" />
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-xs font-bold text-primary uppercase tracking-wider">Step 3</span>
+                  </div>
+                  <h3 className="text-lg font-bold text-foreground mb-2">Design</h3>
+                  <p className="text-sm text-muted-foreground">Visual assets, graphics, and creative materials</p>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Step 4: PPC */}
+            <motion.div
+              className="bg-card rounded-xl p-6 border border-border cursor-pointer hover-elevate active-elevate-2"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              data-testid="step-ppc"
+            >
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                  <MousePointerClick className="h-6 w-6 text-primary" />
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-xs font-bold text-primary uppercase tracking-wider">Step 4</span>
+                  </div>
+                  <h3 className="text-lg font-bold text-foreground mb-2">PPC Campaigns</h3>
+                  <p className="text-sm text-muted-foreground">Launch targeted ads to drive immediate traffic</p>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Step 5: Website */}
+            <motion.div
+              className="bg-card rounded-xl p-6 border border-border cursor-pointer hover-elevate active-elevate-2"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+              data-testid="step-website"
+            >
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                  <Layout className="h-6 w-6 text-primary" />
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-xs font-bold text-primary uppercase tracking-wider">Step 5</span>
+                  </div>
+                  <h3 className="text-lg font-bold text-foreground mb-2">Website Development</h3>
+                  <p className="text-sm text-muted-foreground">Fast, conversion-optimized website built to perform</p>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Step 6: Social Media */}
+            <motion.div
+              className="bg-card rounded-xl p-6 border border-border cursor-pointer hover-elevate active-elevate-2"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.5 }}
+              data-testid="step-social"
+            >
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                  <Users className="h-6 w-6 text-primary" />
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-xs font-bold text-primary uppercase tracking-wider">Step 6</span>
+                  </div>
+                  <h3 className="text-lg font-bold text-foreground mb-2">Social Media</h3>
+                  <p className="text-sm text-muted-foreground">Build your audience and engage your community</p>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Step 7: CRM Integration */}
+            <motion.div
+              className="bg-card rounded-xl p-6 border border-border cursor-pointer hover-elevate active-elevate-2"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.6 }}
+              data-testid="step-crm"
+            >
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                  <DatabaseIcon className="h-6 w-6 text-primary" />
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-xs font-bold text-primary uppercase tracking-wider">Step 7</span>
+                  </div>
+                  <h3 className="text-lg font-bold text-foreground mb-2">CRM Setup</h3>
+                  <p className="text-sm text-muted-foreground">Streamline lead management and sales processes</p>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Step 8: Training */}
+            <motion.div
+              className="bg-card rounded-xl p-6 border border-border cursor-pointer hover-elevate active-elevate-2"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.7 }}
+              data-testid="step-training"
+            >
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                  <GraduationCap className="h-6 w-6 text-primary" />
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-xs font-bold text-primary uppercase tracking-wider">Step 8</span>
+                  </div>
+                  <h3 className="text-lg font-bold text-foreground mb-2">Training</h3>
+                  <p className="text-sm text-muted-foreground">Empower your team to manage systems effectively</p>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Step 9: Analytics */}
+            <motion.div
+              className="bg-card rounded-xl p-6 border border-border cursor-pointer hover-elevate active-elevate-2"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.8 }}
+              data-testid="step-analytics"
+            >
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                  <BarChart className="h-6 w-6 text-primary" />
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-xs font-bold text-primary uppercase tracking-wider">Step 9</span>
+                  </div>
+                  <h3 className="text-lg font-bold text-foreground mb-2">Analytics & Reporting</h3>
+                  <p className="text-sm text-muted-foreground">Track performance and optimize for continuous growth</p>
+                </div>
+              </div>
+            </motion.div>
+          </div>
         </div>
       </section>
 
