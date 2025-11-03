@@ -13,7 +13,6 @@ import ScrollProgressBar from "@/components/ScrollProgressBar";
 
 const Home = lazy(() => import("@/pages/Home"));
 const Services = lazy(() => import("@/pages/Services"));
-const About = lazy(() => import("@/pages/About"));
 const WhyUs = lazy(() => import("@/pages/WhyUs"));
 const BookDemo = lazy(() => import("@/pages/BookDemo"));
 const Onboarding = lazy(() => import("@/pages/Onboarding"));
@@ -30,7 +29,6 @@ function Router() {
     <Switch>
       <Route path="/" component={Home} />
       <Route path="/services" component={Services} />
-      <Route path="/about" component={About} />
       <Route path="/why-us" component={WhyUs} />
       <Route path="/our-work" component={OurWork} />
       <Route path="/blog" component={Blog} />
