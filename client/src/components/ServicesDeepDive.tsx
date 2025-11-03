@@ -132,7 +132,7 @@ export default function ServicesDeepDive() {
   const [expandedId, setExpandedId] = useState<string | null>(null);
 
   return (
-    <div className="w-full max-w-4xl mx-auto">
+    <div className="w-full max-w-6xl mx-auto">
       <div className="text-center mb-8">
         <h2 className="text-3xl sm:text-4xl font-bold mb-3 text-foreground">
           Want the Details?
@@ -142,7 +142,7 @@ export default function ServicesDeepDive() {
         </p>
       </div>
 
-      <div className="space-y-3" data-testid="section-services-deep-dive">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3" data-testid="section-services-deep-dive">
         {services.map((service) => {
           const isExpanded = expandedId === service.id;
           const Icon = service.icon;
