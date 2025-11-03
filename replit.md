@@ -4,6 +4,26 @@
 
 This project is a modern, conversion-focused single-page application for Redline Design LLC, a digital marketing agency. It showcases services, company values, and lead generation capabilities with an emphasis on bold design, data-driven results, and a high-performance user experience. The website targets businesses seeking SEO, PPC, web design, social media marketing, and email marketing services, highlighting ROI and quick turnaround times. Key features include dynamic testimonial displays, interactive service showcases, a comprehensive blog management system, and engaging UI animations.
 
+## Recent Updates (November 2025)
+
+### Conversion-Focused Homepage Restructuring
+The homepage has been restructured with **progressive disclosure** to serve both beginner and advanced users:
+
+**New Components:**
+- **Sticky Conversion Bar** (`StickyConversionBar.tsx`): Appears after 300px scroll, features prominent "Book Free Consultation" CTA, dismissible with localStorage persistence
+- **Beginner Explainer** (`BeginnerExplainer.tsx`): Collapsible section accessible via "Learn More" anchor from hero, explains digital marketing basics in 3 simple steps
+- **Services Deep Dive** (`ServicesDeepDive.tsx`): Accordion-style expandable service cards below the visual carousel, shows detailed information including What You Get, Perfect For, Timeline, and Investment for each service
+
+**Modified Components:**
+- **Hero**: Simplified with ultra-clear value proposition "We grow your business online", dual CTAs (primary: Book Consultation, secondary: Learn More anchor link)
+- **Statistics**: Streamlined from 7 to 3 outcome-focused metrics (14x Average ROI, 76% consumer research, 3-6 months to results)
+- **Testimonials**: Reframed with beginner-friendly heading "From Skeptical to Successful" and subheading "Real business owners who took the leap (you can too)"
+
+**Conversion Flow:**
+Hero → Learn More (anchor) → Beginner Explainer → Services Carousel (visual) → Services Deep Dive (detailed) → Stats → Testimonials → Sticky Bar (persistent CTA)
+
+This structure allows beginners to get quick answers while advanced users can dig into detailed service information on demand.
+
 ## User Preferences
 
 Preferred communication style: Simple, everyday language.
