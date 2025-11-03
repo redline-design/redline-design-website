@@ -791,6 +791,9 @@
     position: relative;
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
+    /* Performance optimizations for scroll */
+    contain: layout paint;
+    transform: translateZ(0);
   }
 
   .bg-card::before {

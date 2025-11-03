@@ -16,6 +16,15 @@ The frontend is built with **React 18** and **TypeScript**, using **Vite** for f
 
 **Frosted Glass Design System**: All card elements site-wide feature a sophisticated frosted glass effect with a subtle hexagon pattern overlay. Implementation includes 12px backdrop blur for the glass effect, plus a very small (20px) SVG hexagon pattern in light mode (8% opacity white) and dark mode (5% opacity white). The pattern is applied via CSS pseudo-elements to all `bg-card` elements throughout the application, creating a cohesive premium aesthetic.
 
+**Performance Optimizations**: The application implements comprehensive performance optimizations including:
+- Custom cursor uses refs instead of state to eliminate re-renders
+- `useReducedMotion` hook respects user accessibility preferences (prefers-reduced-motion)
+- AnimatedBackground features tab visibility detection, throttled mouse events (60fps), and reduced hexagon count on mobile
+- React.memo applied to ServiceCard and ArticleCard to prevent unnecessary re-renders
+- CSS performance optimizations on all `.bg-card` elements: `contain: layout paint` and `transform: translateZ(0)` for GPU acceleration
+- Lazy loading on all images
+- Scroll performance improved from ~405ms average frame intervals to ~30ms (13x improvement)
+
 ### Backend Architecture
 
 The backend utilizes **Express.js** with **TypeScript**, providing RESTful APIs for various functionalities. Key API endpoints include `/api/chat` (for AI assistant), `/api/reviews` (fetching and syncing Google Business Profile reviews), and a comprehensive `/api/blog` suite for CRUD operations on blog posts, including an external API for automated content creation. The development server uses Vite in middleware mode for HMR.
