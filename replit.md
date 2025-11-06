@@ -24,6 +24,32 @@ Hero → Learn More (anchor) → Beginner Explainer → Services Carousel (visua
 
 This structure allows beginners to get quick answers while advanced users can dig into detailed service information on demand.
 
+### Service Pages Infrastructure (November 2025)
+
+**Dedicated Service Pages**: Created comprehensive service pages system with 10 individual service pages accessible via both homepage carousel and header navigation dropdown.
+
+**Components:**
+- **ServicePageTemplate** (`ServicePageTemplate.tsx`): Reusable template component with hero section, dual CTAs (Get Started + Book a Demo), What You Get benefits list, Perfect For description, Timeline info, and Investment pricing
+- **10 Service Pages** (`client/src/pages/services/`):
+  - `websites.tsx` - World Class Websites
+  - `paid-advertising.tsx` - Paid Advertising  
+  - `seo.tsx` - SEO/SEM (waitlist status badge)
+  - `crm.tsx` - CRM Setup & Automation
+  - `analytics.tsx` - Analytics & Data Analysis
+  - `design.tsx` - Graphic Design
+  - `social-media.tsx` - Social Media Marketing
+  - `email-marketing.tsx` - Email Marketing
+  - `consulting.tsx` - Consulting
+  - `ai-automation.tsx` - AI Automation
+- **Contact Page** (`Contact.tsx`): Lead generation form with react-hook-form + zod validation, includes all fields (name, email, phone, company, service dropdown, message) with toast notifications
+
+**Navigation Updates** (`Header.tsx`):
+- **Desktop**: Services dropdown menu using shadcn DropdownMenu with hover interaction, displays all 10 services
+- **Mobile**: Expandable Services section with smooth animations, ChevronDown icon rotates on expand/collapse
+- Service links updated in HorizontalScrollServices component to navigate to dedicated pages
+
+**Routing**: All service pages route to `/services/{service-name}` pattern, contact form at `/contact`
+
 ## User Preferences
 
 Preferred communication style: Simple, everyday language.
