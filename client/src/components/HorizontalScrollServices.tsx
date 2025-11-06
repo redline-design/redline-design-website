@@ -14,7 +14,7 @@ const SERVICES_DATA = [
     title: "World Class Websites",
     description: "Unique websites at reasonable prices.",
     tagline: "Your digital storefront that works 24/7",
-    link: "/services#web",
+    link: "/services/websites",
     status: "accepting" as const,
     accentColor: "rgb(96, 165, 250)",
     details: {
@@ -36,7 +36,7 @@ const SERVICES_DATA = [
     title: "Paid Advertising",
     description: "Focusing on maximum ROI.",
     tagline: "Get customers today, not months from now",
-    link: "/services#ppc",
+    link: "/services/paid-advertising",
     status: "accepting" as const,
     accentColor: "rgb(167, 139, 250)",
     details: {
@@ -58,7 +58,7 @@ const SERVICES_DATA = [
     title: "SEO/SEM",
     description: "Get found everywhere, by everyone.",
     tagline: "Show up when customers are searching for you",
-    link: "/services#seo",
+    link: "/services/seo",
     status: "waitlist" as const,
     accentColor: "rgb(110, 231, 183)",
     details: {
@@ -80,7 +80,7 @@ const SERVICES_DATA = [
     title: "CRM Setup & Automation",
     description: "Streamline your customer relationships and automate workflows.",
     tagline: "Never lose track of a lead again",
-    link: "/services#crm",
+    link: "/services/crm",
     status: "accepting" as const,
     accentColor: "rgb(251, 146, 60)",
     details: {
@@ -102,7 +102,7 @@ const SERVICES_DATA = [
     title: "Analytics & Data Analysis",
     description: "Track everything. Understand your customers. Make data-driven decisions.",
     tagline: "Know exactly what's working (and what's not)",
-    link: "/services#analytics",
+    link: "/services/analytics",
     status: "accepting" as const,
     accentColor: "rgb(236, 72, 153)",
     details: {
@@ -124,7 +124,7 @@ const SERVICES_DATA = [
     title: "Graphic Design",
     description: "Eye-catching visuals that convert.",
     tagline: "Stand out in a sea of boring brands",
-    link: "/services#design",
+    link: "/services/design",
     status: "accepting" as const,
     accentColor: "rgb(249, 115, 22)",
     details: {
@@ -146,7 +146,7 @@ const SERVICES_DATA = [
     title: "Social Media Marketing",
     description: "Build your brand and engage your audience.",
     tagline: "Turn followers into customers",
-    link: "/services#social",
+    link: "/services/social-media",
     status: "accepting" as const,
     accentColor: "rgb(59, 130, 246)",
     details: {
@@ -168,7 +168,7 @@ const SERVICES_DATA = [
     title: "Email Marketing",
     description: "Nurture leads and drive conversions with targeted campaigns.",
     tagline: "Build relationships that convert",
-    link: "/services#email",
+    link: "/services/email-marketing",
     status: "accepting" as const,
     accentColor: "rgb(34, 197, 94)",
     details: {
@@ -190,7 +190,7 @@ const SERVICES_DATA = [
     title: "Consulting",
     description: "Strategic guidance to grow your business.",
     tagline: "Expert advice without the agency price tag",
-    link: "/services#consulting",
+    link: "/services/consulting",
     status: "accepting" as const,
     accentColor: "rgb(168, 85, 247)",
     details: {
@@ -212,7 +212,7 @@ const SERVICES_DATA = [
     title: "AI Automation",
     description: "Automate tasks and workflows with cutting-edge AI.",
     tagline: "Work smarter with AI-powered automation",
-    link: "/services#ai",
+    link: "/services/ai-automation",
     status: "accepting" as const,
     accentColor: "rgb(234, 88, 12)",
     details: {

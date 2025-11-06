@@ -1,8 +1,14 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Home } from "lucide-react";
+import { Menu, X, Home, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -47,12 +53,26 @@ export default function Header() {
     };
   }, [lastScrollY]);
 
+  const serviceLinks = [
+    { href: "/services/websites", label: "Websites" },
+    { href: "/services/paid-advertising", label: "Paid Advertising" },
+    { href: "/services/seo", label: "SEO/SEM" },
+    { href: "/services/crm", label: "CRM & Automation" },
+    { href: "/services/analytics", label: "Analytics" },
+    { href: "/services/design", label: "Graphic Design" },
+    { href: "/services/social-media", label: "Social Media" },
+    { href: "/services/email-marketing", label: "Email Marketing" },
+    { href: "/services/consulting", label: "Consulting" },
+    { href: "/services/ai-automation", label: "AI Automation" },
+  ];
+
   const navLinks = [
-    { href: "/services", label: "Services" },
     { href: "/why-us", label: "Why Us" },
     { href: "/our-work", label: "Our Work" },
     { href: "/blog", label: "Blog" },
   ];
+
+  const [servicesOpen, setServicesOpen] = useState(false);
 
   return (
     <motion.header
@@ -102,12 +122,46 @@ export default function Header() {
               </motion.div>
             </Link>
             
+            {/* Services Dropdown */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <motion.button
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 }}
+                  className={`relative px-4 py-2 text-sm font-medium transition-colors group rounded-lg flex items-center gap-1 ${
+                    location.startsWith("/services") ? "text-primary" : "text-foreground"
+                  }`}
+                  data-testid="button-nav-services"
+                >
+                  Services
+                  <ChevronDown className="h-3 w-3 transition-transform group-hover:translate-y-0.5" />
+                  <span 
+                    className={`absolute bottom-1 left-1/2 -translate-x-1/2 h-0.5 bg-primary rounded-full transition-all duration-300 ${
+                      location.startsWith("/services") ? "w-6" : "w-0 group-hover:w-6"
+                    }`}
+                  />
+                </motion.button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="start" className="w-56">
+                {serviceLinks.map((service) => (
+                  <DropdownMenuItem key={service.href} asChild>
+                    <Link href={service.href}>
+                      <div className="w-full cursor-pointer" data-testid={`link-dropdown-${service.label.toLowerCase().replace(/\s/g, "-")}`}>
+                        {service.label}
+                      </div>
+                    </Link>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+            
             {navLinks.map((link, index) => (
               <Link key={link.href} href={link.href}>
                 <motion.div
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 + 0.2 }}
+                  transition={{ delay: (index + 1) * 0.1 + 0.2 }}
                   className={`relative px-4 py-2 text-sm font-medium transition-colors group rounded-lg ${
                     location === link.href ? "text-primary" : "text-foreground"
                   }`}
@@ -182,12 +236,58 @@ export default function Header() {
                 </motion.div>
               </Link>
               
+              {/* Services Expandable Menu */}
+              <div>
+                <motion.button
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.1 }}
+                  className={`w-full flex items-center justify-between px-4 py-3 rounded-lg text-base font-medium hover-elevate active-elevate-2 transition-colors ${
+                    location.startsWith("/services") ? "text-primary bg-primary/10" : "text-foreground"
+                  }`}
+                  onClick={() => setServicesOpen(!servicesOpen)}
+                  data-testid="button-mobile-services"
+                >
+                  <span>Services</span>
+                  <ChevronDown className={`h-4 w-4 transition-transform ${servicesOpen ? "rotate-180" : ""}`} />
+                </motion.button>
+                
+                <AnimatePresence>
+                  {servicesOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      exit={{ opacity: 0, height: 0 }}
+                      className="mt-2 ml-4 space-y-1 overflow-hidden"
+                    >
+                      {serviceLinks.map((service, idx) => (
+                        <Link key={service.href} href={service.href}>
+                          <motion.div
+                            initial={{ opacity: 0, x: -10 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: idx * 0.05 }}
+                            className="px-4 py-2 rounded-lg text-sm text-foreground hover-elevate active-elevate-2"
+                            onClick={() => {
+                              setServicesOpen(false);
+                              setIsMobileMenuOpen(false);
+                            }}
+                            data-testid={`link-mobile-service-${service.label.toLowerCase().replace(/\s/g, "-")}`}
+                          >
+                            {service.label}
+                          </motion.div>
+                        </Link>
+                      ))}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+              
               {navLinks.map((link, index) => (
                 <Link key={link.href} href={link.href}>
                   <motion.div
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.1 }}
+                    transition={{ delay: (index + 2) * 0.1 }}
                     className={`block px-4 py-3 rounded-lg text-base font-medium hover-elevate active-elevate-2 transition-colors ${
                       location === link.href ? "text-primary bg-primary/10" : "text-foreground"
                     }`}

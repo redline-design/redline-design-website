@@ -22,6 +22,17 @@ const BlogPost = lazy(() => import("@/pages/BlogPost"));
 const Articles = lazy(() => import("@/pages/Articles"));
 const PolicyPage = lazy(() => import("@/pages/PolicyPage"));
 const Admin = lazy(() => import("@/pages/Admin"));
+const Contact = lazy(() => import("@/pages/Contact"));
+const WebsitesPage = lazy(() => import("@/pages/services/websites"));
+const PaidAdvertisingPage = lazy(() => import("@/pages/services/paid-advertising"));
+const SEOPage = lazy(() => import("@/pages/services/seo"));
+const CRMPage = lazy(() => import("@/pages/services/crm"));
+const AnalyticsPage = lazy(() => import("@/pages/services/analytics"));
+const DesignPage = lazy(() => import("@/pages/services/design"));
+const SocialMediaPage = lazy(() => import("@/pages/services/social-media"));
+const EmailMarketingPage = lazy(() => import("@/pages/services/email-marketing"));
+const ConsultingPage = lazy(() => import("@/pages/services/consulting"));
+const AIAutomationPage = lazy(() => import("@/pages/services/ai-automation"));
 const NotFound = lazy(() => import("@/pages/not-found"));
 
 function Router() {
@@ -29,6 +40,17 @@ function Router() {
     <Switch>
       <Route path="/" component={Home} />
       <Route path="/services" component={Services} />
+      <Route path="/services/websites" component={WebsitesPage} />
+      <Route path="/services/paid-advertising" component={PaidAdvertisingPage} />
+      <Route path="/services/seo" component={SEOPage} />
+      <Route path="/services/crm" component={CRMPage} />
+      <Route path="/services/analytics" component={AnalyticsPage} />
+      <Route path="/services/design" component={DesignPage} />
+      <Route path="/services/social-media" component={SocialMediaPage} />
+      <Route path="/services/email-marketing" component={EmailMarketingPage} />
+      <Route path="/services/consulting" component={ConsultingPage} />
+      <Route path="/services/ai-automation" component={AIAutomationPage} />
+      <Route path="/contact" component={Contact} />
       <Route path="/why-us" component={WhyUs} />
       <Route path="/our-work" component={OurWork} />
       <Route path="/blog" component={Blog} />
