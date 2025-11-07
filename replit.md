@@ -50,6 +50,45 @@ This structure allows beginners to get quick answers while advanced users can di
 
 **Routing**: All service pages route to `/services/{service-name}` pattern, contact form at `/contact`
 
+### Portfolio System (November 2025)
+
+**Portfolio Showcase**: Redesigned Our Work page as a modern portfolio with database-backed project management.
+
+**Database Schema** (`shared/schema.ts`):
+- **portfolioItems Table**: Stores portfolio projects with fields for title, url, screenshotUrl, description, category, featured flag, displayOrder, and timestamps
+- Full Drizzle ORM integration with Zod schemas for validation
+- PostgreSQL backend with UUID primary keys
+
+**API Endpoints** (`/api/portfolio`):
+- GET /api/portfolio - Retrieve all portfolio items ordered by displayOrder
+- GET /api/portfolio/:id - Retrieve single portfolio item
+- POST /api/portfolio - Create new item (admin only)
+- PATCH /api/portfolio/:id - Update item (admin only)
+- DELETE /api/portfolio/:id - Delete item (admin only)
+
+**Our Work Page** (`client/src/pages/OurWork.tsx`):
+- Modern portfolio showcase with responsive grid layout
+- **Responsive Design**: 1 column (mobile) → 2 columns (tablet) → 3 columns (desktop)
+- Portfolio cards with hover effects: image zoom (scale 1.1), color transitions
+- Frosted glass card design with backdrop blur
+- Smooth scroll animations using Framer Motion and react-intersection-observer
+- React Query integration for data fetching
+- Loading skeleton and empty states
+
+**Admin Portfolio Management** (`client/src/pages/Admin.tsx`):
+- Portfolio section in admin dashboard for CRUD operations
+- View website functionality (opens in new tab)
+- Delete with confirmation dialog
+- React Query mutations with proper cache invalidation
+- Toast notifications for user feedback
+
+**Initial Portfolio Items** (5 seeded projects):
+1. Morf Media Photos (Photography)
+2. NAP Sales (E-commerce)
+3. National GMC (Automotive)
+4. Phoenix Rising Treatment (Healthcare)
+5. Paula's Spa & Palette (Beauty & Wellness)
+
 ## User Preferences
 
 Preferred communication style: Simple, everyday language.
