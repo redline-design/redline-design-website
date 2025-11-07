@@ -276,7 +276,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       const response = await fetch(screenshotUrl);
       if (!response.ok) {
-        throw new Error(`Screenshot API error: ${response.status}`);
+        const errorText = await response.text();
+        console.error(`Screenshot API error for ${item.url}: ${response.status} - ${errorText}`);
+        throw new Error(`Screenshot API error: ${response.status} - ${errorText}`);
       }
 
       const buffer = await response.arrayBuffer();
