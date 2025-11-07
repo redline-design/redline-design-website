@@ -272,7 +272,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(500).json({ error: "Screenshot API key not configured" });
       }
 
-      const screenshotUrl = `https://api.screenshotone.com/take?url=${encodeURIComponent(item.url)}&access_key=${screenshotApiKey}&block_cookie_banners=true&full_page=false&viewport_width=1920&viewport_height=1080&format=png`;
+      const screenshotUrl = `https://api.screenshotone.com/take?url=${encodeURIComponent(item.url)}&access_key=${screenshotApiKey}&block_cookie_banners=true&full_page=false&viewport_width=1920&viewport_height=1080&format=png&ignore_host_errors=true`;
       
       const response = await fetch(screenshotUrl);
       if (!response.ok) {
