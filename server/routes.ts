@@ -5,6 +5,9 @@ import { handleChat } from "./chat";
 import { insertReviewSchema, insertBlogPostSchema, updateBlogPostSchema, insertPortfolioItemSchema, updatePortfolioItemSchema } from "@shared/schema";
 import { googleBusinessService } from "./google-business-api";
 import { setupAuth, isAuthenticated } from "./replitAuth";
+import multer from "multer";
+import path from "path";
+import fs from "fs/promises";
 
 // API key middleware for external integrations
 const requireApiKey: RequestHandler = (req, res, next) => {
@@ -21,6 +24,33 @@ const requireApiKey: RequestHandler = (req, res, next) => {
   
   next();
 };
+
+// Configure multer for file uploads
+const uploadDir = path.join(process.cwd(), 'attached_assets', 'portfolio_logos');
+const multerStorage = multer.diskStorage({
+  destination: async (req, file, cb) => {
+    await fs.mkdir(uploadDir, { recursive: true });
+    cb(null, uploadDir);
+  },
+  filename: (req, file, cb) => {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    cb(null, 'logo-' + uniqueSuffix + path.extname(file.originalname));
+  }
+});
+
+const upload = multer({ 
+  storage: multerStorage,
+  limits: { fileSize: 5 * 1024 * 1024 },
+  fileFilter: (req, file, cb) => {
+    const allowedTypes = /jpeg|jpg|png|gif|svg|webp/;
+    const extname = allowedTypes.test(path.extname(file.originalname).toLowerCase());
+    const mimetype = allowedTypes.test(file.mimetype);
+    if (mimetype && extname) {
+      return cb(null, true);
+    }
+    cb(new Error('Only image files are allowed!'));
+  }
+});
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Auth middleware
@@ -227,6 +257,71 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error: any) {
       console.error("Error deleting portfolio item:", error);
       res.status(500).json({ error: "Failed to delete portfolio item" });
+    }
+  });
+
+  app.post("/api/portfolio/:id/screenshot", isAuthenticated, async (req, res) => {
+    try {
+      const item = await storage.getPortfolioItemById(req.params.id);
+      if (!item) {
+        return res.status(404).json({ error: "Portfolio item not found" });
+      }
+
+      const screenshotApiKey = process.env.SCREENSHOTONE_API_KEY;
+      if (!screenshotApiKey) {
+        return res.status(500).json({ error: "Screenshot API key not configured" });
+      }
+
+      const screenshotUrl = `https://api.screenshotone.com/take?url=${encodeURIComponent(item.url)}&access_key=${screenshotApiKey}&block_cookie_banners=true&full_page=false&viewport_width=1920&viewport_height=1080&format=png`;
+      
+      const response = await fetch(screenshotUrl);
+      if (!response.ok) {
+        throw new Error(`Screenshot API error: ${response.status}`);
+      }
+
+      const buffer = await response.arrayBuffer();
+      const screenshotDir = path.join(process.cwd(), 'attached_assets', 'portfolio_screenshots');
+      await fs.mkdir(screenshotDir, { recursive: true });
+      
+      const filename = `screenshot-${item.id}-${Date.now()}.png`;
+      const filepath = path.join(screenshotDir, filename);
+      await fs.writeFile(filepath, Buffer.from(buffer));
+
+      const screenshotWebPath = `/attached_assets/portfolio_screenshots/${filename}`;
+      const updatedItem = await storage.updatePortfolioItem(req.params.id, {
+        screenshotUrl: screenshotWebPath
+      });
+
+      res.json(updatedItem);
+    } catch (error: any) {
+      console.error("Error capturing screenshot:", error);
+      res.status(500).json({ error: "Failed to capture screenshot", details: error.message });
+    }
+  });
+
+  app.post("/api/portfolio/:id/upload-logo", isAuthenticated, upload.single('logo'), async (req, res) => {
+    try {
+      if (!req.file) {
+        return res.status(400).json({ error: "No file uploaded" });
+      }
+
+      const logoWebPath = `/attached_assets/portfolio_logos/${req.file.filename}`;
+      const updatedItem = await storage.updatePortfolioItem(req.params.id, {
+        logoUrl: logoWebPath
+      });
+
+      if (!updatedItem) {
+        await fs.unlink(req.file.path);
+        return res.status(404).json({ error: "Portfolio item not found" });
+      }
+
+      res.json(updatedItem);
+    } catch (error: any) {
+      console.error("Error uploading logo:", error);
+      if (req.file) {
+        await fs.unlink(req.file.path).catch(console.error);
+      }
+      res.status(500).json({ error: "Failed to upload logo", details: error.message });
     }
   });
 
