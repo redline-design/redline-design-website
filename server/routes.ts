@@ -327,6 +327,58 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  const screenshotUpload = multer({
+    storage: multer.diskStorage({
+      destination: async (req, file, cb) => {
+        const uploadDir = path.join(process.cwd(), 'attached_assets', 'portfolio_screenshots');
+        await fs.mkdir(uploadDir, { recursive: true });
+        cb(null, uploadDir);
+      },
+      filename: (req, file, cb) => {
+        const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1E9)}`;
+        cb(null, `screenshot-${req.params.id}-${uniqueSuffix}${path.extname(file.originalname)}`);
+      }
+    }),
+    limits: { fileSize: 10 * 1024 * 1024 },
+    fileFilter: (req, file, cb) => {
+      const allowedMimes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+      const allowedExts = ['.jpg', '.jpeg', '.png', '.gif', '.webp'];
+      const ext = path.extname(file.originalname).toLowerCase();
+      
+      if (allowedMimes.includes(file.mimetype) && allowedExts.includes(ext)) {
+        cb(null, true);
+      } else {
+        cb(new Error('Only image files (JPEG, PNG, GIF, WebP) are allowed'));
+      }
+    }
+  });
+
+  app.post("/api/portfolio/:id/upload-screenshot", isAuthenticated, screenshotUpload.single('screenshot'), async (req, res) => {
+    try {
+      if (!req.file) {
+        return res.status(400).json({ error: "No file uploaded" });
+      }
+
+      const screenshotWebPath = `/attached_assets/portfolio_screenshots/${req.file.filename}`;
+      const updatedItem = await storage.updatePortfolioItem(req.params.id, {
+        screenshotUrl: screenshotWebPath
+      });
+
+      if (!updatedItem) {
+        await fs.unlink(req.file.path);
+        return res.status(404).json({ error: "Portfolio item not found" });
+      }
+
+      res.json(updatedItem);
+    } catch (error: any) {
+      console.error("Error uploading screenshot:", error);
+      if (req.file) {
+        await fs.unlink(req.file.path).catch(console.error);
+      }
+      res.status(500).json({ error: "Failed to upload screenshot", details: error.message });
+    }
+  });
+
   const httpServer = createServer(app);
 
   return httpServer;

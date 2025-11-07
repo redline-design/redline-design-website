@@ -21,6 +21,7 @@ import {
   Loader2,
   RefreshCw,
   Star,
+  Upload,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -297,6 +298,51 @@ export default function Admin() {
       toast({
         title: "Error",
         description: error.message || "Failed to upload logo",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const uploadScreenshotMutation = useMutation({
+    mutationFn: async ({ id, file }: { id: string; file: File }) => {
+      const formData = new FormData();
+      formData.append('screenshot', file);
+      
+      const response = await fetch(`/api/portfolio/${id}/upload-screenshot`, {
+        method: 'POST',
+        body: formData,
+        credentials: 'include',
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error || 'Failed to upload screenshot');
+      }
+
+      return response.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/portfolio"] });
+      toast({
+        title: "Success",
+        description: "Screenshot uploaded successfully",
+      });
+    },
+    onError: (error: any) => {
+      if (isUnauthorizedError(error)) {
+        toast({
+          title: "Unauthorized",
+          description: "You are logged out. Logging in again...",
+          variant: "destructive",
+        });
+        setTimeout(() => {
+          window.location.href = "/api/login";
+        }, 500);
+        return;
+      }
+      toast({
+        title: "Error",
+        description: error.message || "Failed to upload screenshot",
         variant: "destructive",
       });
     },
@@ -956,10 +1002,46 @@ export default function Admin() {
                             ) : (
                               <>
                                 <RefreshCw className="h-4 w-4 mr-1" />
-                                Screenshot
+                                Auto Screenshot
                               </>
                             )}
                           </Button>
+                          <label htmlFor={`screenshot-upload-${item.id}`}>
+                            <Button
+                              variant="secondary"
+                              size="sm"
+                              asChild
+                              disabled={uploadScreenshotMutation.isPending}
+                              data-testid={`button-upload-screenshot-${item.id}`}
+                            >
+                              <span className="cursor-pointer">
+                                {uploadScreenshotMutation.isPending ? (
+                                  <>
+                                    <Loader2 className="h-4 w-4 mr-1 animate-spin" />
+                                    Uploading...
+                                  </>
+                                ) : (
+                                  <>
+                                    <Upload className="h-4 w-4 mr-1" />
+                                    Upload Screenshot
+                                  </>
+                                )}
+                              </span>
+                            </Button>
+                          </label>
+                          <input
+                            id={`screenshot-upload-${item.id}`}
+                            type="file"
+                            accept="image/*"
+                            className="hidden"
+                            onChange={(e) => {
+                              const file = e.target.files?.[0];
+                              if (file) {
+                                uploadScreenshotMutation.mutate({ id: item.id, file });
+                                e.target.value = '';
+                              }
+                            }}
+                          />
                           <label htmlFor={`logo-upload-${item.id}`}>
                             <Button
                               variant="secondary"
@@ -976,6 +1058,7 @@ export default function Admin() {
                                   </>
                                 ) : (
                                   <>
+                                    <Upload className="h-4 w-4 mr-1" />
                                     Upload Logo
                                   </>
                                 )}
@@ -991,6 +1074,7 @@ export default function Admin() {
                               const file = e.target.files?.[0];
                               if (file) {
                                 uploadLogoMutation.mutate({ id: item.id, file });
+                                e.target.value = '';
                               }
                             }}
                           />
