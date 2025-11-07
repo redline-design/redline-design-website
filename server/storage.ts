@@ -6,9 +6,13 @@ import {
   type BlogPost,
   type InsertBlogPost,
   type UpdateBlogPost,
+  type PortfolioItem,
+  type InsertPortfolioItem,
+  type UpdatePortfolioItem,
   reviews,
   users,
-  blogPosts
+  blogPosts,
+  portfolioItems
 } from "@shared/schema";
 import { randomUUID } from "crypto";
 import { db } from "./db";
@@ -36,6 +40,13 @@ export interface IStorage {
   createBlogPost(post: InsertBlogPost): Promise<BlogPost>;
   updateBlogPost(id: string, post: UpdateBlogPost): Promise<BlogPost>;
   deleteBlogPost(id: string): Promise<void>;
+
+  // Portfolio methods
+  getPortfolioItems(): Promise<PortfolioItem[]>;
+  getPortfolioItemById(id: string): Promise<PortfolioItem | null>;
+  createPortfolioItem(data: InsertPortfolioItem): Promise<PortfolioItem>;
+  updatePortfolioItem(id: string, data: UpdatePortfolioItem): Promise<PortfolioItem | null>;
+  deletePortfolioItem(id: string): Promise<boolean>;
 }
 
 export class MemStorage implements IStorage {
@@ -107,6 +118,26 @@ export class MemStorage implements IStorage {
 
   async deleteBlogPost(id: string): Promise<void> {
     throw new Error("Blog posts not implemented in MemStorage");
+  }
+
+  async getPortfolioItems(): Promise<PortfolioItem[]> {
+    throw new Error("Portfolio items not implemented in MemStorage");
+  }
+
+  async getPortfolioItemById(id: string): Promise<PortfolioItem | null> {
+    throw new Error("Portfolio items not implemented in MemStorage");
+  }
+
+  async createPortfolioItem(data: InsertPortfolioItem): Promise<PortfolioItem> {
+    throw new Error("Portfolio items not implemented in MemStorage");
+  }
+
+  async updatePortfolioItem(id: string, data: UpdatePortfolioItem): Promise<PortfolioItem | null> {
+    throw new Error("Portfolio items not implemented in MemStorage");
+  }
+
+  async deletePortfolioItem(id: string): Promise<boolean> {
+    throw new Error("Portfolio items not implemented in MemStorage");
   }
 }
 
@@ -214,6 +245,37 @@ export class DbStorage implements IStorage {
 
   async deleteBlogPost(id: string): Promise<void> {
     await db.delete(blogPosts).where(eq(blogPosts.id, id));
+  }
+
+  async getPortfolioItems(): Promise<PortfolioItem[]> {
+    return await db.select().from(portfolioItems).orderBy(portfolioItems.displayOrder, desc(portfolioItems.createdAt));
+  }
+
+  async getPortfolioItemById(id: string): Promise<PortfolioItem | null> {
+    const result = await db.select().from(portfolioItems).where(eq(portfolioItems.id, id));
+    return result[0] || null;
+  }
+
+  async createPortfolioItem(data: InsertPortfolioItem): Promise<PortfolioItem> {
+    const result = await db.insert(portfolioItems).values(data).returning();
+    return result[0];
+  }
+
+  async updatePortfolioItem(id: string, data: UpdatePortfolioItem): Promise<PortfolioItem | null> {
+    const result = await db
+      .update(portfolioItems)
+      .set({
+        ...data,
+        updatedAt: new Date(),
+      })
+      .where(eq(portfolioItems.id, id))
+      .returning();
+    return result[0] || null;
+  }
+
+  async deletePortfolioItem(id: string): Promise<boolean> {
+    const result = await db.delete(portfolioItems).where(eq(portfolioItems.id, id));
+    return true;
   }
 }
 

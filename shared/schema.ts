@@ -86,3 +86,32 @@ export const updateBlogPostSchema = createInsertSchema(blogPosts).omit({
 export type InsertBlogPost = z.infer<typeof insertBlogPostSchema>;
 export type UpdateBlogPost = z.infer<typeof updateBlogPostSchema>;
 export type BlogPost = typeof blogPosts.$inferSelect;
+
+export const portfolioItems = pgTable("portfolio_items", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  title: text("title").notNull(),
+  url: text("url").notNull(),
+  screenshotUrl: text("screenshot_url").notNull(),
+  description: text("description"),
+  category: text("category").notNull(),
+  featured: boolean("featured").default(false).notNull(),
+  displayOrder: integer("display_order").default(0).notNull(),
+  createdAt: timestamp("created_at").default(sql`now()`).notNull(),
+  updatedAt: timestamp("updated_at").default(sql`now()`).notNull(),
+});
+
+export const insertPortfolioItemSchema = createInsertSchema(portfolioItems).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const updatePortfolioItemSchema = createInsertSchema(portfolioItems).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+}).partial();
+
+export type InsertPortfolioItem = z.infer<typeof insertPortfolioItemSchema>;
+export type UpdatePortfolioItem = z.infer<typeof updatePortfolioItemSchema>;
+export type PortfolioItem = typeof portfolioItems.$inferSelect;

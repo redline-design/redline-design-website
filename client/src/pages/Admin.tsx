@@ -4,8 +4,8 @@ import { useToast } from "@/hooks/use-toast";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { isUnauthorizedError } from "@/lib/authUtils";
-import type { BlogPost, InsertBlogPost, UpdateBlogPost, User, Review } from "@shared/schema";
-import { insertBlogPostSchema } from "@shared/schema";
+import type { BlogPost, InsertBlogPost, UpdateBlogPost, User, Review, PortfolioItem, InsertPortfolioItem, UpdatePortfolioItem } from "@shared/schema";
+import { insertBlogPostSchema, insertPortfolioItemSchema } from "@shared/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -99,6 +99,9 @@ export default function Admin() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingPost, setEditingPost] = useState<BlogPost | null>(null);
   const [deletePost, setDeletePost] = useState<BlogPost | null>(null);
+  const [isPortfolioDialogOpen, setIsPortfolioDialogOpen] = useState(false);
+  const [editingPortfolioItem, setEditingPortfolioItem] = useState<PortfolioItem | null>(null);
+  const [deletePortfolioItem, setDeletePortfolioItem] = useState<PortfolioItem | null>(null);
 
   // Redirect to login if not authenticated
   useEffect(() => {
@@ -159,6 +162,43 @@ export default function Admin() {
       toast({
         title: "Error",
         description: "Failed to sync reviews",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const { data: portfolioItems = [], isLoading: isLoadingPortfolio } = useQuery<PortfolioItem[]>({
+    queryKey: ["/api/portfolio"],
+    enabled: isAuthenticated,
+  });
+
+  const deletePortfolioMutation = useMutation({
+    mutationFn: async (id: string) => {
+      return await apiRequest("DELETE", `/api/portfolio/${id}`);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/portfolio"] });
+      toast({
+        title: "Success",
+        description: "Portfolio item deleted successfully",
+      });
+      setDeletePortfolioItem(null);
+    },
+    onError: (error) => {
+      if (isUnauthorizedError(error)) {
+        toast({
+          title: "Unauthorized",
+          description: "You are logged out. Logging in again...",
+          variant: "destructive",
+        });
+        setTimeout(() => {
+          window.location.href = "/api/login";
+        }, 500);
+        return;
+      }
+      toast({
+        title: "Error",
+        description: "Failed to delete portfolio item",
         variant: "destructive",
       });
     },
@@ -609,6 +649,107 @@ export default function Admin() {
               ))}
             </motion.div>
           )}
+
+          {/* Portfolio Section */}
+          <div className="mt-16 mb-4">
+            <h2 className="text-2xl font-bold text-foreground">Portfolio Items</h2>
+          </div>
+
+          {isLoadingPortfolio ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[1, 2, 3].map((i) => (
+                <Card key={i} className="rounded-2xl">
+                  <CardHeader>
+                    <Skeleton className="h-6 w-3/4 mb-2" />
+                    <Skeleton className="h-4 w-1/2" />
+                  </CardHeader>
+                  <CardContent>
+                    <Skeleton className="h-32 w-full mb-4" />
+                    <Skeleton className="h-8 w-full" />
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          ) : portfolioItems.length === 0 ? (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+            >
+              <Card className="rounded-2xl text-center py-16">
+                <CardContent>
+                  <h3 className="text-2xl font-bold text-foreground mb-4">
+                    No portfolio items yet
+                  </h3>
+                  <p className="text-lg text-muted-foreground">
+                    Portfolio items will appear here
+                  </p>
+                </CardContent>
+              </Card>
+            </motion.div>
+          ) : (
+            <motion.div
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.6 }}
+            >
+              {portfolioItems.map((item, index) => (
+                <motion.div
+                  key={item.id}
+                  initial={{ opacity: 0, y: 40 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.05 }}
+                  data-testid={`card-portfolio-${item.id}`}
+                >
+                  <Card className="rounded-2xl backdrop-blur-md bg-card/40 border-border/50 shadow-lg hover-elevate h-full">
+                    <div className="aspect-video overflow-hidden rounded-t-2xl bg-muted">
+                      <img
+                        src={item.screenshotUrl}
+                        alt={item.title}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <CardHeader>
+                      <div className="flex items-start justify-between gap-2 mb-2">
+                        <CardTitle className="text-lg line-clamp-2">
+                          {item.title}
+                        </CardTitle>
+                        <Badge variant="secondary">{item.category}</Badge>
+                      </div>
+                      {item.description && (
+                        <p className="text-sm text-muted-foreground line-clamp-2">
+                          {item.description}
+                        </p>
+                      )}
+                    </CardHeader>
+                    <CardContent>
+                      <div className="flex flex-wrap items-center gap-2">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => window.open(item.url, '_blank')}
+                          data-testid={`button-view-${item.id}`}
+                        >
+                          View Site
+                        </Button>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => setDeletePortfolioItem(item)}
+                          className="text-destructive hover:text-destructive"
+                          data-testid={`button-delete-portfolio-${item.id}`}
+                        >
+                          <Trash2 className="h-4 w-4 mr-1" />
+                          Delete
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              ))}
+            </motion.div>
+          )}
         </div>
       </section>
 
@@ -860,6 +1001,42 @@ export default function Admin() {
               data-testid="button-confirm-delete"
             >
               {deleteMutation.isPending ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Deleting...
+                </>
+              ) : (
+                "Delete"
+              )}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
+      {/* Portfolio Delete Confirmation Dialog */}
+      <AlertDialog
+        open={!!deletePortfolioItem}
+        onOpenChange={(open) => !open && setDeletePortfolioItem(null)}
+      >
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This will permanently delete the portfolio item "{deletePortfolioItem?.title}".
+              This action cannot be undone.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel data-testid="button-cancel-delete-portfolio">
+              Cancel
+            </AlertDialogCancel>
+            <AlertDialogAction
+              onClick={() => deletePortfolioItem && deletePortfolioMutation.mutate(deletePortfolioItem.id)}
+              className="bg-destructive hover:bg-destructive/90"
+              disabled={deletePortfolioMutation.isPending}
+              data-testid="button-confirm-delete-portfolio"
+            >
+              {deletePortfolioMutation.isPending ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                   Deleting...

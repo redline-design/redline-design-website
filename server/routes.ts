@@ -2,7 +2,7 @@ import type { Express, RequestHandler } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { handleChat } from "./chat";
-import { insertReviewSchema, insertBlogPostSchema, updateBlogPostSchema } from "@shared/schema";
+import { insertReviewSchema, insertBlogPostSchema, updateBlogPostSchema, insertPortfolioItemSchema, updatePortfolioItemSchema } from "@shared/schema";
 import { googleBusinessService } from "./google-business-api";
 import { setupAuth, isAuthenticated } from "./replitAuth";
 
@@ -168,6 +168,65 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error: any) {
       console.error("Error upserting blog post via external API:", error);
       res.status(400).json({ error: "Failed to upsert blog post", details: error.message });
+    }
+  });
+
+  // Portfolio endpoints
+  app.get("/api/portfolio", async (req, res) => {
+    try {
+      const items = await storage.getPortfolioItems();
+      res.json(items);
+    } catch (error: any) {
+      console.error("Error fetching portfolio items:", error);
+      res.status(500).json({ error: "Failed to fetch portfolio items" });
+    }
+  });
+
+  app.get("/api/portfolio/:id", async (req, res) => {
+    try {
+      const item = await storage.getPortfolioItemById(req.params.id);
+      if (!item) {
+        return res.status(404).json({ error: "Portfolio item not found" });
+      }
+      res.json(item);
+    } catch (error: any) {
+      console.error("Error fetching portfolio item:", error);
+      res.status(500).json({ error: "Failed to fetch portfolio item" });
+    }
+  });
+
+  app.post("/api/portfolio", isAuthenticated, async (req, res) => {
+    try {
+      const validatedData = insertPortfolioItemSchema.parse(req.body);
+      const item = await storage.createPortfolioItem(validatedData);
+      res.status(201).json(item);
+    } catch (error: any) {
+      console.error("Error creating portfolio item:", error);
+      res.status(400).json({ error: "Failed to create portfolio item", details: error.message });
+    }
+  });
+
+  app.patch("/api/portfolio/:id", isAuthenticated, async (req, res) => {
+    try {
+      const validatedData = updatePortfolioItemSchema.parse(req.body);
+      const item = await storage.updatePortfolioItem(req.params.id, validatedData);
+      if (!item) {
+        return res.status(404).json({ error: "Portfolio item not found" });
+      }
+      res.json(item);
+    } catch (error: any) {
+      console.error("Error updating portfolio item:", error);
+      res.status(400).json({ error: "Failed to update portfolio item", details: error.message });
+    }
+  });
+
+  app.delete("/api/portfolio/:id", isAuthenticated, async (req, res) => {
+    try {
+      await storage.deletePortfolioItem(req.params.id);
+      res.status(204).send();
+    } catch (error: any) {
+      console.error("Error deleting portfolio item:", error);
+      res.status(500).json({ error: "Failed to delete portfolio item" });
     }
   });
 
