@@ -72,6 +72,19 @@ const categories = [
   "Content Marketing",
 ];
 
+const portfolioCategories = [
+  "Photography",
+  "E-commerce",
+  "Automotive",
+  "Healthcare",
+  "Beauty & Wellness",
+  "Professional Services",
+  "Food & Beverage",
+  "Technology",
+  "Real Estate",
+  "Education",
+];
+
 const formSchema = insertBlogPostSchema.omit({
   publishedAt: true,
 }).extend({
@@ -85,6 +98,15 @@ const formSchema = insertBlogPostSchema.omit({
 });
 
 type FormData = z.infer<typeof formSchema>;
+
+const portfolioFormSchema = z.object({
+  title: z.string().min(1, "Title is required"),
+  url: z.string().url("Must be a valid URL"),
+  description: z.string().optional(),
+  category: z.string().min(1, "Category is required"),
+});
+
+type PortfolioFormData = z.infer<typeof portfolioFormSchema>;
 
 function generateSlug(title: string): string {
   return title
@@ -204,6 +226,115 @@ export default function Admin() {
     },
   });
 
+  const captureScreenshotMutation = useMutation({
+    mutationFn: async (id: string) => {
+      return await apiRequest("POST", `/api/portfolio/${id}/screenshot`);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/portfolio"] });
+      toast({
+        title: "Success",
+        description: "Screenshot captured successfully",
+      });
+    },
+    onError: (error: any) => {
+      if (isUnauthorizedError(error)) {
+        toast({
+          title: "Unauthorized",
+          description: "You are logged out. Logging in again...",
+          variant: "destructive",
+        });
+        setTimeout(() => {
+          window.location.href = "/api/login";
+        }, 500);
+        return;
+      }
+      toast({
+        title: "Error",
+        description: error?.details || "Failed to capture screenshot. Make sure SCREENSHOTONE_API_KEY is configured.",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const uploadLogoMutation = useMutation({
+    mutationFn: async ({ id, file }: { id: string; file: File }) => {
+      const formData = new FormData();
+      formData.append('logo', file);
+      
+      const response = await fetch(`/api/portfolio/${id}/upload-logo`, {
+        method: 'POST',
+        body: formData,
+        credentials: 'include',
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error || 'Failed to upload logo');
+      }
+
+      return response.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/portfolio"] });
+      toast({
+        title: "Success",
+        description: "Logo uploaded successfully",
+      });
+    },
+    onError: (error: any) => {
+      if (isUnauthorizedError(error)) {
+        toast({
+          title: "Unauthorized",
+          description: "You are logged out. Logging in again...",
+          variant: "destructive",
+        });
+        setTimeout(() => {
+          window.location.href = "/api/login";
+        }, 500);
+        return;
+      }
+      toast({
+        title: "Error",
+        description: error.message || "Failed to upload logo",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const updatePortfolioMutation = useMutation({
+    mutationFn: async ({ id, data }: { id: string; data: UpdatePortfolioItem }) => {
+      return await apiRequest("PATCH", `/api/portfolio/${id}`, data);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/portfolio"] });
+      toast({
+        title: "Success",
+        description: "Portfolio item updated successfully",
+      });
+      setIsPortfolioDialogOpen(false);
+      setEditingPortfolioItem(null);
+    },
+    onError: (error) => {
+      if (isUnauthorizedError(error)) {
+        toast({
+          title: "Unauthorized",
+          description: "You are logged out. Logging in again...",
+          variant: "destructive",
+        });
+        setTimeout(() => {
+          window.location.href = "/api/login";
+        }, 500);
+        return;
+      }
+      toast({
+        title: "Error",
+        description: "Failed to update portfolio item",
+        variant: "destructive",
+      });
+    },
+  });
+
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -218,6 +349,28 @@ export default function Admin() {
       published: false,
     },
   });
+
+  const portfolioForm = useForm<PortfolioFormData>({
+    resolver: zodResolver(portfolioFormSchema),
+    defaultValues: {
+      title: "",
+      url: "",
+      description: "",
+      category: "",
+    },
+  });
+
+  useEffect(() => {
+    if (editingPortfolioItem) {
+      portfolioForm.reset({
+        title: editingPortfolioItem.title,
+        url: editingPortfolioItem.url,
+        description: editingPortfolioItem.description || "",
+        category: editingPortfolioItem.category,
+      });
+      setIsPortfolioDialogOpen(true);
+    }
+  }, [editingPortfolioItem]);
 
   const createMutation = useMutation({
     mutationFn: async (data: InsertBlogPost) => {
@@ -382,6 +535,24 @@ export default function Admin() {
     form.setValue("title", value);
     if (!editingPost && !form.getValues("slug")) {
       form.setValue("slug", generateSlug(value));
+    }
+  };
+
+  const handleClosePortfolioDialog = () => {
+    setIsPortfolioDialogOpen(false);
+    setEditingPortfolioItem(null);
+    portfolioForm.reset();
+  };
+
+  const onPortfolioSubmit = (data: PortfolioFormData) => {
+    if (editingPortfolioItem) {
+      updatePortfolioMutation.mutate({ 
+        id: editingPortfolioItem.id, 
+        data: {
+          ...data,
+          description: data.description || null,
+        }
+      });
     }
   };
 
@@ -703,12 +874,27 @@ export default function Admin() {
                   data-testid={`card-portfolio-${item.id}`}
                 >
                   <Card className="rounded-2xl backdrop-blur-md bg-card/40 border-border/50 shadow-lg hover-elevate h-full">
-                    <div className="aspect-video overflow-hidden rounded-t-2xl bg-muted">
-                      <img
-                        src={item.screenshotUrl}
-                        alt={item.title}
-                        className="w-full h-full object-cover"
-                      />
+                    <div className="aspect-video overflow-hidden rounded-t-2xl bg-muted relative">
+                      {item.screenshotUrl ? (
+                        <img
+                          src={item.screenshotUrl}
+                          alt={item.title}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center text-muted-foreground">
+                          No screenshot
+                        </div>
+                      )}
+                      {item.logoUrl && (
+                        <div className="absolute top-2 left-2 bg-white dark:bg-gray-900 rounded-lg p-2 shadow-lg">
+                          <img
+                            src={item.logoUrl}
+                            alt={`${item.title} logo`}
+                            className="h-8 w-auto object-contain"
+                          />
+                        </div>
+                      )}
                     </div>
                     <CardHeader>
                       <div className="flex items-start justify-between gap-2 mb-2">
@@ -724,25 +910,91 @@ export default function Admin() {
                       )}
                     </CardHeader>
                     <CardContent>
-                      <div className="flex flex-wrap items-center gap-2">
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={() => window.open(item.url, '_blank')}
-                          data-testid={`button-view-${item.id}`}
-                        >
-                          View Site
-                        </Button>
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={() => setDeletePortfolioItem(item)}
-                          className="text-destructive hover:text-destructive"
-                          data-testid={`button-delete-portfolio-${item.id}`}
-                        >
-                          <Trash2 className="h-4 w-4 mr-1" />
-                          Delete
-                        </Button>
+                      <div className="space-y-2">
+                        <div className="flex flex-wrap items-center gap-2">
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => window.open(item.url, '_blank')}
+                            data-testid={`button-view-${item.id}`}
+                          >
+                            View Site
+                          </Button>
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => setEditingPortfolioItem(item)}
+                            data-testid={`button-edit-portfolio-${item.id}`}
+                          >
+                            <Pencil className="h-4 w-4 mr-1" />
+                            Edit
+                          </Button>
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => setDeletePortfolioItem(item)}
+                            className="text-destructive hover:text-destructive"
+                            data-testid={`button-delete-portfolio-${item.id}`}
+                          >
+                            <Trash2 className="h-4 w-4 mr-1" />
+                            Delete
+                          </Button>
+                        </div>
+                        <div className="flex flex-wrap items-center gap-2">
+                          <Button
+                            variant="secondary"
+                            size="sm"
+                            onClick={() => captureScreenshotMutation.mutate(item.id)}
+                            disabled={captureScreenshotMutation.isPending}
+                            data-testid={`button-screenshot-${item.id}`}
+                          >
+                            {captureScreenshotMutation.isPending ? (
+                              <>
+                                <Loader2 className="h-4 w-4 mr-1 animate-spin" />
+                                Capturing...
+                              </>
+                            ) : (
+                              <>
+                                <RefreshCw className="h-4 w-4 mr-1" />
+                                Screenshot
+                              </>
+                            )}
+                          </Button>
+                          <label htmlFor={`logo-upload-${item.id}`}>
+                            <Button
+                              variant="secondary"
+                              size="sm"
+                              asChild
+                              disabled={uploadLogoMutation.isPending}
+                              data-testid={`button-logo-${item.id}`}
+                            >
+                              <span className="cursor-pointer">
+                                {uploadLogoMutation.isPending ? (
+                                  <>
+                                    <Loader2 className="h-4 w-4 mr-1 animate-spin" />
+                                    Uploading...
+                                  </>
+                                ) : (
+                                  <>
+                                    Upload Logo
+                                  </>
+                                )}
+                              </span>
+                            </Button>
+                          </label>
+                          <input
+                            id={`logo-upload-${item.id}`}
+                            type="file"
+                            accept="image/*"
+                            className="hidden"
+                            onChange={(e) => {
+                              const file = e.target.files?.[0];
+                              if (file) {
+                                uploadLogoMutation.mutate({ id: item.id, file });
+                              }
+                            }}
+                          />
+                        </div>
                       </div>
                     </CardContent>
                   </Card>
@@ -969,6 +1221,130 @@ export default function Admin() {
                     "Update Post"
                   ) : (
                     "Create Post"
+                  )}
+                </Button>
+              </DialogFooter>
+            </form>
+          </Form>
+        </DialogContent>
+      </Dialog>
+
+      {/* Portfolio Edit Dialog */}
+      <Dialog open={isPortfolioDialogOpen} onOpenChange={handleClosePortfolioDialog}>
+        <DialogContent className="max-w-2xl">
+          <DialogHeader>
+            <DialogTitle>Edit Portfolio Item</DialogTitle>
+            <DialogDescription>
+              Update the details for this portfolio item. You can also capture a screenshot or upload a logo using the buttons below.
+            </DialogDescription>
+          </DialogHeader>
+
+          <Form {...portfolioForm}>
+            <form onSubmit={portfolioForm.handleSubmit(onPortfolioSubmit)} className="space-y-6">
+              <FormField
+                control={portfolioForm.control}
+                name="title"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Client Name</FormLabel>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        placeholder="Enter client name"
+                        data-testid="input-portfolio-title"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={portfolioForm.control}
+                name="url"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Website URL</FormLabel>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        placeholder="https://example.com"
+                        data-testid="input-portfolio-url"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={portfolioForm.control}
+                name="category"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Industry</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger data-testid="select-portfolio-category">
+                          <SelectValue placeholder="Select an industry" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {portfolioCategories.map((category) => (
+                          <SelectItem key={category} value={category}>
+                            {category}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={portfolioForm.control}
+                name="description"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Description (Optional)</FormLabel>
+                    <FormControl>
+                      <Textarea
+                        {...field}
+                        placeholder="Brief description of the project"
+                        rows={3}
+                        data-testid="input-portfolio-description"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <DialogFooter>
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={handleClosePortfolioDialog}
+                  data-testid="button-cancel-portfolio-edit"
+                >
+                  Cancel
+                </Button>
+                <Button
+                  type="submit"
+                  disabled={updatePortfolioMutation.isPending}
+                  data-testid="button-save-portfolio"
+                >
+                  {updatePortfolioMutation.isPending ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Saving...
+                    </>
+                  ) : (
+                    "Save Changes"
                   )}
                 </Button>
               </DialogFooter>
