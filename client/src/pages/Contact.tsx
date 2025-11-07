@@ -79,7 +79,7 @@ export default function Contact() {
   };
 
   return (
-    <div className="min-h-screen bg-background py-16 md:py-24">
+    <div className="min-h-screen py-16 md:py-24">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

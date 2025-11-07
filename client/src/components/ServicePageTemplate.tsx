@@ -32,8 +32,8 @@ export default function ServicePageTemplate({
   accentColor = "rgb(255, 0, 0)"
 }: ServicePageTemplateProps) {
   return (
-    <div className="min-h-screen bg-background">
-      <div className="relative overflow-hidden bg-gradient-to-br from-background via-card/40 to-background py-20 md:py-32">
+    <div className="min-h-screen">
+      <div className="relative overflow-hidden bg-gradient-to-br from-background/80 via-card/40 to-background/80 py-20 md:py-32">
         <div className="absolute inset-0 bg-grid-white/5 [mask-image:linear-gradient(0deg,transparent,black)]" />
         
         <div className="container mx-auto px-4 relative z-10">
