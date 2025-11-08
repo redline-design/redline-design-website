@@ -377,6 +377,40 @@ export default function Admin() {
     },
   });
 
+  const createPortfolioMutation = useMutation({
+    mutationFn: async (data: InsertPortfolioItem) => {
+      return await apiRequest("POST", "/api/portfolio", data);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/portfolio"] });
+      toast({
+        title: "Success",
+        description: "Portfolio item created successfully",
+      });
+      setIsPortfolioDialogOpen(false);
+      setEditingPortfolioItem(null);
+      portfolioForm.reset();
+    },
+    onError: (error) => {
+      if (isUnauthorizedError(error)) {
+        toast({
+          title: "Unauthorized",
+          description: "You are logged out. Logging in again...",
+          variant: "destructive",
+        });
+        setTimeout(() => {
+          window.location.href = "/api/login";
+        }, 500);
+        return;
+      }
+      toast({
+        title: "Error",
+        description: "Failed to create portfolio item",
+        variant: "destructive",
+      });
+    },
+  });
+
   const createReviewMutation = useMutation({
     mutationFn: async (data: InsertReview) => {
       return await apiRequest("POST", "/api/reviews", data);
@@ -707,15 +741,44 @@ export default function Admin() {
     portfolioForm.reset();
   };
 
+  const handleOpenPortfolioDialog = (item?: PortfolioItem) => {
+    if (item) {
+      setEditingPortfolioItem(item);
+      portfolioForm.reset({
+        title: item.title,
+        url: item.url,
+        description: item.description || "",
+        category: item.category,
+      });
+    } else {
+      setEditingPortfolioItem(null);
+      portfolioForm.reset({
+        title: "",
+        url: "",
+        description: "",
+        category: "Web Design",
+      });
+    }
+    setIsPortfolioDialogOpen(true);
+  };
+
   const onPortfolioSubmit = (data: PortfolioFormData) => {
+    const portfolioData: InsertPortfolioItem = {
+      ...data,
+      description: data.description || null,
+      screenshotUrl: null,
+      logoUrl: null,
+      featured: false,
+      displayOrder: 0,
+    };
+    
     if (editingPortfolioItem) {
       updatePortfolioMutation.mutate({ 
         id: editingPortfolioItem.id, 
-        data: {
-          ...data,
-          description: data.description || null,
-        }
+        data: portfolioData
       });
+    } else {
+      createPortfolioMutation.mutate(portfolioData);
     }
   };
 
@@ -1193,6 +1256,15 @@ export default function Admin() {
                 </CollapsibleTrigger>
                 <CollapsibleContent>
                   <CardContent>
+                    <div className="mb-6">
+                      <Button
+                        onClick={() => handleOpenPortfolioDialog()}
+                        data-testid="button-create-portfolio"
+                      >
+                        <Plus className="h-4 w-4 mr-2" />
+                        Create Portfolio Item
+                      </Button>
+                    </div>
 
           {isLoadingPortfolio ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -1291,7 +1363,7 @@ export default function Admin() {
                           <Button
                             variant="outline"
                             size="sm"
-                            onClick={() => setEditingPortfolioItem(item)}
+                            onClick={() => handleOpenPortfolioDialog(item)}
                             data-testid={`button-edit-portfolio-${item.id}`}
                           >
                             <Pencil className="h-4 w-4 mr-1" />
