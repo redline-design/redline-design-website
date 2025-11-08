@@ -86,7 +86,7 @@ This structure allows beginners to get quick answers while advanced users can di
 - Edit dialog with form validation for all portfolio fields
 
 **Admin Dashboard Reorganization** (November 2025):
-- **Collapsible Sections**: All major sections (Employee Tools, Google Reviews, Blog Posts, Portfolio) are now collapsible with smooth animations
+- **Collapsible Sections**: All major sections (Employee Tools, Customer Reviews, Blog Posts, Portfolio) are now collapsible with smooth animations
 - **Collapsed by Default**: All sections start collapsed for cleaner dashboard layout and reduced cognitive load
 - **Employee Tools Section**: New dedicated section with quick access to:
   - Website Hosting Subscription Link (Stripe payment link for client hosting)
@@ -95,41 +95,42 @@ This structure allows beginners to get quick answers while advanced users can di
 - Each section features a ChevronDown icon that rotates on expand/collapse
 - Uses shadcn Collapsible component with smooth transitions
 
-### Google Business Profile OAuth Integration (November 2025)
+### Manual Customer Review Management (November 2025)
 
-**OAuth2 Authentication System**: Implemented secure Google Business Profile API integration with OAuth2 flow to automatically sync 5-star reviews from Google Business Profile to the website.
+**Manual Review System**: Implemented comprehensive manual review creation and management system allowing admins to add, edit, and delete customer testimonials directly through the admin dashboard.
 
-**Components:**
-- **OAuth Service** (`server/google-oauth.ts`): Handles OAuth2 flow, token management, automatic refresh
-- **Google Business API** (`server/google-business-api.ts`): Fetches reviews from Google Business Profile API with pagination support
-- **Database Schema**: `googleTokens` table stores OAuth credentials (access token, refresh token, expiry)
-- **API Endpoints**: `/api/google/auth`, `/api/google/callback`, `/api/google/status`, `/api/google/disconnect`
+**Database Schema** (`shared/schema.ts`):
+- **reviews Table**: Stores customer reviews with fields for name, role, company, content, rating, profilePhotoUrl, reviewDate
+- All manually created reviews default to 5-star rating
+- No integration with external review platforms
 
-**Security Features:**
-- CSRF protection via state parameters in OAuth flow
-- Session-based state validation on callback
-- Authenticated endpoints (requires admin login)
-- Automatic token refresh before expiration
-- Secure token storage in PostgreSQL
+**API Endpoints** (`/api/reviews`):
+- GET /api/reviews - Retrieve all reviews
+- POST /api/reviews - Create new review (admin only)
+- PATCH /api/reviews/:id - Update review (admin only)
+- DELETE /api/reviews/:id - Delete review (admin only)
 
-**Admin UI Updates** (`client/src/pages/Admin.tsx`):
-- Connection status indicator (Connected/Not Connected)
-- "Connect Google Account" button initiates OAuth flow
-- "Sync Reviews" button fetches latest 5-star reviews (with pagination)
-- "Disconnect" button revokes access and deletes tokens
-- Real-time connection status updates
-
-**Setup Requirements** (See `GOOGLE_OAUTH_SETUP.md`):
-- Google Cloud Project with Business Profile API enabled
-- OAuth 2.0 credentials (Client ID, Client Secret)
-- Environment variables: `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `GOOGLE_REDIRECT_URI`, `GOOGLE_BUSINESS_LOCATION`
+**Admin UI** (`client/src/pages/Admin.tsx`):
+- **Create Review Form**: Dialog-based form with react-hook-form + zod validation
+  - Name (required)
+  - Job Title/Role (optional)
+  - Company (optional)
+  - Review Content (required, textarea)
+  - Rating automatically set to 5 stars
+- **Review Management**: 
+  - Edit button opens pre-filled form for updating reviews
+  - Delete button with confirmation dialog
+  - Frosted glass card design for review display
+  - Real-time updates with React Query cache invalidation
+  - Toast notifications for all operations
 
 **Features:**
-- Automatic pagination to fetch all reviews (not just first 10)
-- Only syncs 5-star reviews with reviewer names
-- Upserts reviews by Google Review ID (no duplicates)
-- Stores reviewer profile photos
-- Error handling with detailed user feedback
+- All reviews default to 5-star rating
+- Simple form validation with minimum character requirements
+- Proper error handling with toast notifications
+- Unauthorized access redirects to login
+- Follows existing shadcn component patterns
+- Maintains consistent frosted glass design system
 
 **Initial Portfolio Items** (5 seeded projects):
 1. Morf Media Photos (Photography)
