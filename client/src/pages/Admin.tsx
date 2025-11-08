@@ -765,49 +765,50 @@ export default function Admin() {
           >
             <Collapsible open={isReviewsOpen} onOpenChange={setIsReviewsOpen}>
               <Card className="rounded-2xl backdrop-blur-md bg-card/40 border-border/50 shadow-lg">
-                <CollapsibleTrigger className="w-full" data-testid="button-toggle-reviews">
-                  <CardHeader>
-                    <div className="flex items-center justify-between gap-4">
-                      <div className="flex-1 text-left">
-                        <CardTitle className="text-2xl font-bold flex items-center gap-2">
-                          <Star className="h-6 w-6 text-primary" />
-                          Google Reviews
-                        </CardTitle>
-                        <p className="text-sm text-muted-foreground mt-1">
-                          Sync 5-star reviews from Google Business Profile
-                        </p>
+                <CardHeader>
+                  <div className="flex flex-wrap items-center justify-between gap-4">
+                    <CollapsibleTrigger className="flex-1 text-left" data-testid="button-toggle-reviews">
+                      <div className="flex items-center gap-4">
+                        <div className="flex-1">
+                          <CardTitle className="text-2xl font-bold flex items-center gap-2">
+                            <Star className="h-6 w-6 text-primary" />
+                            Google Reviews
+                          </CardTitle>
+                          <p className="text-sm text-muted-foreground mt-1">
+                            Sync 5-star reviews from Google Business Profile
+                          </p>
+                        </div>
+                        <ChevronDown
+                          className={`h-5 w-5 text-muted-foreground transition-transform duration-200 ${
+                            isReviewsOpen ? "rotate-180" : ""
+                          }`}
+                        />
                       </div>
-                      <ChevronDown
-                        className={`h-5 w-5 text-muted-foreground transition-transform duration-200 ${
-                          isReviewsOpen ? "rotate-180" : ""
-                        }`}
-                      />
-                    </div>
-                  </CardHeader>
-                </CollapsibleTrigger>
+                    </CollapsibleTrigger>
+                    <Button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        syncReviewsMutation.mutate();
+                      }}
+                      disabled={syncReviewsMutation.isPending}
+                      data-testid="button-sync-reviews"
+                    >
+                      {syncReviewsMutation.isPending ? (
+                        <>
+                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                          Syncing...
+                        </>
+                      ) : (
+                        <>
+                          <RefreshCw className="mr-2 h-4 w-4" />
+                          Sync Reviews
+                        </>
+                      )}
+                    </Button>
+                  </div>
+                </CardHeader>
                 <CollapsibleContent>
-                  <CardHeader className="pt-0">
-                    <div className="flex justify-end">
-                      <Button
-                        onClick={() => syncReviewsMutation.mutate()}
-                        disabled={syncReviewsMutation.isPending}
-                        data-testid="button-sync-reviews"
-                      >
-                        {syncReviewsMutation.isPending ? (
-                          <>
-                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                            Syncing...
-                          </>
-                        ) : (
-                          <>
-                            <RefreshCw className="mr-2 h-4 w-4" />
-                            Sync Reviews
-                          </>
-                        )}
-                      </Button>
-                    </div>
-                  </CardHeader>
-              <CardContent>
+                  <CardContent>
                 {isLoadingReviews ? (
                   <div className="flex items-center justify-center py-8">
                     <Loader2 className="h-8 w-8 animate-spin text-primary" />
