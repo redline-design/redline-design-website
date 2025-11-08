@@ -9,13 +9,10 @@ import {
   type PortfolioItem,
   type InsertPortfolioItem,
   type UpdatePortfolioItem,
-  type GoogleToken,
-  type InsertGoogleToken,
   reviews,
   users,
   blogPosts,
-  portfolioItems,
-  googleTokens
+  portfolioItems
 } from "@shared/schema";
 import { randomUUID } from "crypto";
 import { db } from "./db";
@@ -34,6 +31,7 @@ export interface IStorage {
   getFiveStarReviews(): Promise<Review[]>;
   getReviewByGoogleId(googleReviewId: string): Promise<Review | undefined>;
   createReview(review: InsertReview): Promise<Review>;
+  updateReview(id: string, review: Partial<InsertReview>): Promise<Review>;
   upsertReview(review: InsertReview): Promise<Review>;
   deleteReview(id: string): Promise<void>;
 
@@ -50,11 +48,6 @@ export interface IStorage {
   createPortfolioItem(data: InsertPortfolioItem): Promise<PortfolioItem>;
   updatePortfolioItem(id: string, data: UpdatePortfolioItem): Promise<PortfolioItem | null>;
   deletePortfolioItem(id: string): Promise<boolean>;
-
-  // Google OAuth token methods
-  getGoogleToken(): Promise<GoogleToken | undefined>;
-  saveGoogleToken(token: InsertGoogleToken): Promise<GoogleToken>;
-  deleteGoogleToken(id: string): Promise<void>;
 }
 
 export class MemStorage implements IStorage {
@@ -97,6 +90,10 @@ export class MemStorage implements IStorage {
   }
 
   async createReview(review: InsertReview): Promise<Review> {
+    throw new Error("Reviews not implemented in MemStorage");
+  }
+
+  async updateReview(id: string, review: Partial<InsertReview>): Promise<Review> {
     throw new Error("Reviews not implemented in MemStorage");
   }
 
@@ -147,18 +144,6 @@ export class MemStorage implements IStorage {
   async deletePortfolioItem(id: string): Promise<boolean> {
     throw new Error("Portfolio items not implemented in MemStorage");
   }
-
-  async getGoogleToken(): Promise<GoogleToken | undefined> {
-    throw new Error("Google tokens not implemented in MemStorage");
-  }
-
-  async saveGoogleToken(token: InsertGoogleToken): Promise<GoogleToken> {
-    throw new Error("Google tokens not implemented in MemStorage");
-  }
-
-  async deleteGoogleToken(id: string): Promise<void> {
-    throw new Error("Google tokens not implemented in MemStorage");
-  }
 }
 
 export class DbStorage implements IStorage {
@@ -200,6 +185,14 @@ export class DbStorage implements IStorage {
 
   async createReview(review: InsertReview): Promise<Review> {
     const result = await db.insert(reviews).values(review).returning();
+    return result[0];
+  }
+
+  async updateReview(id: string, review: Partial<InsertReview>): Promise<Review> {
+    const result = await db.update(reviews)
+      .set(review)
+      .where(eq(reviews.id, id))
+      .returning();
     return result[0];
   }
 
@@ -296,22 +289,6 @@ export class DbStorage implements IStorage {
   async deletePortfolioItem(id: string): Promise<boolean> {
     const result = await db.delete(portfolioItems).where(eq(portfolioItems.id, id));
     return true;
-  }
-
-  async getGoogleToken(): Promise<GoogleToken | undefined> {
-    const result = await db.select().from(googleTokens).limit(1);
-    return result[0];
-  }
-
-  async saveGoogleToken(token: InsertGoogleToken): Promise<GoogleToken> {
-    // Delete existing tokens and insert new one
-    await db.delete(googleTokens);
-    const result = await db.insert(googleTokens).values(token).returning();
-    return result[0];
-  }
-
-  async deleteGoogleToken(id: string): Promise<void> {
-    await db.delete(googleTokens).where(eq(googleTokens.id, id));
   }
 }
 

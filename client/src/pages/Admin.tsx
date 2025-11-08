@@ -4,7 +4,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { isUnauthorizedError } from "@/lib/authUtils";
-import type { BlogPost, InsertBlogPost, UpdateBlogPost, User, Review, PortfolioItem, InsertPortfolioItem, UpdatePortfolioItem } from "@shared/schema";
+import type { BlogPost, InsertBlogPost, UpdateBlogPost, User, Review, InsertReview, PortfolioItem, InsertPortfolioItem, UpdatePortfolioItem } from "@shared/schema";
 import { insertBlogPostSchema, insertPortfolioItemSchema } from "@shared/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -118,6 +118,15 @@ const portfolioFormSchema = z.object({
 
 type PortfolioFormData = z.infer<typeof portfolioFormSchema>;
 
+const reviewFormSchema = z.object({
+  name: z.string().min(1, "Name is required"),
+  role: z.string().optional(),
+  company: z.string().optional(),
+  content: z.string().min(1, "Review content is required"),
+});
+
+type ReviewFormData = z.infer<typeof reviewFormSchema>;
+
 function generateSlug(title: string): string {
   return title
     .toLowerCase()
@@ -134,6 +143,9 @@ export default function Admin() {
   const [isPortfolioDialogOpen, setIsPortfolioDialogOpen] = useState(false);
   const [editingPortfolioItem, setEditingPortfolioItem] = useState<PortfolioItem | null>(null);
   const [deletePortfolioItem, setDeletePortfolioItem] = useState<PortfolioItem | null>(null);
+  const [isReviewDialogOpen, setIsReviewDialogOpen] = useState(false);
+  const [editingReview, setEditingReview] = useState<Review | null>(null);
+  const [deleteReview, setDeleteReview] = useState<Review | null>(null);
   
   // Collapsible section states (all collapsed by default)
   const [isEmployeeToolsOpen, setIsEmployeeToolsOpen] = useState(false);
@@ -172,102 +184,6 @@ export default function Admin() {
   const { data: reviews = [], isLoading: isLoadingReviews } = useQuery<Review[]>({
     queryKey: ["/api/reviews"],
     enabled: isAuthenticated,
-  });
-
-  const { data: googleStatus } = useQuery<{ connected: boolean }>({
-    queryKey: ["/api/google/status"],
-    enabled: isAuthenticated,
-  });
-
-  const connectGoogleMutation = useMutation({
-    mutationFn: async () => {
-      return await apiRequest("GET", "/api/google/auth");
-    },
-    onSuccess: (data: any) => {
-      if (data.url) {
-        window.location.href = data.url;
-      }
-    },
-    onError: (error) => {
-      if (isUnauthorizedError(error)) {
-        toast({
-          title: "Unauthorized",
-          description: "You are logged out. Logging in again...",
-          variant: "destructive",
-        });
-        setTimeout(() => {
-          window.location.href = "/api/login";
-        }, 500);
-        return;
-      }
-      toast({
-        title: "Error",
-        description: "Failed to initiate Google connection",
-        variant: "destructive",
-      });
-    },
-  });
-
-  const disconnectGoogleMutation = useMutation({
-    mutationFn: async () => {
-      return await apiRequest("POST", "/api/google/disconnect");
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/google/status"] });
-      toast({
-        title: "Success",
-        description: "Google account disconnected",
-      });
-    },
-    onError: (error) => {
-      if (isUnauthorizedError(error)) {
-        toast({
-          title: "Unauthorized",
-          description: "You are logged out. Logging in again...",
-          variant: "destructive",
-        });
-        setTimeout(() => {
-          window.location.href = "/api/login";
-        }, 500);
-        return;
-      }
-      toast({
-        title: "Error",
-        description: "Failed to disconnect Google account",
-        variant: "destructive",
-      });
-    },
-  });
-
-  const syncReviewsMutation = useMutation({
-    mutationFn: async () => {
-      return await apiRequest("POST", "/api/reviews/sync");
-    },
-    onSuccess: (data: any) => {
-      queryClient.invalidateQueries({ queryKey: ["/api/reviews"] });
-      toast({
-        title: "Success",
-        description: data.message || "Reviews synced successfully",
-      });
-    },
-    onError: (error: any) => {
-      if (isUnauthorizedError(error)) {
-        toast({
-          title: "Unauthorized",
-          description: "You are logged out. Logging in again...",
-          variant: "destructive",
-        });
-        setTimeout(() => {
-          window.location.href = "/api/login";
-        }, 500);
-        return;
-      }
-      toast({
-        title: "Error",
-        description: error?.details || "Failed to sync reviews. Make sure Google account is connected.",
-        variant: "destructive",
-      });
-    },
   });
 
   const { data: portfolioItems = [], isLoading: isLoadingPortfolio } = useQuery<PortfolioItem[]>({
@@ -461,6 +377,105 @@ export default function Admin() {
     },
   });
 
+  const createReviewMutation = useMutation({
+    mutationFn: async (data: InsertReview) => {
+      return await apiRequest("POST", "/api/reviews", data);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/reviews"] });
+      toast({
+        title: "Success",
+        description: "Review created successfully",
+      });
+      setIsReviewDialogOpen(false);
+      reviewForm.reset();
+    },
+    onError: (error) => {
+      if (isUnauthorizedError(error)) {
+        toast({
+          title: "Unauthorized",
+          description: "You are logged out. Logging in again...",
+          variant: "destructive",
+        });
+        setTimeout(() => {
+          window.location.href = "/api/login";
+        }, 500);
+        return;
+      }
+      toast({
+        title: "Error",
+        description: "Failed to create review",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const updateReviewMutation = useMutation({
+    mutationFn: async ({ id, data }: { id: string; data: InsertReview }) => {
+      return await apiRequest("PATCH", `/api/reviews/${id}`, data);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/reviews"] });
+      toast({
+        title: "Success",
+        description: "Review updated successfully",
+      });
+      setIsReviewDialogOpen(false);
+      setEditingReview(null);
+      reviewForm.reset();
+    },
+    onError: (error) => {
+      if (isUnauthorizedError(error)) {
+        toast({
+          title: "Unauthorized",
+          description: "You are logged out. Logging in again...",
+          variant: "destructive",
+        });
+        setTimeout(() => {
+          window.location.href = "/api/login";
+        }, 500);
+        return;
+      }
+      toast({
+        title: "Error",
+        description: "Failed to update review",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const deleteReviewMutation = useMutation({
+    mutationFn: async (id: string) => {
+      return await apiRequest("DELETE", `/api/reviews/${id}`);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/reviews"] });
+      toast({
+        title: "Success",
+        description: "Review deleted successfully",
+      });
+      setDeleteReview(null);
+    },
+    onError: (error) => {
+      if (isUnauthorizedError(error)) {
+        toast({
+          title: "Unauthorized",
+          description: "You are logged out. Logging in again...",
+          variant: "destructive",
+        });
+        setTimeout(() => {
+          window.location.href = "/api/login";
+        }, 500);
+        return;
+      }
+      toast({
+        title: "Error",
+        description: "Failed to delete review",
+        variant: "destructive",
+      });
+    },
+  });
+
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -486,6 +501,16 @@ export default function Admin() {
     },
   });
 
+  const reviewForm = useForm<ReviewFormData>({
+    resolver: zodResolver(reviewFormSchema),
+    defaultValues: {
+      name: "",
+      role: "",
+      company: "",
+      content: "",
+    },
+  });
+
   useEffect(() => {
     if (editingPortfolioItem) {
       portfolioForm.reset({
@@ -497,6 +522,18 @@ export default function Admin() {
       setIsPortfolioDialogOpen(true);
     }
   }, [editingPortfolioItem]);
+
+  useEffect(() => {
+    if (editingReview) {
+      reviewForm.reset({
+        name: editingReview.name,
+        role: editingReview.role || "",
+        company: editingReview.company || "",
+        content: editingReview.content,
+      });
+      setIsReviewDialogOpen(true);
+    }
+  }, [editingReview]);
 
   const createMutation = useMutation({
     mutationFn: async (data: InsertBlogPost) => {
@@ -682,6 +719,51 @@ export default function Admin() {
     }
   };
 
+  const handleOpenReviewDialog = (review?: Review) => {
+    if (review) {
+      setEditingReview(review);
+      reviewForm.reset({
+        name: review.name,
+        role: review.role || "",
+        company: review.company || "",
+        content: review.content,
+      });
+    } else {
+      setEditingReview(null);
+      reviewForm.reset({
+        name: "",
+        role: "",
+        company: "",
+        content: "",
+      });
+    }
+    setIsReviewDialogOpen(true);
+  };
+
+  const handleCloseReviewDialog = () => {
+    setIsReviewDialogOpen(false);
+    setEditingReview(null);
+    reviewForm.reset();
+  };
+
+  const onReviewSubmit = (data: ReviewFormData) => {
+    const reviewData: InsertReview = {
+      ...data,
+      role: data.role || null,
+      company: data.company || null,
+      rating: 5,
+      googleReviewId: null,
+      profilePhotoUrl: null,
+      reviewDate: null,
+    };
+
+    if (editingReview) {
+      updateReviewMutation.mutate({ id: editingReview.id, data: reviewData });
+    } else {
+      createReviewMutation.mutate(reviewData);
+    }
+  };
+
   if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-background">
@@ -836,10 +918,10 @@ export default function Admin() {
                       <div className="flex-1 text-left">
                         <CardTitle className="text-2xl font-bold flex items-center gap-2">
                           <Star className="h-6 w-6 text-primary" />
-                          Google Reviews
+                          Reviews
                         </CardTitle>
                         <p className="text-sm text-muted-foreground mt-1">
-                          Sync 5-star reviews from Google Business Profile
+                          Manage customer reviews and testimonials
                         </p>
                       </div>
                       <ChevronDown
@@ -852,142 +934,86 @@ export default function Admin() {
                 </CollapsibleTrigger>
                 <CollapsibleContent>
                   <CardContent>
-                    <div className="mb-6 p-4 rounded-lg bg-background border border-border">
-                      <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-                        <div className="flex-1">
-                          <h3 className="font-semibold text-foreground mb-1">
-                            Google Business Profile Connection
-                          </h3>
-                          <p className="text-sm text-muted-foreground">
-                            {googleStatus?.connected ? (
-                              <span className="text-green-600 dark:text-green-400">
-                                ✓ Connected - Ready to sync reviews
-                              </span>
-                            ) : (
-                              "Connect your Google account to sync 5-star reviews"
-                            )}
-                          </p>
-                        </div>
-                        <div className="flex gap-2">
-                          {googleStatus?.connected ? (
-                            <>
-                              <Button
-                                onClick={() => syncReviewsMutation.mutate()}
-                                disabled={syncReviewsMutation.isPending}
-                                data-testid="button-sync-reviews"
-                              >
-                                {syncReviewsMutation.isPending ? (
-                                  <>
-                                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                                    Syncing...
-                                  </>
-                                ) : (
-                                  <>
-                                    <RefreshCw className="mr-2 h-4 w-4" />
-                                    Sync Reviews
-                                  </>
+                    <div className="mb-6 flex justify-between items-center">
+                      <p className="text-sm text-muted-foreground">
+                        {reviews.length} review{reviews.length !== 1 ? 's' : ''} total
+                      </p>
+                      <Button
+                        onClick={() => handleOpenReviewDialog()}
+                        data-testid="button-create-review"
+                      >
+                        <Plus className="mr-2 h-4 w-4" />
+                        Create Review
+                      </Button>
+                    </div>
+
+                    {isLoadingReviews ? (
+                      <div className="flex items-center justify-center py-8">
+                        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+                      </div>
+                    ) : reviews.length === 0 ? (
+                      <div className="text-center py-8">
+                        <p className="text-muted-foreground">
+                          No reviews yet. Click "Create Review" to add your first review.
+                        </p>
+                      </div>
+                    ) : (
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        {reviews.map((review) => (
+                          <div
+                            key={review.id}
+                            className="p-4 bg-background rounded-lg border border-border"
+                            data-testid={`card-review-${review.id}`}
+                          >
+                            <div className="flex items-start justify-between gap-2 mb-2">
+                              <div className="flex-1 min-w-0">
+                                <p className="text-sm font-semibold text-foreground">
+                                  {review.name}
+                                </p>
+                                {review.role && (
+                                  <p className="text-xs text-muted-foreground">
+                                    {review.role}
+                                    {review.company && ` at ${review.company}`}
+                                  </p>
                                 )}
+                                <div className="flex gap-0.5 mt-1">
+                                  {[...Array(5)].map((_, i) => (
+                                    <Star
+                                      key={i}
+                                      className="h-3 w-3 text-primary fill-primary"
+                                    />
+                                  ))}
+                                </div>
+                              </div>
+                            </div>
+                            <p className="text-xs text-muted-foreground line-clamp-3 mb-3">
+                              {review.content}
+                            </p>
+                            <div className="flex gap-2">
+                              <Button
+                                variant="outline"
+                                size="sm"
+                                onClick={() => handleOpenReviewDialog(review)}
+                                data-testid={`button-edit-review-${review.id}`}
+                              >
+                                <Pencil className="h-3 w-3 mr-1" />
+                                Edit
                               </Button>
                               <Button
                                 variant="outline"
-                                onClick={() => disconnectGoogleMutation.mutate()}
-                                disabled={disconnectGoogleMutation.isPending}
-                                data-testid="button-disconnect-google"
+                                size="sm"
+                                onClick={() => setDeleteReview(review)}
+                                data-testid={`button-delete-review-${review.id}`}
                               >
-                                {disconnectGoogleMutation.isPending ? (
-                                  <>
-                                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                                    Disconnecting...
-                                  </>
-                                ) : (
-                                  "Disconnect"
-                                )}
+                                <Trash2 className="h-3 w-3 mr-1" />
+                                Delete
                               </Button>
-                            </>
-                          ) : (
-                            <Button
-                              onClick={() => connectGoogleMutation.mutate()}
-                              disabled={connectGoogleMutation.isPending}
-                              data-testid="button-connect-google"
-                            >
-                              {connectGoogleMutation.isPending ? (
-                                <>
-                                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                                  Connecting...
-                                </>
-                              ) : (
-                                "Connect Google Account"
-                              )}
-                            </Button>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-              <div className="space-y-4">
-                {!googleStatus?.connected ? (
-                  <div className="text-center py-8 text-muted-foreground">
-                    <p>Connect your Google account above to start syncing reviews</p>
-                  </div>
-                ) : isLoadingReviews ? (
-                  <div className="flex items-center justify-center py-8">
-                    <Loader2 className="h-8 w-8 animate-spin text-primary" />
-                  </div>
-                ) : reviews.length === 0 ? (
-                  <div className="text-center py-8">
-                    <p className="text-muted-foreground">
-                      No reviews synced yet. Click "Sync Reviews" to fetch 5-star reviews from Google.
-                    </p>
-                  </div>
-                ) : (
-                  <div className="space-y-4">
-                    <p className="text-sm font-medium text-foreground">
-                      {reviews.length} review{reviews.length !== 1 ? 's' : ''} synced
-                    </p>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                      {reviews.slice(0, 6).map((review) => (
-                        <div
-                          key={review.id}
-                          className="p-4 bg-background rounded-lg border border-border"
-                          data-testid={`review-${review.id}`}
-                        >
-                          <div className="flex items-center gap-2 mb-2">
-                            {review.profilePhotoUrl ? (
-                              <img
-                                src={review.profilePhotoUrl}
-                                alt={review.name}
-                                className="w-8 h-8 rounded-full"
-                              />
-                            ) : (
-                              <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
-                                <span className="text-sm font-bold text-primary">
-                                  {review.name.charAt(0)}
-                                </span>
-                              </div>
-                            )}
-                            <div className="flex-1 min-w-0">
-                              <p className="text-sm font-medium text-foreground truncate">
-                                {review.name}
-                              </p>
-                              <div className="flex gap-0.5">
-                                {[...Array(5)].map((_, i) => (
-                                  <Star
-                                    key={i}
-                                    className="h-3 w-3 text-primary fill-primary"
-                                  />
-                                ))}
-                              </div>
                             </div>
                           </div>
-                          <p className="text-xs text-muted-foreground line-clamp-3">
-                            {review.content}
-                          </p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-                  </div>
-                </CardContent>
+                        ))}
+                      </div>
+                    )}
+                  </CardContent>
                 </CollapsibleContent>
               </Card>
             </Collapsible>
@@ -1798,6 +1824,166 @@ export default function Admin() {
               data-testid="button-confirm-delete-portfolio"
             >
               {deletePortfolioMutation.isPending ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Deleting...
+                </>
+              ) : (
+                "Delete"
+              )}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
+      {/* Review Dialog */}
+      <Dialog open={isReviewDialogOpen} onOpenChange={handleCloseReviewDialog}>
+        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>
+              {editingReview ? "Edit Review" : "Create New Review"}
+            </DialogTitle>
+            <DialogDescription>
+              {editingReview
+                ? "Update the review details below."
+                : "Add a new customer review. All reviews are 5-star ratings."}
+            </DialogDescription>
+          </DialogHeader>
+          <Form {...reviewForm}>
+            <form onSubmit={reviewForm.handleSubmit(onReviewSubmit)} className="space-y-4">
+              <FormField
+                control={reviewForm.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Name *</FormLabel>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        placeholder="Customer name"
+                        data-testid="input-review-name"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={reviewForm.control}
+                name="role"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Job Title/Role (Optional)</FormLabel>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        placeholder="e.g., CEO, Manager, Owner"
+                        data-testid="input-review-role"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={reviewForm.control}
+                name="company"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Company (Optional)</FormLabel>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        placeholder="Company name"
+                        data-testid="input-review-company"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={reviewForm.control}
+                name="content"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Review Content *</FormLabel>
+                    <FormControl>
+                      <Textarea
+                        {...field}
+                        placeholder="What did the customer say about your service?"
+                        rows={5}
+                        data-testid="input-review-content"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <div className="p-3 bg-muted rounded-md">
+                <p className="text-sm text-muted-foreground flex items-center gap-2">
+                  <Star className="h-4 w-4 text-primary fill-primary" />
+                  All reviews are automatically set to 5 stars
+                </p>
+              </div>
+
+              <DialogFooter>
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={handleCloseReviewDialog}
+                  data-testid="button-cancel-review"
+                >
+                  Cancel
+                </Button>
+                <Button
+                  type="submit"
+                  disabled={createReviewMutation.isPending || updateReviewMutation.isPending}
+                  data-testid="button-save-review"
+                >
+                  {(createReviewMutation.isPending || updateReviewMutation.isPending) ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Saving...
+                    </>
+                  ) : (
+                    editingReview ? "Save Changes" : "Create Review"
+                  )}
+                </Button>
+              </DialogFooter>
+            </form>
+          </Form>
+        </DialogContent>
+      </Dialog>
+
+      {/* Review Delete Confirmation Dialog */}
+      <AlertDialog
+        open={!!deleteReview}
+        onOpenChange={(open) => !open && setDeleteReview(null)}
+      >
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This will permanently delete the review from "{deleteReview?.name}".
+              This action cannot be undone.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel data-testid="button-cancel-delete-review">
+              Cancel
+            </AlertDialogCancel>
+            <AlertDialogAction
+              onClick={() => deleteReview && deleteReviewMutation.mutate(deleteReview.id)}
+              className="bg-destructive hover:bg-destructive/90"
+              disabled={deleteReviewMutation.isPending}
+              data-testid="button-confirm-delete-review"
+            >
+              {deleteReviewMutation.isPending ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                   Deleting...

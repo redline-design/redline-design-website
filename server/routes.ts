@@ -3,13 +3,10 @@ import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { handleChat } from "./chat";
 import { insertReviewSchema, insertBlogPostSchema, updateBlogPostSchema, insertPortfolioItemSchema, updatePortfolioItemSchema } from "@shared/schema";
-import { googleBusinessService } from "./google-business-api";
-import { googleOAuthService } from "./google-oauth";
 import { setupAuth, isAuthenticated } from "./replitAuth";
 import multer from "multer";
 import path from "path";
 import fs from "fs/promises";
-import { randomBytes } from "crypto";
 
 // API key middleware for external integrations
 const requireApiKey: RequestHandler = (req, res, next) => {
@@ -84,82 +81,46 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post("/api/reviews/sync", isAuthenticated, async (req, res) => {
+  app.post("/api/reviews", isAuthenticated, async (req, res) => {
     try {
-      const syncedCount = await googleBusinessService.syncFiveStarReviews();
-      res.json({ 
-        success: true, 
-        message: `Synced ${syncedCount} five-star reviews from Google` 
+      const validatedData = insertReviewSchema.parse({
+        ...req.body,
+        rating: 5, // Always 5 stars for manually created reviews
+        googleReviewId: null, // No Google ID for manual reviews
       });
+      const review = await storage.createReview(validatedData);
+      res.json(review);
     } catch (error: any) {
-      console.error("Error syncing reviews:", error);
-      res.status(500).json({ 
-        error: "Failed to sync reviews", 
-        details: error.message 
+      console.error("Error creating review:", error);
+      res.status(400).json({ error: "Failed to create review", details: error.message });
+    }
+  });
+
+  app.patch("/api/reviews/:id", isAuthenticated, async (req, res) => {
+    try {
+      const { id } = req.params;
+      const validatedData = insertReviewSchema.partial().parse({
+        ...req.body,
+        rating: 5, // Keep rating at 5 stars
+        googleReviewId: null, // Manual reviews don't have Google IDs
       });
+      
+      const review = await storage.updateReview(id, validatedData);
+      res.json(review);
+    } catch (error: any) {
+      console.error("Error updating review:", error);
+      res.status(400).json({ error: "Failed to update review", details: error.message });
     }
   });
 
-  // Google OAuth endpoints
-  app.get("/api/google/status", isAuthenticated, async (req, res) => {
+  app.delete("/api/reviews/:id", isAuthenticated, async (req, res) => {
     try {
-      const hasToken = await googleOAuthService.hasValidToken();
-      res.json({ connected: hasToken });
+      const { id } = req.params;
+      await storage.deleteReview(id);
+      res.json({ success: true });
     } catch (error: any) {
-      console.error("Error checking Google OAuth status:", error);
-      res.status(500).json({ error: "Failed to check connection status" });
-    }
-  });
-
-  app.get("/api/google/auth", isAuthenticated, async (req: any, res) => {
-    try {
-      // Generate cryptographically secure CSRF state token
-      const state = randomBytes(32).toString('base64url');
-      
-      // Store state in session for validation
-      req.session.googleOAuthState = state;
-      
-      const authUrl = googleOAuthService.getAuthorizationUrl(state);
-      res.json({ url: authUrl });
-    } catch (error: any) {
-      console.error("Error generating auth URL:", error);
-      res.status(500).json({ error: "Failed to generate authorization URL", details: error.message });
-    }
-  });
-
-  app.get("/api/google/callback", isAuthenticated, async (req: any, res) => {
-    try {
-      const { code, state } = req.query;
-      
-      if (!code || typeof code !== 'string') {
-        return res.status(400).send('Missing authorization code');
-      }
-
-      // Validate CSRF state
-      if (!state || state !== req.session.googleOAuthState) {
-        return res.status(403).send('Invalid state parameter - possible CSRF attack');
-      }
-
-      // Clear state after validation
-      delete req.session.googleOAuthState;
-
-      await googleOAuthService.getTokensFromCode(code);
-      
-      // Redirect to admin page with success message
-      res.redirect('/admin?google_connected=true');
-    } catch (error: any) {
-      console.error("Error handling OAuth callback:", error);
-      res.redirect('/admin?google_error=' + encodeURIComponent(error.message));
-    }
-  });
-
-  app.post("/api/google/disconnect", isAuthenticated, async (req, res) => {
-    try {
-      await googleOAuthService.revokeAccess();
-      res.json({ success: true, message: 'Google account disconnected' });
-    } catch (error: any) {
-      console.error("Error disconnecting Google account:", error);
-      res.status(500).json({ error: "Failed to disconnect", details: error.message });
+      console.error("Error deleting review:", error);
+      res.status(500).json({ error: "Failed to delete review" });
     }
   });
 
