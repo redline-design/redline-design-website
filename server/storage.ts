@@ -9,10 +9,13 @@ import {
   type PortfolioItem,
   type InsertPortfolioItem,
   type UpdatePortfolioItem,
+  type GoogleToken,
+  type InsertGoogleToken,
   reviews,
   users,
   blogPosts,
-  portfolioItems
+  portfolioItems,
+  googleTokens
 } from "@shared/schema";
 import { randomUUID } from "crypto";
 import { db } from "./db";
@@ -47,6 +50,11 @@ export interface IStorage {
   createPortfolioItem(data: InsertPortfolioItem): Promise<PortfolioItem>;
   updatePortfolioItem(id: string, data: UpdatePortfolioItem): Promise<PortfolioItem | null>;
   deletePortfolioItem(id: string): Promise<boolean>;
+
+  // Google OAuth token methods
+  getGoogleToken(): Promise<GoogleToken | undefined>;
+  saveGoogleToken(token: InsertGoogleToken): Promise<GoogleToken>;
+  deleteGoogleToken(id: string): Promise<void>;
 }
 
 export class MemStorage implements IStorage {
@@ -138,6 +146,18 @@ export class MemStorage implements IStorage {
 
   async deletePortfolioItem(id: string): Promise<boolean> {
     throw new Error("Portfolio items not implemented in MemStorage");
+  }
+
+  async getGoogleToken(): Promise<GoogleToken | undefined> {
+    throw new Error("Google tokens not implemented in MemStorage");
+  }
+
+  async saveGoogleToken(token: InsertGoogleToken): Promise<GoogleToken> {
+    throw new Error("Google tokens not implemented in MemStorage");
+  }
+
+  async deleteGoogleToken(id: string): Promise<void> {
+    throw new Error("Google tokens not implemented in MemStorage");
   }
 }
 
@@ -276,6 +296,22 @@ export class DbStorage implements IStorage {
   async deletePortfolioItem(id: string): Promise<boolean> {
     const result = await db.delete(portfolioItems).where(eq(portfolioItems.id, id));
     return true;
+  }
+
+  async getGoogleToken(): Promise<GoogleToken | undefined> {
+    const result = await db.select().from(googleTokens).limit(1);
+    return result[0];
+  }
+
+  async saveGoogleToken(token: InsertGoogleToken): Promise<GoogleToken> {
+    // Delete existing tokens and insert new one
+    await db.delete(googleTokens);
+    const result = await db.insert(googleTokens).values(token).returning();
+    return result[0];
+  }
+
+  async deleteGoogleToken(id: string): Promise<void> {
+    await db.delete(googleTokens).where(eq(googleTokens.id, id));
   }
 }
 

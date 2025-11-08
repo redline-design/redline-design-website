@@ -116,3 +116,23 @@ export const updatePortfolioItemSchema = createInsertSchema(portfolioItems).omit
 export type InsertPortfolioItem = z.infer<typeof insertPortfolioItemSchema>;
 export type UpdatePortfolioItem = z.infer<typeof updatePortfolioItemSchema>;
 export type PortfolioItem = typeof portfolioItems.$inferSelect;
+
+export const googleTokens = pgTable("google_tokens", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  accessToken: text("access_token").notNull(),
+  refreshToken: text("refresh_token").notNull(),
+  expiresAt: timestamp("expires_at").notNull(),
+  scope: text("scope").notNull(),
+  tokenType: text("token_type").notNull(),
+  createdAt: timestamp("created_at").default(sql`now()`).notNull(),
+  updatedAt: timestamp("updated_at").default(sql`now()`).notNull(),
+});
+
+export const insertGoogleTokenSchema = createInsertSchema(googleTokens).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export type InsertGoogleToken = z.infer<typeof insertGoogleTokenSchema>;
+export type GoogleToken = typeof googleTokens.$inferSelect;

@@ -1,5 +1,7 @@
 import { storage } from "./storage";
+import { googleOAuthService } from "./google-oauth";
 import type { InsertReview } from "@shared/schema";
+import { google } from 'googleapis';
 
 interface GoogleReviewData {
   name: string;
@@ -14,37 +16,61 @@ interface GoogleReviewData {
 }
 
 export class GoogleBusinessProfileService {
-  private apiKey: string;
-  private accountId: string;
-  private locationId: string;
+  private locationName: string;
 
   constructor() {
-    this.apiKey = process.env.GOOGLE_BUSINESS_API_KEY || "";
-    this.accountId = process.env.GOOGLE_BUSINESS_ACCOUNT_ID || "";
-    this.locationId = process.env.GOOGLE_BUSINESS_LOCATION_ID || "";
+    // Format: accounts/{account_id}/locations/{location_id}
+    this.locationName = process.env.GOOGLE_BUSINESS_LOCATION || "";
   }
 
   /**
-   * Fetch reviews from Google Business Profile API
+   * Fetch reviews from Google Business Profile API with pagination
    * https://developers.google.com/my-business/reference/rest/v4/accounts.locations.reviews/list
    */
   async fetchReviews(): Promise<GoogleReviewData[]> {
-    if (!this.apiKey || !this.accountId || !this.locationId) {
-      console.warn("Google Business API credentials not configured");
-      return [];
+    if (!this.locationName) {
+      throw new Error("GOOGLE_BUSINESS_LOCATION not configured. Please set it to: accounts/{account_id}/locations/{location_id}");
     }
 
     try {
-      const url = `https://mybusiness.googleapis.com/v4/accounts/${this.accountId}/locations/${this.locationId}/reviews?key=${this.apiKey}`;
+      // Get valid OAuth access token
+      const accessToken = await googleOAuthService.getValidAccessToken();
       
-      const response = await fetch(url);
+      // Initialize Google My Business API client
+      const auth = new google.auth.OAuth2();
+      auth.setCredentials({ access_token: accessToken });
       
-      if (!response.ok) {
-        throw new Error(`Google API error: ${response.status} ${response.statusText}`);
-      }
+      // Fetch all reviews with pagination
+      const allReviews: GoogleReviewData[] = [];
+      let pageToken: string | undefined;
 
-      const data = await response.json();
-      return data.reviews || [];
+      do {
+        const url = new URL(`https://mybusinessaccountmanagement.googleapis.com/v1/${this.locationName}/reviews`);
+        if (pageToken) {
+          url.searchParams.append('pageToken', pageToken);
+        }
+        url.searchParams.append('pageSize', '50'); // Max page size
+        
+        const response = await fetch(url.toString(), {
+          headers: {
+            'Authorization': `Bearer ${accessToken}`,
+            'Content-Type': 'application/json',
+          },
+        });
+        
+        if (!response.ok) {
+          const errorText = await response.text();
+          throw new Error(`Google API error: ${response.status} ${response.statusText} - ${errorText}`);
+        }
+
+        const data = await response.json();
+        if (data.reviews) {
+          allReviews.push(...data.reviews);
+        }
+        pageToken = data.nextPageToken;
+      } while (pageToken);
+
+      return allReviews;
     } catch (error) {
       console.error("Error fetching Google reviews:", error);
       throw error;

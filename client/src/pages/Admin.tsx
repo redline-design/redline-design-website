@@ -174,15 +174,49 @@ export default function Admin() {
     enabled: isAuthenticated,
   });
 
-  const syncReviewsMutation = useMutation({
+  const { data: googleStatus } = useQuery<{ connected: boolean }>({
+    queryKey: ["/api/google/status"],
+    enabled: isAuthenticated,
+  });
+
+  const connectGoogleMutation = useMutation({
     mutationFn: async () => {
-      return await apiRequest("POST", "/api/reviews/sync");
+      return await apiRequest("GET", "/api/google/auth");
     },
     onSuccess: (data: any) => {
-      queryClient.invalidateQueries({ queryKey: ["/api/reviews"] });
+      if (data.url) {
+        window.location.href = data.url;
+      }
+    },
+    onError: (error) => {
+      if (isUnauthorizedError(error)) {
+        toast({
+          title: "Unauthorized",
+          description: "You are logged out. Logging in again...",
+          variant: "destructive",
+        });
+        setTimeout(() => {
+          window.location.href = "/api/login";
+        }, 500);
+        return;
+      }
+      toast({
+        title: "Error",
+        description: "Failed to initiate Google connection",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const disconnectGoogleMutation = useMutation({
+    mutationFn: async () => {
+      return await apiRequest("POST", "/api/google/disconnect");
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/google/status"] });
       toast({
         title: "Success",
-        description: data.message || "Reviews synced successfully",
+        description: "Google account disconnected",
       });
     },
     onError: (error) => {
@@ -199,7 +233,38 @@ export default function Admin() {
       }
       toast({
         title: "Error",
-        description: "Failed to sync reviews",
+        description: "Failed to disconnect Google account",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const syncReviewsMutation = useMutation({
+    mutationFn: async () => {
+      return await apiRequest("POST", "/api/reviews/sync");
+    },
+    onSuccess: (data: any) => {
+      queryClient.invalidateQueries({ queryKey: ["/api/reviews"] });
+      toast({
+        title: "Success",
+        description: data.message || "Reviews synced successfully",
+      });
+    },
+    onError: (error: any) => {
+      if (isUnauthorizedError(error)) {
+        toast({
+          title: "Unauthorized",
+          description: "You are logged out. Logging in again...",
+          variant: "destructive",
+        });
+        setTimeout(() => {
+          window.location.href = "/api/login";
+        }, 500);
+        return;
+      }
+      toast({
+        title: "Error",
+        description: error?.details || "Failed to sync reviews. Make sure Google account is connected.",
         variant: "destructive",
       });
     },
@@ -786,29 +851,84 @@ export default function Admin() {
                   </CardHeader>
                 </CollapsibleTrigger>
                 <CollapsibleContent>
-                  <CardHeader className="pt-0">
-                    <div className="flex justify-end">
-                      <Button
-                        onClick={() => syncReviewsMutation.mutate()}
-                        disabled={syncReviewsMutation.isPending}
-                        data-testid="button-sync-reviews"
-                      >
-                        {syncReviewsMutation.isPending ? (
-                          <>
-                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                            Syncing...
-                          </>
-                        ) : (
-                          <>
-                            <RefreshCw className="mr-2 h-4 w-4" />
-                            Sync Reviews
-                          </>
-                        )}
-                      </Button>
+                  <CardContent>
+                    <div className="mb-6 p-4 rounded-lg bg-background border border-border">
+                      <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                        <div className="flex-1">
+                          <h3 className="font-semibold text-foreground mb-1">
+                            Google Business Profile Connection
+                          </h3>
+                          <p className="text-sm text-muted-foreground">
+                            {googleStatus?.connected ? (
+                              <span className="text-green-600 dark:text-green-400">
+                                ✓ Connected - Ready to sync reviews
+                              </span>
+                            ) : (
+                              "Connect your Google account to sync 5-star reviews"
+                            )}
+                          </p>
+                        </div>
+                        <div className="flex gap-2">
+                          {googleStatus?.connected ? (
+                            <>
+                              <Button
+                                onClick={() => syncReviewsMutation.mutate()}
+                                disabled={syncReviewsMutation.isPending}
+                                data-testid="button-sync-reviews"
+                              >
+                                {syncReviewsMutation.isPending ? (
+                                  <>
+                                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                    Syncing...
+                                  </>
+                                ) : (
+                                  <>
+                                    <RefreshCw className="mr-2 h-4 w-4" />
+                                    Sync Reviews
+                                  </>
+                                )}
+                              </Button>
+                              <Button
+                                variant="outline"
+                                onClick={() => disconnectGoogleMutation.mutate()}
+                                disabled={disconnectGoogleMutation.isPending}
+                                data-testid="button-disconnect-google"
+                              >
+                                {disconnectGoogleMutation.isPending ? (
+                                  <>
+                                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                    Disconnecting...
+                                  </>
+                                ) : (
+                                  "Disconnect"
+                                )}
+                              </Button>
+                            </>
+                          ) : (
+                            <Button
+                              onClick={() => connectGoogleMutation.mutate()}
+                              disabled={connectGoogleMutation.isPending}
+                              data-testid="button-connect-google"
+                            >
+                              {connectGoogleMutation.isPending ? (
+                                <>
+                                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                  Connecting...
+                                </>
+                              ) : (
+                                "Connect Google Account"
+                              )}
+                            </Button>
+                          )}
+                        </div>
+                      </div>
                     </div>
-                  </CardHeader>
-              <CardContent>
-                {isLoadingReviews ? (
+              <div className="space-y-4">
+                {!googleStatus?.connected ? (
+                  <div className="text-center py-8 text-muted-foreground">
+                    <p>Connect your Google account above to start syncing reviews</p>
+                  </div>
+                ) : isLoadingReviews ? (
                   <div className="flex items-center justify-center py-8">
                     <Loader2 className="h-8 w-8 animate-spin text-primary" />
                   </div>
@@ -866,7 +986,8 @@ export default function Admin() {
                     </div>
                   </div>
                 )}
-              </CardContent>
+                  </div>
+                </CardContent>
                 </CollapsibleContent>
               </Card>
             </Collapsible>
