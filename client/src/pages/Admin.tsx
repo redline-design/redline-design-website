@@ -22,6 +22,8 @@ import {
   RefreshCw,
   Star,
   Upload,
+  ChevronDown,
+  ExternalLink,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -63,6 +65,11 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Skeleton } from "@/components/ui/skeleton";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
 
 const categories = [
   "SEO",
@@ -125,6 +132,12 @@ export default function Admin() {
   const [isPortfolioDialogOpen, setIsPortfolioDialogOpen] = useState(false);
   const [editingPortfolioItem, setEditingPortfolioItem] = useState<PortfolioItem | null>(null);
   const [deletePortfolioItem, setDeletePortfolioItem] = useState<PortfolioItem | null>(null);
+  
+  // Collapsible section states (all collapsed by default)
+  const [isEmployeeToolsOpen, setIsEmployeeToolsOpen] = useState(false);
+  const [isReviewsOpen, setIsReviewsOpen] = useState(false);
+  const [isBlogPostsOpen, setIsBlogPostsOpen] = useState(false);
+  const [isPortfolioOpen, setIsPortfolioOpen] = useState(false);
 
   // Redirect to login if not authenticated
   useEffect(() => {
@@ -645,6 +658,102 @@ export default function Admin() {
             </p>
           </motion.div>
 
+          {/* Employee Tools Section */}
+          <motion.div
+            className="mb-12"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.05 }}
+          >
+            <Collapsible open={isEmployeeToolsOpen} onOpenChange={setIsEmployeeToolsOpen}>
+              <Card className="rounded-2xl backdrop-blur-md bg-card/40 border-border/50 shadow-lg">
+                <CollapsibleTrigger className="w-full" data-testid="button-toggle-employee-tools">
+                  <CardHeader>
+                    <div className="flex items-center justify-between gap-4">
+                      <CardTitle className="text-2xl font-bold flex items-center gap-2">
+                        <ExternalLink className="h-6 w-6 text-primary" />
+                        Employee Tools
+                      </CardTitle>
+                      <ChevronDown
+                        className={`h-5 w-5 text-muted-foreground transition-transform duration-200 ${
+                          isEmployeeToolsOpen ? "rotate-180" : ""
+                        }`}
+                      />
+                    </div>
+                  </CardHeader>
+                </CollapsibleTrigger>
+                <CollapsibleContent>
+                  <CardContent>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                      <div className="p-6 rounded-lg border border-border bg-background hover-elevate" data-testid="card-hosting-link">
+                        <div className="mb-4">
+                          <h3 className="text-lg font-semibold flex items-center gap-2">
+                            <ExternalLink className="h-5 w-5" />
+                            Website Hosting
+                          </h3>
+                        </div>
+                        <p className="text-sm text-muted-foreground mb-4">
+                          Manage client website hosting subscriptions
+                        </p>
+                        <Button
+                          variant="outline"
+                          className="w-full"
+                          onClick={() => window.open("https://buy.stripe.com/7sY5kD3F26iL3jfeImgbm00", "_blank")}
+                          data-testid="button-hosting-link"
+                        >
+                          Open Subscription Link
+                          <ExternalLink className="ml-2 h-4 w-4" />
+                        </Button>
+                      </div>
+
+                      <div className="p-6 rounded-lg border border-border bg-background hover-elevate" data-testid="card-seo-tool">
+                        <div className="mb-4">
+                          <h3 className="text-lg font-semibold flex items-center gap-2">
+                            <ExternalLink className="h-5 w-5" />
+                            Redline Ascend SEO
+                          </h3>
+                        </div>
+                        <p className="text-sm text-muted-foreground mb-4">
+                          Access the SEO analysis and optimization tool
+                        </p>
+                        <Button
+                          variant="outline"
+                          className="w-full"
+                          onClick={() => window.open("https://redline-ascend-seo-redline6.replit.app", "_blank")}
+                          data-testid="button-seo-tool"
+                        >
+                          Open SEO Tool
+                          <ExternalLink className="ml-2 h-4 w-4" />
+                        </Button>
+                      </div>
+
+                      <div className="p-6 rounded-lg border border-border bg-background hover-elevate" data-testid="card-onboarding">
+                        <div className="mb-4">
+                          <h3 className="text-lg font-semibold flex items-center gap-2">
+                            <ExternalLink className="h-5 w-5" />
+                            Client Onboarding
+                          </h3>
+                        </div>
+                        <p className="text-sm text-muted-foreground mb-4">
+                          Access the client onboarding system
+                        </p>
+                        <Button
+                          variant="outline"
+                          className="w-full"
+                          onClick={() => window.open("https://onboard-redline6.replit.app", "_blank")}
+                          data-testid="button-onboarding"
+                        >
+                          Open Onboarding
+                          <ExternalLink className="ml-2 h-4 w-4" />
+                        </Button>
+                      </div>
+                    </div>
+                  </CardContent>
+                </CollapsibleContent>
+              </Card>
+            </Collapsible>
+          </motion.div>
+
           {/* Reviews Management Section */}
           <motion.div
             className="mb-12"
@@ -652,37 +761,50 @@ export default function Admin() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
-            <Card className="rounded-2xl backdrop-blur-md bg-card/40 border-border/50 shadow-lg">
-              <CardHeader>
-                <div className="flex flex-wrap items-center justify-between gap-4">
-                  <div>
-                    <CardTitle className="text-2xl font-bold flex items-center gap-2">
-                      <Star className="h-6 w-6 text-primary" />
-                      Google Reviews
-                    </CardTitle>
-                    <p className="text-sm text-muted-foreground mt-1">
-                      Sync 5-star reviews from Google Business Profile
-                    </p>
-                  </div>
-                  <Button
-                    onClick={() => syncReviewsMutation.mutate()}
-                    disabled={syncReviewsMutation.isPending}
-                    data-testid="button-sync-reviews"
-                  >
-                    {syncReviewsMutation.isPending ? (
-                      <>
-                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                        Syncing...
-                      </>
-                    ) : (
-                      <>
-                        <RefreshCw className="mr-2 h-4 w-4" />
-                        Sync Reviews
-                      </>
-                    )}
-                  </Button>
-                </div>
-              </CardHeader>
+            <Collapsible open={isReviewsOpen} onOpenChange={setIsReviewsOpen}>
+              <Card className="rounded-2xl backdrop-blur-md bg-card/40 border-border/50 shadow-lg">
+                <CollapsibleTrigger className="w-full" data-testid="button-toggle-reviews">
+                  <CardHeader>
+                    <div className="flex items-center justify-between gap-4">
+                      <div className="flex-1 text-left">
+                        <CardTitle className="text-2xl font-bold flex items-center gap-2">
+                          <Star className="h-6 w-6 text-primary" />
+                          Google Reviews
+                        </CardTitle>
+                        <p className="text-sm text-muted-foreground mt-1">
+                          Sync 5-star reviews from Google Business Profile
+                        </p>
+                      </div>
+                      <ChevronDown
+                        className={`h-5 w-5 text-muted-foreground transition-transform duration-200 ${
+                          isReviewsOpen ? "rotate-180" : ""
+                        }`}
+                      />
+                    </div>
+                  </CardHeader>
+                </CollapsibleTrigger>
+                <CollapsibleContent>
+                  <CardHeader className="pt-0">
+                    <div className="flex justify-end">
+                      <Button
+                        onClick={() => syncReviewsMutation.mutate()}
+                        disabled={syncReviewsMutation.isPending}
+                        data-testid="button-sync-reviews"
+                      >
+                        {syncReviewsMutation.isPending ? (
+                          <>
+                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                            Syncing...
+                          </>
+                        ) : (
+                          <>
+                            <RefreshCw className="mr-2 h-4 w-4" />
+                            Sync Reviews
+                          </>
+                        )}
+                      </Button>
+                    </div>
+                  </CardHeader>
               <CardContent>
                 {isLoadingReviews ? (
                   <div className="flex items-center justify-center py-8">
@@ -743,13 +865,24 @@ export default function Admin() {
                   </div>
                 )}
               </CardContent>
-            </Card>
+                </CollapsibleContent>
+              </Card>
+            </Collapsible>
           </motion.div>
 
           {/* Blog Posts Section */}
-          <div className="mb-4">
-            <h2 className="text-2xl font-bold text-foreground">Blog Posts</h2>
-          </div>
+          <Collapsible open={isBlogPostsOpen} onOpenChange={setIsBlogPostsOpen}>
+            <div className="mb-4">
+              <CollapsibleTrigger className="w-full flex items-center justify-between hover-elevate rounded-lg p-4" data-testid="button-toggle-blog-posts">
+                <h2 className="text-2xl font-bold text-foreground">Blog Posts</h2>
+                <ChevronDown
+                  className={`h-5 w-5 text-muted-foreground transition-transform duration-200 ${
+                    isBlogPostsOpen ? "rotate-180" : ""
+                  }`}
+                />
+              </CollapsibleTrigger>
+            </div>
+            <CollapsibleContent>
 
           {isLoadingPosts ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -866,11 +999,22 @@ export default function Admin() {
               ))}
             </motion.div>
           )}
+            </CollapsibleContent>
+          </Collapsible>
 
           {/* Portfolio Section */}
-          <div className="mt-16 mb-4">
-            <h2 className="text-2xl font-bold text-foreground">Portfolio Items</h2>
-          </div>
+          <Collapsible open={isPortfolioOpen} onOpenChange={setIsPortfolioOpen}>
+            <div className="mt-16 mb-4">
+              <CollapsibleTrigger className="w-full flex items-center justify-between hover-elevate rounded-lg p-4" data-testid="button-toggle-portfolio">
+                <h2 className="text-2xl font-bold text-foreground">Portfolio Items</h2>
+                <ChevronDown
+                  className={`h-5 w-5 text-muted-foreground transition-transform duration-200 ${
+                    isPortfolioOpen ? "rotate-180" : ""
+                  }`}
+                />
+              </CollapsibleTrigger>
+            </div>
+            <CollapsibleContent>
 
           {isLoadingPortfolio ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -1086,6 +1230,8 @@ export default function Admin() {
               ))}
             </motion.div>
           )}
+            </CollapsibleContent>
+          </Collapsible>
         </div>
       </section>
 

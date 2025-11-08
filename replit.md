@@ -81,6 +81,19 @@ This structure allows beginners to get quick answers while advanced users can di
 - Delete with confirmation dialog
 - React Query mutations with proper cache invalidation
 - Toast notifications for user feedback
+- Dual-path screenshot capture: Automated via ScreenshotOne API + manual upload fallback
+- Logo upload functionality with file validation
+- Edit dialog with form validation for all portfolio fields
+
+**Admin Dashboard Reorganization** (November 2025):
+- **Collapsible Sections**: All major sections (Employee Tools, Google Reviews, Blog Posts, Portfolio) are now collapsible with smooth animations
+- **Collapsed by Default**: All sections start collapsed for cleaner dashboard layout and reduced cognitive load
+- **Employee Tools Section**: New dedicated section with quick access to:
+  - Website Hosting Subscription Link (Stripe payment link for client hosting)
+  - Redline Ascend SEO Tool (SEO analysis and optimization platform)
+  - Redline Onboarding (Client onboarding system)
+- Each section features a ChevronDown icon that rotates on expand/collapse
+- Uses shadcn Collapsible component with smooth transitions
 
 **Initial Portfolio Items** (5 seeded projects):
 1. Morf Media Photos (Photography)
