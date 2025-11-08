@@ -32,7 +32,7 @@ function PortfolioCard({ item, delay = 0 }: { item: PortfolioItem; delay?: numbe
         <CardContent className="p-0">
           <div className="relative aspect-video overflow-hidden bg-muted">
             <img
-              src={item.screenshotUrl}
+              src={item.screenshotUrl || '/placeholder-portfolio.png'}
               alt={item.title}
               className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
               data-testid={`portfolio-image-${item.id}`}
