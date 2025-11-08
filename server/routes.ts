@@ -7,6 +7,7 @@ import { setupAuth, isAuthenticated } from "./replitAuth";
 import multer from "multer";
 import path from "path";
 import fs from "fs/promises";
+import { optimizeUploadedFile } from "./imageOptimizer";
 
 // API key middleware for external integrations
 const requireApiKey: RequestHandler = (req, res, next) => {
@@ -311,13 +312,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ error: "No file uploaded" });
       }
 
-      const logoWebPath = `/attached_assets/portfolio_logos/${req.file.filename}`;
+      const optimizedPath = await optimizeUploadedFile(req.file, { 
+        maxSizeKB: 100,
+        format: 'webp'
+      });
+      
+      const filename = path.basename(optimizedPath);
+      const logoWebPath = `/attached_assets/portfolio_logos/${filename}`;
       const updatedItem = await storage.updatePortfolioItem(req.params.id, {
         logoUrl: logoWebPath
       });
 
       if (!updatedItem) {
-        await fs.unlink(req.file.path);
+        await fs.unlink(optimizedPath);
         return res.status(404).json({ error: "Portfolio item not found" });
       }
 
@@ -363,13 +370,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ error: "No file uploaded" });
       }
 
-      const screenshotWebPath = `/attached_assets/portfolio_screenshots/${req.file.filename}`;
+      const optimizedPath = await optimizeUploadedFile(req.file, { 
+        maxSizeKB: 150,
+        format: 'webp'
+      });
+      
+      const filename = path.basename(optimizedPath);
+      const screenshotWebPath = `/attached_assets/portfolio_screenshots/${filename}`;
       const updatedItem = await storage.updatePortfolioItem(req.params.id, {
         screenshotUrl: screenshotWebPath
       });
 
       if (!updatedItem) {
-        await fs.unlink(req.file.path);
+        await fs.unlink(optimizedPath);
         return res.status(404).json({ error: "Portfolio item not found" });
       }
 
