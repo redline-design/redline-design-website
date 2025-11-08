@@ -228,6 +228,32 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Portfolio endpoints
+  app.patch("/api/portfolio/reorder", isAuthenticated, async (req, res) => {
+    try {
+      const { items } = req.body;
+      if (!Array.isArray(items)) {
+        return res.status(400).json({ error: "Items must be an array" });
+      }
+      
+      console.log(`Reordering ${items.length} portfolio items:`, items);
+      
+      // Update display order for all items in parallel
+      const results = await Promise.all(
+        items.map(async (item) => {
+          const result = await storage.updatePortfolioItem(item.id, { displayOrder: item.displayOrder });
+          console.log(`Updated item ${item.id} to displayOrder ${item.displayOrder}, result:`, result?.displayOrder);
+          return result;
+        })
+      );
+      
+      console.log(`Reorder complete. Updated ${results.length} items.`);
+      res.json({ success: true });
+    } catch (error: any) {
+      console.error("Error reordering portfolio items:", error);
+      res.status(400).json({ error: "Failed to reorder portfolio items", details: error.message });
+    }
+  });
+
   app.get("/api/portfolio", async (req, res) => {
     try {
       const items = await storage.getPortfolioItems();

@@ -26,7 +26,26 @@ import {
   ExternalLink,
   FileText,
   Briefcase,
+  Camera,
+  GripVertical,
 } from "lucide-react";
+import {
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  DragEndEvent,
+} from '@dnd-kit/core';
+import {
+  arrayMove,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  useSortable,
+  verticalListSortingStrategy,
+} from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -152,6 +171,9 @@ export default function Admin() {
   const [isReviewsOpen, setIsReviewsOpen] = useState(false);
   const [isBlogPostsOpen, setIsBlogPostsOpen] = useState(false);
   const [isPortfolioOpen, setIsPortfolioOpen] = useState(false);
+
+  // Local state for drag-and-drop portfolio reordering
+  const [localPortfolioItems, setLocalPortfolioItems] = useState<PortfolioItem[]>([]);
 
   // Redirect to login if not authenticated
   useEffect(() => {
@@ -411,6 +433,37 @@ export default function Admin() {
     },
   });
 
+  const reorderPortfolioMutation = useMutation({
+    mutationFn: async (items: { id: string; displayOrder: number }[]) => {
+      return await apiRequest("PATCH", "/api/portfolio/reorder", { items });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/portfolio"] });
+      toast({
+        title: "Success",
+        description: "Portfolio items reordered successfully",
+      });
+    },
+    onError: (error) => {
+      if (isUnauthorizedError(error)) {
+        toast({
+          title: "Unauthorized",
+          description: "You are logged out. Logging in again...",
+          variant: "destructive",
+        });
+        setTimeout(() => {
+          window.location.href = "/api/login";
+        }, 500);
+        return;
+      }
+      toast({
+        title: "Error",
+        description: "Failed to reorder portfolio items",
+        variant: "destructive",
+      });
+    },
+  });
+
   const createReviewMutation = useMutation({
     mutationFn: async (data: InsertReview) => {
       return await apiRequest("POST", "/api/reviews", data);
@@ -568,6 +621,52 @@ export default function Admin() {
       setIsReviewDialogOpen(true);
     }
   }, [editingReview]);
+
+  // Sync portfolio items to local state for drag-and-drop
+  useEffect(() => {
+    // Compare the ordered IDs to detect if anything changed
+    const serverIds = portfolioItems.map(item => item.id).join(',');
+    const localIds = localPortfolioItems.map(item => item.id).join(',');
+    
+    // Only update if the items have actually changed (avoid infinite loop)
+    if (serverIds !== localIds) {
+      setLocalPortfolioItems(portfolioItems);
+    }
+  }, [portfolioItems, localPortfolioItems]);
+
+  // Set up dnd-kit sensors
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
+
+  // Handle drag end event
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
+    
+    if (over && active.id !== over.id) {
+      const oldIndex = localPortfolioItems.findIndex((item) => item.id === active.id);
+      const newIndex = localPortfolioItems.findIndex((item) => item.id === over.id);
+      
+      if (oldIndex !== -1 && newIndex !== -1) {
+        const reorderedItems = arrayMove(localPortfolioItems, oldIndex, newIndex);
+        
+        // Update local state immediately for optimistic UI
+        setLocalPortfolioItems(reorderedItems);
+        
+        // Prepare display order updates for all items
+        const updatedItems = reorderedItems.map((item, index) => ({
+          id: item.id,
+          displayOrder: index,
+        }));
+        
+        // Call the mutation to save the new order to the database
+        reorderPortfolioMutation.mutate(updatedItems);
+      }
+    }
+  };
 
   const createMutation = useMutation({
     mutationFn: async (data: InsertBlogPost) => {
@@ -825,6 +924,234 @@ export default function Admin() {
     } else {
       createReviewMutation.mutate(reviewData);
     }
+  };
+
+  // SortablePortfolioCard component for drag-and-drop
+  const SortablePortfolioCard = ({
+    item,
+    index,
+    onEdit,
+    onDelete,
+    onUploadScreenshot,
+    onUploadLogo,
+    onCaptureScreenshot,
+    isCapturingScreenshot,
+    isUploadingScreenshot,
+    isUploadingLogo,
+  }: {
+    item: PortfolioItem;
+    index: number;
+    onEdit: () => void;
+    onDelete: () => void;
+    onUploadScreenshot: (file: File) => void;
+    onUploadLogo: (file: File) => void;
+    onCaptureScreenshot: () => void;
+    isCapturingScreenshot: boolean;
+    isUploadingScreenshot: boolean;
+    isUploadingLogo: boolean;
+  }) => {
+    const {
+      attributes,
+      listeners,
+      setNodeRef,
+      transform,
+      transition,
+      isDragging,
+    } = useSortable({ id: item.id });
+
+    const style = {
+      transform: CSS.Transform.toString(transform),
+      transition,
+      opacity: isDragging ? 0.5 : 1,
+    };
+
+    return (
+      <motion.div
+        ref={setNodeRef}
+        style={style}
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: index * 0.05 }}
+        data-testid={`card-portfolio-${item.id}`}
+      >
+        <Card className="rounded-2xl backdrop-blur-md bg-card/40 border-border/50 shadow-lg hover-elevate h-full">
+          <div className="flex items-center justify-between p-4 border-b border-border/50">
+            <button
+              className="cursor-grab active:cursor-grabbing hover-elevate p-2 rounded-md"
+              {...attributes}
+              {...listeners}
+              data-testid={`drag-handle-${item.id}`}
+            >
+              <GripVertical className="h-5 w-5 text-muted-foreground" />
+            </button>
+            <Badge variant="secondary">{item.category}</Badge>
+          </div>
+          
+          <div className="aspect-video overflow-hidden bg-muted relative">
+            {item.screenshotUrl ? (
+              <img
+                src={item.screenshotUrl}
+                alt={item.title}
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center text-muted-foreground">
+                No screenshot
+              </div>
+            )}
+            {item.logoUrl && (
+              <div className="absolute top-2 left-2 bg-white dark:bg-gray-900 rounded-lg p-2 shadow-lg">
+                <img
+                  src={item.logoUrl}
+                  alt={`${item.title} logo`}
+                  className="h-8 w-auto object-contain"
+                />
+              </div>
+            )}
+          </div>
+          
+          <CardHeader>
+            <CardTitle className="text-lg line-clamp-2">
+              {item.title}
+            </CardTitle>
+            {item.description && (
+              <p className="text-sm text-muted-foreground line-clamp-2">
+                {item.description}
+              </p>
+            )}
+          </CardHeader>
+          
+          <CardContent>
+            <div className="space-y-2">
+              <div className="flex flex-wrap items-center gap-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => window.open(item.url, '_blank')}
+                  data-testid={`button-view-${item.id}`}
+                >
+                  View Site
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={onEdit}
+                  data-testid={`button-edit-portfolio-${item.id}`}
+                >
+                  <Pencil className="h-4 w-4 mr-1" />
+                  Edit
+                </Button>
+                <Button
+                  variant="destructive"
+                  size="sm"
+                  onClick={onDelete}
+                  data-testid={`button-delete-portfolio-${item.id}`}
+                >
+                  <Trash2 className="h-4 w-4 mr-1" />
+                  Delete
+                </Button>
+              </div>
+              
+              <div className="flex flex-wrap items-center gap-2">
+                <Button
+                  variant="secondary"
+                  size="sm"
+                  onClick={onCaptureScreenshot}
+                  disabled={isCapturingScreenshot}
+                  data-testid={`button-screenshot-${item.id}`}
+                >
+                  {isCapturingScreenshot ? (
+                    <>
+                      <Loader2 className="h-4 w-4 mr-1 animate-spin" />
+                      Capturing...
+                    </>
+                  ) : (
+                    <>
+                      <Camera className="h-4 w-4 mr-1" />
+                      Auto Screenshot
+                    </>
+                  )}
+                </Button>
+                
+                <label htmlFor={`screenshot-upload-${item.id}`}>
+                  <Button
+                    variant="secondary"
+                    size="sm"
+                    asChild
+                    disabled={isUploadingScreenshot}
+                    data-testid={`button-upload-screenshot-${item.id}`}
+                  >
+                    <span className="cursor-pointer">
+                      {isUploadingScreenshot ? (
+                        <>
+                          <Loader2 className="h-4 w-4 mr-1 animate-spin" />
+                          Uploading...
+                        </>
+                      ) : (
+                        <>
+                          <Upload className="h-4 w-4 mr-1" />
+                          Upload Screenshot
+                        </>
+                      )}
+                    </span>
+                  </Button>
+                </label>
+                <input
+                  id={`screenshot-upload-${item.id}`}
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    if (file) {
+                      onUploadScreenshot(file);
+                      e.target.value = '';
+                    }
+                  }}
+                />
+                
+                <label htmlFor={`logo-upload-${item.id}`}>
+                  <Button
+                    variant="secondary"
+                    size="sm"
+                    asChild
+                    disabled={isUploadingLogo}
+                    data-testid={`button-logo-${item.id}`}
+                  >
+                    <span className="cursor-pointer">
+                      {isUploadingLogo ? (
+                        <>
+                          <Loader2 className="h-4 w-4 mr-1 animate-spin" />
+                          Uploading...
+                        </>
+                      ) : (
+                        <>
+                          <Upload className="h-4 w-4 mr-1" />
+                          Upload Logo
+                        </>
+                      )}
+                    </span>
+                  </Button>
+                </label>
+                <input
+                  id={`logo-upload-${item.id}`}
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    if (file) {
+                      onUploadLogo(file);
+                      e.target.value = '';
+                    }
+                  }}
+                />
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </motion.div>
+    );
   };
 
   if (isLoading) {
@@ -1299,186 +1626,39 @@ export default function Admin() {
               </Card>
             </motion.div>
           ) : (
-            <motion.div
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6 }}
+            <DndContext
+              sensors={sensors}
+              collisionDetection={closestCenter}
+              onDragEnd={handleDragEnd}
             >
-              {portfolioItems.map((item, index) => (
+              <SortableContext
+                items={localPortfolioItems.map(item => item.id)}
+                strategy={verticalListSortingStrategy}
+              >
                 <motion.div
-                  key={item.id}
-                  initial={{ opacity: 0, y: 40 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.05 }}
-                  data-testid={`card-portfolio-${item.id}`}
+                  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.6 }}
                 >
-                  <Card className="rounded-2xl backdrop-blur-md bg-card/40 border-border/50 shadow-lg hover-elevate h-full">
-                    <div className="aspect-video overflow-hidden rounded-t-2xl bg-muted relative">
-                      {item.screenshotUrl ? (
-                        <img
-                          src={item.screenshotUrl}
-                          alt={item.title}
-                          className="w-full h-full object-cover"
-                        />
-                      ) : (
-                        <div className="w-full h-full flex items-center justify-center text-muted-foreground">
-                          No screenshot
-                        </div>
-                      )}
-                      {item.logoUrl && (
-                        <div className="absolute top-2 left-2 bg-white dark:bg-gray-900 rounded-lg p-2 shadow-lg">
-                          <img
-                            src={item.logoUrl}
-                            alt={`${item.title} logo`}
-                            className="h-8 w-auto object-contain"
-                          />
-                        </div>
-                      )}
-                    </div>
-                    <CardHeader>
-                      <div className="flex items-start justify-between gap-2 mb-2">
-                        <CardTitle className="text-lg line-clamp-2">
-                          {item.title}
-                        </CardTitle>
-                        <Badge variant="secondary">{item.category}</Badge>
-                      </div>
-                      {item.description && (
-                        <p className="text-sm text-muted-foreground line-clamp-2">
-                          {item.description}
-                        </p>
-                      )}
-                    </CardHeader>
-                    <CardContent>
-                      <div className="space-y-2">
-                        <div className="flex flex-wrap items-center gap-2">
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            onClick={() => window.open(item.url, '_blank')}
-                            data-testid={`button-view-${item.id}`}
-                          >
-                            View Site
-                          </Button>
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            onClick={() => handleOpenPortfolioDialog(item)}
-                            data-testid={`button-edit-portfolio-${item.id}`}
-                          >
-                            <Pencil className="h-4 w-4 mr-1" />
-                            Edit
-                          </Button>
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            onClick={() => setDeletePortfolioItem(item)}
-                            className="text-destructive hover:text-destructive"
-                            data-testid={`button-delete-portfolio-${item.id}`}
-                          >
-                            <Trash2 className="h-4 w-4 mr-1" />
-                            Delete
-                          </Button>
-                        </div>
-                        <div className="flex flex-wrap items-center gap-2">
-                          <Button
-                            variant="secondary"
-                            size="sm"
-                            onClick={() => captureScreenshotMutation.mutate(item.id)}
-                            disabled={captureScreenshotMutation.isPending}
-                            data-testid={`button-screenshot-${item.id}`}
-                          >
-                            {captureScreenshotMutation.isPending ? (
-                              <>
-                                <Loader2 className="h-4 w-4 mr-1 animate-spin" />
-                                Capturing...
-                              </>
-                            ) : (
-                              <>
-                                <RefreshCw className="h-4 w-4 mr-1" />
-                                Auto Screenshot
-                              </>
-                            )}
-                          </Button>
-                          <label htmlFor={`screenshot-upload-${item.id}`}>
-                            <Button
-                              variant="secondary"
-                              size="sm"
-                              asChild
-                              disabled={uploadScreenshotMutation.isPending}
-                              data-testid={`button-upload-screenshot-${item.id}`}
-                            >
-                              <span className="cursor-pointer">
-                                {uploadScreenshotMutation.isPending ? (
-                                  <>
-                                    <Loader2 className="h-4 w-4 mr-1 animate-spin" />
-                                    Uploading...
-                                  </>
-                                ) : (
-                                  <>
-                                    <Upload className="h-4 w-4 mr-1" />
-                                    Upload Screenshot
-                                  </>
-                                )}
-                              </span>
-                            </Button>
-                          </label>
-                          <input
-                            id={`screenshot-upload-${item.id}`}
-                            type="file"
-                            accept="image/*"
-                            className="hidden"
-                            onChange={(e) => {
-                              const file = e.target.files?.[0];
-                              if (file) {
-                                uploadScreenshotMutation.mutate({ id: item.id, file });
-                                e.target.value = '';
-                              }
-                            }}
-                          />
-                          <label htmlFor={`logo-upload-${item.id}`}>
-                            <Button
-                              variant="secondary"
-                              size="sm"
-                              asChild
-                              disabled={uploadLogoMutation.isPending}
-                              data-testid={`button-logo-${item.id}`}
-                            >
-                              <span className="cursor-pointer">
-                                {uploadLogoMutation.isPending ? (
-                                  <>
-                                    <Loader2 className="h-4 w-4 mr-1 animate-spin" />
-                                    Uploading...
-                                  </>
-                                ) : (
-                                  <>
-                                    <Upload className="h-4 w-4 mr-1" />
-                                    Upload Logo
-                                  </>
-                                )}
-                              </span>
-                            </Button>
-                          </label>
-                          <input
-                            id={`logo-upload-${item.id}`}
-                            type="file"
-                            accept="image/*"
-                            className="hidden"
-                            onChange={(e) => {
-                              const file = e.target.files?.[0];
-                              if (file) {
-                                uploadLogoMutation.mutate({ id: item.id, file });
-                                e.target.value = '';
-                              }
-                            }}
-                          />
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
+                  {localPortfolioItems.map((item, index) => (
+                    <SortablePortfolioCard
+                      key={item.id}
+                      item={item}
+                      index={index}
+                      onEdit={() => handleOpenPortfolioDialog(item)}
+                      onDelete={() => setDeletePortfolioItem(item)}
+                      onUploadScreenshot={(file) => uploadScreenshotMutation.mutate({ id: item.id, file })}
+                      onUploadLogo={(file) => uploadLogoMutation.mutate({ id: item.id, file })}
+                      onCaptureScreenshot={() => captureScreenshotMutation.mutate(item.id)}
+                      isCapturingScreenshot={captureScreenshotMutation.isPending}
+                      isUploadingScreenshot={uploadScreenshotMutation.isPending}
+                      isUploadingLogo={uploadLogoMutation.isPending}
+                    />
+                  ))}
                 </motion.div>
-              ))}
-            </motion.div>
+              </SortableContext>
+            </DndContext>
           )}
                 </CardContent>
               </CollapsibleContent>
