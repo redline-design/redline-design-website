@@ -24,6 +24,8 @@ import {
   Upload,
   ChevronDown,
   ExternalLink,
+  FileText,
+  Briefcase,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -883,6 +885,7 @@ export default function Admin() {
                   <CardHeader>
                     <div className="flex items-center justify-between gap-4">
                       <CardTitle className="text-2xl font-bold flex items-center gap-2">
+                        <FileText className="h-6 w-6 text-primary" />
                         Blog Posts
                       </CardTitle>
                       <ChevronDown
@@ -1030,6 +1033,7 @@ export default function Admin() {
                   <CardHeader>
                     <div className="flex items-center justify-between gap-4">
                       <CardTitle className="text-2xl font-bold flex items-center gap-2">
+                        <Briefcase className="h-6 w-6 text-primary" />
                         Portfolio Items
                       </CardTitle>
                       <ChevronDown
