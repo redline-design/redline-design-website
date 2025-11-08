@@ -871,18 +871,30 @@ export default function Admin() {
           </motion.div>
 
           {/* Blog Posts Section */}
-          <Collapsible open={isBlogPostsOpen} onOpenChange={setIsBlogPostsOpen}>
-            <div className="mb-4">
-              <CollapsibleTrigger className="w-full flex items-center justify-between hover-elevate rounded-lg p-4" data-testid="button-toggle-blog-posts">
-                <h2 className="text-2xl font-bold text-foreground">Blog Posts</h2>
-                <ChevronDown
-                  className={`h-5 w-5 text-muted-foreground transition-transform duration-200 ${
-                    isBlogPostsOpen ? "rotate-180" : ""
-                  }`}
-                />
-              </CollapsibleTrigger>
-            </div>
-            <CollapsibleContent>
+          <motion.div
+            className="mb-12"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.15 }}
+          >
+            <Collapsible open={isBlogPostsOpen} onOpenChange={setIsBlogPostsOpen}>
+              <Card className="rounded-2xl backdrop-blur-md bg-card/40 border-border/50 shadow-lg">
+                <CollapsibleTrigger className="w-full" data-testid="button-toggle-blog-posts">
+                  <CardHeader>
+                    <div className="flex items-center justify-between gap-4">
+                      <CardTitle className="text-2xl font-bold flex items-center gap-2">
+                        Blog Posts
+                      </CardTitle>
+                      <ChevronDown
+                        className={`h-5 w-5 text-muted-foreground transition-transform duration-200 ${
+                          isBlogPostsOpen ? "rotate-180" : ""
+                        }`}
+                      />
+                    </div>
+                  </CardHeader>
+                </CollapsibleTrigger>
+                <CollapsibleContent>
+                  <CardContent>
 
           {isLoadingPosts ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -999,22 +1011,37 @@ export default function Admin() {
               ))}
             </motion.div>
           )}
-            </CollapsibleContent>
+                </CardContent>
+              </CollapsibleContent>
+            </Card>
           </Collapsible>
+          </motion.div>
 
           {/* Portfolio Section */}
-          <Collapsible open={isPortfolioOpen} onOpenChange={setIsPortfolioOpen}>
-            <div className="mt-16 mb-4">
-              <CollapsibleTrigger className="w-full flex items-center justify-between hover-elevate rounded-lg p-4" data-testid="button-toggle-portfolio">
-                <h2 className="text-2xl font-bold text-foreground">Portfolio Items</h2>
-                <ChevronDown
-                  className={`h-5 w-5 text-muted-foreground transition-transform duration-200 ${
-                    isPortfolioOpen ? "rotate-180" : ""
-                  }`}
-                />
-              </CollapsibleTrigger>
-            </div>
-            <CollapsibleContent>
+          <motion.div
+            className="mt-16"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            <Collapsible open={isPortfolioOpen} onOpenChange={setIsPortfolioOpen}>
+              <Card className="rounded-2xl backdrop-blur-md bg-card/40 border-border/50 shadow-lg">
+                <CollapsibleTrigger className="w-full" data-testid="button-toggle-portfolio">
+                  <CardHeader>
+                    <div className="flex items-center justify-between gap-4">
+                      <CardTitle className="text-2xl font-bold flex items-center gap-2">
+                        Portfolio Items
+                      </CardTitle>
+                      <ChevronDown
+                        className={`h-5 w-5 text-muted-foreground transition-transform duration-200 ${
+                          isPortfolioOpen ? "rotate-180" : ""
+                        }`}
+                      />
+                    </div>
+                  </CardHeader>
+                </CollapsibleTrigger>
+                <CollapsibleContent>
+                  <CardContent>
 
           {isLoadingPortfolio ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -1230,8 +1257,11 @@ export default function Admin() {
               ))}
             </motion.div>
           )}
-            </CollapsibleContent>
+                </CardContent>
+              </CollapsibleContent>
+            </Card>
           </Collapsible>
+          </motion.div>
         </div>
       </section>
 
