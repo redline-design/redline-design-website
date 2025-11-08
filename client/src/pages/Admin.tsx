@@ -268,9 +268,14 @@ export default function Admin() {
         }, 500);
         return;
       }
+      // Extract detailed error from server response
+      const errorData = error?.response?.data;
+      const errorMessage = errorData?.error || error.message || "Failed to capture screenshot";
+      const errorDetails = errorData?.details;
+      
       toast({
-        title: "Error",
-        description: error?.details || "Failed to capture screenshot. Make sure SCREENSHOTONE_API_KEY is configured.",
+        title: "Screenshot Failed",
+        description: errorDetails ? `${errorMessage}. ${errorDetails}` : errorMessage,
         variant: "destructive",
       });
     },

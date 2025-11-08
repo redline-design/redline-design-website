@@ -314,25 +314,58 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.post("/api/portfolio/:id/screenshot", isAuthenticated, async (req, res) => {
     try {
+      console.log(`[Screenshot] Starting auto screenshot for portfolio item ${req.params.id}`);
+      
       const item = await storage.getPortfolioItemById(req.params.id);
       if (!item) {
+        console.error(`[Screenshot] Portfolio item not found: ${req.params.id}`);
         return res.status(404).json({ error: "Portfolio item not found" });
       }
 
+      console.log(`[Screenshot] Capturing screenshot for URL: ${item.url}`);
+
       const screenshotApiKey = process.env.SCREENSHOTONE_API_KEY;
       if (!screenshotApiKey) {
-        return res.status(500).json({ error: "Screenshot API key not configured" });
+        console.error("[Screenshot] SCREENSHOTONE_API_KEY environment variable not set");
+        return res.status(500).json({ 
+          error: "Screenshot API key not configured", 
+          details: "Please set SCREENSHOTONE_API_KEY in your environment variables" 
+        });
       }
 
       const screenshotUrl = `https://api.screenshotone.com/take?url=${encodeURIComponent(item.url)}&access_key=${screenshotApiKey}&block_cookie_banners=true&full_page=false&viewport_width=1920&viewport_height=1080&format=png&ignore_host_errors=true&delay=5&wait_until=networkidle0&timeout=30`;
       
+      console.log(`[Screenshot] Calling ScreenshotOne API...`);
       const response = await fetch(screenshotUrl);
+      
       if (!response.ok) {
         const errorText = await response.text();
-        console.error(`Screenshot API error for ${item.url}: ${response.status} - ${errorText}`);
-        throw new Error(`Screenshot API error: ${response.status} - ${errorText}`);
+        console.error(`[Screenshot] API error for ${item.url}:`, {
+          status: response.status,
+          statusText: response.statusText,
+          error: errorText
+        });
+        
+        let userFriendlyError = "Failed to capture screenshot";
+        if (response.status === 401) {
+          userFriendlyError = "Invalid API key - please check your ScreenshotOne credentials";
+        } else if (response.status === 403) {
+          userFriendlyError = "Access denied - API quota may be exceeded";
+        } else if (response.status === 429) {
+          userFriendlyError = "Rate limit exceeded - please try again later";
+        } else if (response.status >= 500) {
+          userFriendlyError = "Screenshot service is temporarily unavailable";
+        } else if (errorText.includes("timeout") || errorText.includes("timed out")) {
+          userFriendlyError = `The website ${item.url} took too long to load - it may be blocking automated access`;
+        }
+        
+        return res.status(500).json({ 
+          error: userFriendlyError,
+          details: `Status ${response.status}: ${errorText.substring(0, 200)}`
+        });
       }
 
+      console.log(`[Screenshot] API response successful, saving file...`);
       const buffer = await response.arrayBuffer();
       const screenshotDir = path.join(process.cwd(), 'attached_assets', 'portfolio_screenshots');
       await fs.mkdir(screenshotDir, { recursive: true });
@@ -341,15 +374,21 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const filepath = path.join(screenshotDir, filename);
       await fs.writeFile(filepath, Buffer.from(buffer));
 
+      console.log(`[Screenshot] Screenshot saved to: ${filepath}`);
+      
       const screenshotWebPath = `/attached_assets/portfolio_screenshots/${filename}`;
       const updatedItem = await storage.updatePortfolioItem(req.params.id, {
         screenshotUrl: screenshotWebPath
       });
 
+      console.log(`[Screenshot] Successfully captured screenshot for ${item.url}`);
       res.json(updatedItem);
     } catch (error: any) {
-      console.error("Error capturing screenshot:", error);
-      res.status(500).json({ error: "Failed to capture screenshot", details: error.message });
+      console.error("[Screenshot] Unexpected error:", error);
+      res.status(500).json({ 
+        error: "Failed to capture screenshot", 
+        details: error.message || "Unknown error occurred" 
+      });
     }
   });
 
