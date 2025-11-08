@@ -228,29 +228,22 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Portfolio endpoints
-  app.patch("/api/portfolio/reorder", isAuthenticated, async (req, res) => {
+  app.patch("/api/portfolio/:id/display-order", isAuthenticated, async (req, res) => {
     try {
-      const { items } = req.body;
-      if (!Array.isArray(items)) {
-        return res.status(400).json({ error: "Items must be an array" });
+      const { displayOrder } = req.body;
+      if (typeof displayOrder !== 'number') {
+        return res.status(400).json({ error: "Display order must be a number" });
       }
       
-      console.log(`Reordering ${items.length} portfolio items:`, items);
+      const updatedItem = await storage.updatePortfolioItem(req.params.id, { displayOrder });
+      if (!updatedItem) {
+        return res.status(404).json({ error: "Portfolio item not found" });
+      }
       
-      // Update display order for all items in parallel
-      const results = await Promise.all(
-        items.map(async (item) => {
-          const result = await storage.updatePortfolioItem(item.id, { displayOrder: item.displayOrder });
-          console.log(`Updated item ${item.id} to displayOrder ${item.displayOrder}, result:`, result?.displayOrder);
-          return result;
-        })
-      );
-      
-      console.log(`Reorder complete. Updated ${results.length} items.`);
-      res.json({ success: true });
+      res.json(updatedItem);
     } catch (error: any) {
-      console.error("Error reordering portfolio items:", error);
-      res.status(400).json({ error: "Failed to reorder portfolio items", details: error.message });
+      console.error("Error updating display order:", error);
+      res.status(500).json({ error: "Failed to update display order" });
     }
   });
 
@@ -309,86 +302,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error: any) {
       console.error("Error deleting portfolio item:", error);
       res.status(500).json({ error: "Failed to delete portfolio item" });
-    }
-  });
-
-  app.post("/api/portfolio/:id/screenshot", isAuthenticated, async (req, res) => {
-    try {
-      console.log(`[Screenshot] Starting auto screenshot for portfolio item ${req.params.id}`);
-      
-      const item = await storage.getPortfolioItemById(req.params.id);
-      if (!item) {
-        console.error(`[Screenshot] Portfolio item not found: ${req.params.id}`);
-        return res.status(404).json({ error: "Portfolio item not found" });
-      }
-
-      console.log(`[Screenshot] Capturing screenshot for URL: ${item.url}`);
-
-      const screenshotApiKey = process.env.SCREENSHOTONE_API_KEY;
-      if (!screenshotApiKey) {
-        console.error("[Screenshot] SCREENSHOTONE_API_KEY environment variable not set");
-        return res.status(500).json({ 
-          error: "Screenshot API key not configured", 
-          details: "Please set SCREENSHOTONE_API_KEY in your environment variables" 
-        });
-      }
-
-      const screenshotUrl = `https://api.screenshotone.com/take?url=${encodeURIComponent(item.url)}&access_key=${screenshotApiKey}&block_cookie_banners=true&full_page=false&viewport_width=1920&viewport_height=1080&format=png&ignore_host_errors=true&delay=5&wait_until=networkidle0&timeout=30`;
-      
-      console.log(`[Screenshot] Calling ScreenshotOne API...`);
-      const response = await fetch(screenshotUrl);
-      
-      if (!response.ok) {
-        const errorText = await response.text();
-        console.error(`[Screenshot] API error for ${item.url}:`, {
-          status: response.status,
-          statusText: response.statusText,
-          error: errorText
-        });
-        
-        let userFriendlyError = "Failed to capture screenshot";
-        if (response.status === 401) {
-          userFriendlyError = "Invalid API key - please check your ScreenshotOne credentials";
-        } else if (response.status === 403) {
-          userFriendlyError = "Access denied - API quota may be exceeded";
-        } else if (response.status === 429) {
-          userFriendlyError = "Rate limit exceeded - please try again later";
-        } else if (response.status >= 500) {
-          userFriendlyError = "Screenshot service is temporarily unavailable";
-        } else if (errorText.includes("timeout") || errorText.includes("timed out")) {
-          userFriendlyError = `The website ${item.url} took too long to load - it may be blocking automated access`;
-        }
-        
-        return res.status(500).json({ 
-          error: userFriendlyError,
-          details: `Status ${response.status}: ${errorText.substring(0, 200)}`
-        });
-      }
-
-      console.log(`[Screenshot] API response successful, saving file...`);
-      const buffer = await response.arrayBuffer();
-      const screenshotDir = path.join(process.cwd(), 'attached_assets', 'portfolio_screenshots');
-      await fs.mkdir(screenshotDir, { recursive: true });
-      
-      const filename = `screenshot-${item.id}-${Date.now()}.png`;
-      const filepath = path.join(screenshotDir, filename);
-      await fs.writeFile(filepath, Buffer.from(buffer));
-
-      console.log(`[Screenshot] Screenshot saved to: ${filepath}`);
-      
-      const screenshotWebPath = `/attached_assets/portfolio_screenshots/${filename}`;
-      const updatedItem = await storage.updatePortfolioItem(req.params.id, {
-        screenshotUrl: screenshotWebPath
-      });
-
-      console.log(`[Screenshot] Successfully captured screenshot for ${item.url}`);
-      res.json(updatedItem);
-    } catch (error: any) {
-      console.error("[Screenshot] Unexpected error:", error);
-      res.status(500).json({ 
-        error: "Failed to capture screenshot", 
-        details: error.message || "Unknown error occurred" 
-      });
     }
   });
 
