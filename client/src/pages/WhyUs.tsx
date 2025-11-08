@@ -1,5 +1,7 @@
-import { motion } from "framer-motion";
-import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
+import type { Review } from "@shared/schema";
 import ValueTile from "@/components/ValueTile";
 import CTABand from "@/components/CTABand";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
@@ -9,6 +11,24 @@ import { TrendingUp, DollarSign, Zap, Target, Users, Briefcase, Award, Shield, L
 
 export default function WhyUs() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentReviewIndex, setCurrentReviewIndex] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
+
+  const { data: reviews = [] } = useQuery<Review[]>({
+    queryKey: ["/api/reviews"],
+  });
+
+  useEffect(() => {
+    if (reviews.length <= 1 || isHovered) return;
+
+    const interval = setInterval(() => {
+      setCurrentReviewIndex((prev) => (prev + 1) % reviews.length);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [reviews.length, isHovered]);
+
+  const currentReview = reviews[currentReviewIndex];
 
   return (
     <div className="pt-20">
@@ -163,21 +183,36 @@ export default function WhyUs() {
 
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-card/30" data-testid="section-testimonial">
         <div className="max-w-4xl mx-auto text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+          <div 
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
           >
-            <blockquote className="text-2xl md:text-3xl font-semibold text-foreground mb-6">
-              "Redline Design transformed our digital presence. Within 6 months, we saw a 10x ROI and our organic traffic tripled. They're not just marketers—they're growth partners."
-            </blockquote>
-            <div className="flex items-center justify-center gap-4">
-              <div>
-                <div className="font-bold text-foreground">Sarah Johnson</div>
-                <div className="text-sm text-foreground">CEO, TechStart Inc.</div>
-              </div>
-            </div>
-          </motion.div>
+            <AnimatePresence mode="wait">
+              {currentReview && (
+                <motion.div
+                  key={currentReview.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.6 }}
+                >
+                  <blockquote className="text-2xl md:text-3xl font-semibold text-foreground mb-6">
+                    "{currentReview.content}"
+                  </blockquote>
+                  <div className="flex items-center justify-center gap-4">
+                    <div>
+                      <div className="font-bold text-foreground">{currentReview.name}</div>
+                      <div className="text-sm text-foreground">
+                        {currentReview.role && currentReview.company 
+                          ? `${currentReview.role}, ${currentReview.company}`
+                          : currentReview.role || currentReview.company || ''}
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
         </div>
       </section>
 
