@@ -6,6 +6,9 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { Link } from "wouter";
 import { Search, Target, Share2, Mail, Monitor, Palette, FileText, Bot, Users, BarChart3, LucideIcon } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+import { useMutation } from "@tanstack/react-query";
+import { apiRequest } from "@/lib/queryClient";
 
 interface Service {
   id: string;
@@ -27,6 +30,7 @@ const services: Service[] = [
 ];
 
 export default function ContactForm() {
+  const { toast } = useToast();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -35,7 +39,6 @@ export default function ContactForm() {
     smsConsent: false,
     servicesInterested: [] as string[],
   });
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const toggleService = (serviceId: string) => {
     setFormData(prev => ({
@@ -46,14 +49,29 @@ export default function ContactForm() {
     }));
   };
 
+  const submitMutation = useMutation({
+    mutationFn: async (data: typeof formData) => {
+      return await apiRequest("POST", "/api/contact", data);
+    },
+    onSuccess: () => {
+      toast({
+        title: "Message sent successfully!",
+        description: "We'll get back to you within 24 business hours.",
+      });
+      setFormData({ name: "", email: "", phone: "", message: "", smsConsent: false, servicesInterested: [] });
+    },
+    onError: (error: any) => {
+      toast({
+        title: "Failed to send message",
+        description: error.message || "Please try again later.",
+        variant: "destructive",
+      });
+    },
+  });
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
-    console.log("Form submitted:", formData);
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    setIsSubmitting(false);
-    alert("Thank you! We'll get back to you within 24 business hours.");
-    setFormData({ name: "", email: "", phone: "", message: "", smsConsent: false, servicesInterested: [] });
+    submitMutation.mutate(formData);
   };
 
   return (
@@ -162,8 +180,8 @@ export default function ContactForm() {
         </div>
       </div>
 
-      <Button type="submit" size="lg" className="w-full" disabled={isSubmitting} data-testid="button-submit-contact">
-        {isSubmitting ? "Sending..." : "Send Message"}
+      <Button type="submit" size="lg" className="w-full" disabled={submitMutation.isPending} data-testid="button-submit-contact">
+        {submitMutation.isPending ? "Sending..." : "Send Message"}
       </Button>
 
       <p className="text-sm text-center text-muted-foreground">

@@ -117,3 +117,23 @@ export type InsertPortfolioItem = z.infer<typeof insertPortfolioItemSchema>;
 export type UpdatePortfolioItem = z.infer<typeof updatePortfolioItemSchema>;
 export type PortfolioItem = typeof portfolioItems.$inferSelect;
 
+export const contactSubmissions = pgTable("contact_submissions", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  name: text("name").notNull(),
+  email: text("email").notNull(),
+  phone: text("phone").notNull(),
+  servicesInterested: text("services_interested").array().notNull(),
+  message: text("message"),
+  smsConsent: boolean("sms_consent").default(false).notNull(),
+  status: text("status").default("new").notNull(),
+  createdAt: timestamp("created_at").default(sql`now()`).notNull(),
+});
+
+export const insertContactSubmissionSchema = createInsertSchema(contactSubmissions).omit({
+  id: true,
+  createdAt: true,
+});
+
+export type InsertContactSubmission = z.infer<typeof insertContactSubmissionSchema>;
+export type ContactSubmission = typeof contactSubmissions.$inferSelect;
+

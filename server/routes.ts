@@ -2,7 +2,7 @@ import type { Express, RequestHandler } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { handleChat } from "./chat";
-import { insertReviewSchema, insertBlogPostSchema, updateBlogPostSchema, insertPortfolioItemSchema, updatePortfolioItemSchema } from "@shared/schema";
+import { insertReviewSchema, insertBlogPostSchema, updateBlogPostSchema, insertPortfolioItemSchema, updatePortfolioItemSchema, insertContactSubmissionSchema } from "@shared/schema";
 import { setupAuth, isAuthenticated } from "./replitAuth";
 import multer from "multer";
 import path from "path";
@@ -122,6 +122,28 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error: any) {
       console.error("Error deleting review:", error);
       res.status(500).json({ error: "Failed to delete review" });
+    }
+  });
+
+  // Contact submission endpoints
+  app.post("/api/contact", async (req, res) => {
+    try {
+      const validatedData = insertContactSubmissionSchema.parse(req.body);
+      const submission = await storage.createContactSubmission(validatedData);
+      res.json(submission);
+    } catch (error: any) {
+      console.error("Error creating contact submission:", error);
+      res.status(400).json({ error: "Failed to submit contact form", details: error.message });
+    }
+  });
+
+  app.get("/api/contact-submissions", isAuthenticated, async (req, res) => {
+    try {
+      const submissions = await storage.getContactSubmissions();
+      res.json(submissions);
+    } catch (error: any) {
+      console.error("Error fetching contact submissions:", error);
+      res.status(500).json({ error: "Failed to fetch contact submissions" });
     }
   });
 

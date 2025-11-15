@@ -4,7 +4,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { isUnauthorizedError } from "@/lib/authUtils";
-import type { BlogPost, InsertBlogPost, UpdateBlogPost, User, Review, InsertReview, PortfolioItem, InsertPortfolioItem, UpdatePortfolioItem } from "@shared/schema";
+import type { BlogPost, InsertBlogPost, UpdateBlogPost, User, Review, InsertReview, PortfolioItem, InsertPortfolioItem, UpdatePortfolioItem, ContactSubmission } from "@shared/schema";
 import { insertBlogPostSchema, insertPortfolioItemSchema } from "@shared/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -26,6 +26,7 @@ import {
   ExternalLink,
   FileText,
   Briefcase,
+  Mail,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -152,6 +153,7 @@ export default function Admin() {
   const [isReviewsOpen, setIsReviewsOpen] = useState(false);
   const [isBlogPostsOpen, setIsBlogPostsOpen] = useState(false);
   const [isPortfolioOpen, setIsPortfolioOpen] = useState(false);
+  const [isContactSubmissionsOpen, setIsContactSubmissionsOpen] = useState(false);
 
   // Redirect to login if not authenticated
   useEffect(() => {
@@ -188,6 +190,11 @@ export default function Admin() {
 
   const { data: portfolioItems = [], isLoading: isLoadingPortfolio } = useQuery<PortfolioItem[]>({
     queryKey: ["/api/portfolio"],
+    enabled: isAuthenticated,
+  });
+
+  const { data: contactSubmissions = [], isLoading: isLoadingContactSubmissions } = useQuery<ContactSubmission[]>({
+    queryKey: ["/api/contact-submissions"],
     enabled: isAuthenticated,
   });
 
@@ -1536,6 +1543,110 @@ export default function Admin() {
               </CollapsibleContent>
             </Card>
           </Collapsible>
+          </motion.div>
+
+          {/* Contact Submissions Section */}
+          <motion.div
+            className="mt-16"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.25 }}
+          >
+            <Collapsible open={isContactSubmissionsOpen} onOpenChange={setIsContactSubmissionsOpen}>
+              <Card className="rounded-2xl backdrop-blur-md bg-card/40 border-border/50 shadow-lg">
+                <CollapsibleTrigger className="w-full" data-testid="button-toggle-contact-submissions">
+                  <CardHeader>
+                    <div className="flex items-center justify-between gap-4">
+                      <div className="flex-1 text-left">
+                        <CardTitle className="text-2xl font-bold flex items-center gap-2">
+                          <Mail className="h-6 w-6 text-primary" />
+                          Contact Submissions
+                        </CardTitle>
+                        <p className="text-sm text-muted-foreground mt-1">
+                          View and manage lead inquiries from the contact form
+                        </p>
+                      </div>
+                      <ChevronDown
+                        className={`h-5 w-5 text-muted-foreground transition-transform duration-200 ${
+                          isContactSubmissionsOpen ? "rotate-180" : ""
+                        }`}
+                      />
+                    </div>
+                  </CardHeader>
+                </CollapsibleTrigger>
+                <CollapsibleContent>
+                  <CardContent>
+                    <div className="mb-6 flex justify-between items-center">
+                      <p className="text-sm text-muted-foreground">
+                        {contactSubmissions.length} submission{contactSubmissions.length !== 1 ? 's' : ''} total
+                      </p>
+                    </div>
+
+                    {isLoadingContactSubmissions ? (
+                      <div className="flex items-center justify-center py-8">
+                        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+                      </div>
+                    ) : contactSubmissions.length === 0 ? (
+                      <div className="text-center py-8">
+                        <p className="text-muted-foreground">
+                          No contact submissions yet. Leads will appear here when people fill out the contact form.
+                        </p>
+                      </div>
+                    ) : (
+                      <div className="grid grid-cols-1 gap-4">
+                        {contactSubmissions.map((submission) => (
+                          <Card key={submission.id} className="rounded-lg border border-border bg-background/50" data-testid={`card-submission-${submission.id}`}>
+                            <CardContent className="p-6">
+                              <div className="flex flex-col gap-4">
+                                <div className="flex items-start justify-between gap-4">
+                                  <div className="flex-1">
+                                    <h3 className="text-lg font-semibold text-foreground mb-1">{submission.name}</h3>
+                                    <div className="space-y-1 text-sm text-muted-foreground">
+                                      <p>Email: {submission.email}</p>
+                                      <p>Phone: {submission.phone}</p>
+                                      <p className="text-xs">Submitted: {format(new Date(submission.createdAt), 'MMM d, yyyy h:mm a')}</p>
+                                    </div>
+                                  </div>
+                                  <Badge variant={submission.status === 'new' ? 'default' : 'secondary'}>
+                                    {submission.status}
+                                  </Badge>
+                                </div>
+                                
+                                {submission.servicesInterested && submission.servicesInterested.length > 0 && (
+                                  <div>
+                                    <p className="text-sm font-medium text-foreground mb-2">Services Interested:</p>
+                                    <div className="flex flex-wrap gap-2">
+                                      {submission.servicesInterested.map((service) => (
+                                        <Badge key={service} variant="outline" className="text-xs">
+                                          {service}
+                                        </Badge>
+                                      ))}
+                                    </div>
+                                  </div>
+                                )}
+
+                                {submission.message && (
+                                  <div>
+                                    <p className="text-sm font-medium text-foreground mb-1">Message:</p>
+                                    <p className="text-sm text-muted-foreground whitespace-pre-wrap">{submission.message}</p>
+                                  </div>
+                                )}
+
+                                {submission.smsConsent && (
+                                  <div className="text-xs text-muted-foreground">
+                                    ✓ Consented to SMS communications
+                                  </div>
+                                )}
+                              </div>
+                            </CardContent>
+                          </Card>
+                        ))}
+                      </div>
+                    )}
+                  </CardContent>
+                </CollapsibleContent>
+              </Card>
+            </Collapsible>
           </motion.div>
         </div>
       </section>

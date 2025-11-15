@@ -9,10 +9,13 @@ import {
   type PortfolioItem,
   type InsertPortfolioItem,
   type UpdatePortfolioItem,
+  type ContactSubmission,
+  type InsertContactSubmission,
   reviews,
   users,
   blogPosts,
-  portfolioItems
+  portfolioItems,
+  contactSubmissions
 } from "@shared/schema";
 import { randomUUID } from "crypto";
 import { db } from "./db";
@@ -48,6 +51,10 @@ export interface IStorage {
   createPortfolioItem(data: InsertPortfolioItem): Promise<PortfolioItem>;
   updatePortfolioItem(id: string, data: UpdatePortfolioItem): Promise<PortfolioItem | null>;
   deletePortfolioItem(id: string): Promise<boolean>;
+
+  // Contact submission methods
+  getContactSubmissions(): Promise<ContactSubmission[]>;
+  createContactSubmission(data: InsertContactSubmission): Promise<ContactSubmission>;
 }
 
 export class MemStorage implements IStorage {
@@ -143,6 +150,14 @@ export class MemStorage implements IStorage {
 
   async deletePortfolioItem(id: string): Promise<boolean> {
     throw new Error("Portfolio items not implemented in MemStorage");
+  }
+
+  async getContactSubmissions(): Promise<ContactSubmission[]> {
+    throw new Error("Contact submissions not implemented in MemStorage");
+  }
+
+  async createContactSubmission(data: InsertContactSubmission): Promise<ContactSubmission> {
+    throw new Error("Contact submissions not implemented in MemStorage");
   }
 }
 
@@ -289,6 +304,15 @@ export class DbStorage implements IStorage {
   async deletePortfolioItem(id: string): Promise<boolean> {
     const result = await db.delete(portfolioItems).where(eq(portfolioItems.id, id));
     return true;
+  }
+
+  async getContactSubmissions(): Promise<ContactSubmission[]> {
+    return await db.select().from(contactSubmissions).orderBy(desc(contactSubmissions.createdAt));
+  }
+
+  async createContactSubmission(data: InsertContactSubmission): Promise<ContactSubmission> {
+    const result = await db.insert(contactSubmissions).values(data).returning();
+    return result[0];
   }
 }
 
