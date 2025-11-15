@@ -496,9 +496,122 @@ function Router() {
           content={
             <div>
               <p className="text-muted-foreground mb-4">Last updated: {new Date().toLocaleDateString()}</p>
-              <h2 className="text-2xl font-bold mb-4">Incident Management</h2>
+              
+              <h2 className="text-2xl font-bold mb-4">1. Introduction & Purpose</h2>
               <p className="mb-4">
-                Our incident response plan outlines procedures for identifying, responding to, and recovering from security incidents.
+                This Incident Response Plan (IRP or "Plan") establishes the framework for Redline Design to respond to and manage security incidents in a timely, effective, and coordinated manner. The primary goal is to minimize the adverse impact of such incidents on Redline Design's operations, assets, reputation, and its clients.
+              </p>
+              <p className="mb-4">
+                The purpose of this IRP is to:
+              </p>
+              <ul className="list-disc ml-6 mb-4 space-y-2">
+                <li>Establish procedures for prompt incident detection, analysis, containment, eradication, and recovery</li>
+                <li>Define roles and responsibilities for the Incident Response Team (IRT)</li>
+                <li>Ensure compliance with all legal and regulatory obligations</li>
+                <li>Facilitate a post-incident review process for continuous improvement</li>
+              </ul>
+              <p className="mb-4">
+                The scope of this plan applies to all suspected or confirmed security incidents affecting Redline Design's information systems, data, and services.
+              </p>
+
+              <h2 className="text-2xl font-bold mb-4">2. Roles, Responsibilities, and Contact Information</h2>
+              <p className="mb-4">
+                A pre-defined Incident Response Team (IRT) is established to ensure an organized and efficient response. An up-to-date contact list for all IRT members and external resources shall be maintained and be readily accessible.
+              </p>
+              <p className="mb-4">
+                <strong>Incident Response Team (IRT) Members:</strong>
+              </p>
+              <ul className="list-disc ml-6 mb-4 space-y-2">
+                <li><strong>Incident Response Coordinator/Manager (IRC)</strong></li>
+                <li><strong>Technical Lead(s)</strong></li>
+                <li><strong>Communications Lead</strong></li>
+                <li><strong>Human Resources (HR) Lead</strong></li>
+              </ul>
+              <p className="mb-4">
+                <strong>Contact Information:</strong><br />
+                Ryan Howard: 208-867-4526, Ryan@redline.design
+              </p>
+
+              <h2 className="text-2xl font-bold mb-4">3. Incident Classification and Severity Levels</h2>
+              <p className="mb-4">
+                A security incident is any adverse event that threatens the confidentiality, integrity, or availability of Redline Design's information assets. Incidents are classified by severity to guide the response:
+              </p>
+              <ul className="list-disc ml-6 mb-4 space-y-2">
+                <li><strong>Critical (Extreme):</strong> Catastrophic impact posing an imminent threat to business operations or resulting in massive data loss. Requires immediate IRT activation and escalation to executive management.</li>
+                <li><strong>High:</strong> Severe impact causing significant disruption to critical services or compromise of sensitive client data. Requires full IRT activation and escalation.</li>
+                <li><strong>Medium:</strong> Moderate impact with localized disruption or minor data compromise. Requires IRT activation with focused response.</li>
+                <li><strong>Low:</strong> Minimal impact with no significant service disruption or data compromise. Can often be handled by technical staff with IRT notification.</li>
+              </ul>
+
+              <h2 className="text-2xl font-bold mb-4">4. Incident Response Procedure</h2>
+              <p className="mb-4">
+                The incident response procedure follows a structured six-phase approach:
+              </p>
+              
+              <h3 className="text-xl font-bold mb-3">Phase 1: Preparation</h3>
+              <p className="mb-4">
+                Preparation includes maintaining this IRP, training staff, implementing security controls, and ensuring tools and resources are available for incident response.
+              </p>
+
+              <h3 className="text-xl font-bold mb-3">Phase 2: Detection and Analysis</h3>
+              <p className="mb-4">
+                Incidents are detected through various sources including monitoring systems, security alerts, user reports, and external notifications. Upon detection, the incident is analyzed to determine its nature, scope, and severity. The IRC is immediately notified, and the IRT is activated based on severity.
+              </p>
+
+              <h3 className="text-xl font-bold mb-3">Phase 3: Containment</h3>
+              <p className="mb-4">
+                The goal is to limit the incident's scope. Short-term actions may include isolating affected systems or disabling compromised accounts. Evidence must be preserved during this phase.
+              </p>
+
+              <h3 className="text-xl font-bold mb-3">Phase 4: Eradication</h3>
+              <p className="mb-4">
+                This phase focuses on eliminating the root cause of the incident, such as removing malware and patching vulnerabilities.
+              </p>
+
+              <h3 className="text-xl font-bold mb-3">Phase 5: Recovery</h3>
+              <p className="mb-4">
+                The objective is to restore affected systems and services to normal, secure operation from clean backups. Restored systems are validated and closely monitored.
+              </p>
+
+              <h3 className="text-xl font-bold mb-3">Phase 6: Post-Incident Activity / Lessons Learned</h3>
+              <p className="mb-4">
+                A post-incident review meeting is held to analyze the incident and the response. A formal report is generated, and the IRP and other security controls are updated based on lessons learned to prevent future incidents.
+              </p>
+
+              <h2 className="text-2xl font-bold mb-4">5. Communication Plan</h2>
+              <p className="mb-4">
+                Effective communication is critical during an incident.
+              </p>
+              
+              <h3 className="text-xl font-bold mb-3">Internal Communications</h3>
+              <p className="mb-4">
+                The IRT will use designated secure channels. Employees will be notified as needed. The IRC will provide regular updates to executive management for high-severity incidents.
+              </p>
+
+              <h3 className="text-xl font-bold mb-3">External Communications</h3>
+              <ul className="list-disc ml-6 mb-4 space-y-2">
+                <li><strong>Client Notification:</strong> If an incident affects client data or services, affected clients will be notified promptly and transparently.</li>
+                <li><strong>Law Enforcement:</strong> The decision to involve law enforcement for criminal activity will be made by Legal Counsel and Executive Management.</li>
+                <li><strong>Breach Notification Procedures:</strong> Redline Design will comply with all applicable data breach notification laws. Notifications to individuals will be factual and provide clear steps they can take to protect themselves.</li>
+              </ul>
+
+              <h2 className="text-2xl font-bold mb-4">6. Legal and Regulatory Considerations</h2>
+              <p className="mb-4">
+                The IRT, led by Legal Counsel, must be aware of all relevant laws and contractual obligations.
+              </p>
+              <ul className="list-disc ml-6 mb-4 space-y-2">
+                <li><strong>Evidence Preservation and Chain of Custody:</strong> Evidence must be handled in a forensically sound manner to maintain its integrity for potential legal action.</li>
+                <li><strong>Interaction with Legal Counsel:</strong> Legal Counsel should be involved early in significant incidents to advise on obligations and manage legal risks.</li>
+              </ul>
+
+              <h2 className="text-2xl font-bold mb-4">7. Training and Awareness</h2>
+              <p className="mb-4">
+                All IRT members shall receive regular training on incident response procedures. All employees shall receive security awareness training that includes how to recognize and report potential security incidents.
+              </p>
+
+              <h2 className="text-2xl font-bold mb-4">8. Plan Maintenance and Review</h2>
+              <p className="mb-4">
+                This Incident Response Plan shall be reviewed at least annually and updated as needed to reflect changes in technology, threats, organizational structure, or lessons learned from actual incidents or exercises.
               </p>
             </div>
           }
