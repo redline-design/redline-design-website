@@ -358,7 +358,7 @@ export default function HorizontalScrollServices() {
   return (
     <section 
       ref={targetRef} 
-      className="relative h-[120vh] md:h-[150vh]"
+      className="relative h-[100vh] md:h-[110vh]"
       data-testid="section-services-horizontal"
     >
       <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden px-4 md:px-8 pointer-events-none">
@@ -456,7 +456,7 @@ export default function HorizontalScrollServices() {
 
         <motion.div 
           ref={containerRef}
-          className="max-w-5xl mx-auto px-3 sm:px-4 md:px-6 w-full backdrop-blur-md bg-card/10 border-2 rounded-3xl py-4 md:py-5 transition-all duration-300 relative z-50 pointer-events-auto"
+          className="max-w-6xl mx-auto px-3 sm:px-4 md:px-6 w-full backdrop-blur-md bg-card/10 border-2 rounded-3xl py-3 md:py-4 transition-all duration-300 relative z-50 pointer-events-auto"
           onMouseEnter={() => setIsHovering(true)}
           onMouseLeave={() => setIsHovering(false)}
           animate={{
@@ -467,28 +467,28 @@ export default function HorizontalScrollServices() {
           }}
           transition={{ duration: 0.3 }}
         >
-          <div className="text-center mb-4 md:mb-6">
-            <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold uppercase tracking-[0.3em] mb-2 red-glow-pulse" style={{ color: "#ff0000" }}>
+          <div className="text-center mb-3 md:mb-4">
+            <h2 className="text-base sm:text-lg md:text-xl font-bold uppercase tracking-[0.3em] mb-1.5 red-glow-pulse" style={{ color: "#ff0000" }}>
               What We Do
             </h2>
-            <p className="text-sm sm:text-base md:text-lg text-foreground max-w-2xl mx-auto">
+            <p className="text-sm sm:text-base text-foreground max-w-2xl mx-auto">
               Full-service digital marketing designed to drive results
             </p>
           </div>
 
           {/* Horizontal cards scrolling right to left, replacing one at a time */}
           <div 
-            className="relative h-[320px] md:h-[340px] overflow-visible py-2"
+            className="relative h-[240px] md:h-[220px] overflow-visible py-2"
             data-testid="container-services-carousel"
           >
-            <div className="flex justify-center items-center gap-4 md:gap-6 h-full px-2">
+            <div className="flex justify-center items-center gap-3 md:gap-4 h-full px-2">
               <AnimatePresence mode="popLayout">
                 {services
                   .slice(currentIndex, currentIndex + cardsPerPage)
                   .map((service, index) => (
                     <motion.div
                       key={service.title}
-                      className="flex-shrink-0 w-[280px] h-[280px] md:w-[320px] md:h-[280px]"
+                      className="flex-shrink-0 w-[220px] h-[200px] md:w-[240px] md:h-[200px]"
                       data-testid={`container-service-card-${service.title.toLowerCase().replace(/\s/g, "-")}`}
                       initial={{ 
                         opacity: 0, 
@@ -536,7 +536,7 @@ export default function HorizontalScrollServices() {
           </div>
 
           {/* Progress bar with scroll hint animation */}
-          <div className="mt-3 md:mt-4 w-full max-w-3xl mx-auto">
+          <div className="mt-2 md:mt-3 w-full max-w-3xl mx-auto">
             <div 
               role="progressbar" 
               aria-label="Service scroll progress"
@@ -551,7 +551,7 @@ export default function HorizontalScrollServices() {
                 style={{ width: `${((currentIndex + cardsPerPage) / servicesLength) * 100}%` }}
               />
             </div>
-            <div className="flex flex-col items-center gap-2 mt-2">
+            <div className="flex flex-col items-center gap-1.5 mt-1.5">
               <AnimatePresence mode="wait">
                 {isAtLastService ? (
                   // Show "scroll outside" message when at last service
@@ -560,7 +560,7 @@ export default function HorizontalScrollServices() {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
-                    className="flex flex-col items-center gap-3"
+                    className="flex flex-col items-center gap-2"
                   >
                     <motion.p 
                       className="text-center text-xs sm:text-sm text-primary font-medium"
@@ -570,7 +570,7 @@ export default function HorizontalScrollServices() {
                     >
                       Scroll outside the box to continue
                     </motion.p>
-                    <div className="flex flex-col items-center gap-1 h-12">
+                    <div className="flex flex-col items-center gap-0.5 h-10">
                       {[0, 1, 2].map((i) => (
                         <motion.div
                           key={i}
@@ -596,7 +596,7 @@ export default function HorizontalScrollServices() {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
-                    className="flex flex-col items-center gap-3"
+                    className="flex flex-col items-center gap-2"
                   >
                     <motion.p 
                       className="text-center text-xs sm:text-sm text-muted-foreground"
@@ -606,13 +606,13 @@ export default function HorizontalScrollServices() {
                     >
                       Scroll to explore all services
                     </motion.p>
-                    <div className="flex items-center gap-1 overflow-hidden w-20 h-8">
+                    <div className="flex items-center gap-0.5 overflow-hidden w-16 h-6">
                       {[0, 1, 2].map((i) => (
                         <motion.div
                           key={i}
-                          className="w-6 h-6 rounded bg-primary/20 border border-primary/40 flex-shrink-0"
+                          className="w-5 h-5 rounded bg-primary/20 border border-primary/40 flex-shrink-0"
                           animate={{
-                            x: [20, -40],
+                            x: [15, -30],
                             opacity: [0, 1, 1, 0]
                           }}
                           transition={{
