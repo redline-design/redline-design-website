@@ -7,7 +7,6 @@ import TestimonialsCarousel from "@/components/TestimonialsCarousel";
 import StatCounter from "@/components/StatCounter";
 import CTABand from "@/components/CTABand";
 import StickyConversionBar from "@/components/StickyConversionBar";
-import SectionSeparator from "@/components/SectionSeparator";
 import { BarChart3, Sparkles, Globe, DollarSign, Zap, Target, Users, Briefcase, TrendingUp, AlertTriangle, MousePointerClick, LayoutGrid, BarChart2, Monitor, Database, Eye, FileText, LineChart, MapPin, Smartphone } from "lucide-react";
 import { SiGoogleads, SiMeta, SiLinkedin, SiTiktok, SiYoutube, SiX, SiReddit, SiPinterest } from "react-icons/si";
 import { motion } from "framer-motion";
@@ -391,8 +390,6 @@ export default function Home() {
         </div>
       </section>
 
-      <SectionSeparator variant="pulse" />
-
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-card/30 backdrop-blur-sm" data-testid="section-differentiators">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
@@ -407,8 +404,6 @@ export default function Home() {
           <TabbedContent tabs={tabs} />
         </div>
       </section>
-
-      <SectionSeparator variant="gradient" />
 
       <section className="py-20 px-4 sm:px-6 lg:px-8" data-testid="section-why-us">
         <div className="max-w-7xl mx-auto">
@@ -462,8 +457,6 @@ export default function Home() {
           <TestimonialsCarousel />
         </div>
       </section>
-
-      <SectionSeparator variant="pulse" />
 
       <section className="py-12 px-4 sm:px-6 lg:px-8 bg-card/50" data-testid="section-metrics">
         <div className="max-w-7xl mx-auto">

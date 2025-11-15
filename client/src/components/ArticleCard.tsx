@@ -27,7 +27,7 @@ const ArticleCard = memo(function ArticleCard({ title, excerpt, category, readTi
     >
       <Link href={`/digital-marketing/${slug}`}>
         <Card
-          className="h-full hover-elevate active-elevate-2 transition-all duration-300 backdrop-blur-md bg-card/40 border-white/10 card-float"
+          className="h-full hover-elevate active-elevate-2 transition-all duration-300 rounded-2xl backdrop-blur-md bg-card/40 border-white/10 card-float"
           data-testid={`card-article-${slug}`}
         >
           <CardContent className="p-6">

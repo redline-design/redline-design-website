@@ -21,28 +21,9 @@ export default function Hero() {
 
   return (
     <>
-      {/* Layered cinematic gradient wash */}
-      <div className="fixed inset-0 z-0 pointer-events-none">
-        {/* Base gradient */}
-        <div className="absolute inset-0 bg-gradient-to-b from-background via-background/95 to-background"></div>
-        
-        {/* Animated red gradient bands - respects reduced motion */}
-        {!prefersReducedMotion && (
-          <motion.div 
-            className="absolute inset-0 opacity-30"
-            animate={{
-              background: [
-                "radial-gradient(circle at 20% 50%, rgba(255,0,0,0.15) 0%, transparent 50%)",
-                "radial-gradient(circle at 80% 50%, rgba(255,0,0,0.15) 0%, transparent 50%)",
-                "radial-gradient(circle at 20% 50%, rgba(255,0,0,0.15) 0%, transparent 50%)",
-              ],
-            }}
-            transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-          ></motion.div>
-        )}
-        
-        {/* Subtle vignette */}
-        <div className="absolute inset-0 bg-gradient-radial from-transparent via-transparent to-background/60"></div>
+      {/* Subtle gradient overlay */}
+      <div className="fixed inset-0 z-0">
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/20 to-background/80"></div>
       </div>
 
       <section
@@ -52,15 +33,15 @@ export default function Hero() {
       >
 
       <motion.div 
-        className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 sm:pt-32 pb-16 sm:pb-20 text-center"
+        className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 pt-32 pb-20 text-center"
         style={{ opacity, scale, y }}
       >
-        {/* Badge - First to animate */}
+        {/* Badge */}
         <motion.div
           initial={{ opacity: 0, scale: 0.5 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6, delay: 0.1, type: "spring", stiffness: 100 }}
-          className="mb-6 sm:mb-8"
+          transition={{ duration: 0.5, type: "spring", stiffness: 100 }}
+          className="mb-8"
         >
           <Link href="/book-a-demo">
             <motion.div 
@@ -74,12 +55,12 @@ export default function Hero() {
           </Link>
         </motion.div>
 
-        {/* Logo - Second to animate */}
+        {/* Logo */}
         <motion.div 
-          className="mb-6 sm:mb-8 relative"
+          className="mb-8 relative"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
+          transition={{ duration: 0.7, delay: 0.2 }}
         >
           <style>{`
             @keyframes heroLogoShimmer {
@@ -117,12 +98,12 @@ export default function Hero() {
           </div>
         </motion.div>
 
-        {/* Tagline - Third to animate */}
+        {/* Tagline */}
         <motion.h2 
-          className="text-sm sm:text-base md:text-lg lg:text-xl font-bold uppercase tracking-[0.3em] mb-8 sm:mb-10 md:mb-12 red-glow-pulse"
+          className="text-sm sm:text-base md:text-lg font-bold uppercase tracking-[0.3em] mb-12 red-glow-pulse"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
+          transition={{ duration: 0.7, delay: 0.4 }}
           style={{
             color: "#ff0000"
           }}
@@ -130,19 +111,19 @@ export default function Hero() {
           Digital Marketing That Doesn't Suck
         </motion.h2>
 
-        {/* CTA Buttons - Last to animate */}
+        {/* CTA Buttons */}
         <motion.div
-          className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center px-4 sm:px-0"
+          className="flex flex-col sm:flex-row gap-4 justify-center items-center"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.9 }}
+          transition={{ duration: 0.7, delay: 0.5 }}
         >
           <Link href="/book-a-demo">
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <Button 
                 size="lg" 
                 variant="default" 
-                className="text-base font-semibold shadow-lg" 
+                className="text-base px-8 py-6 font-semibold" 
                 data-testid="button-hero-book-demo"
               >
                 <CalendarCheck className="w-5 h-5" />
@@ -155,7 +136,7 @@ export default function Hero() {
               <Button 
                 size="lg" 
                 variant="outline" 
-                className="text-base font-semibold shadow-md backdrop-blur-sm" 
+                className="text-base px-8 py-6 font-semibold" 
                 data-testid="button-hero-learn-more"
               >
                 Learn More
