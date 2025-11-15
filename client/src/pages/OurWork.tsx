@@ -90,6 +90,8 @@ export default function OurWork() {
     queryKey: ["/api/portfolio"],
   });
 
+  const featuredItems = portfolioItems.slice(0, 7);
+
   return (
     <div className="pt-20">
       <section className="py-20 px-4 sm:px-6 lg:px-8 text-center" data-testid="section-portfolio-intro">
@@ -113,6 +115,27 @@ export default function OurWork() {
           </motion.p>
         </div>
       </section>
+
+      {!isLoading && featuredItems.length > 0 && (
+        <section className="py-20 px-4 sm:px-6 lg:px-8 flex items-center justify-center min-h-[600px]" data-testid="section-portfolio-orbit">
+          <div className="portfolio-orbit-container">
+            {featuredItems.map((item, index) => (
+              <div 
+                key={item.id} 
+                className="portfolio-orbit-item"
+                onClick={() => window.open(item.url, '_blank', 'noopener,noreferrer')}
+                data-testid={`orbit-item-${item.id}`}
+              >
+                <img 
+                  src={item.screenshotUrl || '/placeholder-portfolio.png'} 
+                  alt={item.title}
+                  title={item.title}
+                />
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
 
       <section className="py-12 px-4 sm:px-6 lg:px-8" data-testid="section-portfolio-grid">
         <div className="max-w-7xl mx-auto">
