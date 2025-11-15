@@ -331,6 +331,7 @@ export default function HorizontalScrollServices() {
                   className="service-card-circle"
                   style={{
                     transform: `rotateY(${angle}deg) translateZ(${radius}px)`,
+                    display: !isCardHovered && index !== 0 ? 'none' : 'flex',
                   }}
                   initial={false}
                   animate={{
