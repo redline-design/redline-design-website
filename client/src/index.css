@@ -1215,6 +1215,10 @@
     calc(100% * sibling-index() / sibling-count()) 0deg;
 }
 
+.portfolio-orbit-item {
+  position: relative;
+}
+
 .portfolio-orbit-item img {
   width: inherit;
   height: inherit;
@@ -1229,6 +1233,40 @@
   transition-property: box-shadow, scale, border;
 }
 
+.portfolio-orbit-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  border-radius: 9999px;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease-in-out;
+  padding: 1rem;
+  text-align: center;
+}
+
+.portfolio-orbit-client {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #ff0000;
+  text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+  line-height: 1.2;
+}
+
+.portfolio-orbit-industry {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #ff6b6b;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
 .portfolio-orbit-item:hover {
   z-index: 2;
 }
@@ -1237,6 +1275,10 @@
   scale: 1.5;
   border-color: var(--secondary-color);
   box-shadow: 0 0 1rem var(--secondary-color);
+}
+
+.portfolio-orbit-item:hover .portfolio-orbit-overlay {
+  opacity: 1;
 }
 
 .portfolio-orbit-item:hover ~ .portfolio-orbit-item img {

@@ -129,8 +129,11 @@ export default function OurWork() {
                 <img 
                   src={item.screenshotUrl || '/placeholder-portfolio.png'} 
                   alt={item.title}
-                  title={item.title}
                 />
+                <div className="portfolio-orbit-overlay">
+                  <div className="portfolio-orbit-client">{item.title}</div>
+                  <div className="portfolio-orbit-industry">{item.category}</div>
+                </div>
               </div>
             ))}
           </div>
