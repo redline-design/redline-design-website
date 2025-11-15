@@ -119,13 +119,108 @@ function Router() {
           content={
             <div>
               <p className="text-muted-foreground mb-4">Last updated: {new Date().toLocaleDateString()}</p>
-              <h2 className="text-2xl font-bold mb-4">Data Collection</h2>
+              
+              <h2 className="text-2xl font-bold mb-4">1. Introduction & Purpose</h2>
               <p className="mb-4">
-                We collect and process data to deliver effective digital marketing services to our clients.
+                Redline Design is committed to the ethical, lawful, and transparent use of all data it collects, processes, and stores, particularly personal data. We recognize the profound responsibility that comes with handling personal information and are dedicated to upholding the privacy rights of individuals.
               </p>
-              <h2 className="text-2xl font-bold mb-4">Data Storage</h2>
               <p className="mb-4">
-                All data is stored securely using industry-standard encryption and security measures.
+                Compliance with evolving data protection regulations like the General Data Protection Regulation (GDPR) and the California Consumer Privacy Act/California Privacy Rights Act (CCPA/CPRA) is a legal imperative and a cornerstone of building client and consumer trust.
+              </p>
+              <p className="mb-4">
+                The purpose of this Data Use Policy is to ensure that all personal data handled by Redline Design is done in strict accordance with applicable data protection laws, industry best practices, and the principles outlined herein. The scope of this Policy applies to all personal data processed by Redline Design, its employees, contractors, and any third parties acting on its behalf.
+              </p>
+
+              <h2 className="text-2xl font-bold mb-4">2. Definitions</h2>
+              <ul className="list-disc ml-6 mb-4 space-y-2">
+                <li><strong>Personal Data:</strong> Any information relating to an identified or identifiable natural person ('Data Subject'), such as a name, an identification number, location data, or an online identifier.</li>
+                <li><strong>Sensitive Personal Information:</strong> Personal Data revealing racial or ethnic origin, political opinions, religious beliefs, trade union membership, genetic data, biometric data, health data, or data concerning a person's sex life or sexual orientation. Redline Design generally does not process this data unless explicitly required and legally protected.</li>
+                <li><strong>Processing:</strong> Any operation performed on Personal Data, such as collection, recording, storage, use, disclosure, or destruction.</li>
+                <li><strong>Data Subject:</strong> The individual to whom Personal Data relates.</li>
+                <li><strong>Controller:</strong> The entity that determines the purposes and means of processing Personal Data. Redline Design is a Controller for its own data and typically a Processor for client data.</li>
+                <li><strong>Processor:</strong> An entity that processes Personal Data on behalf of a Controller.</li>
+              </ul>
+
+              <h2 className="text-2xl font-bold mb-4">3. Principles of Data Processing</h2>
+              <ul className="list-disc ml-6 mb-4 space-y-2">
+                <li><strong>Lawfulness, Fairness, and Transparency:</strong> Data will be processed lawfully, fairly, and in a transparent manner.</li>
+                <li><strong>Purpose Limitation:</strong> Data will be collected for specified, explicit, and legitimate purposes.</li>
+                <li><strong>Data Minimization:</strong> Data collected will be adequate, relevant, and limited to what is necessary.</li>
+                <li><strong>Accuracy:</strong> Personal Data will be accurate and kept up to date.</li>
+                <li><strong>Storage Limitation:</strong> Data will be kept in an identifiable form for no longer than is necessary.</li>
+                <li><strong>Integrity and Confidentiality (Security):</strong> Data will be processed securely to protect against unauthorized access, loss, or damage.</li>
+                <li><strong>Accountability:</strong> Redline Design is responsible for and must be able to demonstrate compliance with these principles.</li>
+              </ul>
+
+              <h2 className="text-2xl font-bold mb-4">4. Lawful Basis for Processing</h2>
+              <p className="mb-4">All processing of Personal Data must be based on a valid lawful basis:</p>
+              <ul className="list-disc ml-6 mb-4 space-y-2">
+                <li><strong>Consent Management:</strong> Where consent is the basis, it must be freely given, specific, informed, and unambiguous. Data Subjects have the right to withdraw consent at any time. Records of consent will be maintained. For email marketing, a double opt-in process will be used where appropriate.</li>
+                <li><strong>Legitimate Interests:</strong> Data may be processed based on legitimate interests, provided these are not overridden by the rights of the Data Subject. A Legitimate Interests Assessment (LIA) will be conducted when relying on this basis.</li>
+                <li><strong>Other Lawful Bases:</strong> Other bases, such as performance of a contract or legal obligation, will be used where appropriate.</li>
+              </ul>
+
+              <h2 className="text-2xl font-bold mb-4">5. Data Collection and Use Practices</h2>
+              <ul className="list-disc ml-6 mb-4 space-y-2">
+                <li><strong>Transparency and Notice at Collection:</strong> At the point of collection, Data Subjects will be provided with a clear Privacy Notice detailing the who, what, why, and how of data processing.</li>
+                <li><strong>Cookie Policy and Consent Banners:</strong> A clear Cookie Policy will be maintained. Websites will use cookie consent banners that allow users to accept, reject, or customize their preferences for non-essential cookies. Non-essential cookies will not be placed before valid consent is obtained.</li>
+                <li><strong>Email Marketing:</strong> All email marketing will comply with anti-spam laws. Explicit opt-in consent will be obtained, and a clear unsubscribe mechanism will be provided in every marketing email.</li>
+                <li><strong>Targeted Advertising and Profiling:</strong> When engaging in targeted advertising or profiling, we will ensure transparency and provide opt-out mechanisms as required by law.</li>
+              </ul>
+
+              <h2 className="text-2xl font-bold mb-4">6. Data Subject Rights</h2>
+              <p className="mb-4">Data Subjects have the following rights regarding their Personal Data:</p>
+              <ul className="list-disc ml-6 mb-4 space-y-2">
+                <li><strong>Right to Access:</strong> To request access to their Personal Data.</li>
+                <li><strong>Right to Delete/Erasure:</strong> To request the deletion of their Personal Data.</li>
+                <li><strong>Right to Rectification:</strong> To request the correction of inaccurate data.</li>
+                <li><strong>Right to Restrict Processing:</strong> To request a halt to processing under certain conditions.</li>
+                <li><strong>Right to Data Portability:</strong> To receive a copy of their data in a machine-readable format.</li>
+                <li><strong>Right to Object:</strong> To object to processing, especially for direct marketing.</li>
+                <li><strong>Right to Opt-Out of Sale or Sharing (CCPA/CPRA):</strong> To opt-out of the "sale" or "sharing" of their information.</li>
+                <li><strong>Right to Limit Use and Disclosure of Sensitive Personal Information (CPRA):</strong> To limit the use of their sensitive data.</li>
+                <li><strong>Right to Non-Discrimination:</strong> To not be discriminated against for exercising privacy rights.</li>
+              </ul>
+              <p className="mb-4">
+                Procedures are in place for submitting requests, verifying identity, and responding within legally mandated timeframes. When acting as a Processor, Redline Design will assist the client (Controller) in responding to these requests.
+              </p>
+
+              <h2 className="text-2xl font-bold mb-4">7. Data Sharing and Third Parties</h2>
+              <p className="mb-4">
+                Personal Data will only be shared with third parties when there is a lawful basis and a written contract (DPA) is in place. Due diligence will be conducted on all third parties.
+              </p>
+              <p className="mb-4">
+                <strong>International Data Transfers:</strong> For transfers of data outside regions like the EEA or UK, appropriate safeguards such as Standard Contractual Clauses (SCCs) will be implemented to ensure data protection.
+              </p>
+
+              <h2 className="text-2xl font-bold mb-4">8. Data Security</h2>
+              <p className="mb-4">
+                Redline Design is committed to implementing appropriate technical and organizational security measures to protect Personal Data. Specific details are outlined in Redline Design's Information Security Policy, which is an integral part of this data governance framework.
+              </p>
+
+              <h2 className="text-2xl font-bold mb-4">9. Data Retention and Disposal</h2>
+              <p className="mb-4">
+                Personal Data will be retained only as long as necessary to fulfill the purposes for which it was collected or as required by law. Data retention schedules will be maintained for different categories of data. Once no longer needed, data will be securely disposed of (e.g., cryptographic erasure, shredding).
+              </p>
+
+              <h2 className="text-2xl font-bold mb-4">10. Data Protection Officer/Contact</h2>
+              <p className="mb-4">
+                A designated Data Protection Contact or Designated Security Lead is responsible for overseeing data protection compliance at Redline Design.
+              </p>
+
+              <h2 className="text-2xl font-bold mb-4">11. Breach Notification</h2>
+              <p className="mb-4">
+                In the event of a data breach, Redline Design will follow established procedures to assess, contain, and remediate the breach, and will notify affected parties and regulatory authorities as required by applicable laws.
+              </p>
+
+              <h2 className="text-2xl font-bold mb-4">12. Policy Review and Updates</h2>
+              <p className="mb-4">
+                This Policy will be reviewed at least annually and updated as required by changes in laws or business practices.
+              </p>
+
+              <h2 className="text-2xl font-bold mb-4">13. Contact Information</h2>
+              <p className="mb-4">
+                For any questions regarding this Data Use Policy or to exercise Data Subject rights, please contact the Data Protection Contact / Designated Security Lead at Redline Design.
               </p>
             </div>
           }
