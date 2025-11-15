@@ -507,14 +507,105 @@ function Router() {
       
       <Route path="/sda">
         <PolicyPage
-          title="Service Delivery Agreement"
+          title="Subcontractor Data Agreement"
           content={
             <div>
-              <p className="text-muted-foreground mb-4">Last updated: {new Date().toLocaleDateString()}</p>
-              <h2 className="text-2xl font-bold mb-4">Service Commitments</h2>
+              <h2 className="text-2xl font-bold mb-4">Preamble</h2>
               <p className="mb-4">
-                Redline Design LLC commits to delivering services as outlined in individual client agreements, with response times of less than 24 business hours for most requests.
+                This Subcontractor Data Agreement (the "Agreement" or "DPA") is entered into as of [Effective Date] by and between Redline Design ("Company") and [Subcontractor Name] ("Subcontractor").
               </p>
+              <p className="mb-4">
+                This Agreement sets forth the terms and conditions under which Subcontractor may Process Personal Data on behalf of Company (and/or on behalf of Company's clients) in connection with the provision of services (the "Services") as defined in the Master Services Agreement ("Principal Agreement").
+              </p>
+              <p className="mb-4">
+                In the event of any conflict between this DPA and the Principal Agreement concerning the Processing of Personal Data, this DPA shall prevail.
+              </p>
+
+              <h2 className="text-2xl font-bold mb-4">1. Definitions</h2>
+              <p className="mb-4">
+                Terms such as "Applicable Data Protection Laws," "Company Personal Data," "Controller," "Data Subject," "Personal Data," "Personal Data Breach," "Processing," "Processor," and "Sub-processor" shall have the meanings aligned with relevant laws such as GDPR and CCPA/CPRA. This agreement uses these terms to ensure legal clarity.
+              </p>
+
+              <h2 className="text-2xl font-bold mb-4">2. Scope of Processing</h2>
+              <ul className="list-disc ml-6 mb-4 space-y-2">
+                <li><strong>Instructions for Processing:</strong> Subcontractor shall Process Company Personal Data only on documented instructions from Company.</li>
+                <li><strong>Details of Processing:</strong> The subject-matter, duration, nature, purpose, types of data, and categories of Data Subjects are set forth in Annex 1 to this agreement.</li>
+                <li><strong>Compliance with Laws:</strong> Subcontractor shall comply with all Applicable Data Protection Laws.</li>
+              </ul>
+
+              <h2 className="text-2xl font-bold mb-4">3. Roles and Responsibilities of the Parties</h2>
+              <ul className="list-disc ml-6 mb-4 space-y-2">
+                <li><strong>Company's Role:</strong> Company is either a Controller or a Processor of the Company Personal Data and warrants that it has a lawful basis to provide the data to Subcontractor for Processing.</li>
+                <li><strong>Subcontractor's Role:</strong> Subcontractor is a Processor (or Sub-processor) of the Company Personal Data.</li>
+                <li><strong>CCPA/CPRA Specific Obligations:</strong> Subcontractor confirms it is a "Service Provider" or "Contractor," shall not "sell" or "share" Company Personal Data, and shall not retain, use, or disclose the data for any purpose other than performing the Services.</li>
+              </ul>
+
+              <h2 className="text-2xl font-bold mb-4">4. Subcontractor's Obligations</h2>
+              <ul className="list-disc ml-6 mb-4 space-y-2">
+                <li><strong>Security Measures:</strong> Implement appropriate technical and organizational measures to ensure a level of security appropriate to the risk, as detailed in Annex 2.</li>
+                <li><strong>Confidentiality:</strong> Ensure that persons authorized to Process Company Personal Data are subject to confidentiality obligations.</li>
+                <li><strong>Sub-processors:</strong> Obtain Company's prior written consent before engaging any Sub-processor. Ensure Sub-processors are bound by equivalent data protection obligations.</li>
+                <li><strong>Assistance to Company:</strong> Assist Company in responding to Data Subject rights requests and in meeting its own compliance obligations regarding security, breach notification, and data protection impact assessments.</li>
+                <li><strong>Personal Data Breach Notification:</strong> Notify Company without undue delay, and in any event within 48 hours, after becoming aware of a Personal Data Breach. The notification will describe the nature of the breach, likely consequences, and measures taken.</li>
+                <li><strong>Data Deletion or Return:</strong> At Company's choice, delete or return all Company Personal Data after the end of the Services and provide written certification of such deletion.</li>
+                <li><strong>Information and Audit:</strong> Make available all information necessary to demonstrate compliance and allow for audits conducted by Company or a mandated auditor.</li>
+              </ul>
+
+              <h2 className="text-2xl font-bold mb-4">5. Company's Obligations</h2>
+              <p className="mb-4">
+                Company shall provide clear and lawful instructions, ensure it has a valid lawful basis for the Processing, and inform Subcontractor of any relevant changes.
+              </p>
+
+              <h2 className="text-2xl font-bold mb-4">6. Audit Rights</h2>
+              <p className="mb-4">
+                Company has the right to conduct audits (not more than once annually, unless a breach occurs) to verify Subcontractor's compliance with this DPA. Subcontractor may provide relevant third-party audit reports (e.g., SOC 2 Type II) as an alternative.
+              </p>
+
+              <h2 className="text-2xl font-bold mb-4">7. Liability and Indemnification</h2>
+              <ul className="list-disc ml-6 mb-4 space-y-2">
+                <li><strong>Liability:</strong> Each Party's liability is subject to the limitations in the Principal Agreement, but these shall not limit liability for gross negligence, willful misconduct, or breaches of confidentiality related to Personal Data.</li>
+                <li><strong>Indemnification:</strong> Subcontractor shall indemnify and hold harmless Company from any claims or losses arising from Subcontractor's breach of this DPA.</li>
+                <li><strong>Insurance:</strong> Subcontractor shall maintain appropriate Commercial General Liability, Professional Liability, and Cyber Liability insurance.</li>
+              </ul>
+
+              <h2 className="text-2xl font-bold mb-4">8. Term and Termination</h2>
+              <p className="mb-4">
+                This DPA remains in effect as long as Subcontractor Processes Company Personal Data. Company may terminate this DPA and the Principal Agreement for a material breach by Subcontractor. Obligations regarding data deletion, return, and confidentiality shall survive termination.
+              </p>
+
+              <h2 className="text-2xl font-bold mb-4">9. General Provisions</h2>
+              <ul className="list-disc ml-6 mb-4 space-y-2">
+                <li><strong>Governing Law:</strong> This DPA shall be governed by the same law as the Principal Agreement.</li>
+                <li><strong>Amendments:</strong> Any amendments must be in writing and signed by both Parties.</li>
+                <li><strong>Severability:</strong> If any provision is found unenforceable, the remainder shall remain in effect.</li>
+              </ul>
+
+              <h2 className="text-2xl font-bold mb-4">Annex 1: Details of Processing</h2>
+              <p className="mb-4">
+                This annex should specify:
+              </p>
+              <ul className="list-disc ml-6 mb-4 space-y-2">
+                <li><strong>Subject-matter:</strong> The services being provided (e.g., digital marketing services, web development, analytics).</li>
+                <li><strong>Duration:</strong> The term of the engagement.</li>
+                <li><strong>Nature and Purpose:</strong> Marketing campaign execution, website hosting, analytics, or other agreed-upon services.</li>
+                <li><strong>Types of Personal Data:</strong> Contact information, behavioral data, technical identifiers (IP addresses, cookies), etc.</li>
+                <li><strong>Categories of Data Subjects:</strong> Clients' customers, website visitors, or other end users.</li>
+              </ul>
+
+              <h2 className="text-2xl font-bold mb-4">Annex 2: Minimum Security Measures</h2>
+              <p className="mb-4">
+                This annex details the minimum technical and organizational security measures Subcontractor must implement:
+              </p>
+              <ul className="list-disc ml-6 mb-4 space-y-2">
+                <li>Maintaining information security policies</li>
+                <li>Enforcing strong access controls with MFA</li>
+                <li>Encrypting data at rest and in transit</li>
+                <li>Implementing network security controls like firewalls and IDS/IPS</li>
+                <li>Maintaining physical security</li>
+                <li>Having a documented incident response plan</li>
+                <li>Ensuring business continuity</li>
+                <li>Adhering to secure software development practices</li>
+              </ul>
             </div>
           }
         />
