@@ -1,5 +1,5 @@
 import { lazy, Suspense, useEffect, useState, useRef } from "react";
-import { Switch, Route } from "wouter";
+import { Switch, Route, useLocation } from "wouter";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
@@ -10,6 +10,7 @@ import DiagonalStripes from "@/components/DiagonalStripes";
 import AnimatedBackground from "@/components/AnimatedBackground";
 import ChatWidget from "@/components/ChatWidget";
 import ScrollProgressBar from "@/components/ScrollProgressBar";
+import { AnimatePresence, motion } from "framer-motion";
 
 const Home = lazy(() => import("@/pages/Home"));
 const Services = lazy(() => import("@/pages/Services"));
@@ -38,8 +39,18 @@ const SEOChecker = lazy(() => import("@/pages/SEOChecker"));
 const NotFound = lazy(() => import("@/pages/not-found"));
 
 function Router() {
+  const [location] = useLocation();
+  
   return (
-    <Switch>
+    <AnimatePresence mode="wait">
+      <motion.div
+        key={location}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.3, ease: "easeOut" }}
+      >
+        <Switch>
       <Route path="/" component={Home} />
       <Route path="/services" component={Services} />
       <Route path="/services/websites" component={WebsitesPage} />
@@ -902,7 +913,9 @@ function Router() {
       <Route path="/blog/:slug" component={BlogPost} />
 
       <Route component={NotFound} />
-    </Switch>
+        </Switch>
+      </motion.div>
+    </AnimatePresence>
   );
 }
 
