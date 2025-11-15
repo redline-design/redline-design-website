@@ -7,6 +7,8 @@ import TestimonialsCarousel from "@/components/TestimonialsCarousel";
 import StatCounter from "@/components/StatCounter";
 import CTABand from "@/components/CTABand";
 import StickyConversionBar from "@/components/StickyConversionBar";
+import SectionDivider from "@/components/SectionDivider";
+import ScrollAnimatedSection from "@/components/ScrollAnimatedSection";
 import { BarChart3, Sparkles, Globe, DollarSign, Zap, Target, Users, Briefcase, TrendingUp, AlertTriangle, MousePointerClick, LayoutGrid, BarChart2, Monitor, Database, Eye, FileText, LineChart, MapPin, Smartphone } from "lucide-react";
 import { SiGoogleads, SiMeta, SiLinkedin, SiTiktok, SiYoutube, SiX, SiReddit, SiPinterest } from "react-icons/si";
 import { motion } from "framer-motion";
@@ -265,12 +267,19 @@ export default function Home() {
     <div>
       <Hero />
       
-      <div id="learn-more">
-        <HorizontalScrollServices />
-      </div>
+      <SectionDivider />
+
+      <ScrollAnimatedSection>
+        <div id="learn-more">
+          <HorizontalScrollServices />
+        </div>
+      </ScrollAnimatedSection>
+
+      <SectionDivider />
 
       {/* Common Challenges We Solve */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-background" data-testid="section-challenges">
+      <ScrollAnimatedSection>
+        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-background" data-testid="section-challenges">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-lg sm:text-xl md:text-2xl font-bold uppercase tracking-[0.3em] mb-4 red-glow-pulse" style={{ color: "#ff0000" }}>
@@ -389,8 +398,12 @@ export default function Home() {
           </div>
         </div>
       </section>
+      </ScrollAnimatedSection>
 
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-card/30 backdrop-blur-sm" data-testid="section-differentiators">
+      <SectionDivider />
+
+      <ScrollAnimatedSection>
+        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-card/30 backdrop-blur-sm" data-testid="section-differentiators">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-lg sm:text-xl md:text-2xl font-bold uppercase tracking-[0.3em] mb-4 red-glow-pulse" style={{ color: "#ff0000" }}>
@@ -404,8 +417,12 @@ export default function Home() {
           <TabbedContent tabs={tabs} />
         </div>
       </section>
+      </ScrollAnimatedSection>
 
-      <section className="py-20 px-4 sm:px-6 lg:px-8" data-testid="section-why-us">
+      <SectionDivider />
+
+      <ScrollAnimatedSection>
+        <section className="py-20 px-4 sm:px-6 lg:px-8" data-testid="section-why-us">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-lg sm:text-xl md:text-2xl font-bold uppercase tracking-[0.3em] mb-4 red-glow-pulse" style={{ color: "#ff0000" }}>
@@ -451,14 +468,22 @@ export default function Home() {
           </div>
         </div>
       </section>
+      </ScrollAnimatedSection>
 
-      <section className="py-8 px-4 sm:px-6 lg:px-8 bg-card/20 backdrop-blur-sm">
+      <SectionDivider />
+
+      <ScrollAnimatedSection>
+        <section className="py-8 px-4 sm:px-6 lg:px-8 bg-card/20 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto">
           <TestimonialsCarousel />
         </div>
       </section>
+      </ScrollAnimatedSection>
 
-      <section className="py-12 px-4 sm:px-6 lg:px-8 bg-card/50" data-testid="section-metrics">
+      <SectionDivider />
+
+      <ScrollAnimatedSection>
+        <section className="py-12 px-4 sm:px-6 lg:px-8 bg-card/50" data-testid="section-metrics">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             <StatCounter value={98} suffix="%" label="Client Satisfaction" />
@@ -468,8 +493,12 @@ export default function Home() {
           </div>
         </div>
       </section>
+      </ScrollAnimatedSection>
 
-      <section id="partners" className="py-16 px-4 sm:px-6 lg:px-8" data-testid="section-partners">
+      <SectionDivider />
+
+      <ScrollAnimatedSection>
+        <section id="partners" className="py-16 px-4 sm:px-6 lg:px-8" data-testid="section-partners">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-lg sm:text-xl md:text-2xl font-bold uppercase tracking-[0.3em] mb-4 red-glow-pulse" style={{ color: "#ff0000" }}>
@@ -515,8 +544,12 @@ export default function Home() {
           </div>
         </div>
       </section>
+      </ScrollAnimatedSection>
 
-      <section className="py-20 px-4 sm:px-6 lg:px-8" data-testid="section-cta">
+      <SectionDivider />
+
+      <ScrollAnimatedSection>
+        <section className="py-20 px-4 sm:px-6 lg:px-8" data-testid="section-cta">
         <div className="max-w-7xl mx-auto">
           <CTABand
             title="Book a Free Consultation Today!"
@@ -526,6 +559,7 @@ export default function Home() {
           />
         </div>
       </section>
+      </ScrollAnimatedSection>
 
       <StickyConversionBar />
     </div>
