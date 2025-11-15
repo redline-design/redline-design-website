@@ -5,7 +5,7 @@ export default function SectionDivider() {
   const prefersReducedMotion = useReducedMotion();
 
   return (
-    <div className="w-full py-8 flex items-center justify-center" data-testid="section-divider">
+    <div className="w-full py-4 flex items-center justify-center" data-testid="section-divider">
       <motion.div 
         className="h-[2px] bg-gradient-to-r from-transparent via-primary to-transparent"
         style={{ width: "80%", maxWidth: "1200px" }}
