@@ -13,11 +13,11 @@ export default function WebsitesPage() {
         "Fast loading speeds (under 3 seconds)",
         "SEO-optimized structure from day one",
         "Easy-to-update content management system",
-        "Secure hosting and SSL certificate included"
+        "Secure hosting and SSL certificate available"
       ]}
       perfectFor="Businesses that need a professional online presence without breaking the bank"
       timeline="2-4 weeks"
-      investment="Starting at $2,500"
+      investment="Starting at $1,000"
       status="accepting"
       accentColor="rgb(96, 165, 250)"
     />

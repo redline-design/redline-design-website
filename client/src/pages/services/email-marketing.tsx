@@ -17,7 +17,7 @@ export default function EmailMarketingPage() {
       ]}
       perfectFor="Businesses with an audience ready to be nurtured"
       timeline="1 week setup, ongoing campaigns"
-      investment="Starting at $800/month"
+      investment="Starting at $1,000/month"
       status="accepting"
       accentColor="rgb(34, 197, 94)"
     />

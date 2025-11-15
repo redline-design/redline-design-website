@@ -17,7 +17,7 @@ export default function CRMPage() {
       ]}
       perfectFor="Businesses drowning in spreadsheets and missed opportunities"
       timeline="1-2 weeks setup, ongoing optimization"
-      investment="Starting at $1,200 one-time + $300/month"
+      investment="Starting at $1,000 one-time + $100/month per user added"
       status="accepting"
       accentColor="rgb(251, 146, 60)"
     />

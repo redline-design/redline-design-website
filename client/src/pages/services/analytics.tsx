@@ -17,7 +17,7 @@ export default function AnalyticsPage() {
       ]}
       perfectFor="Businesses tired of guessing what drives results"
       timeline="1 week setup, ongoing monthly reports"
-      investment="Starting at $800 one-time + $400/month"
+      investment="Included with all marketing plans"
       status="accepting"
       accentColor="rgb(236, 72, 153)"
     />

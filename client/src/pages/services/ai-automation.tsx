@@ -17,7 +17,7 @@ export default function AIAutomationPage() {
       ]}
       perfectFor="Forward-thinking businesses ready to leverage AI"
       timeline="2-4 weeks implementation"
-      investment="Starting at $2,000 one-time + $300/month"
+      investment="Starting at $500 one-time + $300/month. Includes 100,000 interactions/month."
       status="accepting"
       accentColor="rgb(234, 88, 12)"
     />

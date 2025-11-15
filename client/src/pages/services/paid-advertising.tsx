@@ -17,7 +17,7 @@ export default function PaidAdvertisingPage() {
       ]}
       perfectFor="Businesses ready to invest in immediate, measurable growth"
       timeline="See results in 1-2 weeks"
-      investment="10-20% of ad spend (min $500/month)"
+      investment="25% of ad spend (min $500/month)"
       status="accepting"
       accentColor="rgb(167, 139, 250)"
     />

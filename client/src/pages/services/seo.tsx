@@ -17,7 +17,7 @@ export default function SEOPage() {
       ]}
       perfectFor="Businesses committed to long-term sustainable growth"
       timeline="3-6 months to see significant results"
-      investment="Starting at $1,500/month"
+      investment="Starting at $700/month"
       status="waitlist"
       accentColor="rgb(110, 231, 183)"
     />

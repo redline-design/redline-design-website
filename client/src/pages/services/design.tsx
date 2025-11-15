@@ -16,8 +16,8 @@ export default function DesignPage() {
         "Unlimited revisions until you love it"
       ]}
       perfectFor="Businesses that know first impressions matter"
-      timeline="1-3 weeks depending on scope"
-      investment="Starting at $500 per project"
+      timeline="1+ weeks depending on scope"
+      investment="Starting at $200 per project"
       status="accepting"
       accentColor="rgb(249, 115, 22)"
     />

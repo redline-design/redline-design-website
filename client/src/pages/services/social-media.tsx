@@ -17,7 +17,7 @@ export default function SocialMediaPage() {
       ]}
       perfectFor="Businesses looking to build brand awareness and community"
       timeline="Ongoing monthly retainer"
-      investment="Starting at $1,200/month"
+      investment="Starting at $1,000/month"
       status="accepting"
       accentColor="rgb(59, 130, 246)"
     />
