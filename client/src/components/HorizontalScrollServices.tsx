@@ -257,7 +257,7 @@ export default function HorizontalScrollServices() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isHovering, setIsHovering] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [cardsPerPage, setCardsPerPage] = useState(3);
+  const [cardsPerPage, setCardsPerPage] = useState(4);
   const [selectedService, setSelectedService] = useState<typeof SERVICES_DATA[number] | null>(null);
 
   // Memoize services data to prevent re-creation
@@ -276,7 +276,7 @@ export default function HorizontalScrollServices() {
         } else if (width < 1024) {
           setCardsPerPage(2); // Tablet: 2 cards
         } else {
-          setCardsPerPage(3); // Desktop: 3 cards
+          setCardsPerPage(4); // Desktop: 4 cards
         }
       }, 100); // Debounce resize
     };
@@ -456,13 +456,13 @@ export default function HorizontalScrollServices() {
 
         <motion.div 
           ref={containerRef}
-          className="max-w-6xl mx-auto px-3 sm:px-4 md:px-6 w-full backdrop-blur-md bg-card/10 border-2 rounded-3xl py-3 md:py-4 transition-all duration-300 relative z-50 pointer-events-auto"
+          className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 w-full backdrop-blur-sm bg-card/5 border rounded-3xl py-3 md:py-4 transition-all duration-300 relative z-50 pointer-events-auto"
           onMouseEnter={() => setIsHovering(true)}
           onMouseLeave={() => setIsHovering(false)}
           animate={{
-            borderColor: isHovering ? "rgba(255, 0, 0, 0.25)" : "rgba(255, 255, 255, 0.1)",
+            borderColor: isHovering ? "rgba(255, 0, 0, 0.2)" : "rgba(255, 255, 255, 0.05)",
             boxShadow: isHovering 
-              ? "0 0 15px rgba(255, 0, 0, 0.15), 0 0 30px rgba(255, 0, 0, 0.08)"
+              ? "0 0 15px rgba(255, 0, 0, 0.1), 0 0 30px rgba(255, 0, 0, 0.05)"
               : "0 0 0 rgba(255, 0, 0, 0)"
           }}
           transition={{ duration: 0.3 }}
@@ -481,14 +481,14 @@ export default function HorizontalScrollServices() {
             className="relative h-[240px] md:h-[220px] overflow-visible py-2"
             data-testid="container-services-carousel"
           >
-            <div className="flex justify-center items-center gap-3 md:gap-4 h-full px-2">
+            <div className="flex justify-center items-center gap-2 md:gap-3 h-full px-2">
               <AnimatePresence mode="popLayout">
                 {services
                   .slice(currentIndex, currentIndex + cardsPerPage)
                   .map((service, index) => (
                     <motion.div
                       key={service.title}
-                      className="flex-shrink-0 w-[220px] h-[200px] md:w-[240px] md:h-[200px]"
+                      className="flex-shrink-0 w-[200px] h-[200px] md:w-[210px] md:h-[200px]"
                       data-testid={`container-service-card-${service.title.toLowerCase().replace(/\s/g, "-")}`}
                       initial={{ 
                         opacity: 0, 
