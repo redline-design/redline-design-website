@@ -8,6 +8,7 @@ const Home = lazy(() => import("@/pages/Home"));
 export default function LaptopIntro() {
   const [, setLocation] = useLocation();
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isZooming, setIsZooming] = useState(false);
   const [showHomepage, setShowHomepage] = useState(false);
   const prefersReducedMotion = useReducedMotion();
 
@@ -52,8 +53,13 @@ export default function LaptopIntro() {
 
   useEffect(() => {
     if (isPlaying && !prefersReducedMotion) {
-      // Show homepage immediately when playing starts
+      // Load homepage immediately in background for smooth transition
       setShowHomepage(true);
+      
+      // Start zoom and word animations at 2.5s (after laptop opens)
+      const zoomTimer = setTimeout(() => {
+        setIsZooming(true);
+      }, 2500);
       
       // Navigate to homepage after zoom completes (5.5s total)
       const navTimer = setTimeout(() => {
@@ -61,6 +67,7 @@ export default function LaptopIntro() {
       }, 5500);
       
       return () => {
+        clearTimeout(zoomTimer);
         clearTimeout(navTimer);
       };
     }
@@ -94,7 +101,7 @@ export default function LaptopIntro() {
   }
 
   return (
-    <div className={`laptop-intro-container ${isPlaying ? 'playing' : ''}`}>
+    <div className={`laptop-intro-container ${isPlaying ? 'playing' : ''} ${isZooming ? 'zooming' : ''}`}>
       <div className="laptop-intro-wrapper">
         <div className="laptop-intro-scene">
           <div className="laptop-base"></div>

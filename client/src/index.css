@@ -202,6 +202,11 @@
 
 .laptop-intro-container.playing .grid-item {
   animation: zoom-in-auto 0.8s cubic-bezier(0.4, 0, 0.2, 1) both;
+  animation-play-state: paused;
+}
+
+.laptop-intro-container.zooming .grid-item {
+  animation-play-state: running;
 }
 
 @keyframes zoom-in-auto {
@@ -240,27 +245,27 @@
   }
 }
 
-/* Auto-play word animations with staggered delays */
-.laptop-intro-container.playing .grid-item[data-index="1"] { animation-delay: 0.1s; }
-.laptop-intro-container.playing .grid-item[data-index="2"] { animation-delay: 0.15s; }
-.laptop-intro-container.playing .grid-item[data-index="3"] { animation-delay: 0.2s; }
-.laptop-intro-container.playing .grid-item[data-index="4"] { animation-delay: 0.25s; }
-.laptop-intro-container.playing .grid-item[data-index="5"] { animation-delay: 0.3s; }
-.laptop-intro-container.playing .grid-item[data-index="6"] { animation-delay: 0.35s; }
-.laptop-intro-container.playing .grid-item[data-index="7"] { animation-delay: 0.4s; }
-.laptop-intro-container.playing .grid-item[data-index="8"] { animation-delay: 0.45s; }
-.laptop-intro-container.playing .grid-item[data-index="9"] { animation-delay: 0.5s; }
-.laptop-intro-container.playing .grid-item[data-index="10"] { animation-delay: 0.55s; }
-.laptop-intro-container.playing .grid-item[data-index="11"] { animation-delay: 0.6s; }
-.laptop-intro-container.playing .grid-item[data-index="12"] { animation-delay: 0.65s; }
-.laptop-intro-container.playing .grid-item[data-index="13"] { animation-delay: 0.7s; }
-.laptop-intro-container.playing .grid-item[data-index="14"] { animation-delay: 0.75s; }
-.laptop-intro-container.playing .grid-item[data-index="15"] { animation-delay: 0.8s; }
-.laptop-intro-container.playing .grid-item[data-index="16"] { animation-delay: 0.85s; }
-.laptop-intro-container.playing .grid-item[data-index="17"] { animation-delay: 0.9s; }
-.laptop-intro-container.playing .grid-item[data-index="18"] { animation-delay: 0.95s; }
-.laptop-intro-container.playing .grid-item[data-index="19"] { animation-delay: 1.0s; }
-.laptop-intro-container.playing .grid-item[data-index="20"] { animation-delay: 1.05s; }
+/* Auto-play word animations with staggered delays - start when zooming */
+.laptop-intro-container.playing .grid-item[data-index="1"] { animation-delay: 0s; }
+.laptop-intro-container.playing .grid-item[data-index="2"] { animation-delay: 0.05s; }
+.laptop-intro-container.playing .grid-item[data-index="3"] { animation-delay: 0.1s; }
+.laptop-intro-container.playing .grid-item[data-index="4"] { animation-delay: 0.15s; }
+.laptop-intro-container.playing .grid-item[data-index="5"] { animation-delay: 0.2s; }
+.laptop-intro-container.playing .grid-item[data-index="6"] { animation-delay: 0.25s; }
+.laptop-intro-container.playing .grid-item[data-index="7"] { animation-delay: 0.3s; }
+.laptop-intro-container.playing .grid-item[data-index="8"] { animation-delay: 0.35s; }
+.laptop-intro-container.playing .grid-item[data-index="9"] { animation-delay: 0.4s; }
+.laptop-intro-container.playing .grid-item[data-index="10"] { animation-delay: 0.45s; }
+.laptop-intro-container.playing .grid-item[data-index="11"] { animation-delay: 0.5s; }
+.laptop-intro-container.playing .grid-item[data-index="12"] { animation-delay: 0.55s; }
+.laptop-intro-container.playing .grid-item[data-index="13"] { animation-delay: 0.6s; }
+.laptop-intro-container.playing .grid-item[data-index="14"] { animation-delay: 0.65s; }
+.laptop-intro-container.playing .grid-item[data-index="15"] { animation-delay: 0.7s; }
+.laptop-intro-container.playing .grid-item[data-index="16"] { animation-delay: 0.75s; }
+.laptop-intro-container.playing .grid-item[data-index="17"] { animation-delay: 0.8s; }
+.laptop-intro-container.playing .grid-item[data-index="18"] { animation-delay: 0.85s; }
+.laptop-intro-container.playing .grid-item[data-index="19"] { animation-delay: 0.9s; }
+.laptop-intro-container.playing .grid-item[data-index="20"] { animation-delay: 0.95s; }
 
 /* Service Word Slider for Homepage (no laptop) */
 .service-word-slider-container {
