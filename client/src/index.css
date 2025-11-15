@@ -922,6 +922,149 @@
     }
   }
 
+  /* 3D Services Perspective Layout */
+  .services-3d-container {
+    display: flex;
+    perspective: 10px;
+    transform: perspective(300px) rotateX(20deg);
+    will-change: perspective;
+    perspective-origin: center center;
+    transition: all 1.3s ease-out;
+    justify-content: center;
+    transform-style: preserve-3d;
+    min-height: 350px;
+    align-items: center;
+    position: relative;
+  }
+
+  .services-3d-container:hover {
+    perspective: 1000px;
+    transition: all 1.3s ease-in;
+    transform: perspective(10000px) rotateX(0deg);
+  }
+
+  .services-3d-container:hover .service-card-title {
+    opacity: 1;
+  }
+
+  .services-3d-container:hover .service-card-3d {
+    opacity: 1;
+    transition-delay: 0s;
+  }
+
+  .services-3d-container:hover .service-explainer {
+    opacity: 0;
+  }
+
+  .service-card-3d {
+    width: 180px;
+    height: 200px;
+    transform-style: preserve-3d;
+    border-radius: 12px;
+    border: 1px solid hsl(var(--border));
+    box-shadow: 0 0 20px 5px rgba(255, 0, 0, 0.15);
+    opacity: 0;
+    transition: all 0.3s ease;
+    transition-delay: 1s;
+    position: relative;
+    background: hsl(var(--card));
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+  }
+
+  .service-card-3d.center {
+    opacity: 1;
+  }
+
+  .service-card-3d:hover {
+    box-shadow: 0 0 30px 10px rgba(255, 0, 0, 0.25);
+    background: hsl(var(--card) / 0.95);
+  }
+
+  .service-card-inner {
+    text-align: center;
+    width: 100%;
+  }
+
+  .service-card-title {
+    transform: translateY(10px);
+    opacity: 0;
+    transition: all 0.3s ease;
+    will-change: transform, opacity;
+    color: hsl(var(--foreground));
+    text-shadow: 0 0 5px rgba(255, 0, 0, 0.3);
+  }
+
+  .service-explainer {
+    font-weight: 400;
+    font-size: 1.25rem;
+    color: hsl(var(--foreground));
+    transition: all 0.6s ease;
+    width: 220px;
+    height: 220px;
+    background: hsl(var(--card) / 0.8);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    border: 1px solid hsl(var(--primary) / 0.3);
+    text-shadow: 0 0 10px rgba(255, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    z-index: 100;
+    box-shadow: 0 0 20px 5px rgba(255, 0, 0, 0.2);
+  }
+
+  /* Individual card positions - adjust based on index */
+  .service-card-3d:nth-child(1) { transform: translateX(calc(var(--card-index) * -120px)) translateZ(-80px) rotateY(-15deg); }
+  .service-card-3d:nth-child(2) { transform: translateX(calc(var(--card-index) * -100px)) translateZ(-60px) rotateY(-12deg); }
+  .service-card-3d:nth-child(3) { transform: translateX(calc(var(--card-index) * -80px)) translateZ(-40px) rotateY(-9deg); }
+  .service-card-3d:nth-child(4) { transform: translateX(calc(var(--card-index) * -60px)) translateZ(-25px) rotateY(-6deg); }
+  .service-card-3d:nth-child(5) { transform: translateX(calc(var(--card-index) * -40px)) translateZ(-12px) rotateY(-3deg); }
+  .service-card-3d:nth-child(6) { transform: translateX(calc(var(--card-index) * -20px)) translateZ(0px) rotateY(0deg); }
+  .service-card-3d:nth-child(7) { transform: translateX(calc(var(--card-index) * 20px)) translateZ(-12px) rotateY(3deg); }
+  .service-card-3d:nth-child(8) { transform: translateX(calc(var(--card-index) * 40px)) translateZ(-25px) rotateY(6deg); }
+  .service-card-3d:nth-child(9) { transform: translateX(calc(var(--card-index) * 60px)) translateZ(-40px) rotateY(9deg); }
+  .service-card-3d:nth-child(10) { transform: translateX(calc(var(--card-index) * 80px)) translateZ(-60px) rotateY(12deg); }
+  .service-card-3d:nth-child(11) { transform: translateX(calc(var(--card-index) * 100px)) translateZ(-80px) rotateY(15deg); }
+
+  /* Mobile responsive */
+  @media (max-width: 768px) {
+    .services-3d-container {
+      flex-wrap: wrap;
+      perspective: none;
+      transform: none;
+      padding: 1rem;
+      min-height: auto;
+      gap: 1rem;
+    }
+
+    .services-3d-container:hover {
+      perspective: none;
+      transform: none;
+    }
+
+    .service-card-3d {
+      opacity: 1 !important;
+      transform: none !important;
+      width: 100%;
+      max-width: 300px;
+      margin: 0 auto;
+    }
+
+    .service-card-title {
+      opacity: 1 !important;
+      transform: none !important;
+    }
+
+    .service-explainer {
+      display: none;
+    }
+  }
+
   /* Subtle pulse for badges */
   @keyframes subtle-pulse {
     0%, 100% {
