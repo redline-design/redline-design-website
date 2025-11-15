@@ -23,7 +23,7 @@ const SERVICES_DATA = [
         "Fast loading speeds (under 3 seconds)",
         "SEO-optimized structure from day one",
         "Easy-to-update content management system",
-        "Secure hosting and SSL certificate included"
+        "Secure hosting and SSL certificate available"
       ],
       perfectFor: "Businesses that need a professional online presence without breaking the bank",
       timeline: "2-4 weeks",
