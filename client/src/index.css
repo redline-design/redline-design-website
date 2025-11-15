@@ -1193,7 +1193,7 @@
   aspect-ratio: 1 / 1;
   pointer-events: none;
   display: inline-grid;
-  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  border-radius: 9999px;
   width: calc(var(--size) * 3);
   border: 6px solid var(--primary-color);
   transition: box-shadow 0.3s ease-in-out;
@@ -1315,12 +1315,12 @@
   height: inherit;
   border: inherit;
   position: absolute;
-  clip-path: inherit;
+  border-radius: inherit;
   animation: spin-orbit-in var(--duration) linear infinite reverse;
 
   transition-duration: 0.3s;
   transition-timing-function: ease-in-out;
-  transition-property: scale, clip-path, border, box-shadow;
+  transition-property: scale, border-radius, border, box-shadow;
 }
 
 .portfolio-orbit-container:has(.portfolio-orbit-item:hover) {
@@ -1338,7 +1338,7 @@
   --translate: calc(-50% / var(--scale));
 
   border-width: 2px;
-  clip-path: inherit;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
   border-color: var(--secondary-color);
   transform: scale(var(--scale))
     translate(var(--translate), var(--translate));
@@ -1349,7 +1349,7 @@
 .portfolio-orbit-container:has(.portfolio-orbit-item:hover)::after {
   scale: 0.3;
   border-width: 18px;
-  clip-path: polygon(50% 5%, 95% 27.5%, 95% 72.5%, 50% 95%, 5% 72.5%, 5% 27.5%);
+  border-radius: 3rem;
   border-color: var(--secondary-color);
   box-shadow: 0 0 var(--size) var(--secondary-color) inset;
 }
