@@ -136,7 +136,7 @@
 }
 
 .laptop-screen.opening {
-  transform: translateX(-50%) rotateX(-130deg);
+  transform: translateX(-50%) rotateX(130deg);
   cursor: default;
 }
 
