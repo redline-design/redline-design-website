@@ -1,11 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import { useLocation } from "wouter";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import redlineLogo from "@assets/thumbnail_Asset 1_1763247131194.png";
 
+const Home = lazy(() => import("@/pages/Home"));
+
 export default function LaptopIntro() {
   const [, setLocation] = useLocation();
   const [isPlaying, setIsPlaying] = useState(false);
+  const [showHomepage, setShowHomepage] = useState(false);
   const prefersReducedMotion = useReducedMotion();
 
   const services = [
@@ -49,10 +52,20 @@ export default function LaptopIntro() {
 
   useEffect(() => {
     if (isPlaying && !prefersReducedMotion) {
-      const timer = setTimeout(() => {
+      // Show homepage behind words after 3 seconds
+      const showTimer = setTimeout(() => {
+        setShowHomepage(true);
+      }, 3000);
+      
+      // Navigate to homepage after zoom completes (5s)
+      const navTimer = setTimeout(() => {
         setLocation("/");
-      }, 8000);
-      return () => clearTimeout(timer);
+      }, 6000);
+      
+      return () => {
+        clearTimeout(showTimer);
+        clearTimeout(navTimer);
+      };
     }
   }, [isPlaying, prefersReducedMotion, setLocation]);
 
@@ -124,8 +137,12 @@ export default function LaptopIntro() {
         </div>
       </div>
       
-      {isPlaying && (
-        <div className="fade-to-home"></div>
+      {showHomepage && (
+        <div className="homepage-preview">
+          <Suspense fallback={<div />}>
+            <Home />
+          </Suspense>
+        </div>
       )}
     </div>
   );
