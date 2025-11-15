@@ -372,14 +372,119 @@ function Router() {
       
       <Route path="/nda">
         <PolicyPage
-          title="Non-Disclosure Agreement"
+          title="Mutual Non-Disclosure Agreement"
           content={
             <div>
-              <p className="text-muted-foreground mb-4">Last updated: {new Date().toLocaleDateString()}</p>
-              <h2 className="text-2xl font-bold mb-4">Confidential Information</h2>
+              <p className="text-muted-foreground mb-4">Template</p>
+              
               <p className="mb-4">
-                Redline Design LLC agrees to keep all client information confidential and will not disclose any proprietary information to third parties.
+                This Mutual Non-Disclosure Agreement (the "Agreement") is entered into as of [Date] (the "Effective Date"), by and between:
               </p>
+              
+              <p className="mb-4">
+                <strong>Party 1:</strong> Redline Design, with its principal place of business at 55 N Mechant St #444, American Fork, Utah, 84003
+              </p>
+              
+              <p className="mb-4">and</p>
+              
+              <p className="mb-4">
+                <strong>Party 2:</strong> [Counterparty Name], with its principal place of business at [Counterparty Address] (the "Counterparty").
+              </p>
+              
+              <p className="mb-4">
+                Redline Design and the Counterparty are each referred to herein as a "Party" and, collectively, as the "Parties."
+              </p>
+
+              <h2 className="text-2xl font-bold mb-4">1. Purpose</h2>
+              <p className="mb-4">
+                The Parties intend to engage in discussions concerning a potential business relationship or project (the "Permitted Purpose"). In the course of these discussions, either Party may disclose certain confidential, proprietary, or non-public information to the other. This Agreement is intended to protect such information from unauthorized use or disclosure.
+              </p>
+
+              <h2 className="text-2xl font-bold mb-4">2. Definition of Confidential Information</h2>
+              <p className="mb-4">
+                "Confidential Information" means any and all non-public information, whether disclosed orally, in writing, in electronic form, or by any other means, by one Party (the "Disclosing Party") to the other Party (the "Receiving Party"). Confidential Information includes, but is not limited to:
+              </p>
+              <ul className="list-disc ml-6 mb-4 space-y-2">
+                <li><strong>Business Information:</strong> Business plans, strategies, financial information, pricing, customer and client lists, marketing plans, and operational methods.</li>
+                <li><strong>Client Information:</strong> Any data, materials, or information related to the Disclosing Party's clients, including campaign data, customer lists, and strategic plans.</li>
+                <li><strong>Technical Information:</strong> Trade secrets, proprietary software, source code, algorithms, know-how, designs, technical specifications, and system architecture.</li>
+                <li><strong>Creative Information:</strong> Unpublished creative works, concepts, marketing materials, and intellectual property.</li>
+                <li>Any information that is marked "Confidential," "Proprietary," or with a similar legend, or that a reasonable person would understand to be confidential under the circumstances.</li>
+              </ul>
+
+              <h2 className="text-2xl font-bold mb-4">3. Exclusions from Confidential Information</h2>
+              <p className="mb-4">Confidential Information does not include information that the Receiving Party can demonstrate:</p>
+              <ul className="list-disc ml-6 mb-4 space-y-2">
+                <li>Was publicly known and made generally available in the public domain prior to the time of disclosure by the Disclosing Party;</li>
+                <li>Becomes publicly known and made generally available after disclosure by the Disclosing Party to the Receiving Party through no action or inaction of the Receiving Party;</li>
+                <li>Was already in the possession of the Receiving Party at the time of disclosure by the Disclosing Party, without any confidentiality restrictions;</li>
+                <li>Was obtained by the Receiving Party from a third party without a breach of such third party's obligations of confidentiality; or</li>
+                <li>Was independently developed by the Receiving Party without use of or reference to the Disclosing Party's Confidential Information.</li>
+              </ul>
+
+              <h2 className="text-2xl font-bold mb-4">4. Obligations of the Receiving Party</h2>
+              <p className="mb-4">The Receiving Party agrees to:</p>
+              <ul className="list-disc ml-6 mb-4 space-y-2">
+                <li>Hold the Disclosing Party's Confidential Information in strict confidence and take all reasonable precautions to protect it.</li>
+                <li>Use the Confidential Information solely for the Permitted Purpose and for no other purpose.</li>
+                <li>Not disclose any Confidential Information to any third party without the prior written consent of the Disclosing Party.</li>
+                <li>Restrict disclosure of Confidential Information to its employees, contractors, agents, or legal/financial advisors (collectively, "Representatives") who have a legitimate "need-to-know" for the Permitted Purpose, and who are bound by confidentiality obligations at least as restrictive as those in this Agreement. The Receiving Party shall be responsible for any breach of this Agreement by its Representatives.</li>
+              </ul>
+
+              <h2 className="text-2xl font-bold mb-4">5. Compelled Disclosure</h2>
+              <p className="mb-4">
+                If the Receiving Party is compelled by law, regulation, or court order to disclose any of the Confidential Information, it shall provide the Disclosing Party with prompt written notice of such requirement so that the Disclosing Party may seek a protective order or other appropriate remedy. The Receiving Party shall provide reasonable assistance to the Disclosing Party in this effort. If disclosure is ultimately required, the Receiving Party shall furnish only that portion of the Confidential Information that it is legally required to disclose.
+              </p>
+
+              <h2 className="text-2xl font-bold mb-4">6. Return of Information</h2>
+              <p className="mb-4">
+                Upon the written request of the Disclosing Party, or upon the termination of the business discussions between the Parties, the Receiving Party shall promptly return to the Disclosing Party or securely destroy all documents and materials (and all copies thereof) containing the Disclosing Party's Confidential Information. At the Disclosing Party's request, the Receiving Party shall provide written certification of its compliance with this section.
+              </p>
+
+              <h2 className="text-2xl font-bold mb-4">7. No License or Warranty</h2>
+              <p className="mb-4">
+                Nothing in this Agreement is intended to grant any rights to the Receiving Party under any patent, copyright, trademark, or other intellectual property right of the Disclosing Party, nor shall this Agreement grant the Receiving Party any rights in or to the Confidential Information except for the limited right to review such information for the Permitted Purpose. All Confidential Information is provided "as is," and the Disclosing Party makes no warranties, express, implied, or otherwise, regarding its accuracy, completeness, or performance.
+              </p>
+
+              <h2 className="text-2xl font-bold mb-4">8. Term</h2>
+              <p className="mb-4">
+                The term of this Agreement shall be for a period of one (1) year from the Effective Date. However, the obligations of confidentiality with respect to any Confidential Information disclosed during the term shall survive the termination or expiration of this Agreement for a period of five (5) years thereafter. For information that constitutes a "trade secret" under applicable law, the confidentiality obligations shall survive indefinitely.
+              </p>
+
+              <h2 className="text-2xl font-bold mb-4">9. Remedies</h2>
+              <p className="mb-4">
+                The Receiving Party acknowledges that any unauthorized use or disclosure of Confidential Information will cause irreparable harm to the Disclosing Party, for which monetary damages would be an inadequate remedy. Accordingly, the Disclosing Party shall be entitled to seek equitable relief, including an injunction and specific performance, in the event of any breach or threatened breach of this Agreement, in addition to any other remedies available at law or in equity.
+              </p>
+
+              <h2 className="text-2xl font-bold mb-4">10. General Provisions</h2>
+              <ul className="list-disc ml-6 mb-4 space-y-2">
+                <li><strong>Governing Law and Jurisdiction:</strong> This Agreement shall be governed by and construed in accordance with the laws of the State of Utah, without regard to its conflict of laws principles. The Parties consent to the exclusive jurisdiction of the state and federal courts located in Salt Lake County, Utah.</li>
+                <li><strong>Entire Agreement:</strong> This Agreement contains the entire understanding between the Parties concerning the subject matter hereof and supersedes all prior and contemporaneous agreements, whether written or oral.</li>
+                <li><strong>Amendment and Waiver:</strong> This Agreement may not be amended except by a written instrument signed by both Parties. No failure or delay by a Party in exercising any right hereunder shall operate as a waiver thereof.</li>
+                <li><strong>Severability:</strong> If any provision of this Agreement is found to be unenforceable, the remainder shall be enforced as fully as possible, and the unenforceable provision shall be deemed modified to the limited extent required to permit its enforcement in a manner most closely representing the original intention of the Parties.</li>
+                <li><strong>Notices:</strong> Any notice required or permitted by this Agreement shall be in writing and shall be delivered as follows, with notice deemed given as of the date of receipt: by personal delivery, by reputable overnight courier, or by registered or certified mail, postage prepaid, return receipt requested.</li>
+              </ul>
+
+              <h2 className="text-2xl font-bold mb-4">Execution</h2>
+              <p className="mb-4">
+                IN WITNESS WHEREOF, the Parties have executed this Mutual Non-Disclosure Agreement by their duly authorized representatives as of the Effective Date.
+              </p>
+              
+              <div className="mt-6 space-y-4">
+                <div>
+                  <p className="font-bold">REDLINE DESIGN</p>
+                  <p className="mt-2">By: ___________________________</p>
+                  <p>Name: ___________________________</p>
+                  <p>Title: ___________________________</p>
+                </div>
+                
+                <div className="mt-6">
+                  <p className="font-bold">[COUNTERPARTY NAME]</p>
+                  <p className="mt-2">By: ___________________________</p>
+                  <p>Name: ___________________________</p>
+                  <p>Title: ___________________________</p>
+                </div>
+              </div>
             </div>
           }
         />
