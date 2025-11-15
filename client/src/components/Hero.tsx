@@ -65,7 +65,7 @@ export default function Hero() {
           <style>{`
             @keyframes heroLogoShimmer {
               0%, 100% {
-                clip-path: inset(0 0 100% 0);
+                clip-path: inset(100% 0 0 0);
               }
               50% {
                 clip-path: inset(0 0 0 0);
@@ -81,16 +81,18 @@ export default function Hero() {
               className="w-full"
               data-testid="img-hero-logo"
             />
-            {/* Brightened red overlay */}
+            {/* Red glow overlay - only affects red parts */}
             <img 
               src={logoLarge} 
               alt="" 
               loading="eager"
               className="w-full absolute inset-0"
               style={{
-                filter: 'brightness(1.8) saturate(2) contrast(1.2)',
+                filter: 'brightness(2.5) saturate(3) hue-rotate(-10deg) contrast(1.5) sepia(0.3)',
                 animation: 'heroLogoShimmer 4s ease-in-out infinite',
-                mixBlendMode: 'screen'
+                mixBlendMode: 'lighten',
+                WebkitMaskImage: 'linear-gradient(to right, rgba(255,0,0,1), rgba(255,0,0,1))',
+                maskImage: 'linear-gradient(to right, rgba(255,0,0,1), rgba(255,0,0,1))'
               }}
             />
           </div>
