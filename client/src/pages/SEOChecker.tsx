@@ -28,6 +28,25 @@ interface SEOAnalysis {
     warnings: number;
     issues: number;
   };
+  categoryScores?: {
+    technical: number;
+    content: number;
+    mobile: number;
+    performance: number;
+  };
+  performance?: {
+    loadTime: number;
+    score: number;
+    recommendations: string[];
+  };
+  mobile?: {
+    score: number;
+    hasViewport: boolean;
+    hasMediaQueries: boolean;
+    hasFlexbox: boolean;
+    hasGrid: boolean;
+    recommendations: string[];
+  };
 }
 
 export default function SEOChecker() {
@@ -137,7 +156,7 @@ export default function SEOChecker() {
                 <CardHeader>
                   <div className="flex items-center justify-between">
                     <div>
-                      <CardTitle>SEO Score</CardTitle>
+                      <CardTitle>Overall SEO Score</CardTitle>
                       <CardDescription className="break-all">
                         {analyzeMutation.data.url}
                       </CardDescription>
@@ -153,7 +172,7 @@ export default function SEOChecker() {
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <div className="grid grid-cols-3 gap-4">
+                  <div className="grid grid-cols-3 gap-4 mb-6">
                     <div className="text-center p-4 bg-green-500/10 rounded-lg">
                       <div className="text-2xl font-bold text-green-500" data-testid="text-passed-count">
                         {analyzeMutation.data.summary.passed}
@@ -173,8 +192,124 @@ export default function SEOChecker() {
                       <div className="text-sm text-muted-foreground">Issues</div>
                     </div>
                   </div>
+
+                  {analyzeMutation.data.categoryScores && (
+                    <div>
+                      <h3 className="font-semibold mb-4">Category Breakdown</h3>
+                      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div className="text-center p-4 bg-card border rounded-lg">
+                          <div className={`text-3xl font-bold mb-1 ${getScoreColor(analyzeMutation.data.categoryScores.technical)}`}>
+                            {analyzeMutation.data.categoryScores.technical}
+                          </div>
+                          <div className="text-sm text-muted-foreground">Technical SEO</div>
+                        </div>
+                        <div className="text-center p-4 bg-card border rounded-lg">
+                          <div className={`text-3xl font-bold mb-1 ${getScoreColor(analyzeMutation.data.categoryScores.content)}`}>
+                            {analyzeMutation.data.categoryScores.content}
+                          </div>
+                          <div className="text-sm text-muted-foreground">Content SEO</div>
+                        </div>
+                        <div className="text-center p-4 bg-card border rounded-lg">
+                          <div className={`text-3xl font-bold mb-1 ${getScoreColor(analyzeMutation.data.categoryScores.mobile)}`}>
+                            {analyzeMutation.data.categoryScores.mobile}
+                          </div>
+                          <div className="text-sm text-muted-foreground">Mobile SEO</div>
+                        </div>
+                        <div className="text-center p-4 bg-card border rounded-lg">
+                          <div className={`text-3xl font-bold mb-1 ${getScoreColor(analyzeMutation.data.categoryScores.performance)}`}>
+                            {analyzeMutation.data.categoryScores.performance}
+                          </div>
+                          <div className="text-sm text-muted-foreground">Performance</div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </CardContent>
               </Card>
+
+              {analyzeMutation.data.performance && (
+                <Card className="mb-6">
+                  <CardHeader>
+                    <CardTitle>Performance Analysis</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="mb-4">
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-sm font-medium">Load Time:</span>
+                        <span className="text-sm">{analyzeMutation.data.performance.loadTime}ms</span>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span className="text-sm font-medium">Performance Score:</span>
+                        <span className={`text-sm font-bold ${getScoreColor(analyzeMutation.data.performance.score)}`}>
+                          {analyzeMutation.data.performance.score}/100
+                        </span>
+                      </div>
+                    </div>
+                    {analyzeMutation.data.performance.recommendations.length > 0 && (
+                      <div>
+                        <h4 className="font-medium mb-2">Recommendations:</h4>
+                        <ul className="space-y-2">
+                          {analyzeMutation.data.performance.recommendations.map((rec, index) => (
+                            <li key={index} className="text-sm text-muted-foreground flex items-start gap-2">
+                              <AlertTriangle className="w-4 h-4 mt-0.5 flex-shrink-0 text-yellow-500" />
+                              {rec}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                  </CardContent>
+                </Card>
+              )}
+
+              {analyzeMutation.data.mobile && (
+                <Card className="mb-6">
+                  <CardHeader>
+                    <CardTitle>Mobile Responsiveness</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="mb-4">
+                      <div className="flex items-center justify-between mb-3">
+                        <span className="text-sm font-medium">Mobile Score:</span>
+                        <span className={`text-sm font-bold ${getScoreColor(analyzeMutation.data.mobile.score)}`}>
+                          {analyzeMutation.data.mobile.score}/100
+                        </span>
+                      </div>
+                      <div className="grid grid-cols-2 gap-3 mb-4">
+                        <div className="flex items-center gap-2">
+                          <div className={`w-2 h-2 rounded-full ${analyzeMutation.data.mobile.hasViewport ? 'bg-green-500' : 'bg-red-500'}`} />
+                          <span className="text-sm">Viewport Meta Tag</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <div className={`w-2 h-2 rounded-full ${analyzeMutation.data.mobile.hasMediaQueries ? 'bg-green-500' : 'bg-yellow-500'}`} />
+                          <span className="text-sm">Media Queries</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <div className={`w-2 h-2 rounded-full ${analyzeMutation.data.mobile.hasFlexbox ? 'bg-green-500' : 'bg-yellow-500'}`} />
+                          <span className="text-sm">Flexbox Layout</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <div className={`w-2 h-2 rounded-full ${analyzeMutation.data.mobile.hasGrid ? 'bg-green-500' : 'bg-yellow-500'}`} />
+                          <span className="text-sm">Grid Layout</span>
+                        </div>
+                      </div>
+                    </div>
+                    {analyzeMutation.data.mobile.recommendations.length > 0 && (
+                      <div>
+                        <h4 className="font-medium mb-2">Mobile Recommendations:</h4>
+                        <ul className="space-y-2">
+                          {analyzeMutation.data.mobile.recommendations.map((rec, index) => (
+                            <li key={index} className="text-sm text-muted-foreground flex items-start gap-2">
+                              <AlertTriangle className="w-4 h-4 mt-0.5 flex-shrink-0 text-yellow-500" />
+                              {rec}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                  </CardContent>
+                </Card>
+              )}
 
               {analyzeMutation.data.issues.length > 0 && (
                 <Card className="mb-6 border-red-500/50">
@@ -264,13 +399,18 @@ export default function SEOChecker() {
               )}
 
               <div className="mt-8 p-6 bg-primary/10 rounded-lg text-center">
-                <h3 className="text-xl font-bold mb-2">Need help fixing these issues?</h3>
+                <h3 className="text-xl font-bold mb-2">Ready to dominate search results?</h3>
                 <p className="text-muted-foreground mb-4">
-                  Our SEO experts can optimize your website for maximum search engine visibility
+                  Our SEO experts will fix these issues and boost your rankings in 3-6 months
                 </p>
-                <Button asChild size="lg" data-testid="button-contact-cta">
-                  <a href="/contact">Get a Free Consultation</a>
-                </Button>
+                <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                  <Button asChild size="lg" data-testid="button-seo-service">
+                    <a href="/services/seo">View SEO Services</a>
+                  </Button>
+                  <Button asChild size="lg" variant="outline" data-testid="button-contact-cta">
+                    <a href="/contact">Get Free Consultation</a>
+                  </Button>
+                </div>
               </div>
             </motion.div>
           )}

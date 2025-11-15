@@ -567,6 +567,207 @@ export async function registerRoutes(app: Express): Promise<Server> {
         passedChecks++;
       }
 
+      // Robots.txt check
+      totalChecks++;
+      try {
+        const robotsUrl = `${targetUrl.protocol}//${targetUrl.host}/robots.txt`;
+        const robotsResponse = await fetch(robotsUrl, { 
+          method: 'HEAD',
+          headers: { 'User-Agent': 'Mozilla/5.0 (compatible; RedlineDesignBot/1.0)' }
+        });
+        if (robotsResponse.ok) {
+          analysis.passed.push({ type: 'robots', message: 'robots.txt file found' });
+          passedChecks++;
+        } else {
+          analysis.warnings.push({ type: 'robots', message: 'robots.txt file not found. Consider adding one to guide search engine crawlers.' });
+        }
+      } catch {
+        analysis.warnings.push({ type: 'robots', message: 'Could not verify robots.txt file' });
+      }
+
+      // Sitemap.xml check
+      totalChecks++;
+      try {
+        const sitemapUrl = `${targetUrl.protocol}//${targetUrl.host}/sitemap.xml`;
+        const sitemapResponse = await fetch(sitemapUrl, { 
+          method: 'HEAD',
+          headers: { 'User-Agent': 'Mozilla/5.0 (compatible; RedlineDesignBot/1.0)' }
+        });
+        if (sitemapResponse.ok) {
+          analysis.passed.push({ type: 'sitemap', message: 'sitemap.xml file found' });
+          passedChecks++;
+        } else {
+          analysis.warnings.push({ type: 'sitemap', message: 'sitemap.xml file not found. Submit a sitemap to help search engines index your site.' });
+        }
+      } catch {
+        analysis.warnings.push({ type: 'sitemap', message: 'Could not verify sitemap.xml file' });
+      }
+
+      // Schema.org structured data check
+      totalChecks++;
+      const jsonLdScripts = $('script[type="application/ld+json"]');
+      if (jsonLdScripts.length > 0) {
+        analysis.passed.push({ type: 'schema', message: `${jsonLdScripts.length} structured data schema(s) found` });
+        passedChecks++;
+      } else {
+        analysis.warnings.push({ type: 'schema', message: 'No schema.org structured data found. Add structured data to enhance search results.' });
+      }
+
+      // Favicon check
+      totalChecks++;
+      const favicon = $('link[rel="icon"], link[rel="shortcut icon"]').attr('href');
+      if (favicon) {
+        analysis.passed.push({ type: 'favicon', message: 'Favicon is present' });
+        passedChecks++;
+      } else {
+        analysis.warnings.push({ type: 'favicon', message: 'No favicon found. Add a favicon for better branding in browser tabs.' });
+      }
+
+      // Duplicate meta tags check
+      totalChecks++;
+      const metaTags = $('meta[name]');
+      const metaNames = new Map<string, number>();
+      metaTags.each((i, elem) => {
+        const name = $(elem).attr('name');
+        if (name) {
+          metaNames.set(name, (metaNames.get(name) || 0) + 1);
+        }
+      });
+      const duplicates = Array.from(metaNames.entries()).filter(([, count]) => count > 1);
+      if (duplicates.length > 0) {
+        const duplicateList = duplicates.map(([name, count]) => `${name} (${count}x)`).join(', ');
+        analysis.warnings.push({ type: 'meta-duplicates', message: `Duplicate meta tags found: ${duplicateList}` });
+      } else {
+        analysis.passed.push({ type: 'meta-duplicates', message: 'No duplicate meta tags found' });
+        passedChecks++;
+      }
+
+      // Broken links check (first 20 links)
+      totalChecks++;
+      const links = $('a[href]').slice(0, 20);
+      const brokenLinks: string[] = [];
+      let checkedLinks = 0;
+      
+      for (let i = 0; i < Math.min(links.length, 20); i++) {
+        const href = $(links[i]).attr('href');
+        if (!href || href.startsWith('#') || href.startsWith('javascript:') || href.startsWith('mailto:') || href.startsWith('tel:')) {
+          continue;
+        }
+        
+        try {
+          let linkUrl: string;
+          if (href.startsWith('http')) {
+            linkUrl = href;
+          } else if (href.startsWith('/')) {
+            linkUrl = `${targetUrl.protocol}//${targetUrl.host}${href}`;
+          } else {
+            linkUrl = `${targetUrl.protocol}//${targetUrl.host}/${href}`;
+          }
+          
+          const linkResponse = await fetch(linkUrl, { 
+            method: 'HEAD',
+            headers: { 'User-Agent': 'Mozilla/5.0 (compatible; RedlineDesignBot/1.0)' },
+            signal: AbortSignal.timeout(3000)
+          });
+          
+          checkedLinks++;
+          if (!linkResponse.ok && linkResponse.status !== 999) {
+            brokenLinks.push(`${href} (${linkResponse.status})`);
+          }
+        } catch {
+          // Skip links that timeout or fail
+        }
+      }
+      
+      if (brokenLinks.length > 0) {
+        analysis.warnings.push({ 
+          type: 'broken-links', 
+          message: `${brokenLinks.length} potentially broken link(s) found in first ${checkedLinks} links checked: ${brokenLinks.slice(0, 3).join(', ')}${brokenLinks.length > 3 ? '...' : ''}` 
+        });
+        passedChecks += 0.5;
+      } else if (checkedLinks > 0) {
+        analysis.passed.push({ type: 'broken-links', message: `No broken links found in ${checkedLinks} links checked` });
+        passedChecks++;
+      } else {
+        analysis.warnings.push({ type: 'broken-links', message: 'No links found to check' });
+      }
+
+      // Performance analysis
+      const startTime = Date.now();
+      const fetchTime = startTime - (response as any).startTime || 0;
+      const parseTime = Date.now() - startTime;
+      const totalLoadTime = fetchTime + parseTime;
+      
+      let performanceScore = 100;
+      if (totalLoadTime > 3000) performanceScore = 50;
+      else if (totalLoadTime > 2000) performanceScore = 70;
+      else if (totalLoadTime > 1000) performanceScore = 85;
+      
+      analysis.performance = {
+        loadTime: totalLoadTime,
+        score: performanceScore,
+        recommendations: []
+      };
+
+      if (totalLoadTime > 2000) {
+        analysis.performance.recommendations.push('Page load time is slow. Consider optimizing images and reducing JavaScript.');
+      }
+      if (images.length > 20) {
+        analysis.performance.recommendations.push(`Page has ${images.length} images. Consider lazy loading or image optimization.`);
+      }
+      if ($('script').length > 15) {
+        analysis.performance.recommendations.push(`Page has ${$('script').length} scripts. Consider combining and minifying JavaScript files.`);
+      }
+
+      // Mobile responsiveness analysis
+      const mobileScore = viewport ? 100 : 0;
+      const hasMediaQueries = html.includes('@media') || html.includes('min-width') || html.includes('max-width');
+      const hasFlexbox = html.includes('display: flex') || html.includes('display:flex');
+      const hasGrid = html.includes('display: grid') || html.includes('display:grid');
+      
+      analysis.mobile = {
+        score: mobileScore,
+        hasViewport: !!viewport,
+        hasMediaQueries,
+        hasFlexbox,
+        hasGrid,
+        recommendations: []
+      };
+
+      if (!viewport) {
+        analysis.mobile.recommendations.push('Add a viewport meta tag for mobile responsiveness');
+      }
+      if (!hasMediaQueries) {
+        analysis.mobile.recommendations.push('No media queries detected. Consider adding responsive breakpoints.');
+      }
+      if (images.length > 0) {
+        const responsiveImages = $('img[srcset]').length;
+        if (responsiveImages === 0) {
+          analysis.mobile.recommendations.push('Consider using responsive images (srcset) for better mobile performance.');
+        }
+      }
+
+      // Calculate category scores
+      const technicalChecks = ['robots', 'sitemap', 'schema', 'favicon', 'meta-duplicates', 'broken-links', 'canonical', 'https'];
+      const contentChecks = ['title', 'meta-description', 'h1', 'headings', 'content', 'images', 'open-graph'];
+      
+      const technicalPassed = analysis.passed.filter((p: any) => technicalChecks.includes(p.type)).length;
+      const technicalWarnings = analysis.warnings.filter((w: any) => technicalChecks.includes(w.type)).length;
+      const technicalIssues = analysis.issues.filter((i: any) => technicalChecks.includes(i.type)).length;
+      const technicalTotal = technicalChecks.length;
+      
+      const contentPassed = analysis.passed.filter((p: any) => contentChecks.includes(p.type)).length;
+      const contentWarnings = analysis.warnings.filter((w: any) => contentChecks.includes(w.type)).length;
+      const contentIssues = analysis.issues.filter((i: any) => contentChecks.includes(i.type)).length;
+      const contentTotal = contentChecks.length;
+
+      analysis.categoryScores = {
+        technical: Math.round(((technicalPassed + technicalWarnings * 0.5) / technicalTotal) * 100),
+        content: Math.round(((contentPassed + contentWarnings * 0.5) / contentTotal) * 100),
+        mobile: mobileScore,
+        performance: performanceScore
+      };
+
       // Calculate final score
       analysis.score = Math.round((passedChecks / totalChecks) * 100);
       analysis.summary = {
