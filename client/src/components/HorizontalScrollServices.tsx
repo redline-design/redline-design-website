@@ -364,7 +364,7 @@ export default function HorizontalScrollServices() {
       <div className="sticky top-0 h-screen flex flex-col justify-start pt-16 md:pt-20 overflow-hidden px-4 md:px-8 pointer-events-none">
         {/* Left scroll indicator */}
         <motion.div
-          className="absolute left-2 md:left-8 top-1/2 -translate-y-1/2 flex flex-col items-center gap-2 pointer-events-none z-40"
+          className="absolute left-2 md:left-8 top-[280px] md:top-[300px] -translate-y-1/2 flex flex-col items-center gap-2 pointer-events-none z-40"
           initial={{ opacity: 0 }}
           animate={{ opacity: 0.6 }}
           transition={{ delay: 0.5 }}
@@ -409,7 +409,7 @@ export default function HorizontalScrollServices() {
 
         {/* Right scroll indicator */}
         <motion.div
-          className="absolute right-2 md:right-8 top-1/2 -translate-y-1/2 flex flex-col items-center gap-2 pointer-events-none z-40"
+          className="absolute right-2 md:right-8 top-[280px] md:top-[300px] -translate-y-1/2 flex flex-col items-center gap-2 pointer-events-none z-40"
           initial={{ opacity: 0 }}
           animate={{ opacity: 0.6 }}
           transition={{ delay: 0.5 }}
