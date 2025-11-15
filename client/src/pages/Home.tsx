@@ -463,7 +463,7 @@ export default function Home() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             <StatCounter value={98} suffix="%" label="Client Satisfaction" />
             <StatCounter value={7} suffix="x" label="Average ROI" delay={0.1} />
-            <StatCounter value={50} suffix="+" label="Active Clients" delay={0.2} />
+            <StatCounter value={15} suffix="+" label="Years of Experience" delay={0.2} />
             <StatCounter value={95} suffix="%" label="Client Retention" delay={0.3} />
           </div>
         </div>
