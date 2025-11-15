@@ -361,7 +361,7 @@ export default function HorizontalScrollServices() {
       className="relative h-[70vh] md:h-[75vh]"
       data-testid="section-services-horizontal"
     >
-      <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden px-4 md:px-8 pointer-events-none">
+      <div className="sticky top-0 h-screen flex flex-col justify-start pt-16 md:pt-20 overflow-hidden px-4 md:px-8 pointer-events-none">
         {/* Left scroll indicator */}
         <motion.div
           className="absolute left-2 md:left-8 top-1/2 -translate-y-1/2 flex flex-col items-center gap-2 pointer-events-none z-40"
