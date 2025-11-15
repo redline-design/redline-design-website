@@ -8,9 +8,10 @@ interface ValueTileProps {
   title: string;
   description: string;
   delay?: number;
+  index?: number;
 }
 
-export default function ValueTile({ icon: Icon, title, description, delay = 0 }: ValueTileProps) {
+export default function ValueTile({ icon: Icon, title, description, delay = 0, index = 0 }: ValueTileProps) {
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 });
 
   return (
@@ -19,9 +20,11 @@ export default function ValueTile({ icon: Icon, title, description, delay = 0 }:
       initial={{ opacity: 0, scale: 0.95 }}
       animate={inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
       transition={{ duration: 0.4, delay }}
+      className="value-card-wrapper"
+      style={{ '--i': index } as React.CSSProperties}
     >
       <Card
-        className="h-full hover-elevate active-elevate-2 transition-all duration-300 rounded-2xl backdrop-blur-md bg-card/40 border-white/10 card-float group"
+        className="value-card h-full transition-all duration-300 rounded-2xl backdrop-blur-md bg-card/40 border-white/10 group"
         data-testid={`card-value-${title.toLowerCase().replace(/\s/g, "-")}`}
       >
         <CardContent className="p-6">

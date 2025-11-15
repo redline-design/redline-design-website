@@ -427,41 +427,47 @@ export default function Home() {
               Why Choose Us
             </h2>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="value-cards-hand">
             <ValueTile
               icon={TrendingUp}
               title="Maximum ROI"
               description="We've seen returns up to 14x."
+              index={0}
             />
             <ValueTile
               icon={DollarSign}
               title="Surprisingly Affordable"
               description="Plans start at $500/mo."
               delay={0.1}
+              index={1}
             />
             <ValueTile
               icon={Zap}
               title="Quick Turnaround"
               description="Most updates in <24 business hours."
               delay={0.2}
+              index={2}
             />
             <ValueTile
               icon={Target}
               title="Success Driven"
               description="We measure everything that matters."
               delay={0.3}
+              index={3}
             />
             <ValueTile
               icon={Briefcase}
               title="Full Service"
               description="Web, CRM, creative—one team."
               delay={0.4}
+              index={4}
             />
             <ValueTile
               icon={Users}
               title="Individual Focus"
               description="Personalized strategies for your business."
               delay={0.5}
+              index={5}
             />
           </div>
         </div>
