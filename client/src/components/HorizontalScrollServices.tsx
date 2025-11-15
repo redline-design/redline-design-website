@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import ServiceCard from "@/components/ServiceCard";
-import { Globe, TrendingUp, Search, Database, BarChart3, Palette, MessageSquare, Mail, Users, Bot, ChevronDown, Check } from "lucide-react";
+import { Globe, TrendingUp, Search, Database, BarChart3, Palette, MessageSquare, Mail, Users, Bot, Code, ChevronDown, Check } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -49,7 +49,7 @@ const SERVICES_DATA = [
       ],
       perfectFor: "Businesses ready to invest in immediate, measurable growth",
       timeline: "See results in 1-2 weeks",
-      investment: "10-20% of ad spend (min $500/month)"
+      investment: "25% of ad spend (min $500/month)"
     }
   },
   {
@@ -71,7 +71,7 @@ const SERVICES_DATA = [
       ],
       perfectFor: "Businesses committed to long-term sustainable growth",
       timeline: "3-6 months to see significant results",
-      investment: "Starting at $1,500/month"
+      investment: "Starting at $700/month"
     }
   },
   {
@@ -93,7 +93,7 @@ const SERVICES_DATA = [
       ],
       perfectFor: "Businesses drowning in spreadsheets and missed opportunities",
       timeline: "1-2 weeks setup, ongoing optimization",
-      investment: "Starting at $1,200 one-time + $300/month"
+      investment: "Starting at $1,000 one-time + $100/month per user added"
     }
   },
   {
@@ -115,7 +115,7 @@ const SERVICES_DATA = [
       ],
       perfectFor: "Businesses tired of guessing what drives results",
       timeline: "1 week setup, ongoing monthly reports",
-      investment: "Starting at $800 one-time + $400/month"
+      investment: "Included with all marketing plans"
     }
   },
   {
@@ -136,8 +136,8 @@ const SERVICES_DATA = [
         "Unlimited revisions until you love it"
       ],
       perfectFor: "Businesses that know first impressions matter",
-      timeline: "1-3 weeks depending on scope",
-      investment: "Starting at $500 per project"
+      timeline: "1+ weeks depending on scope",
+      investment: "Starting at $200 per project"
     }
   },
   {
@@ -159,7 +159,7 @@ const SERVICES_DATA = [
       ],
       perfectFor: "Businesses looking to build brand awareness and community",
       timeline: "Ongoing monthly retainer",
-      investment: "Starting at $1,200/month"
+      investment: "Starting at $1,000/month"
     }
   },
   {
@@ -181,7 +181,7 @@ const SERVICES_DATA = [
       ],
       perfectFor: "Businesses with an audience ready to be nurtured",
       timeline: "1 week setup, ongoing campaigns",
-      investment: "Starting at $800/month"
+      investment: "Starting at $1,000/month"
     }
   },
   {
@@ -225,7 +225,29 @@ const SERVICES_DATA = [
       ],
       perfectFor: "Forward-thinking businesses ready to leverage AI",
       timeline: "2-4 weeks implementation",
-      investment: "Starting at $2,000 one-time + $300/month"
+      investment: "Starting at $500 one-time + $300/month. Includes 100,000 interactions/month."
+    }
+  },
+  {
+    id: "custom-apps",
+    icon: Code,
+    title: "Custom Application Development",
+    description: "Bespoke software solutions tailored to your business needs.",
+    tagline: "Build exactly what you need, nothing you don't",
+    link: "/services/custom-applications",
+    status: "accepting" as const,
+    accentColor: "rgb(139, 92, 246)",
+    details: {
+      whatYouGet: [
+        "Custom web and mobile applications",
+        "API development and integrations",
+        "Database design and optimization",
+        "User-friendly admin dashboards",
+        "Ongoing maintenance and support"
+      ],
+      perfectFor: "Businesses with unique processes that off-the-shelf solutions can't handle",
+      timeline: "4-12 weeks depending on complexity",
+      investment: "Starting at $5,000"
     }
   }
 ] as const;
