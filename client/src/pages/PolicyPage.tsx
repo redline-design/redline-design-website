@@ -25,7 +25,7 @@ export default function PolicyPage({ title, content }: PolicyPageProps) {
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <Card className="rounded-2xl backdrop-blur-md bg-card/40 border-white/10">
-              <CardContent className="p-8 md:p-12 prose prose-lg max-w-none">
+              <CardContent className="p-8 md:p-12 prose prose-lg prose-invert dark:prose-invert max-w-none prose-headings:text-foreground prose-p:text-foreground prose-strong:text-foreground prose-li:text-foreground">
                 {content}
               </CardContent>
             </Card>
