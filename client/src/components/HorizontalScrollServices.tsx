@@ -456,7 +456,7 @@ export default function HorizontalScrollServices() {
 
         <motion.div 
           ref={containerRef}
-          className="max-w-5xl mx-auto px-3 sm:px-4 md:px-6 w-full backdrop-blur-md bg-card/40 border-2 rounded-3xl py-4 md:py-5 transition-all duration-300 relative z-50 pointer-events-auto"
+          className="max-w-5xl mx-auto px-3 sm:px-4 md:px-6 w-full backdrop-blur-md bg-card/10 border-2 rounded-3xl py-4 md:py-5 transition-all duration-300 relative z-50 pointer-events-auto"
           onMouseEnter={() => setIsHovering(true)}
           onMouseLeave={() => setIsHovering(false)}
           animate={{
