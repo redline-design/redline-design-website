@@ -95,12 +95,13 @@ export default function OurWork() {
       <section className="py-20 px-4 sm:px-6 lg:px-8 text-center" data-testid="section-portfolio-intro">
         <div className="max-w-4xl mx-auto">
           <motion.h1
-            className="text-4xl md:text-5xl lg:text-6xl font-black text-foreground mb-6"
+            className="text-2xl sm:text-3xl md:text-4xl font-bold uppercase tracking-[0.2em] mb-6 red-glow-pulse"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
+            style={{ color: "#ff0000" }}
           >
-            Our <span className="text-primary">Portfolio</span>
+            Our Portfolio
           </motion.h1>
           <motion.p
             className="text-lg md:text-xl text-foreground mb-8"
