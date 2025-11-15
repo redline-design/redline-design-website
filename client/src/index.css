@@ -934,8 +934,12 @@
     transition: all 0.8s ease-out;
   }
 
-  .services-3d-circle-container:hover {
+  .services-3d-circle-container.expanded {
     perspective: 1800px;
+  }
+
+  .services-3d-circle-container.collapsed {
+    min-height: 320px;
   }
 
   .services-circle-wrapper {
@@ -964,6 +968,16 @@
     justify-content: center;
     padding: 1.5rem;
     transition: box-shadow 0.3s ease, background 0.3s ease;
+    pointer-events: auto;
+  }
+
+  .services-3d-circle-container.collapsed .service-card-circle {
+    pointer-events: auto;
+  }
+
+  .services-3d-circle-container.collapsed .service-card-circle:not(:first-child) {
+    pointer-events: none;
+    opacity: 0;
   }
 
   .service-card-circle:hover {

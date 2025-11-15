@@ -252,7 +252,7 @@ const SERVICES_DATA = [
 ] as const;
 
 export default function HorizontalScrollServices() {
-  const [isHovering, setIsHovering] = useState(false);
+  const [isCardHovered, setIsCardHovered] = useState(false);
   const [selectedService, setSelectedService] = useState<typeof SERVICES_DATA[number] | null>(null);
   const [rotation, setRotation] = useState(0);
   const services = useMemo(() => SERVICES_DATA, []);
@@ -274,11 +274,9 @@ export default function HorizontalScrollServices() {
 
         {/* 3D Circular Carousel Services Container */}
         <div 
-          className="services-3d-circle-container"
-          onMouseEnter={() => setIsHovering(true)}
-          onMouseLeave={() => setIsHovering(false)}
+          className={`services-3d-circle-container ${isCardHovered ? 'expanded' : 'collapsed'}`}
           onWheel={(e) => {
-            if (isHovering) {
+            if (isCardHovered) {
               e.preventDefault();
               const delta = e.deltaY > 0 ? 1 : -1;
               setRotation(prev => prev + (delta * (360 / services.length)));
@@ -286,7 +284,7 @@ export default function HorizontalScrollServices() {
           }}
           data-testid="container-services-3d"
         >
-          {!isHovering && (
+          {!isCardHovered && (
             <motion.div 
               className="service-explainer"
               initial={{ opacity: 0 }}
@@ -294,7 +292,7 @@ export default function HorizontalScrollServices() {
               exit={{ opacity: 0 }}
               data-testid="text-hover-explainer"
             >
-              <span>Hover & Scroll to Explore</span>
+              <span>Hover Card & Scroll to Explore</span>
             </motion.div>
           )}
           
@@ -309,7 +307,7 @@ export default function HorizontalScrollServices() {
               const totalServices = services.length;
               const anglePerCard = 360 / totalServices;
               const angle = anglePerCard * index;
-              const radius = 400; // Circle radius
+              const radius = isCardHovered ? 400 : 0; // Circle radius - 0 when collapsed
               
               return (
                 <motion.div
@@ -317,7 +315,10 @@ export default function HorizontalScrollServices() {
                   className="service-card-circle"
                   style={{
                     transform: `rotateY(${angle}deg) translateZ(${radius}px)`,
+                    transition: 'transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)',
                   }}
+                  onMouseEnter={() => setIsCardHovered(true)}
+                  onMouseLeave={() => setIsCardHovered(false)}
                   onClick={() => setSelectedService(service)}
                   data-testid={`card-service-3d-${service.title.toLowerCase().replace(/\s/g, "-")}`}
                 >
