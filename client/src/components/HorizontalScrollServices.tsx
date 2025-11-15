@@ -27,7 +27,7 @@ const SERVICES_DATA = [
       ],
       perfectFor: "Businesses that need a professional online presence without breaking the bank",
       timeline: "2-4 weeks",
-      investment: "Starting at $2,500"
+      investment: "Starting at $1,000"
     }
   },
   {
