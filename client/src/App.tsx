@@ -233,13 +233,137 @@ function Router() {
           content={
             <div>
               <p className="text-muted-foreground mb-4">Last updated: {new Date().toLocaleDateString()}</p>
-              <h2 className="text-2xl font-bold mb-4">Security Measures</h2>
+              
+              <h2 className="text-2xl font-bold mb-4">1. Introduction & Purpose</h2>
               <p className="mb-4">
-                We implement appropriate technical and organizational measures to protect the security of your personal information.
+                This Information Security Policy (the "Policy") is an official directive from the leadership of Redline Design. It underscores our unwavering commitment to safeguarding the information assets critical to our operations, the sensitive data entrusted to us by our clients, and our overall business reputation from a wide array of security threats.
               </p>
-              <h2 className="text-2xl font-bold mb-4">Data Breach Notification</h2>
               <p className="mb-4">
-                In the event of a data breach, we will notify affected parties in accordance with applicable laws and regulations.
+                The digital marketing landscape, while offering immense opportunities, also presents significant risks, including phishing attacks, data breaches, and account takeovers, which can lead to severe financial, regulatory, and reputational damage if not proactively managed.
+              </p>
+              <p className="mb-4">
+                The purpose of this Policy is to establish a comprehensive framework of standards, procedures, and responsibilities to protect Redline Design's information assets. This protection is founded on the core principles of Confidentiality, Integrity, and Availability (CIA Triad):
+              </p>
+              <ul className="list-disc ml-6 mb-4 space-y-2">
+                <li><strong>Confidentiality:</strong> Ensuring that information is accessible only to those authorized to have access.</li>
+                <li><strong>Integrity:</strong> Safeguarding the accuracy and completeness of information and processing methods.</li>
+                <li><strong>Availability:</strong> Ensuring that authorized users have access to information and associated assets when required.</li>
+              </ul>
+              <p className="mb-4">
+                The scope of this Policy is comprehensive, applying to all employees (full-time, part-time, temporary), contractors, consultants, third-party vendors, and any other individuals or entities who have access to Redline Design's information systems, networks, and data, regardless of location. It covers all information assets owned, leased, or managed by Redline Design, including but not limited to hardware, software, data (electronic and physical), client materials, Customer Relationship Management (CRM) systems, email lists, customer databases, Pay-Per-Click (PPC) platform accounts, and social media profiles.
+              </p>
+
+              <h2 className="text-2xl font-bold mb-4">2. Roles and Responsibilities</h2>
+              <ul className="list-disc ml-6 mb-4 space-y-2">
+                <li><strong>Leadership:</strong> Provides visible support and allocates necessary resources for information security.</li>
+                <li><strong>Designated Security Lead:</strong> Oversees the implementation, maintenance, and enforcement of this Policy.</li>
+                <li><strong>Managers/Team Leaders:</strong> Ensure their teams understand and comply with this Policy.</li>
+                <li><strong>All Users:</strong> Responsible for protecting information assets and reporting security incidents.</li>
+              </ul>
+
+              <h2 className="text-2xl font-bold mb-4">3. Information Classification and Handling</h2>
+              <p className="mb-4">
+                Information assets are classified based on sensitivity to ensure appropriate protection:
+              </p>
+              <ul className="list-disc ml-6 mb-4 space-y-2">
+                <li><strong>Highly Confidential / Restricted:</strong> Information whose unauthorized disclosure could cause severe financial loss, legal liability, or significant reputational damage. Examples include client-provided Personally Identifiable Information (PII), strategic business plans, and authentication credentials for critical systems. Access is on a strict need-to-know basis with MFA, storage must be encrypted, transmission must be encrypted, and disposal must be secure (e.g., cryptographic erasure).</li>
+                <li><strong>Confidential:</strong> Sensitive business information intended for internal use. Unauthorized disclosure could cause moderate harm. Examples include detailed client campaign strategies, internal financial reports, and employee records. Access is role-based, storage should be encrypted, transmission must be encrypted, and disposal must be secure.</li>
+                <li><strong>Internal Use Only:</strong> Information not intended for public disclosure, where unauthorized disclosure could lead to minor impact. Examples include internal project plans and operational procedures. Access is limited to Redline Design personnel, stored on company-managed systems, transmitted over secure channels, and disposed of via standard deletion.</li>
+                <li><strong>Public:</strong> Information explicitly approved for public release. Examples include press releases and published marketing materials. No specific handling restrictions apply beyond general IT good practice.</li>
+              </ul>
+
+              <h2 className="text-2xl font-bold mb-4">4. Access Control</h2>
+              <p className="mb-4">Access control ensures that Users can only access the information and resources necessary to perform their job duties.</p>
+              <ul className="list-disc ml-6 mb-4 space-y-2">
+                <li><strong>Principle of Least Privilege (PoLP):</strong> Users shall be granted only the minimum level of access rights necessary for their job responsibilities. Access rights are reviewed regularly.</li>
+                <li><strong>Unique User IDs:</strong> Each User shall be assigned a unique User ID. Sharing credentials is strictly prohibited.</li>
+                <li><strong>Strong Passwords/Passphrases:</strong> All Users must use strong, unique passwords/passphrases (minimum 12 characters, complexity requirements).</li>
+                <li><strong>Multi-Factor Authentication (MFA):</strong> MFA must be enabled on all critical systems and accounts, especially those accessing Highly Confidential information or administrative functions.</li>
+                <li><strong>Account Lockout and Session Management:</strong> Systems shall implement account lockout after failed login attempts and automatic session timeouts.</li>
+                <li><strong>Access Reviews:</strong> Access rights shall be reviewed at least quarterly and immediately upon role changes.</li>
+              </ul>
+
+              <h2 className="text-2xl font-bold mb-4">5. Data Protection and Encryption</h2>
+              <ul className="list-disc ml-6 mb-4 space-y-2">
+                <li><strong>Encryption at Rest:</strong> Highly Confidential and Confidential data must be encrypted when stored.</li>
+                <li><strong>Encryption in Transit:</strong> All data transmission must use secure protocols (TLS/SSL for web traffic, encrypted email for sensitive content).</li>
+                <li><strong>Data Backup and Recovery:</strong> Regular backups of critical data must be performed, stored securely, and tested periodically.</li>
+                <li><strong>Data Retention and Disposal:</strong> Data must be retained only as long as necessary and securely disposed of when no longer needed.</li>
+                <li><strong>Mobile Device Security (MDM/BYOD):</strong> Company-owned devices will be managed with security settings. Personal devices used for work must comply with the BYOD policy, which includes requirements for device registration, MDM software, strong passcodes, and encryption. Loss or theft of a device used for work must be reported immediately.</li>
+              </ul>
+
+              <h2 className="text-2xl font-bold mb-4">6. Network Security</h2>
+              <p className="mb-4">A layered approach to network security is essential to protect against network-based threats.</p>
+              <ul className="list-disc ml-6 mb-4 space-y-2">
+                <li><strong>Firewall Management:</strong> Firewalls shall be implemented at the network perimeter and reviewed regularly.</li>
+                <li><strong>Intrusion Detection/Prevention Systems (IDS/IPS):</strong> IDS/IPS solutions shall be deployed to monitor for and block malicious activity.</li>
+                <li><strong>Secure Wi-Fi Network Configuration:</strong> All wireless networks must use strong encryption (WPA2 or WPA3). A separate, isolated guest Wi-Fi network shall be provided for visitors.</li>
+                <li><strong>Network Vulnerability Management:</strong> Regular network vulnerability scanning and periodic penetration testing shall be conducted.</li>
+                <li><strong>Network Segmentation:</strong> The network may be segmented to isolate critical systems or environments handling highly sensitive data.</li>
+              </ul>
+
+              <h2 className="text-2xl font-bold mb-4">7. System Security</h2>
+              <p className="mb-4">The security of individual systems is critical to prevent exploitation.</p>
+              <ul className="list-disc ml-6 mb-4 space-y-2">
+                <li><strong>System Hardening:</strong> All systems must be securely configured ("hardened") by removing unnecessary services and changing default credentials.</li>
+                <li><strong>Malware Protection:</strong> Enterprise-grade antivirus/anti-malware software must be installed and maintained on all servers and workstations. Users are prohibited from disabling it.</li>
+                <li><strong>Secure Software Development Practices:</strong> If Redline Design develops custom software, it must adhere to secure software development lifecycle (SSDLC) practices.</li>
+              </ul>
+
+              <h2 className="text-2xl font-bold mb-4">8. Physical Security</h2>
+              <p className="mb-4">Physical security is a critical component of a holistic information security strategy.</p>
+              <ul className="list-disc ml-6 mb-4 space-y-2">
+                <li><strong>Equipment Security:</strong> Servers and critical network equipment shall be located in secure areas.</li>
+                <li><strong>Secure Disposal of Media:</strong> Physical media containing sensitive data must be securely disposed of (e.g., shredding, degaussing).</li>
+              </ul>
+
+              <h2 className="text-2xl font-bold mb-4">9. Human Resources Security</h2>
+              <ul className="list-disc ml-6 mb-4 space-y-2">
+                <li><strong>Background Checks:</strong> Background checks may be conducted for roles with access to highly sensitive data, subject to local laws.</li>
+                <li><strong>Onboarding and Offboarding Procedures:</strong> Formalized procedures manage access rights throughout a User's lifecycle. Upon termination, all access rights must be promptly revoked and company assets returned.</li>
+                <li><strong>Confidentiality and Non-Disclosure Agreements (NDAs):</strong> All employees and contractors must sign confidentiality agreements.</li>
+                <li><strong>Acceptable Use:</strong> Users must not use Redline Design resources for illegal activities or personal gain that conflicts with company interests.</li>
+              </ul>
+
+              <h2 className="text-2xl font-bold mb-4">10. Third-Party/Vendor Management</h2>
+              <p className="mb-4">Third-party vendors can introduce security risks if not properly managed.</p>
+              <ul className="list-disc ml-6 mb-4 space-y-2">
+                <li><strong>Due Diligence:</strong> Before engaging a third party that will handle sensitive data, Redline Design must assess their security posture.</li>
+                <li><strong>Contractual Security Requirements:</strong> All contracts must include specific security and data protection clauses, including confidentiality, data breach notification, and audit rights.</li>
+                <li><strong>Regular Review:</strong> The security posture of critical third parties should be reviewed periodically.</li>
+              </ul>
+
+              <h2 className="text-2xl font-bold mb-4">11. Social Media Use Policy</h2>
+              <ul className="list-disc ml-6 mb-4 space-y-2">
+                <li><strong>Official Redline Design Brand Accounts:</strong> Only designated personnel are permitted to manage official social media accounts. Accounts must use strong passwords and MFA.</li>
+                <li><strong>Employee Personal Use of Social Media:</strong> Employees must act responsibly. If identifying as an employee, a disclaimer ("Opinions are my own") must be included. Disclosing confidential information is strictly prohibited. Professional conduct is required.</li>
+                <li><strong>Official Social Media Brand Accounts for Clients:</strong> Only designated personnel are permitted to manage official social media accounts. Accounts must use strong passwords and MFA.</li>
+              </ul>
+
+              <h2 className="text-2xl font-bold mb-4">12. Monitoring, Logging, and Auditing</h2>
+              <p className="mb-4">Continuous monitoring and auditing are essential for a proactive security strategy.</p>
+              <ul className="list-disc ml-6 mb-4 space-y-2">
+                <li><strong>System and Network Logging:</strong> Sufficient logging shall be enabled on critical systems and network devices. Logs must be protected from unauthorized access and tampering.</li>
+                <li><strong>Log Review and Analysis:</strong> Logs shall be reviewed regularly for suspicious activity.</li>
+                <li><strong>Security Audits and Assessments:</strong> Periodic internal and external security audits, vulnerability assessments, and penetration tests shall be conducted.</li>
+              </ul>
+
+              <h2 className="text-2xl font-bold mb-4">13. Incident Response and Business Continuity</h2>
+              <ul className="list-disc ml-6 mb-4 space-y-2">
+                <li><strong>Incident Reporting:</strong> All security incidents and suspected breaches must be reported immediately to the Designated Security Lead.</li>
+                <li><strong>Incident Response Plan (IRP):</strong> A documented Incident Response Plan shall be maintained to guide the response to security incidents.</li>
+                <li><strong>Business Continuity and Disaster Recovery (BC/DR):</strong> Plans shall be in place to ensure business operations can continue in the event of a disaster.</li>
+              </ul>
+
+              <h2 className="text-2xl font-bold mb-4">14. Policy Exceptions & Violations</h2>
+              <ul className="list-disc ml-6 mb-4 space-y-2">
+                <li><strong>Policy Exceptions:</strong> Requests for exceptions must be submitted in writing to the Designated Security Lead, will only be granted for legitimate business needs, and must be documented.</li>
+                <li><strong>Policy Violations:</strong> Failure to comply may result in disciplinary action, up to and including termination. Suspected violations should be reported immediately.</li>
+              </ul>
+
+              <h2 className="text-2xl font-bold mb-4">15. Policy Review and Updates</h2>
+              <p className="mb-4">
+                This Policy will be reviewed at least annually or more frequently as needed. The Designated Security Lead is responsible for overseeing the review process. Updates will be communicated to all Users.
               </p>
             </div>
           }
