@@ -71,6 +71,7 @@ export default function Header() {
     { href: "/why-us", label: "Why Us" },
     { href: "/our-work", label: "Our Work" },
     { href: "/blog", label: "Blog" },
+    { href: "/seo-checker", label: "SEO Checker" },
   ];
 
   const [servicesOpen, setServicesOpen] = useState(false);

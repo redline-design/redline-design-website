@@ -396,6 +396,193 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // SEO Checker endpoint
+  app.post("/api/seo-checker", async (req, res) => {
+    try {
+      const { url } = req.body;
+      
+      if (!url) {
+        return res.status(400).json({ error: "URL is required" });
+      }
+
+      // Validate URL format
+      let targetUrl: URL;
+      try {
+        targetUrl = new URL(url.startsWith('http') ? url : `https://${url}`);
+      } catch {
+        return res.status(400).json({ error: "Invalid URL format" });
+      }
+
+      // Fetch the webpage
+      const response = await fetch(targetUrl.toString(), {
+        headers: {
+          'User-Agent': 'Mozilla/5.0 (compatible; RedlineDesignBot/1.0; +https://redlinedesignllc.com)'
+        }
+      });
+
+      if (!response.ok) {
+        return res.status(400).json({ error: `Failed to fetch URL: ${response.statusText}` });
+      }
+
+      const html = await response.text();
+      const { load } = await import('cheerio');
+      const $ = load(html);
+
+      // SEO Analysis
+      const analysis: any = {
+        url: targetUrl.toString(),
+        timestamp: new Date().toISOString(),
+        issues: [],
+        warnings: [],
+        passed: [],
+        score: 0
+      };
+
+      let totalChecks = 0;
+      let passedChecks = 0;
+
+      // Title tag check
+      totalChecks++;
+      const title = $('title').text().trim();
+      if (!title) {
+        analysis.issues.push({ type: 'title', message: 'Missing title tag', severity: 'critical' });
+      } else if (title.length < 30) {
+        analysis.warnings.push({ type: 'title', message: `Title is too short (${title.length} chars). Recommended: 50-60 characters.`, value: title });
+        passedChecks += 0.5;
+      } else if (title.length > 60) {
+        analysis.warnings.push({ type: 'title', message: `Title is too long (${title.length} chars). It may be truncated in search results.`, value: title });
+        passedChecks += 0.5;
+      } else {
+        analysis.passed.push({ type: 'title', message: 'Title tag is well-optimized', value: title });
+        passedChecks++;
+      }
+
+      // Meta description check
+      totalChecks++;
+      const description = $('meta[name="description"]').attr('content')?.trim();
+      if (!description) {
+        analysis.issues.push({ type: 'meta-description', message: 'Missing meta description', severity: 'critical' });
+      } else if (description.length < 120) {
+        analysis.warnings.push({ type: 'meta-description', message: `Meta description is too short (${description.length} chars). Recommended: 150-160 characters.`, value: description });
+        passedChecks += 0.5;
+      } else if (description.length > 160) {
+        analysis.warnings.push({ type: 'meta-description', message: `Meta description is too long (${description.length} chars). It may be truncated.`, value: description });
+        passedChecks += 0.5;
+      } else {
+        analysis.passed.push({ type: 'meta-description', message: 'Meta description is well-optimized', value: description });
+        passedChecks++;
+      }
+
+      // H1 tag check
+      totalChecks++;
+      const h1Tags = $('h1');
+      if (h1Tags.length === 0) {
+        analysis.issues.push({ type: 'h1', message: 'No H1 tag found', severity: 'critical' });
+      } else if (h1Tags.length > 1) {
+        analysis.warnings.push({ type: 'h1', message: `Multiple H1 tags found (${h1Tags.length}). Best practice is to use only one H1 per page.`, count: h1Tags.length });
+        passedChecks += 0.5;
+      } else {
+        analysis.passed.push({ type: 'h1', message: 'Single H1 tag found', value: h1Tags.first().text().trim() });
+        passedChecks++;
+      }
+
+      // Heading hierarchy check
+      totalChecks++;
+      const h2Count = $('h2').length;
+      const h3Count = $('h3').length;
+      if (h2Count > 0 || h3Count > 0) {
+        analysis.passed.push({ type: 'headings', message: `Good heading structure: ${h2Count} H2 tags, ${h3Count} H3 tags` });
+        passedChecks++;
+      } else {
+        analysis.warnings.push({ type: 'headings', message: 'No H2 or H3 tags found. Consider adding subheadings for better content structure.' });
+      }
+
+      // Image alt text check
+      totalChecks++;
+      const images = $('img');
+      const imagesWithoutAlt = images.filter((i, img) => !$(img).attr('alt')).length;
+      if (images.length === 0) {
+        analysis.warnings.push({ type: 'images', message: 'No images found on page' });
+      } else if (imagesWithoutAlt > 0) {
+        analysis.warnings.push({ type: 'images', message: `${imagesWithoutAlt} out of ${images.length} images missing alt text` });
+        passedChecks += 0.5;
+      } else {
+        analysis.passed.push({ type: 'images', message: `All ${images.length} images have alt text` });
+        passedChecks++;
+      }
+
+      // Open Graph tags check
+      totalChecks++;
+      const ogTitle = $('meta[property="og:title"]').attr('content');
+      const ogDescription = $('meta[property="og:description"]').attr('content');
+      const ogImage = $('meta[property="og:image"]').attr('content');
+      if (ogTitle && ogDescription && ogImage) {
+        analysis.passed.push({ type: 'open-graph', message: 'Open Graph tags present for social media sharing' });
+        passedChecks++;
+      } else {
+        const missing = [];
+        if (!ogTitle) missing.push('og:title');
+        if (!ogDescription) missing.push('og:description');
+        if (!ogImage) missing.push('og:image');
+        analysis.warnings.push({ type: 'open-graph', message: `Missing Open Graph tags: ${missing.join(', ')}` });
+      }
+
+      // Canonical URL check
+      totalChecks++;
+      const canonical = $('link[rel="canonical"]').attr('href');
+      if (canonical) {
+        analysis.passed.push({ type: 'canonical', message: 'Canonical URL is set', value: canonical });
+        passedChecks++;
+      } else {
+        analysis.warnings.push({ type: 'canonical', message: 'No canonical URL specified. This can lead to duplicate content issues.' });
+      }
+
+      // Viewport meta tag check (mobile-friendly)
+      totalChecks++;
+      const viewport = $('meta[name="viewport"]').attr('content');
+      if (viewport) {
+        analysis.passed.push({ type: 'viewport', message: 'Mobile-friendly viewport tag present' });
+        passedChecks++;
+      } else {
+        analysis.issues.push({ type: 'viewport', message: 'Missing viewport meta tag. Page may not be mobile-friendly.', severity: 'high' });
+      }
+
+      // HTTPS check
+      totalChecks++;
+      if (targetUrl.protocol === 'https:') {
+        analysis.passed.push({ type: 'https', message: 'Site uses secure HTTPS protocol' });
+        passedChecks++;
+      } else {
+        analysis.issues.push({ type: 'https', message: 'Site is not using HTTPS. This affects SEO and user trust.', severity: 'critical' });
+      }
+
+      // Content length check
+      totalChecks++;
+      const textContent = $('body').text().replace(/\s+/g, ' ').trim();
+      const wordCount = textContent.split(' ').length;
+      if (wordCount < 300) {
+        analysis.warnings.push({ type: 'content', message: `Page has only ${wordCount} words. Consider adding more content (500+ words recommended).` });
+      } else {
+        analysis.passed.push({ type: 'content', message: `Good content length: ${wordCount} words` });
+        passedChecks++;
+      }
+
+      // Calculate final score
+      analysis.score = Math.round((passedChecks / totalChecks) * 100);
+      analysis.summary = {
+        totalChecks,
+        passed: analysis.passed.length,
+        warnings: analysis.warnings.length,
+        issues: analysis.issues.length
+      };
+
+      res.json(analysis);
+    } catch (error: any) {
+      console.error("Error analyzing SEO:", error);
+      res.status(500).json({ error: "Failed to analyze URL", details: error.message });
+    }
+  });
+
   const httpServer = createServer(app);
 
   return httpServer;

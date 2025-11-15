@@ -34,6 +34,7 @@ const EmailMarketingPage = lazy(() => import("@/pages/services/email-marketing")
 const ConsultingPage = lazy(() => import("@/pages/services/consulting"));
 const AIAutomationPage = lazy(() => import("@/pages/services/ai-automation"));
 const AppDevelopmentPage = lazy(() => import("@/pages/services/app-development"));
+const SEOChecker = lazy(() => import("@/pages/SEOChecker"));
 const NotFound = lazy(() => import("@/pages/not-found"));
 
 function Router() {
@@ -53,6 +54,7 @@ function Router() {
       <Route path="/services/ai-automation" component={AIAutomationPage} />
       <Route path="/services/app-development" component={AppDevelopmentPage} />
       <Route path="/contact" component={Contact} />
+      <Route path="/seo-checker" component={SEOChecker} />
       <Route path="/why-us" component={WhyUs} />
       <Route path="/our-work" component={OurWork} />
       <Route path="/blog" component={Blog} />
