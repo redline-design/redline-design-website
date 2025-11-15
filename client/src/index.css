@@ -922,80 +922,68 @@
     }
   }
 
-  /* 3D Services Perspective Layout */
-  .services-3d-container {
-    display: flex;
-    perspective: 10px;
-    transform: perspective(300px) rotateX(20deg);
-    will-change: perspective;
+  /* 3D Circular Carousel Services Layout */
+  .services-3d-circle-container {
+    perspective: 1200px;
     perspective-origin: center center;
-    transition: all 1.3s ease-out;
-    justify-content: center;
-    transform-style: preserve-3d;
-    min-height: 350px;
+    min-height: 450px;
+    display: flex;
     align-items: center;
+    justify-content: center;
     position: relative;
+    transition: all 0.8s ease-out;
   }
 
-  .services-3d-container:hover {
-    perspective: 1000px;
-    transition: all 1.3s ease-in;
-    transform: perspective(10000px) rotateX(0deg);
+  .services-3d-circle-container:hover {
+    perspective: 1800px;
   }
 
-  .services-3d-container:hover .service-card-title {
-    opacity: 1;
+  .services-circle-wrapper {
+    position: relative;
+    width: 200px;
+    height: 250px;
+    transform-style: preserve-3d;
+    will-change: transform;
   }
 
-  .services-3d-container:hover .service-card-3d {
-    opacity: 1;
-    transition-delay: 0s;
-  }
-
-  .services-3d-container:hover .service-explainer {
-    opacity: 0;
-  }
-
-  .service-card-3d {
-    width: 180px;
-    height: 200px;
+  .service-card-circle {
+    position: absolute;
+    width: 200px;
+    height: 250px;
+    left: 0;
+    top: 0;
     transform-style: preserve-3d;
     border-radius: 12px;
     border: 1px solid hsl(var(--border));
     box-shadow: 0 0 20px 5px rgba(255, 0, 0, 0.15);
-    opacity: 0;
-    transition: all 0.3s ease;
-    transition-delay: 1s;
-    position: relative;
-    background: hsl(var(--card));
+    background: hsl(var(--card) / 0.95);
+    backdrop-filter: blur(10px);
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 1.5rem;
+    transition: box-shadow 0.3s ease, background 0.3s ease;
   }
 
-  .service-card-3d.center {
-    opacity: 1;
-  }
-
-  .service-card-3d:hover {
-    box-shadow: 0 0 30px 10px rgba(255, 0, 0, 0.25);
-    background: hsl(var(--card) / 0.95);
+  .service-card-circle:hover {
+    box-shadow: 0 0 30px 10px rgba(255, 0, 0, 0.3);
+    background: hsl(var(--card));
+    z-index: 10;
   }
 
   .service-card-inner {
     text-align: center;
     width: 100%;
+    transform: rotateY(0deg);
   }
 
   .service-card-title {
-    transform: translateY(10px);
-    opacity: 0;
+    opacity: 1;
     transition: all 0.3s ease;
     will-change: transform, opacity;
     color: hsl(var(--foreground));
-    text-shadow: 0 0 5px rgba(255, 0, 0, 0.3);
+    text-shadow: 0 0 5px rgba(255, 0, 0, 0.2);
   }
 
   .service-explainer {
@@ -1003,9 +991,9 @@
     font-size: 1.25rem;
     color: hsl(var(--foreground));
     transition: all 0.6s ease;
-    width: 220px;
-    height: 220px;
-    background: hsl(var(--card) / 0.8);
+    width: 240px;
+    height: 260px;
+    background: hsl(var(--card) / 0.9);
     backdrop-filter: blur(10px);
     border-radius: 12px;
     border: 1px solid hsl(var(--primary) / 0.3);
@@ -1016,48 +1004,39 @@
     position: absolute;
     z-index: 100;
     box-shadow: 0 0 20px 5px rgba(255, 0, 0, 0.2);
+    pointer-events: none;
   }
 
-  /* Individual card positions - adjust based on index */
-  .service-card-3d:nth-child(1) { transform: translateX(calc(var(--card-index) * -120px)) translateZ(-80px) rotateY(-15deg); }
-  .service-card-3d:nth-child(2) { transform: translateX(calc(var(--card-index) * -100px)) translateZ(-60px) rotateY(-12deg); }
-  .service-card-3d:nth-child(3) { transform: translateX(calc(var(--card-index) * -80px)) translateZ(-40px) rotateY(-9deg); }
-  .service-card-3d:nth-child(4) { transform: translateX(calc(var(--card-index) * -60px)) translateZ(-25px) rotateY(-6deg); }
-  .service-card-3d:nth-child(5) { transform: translateX(calc(var(--card-index) * -40px)) translateZ(-12px) rotateY(-3deg); }
-  .service-card-3d:nth-child(6) { transform: translateX(calc(var(--card-index) * -20px)) translateZ(0px) rotateY(0deg); }
-  .service-card-3d:nth-child(7) { transform: translateX(calc(var(--card-index) * 20px)) translateZ(-12px) rotateY(3deg); }
-  .service-card-3d:nth-child(8) { transform: translateX(calc(var(--card-index) * 40px)) translateZ(-25px) rotateY(6deg); }
-  .service-card-3d:nth-child(9) { transform: translateX(calc(var(--card-index) * 60px)) translateZ(-40px) rotateY(9deg); }
-  .service-card-3d:nth-child(10) { transform: translateX(calc(var(--card-index) * 80px)) translateZ(-60px) rotateY(12deg); }
-  .service-card-3d:nth-child(11) { transform: translateX(calc(var(--card-index) * 100px)) translateZ(-80px) rotateY(15deg); }
+  .services-3d-circle-container:hover .service-explainer {
+    opacity: 0;
+  }
 
   /* Mobile responsive */
   @media (max-width: 768px) {
-    .services-3d-container {
+    .services-3d-circle-container {
       flex-wrap: wrap;
       perspective: none;
-      transform: none;
       padding: 1rem;
       min-height: auto;
       gap: 1rem;
     }
 
-    .services-3d-container:hover {
-      perspective: none;
-      transform: none;
+    .services-circle-wrapper {
+      position: static;
+      width: 100%;
+      height: auto;
+      transform: none !important;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
     }
 
-    .service-card-3d {
-      opacity: 1 !important;
+    .service-card-circle {
+      position: static !important;
       transform: none !important;
       width: 100%;
       max-width: 300px;
       margin: 0 auto;
-    }
-
-    .service-card-title {
-      opacity: 1 !important;
-      transform: none !important;
     }
 
     .service-explainer {

@@ -254,6 +254,7 @@ const SERVICES_DATA = [
 export default function HorizontalScrollServices() {
   const [isHovering, setIsHovering] = useState(false);
   const [selectedService, setSelectedService] = useState<typeof SERVICES_DATA[number] | null>(null);
+  const [rotation, setRotation] = useState(0);
   const services = useMemo(() => SERVICES_DATA, []);
 
   return (
@@ -271,11 +272,18 @@ export default function HorizontalScrollServices() {
           </p>
         </div>
 
-        {/* 3D Perspective Services Container */}
+        {/* 3D Circular Carousel Services Container */}
         <div 
-          className="services-3d-container"
+          className="services-3d-circle-container"
           onMouseEnter={() => setIsHovering(true)}
           onMouseLeave={() => setIsHovering(false)}
+          onWheel={(e) => {
+            if (isHovering) {
+              e.preventDefault();
+              const delta = e.deltaY > 0 ? 1 : -1;
+              setRotation(prev => prev + (delta * (360 / services.length)));
+            }
+          }}
           data-testid="container-services-3d"
         >
           {!isHovering && (
@@ -286,42 +294,51 @@ export default function HorizontalScrollServices() {
               exit={{ opacity: 0 }}
               data-testid="text-hover-explainer"
             >
-              <span>Hover to View All Services</span>
+              <span>Hover & Scroll to Explore</span>
             </motion.div>
           )}
           
-          {services.map((service, index) => {
-            const totalServices = services.length;
-            const centerIndex = Math.floor(totalServices / 2);
-            const offset = index - centerIndex;
-            
-            return (
-              <motion.div
-                key={service.title}
-                className={`service-card-3d ${index === centerIndex ? 'center' : ''}`}
-                style={{
-                  '--card-index': offset,
-                } as React.CSSProperties}
-                onClick={() => setSelectedService(service)}
-                data-testid={`card-service-3d-${service.title.toLowerCase().replace(/\s/g, "-")}`}
-              >
-                <div className="service-card-inner">
-                  <div
-                    className="flex-shrink-0 w-12 h-12 rounded-lg flex items-center justify-center mx-auto mb-3"
-                    style={{
-                      backgroundColor: `${service.accentColor}20`,
-                      color: service.accentColor
-                    }}
-                  >
-                    <service.icon className="w-6 h-6" />
+          <div 
+            className="services-circle-wrapper"
+            style={{
+              transform: `rotateY(${rotation}deg)`,
+              transition: 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)'
+            }}
+          >
+            {services.map((service, index) => {
+              const totalServices = services.length;
+              const anglePerCard = 360 / totalServices;
+              const angle = anglePerCard * index;
+              const radius = 400; // Circle radius
+              
+              return (
+                <motion.div
+                  key={service.title}
+                  className="service-card-circle"
+                  style={{
+                    transform: `rotateY(${angle}deg) translateZ(${radius}px)`,
+                  }}
+                  onClick={() => setSelectedService(service)}
+                  data-testid={`card-service-3d-${service.title.toLowerCase().replace(/\s/g, "-")}`}
+                >
+                  <div className="service-card-inner">
+                    <div
+                      className="flex-shrink-0 w-12 h-12 rounded-lg flex items-center justify-center mx-auto mb-3"
+                      style={{
+                        backgroundColor: `${service.accentColor}20`,
+                        color: service.accentColor
+                      }}
+                    >
+                      <service.icon className="w-6 h-6" />
+                    </div>
+                    <h3 className="service-card-title text-sm font-semibold text-foreground">
+                      {service.title}
+                    </h3>
                   </div>
-                  <h3 className="service-card-title text-sm font-semibold text-foreground">
-                    {service.title}
-                  </h3>
-                </div>
-              </motion.div>
-            );
-          })}
+                </motion.div>
+              );
+            })}
+          </div>
         </div>
       </div>
 
