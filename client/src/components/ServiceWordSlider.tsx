@@ -1,5 +1,5 @@
 import { useReducedMotion } from "@/hooks/useReducedMotion";
-import redlineLogo from "@assets/generated_images/Redline_R_ribbon_logo_b3fc5c04.png";
+import redlineLogo from "@assets/thumbnail_Asset 1_1763247131194.png";
 
 export default function ServiceWordSlider() {
   const prefersReducedMotion = useReducedMotion();
