@@ -426,8 +426,11 @@ export default function Home() {
             <h2 className="text-lg sm:text-xl md:text-2xl font-bold uppercase tracking-[0.3em] mb-4 red-glow-pulse" style={{ color: "#ff0000" }}>
               Why Choose Us
             </h2>
+            <p className="text-sm text-muted-foreground hover-hint" data-testid="text-hover-hint">
+              ✨ Hover to explore our key differentiators
+            </p>
           </div>
-          <div className="value-cards-hand">
+          <div className="value-cards-hand" data-testid="container-value-cards">
             <ValueTile
               icon={TrendingUp}
               title="Maximum ROI"

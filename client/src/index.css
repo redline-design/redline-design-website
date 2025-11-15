@@ -848,6 +848,11 @@
     animation: card-glow 2s ease-in-out infinite;
   }
 
+  /* Hover hint animation */
+  .hover-hint {
+    animation: subtle-pulse 2s ease-in-out infinite;
+  }
+
   /* Hand of Cards Layout - Two Rows */
   .value-cards-hand {
     display: grid;
