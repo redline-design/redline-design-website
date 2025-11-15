@@ -96,18 +96,103 @@ function Router() {
           content={
             <div>
               <p className="text-muted-foreground mb-4">Last updated: {new Date().toLocaleDateString()}</p>
-              <h2 className="text-2xl font-bold mb-4">Information We Collect</h2>
+              
+              <h2 className="text-2xl font-bold mb-4">1. Introduction</h2>
               <p className="mb-4">
-                We collect information you provide directly to us, including name, email address, phone number, and any messages you send through our contact forms.
+                Redline Design LLC ("Redline", "we", "our", or "us") values your privacy. This Privacy Policy explains how we collect, use, disclose, and protect your personal information when you visit our website, use our services, or interact with us in any way.
               </p>
-              <h2 className="text-2xl font-bold mb-4">How We Use Your Information</h2>
               <p className="mb-4">
-                We use the information we collect to provide, maintain, and improve our services, to communicate with you, and to comply with legal obligations.
+                By using our services, you consent to the practices described in this policy.
               </p>
-              <h2 className="text-2xl font-bold mb-4">Information Sharing</h2>
+
+              <h2 className="text-2xl font-bold mb-4">2. Information We Collect</h2>
               <p className="mb-4">
-                We do not sell your personal information. We may share information with service providers who assist us in operating our business.
+                We collect personal and non-personal information including, but not limited to:
               </p>
+              <ul className="list-disc ml-6 mb-4 space-y-2">
+                <li><strong>Contact Information:</strong> Name, phone number, email address, and business name.</li>
+                <li><strong>Business Information:</strong> Industry type, website URLs, service inquiries, and marketing preferences.</li>
+                <li><strong>Analytics:</strong> IP address, device type, browser type, operating system, pages visited, time on site, and other usage metrics (via cookies and tracking tools like Google Analytics).</li>
+                <li><strong>Payment Information:</strong> When relevant, we may collect billing details via secure third-party processors.</li>
+                <li><strong>Client-Submitted Data:</strong> We may collect company documents, credentials, or creative materials for project development and consultation.</li>
+              </ul>
+
+              <h2 className="text-2xl font-bold mb-4">3. How We Use Information</h2>
+              <p className="mb-4">We use your data to:</p>
+              <ul className="list-disc ml-6 mb-4 space-y-2">
+                <li>Provide, maintain, and improve our services.</li>
+                <li>Develop customized marketing strategies and proposals.</li>
+                <li>Respond to inquiries, schedule consultations, and follow up.</li>
+                <li>Send relevant marketing and service updates (you may opt out).</li>
+                <li>Analyze website and campaign performance.</li>
+                <li>Protect the security and integrity of our platform.</li>
+                <li>Comply with legal obligations.</li>
+              </ul>
+
+              <h2 className="text-2xl font-bold mb-4">4. Data Sharing and Disclosure</h2>
+              <p className="mb-4">We do not sell your data. However, we may share it with:</p>
+              <ul className="list-disc ml-6 mb-4 space-y-2">
+                <li><strong>Authorized Vendors & Partners:</strong> Tools such as CRMs, analytics platforms, advertising networks, and automation software (e.g., Close CRM, Google Ads, Facebook Ads, Zapier, etc.)</li>
+                <li><strong>Subcontractors or Freelancers:</strong> Under signed confidentiality agreements, when necessary for project completion.</li>
+                <li><strong>Legal Authorities:</strong> If required to comply with a court order, subpoena, or legal process.</li>
+              </ul>
+
+              <h2 className="text-2xl font-bold mb-4">5. Data Retention</h2>
+              <p className="mb-4">
+                We retain data indefinitely unless requested otherwise. This allows us to improve long-term strategy, store account history, and offer better support. If you'd like your data deleted, email us at redline@redline.design.
+              </p>
+
+              <h2 className="text-2xl font-bold mb-4">6. Cookies and Tracking</h2>
+              <p className="mb-4">We use cookies, pixels, and tracking technologies to:</p>
+              <ul className="list-disc ml-6 mb-4 space-y-2">
+                <li>Monitor website traffic and performance.</li>
+                <li>Serve retargeting and remarketing ads.</li>
+                <li>Improve user experience.</li>
+              </ul>
+              <p className="mb-4">
+                You can disable cookies via your browser settings, though some site functionality may be impacted.
+              </p>
+
+              <h2 className="text-2xl font-bold mb-4">7. Third-Party Links and Tools</h2>
+              <p className="mb-4">
+                Our website may link to or integrate with third-party platforms (e.g., Calendly, Framer, Close CRM). We are not responsible for the privacy practices of these external platforms. Review their respective privacy policies for details.
+              </p>
+
+              <h2 className="text-2xl font-bold mb-4">8. Data Security</h2>
+              <p className="mb-4">We take data security seriously. Measures include:</p>
+              <ul className="list-disc ml-6 mb-4 space-y-2">
+                <li>2-Factor Authentication (2FA) on all accounts</li>
+                <li>Endpoint Detection & Response (EDR) security solutions</li>
+                <li>SSL encryption</li>
+                <li>Secure password management protocols</li>
+                <li>Regular audits of internal systems</li>
+              </ul>
+
+              <h2 className="text-2xl font-bold mb-4">9. Children's Privacy</h2>
+              <p className="mb-4">
+                Our services are not intended for individuals under the age of 18. We do not knowingly collect personal information from children.
+              </p>
+
+              <h2 className="text-2xl font-bold mb-4">10. Your Rights and Choices</h2>
+              <p className="mb-4">You have the right to:</p>
+              <ul className="list-disc ml-6 mb-4 space-y-2">
+                <li>Request access to or correction of your personal data.</li>
+                <li>Request deletion of your data (unless required for legal or business purposes).</li>
+                <li>Opt-out of marketing communications at any time.</li>
+              </ul>
+              <p className="mb-4">
+                To exercise these rights, email redline@redline.design.
+              </p>
+
+              <h2 className="text-2xl font-bold mb-4">11. Changes to This Policy</h2>
+              <p className="mb-4">
+                We reserve the right to update or modify this Privacy Policy at any time. Changes will be posted here with an updated "Effective Date." Continued use of our services after changes constitutes acceptance of the revised policy.
+              </p>
+
+              <h2 className="text-2xl font-bold mb-4">12. Contact Us</h2>
+              <p className="mb-4">For questions or concerns, contact:</p>
+              <p className="mb-2"><strong>Email:</strong> redline@redline.design</p>
+              <p className="mb-4"><strong>Address:</strong> 55 N Merchant St #444, American Fork, Utah, 84003</p>
             </div>
           }
         />
@@ -220,8 +305,10 @@ function Router() {
 
               <h2 className="text-2xl font-bold mb-4">13. Contact Information</h2>
               <p className="mb-4">
-                For any questions regarding this Data Use Policy or to exercise Data Subject rights, please contact the Data Protection Contact / Designated Security Lead at Redline Design.
+                For any questions regarding this Data Use Policy or to exercise Data Subject rights, please contact:
               </p>
+              <p className="mb-2"><strong>Email:</strong> redline@redline.design</p>
+              <p className="mb-4"><strong>Address:</strong> 55 N Merchant St #444, American Fork, Utah, 84003</p>
             </div>
           }
         />
