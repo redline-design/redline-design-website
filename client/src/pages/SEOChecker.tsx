@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { AlertCircle, CheckCircle2, AlertTriangle, Search, Globe } from "lucide-react";
 import { motion } from "framer-motion";
+import { Link } from "wouter";
 
 interface SEOIssue {
   type: string;
@@ -405,10 +406,10 @@ export default function SEOChecker() {
                 </p>
                 <div className="flex flex-col sm:flex-row gap-3 justify-center">
                   <Button asChild size="lg" data-testid="button-seo-service">
-                    <a href="/services/seo">View SEO Services</a>
+                    <Link href="/services/seo">View SEO Services</Link>
                   </Button>
                   <Button asChild size="lg" variant="outline" data-testid="button-contact-cta">
-                    <a href="/contact">Get Free Consultation</a>
+                    <Link href="/contact">Get Free Consultation</Link>
                   </Button>
                 </div>
               </div>

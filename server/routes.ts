@@ -642,13 +642,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
         passedChecks++;
       }
 
-      // Broken links check (first 20 links)
+      // Broken links check (first 10 links only for speed)
       totalChecks++;
-      const links = $('a[href]').slice(0, 20);
+      const links = $('a[href]').slice(0, 10);
       const brokenLinks: string[] = [];
       let checkedLinks = 0;
       
-      for (let i = 0; i < Math.min(links.length, 20); i++) {
+      for (let i = 0; i < Math.min(links.length, 10); i++) {
         const href = $(links[i]).attr('href');
         if (!href || href.startsWith('#') || href.startsWith('javascript:') || href.startsWith('mailto:') || href.startsWith('tel:')) {
           continue;
@@ -667,7 +667,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           const linkResponse = await fetch(linkUrl, { 
             method: 'HEAD',
             headers: { 'User-Agent': 'Mozilla/5.0 (compatible; RedlineDesignBot/1.0)' },
-            signal: AbortSignal.timeout(3000)
+            signal: AbortSignal.timeout(2000)
           });
           
           checkedLinks++;
@@ -684,7 +684,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
           type: 'broken-links', 
           message: `${brokenLinks.length} potentially broken link(s) found in first ${checkedLinks} links checked: ${brokenLinks.slice(0, 3).join(', ')}${brokenLinks.length > 3 ? '...' : ''}` 
         });
-        passedChecks += 0.5;
       } else if (checkedLinks > 0) {
         analysis.passed.push({ type: 'broken-links', message: `No broken links found in ${checkedLinks} links checked` });
         passedChecks++;
