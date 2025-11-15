@@ -9,6 +9,7 @@ import CTABand from "@/components/CTABand";
 import StickyConversionBar from "@/components/StickyConversionBar";
 import SectionDivider from "@/components/SectionDivider";
 import ScrollAnimatedSection from "@/components/ScrollAnimatedSection";
+import ServiceWordSlider from "@/components/ServiceWordSlider";
 import { BarChart3, Sparkles, Globe, DollarSign, Zap, Target, Users, Briefcase, TrendingUp, AlertTriangle, MousePointerClick, LayoutGrid, BarChart2, Monitor, Database, Eye, FileText, LineChart, MapPin, Smartphone } from "lucide-react";
 import { SiGoogleads, SiMeta, SiLinkedin, SiTiktok, SiYoutube, SiX, SiReddit, SiPinterest } from "react-icons/si";
 import { motion } from "framer-motion";
@@ -267,7 +268,7 @@ export default function Home() {
     <div>
       <Hero />
       
-      <SectionDivider />
+      <ServiceWordSlider />
 
       <ScrollAnimatedSection>
         <div id="learn-more">
