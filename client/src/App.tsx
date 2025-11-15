@@ -69,22 +69,110 @@ function Router() {
           content={
             <div>
               <p className="text-muted-foreground mb-4">Last updated: {new Date().toLocaleDateString()}</p>
-              <h2 className="text-2xl font-bold mb-4">1. Agreement to Terms</h2>
+              
+              <h2 className="text-2xl font-bold mb-4">1. Introduction & Acceptance</h2>
               <p className="mb-4">
-                By accessing or using Redline Design LLC's services, you agree to be bound by these Terms of Service and all applicable laws and regulations.
+                These Terms of Service ("ToS") govern the relationship between Redline Design ("Agency," "We," "Us") and you ("Client," "You"). By using our services, executing a Statement of Work (SOW), or clicking "accept," you agree to be bound by these ToS. Our Privacy Policy and any applicable SOWs are incorporated into these ToS by reference. You can find our <a href="/privacy" className="text-primary hover:underline">Privacy Policy here</a>.
               </p>
-              <h2 className="text-2xl font-bold mb-4">2. Services</h2>
               <p className="mb-4">
-                Redline Design LLC provides digital marketing services including but not limited to SEO, PPC, web design, social media marketing, and email marketing.
+                We reserve the right to modify these ToS at any time. We will provide notice of significant changes, for example, by posting the updated terms on our website or via email notification. Your continued use of our services after changes are posted constitutes your acceptance of the modified ToS.
               </p>
-              <h2 className="text-2xl font-bold mb-4">3. Payment Terms</h2>
+
+              <h2 className="text-2xl font-bold mb-4">2. Definitions</h2>
               <p className="mb-4">
-                Payment terms will be outlined in individual service agreements. Standard payment is due upon receipt of invoice unless otherwise agreed upon in writing.
+                Key terms used in this agreement include: "Services" (the digital marketing and related services provided by the Agency), "Deliverables" (specific work products created for the Client), "Client Content" (materials provided by the Client), "Agency Intellectual Property" (the Agency's pre-existing tools, software, and know-how), "Confidential Information" (non-public information shared between parties), "Term" (the duration of the agreement), "Fees" (payments owed by the Client), "Statement of Work" or "SOW" (a document detailing specific services for an engagement), "Short Code Program" (SMS messaging services using a US short code), "Personal Data" (information relating to an identified or identifiable individual), and "Data Processing Addendum" or "DPA" (an agreement governing the processing of Personal Data).
               </p>
-              <h2 className="text-2xl font-bold mb-4">4. Intellectual Property</h2>
+
+              <h2 className="text-2xl font-bold mb-4">3. Services</h2>
+              <p className="mb-4"><strong>3.1. Scope of Services:</strong> We offer full-stack digital marketing services. The specific Services, Deliverables, timelines, and project details for your engagement will be described in a mutually agreed-upon Statement of Work (SOW). We will perform the Services with reasonable care and skill.</p>
+              <p className="mb-4"><strong>3.2. Changes to Services:</strong> Any changes to the scope of Services outlined in an SOW must be mutually agreed upon in writing. Changes may affect Fees and timelines.</p>
+              <p className="mb-4"><strong>3.3. Subcontracting:</strong> We reserve the right to engage subcontractors to perform certain Services. We remain responsible for the performance of our obligations under these ToS.</p>
+
+              <h2 className="text-2xl font-bold mb-4">4. Term & Termination</h2>
+              <p className="mb-4"><strong>4.1. Term:</strong> The initial duration ("Term") of this agreement or a specific SOW (e.g., monthly, fixed period, minimum commitment) and any automatic renewal terms will be specified in the SOW or a separate agreement.</p>
+              <p className="mb-4"><strong>4.2. Termination for Convenience:</strong> After any minimum commitment period specified in the SOW, either party may terminate this agreement without cause by providing the other party with written notice (e.g., 30 days).</p>
+              <p className="mb-4"><strong>4.3. Termination for Cause:</strong> Either party may terminate this agreement for a material breach by the other party if the breach is not cured within a specified period after receiving written notice. Non-payment by the Client is considered a material breach.</p>
+              <p className="mb-4"><strong>4.4. Suspension/Termination by Agency:</strong> We reserve the right to suspend or terminate Services immediately if the Client fails to pay amounts due, breaches acceptable use policies, provides illegal materials, or engages in abusive behavior towards the Agency or its staff.</p>
+              <p className="mb-4"><strong>4.5. Effect of Termination:</strong> Upon termination, Services will cease. The Client must pay all outstanding Fees for Services performed up to the termination date. Each party shall return or delete the other party's Confidential Information upon request. Certain sections, including Confidentiality, Intellectual Property, Limitation of Liability, Indemnification, and Payment Obligations, will survive termination.</p>
+
+              <h2 className="text-2xl font-bold mb-4">5. Fees & Payment</h2>
+              <p className="mb-4"><strong>5.1. Fee Structure:</strong> Specific Fees (e.g., monthly retainer, project-based fee, hourly rate) will be detailed in the applicable SOW.</p>
+              <p className="mb-4"><strong>5.2. Payment Schedule:</strong> Payment due dates (e.g., monthly in advance, upon milestone completion) will be specified in the SOW.</p>
+              <p className="mb-4"><strong>5.3. Invoicing:</strong> We will provide invoices detailing the Fees owed according to the agreed schedule.</p>
+              <p className="mb-4"><strong>5.4. Late Payments:</strong> Overdue invoices may be subject to interest charges or penalties as specified in the SOW or invoice.</p>
+              <p className="mb-4"><strong>5.5. Third-Party Costs:</strong> Unless otherwise specified in the SOW, the Client is responsible for pass-through costs, including but not limited to advertising spend, third-party software licenses, stock photography, and domain registration fees.</p>
+              <p className="mb-4"><strong>5.6. Rate Changes:</strong> We reserve the right to adjust our service rates upon reasonable prior written notice (e.g., 60 days).</p>
+              <p className="mb-4"><strong>5.7. Deposits:</strong> Non-refundable deposits may be required before work commences, as specified in the SOW.</p>
+              <p className="mb-4"><strong>5.8. Taxes:</strong> All Fees are exclusive of applicable taxes (e.g., sales tax, VAT). The Client is responsible for paying any such taxes.</p>
+
+              <h2 className="text-2xl font-bold mb-4">6. Client Obligations & Cooperation</h2>
+              <p className="mb-4"><strong>6.1. Provision of Information & Access:</strong> You agree to provide timely access to necessary systems (e.g., website backend, advertising accounts, analytics platforms), personnel, data, and materials ("Client Content") required for us to perform the Services.</p>
+              <p className="mb-4"><strong>6.2. Accuracy & Rights:</strong> You warrant that all Client Content you provide is accurate, complete, and legal, and that you possess all necessary rights, licenses, and permissions for us to use the Client Content to provide the Services.</p>
+              <p className="mb-4"><strong>6.3. Approvals & Feedback:</strong> You agree to provide timely review, feedback, and approvals as requested by us to avoid project delays. We may specify expected response times.</p>
+              <p className="mb-4"><strong>6.4. Compliance:</strong> You agree to use the Services in compliance with these ToS and all applicable laws and regulations.</p>
+              <p className="mb-4"><strong>6.5. Cooperation:</strong> You agree to cooperate reasonably with us. Failure to cooperate may result in project delays or suspension of Services.</p>
+
+              <h2 className="text-2xl font-bold mb-4">7. Intellectual Property Rights</h2>
+              <p className="mb-4"><strong>7.1. Client Content & Pre-Existing IP:</strong> You retain ownership of your trademarks, logos, Client Content, and pre-existing intellectual property. You grant us a non-exclusive, worldwide, royalty-free license during the Term to use your Client Content solely for the purpose of providing the Services.</p>
+              <p className="mb-4"><strong>7.2. Agency Pre-Existing IP & Tools:</strong> We retain all rights, title, and interest in our pre-existing intellectual property, including our software, tools, methodologies, and know-how used in providing the Services.</p>
+              <p className="mb-4"><strong>7.3. Deliverables:</strong> Unless otherwise specified in the SOW, upon your full payment for the relevant Services, ownership of the final, custom-created Deliverables (e.g., specific website designs, ad copy, reports created uniquely for you) transfers to you. We may retain a license to use Deliverables non-confidentially in our portfolio.</p>
+
+              <h2 className="text-2xl font-bold mb-4">8. Confidentiality</h2>
+              <p className="mb-4"><strong>8.1. Mutual Obligations:</strong> Both parties agree to protect the Confidential Information disclosed by the other party. Confidential Information is information designated as confidential or that should reasonably be understood to be confidential given its nature.</p>
+              <p className="mb-4"><strong>8.2. Exclusions:</strong> Confidential Information does not include information that: (a) is or becomes publicly known through no fault of the receiving party; (b) was lawfully known by the receiving party before disclosure; (c) is rightfully received from a third party without restriction; or (d) is required to be disclosed by law.</p>
+              <p className="mb-4"><strong>8.3. Use Limitation:</strong> Confidential Information shall only be used for the purpose of fulfilling obligations under this agreement.</p>
+              <p className="mb-4"><strong>8.4. Duration:</strong> The obligation to protect Confidential Information may extend beyond the Term of this agreement, as specified or as required by law.</p>
+
+              <h2 className="text-2xl font-bold mb-4">9. Data Protection</h2>
+              <p className="mb-4"><strong>9.1. Privacy Policy:</strong> Our collection and use of Personal Data are governed by our <a href="/privacy" className="text-primary hover:underline">Privacy Policy</a>.</p>
+              <p className="mb-4"><strong>9.2. Agency as Processor:</strong> We may process Personal Data on your behalf as part of providing the Services (where you are the Controller and we are the Processor). This processing will be governed by a separate Data Processing Addendum (DPA), which must be executed if applicable and is incorporated herein by reference.</p>
+              <p className="mb-4"><strong>9.3. Client Warranties:</strong> You warrant that you have obtained all necessary consents and have the legal right to provide any Personal Data (especially End-User Data) to us for processing in accordance with the agreed Services and the DPA. You are responsible for ensuring the lawfulness of such processing.</p>
+
+              <h2 className="text-2xl font-bold mb-4">10. US Short Code Messaging Program Terms</h2>
+              <p className="mb-4 italic">(Applicable if Client uses SMS Services)</p>
+              <p className="mb-4"><strong>10.1. Compliance:</strong> If you use our SMS services via a US Short Code Program, you agree to use the program strictly in accordance with the approved use case, Twilio's requirements, mobile carrier rules, industry standards (like CTIA guidelines), and all applicable laws (including the Telephone Consumer Protection Act - TCPA).</p>
+              <p className="mb-4"><strong>10.2. Mandatory Disclosures:</strong> You acknowledge and agree to incorporate the following mandatory elements into your publicly accessible mobile terms and conditions page, which must be linked from all opt-in mechanisms for the Short Code Program:</p>
+              <ul className="list-disc ml-6 mb-4 space-y-2">
+                <li><strong>Program Description:</strong> A clear description of the program and the types of messages that will be sent.</li>
+                <li><strong>Message Frequency:</strong> An estimate of the number of messages that will be sent (e.g., "up to 4 msgs/month" or "message frequency varies").</li>
+                <li><strong>HELP/INFO Keyword:</strong> Instructions that users can text "HELP" for help or additional information.</li>
+                <li><strong>STOP Keyword:</strong> Instructions that users can text "STOP" to cancel and opt out of receiving future messages.</li>
+                <li><strong>Message & Data Rates:</strong> A statement that "Message and data rates may apply."</li>
+                <li><strong>Carrier Disclaimer:</strong> A statement that carriers are not liable for delayed or undelivered messages.</li>
+                <li><strong>Terms & Privacy Links:</strong> Links to your full mobile terms and conditions and privacy policy.</li>
+                <li><strong>Support Contact:</strong> Contact information for customer support (email or phone number).</li>
+              </ul>
+              <p className="mb-4"><strong>10.3. Consent:</strong> You are solely responsible for obtaining and documenting explicit, informed opt-in consent from each message recipient before sending any SMS messages via the short code. Consent must be obtained using compliant Calls-to-Action that include the mandatory disclosures listed above. Consent cannot be a condition of purchase.</p>
+              <p className="mb-4"><strong>10.4. Content Restrictions:</strong> You agree not to send prohibited content via the short code, including but not limited to content related to Sex, Hate, Alcohol (unless properly age-gated), Firearms, Tobacco (SHAFT), high-risk financial services, third-party lead generation, debt collection, illegal substances (including cannabis/CBD regardless of state law), prescription drugs (unless following specific exceptions), or gambling (unless following specific exceptions). You may not sell or share end-user data collected via SMS for purposes other than fulfilling the approved service.</p>
+              <p className="mb-4"><strong>10.5. Indemnification:</strong> You agree to defend, indemnify, and hold harmless Redline Design from any claims, fines, damages, losses, or expenses arising from your non-compliance with these Short Code Program terms or any related laws, regulations, or industry standards.</p>
+
+              <h2 className="text-2xl font-bold mb-4">11. Disclaimers</h2>
+              <p className="mb-4"><strong>11.1. WARRANTY DISCLAIMER:</strong> THE SERVICES ARE PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR NON-INFRINGEMENT. WE DO NOT WARRANT THAT THE SERVICES WILL BE UNINTERRUPTED, ERROR-FREE, OR COMPLETELY SECURE.</p>
+              <p className="mb-4"><strong>11.2. NO GUARANTEE OF RESULTS:</strong> WE DO NOT GUARANTEE ANY SPECIFIC RESULTS, OUTCOMES, RANKINGS, WEBSITE TRAFFIC INCREASES, LEAD GENERATION, REVENUE, OR RETURN ON INVESTMENT (ROI) FROM THE SERVICES. YOU ACKNOWLEDGE THAT RESULTS DEPEND ON NUMEROUS FACTORS BEYOND OUR CONTROL, INCLUDING MARKET CONDITIONS, COMPETITOR ACTIONS, SEARCH ENGINE ALGORITHM CHANGES, CLIENT PARTICIPATION, SALES PROCESSES, AND BUDGET ALLOCATION. PAST PERFORMANCE EXAMPLES OR CASE STUDIES ARE NOT INDICATIVE OF FUTURE RESULTS.</p>
+              <p className="mb-4"><strong>11.3. THIRD-PARTY SERVICES/LINKS DISCLAIMER:</strong> WE ARE NOT RESPONSIBLE FOR THE AVAILABILITY, ACCURACY, CONTENT, OR PRACTICES OF THIRD-PARTY WEBSITES, PLATFORMS, OR TOOLS LINKED TO OR USED IN CONNECTION WITH OUR SERVICES. YOUR USE OF ANY THIRD-PARTY SERVICES IS AT YOUR OWN RISK AND SUBJECT TO THEIR TERMS AND POLICIES.</p>
+
+              <h2 className="text-2xl font-bold mb-4">12. Limitation of Liability</h2>
+              <p className="mb-4"><strong>12.1. DAMAGE CAP:</strong> TO THE MAXIMUM EXTENT PERMITTED BY LAW, OUR TOTAL AGGREGATE LIABILITY ARISING OUT OF OR RELATED TO THIS AGREEMENT, WHETHER IN CONTRACT, TORT, OR OTHERWISE, SHALL NOT EXCEED THE TOTAL FEES PAID BY YOU TO US DURING THE SIX (6) MONTHS IMMEDIATELY PRECEDING THE EVENT GIVING RISE TO THE CLAIM.</p>
+              <p className="mb-4"><strong>12.2. EXCLUSION OF CERTAIN DAMAGES:</strong> IN NO EVENT SHALL WE BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, OR DAMAGES FOR LOST PROFITS, REVENUE, DATA, OR USE, INCURRED BY YOU OR ANY THIRD PARTY, WHETHER IN AN ACTION IN CONTRACT OR TORT, EVEN IF WE HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.</p>
+              <p className="mb-4"><strong>12.3. EXCEPTIONS:</strong> THE LIMITATIONS IN THIS SECTION 12 SHALL NOT APPLY TO LIABILITY ARISING FROM OUR GROSS NEGLIGENCE, WILLFUL MISCONDUCT, BREACH OF CONFIDENTIALITY OBLIGATIONS, OR INDEMNIFICATION OBLIGATIONS UNDER THIS AGREEMENT.</p>
+
+              <h2 className="text-2xl font-bold mb-4">13. Indemnification</h2>
               <p className="mb-4">
-                All materials created by Redline Design LLC remain our property until full payment is received. Upon payment, specified deliverables transfer to the client.
+                <strong>13.1. Client Indemnity:</strong> You agree to defend, indemnify, and hold harmless Redline Design, its officers, directors, employees, and agents from and against any and all claims, liabilities, damages, losses, and expenses (including reasonable attorneys' fees) arising out of or in any way connected with: (a) your Client Content, including claims of intellectual property infringement, defamation, or illegality; (b) your breach of these ToS or applicable law; (c) your provision or use of data in violation of data protection laws or agreements; or (d) your use of the Services (other than claims solely attributable to our breach of these ToS).
               </p>
+
+              <h2 className="text-2xl font-bold mb-4">14. Dispute Resolution</h2>
+              <p className="mb-4"><strong>14.1. Governing Law:</strong> This Agreement shall be governed by and construed in accordance with the laws of the State of Utah, USA, without regard to its conflict of law principles.</p>
+              <p className="mb-4"><strong>14.2. Process:</strong> The parties agree to first attempt to resolve any dispute arising out of this Agreement through informal negotiation. If the dispute cannot be resolved informally, it shall be resolved exclusively through litigation in the state or federal courts located in Salt Lake County, Utah.</p>
+
+              <h2 className="text-2xl font-bold mb-4">15. Miscellaneous</h2>
+              <p className="mb-4"><strong>15.1. Entire Agreement:</strong> These ToS, together with the Privacy Policy and any applicable SOW(s) and DPA(s), constitute the entire agreement between the parties regarding the subject matter and supersede all prior agreements or understandings, whether written or oral.</p>
+              <p className="mb-4"><strong>15.2. Severability:</strong> If any provision of these ToS is held to be invalid or unenforceable, the remaining provisions will remain in full force and effect.</p>
+              <p className="mb-4"><strong>15.3. Waiver:</strong> Failure by either party to enforce any provision of these ToS will not constitute a waiver of future enforcement of that or any other provision.</p>
+              <p className="mb-4"><strong>15.4. Assignment:</strong> You may not assign this Agreement without our prior written consent. We may assign this Agreement without your consent to an affiliate or in connection with a merger, acquisition, reorganization, or sale of substantially all of our assets.</p>
+              <p className="mb-4"><strong>15.5. Notices:</strong> All notices required under this Agreement must be in writing and delivered to the addresses specified in the SOW or as otherwise designated by the parties. Email notice is acceptable if receipt is confirmed. For notices to Redline Design, please use ryan@redline.design</p>
+              <p className="mb-4"><strong>15.6. Force Majeure:</strong> Neither party shall be liable for any delay or failure to perform resulting from causes outside its reasonable control, such as acts of God, war, terrorism, riots, embargos, acts of civil or military authorities, fire, floods, accidents, or strikes.</p>
+              <p className="mb-4"><strong>15.7. Relationship of Parties:</strong> The parties are independent contractors. Nothing in these ToS creates a partnership, joint venture, agency, or employment relationship between the parties.</p>
             </div>
           }
         />
