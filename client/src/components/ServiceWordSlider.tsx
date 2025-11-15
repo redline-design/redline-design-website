@@ -172,35 +172,22 @@ export default function ServiceWordSlider() {
 
   return (
     <div className="service-word-slider-container">
-      <div className="laptop-wrapper">
-        <div className="laptop-scene">
-          {/* Laptop Base */}
-          <div className="laptop-base"></div>
-          
-          {/* Laptop Screen (opens on scroll) */}
-          <div className="laptop-screen">
-            <div className="laptop-bezel">
-              {/* Word slider content on the screen */}
-              <div className="service-word-slider" data-testid="service-word-slider">
-                {services.map((service, index) => (
-                  <div
-                    key={index}
-                    className="grid-item"
-                    data-index={index + 1}
-                  >
-                    {service}
-                  </div>
-                ))}
-                <div className="grid-item special">
-                  <img 
-                    src={redlineLogo} 
-                    alt="Redline Design" 
-                    className="logo-center"
-                  />
-                </div>
-              </div>
-            </div>
+      <div className="service-word-slider" data-testid="service-word-slider">
+        {services.map((service, index) => (
+          <div
+            key={index}
+            className="grid-item"
+            data-index={index + 1}
+          >
+            {service}
           </div>
+        ))}
+        <div className="grid-item special">
+          <img 
+            src={redlineLogo} 
+            alt="Redline Design" 
+            className="logo-center"
+          />
         </div>
       </div>
     </div>
