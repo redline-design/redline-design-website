@@ -473,11 +473,20 @@ export default function Home() {
       <SectionDivider />
 
       <ScrollAnimatedSection>
-        <section className="py-8 px-4 sm:px-6 lg:px-8 bg-card/20 backdrop-blur-sm">
-        <div className="max-w-7xl mx-auto">
-          <TestimonialsCarousel />
-        </div>
-      </section>
+        <section className="py-8 px-4 sm:px-6 lg:px-8 bg-card/20 backdrop-blur-sm relative overflow-hidden">
+          {/* Subtle radial gradient background */}
+          <div className="absolute inset-0 pointer-events-none">
+            <div 
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full"
+              style={{
+                background: 'radial-gradient(circle at center, hsl(var(--primary) / 0.05) 0%, transparent 70%)'
+              }}
+            />
+          </div>
+          <div className="max-w-7xl mx-auto relative z-10">
+            <TestimonialsCarousel />
+          </div>
+        </section>
       </ScrollAnimatedSection>
 
       <SectionDivider />
