@@ -116,8 +116,8 @@ export default function Header() {
               >
                 <Home className="h-5 w-5" />
                 <span 
-                  className={`absolute bottom-1 left-1/2 -translate-x-1/2 h-0.5 bg-primary rounded-full transition-all duration-300 ${
-                    location === "/" ? "w-6" : "w-0 group-hover:w-6"
+                  className={`absolute bottom-1 left-0 right-0 mx-auto h-0.5 bg-primary rounded-full transition-all duration-300 ${
+                    location === "/" ? "w-5" : "w-0 group-hover:w-5"
                   }`}
                 />
               </motion.div>
@@ -135,13 +135,15 @@ export default function Header() {
                   }`}
                   data-testid="button-nav-services"
                 >
-                  Services
+                  <span className="relative inline-block">
+                    Services
+                    <span 
+                      className={`absolute bottom-0 left-0 h-0.5 bg-primary rounded-full transition-all duration-300 ${
+                        location.startsWith("/services") ? "w-full" : "w-0 group-hover:w-full"
+                      }`}
+                    />
+                  </span>
                   <ChevronDown className="h-3 w-3 transition-transform group-hover:translate-y-0.5" />
-                  <span 
-                    className={`absolute bottom-1 left-1/2 -translate-x-1/2 h-0.5 bg-primary rounded-full transition-all duration-300 ${
-                      location.startsWith("/services") ? "w-6" : "w-0 group-hover:w-6"
-                    }`}
-                  />
                 </motion.button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="start" className="w-56">
@@ -168,12 +170,14 @@ export default function Header() {
                   }`}
                   data-testid={`link-nav-${link.label.toLowerCase().replace(/\s/g, "-")}`}
                 >
-                  {link.label}
-                  <span 
-                    className={`absolute bottom-1 left-1/2 -translate-x-1/2 h-0.5 bg-primary rounded-full transition-all duration-300 ${
-                      location === link.href ? "w-6" : "w-0 group-hover:w-6"
-                    }`}
-                  />
+                  <span className="relative inline-block">
+                    {link.label}
+                    <span 
+                      className={`absolute bottom-0 left-0 h-0.5 bg-primary rounded-full transition-all duration-300 ${
+                        location === link.href ? "w-full" : "w-0 group-hover:w-full"
+                      }`}
+                    />
+                  </span>
                 </motion.div>
               </Link>
             ))}
