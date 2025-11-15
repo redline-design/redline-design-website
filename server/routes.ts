@@ -413,6 +413,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ error: "Invalid URL format" });
       }
 
+      // Record start time for performance measurement
+      const fetchStartTime = Date.now();
+
       // Fetch the webpage
       const response = await fetch(targetUrl.toString(), {
         headers: {
@@ -420,13 +423,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
       });
 
+      const fetchEndTime = Date.now();
+      const fetchDuration = fetchEndTime - fetchStartTime;
+
       if (!response.ok) {
         return res.status(400).json({ error: `Failed to fetch URL: ${response.statusText}` });
       }
 
+      const parseStartTime = Date.now();
       const html = await response.text();
       const { load } = await import('cheerio');
       const $ = load(html);
+      const parseEndTime = Date.now();
+      const parseDuration = parseEndTime - parseStartTime;
 
       // SEO Analysis
       const analysis: any = {
@@ -692,15 +701,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
 
       // Performance analysis
-      const startTime = Date.now();
-      const fetchTime = startTime - (response as any).startTime || 0;
-      const parseTime = Date.now() - startTime;
-      const totalLoadTime = fetchTime + parseTime;
+      const totalLoadTime = fetchDuration + parseDuration;
       
+      // More realistic performance scoring
       let performanceScore = 100;
-      if (totalLoadTime > 3000) performanceScore = 50;
-      else if (totalLoadTime > 2000) performanceScore = 70;
-      else if (totalLoadTime > 1000) performanceScore = 85;
+      if (totalLoadTime > 3000) performanceScore = 40;
+      else if (totalLoadTime > 2000) performanceScore = 60;
+      else if (totalLoadTime > 1000) performanceScore = 75;
+      else if (totalLoadTime > 500) performanceScore = 90;
       
       analysis.performance = {
         loadTime: totalLoadTime,
@@ -708,21 +716,35 @@ export async function registerRoutes(app: Express): Promise<Server> {
         recommendations: []
       };
 
-      if (totalLoadTime > 2000) {
-        analysis.performance.recommendations.push('Page load time is slow. Consider optimizing images and reducing JavaScript.');
+      if (totalLoadTime > 3000) {
+        analysis.performance.recommendations.push('Page load time is very slow (>3s). Urgent optimization needed.');
+      } else if (totalLoadTime > 2000) {
+        analysis.performance.recommendations.push('Page load time is slow (>2s). Consider optimizing images and reducing JavaScript.');
+      } else if (totalLoadTime > 1000) {
+        analysis.performance.recommendations.push('Page load time is moderate (>1s). Room for improvement.');
       }
+      
       if (images.length > 20) {
         analysis.performance.recommendations.push(`Page has ${images.length} images. Consider lazy loading or image optimization.`);
       }
       if ($('script').length > 15) {
         analysis.performance.recommendations.push(`Page has ${$('script').length} scripts. Consider combining and minifying JavaScript files.`);
       }
+      if (html.length > 500000) {
+        analysis.performance.recommendations.push('HTML size is large. Consider minification and removing unused code.');
+      }
 
-      // Mobile responsiveness analysis
-      const mobileScore = viewport ? 100 : 0;
+      // Mobile responsiveness analysis - more nuanced scoring
       const hasMediaQueries = html.includes('@media') || html.includes('min-width') || html.includes('max-width');
       const hasFlexbox = html.includes('display: flex') || html.includes('display:flex');
       const hasGrid = html.includes('display: grid') || html.includes('display:grid');
+      
+      // Calculate mobile score based on multiple factors
+      let mobileScore = 0;
+      if (viewport) mobileScore += 40; // Viewport is critical
+      if (hasMediaQueries) mobileScore += 30; // Media queries are important
+      if (hasFlexbox || hasGrid) mobileScore += 20; // Modern layout methods
+      if (viewport && hasMediaQueries && (hasFlexbox || hasGrid)) mobileScore += 10; // Bonus for complete responsive design
       
       analysis.mobile = {
         score: mobileScore,
@@ -734,10 +756,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
       };
 
       if (!viewport) {
-        analysis.mobile.recommendations.push('Add a viewport meta tag for mobile responsiveness');
+        analysis.mobile.recommendations.push('Add a viewport meta tag for mobile responsiveness (critical)');
       }
       if (!hasMediaQueries) {
         analysis.mobile.recommendations.push('No media queries detected. Consider adding responsive breakpoints.');
+      }
+      if (!hasFlexbox && !hasGrid) {
+        analysis.mobile.recommendations.push('No modern layout methods (flexbox/grid) detected. Consider using them for better responsive design.');
       }
       if (images.length > 0) {
         const responsiveImages = $('img[srcset]').length;
@@ -746,7 +771,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
       }
 
-      // Calculate category scores
+      // Calculate category scores with more nuanced logic
       const technicalChecks = ['robots', 'sitemap', 'schema', 'favicon', 'meta-duplicates', 'broken-links', 'canonical', 'https'];
       const contentChecks = ['title', 'meta-description', 'h1', 'headings', 'content', 'images', 'open-graph'];
       
@@ -760,9 +785,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const contentIssues = analysis.issues.filter((i: any) => contentChecks.includes(i.type)).length;
       const contentTotal = contentChecks.length;
 
+      // More realistic scoring: passed gets 100%, warnings get 60%, issues get 0%
+      const technicalScore = technicalTotal > 0 
+        ? Math.round(((technicalPassed * 1.0 + technicalWarnings * 0.6 + technicalIssues * 0) / technicalTotal) * 100)
+        : 0;
+      
+      const contentScore = contentTotal > 0
+        ? Math.round(((contentPassed * 1.0 + contentWarnings * 0.6 + contentIssues * 0) / contentTotal) * 100)
+        : 0;
+
       analysis.categoryScores = {
-        technical: Math.round(((technicalPassed + technicalWarnings * 0.5) / technicalTotal) * 100),
-        content: Math.round(((contentPassed + contentWarnings * 0.5) / contentTotal) * 100),
+        technical: technicalScore,
+        content: contentScore,
         mobile: mobileScore,
         performance: performanceScore
       };
