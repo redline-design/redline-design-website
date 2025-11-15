@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
-import { Globe, TrendingUp, Search, Database, BarChart3, Palette, MessageSquare, Mail, Users, Bot, Code, Check } from "lucide-react";
+import { Globe, TrendingUp, Search, Database, BarChart3, Palette, MessageSquare, Mail, Users, Bot, Code, Check, Sparkles } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -286,13 +286,16 @@ export default function HorizontalScrollServices() {
         >
           {!isCardHovered && (
             <motion.div 
-              className="service-explainer"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
+              className="service-hover-hint"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              transition={{ duration: 0.4 }}
               data-testid="text-hover-explainer"
             >
-              <span>Hover Card & Scroll to Explore</span>
+              <Sparkles className="w-8 h-8 mb-3 text-primary" style={{ filter: "drop-shadow(0 0 8px rgba(255, 0, 0, 0.5))" }} />
+              <span className="text-sm font-medium">Hover to Explore All Services</span>
+              <span className="text-xs text-muted-foreground mt-1">Scroll to rotate</span>
             </motion.div>
           )}
           
@@ -315,7 +318,21 @@ export default function HorizontalScrollServices() {
                   className="service-card-circle"
                   style={{
                     transform: `rotateY(${angle}deg) translateZ(${radius}px)`,
-                    transition: 'transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)',
+                  }}
+                  initial={false}
+                  animate={{
+                    opacity: isCardHovered || index === 0 ? 1 : 0,
+                  }}
+                  transition={{
+                    transform: {
+                      duration: 1,
+                      ease: [0.4, 0, 0.2, 1],
+                      delay: isCardHovered ? index * 0.03 : 0
+                    },
+                    opacity: {
+                      duration: 0.4,
+                      delay: isCardHovered ? index * 0.03 : 0
+                    }
                   }}
                   onMouseEnter={() => setIsCardHovered(true)}
                   onMouseLeave={() => setIsCardHovered(false)}
@@ -324,15 +341,15 @@ export default function HorizontalScrollServices() {
                 >
                   <div className="service-card-inner">
                     <div
-                      className="flex-shrink-0 w-12 h-12 rounded-lg flex items-center justify-center mx-auto mb-3"
+                      className="flex-shrink-0 w-14 h-14 rounded-lg flex items-center justify-center mx-auto mb-3"
                       style={{
                         backgroundColor: `${service.accentColor}20`,
                         color: service.accentColor
                       }}
                     >
-                      <service.icon className="w-6 h-6" />
+                      <service.icon className="w-7 h-7" />
                     </div>
-                    <h3 className="service-card-title text-sm font-semibold text-foreground">
+                    <h3 className="service-card-title text-sm font-semibold text-foreground text-center leading-tight">
                       {service.title}
                     </h3>
                   </div>

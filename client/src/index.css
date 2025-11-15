@@ -977,13 +977,17 @@
 
   .services-3d-circle-container.collapsed .service-card-circle:not(:first-child) {
     pointer-events: none;
-    opacity: 0;
+  }
+
+  .service-card-circle {
+    will-change: transform, opacity;
   }
 
   .service-card-circle:hover {
-    box-shadow: 0 0 30px 10px rgba(255, 0, 0, 0.3);
+    box-shadow: 0 0 30px 10px rgba(255, 0, 0, 0.35);
     background: hsl(var(--card));
     z-index: 10;
+    transform: scale(1.05);
   }
 
   .service-card-inner {
@@ -998,30 +1002,31 @@
     will-change: transform, opacity;
     color: hsl(var(--foreground));
     text-shadow: 0 0 5px rgba(255, 0, 0, 0.2);
+    line-height: 1.2;
   }
 
-  .service-explainer {
+  .service-hover-hint {
     font-weight: 400;
-    font-size: 1.25rem;
     color: hsl(var(--foreground));
-    transition: all 0.6s ease;
+    transition: all 0.4s ease;
     width: 240px;
-    height: 260px;
-    background: hsl(var(--card) / 0.9);
-    backdrop-filter: blur(10px);
-    border-radius: 12px;
-    border: 1px solid hsl(var(--primary) / 0.3);
-    text-shadow: 0 0 10px rgba(255, 0, 0, 0.4);
+    padding: 2rem 1.5rem;
+    background: hsl(var(--card) / 0.95);
+    backdrop-filter: blur(12px);
+    border-radius: 16px;
+    border: 1px solid hsl(var(--primary) / 0.4);
+    text-shadow: 0 0 8px rgba(255, 0, 0, 0.3);
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     position: absolute;
-    z-index: 100;
-    box-shadow: 0 0 20px 5px rgba(255, 0, 0, 0.2);
+    z-index: 5;
+    box-shadow: 0 0 30px 8px rgba(255, 0, 0, 0.25);
     pointer-events: none;
   }
 
-  .services-3d-circle-container:hover .service-explainer {
+  .services-3d-circle-container.expanded .service-hover-hint {
     opacity: 0;
   }
 
