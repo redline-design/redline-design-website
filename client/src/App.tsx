@@ -36,7 +36,6 @@ const ConsultingPage = lazy(() => import("@/pages/services/consulting"));
 const AIAutomationPage = lazy(() => import("@/pages/services/ai-automation"));
 const AppDevelopmentPage = lazy(() => import("@/pages/services/app-development"));
 const SEOChecker = lazy(() => import("@/pages/SEOChecker"));
-const LaptopIntro = lazy(() => import("@/pages/LaptopIntro"));
 const NotFound = lazy(() => import("@/pages/not-found"));
 
 function Router() {
@@ -53,7 +52,6 @@ function Router() {
       >
         <Switch>
       <Route path="/" component={Home} />
-      <Route path="/laptop-intro" component={LaptopIntro} />
       <Route path="/services" component={Services} />
       <Route path="/services/websites" component={WebsitesPage} />
       <Route path="/services/paid-advertising" component={PaidAdvertisingPage} />
