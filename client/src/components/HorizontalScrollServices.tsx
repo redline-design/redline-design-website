@@ -358,7 +358,7 @@ export default function HorizontalScrollServices() {
   return (
     <section 
       ref={targetRef} 
-      className="relative h-[100vh] md:h-[110vh]"
+      className="relative h-[70vh] md:h-[75vh]"
       data-testid="section-services-horizontal"
     >
       <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden px-4 md:px-8 pointer-events-none">
