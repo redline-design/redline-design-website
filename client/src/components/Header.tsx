@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Home, ChevronDown } from "lucide-react";
+import { Menu, X, Home, ChevronDown, ArrowRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   DropdownMenu,
@@ -188,10 +188,11 @@ export default function Header() {
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: navLinks.length * 0.1 + 0.2 }}
-                className="px-4 py-2 text-sm font-medium bg-primary text-white rounded-lg hover-elevate active-elevate-2 transition-all ml-1 primary-button-fill"
+                className="px-4 py-2 text-sm font-medium bg-primary text-white rounded-lg hover-elevate active-elevate-2 transition-all ml-1 primary-button-fill flex items-center gap-2"
                 data-testid="button-nav-get-started"
               >
                 Get Started
+                <ArrowRight className="h-4 w-4" />
               </motion.div>
             </Link>
               </motion.nav>
@@ -308,11 +309,12 @@ export default function Header() {
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: navLinks.length * 0.1 }}
-                  className="block px-4 py-3 rounded-lg text-base font-medium bg-primary text-white hover-elevate active-elevate-2 mt-4 primary-button-fill"
+                  className="flex items-center justify-center gap-2 px-4 py-3 rounded-lg text-base font-medium bg-primary text-white hover-elevate active-elevate-2 mt-4 primary-button-fill"
                   onClick={() => setIsMobileMenuOpen(false)}
                   data-testid="link-mobile-get-started"
                 >
                   Get Started
+                  <ArrowRight className="h-5 w-5" />
                 </motion.div>
               </Link>
             </div>
