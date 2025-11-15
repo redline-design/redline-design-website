@@ -5,6 +5,7 @@ import ValueTile from "@/components/ValueTile";
 import PartnerLogos from "@/components/PartnerLogos";
 import TestimonialsCarousel from "@/components/TestimonialsCarousel";
 import StatCounter from "@/components/StatCounter";
+import CountUp from "@/components/CountUp";
 import CTABand from "@/components/CTABand";
 import StickyConversionBar from "@/components/StickyConversionBar";
 import SectionDivider from "@/components/SectionDivider";
@@ -267,6 +268,53 @@ export default function Home() {
     <div>
       <Hero />
       
+      <SectionDivider />
+
+      {/* Key Stats Section with CountUp Animations */}
+      <ScrollAnimatedSection>
+        <section className="py-16 px-4 sm:px-6 lg:px-8 bg-card/20 backdrop-blur-sm" data-testid="section-key-stats">
+          <div className="max-w-6xl mx-auto">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+              <div className="text-center" data-testid="stat-years-experience">
+                <CountUp 
+                  value={15} 
+                  suffix="+" 
+                  className="text-4xl md:text-5xl font-bold text-primary mb-2"
+                />
+                <p className="text-sm md:text-base text-foreground font-medium">Years Experience</p>
+              </div>
+              <div className="text-center" data-testid="stat-projects-completed">
+                <CountUp 
+                  value={100} 
+                  suffix="+" 
+                  delay={0.1}
+                  className="text-4xl md:text-5xl font-bold text-primary mb-2"
+                />
+                <p className="text-sm md:text-base text-foreground font-medium">Projects Completed</p>
+              </div>
+              <div className="text-center" data-testid="stat-client-retention">
+                <CountUp 
+                  value={95} 
+                  suffix="%" 
+                  delay={0.2}
+                  className="text-4xl md:text-5xl font-bold text-primary mb-2"
+                />
+                <p className="text-sm md:text-base text-foreground font-medium">Client Retention</p>
+              </div>
+              <div className="text-center" data-testid="stat-avg-roi">
+                <CountUp 
+                  value={7} 
+                  suffix="x" 
+                  delay={0.3}
+                  className="text-4xl md:text-5xl font-bold text-primary mb-2"
+                />
+                <p className="text-sm md:text-base text-foreground font-medium">Average ROI</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </ScrollAnimatedSection>
+
       <SectionDivider />
 
       <ScrollAnimatedSection>

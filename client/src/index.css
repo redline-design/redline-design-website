@@ -33,6 +33,18 @@
   z-index: 9999;
   will-change: transform;
   box-shadow: 0 0 20px rgba(255, 0, 0, 0.7), 0 0 35px rgba(255, 0, 0, 0.4);
+  transition: width 0.3s ease, height 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+}
+
+@keyframes cursorPulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 25px rgba(255, 255, 255, 0.9), 0 0 45px rgba(255, 255, 255, 0.5);
+  }
+  50% {
+    transform: scale(1.15);
+    box-shadow: 0 0 30px rgba(255, 255, 255, 1), 0 0 55px rgba(255, 255, 255, 0.6), 0 0 70px rgba(255, 0, 0, 0.3);
+  }
 }
 
 .custom-cursor.hover {
@@ -40,6 +52,7 @@
   box-shadow: 0 0 25px rgba(255, 255, 255, 0.9), 0 0 45px rgba(255, 255, 255, 0.5);
   width: 24px;
   height: 24px;
+  animation: cursorPulse 1.5s ease-in-out infinite;
 }
 
 /* LIGHT MODE (DEFAULT) */
@@ -852,6 +865,7 @@
     box-shadow: 0 0 12px rgba(255, 255, 255, 0.6);
     width: 16px;
     height: 16px;
+    animation: none !important;
   }
 
   /* Disable shimmer and glow effects */
