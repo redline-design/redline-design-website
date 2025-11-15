@@ -52,18 +52,15 @@ export default function LaptopIntro() {
 
   useEffect(() => {
     if (isPlaying && !prefersReducedMotion) {
-      // Show homepage behind words after 3 seconds
-      const showTimer = setTimeout(() => {
-        setShowHomepage(true);
-      }, 3000);
+      // Show homepage immediately when playing starts
+      setShowHomepage(true);
       
-      // Navigate to homepage after zoom completes (5s)
+      // Navigate to homepage after zoom completes (5.5s total)
       const navTimer = setTimeout(() => {
         setLocation("/");
-      }, 6000);
+      }, 5500);
       
       return () => {
-        clearTimeout(showTimer);
         clearTimeout(navTimer);
       };
     }

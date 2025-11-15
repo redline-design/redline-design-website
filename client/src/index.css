@@ -77,20 +77,18 @@
   align-items: center;
   justify-content: center;
   perspective: 2000px;
-  transition: transform 2s ease-in-out 2s;
 }
 
 .laptop-intro-container.playing .laptop-intro-wrapper {
-  animation: zoom-into-screen 3s ease-in-out 2s forwards;
+  animation: zoom-into-screen 2.5s ease-in-out 2.5s forwards;
 }
 
 @keyframes zoom-into-screen {
   0% {
-    transform: scale(1);
+    transform: scale(1) translateY(0);
   }
   100% {
-    transform: scale(5);
-    opacity: 0;
+    transform: scale(8) translateY(-10%);
   }
 }
 
@@ -122,7 +120,7 @@
   bottom: 4%;
   left: 50%;
   transform-origin: bottom center;
-  transform: translateX(-50%) rotateX(0deg);
+  transform: translateX(-50%) rotateX(-95deg);
   width: 100%;
   height: 96%;
   background: linear-gradient(135deg, #d4d4d4 0%, #b8b8b8 50%, #a0a0a0 100%);
@@ -136,7 +134,7 @@
 }
 
 .laptop-screen.opening {
-  transform: translateX(-50%) rotateX(130deg);
+  transform: translateX(-50%) rotateX(0deg);
   cursor: default;
 }
 
@@ -189,6 +187,19 @@
   opacity: 1;
 }
 
+.laptop-intro-container.playing .laptop-bezel {
+  animation: screen-brighten 2s ease-in-out 2s forwards;
+}
+
+@keyframes screen-brighten {
+  0% {
+    filter: brightness(1);
+  }
+  100% {
+    filter: brightness(1.2);
+  }
+}
+
 .laptop-intro-container.playing .grid-item {
   animation: zoom-in-auto 0.8s cubic-bezier(0.4, 0, 0.2, 1) both;
 }
@@ -217,7 +228,10 @@
   opacity: 0;
   pointer-events: none;
   z-index: -1;
-  animation: fade-in-homepage 2s ease-in 3s forwards;
+}
+
+.laptop-intro-container.playing .homepage-preview {
+  animation: fade-in-homepage 1.5s ease-in 3.5s forwards;
 }
 
 @keyframes fade-in-homepage {
