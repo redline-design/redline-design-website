@@ -848,36 +848,38 @@
     animation: card-glow 2s ease-in-out infinite;
   }
 
-  /* Hand of Cards Layout - inspired by CodePen */
+  /* Hand of Cards Layout - Two Rows */
   .value-cards-hand {
-    display: inline-grid;
-    grid-template-columns: repeat(6, 0);
+    display: grid;
+    grid-template-columns: repeat(3, 0);
+    grid-template-rows: repeat(2, auto);
     gap: 0;
     transition: all 300ms ease-out;
     width: 100%;
     justify-content: center;
-    padding: 4rem 0;
-    min-height: 400px;
+    padding: 3rem 0;
+    min-height: 360px;
   }
 
   .value-cards-hand:hover {
-    grid-template-columns: repeat(6, 280px);
-    gap: 1.5rem;
+    grid-template-columns: repeat(3, 220px);
+    gap: 1rem;
+    row-gap: 1.5rem;
   }
 
   .value-card-wrapper {
     position: relative;
-    height: 320px;
+    height: 240px;
   }
 
   .value-card {
     position: absolute;
     top: 0;
     left: 50%;
-    width: 280px;
-    height: 300px;
+    width: 220px;
+    height: 220px;
     transform-origin: 50% 100%;
-    transform: translateX(-50%) rotate(calc((var(--i) * 12deg) - 30deg));
+    transform: translateX(-50%) rotate(calc((var(--i) * 10deg) - 25deg));
     transition: all 300ms ease-out;
     will-change: transform;
   }
