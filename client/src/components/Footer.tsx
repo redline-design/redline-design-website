@@ -143,10 +143,8 @@ const Footer = memo(function Footer() {
               </CollapsibleContent>
             </Collapsible>
           </div>
-        </div>
 
-        <div className="mt-6 pt-4 border-t border-white/10">
-          <p className="text-xs text-muted-foreground text-center">
+          <p className="text-xs text-muted-foreground md:text-right mt-4 md:mt-0">
             © {new Date().getFullYear()} Redline Design LLC. All rights reserved.
           </p>
         </div>
