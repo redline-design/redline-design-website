@@ -2,6 +2,47 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Custom Cursor - Desktop Only */
+@media (hover: hover) and (pointer: fine) {
+  *,
+  *::before,
+  *::after {
+    cursor: none !important;
+  }
+
+  body,
+  html {
+    cursor: none !important;
+  }
+
+  a, button, [role="button"], input[type="submit"], input[type="button"] {
+    cursor: none !important;
+  }
+}
+
+/* Custom cursor dot */
+.custom-cursor {
+  width: 16px;
+  height: 16px;
+  background: #ff0000;
+  border-radius: 50%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  will-change: transform;
+  box-shadow: 0 0 20px rgba(255, 0, 0, 0.7), 0 0 35px rgba(255, 0, 0, 0.4);
+  transition: width 0.3s ease, height 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.custom-cursor.hover {
+  background: #ffffff;
+  box-shadow: 0 0 25px rgba(255, 255, 255, 0.9), 0 0 45px rgba(255, 255, 255, 0.5);
+  width: 24px;
+  height: 24px;
+}
+
 /* LIGHT MODE (DEFAULT) */
 :root {
   --button-outline: rgba(0,0,0, .10);
@@ -800,6 +841,18 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+
+  /* Disable custom cursor animations for reduced motion */
+  .custom-cursor {
+    will-change: auto;
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+  }
+
+  .custom-cursor.hover {
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.6);
+    width: 16px;
+    height: 16px;
   }
 
   /* Disable shimmer and glow effects */

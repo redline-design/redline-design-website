@@ -930,11 +930,97 @@ function LoadingFallback() {
   );
 }
 
+function CustomCursor() {
+  const cursorRef = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
+  const rafRef = useRef<number>();
+  const isHoveringRef = useRef(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      const viewportWidth = window.innerWidth;
+      const userAgent = navigator.userAgent.toLowerCase();
+      const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+      const isMobileUA = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent);
+      
+      const isMobileDevice = viewportWidth < 768 || isMobileUA || (isTouchDevice && viewportWidth < 1024);
+      setIsMobile(isMobileDevice);
+    };
+
+    checkMobile();
+    
+    let resizeTimeout: number;
+    const debouncedResize = () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = window.setTimeout(checkMobile, 150);
+    };
+    
+    window.addEventListener('resize', debouncedResize);
+    
+    return () => {
+      window.removeEventListener('resize', debouncedResize);
+      clearTimeout(resizeTimeout);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (isMobile) return;
+
+    const cursor = cursorRef.current;
+    if (!cursor) return;
+
+    const updatePosition = (e: MouseEvent) => {
+      if (rafRef.current) {
+        cancelAnimationFrame(rafRef.current);
+      }
+      
+      rafRef.current = requestAnimationFrame(() => {
+        cursor.style.transform = `translate(${e.clientX - 8}px, ${e.clientY - 8}px)`;
+      });
+    };
+
+    const handleMouseOver = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      const shouldHover = 
+        target.tagName === 'A' ||
+        target.tagName === 'BUTTON' ||
+        !!target.closest('button') ||
+        !!target.closest('a') ||
+        target.getAttribute('role') === 'button';
+      
+      if (shouldHover !== isHoveringRef.current) {
+        isHoveringRef.current = shouldHover;
+        cursor.classList.toggle('hover', shouldHover);
+      }
+    };
+
+    window.addEventListener('mousemove', updatePosition, { passive: true });
+    window.addEventListener('mouseover', handleMouseOver, { passive: true });
+
+    return () => {
+      window.removeEventListener('mousemove', updatePosition);
+      window.removeEventListener('mouseover', handleMouseOver);
+      if (rafRef.current) {
+        cancelAnimationFrame(rafRef.current);
+      }
+    };
+  }, [isMobile]);
+
+  if (isMobile) return null;
+
+  return (
+    <div
+      ref={cursorRef}
+      className="custom-cursor"
+    />
+  );
+}
 
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
+        <CustomCursor />
         <ScrollProgressBar />
         <div className="flex flex-col min-h-screen relative">
           <AnimatedBackground />
