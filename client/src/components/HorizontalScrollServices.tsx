@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Globe, TrendingUp, Search, Database, BarChart3, Palette, MessageSquare, Mail, Users, Bot, Code, Check, Sparkles } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -256,6 +256,19 @@ export default function HorizontalScrollServices() {
   const [selectedService, setSelectedService] = useState<typeof SERVICES_DATA[number] | null>(null);
   const [rotation, setRotation] = useState(0);
   const services = useMemo(() => SERVICES_DATA, []);
+
+  // Prevent scrolling when hovering over cards
+  useEffect(() => {
+    if (isCardHovered) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isCardHovered]);
 
   return (
     <section 
