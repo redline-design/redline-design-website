@@ -52,10 +52,10 @@ const ServiceCard = memo(function ServiceCard({ icon: Icon, title, description, 
           className="hover-elevate active-elevate-2 transition-all duration-300 rounded-2xl group backdrop-blur-md bg-card/40 border-border/30 relative overflow-hidden flex flex-col"
           style={{ height: '100%' }}
         >
-          <CardContent className="p-4 sm:p-5 md:p-6 relative z-10 flex flex-col h-full justify-between">
+          <CardContent className="p-4 sm:p-5 md:p-6 relative z-10 flex flex-col h-full justify-between text-center">
             <div>
               <motion.div
-                className="mb-3 sm:mb-4 inline-flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-xl"
+                className="mb-3 sm:mb-4 flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-xl mx-auto"
                 style={{ 
                   backgroundColor: `${accentColor}20`,
                   color: accentColor
@@ -74,7 +74,7 @@ const ServiceCard = memo(function ServiceCard({ icon: Icon, title, description, 
               </p>
             </div>
 
-            <div className="inline-flex items-center gap-2 text-foreground text-sm font-medium group-hover:gap-3 transition-all mt-3 sm:mt-4">
+            <div className="flex items-center justify-center gap-2 text-foreground text-sm font-medium group-hover:gap-3 transition-all mt-3 sm:mt-4">
               <span>Learn More</span>
               <motion.span
                 animate={{ x: [0, 5, 0] }}

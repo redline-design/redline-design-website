@@ -488,7 +488,7 @@ export default function HorizontalScrollServices() {
                   .map((service, index) => (
                     <motion.div
                       key={service.title}
-                      className="flex-shrink-0 w-[200px] h-[200px] md:w-[210px] md:h-[200px]"
+                      className="flex-shrink-0 w-[240px] h-[220px] md:w-[260px] md:h-[220px]"
                       data-testid={`container-service-card-${service.title.toLowerCase().replace(/\s/g, "-")}`}
                       initial={{ 
                         opacity: 0, 
