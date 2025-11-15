@@ -24,6 +24,45 @@ Hero → Learn More (anchor) → Beginner Explainer → Services Carousel (visua
 
 This structure allows beginners to get quick answers while advanced users can dig into detailed service information on demand.
 
+### Scroll Animation System (November 2025)
+
+**Enhanced Visual Flow**: Implemented smooth scroll-based animations to improve the visual flow and user engagement throughout the homepage.
+
+**New Components:**
+- **SectionDivider** (`SectionDivider.tsx`): Subtle red gradient horizontal line separator between major sections
+  - Animates in with opacity and scaleX transitions when scrolled into view
+  - Uses Framer Motion's whileInView for viewport detection
+  - 1s easeOut animation with 80% max-width
+  - Respects prefers-reduced-motion accessibility settings
+  - Positioned with 8 dividers throughout homepage
+
+- **ScrollAnimatedSection** (`ScrollAnimatedSection.tsx`): Wrapper component adding zoom animations to sections
+  - Initial state: scale(0.95) with 0 opacity
+  - In-view state: scale(1) with full opacity
+  - Viewport detection with -10% margin for smooth triggers
+  - 0.6s easeOut transition duration
+  - Animations repeat on scroll (once: false) for dynamic feel
+  - Applied to all major homepage sections
+
+**Homepage Integration:**
+All major sections wrapped with ScrollAnimatedSection and separated by SectionDivider:
+1. Hero (no animation wrapper)
+2. Services Carousel
+3. Common Challenges We Solve
+4. The Redline Difference (tabbed content)
+5. Why Choose Us (value tiles)
+6. Testimonials
+7. Metrics/Stats
+8. Partners
+9. CTA Band
+
+**Performance Considerations:**
+- Transform-only animations (scale) for GPU acceleration
+- Viewport detection prevents off-screen animation calculations
+- Respects user motion preferences
+- No layout thrash or runtime warnings
+- Smooth performance verified on multiple sections
+
 ### Service Pages Infrastructure (November 2025)
 
 **Dedicated Service Pages**: Created comprehensive service pages system with 10 individual service pages accessible via both homepage carousel and header navigation dropdown.
