@@ -772,6 +772,16 @@
     animation: red-glow 3s ease-in-out infinite;
   }
 
+  /* Gradient text for hero headings */
+  .gradient-text-hero {
+    background: linear-gradient(135deg, #ff0000 0%, #ff4500 50%, #ff6b00 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    background-size: 200% auto;
+    animation: gradient-shift 3s ease-in-out infinite;
+  }
+
   /* Red border shimmer animation */
   @keyframes red-border-shimmer {
     0%, 100% {

@@ -95,11 +95,10 @@ export default function OurWork() {
       <section className="py-20 px-4 sm:px-6 lg:px-8 text-center" data-testid="section-portfolio-intro">
         <div className="max-w-4xl mx-auto">
           <motion.h1
-            className="text-2xl sm:text-3xl md:text-4xl font-bold uppercase tracking-[0.2em] mb-6 red-glow-pulse"
+            className="text-2xl sm:text-3xl md:text-4xl font-bold uppercase tracking-[0.2em] mb-6 gradient-text-hero"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            style={{ color: "#ff0000" }}
           >
             Our Portfolio
           </motion.h1>
