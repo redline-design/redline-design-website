@@ -62,13 +62,18 @@
   }
 }
 
+.service-word-slider-container {
+  height: 300vh;
+  position: relative;
+}
+
 .service-word-slider {
-  block-size: 100svh;
+  height: 100vh;
   perspective: 1000px;
   transform-style: preserve-3d;
   
   display: grid;
-  grid: repeat(4, 25dvh) / repeat(4, 25dvw);
+  grid: repeat(4, 25vh) / repeat(4, 25vw);
   place-items: center;
   
   position: sticky;

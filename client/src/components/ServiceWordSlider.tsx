@@ -35,18 +35,20 @@ export default function ServiceWordSlider() {
   }
 
   return (
-    <div className="service-word-slider" data-testid="service-word-slider">
-      {services.map((service, index) => (
-        <div
-          key={index}
-          className="grid-item"
-          data-index={index + 1}
-        >
-          {service}
+    <div className="service-word-slider-container">
+      <div className="service-word-slider" data-testid="service-word-slider">
+        {services.map((service, index) => (
+          <div
+            key={index}
+            className="grid-item"
+            data-index={index + 1}
+          >
+            {service}
+          </div>
+        ))}
+        <div className="grid-item special">
+          <b>{centerWord}</b>
         </div>
-      ))}
-      <div className="grid-item special">
-        <b>{centerWord}</b>
       </div>
     </div>
   );
