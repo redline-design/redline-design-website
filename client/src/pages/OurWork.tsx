@@ -37,8 +37,8 @@ function PortfolioCard({ item, delay = 0 }: { item: PortfolioItem; delay?: numbe
               className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
               data-testid={`portfolio-image-${item.id}`}
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+            <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
               <div className="bg-background/90 backdrop-blur-sm rounded-full p-2">
                 <ExternalLink className="h-5 w-5 text-primary" />
               </div>
