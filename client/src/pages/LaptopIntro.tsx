@@ -56,15 +56,15 @@ export default function LaptopIntro() {
       // Load homepage immediately in background for smooth transition
       setShowHomepage(true);
       
-      // Start zoom and word animations at 2.5s (after laptop opens)
+      // Start zoom and word animations at 2.2s (after laptop opens)
       const zoomTimer = setTimeout(() => {
         setIsZooming(true);
-      }, 2500);
+      }, 2200);
       
-      // Navigate to homepage after zoom completes (5.5s total)
+      // Navigate to homepage after zoom completes (6s total for smoother transition)
       const navTimer = setTimeout(() => {
         setLocation("/");
-      }, 5500);
+      }, 6000);
       
       return () => {
         clearTimeout(zoomTimer);
