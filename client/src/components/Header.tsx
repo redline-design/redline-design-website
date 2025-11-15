@@ -64,7 +64,7 @@ export default function Header() {
     { href: "/services/email-marketing", label: "Email Marketing" },
     { href: "/services/consulting", label: "Consulting" },
     { href: "/services/ai-automation", label: "AI Automation" },
-    { href: "/services/custom-applications", label: "Custom Application Development" },
+    { href: "/services/app-development", label: "App Development" },
   ];
 
   const navLinks = [

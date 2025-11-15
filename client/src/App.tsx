@@ -33,7 +33,7 @@ const SocialMediaPage = lazy(() => import("@/pages/services/social-media"));
 const EmailMarketingPage = lazy(() => import("@/pages/services/email-marketing"));
 const ConsultingPage = lazy(() => import("@/pages/services/consulting"));
 const AIAutomationPage = lazy(() => import("@/pages/services/ai-automation"));
-const CustomApplicationsPage = lazy(() => import("@/pages/services/custom-applications"));
+const AppDevelopmentPage = lazy(() => import("@/pages/services/app-development"));
 const NotFound = lazy(() => import("@/pages/not-found"));
 
 function Router() {
@@ -51,7 +51,7 @@ function Router() {
       <Route path="/services/email-marketing" component={EmailMarketingPage} />
       <Route path="/services/consulting" component={ConsultingPage} />
       <Route path="/services/ai-automation" component={AIAutomationPage} />
-      <Route path="/services/custom-applications" component={CustomApplicationsPage} />
+      <Route path="/services/app-development" component={AppDevelopmentPage} />
       <Route path="/contact" component={Contact} />
       <Route path="/why-us" component={WhyUs} />
       <Route path="/our-work" component={OurWork} />

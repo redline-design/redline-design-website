@@ -1,11 +1,11 @@
 import ServicePageTemplate from "@/components/ServicePageTemplate";
 import { Code } from "lucide-react";
 
-export default function CustomApplicationsPage() {
+export default function AppDevelopmentPage() {
   return (
     <ServicePageTemplate
       icon={Code}
-      title="Custom Application Development"
+      title="App Development"
       tagline="Build exactly what you need, nothing you don't"
       description="Bespoke software solutions tailored to your business needs."
       whatYouGet={[

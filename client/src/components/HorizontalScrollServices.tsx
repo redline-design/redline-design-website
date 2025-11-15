@@ -229,12 +229,12 @@ const SERVICES_DATA = [
     }
   },
   {
-    id: "custom-apps",
+    id: "app-dev",
     icon: Code,
-    title: "Custom Application Development",
+    title: "App Development",
     description: "Bespoke software solutions tailored to your business needs.",
     tagline: "Build exactly what you need, nothing you don't",
-    link: "/services/custom-applications",
+    link: "/services/app-development",
     status: "accepting" as const,
     accentColor: "rgb(139, 92, 246)",
     details: {
