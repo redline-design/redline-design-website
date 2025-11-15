@@ -5,6 +5,8 @@ import { Badge } from "@/components/ui/badge";
 import { Check, Clock, DollarSign, Target, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { LucideIcon } from "lucide-react";
+import SectionDivider from "@/components/SectionDivider";
+import ScrollAnimatedSection from "@/components/ScrollAnimatedSection";
 
 interface ServicePageTemplateProps {
   icon: LucideIcon;
@@ -33,7 +35,8 @@ export default function ServicePageTemplate({
 }: ServicePageTemplateProps) {
   return (
     <div className="min-h-screen">
-      <div className="relative overflow-hidden bg-gradient-to-br from-background/80 via-card/40 to-background/80 py-20 md:py-32">
+      <ScrollAnimatedSection>
+        <div className="relative overflow-hidden bg-gradient-to-br from-background/80 via-card/40 to-background/80 py-20 md:py-32">
         <div className="absolute inset-0 bg-grid-white/5 [mask-image:linear-gradient(0deg,transparent,black)]" />
         
         <div className="container mx-auto px-4 relative z-10">
@@ -106,8 +109,12 @@ export default function ServicePageTemplate({
           </motion.div>
         </div>
       </div>
+      </ScrollAnimatedSection>
 
-      <div className="container mx-auto px-4 py-16 md:py-24">
+      <SectionDivider />
+
+      <ScrollAnimatedSection>
+        <div className="container mx-auto px-4 py-16 md:py-24">
         <div className="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
@@ -177,8 +184,12 @@ export default function ServicePageTemplate({
           </motion.div>
         </div>
       </div>
+      </ScrollAnimatedSection>
 
-      <div className="bg-card/40 backdrop-blur-sm border-y border-border py-16 md:py-24">
+      <SectionDivider />
+
+      <ScrollAnimatedSection>
+        <div className="bg-card/40 backdrop-blur-sm border-y border-border py-16 md:py-24">
         <div className="container mx-auto px-4 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -220,6 +231,7 @@ export default function ServicePageTemplate({
           </motion.div>
         </div>
       </div>
+      </ScrollAnimatedSection>
     </div>
   );
 }

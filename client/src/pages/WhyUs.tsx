@@ -4,6 +4,8 @@ import { useQuery } from "@tanstack/react-query";
 import type { Review } from "@shared/schema";
 import ValueTile from "@/components/ValueTile";
 import CTABand from "@/components/CTABand";
+import SectionDivider from "@/components/SectionDivider";
+import ScrollAnimatedSection from "@/components/ScrollAnimatedSection";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import ContactForm from "@/components/ContactForm";
@@ -32,7 +34,8 @@ export default function WhyUs() {
 
   return (
     <div className="pt-20">
-      <section className="py-20 px-4 sm:px-6 lg:px-8 text-center" data-testid="section-why-us-intro">
+      <ScrollAnimatedSection>
+        <section className="py-20 px-4 sm:px-6 lg:px-8 text-center" data-testid="section-why-us-intro">
         <div className="max-w-4xl mx-auto">
           <motion.h1
             className="text-2xl sm:text-3xl md:text-4xl font-bold uppercase tracking-[0.2em] mb-6 red-glow-pulse"
@@ -75,8 +78,12 @@ export default function WhyUs() {
           </motion.div>
         </div>
       </section>
+      </ScrollAnimatedSection>
 
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-card/30" data-testid="section-core-values">
+      <SectionDivider />
+
+      <ScrollAnimatedSection>
+        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-card/30" data-testid="section-core-values">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-lg sm:text-xl md:text-2xl font-bold uppercase tracking-[0.3em] mb-4 red-glow-pulse" style={{ color: "#ff0000" }}>
@@ -125,8 +132,12 @@ export default function WhyUs() {
           </div>
         </div>
       </section>
+      </ScrollAnimatedSection>
 
-      <section className="py-20 px-4 sm:px-6 lg:px-8" data-testid="section-additional-benefits">
+      <SectionDivider />
+
+      <ScrollAnimatedSection>
+        <section className="py-20 px-4 sm:px-6 lg:px-8" data-testid="section-additional-benefits">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-lg sm:text-xl md:text-2xl font-bold uppercase tracking-[0.3em] mb-4 red-glow-pulse" style={{ color: "#ff0000" }}>
@@ -181,8 +192,12 @@ export default function WhyUs() {
           </div>
         </div>
       </section>
+      </ScrollAnimatedSection>
 
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-card/30" data-testid="section-testimonial">
+      <SectionDivider />
+
+      <ScrollAnimatedSection>
+        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-card/30" data-testid="section-testimonial">
         <div className="max-w-4xl mx-auto text-center">
           <div 
             onMouseEnter={() => setIsHovered(true)}
@@ -216,8 +231,12 @@ export default function WhyUs() {
           </div>
         </div>
       </section>
+      </ScrollAnimatedSection>
 
-      <section className="py-20 px-4 sm:px-6 lg:px-8" data-testid="section-why-us-cta">
+      <SectionDivider />
+
+      <ScrollAnimatedSection>
+        <section className="py-20 px-4 sm:px-6 lg:px-8" data-testid="section-why-us-cta">
         <div className="max-w-7xl mx-auto">
           <CTABand
             title="Ready to See What We Can Do for You?"
@@ -227,6 +246,7 @@ export default function WhyUs() {
           />
         </div>
       </section>
+      </ScrollAnimatedSection>
     </div>
   );
 }
