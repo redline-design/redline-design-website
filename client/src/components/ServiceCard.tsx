@@ -49,7 +49,7 @@ const ServiceCard = memo(function ServiceCard({ icon: Icon, title, description, 
         data-testid={`button-service-${title.toLowerCase().replace(/\s/g, "-")}`}
       >
         <Card
-          className="hover-elevate active-elevate-2 transition-all duration-300 rounded-2xl group backdrop-blur-md bg-card/40 border-border/30 relative overflow-hidden flex flex-col"
+          className="hover-elevate active-elevate-2 transition-all duration-300 group backdrop-blur-md bg-card/40 border-border/30 relative overflow-hidden flex flex-col"
           style={{ height: '100%' }}
         >
           <CardContent className="p-4 sm:p-5 md:p-6 relative z-10 flex flex-col h-full justify-between">

@@ -40,14 +40,25 @@ export default function StatCounter({ value, suffix = "", prefix = "", label, de
       initial={{ opacity: 0, y: 20 }}
       animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
       transition={{ duration: 0.5, delay }}
-      className="text-center"
+      className="text-center group"
       data-testid={`stat-${label.toLowerCase().replace(/\s/g, "-")}`}
     >
-      <div className="text-4xl md:text-5xl font-black text-primary mb-2 number-pop" data-testid={`text-stat-value-${label.toLowerCase().replace(/\s/g, "-")}`}>
-        {prefix}{count}{suffix}
-      </div>
-      <div className="text-sm md:text-base text-foreground" data-testid={`text-stat-label-${label.toLowerCase().replace(/\s/g, "-")}`}>
-        {label}
+      <div className="relative p-6 md:p-8 rounded-lg bg-gradient-to-br from-card/60 to-card/40 backdrop-blur-sm border border-border/50 hover-elevate active-elevate-2 transition-all duration-300">
+        {/* Inner glow border */}
+        <div className="absolute inset-0 rounded-lg border border-primary/10 pointer-events-none"></div>
+        
+        {/* Gradient overlay */}
+        <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+        
+        {/* Content */}
+        <div className="relative z-10">
+          <div className="text-4xl md:text-5xl lg:text-6xl font-black bg-gradient-to-br from-primary via-primary to-primary/70 bg-clip-text text-transparent mb-2 number-pop" data-testid={`text-stat-value-${label.toLowerCase().replace(/\s/g, "-")}`}>
+            {prefix}{count}{suffix}
+          </div>
+          <div className="text-sm md:text-base text-muted-foreground font-medium uppercase tracking-wider" data-testid={`text-stat-label-${label.toLowerCase().replace(/\s/g, "-")}`}>
+            {label}
+          </div>
+        </div>
       </div>
     </motion.div>
   );

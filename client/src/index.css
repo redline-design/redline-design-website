@@ -32,12 +32,12 @@
   pointer-events: none;
   z-index: 9999;
   will-change: transform;
-  box-shadow: 0 0 20px rgba(255, 0, 0, 0.7), 0 0 35px rgba(255, 0, 0, 0.4);
+  box-shadow: 0 0 var(--glow-lg) rgba(255, 0, 0, 0.7), 0 0 35px rgba(255, 0, 0, 0.4);
 }
 
 .custom-cursor.hover {
   background: #ffffff;
-  box-shadow: 0 0 25px rgba(255, 255, 255, 0.9), 0 0 45px rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 var(--glow-lg) rgba(255, 255, 255, 0.9), 0 0 45px rgba(255, 255, 255, 0.5);
   width: 24px;
   height: 24px;
 }
@@ -119,16 +119,31 @@
   --font-serif: Georgia, serif;
   --font-mono: Menlo, monospace;
   --radius: .5rem; /* 8px */
-  --shadow-2xs: 0px 2px 0px 0px hsl(0 0% 0% / 0.00);
-  --shadow-xs: 0px 2px 0px 0px hsl(0 0% 0% / 0.00);
-  --shadow-sm: 0px 2px 0px 0px hsl(0 0% 0% / 0.00), 0px 1px 2px -1px hsl(0 0% 0% / 0.00);
-  --shadow: 0px 2px 0px 0px hsl(0 0% 0% / 0.00), 0px 1px 2px -1px hsl(0 0% 0% / 0.00);
-  --shadow-md: 0px 2px 0px 0px hsl(0 0% 0% / 0.00), 0px 2px 4px -1px hsl(0 0% 0% / 0.00);
-  --shadow-lg: 0px 2px 0px 0px hsl(0 0% 0% / 0.00), 0px 4px 6px -1px hsl(0 0% 0% / 0.00);
-  --shadow-xl: 0px 2px 0px 0px hsl(0 0% 0% / 0.00), 0px 8px 10px -1px hsl(0 0% 0% / 0.00);
-  --shadow-2xl: 0px 2px 0px 0px hsl(0 0% 0% / 0.00);
+  
+  /* Enhanced shadow system for depth */
+  --shadow-2xs: 0px 1px 2px 0px hsl(0 0% 0% / 0.05);
+  --shadow-xs: 0px 1px 2px 0px hsl(0 0% 0% / 0.05), 0px 1px 3px 0px hsl(0 0% 0% / 0.1);
+  --shadow-sm: 0px 1px 3px 0px hsl(0 0% 0% / 0.1), 0px 1px 2px -1px hsl(0 0% 0% / 0.1);
+  --shadow: 0px 2px 4px -1px hsl(0 0% 0% / 0.1), 0px 4px 6px -1px hsl(0 0% 0% / 0.1);
+  --shadow-md: 0px 4px 6px -1px hsl(0 0% 0% / 0.1), 0px 10px 15px -3px hsl(0 0% 0% / 0.1);
+  --shadow-lg: 0px 10px 15px -3px hsl(0 0% 0% / 0.1), 0px 20px 25px -5px hsl(0 0% 0% / 0.1);
+  --shadow-xl: 0px 20px 25px -5px hsl(0 0% 0% / 0.1), 0px 25px 50px -12px hsl(0 0% 0% / 0.25);
+  --shadow-2xl: 0px 25px 50px -12px hsl(0 0% 0% / 0.25);
+  
   --tracking-normal: 0em;
   --spacing: 0.25rem;
+
+  /* Ember red accent variations */
+  --red-primary: 0 100% 55%;
+  --red-ember-light: 0 100% 65%;
+  --red-ember: 0 100% 59%;
+  --red-ember-dark: 0 84% 50%;
+
+  /* Standardized glow blur radii */
+  --glow-sm: 8px;
+  --glow-md: 12px;
+  --glow-lg: 20px;
+  --glow-xl: 30px;
 
   /* Glow/accent color for animations and effects - Blue in light mode */
   --glow-rgb: 59, 130, 246;
@@ -236,14 +251,27 @@
   --chart-4: 160 70% 65%;
   --chart-5: 30 85% 65%;
 
-  --shadow-2xs: 0px 2px 0px 0px hsl(0 0% 0% / 0.00);
-  --shadow-xs: 0px 2px 0px 0px hsl(0 0% 0% / 0.00);
-  --shadow-sm: 0px 2px 0px 0px hsl(0 0% 0% / 0.00), 0px 1px 2px -1px hsl(0 0% 0% / 0.00);
-  --shadow: 0px 2px 0px 0px hsl(0 0% 0% / 0.00), 0px 1px 2px -1px hsl(0 0% 0% / 0.00);
-  --shadow-md: 0px 2px 0px 0px hsl(0 0% 0% / 0.00), 0px 2px 4px -1px hsl(0 0% 0% / 0.00);
-  --shadow-lg: 0px 2px 0px 0px hsl(0 0% 0% / 0.00), 0px 4px 6px -1px hsl(0 0% 0% / 0.00);
-  --shadow-xl: 0px 2px 0px 0px hsl(0 0% 0% / 0.00), 0px 8px 10px -1px hsl(0 0% 0% / 0.00);
-  --shadow-2xl: 0px 2px 0px 0px hsl(0 0% 0% / 0.00);
+  /* Enhanced shadow system for depth - darker in dark mode */
+  --shadow-2xs: 0px 1px 2px 0px hsl(0 0% 0% / 0.3);
+  --shadow-xs: 0px 1px 2px 0px hsl(0 0% 0% / 0.4), 0px 1px 3px 0px hsl(0 0% 0% / 0.5);
+  --shadow-sm: 0px 1px 3px 0px hsl(0 0% 0% / 0.5), 0px 1px 2px -1px hsl(0 0% 0% / 0.4);
+  --shadow: 0px 2px 4px -1px hsl(0 0% 0% / 0.5), 0px 4px 6px -1px hsl(0 0% 0% / 0.6);
+  --shadow-md: 0px 4px 6px -1px hsl(0 0% 0% / 0.6), 0px 10px 15px -3px hsl(0 0% 0% / 0.7);
+  --shadow-lg: 0px 10px 15px -3px hsl(0 0% 0% / 0.7), 0px 20px 25px -5px hsl(0 0% 0% / 0.8);
+  --shadow-xl: 0px 20px 25px -5px hsl(0 0% 0% / 0.8), 0px 25px 50px -12px hsl(0 0% 0% / 0.9);
+  --shadow-2xl: 0px 25px 50px -12px hsl(0 0% 0% / 0.9);
+
+  /* Ember red accent variations - darker mode values */
+  --red-primary: 0 100% 50%;
+  --red-ember-light: 0 100% 67%;
+  --red-ember: 0 90% 61%;
+  --red-ember-dark: 0 84% 45%;
+
+  /* Standardized glow blur radii */
+  --glow-sm: 8px;
+  --glow-md: 12px;
+  --glow-lg: 20px;
+  --glow-xl: 30px;
 
   /* Glow/accent color for animations and effects - Red in dark mode */
   --glow-rgb: 239, 68, 68;
@@ -410,12 +438,12 @@
 
   @keyframes glow-pulse {
     0%, 100% {
-      box-shadow: 0 0 20px rgba(var(--glow-rgb), 0.4),
-                  0 0 40px rgba(var(--glow-rgb), 0.2),
+      box-shadow: 0 0 var(--glow-lg) rgba(var(--glow-rgb), 0.4),
+                  0 0 var(--glow-xl) rgba(var(--glow-rgb), 0.2),
                   0 0 60px rgba(var(--glow-rgb), 0.1);
     }
     50% {
-      box-shadow: 0 0 30px rgba(var(--glow-rgb), 0.6),
+      box-shadow: 0 0 var(--glow-xl) rgba(var(--glow-rgb), 0.6),
                   0 0 60px rgba(var(--glow-rgb), 0.3),
                   0 0 90px rgba(var(--glow-rgb), 0.2);
     }
@@ -585,11 +613,11 @@
   /* Card hover glow effects */
   @keyframes card-glow {
     0%, 100% {
-      box-shadow: 0 0 15px rgba(var(--glow-rgb), 0.15),
-                  0 0 30px rgba(var(--glow-rgb), 0.1);
+      box-shadow: 0 0 var(--glow-md) rgba(var(--glow-rgb), 0.15),
+                  0 0 var(--glow-xl) rgba(var(--glow-rgb), 0.1);
     }
     50% {
-      box-shadow: 0 0 25px rgba(var(--glow-rgb), 0.25),
+      box-shadow: 0 0 var(--glow-lg) rgba(var(--glow-rgb), 0.25),
                   0 0 50px rgba(var(--glow-rgb), 0.15);
     }
   }
@@ -625,7 +653,7 @@
   }
 
   .icon-glow:hover {
-    filter: drop-shadow(0 0 8px rgba(var(--glow-rgb), 0.6));
+    filter: drop-shadow(0 0 var(--glow-sm) rgba(var(--glow-rgb), 0.6));
     transform: scale(1.1) rotate(5deg);
   }
 
@@ -761,10 +789,10 @@
   /* Red glow pulse animation */
   @keyframes red-glow {
     0%, 100% {
-      text-shadow: 0 0 8px rgba(255, 0, 0, 0.4), 0 0 12px rgba(255, 0, 0, 0.2);
+      text-shadow: 0 0 var(--glow-sm) rgba(255, 0, 0, 0.4), 0 0 var(--glow-md) rgba(255, 0, 0, 0.2);
     }
     50% {
-      text-shadow: 0 0 12px rgba(255, 0, 0, 0.6), 0 0 16px rgba(255, 0, 0, 0.3);
+      text-shadow: 0 0 var(--glow-md) rgba(255, 0, 0, 0.6), 0 0 16px rgba(255, 0, 0, 0.3);
     }
   }
 
@@ -775,10 +803,10 @@
   /* Red border shimmer animation */
   @keyframes red-border-shimmer {
     0%, 100% {
-      box-shadow: 0 0 10px rgba(255, 0, 0, 0.15), 0 0 20px rgba(255, 0, 0, 0.08), inset 0 0 10px rgba(255, 0, 0, 0.03);
+      box-shadow: 0 0 var(--glow-sm) rgba(255, 0, 0, 0.15), 0 0 var(--glow-lg) rgba(255, 0, 0, 0.08), inset 0 0 var(--glow-sm) rgba(255, 0, 0, 0.03);
     }
     50% {
-      box-shadow: 0 0 15px rgba(255, 0, 0, 0.25), 0 0 30px rgba(255, 0, 0, 0.12), inset 0 0 15px rgba(255, 0, 0, 0.06);
+      box-shadow: 0 0 var(--glow-md) rgba(255, 0, 0, 0.25), 0 0 var(--glow-xl) rgba(255, 0, 0, 0.12), inset 0 0 var(--glow-md) rgba(255, 0, 0, 0.06);
     }
   }
 
