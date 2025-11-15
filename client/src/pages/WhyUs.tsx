@@ -149,7 +149,7 @@ export default function WhyUs() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="text-center"
+              className="text-center p-8 rounded-2xl bg-card/30 backdrop-blur-sm border border-border/50 hover-elevate"
             >
               <div className="inline-flex p-6 rounded-2xl bg-primary/10 mb-6">
                 <Award className="h-12 w-12 text-primary" />
@@ -164,7 +164,7 @@ export default function WhyUs() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-center"
+              className="text-center p-8 rounded-2xl bg-card/30 backdrop-blur-sm border border-border/50 hover-elevate"
             >
               <div className="inline-flex p-6 rounded-2xl bg-primary/10 mb-6">
                 <Shield className="h-12 w-12 text-primary" />
@@ -179,7 +179,7 @@ export default function WhyUs() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-center"
+              className="text-center p-8 rounded-2xl bg-card/30 backdrop-blur-sm border border-border/50 hover-elevate"
             >
               <div className="inline-flex p-6 rounded-2xl bg-primary/10 mb-6">
                 <Lightbulb className="h-12 w-12 text-primary" />
