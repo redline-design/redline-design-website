@@ -1,4 +1,5 @@
 import { useReducedMotion } from "@/hooks/useReducedMotion";
+import redlineLogo from "@assets/generated_images/Redline_R_ribbon_logo_b3fc5c04.png";
 
 export default function ServiceWordSlider() {
   const prefersReducedMotion = useReducedMotion();
@@ -104,14 +105,14 @@ export default function ServiceWordSlider() {
     "Execution",
   ];
 
-  const centerWord = "DIGITAL";
-
   if (prefersReducedMotion) {
     return (
       <div className="h-screen flex items-center justify-center bg-background">
-        <h2 className="text-6xl md:text-8xl font-bold text-primary">
-          {centerWord}
-        </h2>
+        <img 
+          src={redlineLogo} 
+          alt="Redline Design" 
+          className="h-32 md:h-48 w-auto"
+        />
       </div>
     );
   }
@@ -129,7 +130,11 @@ export default function ServiceWordSlider() {
           </div>
         ))}
         <div className="grid-item special">
-          <b>{centerWord}</b>
+          <img 
+            src={redlineLogo} 
+            alt="Redline Design" 
+            className="logo-center"
+          />
         </div>
       </div>
     </div>
