@@ -1,5 +1,5 @@
-import { useState, useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { useState, useRef, useEffect } from "react";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { Globe, TrendingUp, Search, Database, BarChart3, Palette, MessageSquare, Mail, Users, Bot, Code, Check, ArrowRight } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
@@ -127,58 +127,58 @@ const SERVICES_DATA = [
   {
     id: "design",
     icon: Palette,
-    title: "Graphic Design",
-    description: "Eye-catching visuals that convert.",
-    tagline: "Stand out in a sea of boring brands",
+    title: "Creative",
+    description: "Eye-catching designs that convert visitors into customers.",
+    tagline: "Make your brand impossible to ignore",
     link: "/services/design",
     status: "accepting" as const,
-    accentColor: "rgb(249, 115, 22)",
+    accentColor: "rgb(245, 158, 11)",
     imageUrl: "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400&h=300&fit=crop",
     details: {
       whatYouGet: [
-        "Custom logo and brand identity",
-        "Social media graphics that stop the scroll",
-        "Email templates that get opened",
-        "Ad creatives optimized for conversions",
-        "Unlimited revisions until you love it"
+        "Logo design and brand identity",
+        "Social media graphics and templates",
+        "Ad creatives for all platforms",
+        "Email newsletter designs",
+        "Unlimited revisions until you're satisfied"
       ],
-      perfectFor: "Businesses that know first impressions matter",
-      timeline: "1+ weeks depending on scope",
-      investment: "Starting at $200 per project"
+      perfectFor: "Businesses that want to stand out from the competition",
+      timeline: "1-2 weeks per project",
+      investment: "Starting at $200 per design"
     }
   },
   {
     id: "social",
     icon: MessageSquare,
     title: "Social Media",
-    description: "Build your brand and engage your audience.",
+    description: "Build genuine connections with your audience on social platforms.",
     tagline: "Turn followers into customers",
     link: "/services/social-media",
     status: "accepting" as const,
-    accentColor: "rgb(59, 130, 246)",
+    accentColor: "rgb(52, 211, 153)",
     imageUrl: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=400&h=300&fit=crop",
     details: {
       whatYouGet: [
-        "Content calendar with engaging posts",
-        "Professional copywriting and graphics",
-        "Community management and engagement",
-        "Paid social advertising campaigns",
-        "Monthly performance analytics"
+        "Content calendar with 30 posts per month",
+        "Engaging captions and hashtag research",
+        "Community management and response handling",
+        "Monthly performance analytics",
+        "Platform-specific strategy (Instagram, Facebook, LinkedIn)"
       ],
-      perfectFor: "Businesses looking to build brand awareness and community",
-      timeline: "Ongoing monthly retainer",
-      investment: "Starting at $1,000/month"
+      perfectFor: "Businesses ready to build a loyal community online",
+      timeline: "Ongoing monthly service",
+      investment: "Starting at $750/month"
     }
   },
   {
     id: "email",
     icon: Mail,
     title: "Email Marketing",
-    description: "Nurture leads and drive conversions with targeted campaigns.",
-    tagline: "Build relationships that convert",
+    description: "Build relationships that convert with targeted email campaigns.",
+    tagline: "Your customers' inbox is still the best ROI channel",
     link: "/services/email-marketing",
     status: "accepting" as const,
-    accentColor: "rgb(34, 197, 94)",
+    accentColor: "rgb(239, 68, 68)",
     imageUrl: "https://images.unsplash.com/photo-1596526131083-e8c633c948d2?w=400&h=300&fit=crop",
     details: {
       whatYouGet: [
@@ -194,136 +194,98 @@ const SERVICES_DATA = [
     }
   },
   {
-    id: "consulting",
+    id: "reputation",
     icon: Users,
-    title: "Consulting",
-    description: "Strategic guidance to grow your business.",
-    tagline: "Expert advice without the agency price tag",
-    link: "/services/consulting",
-    status: "accepting" as const,
-    accentColor: "rgb(168, 85, 247)",
-    imageUrl: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=300&fit=crop",
+    title: "Reputation",
+    description: "Manage and enhance your online reputation across all platforms.",
+    tagline: "Your reputation is your most valuable asset",
+    link: "/services/reputation-management",
+    status: "waitlist" as const,
+    accentColor: "rgb(139, 92, 246)",
+    imageUrl: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=400&h=300&fit=crop",
     details: {
       whatYouGet: [
-        "Strategic marketing planning sessions",
-        "Channel and budget recommendations",
-        "Competitive analysis and positioning",
-        "Growth roadmap and implementation plan",
-        "Ongoing advisory support"
+        "Review monitoring across all platforms",
+        "Response templates and management",
+        "Strategy to generate more positive reviews",
+        "Crisis management for negative feedback",
+        "Monthly reputation score reports"
       ],
-      perfectFor: "Business owners who want expert guidance, not full service",
-      timeline: "Flexible engagement",
-      investment: "Starting at $200/hour"
+      perfectFor: "Businesses where reviews directly impact revenue",
+      timeline: "Ongoing monthly service",
+      investment: "Starting at $500/month"
     }
   },
   {
     id: "ai",
     icon: Bot,
-    title: "AI Automation",
-    description: "Automate tasks and workflows with cutting-edge AI.",
-    tagline: "Work smarter with AI-powered automation",
-    link: "/services/ai-automation",
-    status: "accepting" as const,
-    accentColor: "rgb(234, 88, 12)",
+    title: "AI Solutions",
+    description: "Leverage cutting-edge AI to automate and optimize your business.",
+    tagline: "The future of business is here",
+    link: "/services/ai-solutions",
+    status: "waitlist" as const,
+    accentColor: "rgb(14, 165, 233)",
     imageUrl: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400&h=300&fit=crop",
     details: {
       whatYouGet: [
-        "Custom AI chatbots for customer service",
-        "Automated content generation workflows",
-        "Data analysis and reporting automation",
-        "Integration with existing tools",
-        "Training and ongoing optimization"
+        "AI chatbots for customer service",
+        "Content generation systems",
+        "Predictive analytics and forecasting",
+        "Automation of repetitive tasks",
+        "Custom AI integrations"
       ],
-      perfectFor: "Forward-thinking businesses ready to leverage AI",
-      timeline: "2-4 weeks implementation",
-      investment: "Starting at $500 one-time + $300/month. Includes 100,000 interactions/month."
-    }
-  },
-  {
-    id: "app-dev",
-    icon: Code,
-    title: "App Development",
-    description: "Bespoke software solutions tailored to your business needs.",
-    tagline: "Build exactly what you need, nothing you don't",
-    link: "/services/app-development",
-    status: "accepting" as const,
-    accentColor: "rgb(139, 92, 246)",
-    imageUrl: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=400&h=300&fit=crop",
-    details: {
-      whatYouGet: [
-        "Custom web and mobile applications",
-        "API development and integrations",
-        "Database design and optimization",
-        "User-friendly admin dashboards",
-        "Ongoing maintenance and support"
-      ],
-      perfectFor: "Businesses with unique processes that off-the-shelf solutions can't handle",
-      timeline: "4-12 weeks depending on complexity",
-      investment: "Starting at $5,000"
+      perfectFor: "Forward-thinking businesses ready to scale efficiently",
+      timeline: "2-4 weeks setup, ongoing optimization",
+      investment: "Starting at $2,000/month"
     }
   }
-] as const;
+];
 
-// Card component with scroll-based animations
-function ServiceCard({ 
-  service, 
-  index, 
-  scrollYProgress,
-  onSelect
-}: { 
+const BASE_WIDTH = 140;
+const BASE_HEIGHT = 180;
+const MAX_WIDTH = 220;
+const MAX_HEIGHT = 280;
+
+interface ServiceCardProps {
   service: typeof SERVICES_DATA[number];
-  index: number;
-  scrollYProgress: any;
+  mouseX: any;
   onSelect: (service: typeof SERVICES_DATA[number]) => void;
-}) {
-  // Calculate grid position - 6 columns to ensure max 2 rows for 11 cards
-  const cols = 6;
-  const row = Math.floor(index / cols);
-  const col = index % cols;
-  
-  // Each card animates based on scroll progress
-  const cardProgress = useTransform(
-    scrollYProgress,
-    [0.1, 0.2 + (index * 0.015), 0.5],
-    [0, 1, 1]
-  );
-  
-  const x = useTransform(cardProgress, [0, 1], [0, (col - 2.5) * 220]);
-  const y = useTransform(cardProgress, [0, 1], [0, row * 260]);
-  const rotation = useTransform(cardProgress, [0, 1], [index * 8 - 40, 0]);
-  const opacity = useTransform(cardProgress, [0, 0.3, 1], [0.7, 1, 1]);
+}
+
+function ServiceCard({ service, mouseX, onSelect }: ServiceCardProps) {
+  const ref = useRef<HTMLDivElement>(null);
+
+  const distance = useTransform(mouseX, (val: number) => {
+    const bounds = ref.current?.getBoundingClientRect() ?? { x: 0, width: 0 };
+    const center = bounds.x + bounds.width / 2;
+    return Math.abs(val - center);
+  });
+
+  const widthSync = useTransform(distance, [0, 150], [MAX_WIDTH, BASE_WIDTH]);
+  const heightSync = useTransform(distance, [0, 150], [MAX_HEIGHT, BASE_HEIGHT]);
+
+  const width = useSpring(widthSync, { stiffness: 400, damping: 30 });
+  const height = useSpring(heightSync, { stiffness: 400, damping: 30 });
 
   return (
     <motion.div
-      className="absolute"
-      style={{
-        x,
-        y,
-        rotate: rotation,
-        opacity,
-        transformOrigin: "center center"
-      }}
+      ref={ref}
+      style={{ width, height }}
+      className="flex-shrink-0"
+      data-testid={`card-service-${service.id}`}
     >
       <div
-        className="luminous-card w-[160px] h-[200px] cursor-pointer relative group"
+        className="luminous-card cursor-pointer relative group h-full"
         onClick={() => onSelect(service)}
-        data-testid={`card-service-${service.id}`}
-        style={{
-          '--accent-color': service.accentColor
-        } as React.CSSProperties}
       >
-        {/* Light Layer System - exact structure from Codepen */}
-        <div className="light-layer">
-          <div className="slit"></div>
-          <div className="lumen">
-            <div className="min"></div>
-            <div className="mid"></div>
-            <div className="hi"></div>
-          </div>
-          <div className="darken">
-            <div className="sl"></div>
-            <div className="ll"></div>
-            <div className="slt"></div>
+        {/* Luminous card layers */}
+        <div className="luminous-layers">
+          {/* Hexagon Pattern Overlay */}
+          <div className="hex-pattern-overlay"></div>
+          
+          {/* Light layers */}
+          <div className="light-layers">
+            <div className="srl"></div>
             <div className="srt"></div>
           </div>
         </div>
@@ -352,7 +314,7 @@ function ServiceCard({
         
         {/* Title centered at bottom */}
         <div className="absolute bottom-0 left-0 right-0 p-4 z-20 flex justify-center">
-          <h3 className="text-sm font-bold text-foreground tracking-tight whitespace-nowrap uppercase" data-testid={`text-service-title-${service.id}`}>
+          <h3 className="text-xs font-bold text-foreground tracking-tight whitespace-nowrap uppercase" data-testid={`text-service-title-${service.id}`}>
             {service.title}
           </h3>
         </div>
@@ -364,16 +326,31 @@ function ServiceCard({
 export default function HorizontalScrollServices() {
   const [selectedService, setSelectedService] = useState<typeof SERVICES_DATA[number] | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  
-  // Track scroll progress through this section
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"]
-  });
+  const mouseX = useMotionValue(Infinity);
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      mouseX.set(e.clientX);
+    };
+
+    const handleMouseLeave = () => {
+      mouseX.set(Infinity);
+    };
+
+    const container = containerRef.current;
+    if (container) {
+      container.addEventListener('mousemove', handleMouseMove);
+      container.addEventListener('mouseleave', handleMouseLeave);
+      
+      return () => {
+        container.removeEventListener('mousemove', handleMouseMove);
+        container.removeEventListener('mouseleave', handleMouseLeave);
+      };
+    }
+  }, [mouseX]);
 
   return (
     <section 
-      ref={containerRef}
       className="pt-20 pb-12 px-4 sm:px-6 lg:px-8 relative"
       data-testid="section-services-horizontal"
     >
@@ -387,14 +364,18 @@ export default function HorizontalScrollServices() {
           </p>
         </div>
 
-        {/* Scroll-Based Cards Layout */}
-        <div className="relative min-h-[520px] flex items-start justify-center pt-4" data-testid="container-service-cards">
-          {SERVICES_DATA.map((service, index) => (
+        {/* Dock-Style Cards Layout */}
+        <div 
+          ref={containerRef}
+          className="relative flex items-end justify-center gap-3 py-8 overflow-x-auto" 
+          data-testid="container-service-cards"
+          style={{ height: MAX_HEIGHT + 80 }}
+        >
+          {SERVICES_DATA.map((service) => (
             <ServiceCard
               key={service.id}
               service={service}
-              index={index}
-              scrollYProgress={scrollYProgress}
+              mouseX={mouseX}
               onSelect={setSelectedService}
             />
           ))}
