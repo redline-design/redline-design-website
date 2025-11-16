@@ -38,26 +38,8 @@ export default function StatCardWithGraph({
       className="relative overflow-hidden rounded-lg bg-card shadow-lg h-32"
       data-testid={testId}
     >
-      {/* Content overlaying graph */}
-      <div className="absolute inset-0 flex flex-col items-center justify-center text-center z-10 px-4">
-        <h4 className="text-xs uppercase text-muted-foreground tracking-wide mb-1">
-          {label}
-        </h4>
-        <h3 className="text-3xl font-bold text-foreground my-1">
-          {value}
-        </h3>
-        <p 
-          className="text-sm font-semibold flex items-center justify-center gap-1"
-          style={{ color }}
-        >
-          <span>{trend === "up" ? "▲" : "▼"}</span>
-          <span>{trendValue}</span>
-        </p>
-        <p className="text-xs text-muted-foreground mt-1">{subtitle}</p>
-      </div>
-
-      {/* Large Graph Background */}
-      <div className="absolute inset-0">
+      {/* Large Graph Background - fills entire card */}
+      <div className="absolute inset-0 opacity-40">
         <svg
           viewBox="0 0 100 100"
           preserveAspectRatio="none"
@@ -89,6 +71,24 @@ export default function StatCardWithGraph({
             transition={{ duration: 1.5, ease: "easeOut" }}
           />
         </svg>
+      </div>
+
+      {/* Content overlaying graph - positioned at top */}
+      <div className="absolute inset-x-0 top-0 flex flex-col items-center text-center z-10 px-4 pt-3">
+        <h4 className="text-xs uppercase text-muted-foreground tracking-wide mb-1">
+          {label}
+        </h4>
+        <h3 className="text-3xl font-bold text-foreground my-1 drop-shadow-lg">
+          {value}
+        </h3>
+        <p 
+          className="text-sm font-semibold flex items-center justify-center gap-1 drop-shadow"
+          style={{ color }}
+        >
+          <span>{trend === "up" ? "▲" : "▼"}</span>
+          <span>{trendValue}</span>
+        </p>
+        <p className="text-xs text-muted-foreground mt-1">{subtitle}</p>
       </div>
     </div>
   );
