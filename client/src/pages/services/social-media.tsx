@@ -16,7 +16,8 @@ import {
   SiPinterest, 
   SiSnapchat,
   SiThreads,
-  SiReddit
+  SiReddit,
+  SiGoogle
 } from "react-icons/si";
 
 const platforms = [
@@ -30,6 +31,7 @@ const platforms = [
   { name: "Snapchat", icon: SiSnapchat, color: "#FFFC00" },
   { name: "Threads", icon: SiThreads, color: "#FFFFFF" },
   { name: "Reddit", icon: SiReddit, color: "#FF4500" },
+  { name: "Google My Business", icon: SiGoogle, color: "#4285F4" },
 ];
 
 export default function SocialMediaPage() {
@@ -206,9 +208,9 @@ export default function SocialMediaPage() {
               We create engaging content and manage campaigns across all major social platforms
             </p>
             
-            <div className="flex justify-center">
+            <div className="flex justify-center overflow-x-auto">
               <div 
-                className="relative inline-flex flex-wrap items-end justify-center gap-4 px-6 py-4 rounded-2xl"
+                className="relative inline-flex items-end justify-center gap-4 px-6 py-4 rounded-2xl"
                 style={{
                   background: 'rgba(255, 255, 255, 0.03)',
                   backdropFilter: 'blur(20px)',
