@@ -2029,7 +2029,7 @@
   }
 }
 
-/* Glassmorphic Stat Cards */
+/* Glassmorphic Stat Cards - Simplified */
 .glass-stat-card {
   position: relative;
   text-align: center;
@@ -2040,12 +2040,13 @@
     rgba(41, 41, 41, 0.67) 0%,
     rgba(25, 25, 25, 0.8) 50%
   );
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   box-shadow: 
     inset 0 2px 2px 0 rgba(231, 196, 160, 0.53),
     inset 0 -2px 2px 0 rgba(0, 0, 0, 0.2);
   color: hsl(var(--foreground));
+  text-shadow: 1px 1px 3px rgba(51, 51, 51, 0.67);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
   overflow: hidden;
@@ -2066,51 +2067,90 @@
   pointer-events: none;
   user-select: none;
   z-index: -1;
+  overflow: hidden;
 }
 
 .glass-stat-accent {
   position: absolute;
-  inset: -2px;
-  background: rgba(238, 238, 238, 0.07);
-  opacity: 0.8;
+  inset: -1px;
+  background: rgba(238, 238, 238, 0.06);
+  opacity: 0.7;
   border-radius: 1rem;
   box-shadow: 
-    inset 0 2px 2px 0 rgba(224, 201, 178, 0.4),
-    inset 0 -2px 2px 0 rgba(0, 0, 0, 0.27);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  animation: glass-wobble 18s ease-in-out infinite;
-  transform-origin: 20% 80%;
+    inset 0 2px 2px 0 rgba(224, 201, 178, 0.35),
+    inset 0 -2px 2px 0 rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  transform-origin: 30% 70%;
+  transition: all 0.1s linear;
+}
+
+.glass-stat-accent:nth-child(1) {
+  animation: glass-wobble-subtle 18s ease-in-out infinite;
+}
+
+.glass-stat-accent:nth-child(2) {
+  animation: glass-wobble-subtle 22s ease-in-out -6s infinite reverse;
+}
+
+.glass-stat-accent:nth-child(3) {
+  animation: glass-wobble-subtle 26s ease-in-out -18s infinite;
 }
 
 .glass-stat-light {
   position: absolute;
-  top: -10%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 60%;
-  height: 60%;
+  left: 10%;
+  top: 30%;
+  width: 50%;
+  height: 50%;
   background: radial-gradient(
     circle,
-    rgba(255, 0, 0, 0.15) 0%,
+    rgba(255, 0, 0, 0.2) 0%,
+    rgba(255, 0, 0, 0.05) 50%,
     transparent 70%
   );
+  border-radius: 50%;
   filter: blur(20px);
-  animation: glass-pulse 4s ease-in-out infinite;
+  animation: glass-pulse 8s ease-in-out infinite;
 }
 
-@keyframes glass-wobble {
+.glass-stat-light.sm {
+  left: auto;
+  right: 10%;
+  top: 10%;
+  width: 30%;
+  height: 30%;
+  animation: glass-pulse 6s ease-in-out -3s infinite;
+}
+
+.glass-stat-top-light {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 0;
+  width: 70%;
+  max-width: 150px;
+  height: 2px;
+  border-radius: 10px;
+  background: linear-gradient(90deg, transparent, #fffef9, transparent);
+  box-shadow: 
+    0 0px 2px 1px rgba(255, 199, 142, 0.6),
+    0 2px 8px 2px rgba(255, 158, 61, 0.4),
+    0 4px 16px 4px rgba(255, 128, 0, 0.2);
+}
+
+@keyframes glass-wobble-subtle {
   0%, 100% {
-    transform: rotate(0deg) scale(1);
+    transform: translateX(0px) translateY(0px) rotate(0deg) scale(1);
   }
   25% {
-    transform: rotate(0.5deg) scale(1.01);
+    transform: translateX(-3px) translateY(2px) rotate(0.5deg) scale(1.005);
   }
   50% {
-    transform: rotate(-0.3deg) scale(0.99);
+    transform: translateX(2px) translateY(-2px) rotate(-0.3deg) scale(0.998);
   }
   75% {
-    transform: rotate(0.4deg) scale(1.01);
+    transform: translateX(-2px) translateY(1px) rotate(0.4deg) scale(1.002);
   }
 }
 
@@ -2125,12 +2165,30 @@
 
 @media (prefers-reduced-motion: reduce) {
   .glass-stat-accent {
-    animation: none;
+    animation: none !important;
+    transform: none !important;
   }
   
   .glass-stat-light {
-    animation: none;
-    opacity: 0.4;
+    animation: none !important;
+    opacity: 0.3;
+  }
+  
+  .glass-stat-top-light {
+    box-shadow: 
+      0 0px 1px 1px rgba(255, 199, 142, 0.4),
+      0 2px 4px 1px rgba(255, 148, 41, 0.2);
+  }
+}
+
+@media (max-width: 768px) {
+  .glass-stat-card {
+    padding: 1.25rem 0.875rem;
+  }
+  
+  .glass-stat-top-light {
+    width: 60%;
+    height: 1.5px;
   }
 }
 
@@ -2140,7 +2198,12 @@
   }
   
   .glass-stat-light {
-    width: 80%;
-    height: 80%;
+    width: 40%;
+    height: 40%;
+  }
+  
+  .glass-stat-light.sm {
+    width: 25%;
+    height: 25%;
   }
 }
