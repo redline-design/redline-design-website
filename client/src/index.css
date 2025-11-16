@@ -1016,7 +1016,7 @@
     opacity: 1;
   }
 
-  /* Slit - 3D rotated bar */
+  /* Slit - 3D rotated bar - always visible, illuminates on hover */
   .luminous-card .slit {
     position: absolute;
     left: 0;
@@ -1027,15 +1027,17 @@
     width: 64%;
     height: 1.2rem;
     transform: rotateX(-76deg);
-    background: #121212;
-    box-shadow: 0 0 4px 0 rgba(255,255,255,0);
+    background: var(--accent-color, #888);
+    opacity: 0.3;
+    box-shadow: 0 0 4px 0 var(--accent-color, rgba(255,255,255,0.2));
     transition: all 0.4s ease-in-out;
     transform-style: preserve-3d;
   }
 
   .luminous-card:hover .slit {
     background: var(--accent-color, #fff);
-    box-shadow: 0 0 8px 0 var(--accent-color, #fff);
+    opacity: 1;
+    box-shadow: 0 0 12px 2px var(--accent-color, #fff);
   }
 
   /* Lumen - main glow layers */
