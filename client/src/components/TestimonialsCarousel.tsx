@@ -3,7 +3,6 @@ import { Star } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { useQuery } from "@tanstack/react-query";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
-import TextResolver from "@/components/TextResolver";
 
 interface Review {
   id: string;
@@ -41,10 +40,10 @@ export default function TestimonialsCarousel() {
     <div className="relative">
       <div className="text-center mb-8">
         <h2 className="text-base sm:text-lg md:text-xl font-bold uppercase tracking-[0.3em] mb-2 red-glow-pulse" style={{ color: "#ff0000" }}>
-          <TextResolver text="From Skeptical to Successful" delay={0} timeout={15} iterations={2} />
+          From Skeptical to Successful
         </h2>
         <p className="text-sm text-foreground">
-          <TextResolver text="Real business owners who took the leap (you can too)" delay={200} timeout={10} iterations={1} />
+          Real business owners who took the leap (you can too)
         </p>
       </div>
 

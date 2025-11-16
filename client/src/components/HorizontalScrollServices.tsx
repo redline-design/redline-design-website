@@ -380,10 +380,10 @@ export default function HorizontalScrollServices() {
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-8">
           <h2 className="text-lg sm:text-xl md:text-2xl font-bold uppercase tracking-[0.3em] mb-4 red-glow-pulse" style={{ color: "#ff0000" }}>
-            <TextResolver text="What We Do" delay={400} timeout={30} iterations={3} />
+            <TextResolver text="What We Do" delay={0} timeout={15} iterations={2} />
           </h2>
           <p className="text-lg text-foreground">
-            <TextResolver text="Comprehensive digital marketing solutions to grow your business" delay={800} timeout={20} iterations={2} />
+            <TextResolver text="Comprehensive digital marketing solutions to grow your business" delay={200} timeout={10} iterations={1} />
           </p>
         </div>
 

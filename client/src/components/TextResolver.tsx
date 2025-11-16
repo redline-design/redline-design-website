@@ -19,16 +19,25 @@ export default function TextResolver({
   iterations = 10,
   delay = 0
 }: TextResolverProps) {
-  const [displayText, setDisplayText] = useState(text);
+  const [displayText, setDisplayText] = useState('');
+  const [started, setStarted] = useState(false);
 
   useEffect(() => {
+    const startTimeout = setTimeout(() => {
+      setStarted(true);
+    }, delay);
+
+    return () => clearTimeout(startTimeout);
+  }, [delay]);
+
+  useEffect(() => {
+    if (!started) return;
+
     let currentIndex = 0;
-    let intervals: NodeJS.Timeout[] = [];
-    let isActive = true;
-    let startTimer: NodeJS.Timeout;
+    let animationFrameId: number;
 
     const resolveNextCharacter = () => {
-      if (!isActive || currentIndex >= text.length) {
+      if (currentIndex >= text.length) {
         setDisplayText(text);
         return;
       }
@@ -37,42 +46,27 @@ export default function TextResolver({
       const partialString = text.substring(0, currentIndex);
 
       const randomizeInterval = setInterval(() => {
-        if (!isActive) {
-          clearInterval(randomizeInterval);
-          return;
-        }
-        
         if (iterationCount < iterations) {
           const randomChar = characters[Math.floor(Math.random() * characters.length)];
-          setDisplayText(partialString + randomChar + text.substring(currentIndex + 1));
+          setDisplayText(partialString + randomChar);
           iterationCount++;
         } else {
           clearInterval(randomizeInterval);
-          setDisplayText(partialString + text[currentIndex] + text.substring(currentIndex + 1));
+          setDisplayText(partialString + text[currentIndex]);
           currentIndex++;
-          setTimeout(() => {
-            if (isActive) {
-              resolveNextCharacter();
-            }
-          }, 0);
+          animationFrameId = requestAnimationFrame(resolveNextCharacter);
         }
       }, timeout);
-      
-      intervals.push(randomizeInterval);
     };
 
-    startTimer = setTimeout(() => {
-      if (isActive) {
-        resolveNextCharacter();
-      }
-    }, delay);
+    resolveNextCharacter();
 
     return () => {
-      isActive = false;
-      clearTimeout(startTimer);
-      intervals.forEach(interval => clearInterval(interval));
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+      }
     };
-  }, [text, characters, timeout, iterations, delay]);
+  }, [started, text, characters, timeout, iterations]);
 
   return (
     <span className={className} style={style}>
