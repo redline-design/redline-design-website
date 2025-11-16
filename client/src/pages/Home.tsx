@@ -47,47 +47,72 @@ export default function Home() {
   // Duplicate stats for seamless infinite loop
   const duplicatedStats = [...stats, ...stats, ...stats];
 
-  // Slider carousel slides for services
+  // Slider carousel slides for services - The Redline Difference
   const sliderSlides = [
     {
-      id: 'seo',
-      title: 'SEO & Content Marketing',
-      description: 'Dominate search rankings with data-driven SEO strategies that deliver qualified organic traffic and long-term growth.',
-      image: seoImage,
-      buttonText: 'Learn More',
-      buttonLink: '/services/seo',
+      id: 'results',
+      title: 'Marketing That Works',
+      description: 'We cut through the marketing nonsense and focus on what actually drives revenue. Real strategies. Real metrics. Real growth.',
+      image: analyticsImage,
+      buttonText: 'See Our Results',
+      buttonLink: '/why-us',
+      stats: [
+        { value: '7x', label: 'Avg ROI' },
+        { value: '50k+', label: 'Leads Generated' },
+        { value: '95%', label: 'Client Retention' },
+      ],
     },
     {
-      id: 'ppc',
-      title: 'Paid Advertising',
-      description: 'Maximize ROI with precision-targeted PPC campaigns across Google, Meta, and LinkedIn that convert clicks into customers.',
+      id: 'roi',
+      title: 'ROI That Stacks Up',
+      description: 'Our clients see an average return of 7x on their marketing spend, with some achieving up to 14x. We focus on revenue growth and customer acquisition.',
       image: ppcImage,
-      buttonText: 'Get Started',
+      buttonText: 'Calculate Your ROI',
       buttonLink: '/services/ppc',
+      stats: [
+        { value: '14x', label: 'Max ROI' },
+        { value: '7x', label: 'Average ROI' },
+        { value: '2.5x', label: 'Industry Avg' },
+      ],
+    },
+    {
+      id: 'reach',
+      title: 'Cross-Platform Reach',
+      description: 'From Google to Meta, TikTok to LinkedIn—we help you reach your audience wherever they are, with messaging that converts.',
+      image: socialMediaImage,
+      buttonText: 'Explore Platforms',
+      buttonLink: '/services/social-media',
+      stats: [
+        { value: '8+', label: 'Platforms' },
+        { value: '5.1B', label: 'Social Users' },
+        { value: '76%', label: 'Research Online' },
+      ],
+    },
+    {
+      id: 'content',
+      title: 'Content & SEO',
+      description: 'Quality content drives organic traffic and establishes authority. Our SEO-optimized strategy combines research, analysis, and storytelling.',
+      image: seoImage,
+      buttonText: 'Boost Rankings',
+      buttonLink: '/services/seo',
+      stats: [
+        { value: '300%', label: 'Avg Traffic Increase' },
+        { value: '68%', label: 'Organic CTR Lift' },
+        { value: '#1', label: 'Ranking Goal' },
+      ],
     },
     {
       id: 'analytics',
-      title: 'Analytics & Insights',
-      description: 'Make data-driven decisions with comprehensive analytics tracking, custom dashboards, and actionable performance insights.',
-      image: analyticsImage,
-      buttonText: 'Explore',
-      buttonLink: '/services/analytics',
-    },
-    {
-      id: 'web-design',
-      title: 'Web Design & Development',
-      description: 'Transform your online presence with modern, conversion-focused websites that work 24/7 to grow your business.',
+      title: 'Data-Driven Growth',
+      description: 'Stop guessing. Start growing. We implement comprehensive analytics tracking and provide real-time dashboards that optimize spend.',
       image: webDesignImage,
-      buttonText: 'View Work',
-      buttonLink: '/services/web-design',
-    },
-    {
-      id: 'social',
-      title: 'Social Media Marketing',
-      description: 'Build engaged communities and drive brand awareness with strategic social media campaigns that resonate with your audience.',
-      image: socialMediaImage,
-      buttonText: 'See More',
-      buttonLink: '/services/social-media',
+      buttonText: 'View Analytics',
+      buttonLink: '/services/analytics',
+      stats: [
+        { value: '100%', label: 'Visibility' },
+        { value: '24/7', label: 'Monitoring' },
+        { value: '3x', label: 'More Leads' },
+      ],
     },
   ];
 

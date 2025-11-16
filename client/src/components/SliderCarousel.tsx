@@ -9,6 +9,10 @@ interface SliderSlide {
   image: string;
   buttonText: string;
   buttonLink: string;
+  stats?: {
+    value: string;
+    label: string;
+  }[];
 }
 
 interface SliderCarouselProps {
@@ -93,11 +97,46 @@ export function SliderCarousel({ slides }: SliderCarouselProps) {
                 >
                   {getSlideAtPosition(1).description}
                 </motion.div>
+                
+                {getSlideAtPosition(1).stats && (
+                  <motion.div
+                    className="slider-carousel-stats"
+                    initial={{ opacity: 0, y: 100, filter: 'blur(33px)' }}
+                    animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                    transition={{ duration: 1, ease: 'easeInOut', delay: 0.5 }}
+                    data-testid="slider-stats-container"
+                  >
+                    {getSlideAtPosition(1).stats?.map((stat, idx) => {
+                      const statId = stat.label.toLowerCase().replace(/\s+/g, '-');
+                      return (
+                        <div 
+                          key={idx} 
+                          className="slider-carousel-stat-item"
+                          data-testid={`stat-card-${statId}`}
+                        >
+                          <div 
+                            className="slider-carousel-stat-value"
+                            data-testid={`stat-value-${statId}`}
+                          >
+                            {stat.value}
+                          </div>
+                          <div 
+                            className="slider-carousel-stat-label"
+                            data-testid={`stat-label-${statId}`}
+                          >
+                            {stat.label}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </motion.div>
+                )}
+                
                 <motion.a
                   href={getSlideAtPosition(1).buttonLink}
                   initial={{ opacity: 0, y: 100, filter: 'blur(33px)' }}
                   animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                  transition={{ duration: 1, ease: 'easeInOut', delay: 0.6 }}
+                  transition={{ duration: 1, ease: 'easeInOut', delay: 0.7 }}
                   data-testid="button-slider-cta"
                 >
                   <button className="slider-carousel-button">
