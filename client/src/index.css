@@ -947,10 +947,11 @@
 
   .services-circle-wrapper {
     position: relative;
-    width: 240px;
-    height: 320px;
+    width: 600px;
+    height: 600px;
     transform-style: preserve-3d;
     will-change: transform;
+    pointer-events: auto;
   }
 
   .service-card-circle {

@@ -340,6 +340,14 @@ export default function HorizontalScrollServices() {
               transform: `rotateY(${rotation}deg)`,
               transition: 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)'
             }}
+            onMouseEnter={() => {
+              setIsSectionHovered(true);
+              setIsCardHovered(true);
+            }}
+            onMouseLeave={() => {
+              setIsSectionHovered(false);
+              setIsCardHovered(false);
+            }}
           >
             {services.map((service, index) => {
               const totalServices = services.length;
@@ -369,14 +377,6 @@ export default function HorizontalScrollServices() {
                       duration: 0.4,
                       delay: isCardHovered ? index * 0.03 : 0
                     }
-                  }}
-                  onMouseEnter={() => {
-                    setIsSectionHovered(true);
-                    setIsCardHovered(true);
-                  }}
-                  onMouseLeave={() => {
-                    setIsSectionHovered(false);
-                    setIsCardHovered(false);
                   }}
                   data-testid={`card-service-3d-${service.title.toLowerCase().replace(/\s/g, "-")}`}
                 >
