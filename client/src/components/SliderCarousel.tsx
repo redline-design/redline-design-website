@@ -148,8 +148,8 @@ export function SliderCarousel({ slides }: SliderCarouselProps) {
           </div>
         </div>
 
-        {/* Slides 2, 3, 4+ - Preview cards */}
-        {[2, 3, 4, 5, 6].map((position) => {
+        {/* Slides 2, 3 - Preview cards */}
+        {[2, 3].map((position) => {
           const slide = getSlideAtPosition(position);
           return (
             <div
