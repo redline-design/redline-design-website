@@ -1802,7 +1802,7 @@
     var(--spotlight-size) var(--spotlight-size) at
     calc(var(--x, 0) * 1px)
     calc(var(--y, 0) * 1px),
-    rgba(var(--glow-color, 255, 0, 0), calc(var(--glow-opacity, 0) * 0.02)),
+    rgba(var(--glow-color, 255, 0, 0), calc(var(--glow-opacity, 0) * 0.015)),
     transparent
   );
   background-color: hsl(var(--card) / 0.5);
@@ -1823,11 +1823,14 @@
   background-size: calc(100% + (2 * var(--border-size))) calc(100% + (2 * var(--border-size)));
   background-repeat: no-repeat;
   background-position: 50% 50%;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) padding-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
   mask:
-    linear-gradient(transparent, transparent),
-    linear-gradient(white, white);
-  mask-clip: padding-box, border-box;
-  mask-composite: intersect;
+    linear-gradient(#fff 0 0) padding-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
 }
 
 /* Border emphasis glow (colored) */
