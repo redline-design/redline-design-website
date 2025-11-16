@@ -2702,8 +2702,8 @@
 .card_wrapper:hover .solution_card .icon_container {
   transform: scale(1.05) translateY(-2px);
   box-shadow: 
-    0 0 6px rgba(255, 40, 40, 0.6),
-    0 0 12px rgba(255, 0, 0, 0.4),
+    0 0 2px rgba(255, 40, 40, 0.8),
+    0 0 4px rgba(255, 0, 0, 0.5),
     -4px -4px 8px rgba(255, 60, 60, 0.3),
     4px 4px 8px rgba(0, 0, 0, 0.9),
     inset -1px -1px 3px rgba(255, 80, 80, 0.5),
