@@ -984,7 +984,6 @@
     -webkit-backface-visibility: hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    position: relative;
   }
 
   .service-card-circle::before {
