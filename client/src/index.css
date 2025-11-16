@@ -1642,6 +1642,17 @@
   }
 }
 
+/* Hide default cursor on desktop and show custom red dot */
+@media (min-width: 1025px) {
+  body {
+    cursor: none;
+  }
+  
+  body * {
+    cursor: none !important;
+  }
+}
+
 /* Custom red dot cursor */
 .custom-cursor {
   position: fixed;
