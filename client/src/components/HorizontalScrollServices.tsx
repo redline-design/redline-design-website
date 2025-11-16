@@ -287,8 +287,8 @@ function ServiceCard({
     [0, 1, 1]
   );
   
-  const x = useTransform(cardProgress, [0, 1], [0, (col - 2.5) * 190]);
-  const y = useTransform(cardProgress, [0, 1], [0, row * 280]);
+  const x = useTransform(cardProgress, [0, 1], [0, (col - 2.5) * 220]);
+  const y = useTransform(cardProgress, [0, 1], [0, row * 320]);
   const rotation = useTransform(cardProgress, [0, 1], [index * 8 - 40, 0]);
   const opacity = useTransform(cardProgress, [0, 0.3, 1], [0.7, 1, 1]);
 
@@ -304,7 +304,7 @@ function ServiceCard({
       }}
     >
       <div
-        className="luminous-card w-[180px] h-[260px] cursor-pointer relative group"
+        className="luminous-card w-[160px] h-[230px] cursor-pointer relative group"
         onClick={() => onSelect(service)}
         data-testid={`card-service-${service.id}`}
         style={{
