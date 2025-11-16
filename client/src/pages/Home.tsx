@@ -279,7 +279,7 @@ export default function Home() {
 
       {/* Common Challenges We Solve */}
       <ScrollAnimatedSection>
-        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-background" data-testid="section-challenges">
+        <section className="py-20 px-4 sm:px-6 lg:px-8" data-testid="section-challenges">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-lg sm:text-xl md:text-2xl font-bold uppercase tracking-[0.3em] mb-4 red-glow-pulse" style={{ color: "#ff0000" }}>
