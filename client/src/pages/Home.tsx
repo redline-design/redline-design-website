@@ -502,21 +502,6 @@ export default function Home() {
       <SectionDivider />
 
       <ScrollAnimatedSection>
-        <section className="py-12 px-4 sm:px-6 lg:px-8 bg-card/50" data-testid="section-metrics">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            <StatCounter value={98} suffix="%" label="Client Satisfaction" />
-            <StatCounter value={7} suffix="x" label="Average ROI" delay={0.1} />
-            <StatCounter value={15} suffix="+" label="Years of Experience" delay={0.2} />
-            <StatCounter value={95} suffix="%" label="Client Retention" delay={0.3} />
-          </div>
-        </div>
-      </section>
-      </ScrollAnimatedSection>
-
-      <SectionDivider />
-
-      <ScrollAnimatedSection>
         <section id="partners" className="py-12 px-4 sm:px-6 lg:px-8" data-testid="section-partners">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-8">
@@ -525,6 +510,16 @@ export default function Home() {
             </h2>
           </div>
           <PartnerLogos />
+          
+          {/* Metrics Section */}
+          <div className="mt-12" data-testid="section-metrics">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+              <StatCounter value={98} suffix="%" label="Client Satisfaction" />
+              <StatCounter value={7} suffix="x" label="Average ROI" delay={0.1} />
+              <StatCounter value={15} suffix="+" label="Years of Experience" delay={0.2} />
+              <StatCounter value={95} suffix="%" label="Client Retention" delay={0.3} />
+            </div>
+          </div>
         </div>
       </section>
       </ScrollAnimatedSection>
