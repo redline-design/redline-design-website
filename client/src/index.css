@@ -1796,19 +1796,12 @@
   position: relative;
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
-  border: var(--border-size) solid rgba(255, 255, 255, 0.2);
-  overflow: hidden;
-  background-image: radial-gradient(
-    var(--spotlight-size) var(--spotlight-size) at
-    calc(var(--x, 0) * 1px)
-    calc(var(--y, 0) * 1px),
-    rgba(var(--glow-color, 255, 0, 0), calc(var(--glow-opacity, 0) * 0.01)),
-    transparent
-  );
+  overflow: visible;
   background-color: hsl(var(--card) / 0.5);
-  background-size: calc(100% + (2 * var(--border-size))) calc(100% + (2 * var(--border-size)));
-  background-position: 50% 50%;
-  background-attachment: fixed;
+  box-shadow: 
+    0 0 0 var(--border-size) rgba(255, 255, 255, 0.2),
+    0 0 calc(var(--spotlight-size) * 0.3) calc(var(--spotlight-size) * -0.2) rgba(var(--glow-color, 255, 0, 0), calc(var(--glow-opacity, 0) * 0.6)) inset,
+    0 0 calc(var(--spotlight-size) * 0.5) 0 rgba(var(--glow-color, 255, 0, 0), calc(var(--glow-opacity, 0) * 0.4));
 }
 
 .glow-card::before,
@@ -1817,47 +1810,38 @@
   content: "";
   position: absolute;
   inset: calc(var(--border-size) * -1);
-  border: var(--border-size) solid transparent;
   border-radius: calc(var(--radius, 12) * 1px);
   opacity: var(--glow-opacity, 0);
   transition: opacity 0.3s ease;
-  background-attachment: fixed;
-  background-size: calc(100% + (2 * var(--border-size))) calc(100% + (2 * var(--border-size)));
-  background-repeat: no-repeat;
-  background-position: 50% 50%;
-  mask: linear-gradient(black, black) padding-box, linear-gradient(black, black);
-  mask-clip: padding-box, border-box;
-  mask-composite: exclude;
-  -webkit-mask: linear-gradient(black, black) padding-box, linear-gradient(black, black);
-  -webkit-mask-clip: padding-box, border-box;
-  -webkit-mask-composite: xor;
 }
 
-/* Border emphasis glow (colored) - more diffused */
+/* Border emphasis glow (colored) - highly diffused */
 .glow-card::before {
-  background-image: radial-gradient(
-    calc(var(--spotlight-size) * 1.2) calc(var(--spotlight-size) * 1.2) at
+  background: radial-gradient(
+    calc(var(--spotlight-size) * 1.5) calc(var(--spotlight-size) * 1.5) at
     calc(var(--x, 0) * 1px)
     calc(var(--y, 0) * 1px),
-    rgba(var(--glow-color, 255, 0, 0), 0.8),
-    rgba(var(--glow-color, 255, 0, 0), 0.4) 40%,
-    transparent 80%
+    rgba(var(--glow-color, 255, 0, 0), 0.9),
+    rgba(var(--glow-color, 255, 0, 0), 0.5) 30%,
+    rgba(var(--glow-color, 255, 0, 0), 0.2) 60%,
+    transparent 90%
   );
-  filter: brightness(1.8);
-  z-index: 2;
+  filter: blur(8px) brightness(1.5);
+  z-index: -1;
 }
 
-/* Border spotlight (white) - more diffused */
+/* Border spotlight (white) - highly diffused */
 .glow-card::after {
-  background-image: radial-gradient(
-    calc(var(--spotlight-size) * 0.8) calc(var(--spotlight-size) * 0.8) at
+  background: radial-gradient(
+    calc(var(--spotlight-size) * 1) calc(var(--spotlight-size) * 1) at
     calc(var(--x, 0) * 1px)
     calc(var(--y, 0) * 1px),
-    rgba(255, 255, 255, 0.6),
-    rgba(255, 255, 255, 0.2) 50%,
-    transparent 80%
+    rgba(255, 255, 255, 0.7),
+    rgba(255, 255, 255, 0.3) 40%,
+    transparent 85%
   );
-  z-index: 3;
+  filter: blur(4px);
+  z-index: -1;
 }
 
 .glow-card > * {
