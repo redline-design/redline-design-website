@@ -21,7 +21,7 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start 80%", "start 20%"]
+    offset: ["start 90%", "start 40%"]
   });
 
   // Transform scroll progress to spread amount (0 = stacked, 1 = spread)
@@ -39,13 +39,13 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
         className="relative mx-auto"
         style={{
           width: "100%",
-          minHeight: "280px",
+          minHeight: "240px",
           display: "flex",
           justifyContent: "center",
           alignItems: "flex-start",
         }}
       >
-        <div className="relative" style={{ width: "100%", maxWidth: "1200px", height: "250px" }}>
+        <div className="relative" style={{ width: "100%", maxWidth: "1200px", height: "220px" }}>
           {cards.map((card, idx) => {
             const Icon = card.icon;
             const spreadPos = getSpreadPosition(idx, cards.length);
