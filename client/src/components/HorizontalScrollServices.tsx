@@ -291,20 +291,20 @@ function ServiceCard({ service, mouseX, onSelect }: ServiceCardProps) {
         </div>
         
         {/* Content */}
-        <div className="card-content p-4 w-full h-full flex flex-col items-center justify-center relative z-10">
+        <div className="card-content p-2 w-full h-full flex flex-col items-center justify-center relative z-10">
           {/* 3D Icon with filled circle and cutout */}
-          <div className="icon-3d-container absolute top-8 transition-all duration-400">
+          <div className="icon-3d-container transition-all duration-400">
             <div 
               className="icon-circle-filled"
               style={{
                 '--icon-color': service.accentColor,
                 backgroundColor: service.accentColor,
-                width: '2rem',
-                height: '2rem'
+                width: '4.5rem',
+                height: '4.5rem'
               } as React.CSSProperties}
             >
               <service.icon 
-                className="icon-cutout h-4 w-4" 
+                className="icon-cutout h-8 w-8" 
                 style={{ 
                   color: '#1a1a1a'
                 }} 
