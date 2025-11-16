@@ -293,16 +293,31 @@ function ServiceCard({
       }}
     >
       <Card
-        className="w-[180px] h-[260px] rounded-2xl backdrop-blur-md bg-card/90 border-border/30 group hover-elevate active-elevate-2 cursor-pointer"
+        className="w-[180px] h-[260px] rounded-2xl border-border/30 group hover-elevate active-elevate-2 cursor-pointer overflow-hidden relative"
         onClick={() => onSelect(service)}
         data-testid={`card-service-${service.id}`}
+        style={{
+          background: `linear-gradient(135deg, ${service.accentColor}15 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.6) 100%)`
+        }}
       >
-        <CardContent className="p-3 w-full h-full flex flex-col">
+        {/* Hexagon pattern overlay */}
+        <div 
+          className="absolute inset-0 opacity-10"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0l25.98 15v30L30 60 4.02 45V15z' fill='none' stroke='white' stroke-width='1'/%3E%3C/svg%3E")`,
+            backgroundSize: '30px 30px'
+          }}
+        />
+        
+        {/* Content with backdrop blur */}
+        <div className="absolute inset-0 backdrop-blur-sm bg-black/20" />
+        
+        <CardContent className="p-3 w-full h-full flex flex-col relative z-10">
           <div className="flex flex-col text-center gap-2 flex-1">
             <div 
               className="flex-shrink-0 p-2 rounded-lg icon-glow transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3 mx-auto"
               style={{
-                backgroundColor: `${service.accentColor}20`
+                backgroundColor: `${service.accentColor}30`
               }}
             >
               <service.icon className="h-5 w-5" style={{ color: service.accentColor }} data-testid={`icon-service-${service.id}`} />
@@ -314,7 +329,7 @@ function ServiceCard({
             </div>
             
             {/* Bullet Points */}
-            <ul className="space-y-1.5 text-left mb-2 flex-1">
+            <ul className="space-y-1.5 text-left flex-1">
               {service.details.whatYouGet.slice(0, 2).map((item, idx) => (
                 <li key={idx} className="flex items-start gap-2 text-xs text-foreground">
                   <span className="text-primary mt-0.5 flex-shrink-0">•</span>
@@ -322,12 +337,6 @@ function ServiceCard({
                 </li>
               ))}
             </ul>
-            
-            {/* Click indicator */}
-            <div className="text-xs text-primary font-medium flex items-center justify-center gap-1 mt-auto bg-primary/5 rounded-lg px-2 py-1.5 border border-primary/10">
-              <span>Click for details</span>
-              <ArrowRight className="w-3 h-3 transition-transform group-hover:translate-x-1" />
-            </div>
           </div>
         </CardContent>
       </Card>
