@@ -1133,11 +1133,13 @@
     position: relative;
   }
 
+  /* Intensify the bar glow on hover */
   .luminous-card:hover .illuminated-bar {
-    box-shadow: 0 0 24px var(--accent-color), 0 0 40px var(--accent-color);
+    background: linear-gradient(90deg, transparent, var(--accent-color) 50%, transparent) !important;
+    box-shadow: 0 0 24px var(--accent-color), 0 0 40px var(--accent-color) !important;
   }
 
-  /* Icon shadow on bar */
+  /* Icon shadow on bar - subtle pulse on hover */
   .luminous-card:hover .icon-shadow {
     animation: shadowPulse 2s ease-in-out infinite;
   }

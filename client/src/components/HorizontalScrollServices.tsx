@@ -391,17 +391,17 @@ function ServiceCard({
             
             {/* Illuminated bar with icon shadow */}
             <div className="illuminated-bar-container relative w-32">
-              {/* The bar itself */}
+              {/* The bar itself - always visible */}
               <div 
                 className="illuminated-bar h-1 rounded-full transition-all duration-500"
                 style={{
-                  background: `linear-gradient(90deg, transparent, ${service.accentColor}60, transparent)`,
-                  boxShadow: `0 0 16px ${service.accentColor}40`
+                  background: `linear-gradient(90deg, transparent, ${service.accentColor}40, transparent)`,
+                  boxShadow: `0 0 8px ${service.accentColor}20`
                 }}
               />
-              {/* Icon shadow projection on the bar */}
+              {/* Icon shadow projection on the bar - subtle always, prominent on hover */}
               <div 
-                className="icon-shadow absolute top-0 left-1/2 -translate-x-1/2 w-16 h-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                className="icon-shadow absolute top-0 left-1/2 -translate-x-1/2 w-16 h-1 rounded-full opacity-30 group-hover:opacity-100 transition-opacity duration-500"
                 style={{
                   background: `radial-gradient(ellipse, ${service.accentColor}80 0%, transparent 70%)`,
                   filter: 'blur(8px)',
