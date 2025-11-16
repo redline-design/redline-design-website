@@ -273,17 +273,19 @@ export default function HorizontalScrollServices() {
           </p>
         </div>
 
-        {/* Grid Layout like Why Choose Us */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" ref={ref}>
+        {/* Hand of Cards Layout */}
+        <div className="value-cards-hand" ref={ref} data-testid="container-service-cards">
           {SERVICES_DATA.map((service, index) => (
             <motion.div
               key={service.id}
+              className="value-card-wrapper"
+              style={{ '--i': index } as React.CSSProperties}
               initial={{ opacity: 0, scale: 0.95 }}
               animate={inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
               transition={{ duration: 0.4, delay: index * 0.1 }}
             >
               <Card
-                className="h-full transition-all duration-300 rounded-2xl backdrop-blur-md bg-card/40 border-white/10 group hover-elevate active-elevate-2 cursor-pointer flex items-center"
+                className="value-card h-full transition-all duration-300 rounded-2xl backdrop-blur-md bg-card/40 border-white/10 group hover-elevate active-elevate-2 cursor-pointer flex items-center"
                 onClick={() => setSelectedService(service)}
                 data-testid={`card-service-${service.id}`}
               >
