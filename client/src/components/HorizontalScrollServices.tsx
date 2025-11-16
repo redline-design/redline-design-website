@@ -403,13 +403,15 @@ export default function HorizontalScrollServices() {
 
       {/* Service Details Dialog */}
       <Dialog open={!!selectedService} onOpenChange={(open) => { if (!open) setSelectedService(null); }}>
-        <DialogContent 
-          className="max-w-2xl max-h-[90vh] overflow-y-auto relative" 
-          data-testid="dialog-service-details"
-          style={{
-            background: selectedService ? `linear-gradient(135deg, ${selectedService.accentColor}08 0%, transparent 50%, ${selectedService.accentColor}05 100%)` : undefined
-          }}
-        >
+        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto" data-testid="dialog-service-details">
+          {selectedService && (
+            <div 
+              className="absolute inset-0 -z-10 rounded-lg"
+              style={{
+                background: `linear-gradient(135deg, ${selectedService.accentColor}08 0%, transparent 50%, ${selectedService.accentColor}05 100%)`
+              }}
+            />
+          )}
           {selectedService && (
             <>
               <DialogHeader>
@@ -448,7 +450,7 @@ export default function HorizontalScrollServices() {
                 </div>
               </DialogHeader>
 
-              <div className="space-y-6 mt-4">
+              <div className="space-y-6 mt-4 relative">
                 {/* What You Get */}
                 <div>
                   <h4 className="font-semibold text-foreground mb-3 text-base">
