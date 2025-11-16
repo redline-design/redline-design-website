@@ -20,22 +20,12 @@ export default function TextResolver({
   delay = 0
 }: TextResolverProps) {
   const [displayText, setDisplayText] = useState(text);
-  const [started, setStarted] = useState(false);
 
   useEffect(() => {
-    const startTimeout = setTimeout(() => {
-      setStarted(true);
-    }, delay);
-
-    return () => clearTimeout(startTimeout);
-  }, [delay]);
-
-  useEffect(() => {
-    if (!started) return;
-
     let currentIndex = 0;
     let intervals: NodeJS.Timeout[] = [];
     let isActive = true;
+    let startTimer: NodeJS.Timeout;
 
     const resolveNextCharacter = () => {
       if (!isActive || currentIndex >= text.length) {
@@ -71,13 +61,18 @@ export default function TextResolver({
       intervals.push(randomizeInterval);
     };
 
-    resolveNextCharacter();
+    startTimer = setTimeout(() => {
+      if (isActive) {
+        resolveNextCharacter();
+      }
+    }, delay);
 
     return () => {
       isActive = false;
+      clearTimeout(startTimer);
       intervals.forEach(interval => clearInterval(interval));
     };
-  }, [started, text, characters, timeout, iterations]);
+  }, [text, characters, timeout, iterations, delay]);
 
   return (
     <span className={className} style={style}>
