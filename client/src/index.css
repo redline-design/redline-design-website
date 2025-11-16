@@ -946,9 +946,13 @@
   }
 
   .services-circle-wrapper {
-    position: relative;
-    width: 600px;
-    height: 600px;
+    position: absolute;
+    width: 800px;
+    height: 800px;
+    left: 50%;
+    top: 50%;
+    margin-left: -400px;
+    margin-top: -400px;
     transform-style: preserve-3d;
     will-change: transform;
     pointer-events: auto;
@@ -958,8 +962,10 @@
     position: absolute;
     width: 240px;
     height: 320px;
-    left: 0;
-    top: 0;
+    left: 50%;
+    top: 50%;
+    margin-left: -120px;
+    margin-top: -160px;
     transform-style: preserve-3d;
     border-radius: 12px;
     border: 1px solid hsl(var(--border));
