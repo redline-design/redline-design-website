@@ -2640,63 +2640,80 @@
   }
 }
 
-/* Hover Bubble Cards */
+/* CodePen Hover Bubble Cards - Exact Implementation */
 .solution_card {
+  background: #fff;
+  box-shadow: 0 2px 4px 0 rgba(136, 144, 195, 0.2),
+    0 5px 15px 0 rgba(37, 44, 97, 0.15);
+  border-radius: 15px;
+  margin: 8px;
+  padding: 25px;
   position: relative;
-  background: hsl(var(--card));
-  padding: 2rem;
-  border-radius: 10px;
-  box-shadow: 0px 20px 50px rgba(0, 0, 0, 0.1);
+  z-index: 1;
   overflow: hidden;
-  transition: 0.3s ease;
+  transition: 0.3s;
   min-height: 200px;
-  border: 1px solid hsl(var(--border));
 }
 
 .solution_card:hover {
   transform: translateY(-10px);
-  box-shadow: 0px 30px 60px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 8px 0 rgba(136, 144, 195, 0.3),
+    0 10px 25px 0 rgba(37, 44, 97, 0.2);
 }
 
 .hover_color_bubble {
   position: absolute;
-  background: radial-gradient(circle, rgb(59, 130, 246) 0%, rgba(59, 130, 246, 0) 70%);
-  width: 0rem;
-  height: 0rem;
-  top: 0;
+  background: radial-gradient(
+    circle,
+    rgba(59, 130, 246, 0.5) 0%,
+    rgba(59, 130, 246, 0) 70%
+  );
+  width: 0;
+  height: 0;
   left: 0;
-  transition: 0.5s ease;
-  border-radius: 50%;
-  opacity: 0;
+  top: 0;
+  transition: 0.5s;
   z-index: 0;
+  border-radius: 50%;
 }
 
 .solution_card:hover .hover_color_bubble {
   width: 25rem;
   height: 25rem;
-  opacity: 0.3;
-  top: -5rem;
-  left: -5rem;
+  top: -75px;
+  left: -75px;
 }
 
 .solution_card .card_content {
   position: relative;
-  z-index: 1;
+  z-index: 2;
 }
 
 .solution_card .icon_container {
-  width: 60px;
-  height: 60px;
-  background: hsl(var(--primary) / 0.1);
-  border-radius: 10px;
+  width: 70px;
+  height: 70px;
+  background: linear-gradient(135deg, rgb(59, 130, 246) 0%, rgb(37, 99, 235) 100%);
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 1.5rem;
-  transition: 0.3s ease;
+  margin-bottom: 20px;
+  box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
+  transition: 0.3s;
 }
 
 .solution_card:hover .icon_container {
-  background: hsl(var(--primary) / 0.2);
   transform: scale(1.1);
+}
+
+.solution_card h2,
+.solution_card h3,
+.solution_card p,
+.solution_card li,
+.solution_card span {
+  color: #2d3748;
+}
+
+.solution_card .icon_container svg {
+  color: #fff !important;
 }

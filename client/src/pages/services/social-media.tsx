@@ -118,7 +118,7 @@ export default function SocialMediaPage() {
               <div className="hover_color_bubble"></div>
               <div className="card_content">
                 <div className="icon_container">
-                  <Check className="w-6 h-6 text-primary" />
+                  <Check className="w-6 h-6" />
                 </div>
                 <h2 className="text-2xl md:text-3xl font-bold mb-6">What You Get</h2>
                 
@@ -155,7 +155,7 @@ export default function SocialMediaPage() {
               <div className="hover_color_bubble"></div>
               <div className="card_content">
                 <div className="icon_container">
-                  <Target className="w-6 h-6 text-primary" />
+                  <Target className="w-6 h-6" />
                 </div>
                 <h3 className="text-xl font-bold mb-4">Perfect For</h3>
                 <p data-testid="text-perfect-for">
@@ -168,7 +168,7 @@ export default function SocialMediaPage() {
               <div className="hover_color_bubble"></div>
               <div className="card_content">
                 <div className="icon_container">
-                  <Clock className="w-6 h-6 text-primary" />
+                  <Clock className="w-6 h-6" />
                 </div>
                 <h3 className="text-xl font-bold mb-4">Timeline</h3>
                 <p data-testid="text-timeline">
@@ -181,7 +181,7 @@ export default function SocialMediaPage() {
               <div className="hover_color_bubble"></div>
               <div className="card_content">
                 <div className="icon_container">
-                  <DollarSign className="w-6 h-6 text-primary" />
+                  <DollarSign className="w-6 h-6" />
                 </div>
                 <h3 className="text-xl font-bold mb-4">Investment</h3>
                 <p className="text-2xl font-bold text-primary" data-testid="text-investment">
