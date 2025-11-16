@@ -22,11 +22,6 @@ export default function Hero() {
 
   return (
     <>
-      {/* Subtle gradient overlay */}
-      <div className="fixed inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/20 to-background/80"></div>
-      </div>
-
       <section
         ref={containerRef}
         className="relative min-h-screen flex items-center justify-center overflow-hidden"
