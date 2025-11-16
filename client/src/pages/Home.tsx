@@ -525,42 +525,6 @@ export default function Home() {
             </h2>
           </div>
           <PartnerLogos />
-
-          {/* Industry Statistics - Auto-Scrolling */}
-          <div className="mt-8" data-testid="section-stats-carousel">
-            <div className="relative overflow-hidden">
-              <motion.div
-                className="flex gap-4 pointer-events-none"
-                animate={{
-                  x: prefersReducedMotion ? 0 : [-(100 * stats.length), 0],
-                }}
-                transition={{
-                  x: {
-                    duration: prefersReducedMotion ? 0 : stats.length * 8,
-                    repeat: Infinity,
-                    ease: "linear",
-                  },
-                }}
-              >
-                {duplicatedStats.map((stat, index) => (
-                  <div 
-                    key={`${stat.testId}-${index}`}
-                    className="flex-shrink-0 w-[280px] sm:w-[320px]"
-                  >
-                    <div className="text-center p-4 bg-card rounded-lg" data-testid={index < stats.length ? stat.testId : undefined}>
-                      <div className="text-3xl sm:text-4xl font-bold text-primary mb-1">{stat.value}</div>
-                      <div className="text-sm text-foreground font-medium mb-0.5">{stat.label}</div>
-                      <div className="text-xs text-muted-foreground">{stat.subtitle}</div>
-                    </div>
-                  </div>
-                ))}
-              </motion.div>
-
-              {/* Gradient overlays for fade effect */}
-              <div className="absolute top-0 left-0 w-16 h-full bg-gradient-to-r from-card/30 to-transparent pointer-events-none z-10" />
-              <div className="absolute top-0 right-0 w-16 h-full bg-gradient-to-l from-card/30 to-transparent pointer-events-none z-10" />
-            </div>
-          </div>
         </div>
       </section>
       </ScrollAnimatedSection>
