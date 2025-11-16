@@ -1,7 +1,6 @@
 import Hero from "@/components/Hero";
 import HorizontalScrollServices from "@/components/HorizontalScrollServices";
 import TabbedContent from "@/components/TabbedContent";
-import ValueTile from "@/components/ValueTile";
 import PartnerLogos from "@/components/PartnerLogos";
 import TestimonialsCarousel from "@/components/TestimonialsCarousel";
 import StatCounter from "@/components/StatCounter";
@@ -11,6 +10,7 @@ import SectionDivider from "@/components/SectionDivider";
 import ScrollAnimatedSection from "@/components/ScrollAnimatedSection";
 import TextResolver from "@/components/TextResolver";
 import GlowCard from "@/components/GlowCard";
+import ScrollValueCards from "@/components/ScrollValueCards";
 import { BarChart3, Sparkles, Globe, DollarSign, Zap, Target, Users, Briefcase, TrendingUp, AlertTriangle, MousePointerClick, LayoutGrid, BarChart2, Monitor, Database, Eye, FileText, LineChart, MapPin, Smartphone } from "lucide-react";
 import { SiGoogleads, SiMeta, SiLinkedin, SiTiktok, SiYoutube, SiX, SiReddit, SiPinterest } from "react-icons/si";
 import { motion } from "framer-motion";
@@ -431,57 +431,54 @@ export default function Home() {
       <ScrollAnimatedSection>
         <section className="py-20 px-4 sm:px-6 lg:px-8" data-testid="section-why-us">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
+          <div className="text-center mb-8">
             <h2 className="text-lg sm:text-xl md:text-2xl font-bold uppercase tracking-[0.3em] mb-4 red-glow-pulse" style={{ color: "#ff0000" }}>
               <TextResolver text="Why Choose Us" delay={0} timeout={15} iterations={2} />
             </h2>
-            <p className="text-sm text-muted-foreground hover-hint" data-testid="text-hover-hint">
-              ✨ Hover to explore our key differentiators
+            <p className="text-sm text-muted-foreground" data-testid="text-scroll-hint">
+              ⬇️ Scroll to explore our key differentiators
             </p>
           </div>
-          <div className="value-cards-hand" data-testid="container-value-cards">
-            <ValueTile
-              icon={TrendingUp}
-              title="Maximum ROI"
-              description="We've seen returns up to 14x."
-              index={0}
-            />
-            <ValueTile
-              icon={DollarSign}
-              title="Surprisingly Affordable"
-              description="Plans start at $500/mo."
-              delay={0.1}
-              index={1}
-            />
-            <ValueTile
-              icon={Zap}
-              title="Quick Turnaround"
-              description="Most updates in <24 business hours."
-              delay={0.2}
-              index={2}
-            />
-            <ValueTile
-              icon={Target}
-              title="Success Driven"
-              description="We measure everything that matters."
-              delay={0.3}
-              index={3}
-            />
-            <ValueTile
-              icon={Briefcase}
-              title="Full Service"
-              description="Web, CRM, creative—one team."
-              delay={0.4}
-              index={4}
-            />
-            <ValueTile
-              icon={Users}
-              title="Individual Focus"
-              description="Personalized strategies for your business."
-              delay={0.5}
-              index={5}
-            />
-          </div>
+          <ScrollValueCards
+            cards={[
+              {
+                icon: TrendingUp,
+                title: "Maximum ROI",
+                description: "We've seen returns up to 14x.",
+                index: 0,
+              },
+              {
+                icon: DollarSign,
+                title: "Surprisingly Affordable",
+                description: "Plans start at $500/mo.",
+                index: 1,
+              },
+              {
+                icon: Zap,
+                title: "Quick Turnaround",
+                description: "Most updates in <24 business hours.",
+                index: 2,
+              },
+              {
+                icon: Target,
+                title: "Success Driven",
+                description: "We measure everything that matters.",
+                index: 3,
+              },
+              {
+                icon: Briefcase,
+                title: "Full Service",
+                description: "Web, CRM, creative—one team.",
+                index: 4,
+              },
+              {
+                icon: Users,
+                title: "Individual Focus",
+                description: "Personalized strategies for your business.",
+                index: 5,
+              },
+            ]}
+          />
         </div>
       </section>
       </ScrollAnimatedSection>
