@@ -2850,6 +2850,10 @@
   border-radius: 24px;
 }
 
+.neumorphic-section {
+  overflow: hidden;
+}
+
 .neumorphic-section::after {
   content: '';
   position: absolute;
@@ -2858,13 +2862,11 @@
   width: 0%;
   height: 2px;
   background: hsl(var(--primary));
-  border-radius: 0 0 0 24px;
-  transition: width 1.2s ease-out, border-radius 0.3s ease-out;
+  transition: width 1.2s ease-out;
 }
 
-[data-section-visible="true"] .neumorphic-section::after {
+[data-section-completed="true"] .neumorphic-section::after {
   width: 100%;
-  border-radius: 0 0 24px 24px;
 }
 
 @media (min-width: 640px) {
