@@ -303,37 +303,67 @@ function ServiceCard({
         transformOrigin: "center center"
       }}
     >
-      <Card
-        className="w-[180px] h-[260px] rounded-2xl border-border/30 group hover-elevate active-elevate-2 cursor-pointer overflow-hidden relative"
+      <div
+        className="luminous-card w-[180px] h-[260px] rounded-2xl cursor-pointer overflow-hidden relative group"
         onClick={() => onSelect(service)}
         data-testid={`card-service-${service.id}`}
       >
         {/* Background Image */}
         <div 
-          className="absolute inset-0 bg-cover bg-center"
+          className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
           style={{
             backgroundImage: `url("${service.imageUrl}")`
           }}
         />
         
-        {/* Colored overlay matching icon color */}
+        {/* Base dark overlay */}
+        <div className="absolute inset-0 bg-black/60" />
+        
+        {/* Radial gradient for depth */}
         <div 
-          className="absolute inset-0"
+          className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
           style={{
-            background: `linear-gradient(135deg, ${service.accentColor}40 0%, rgba(0,0,0,0.6) 50%, rgba(0,0,0,0.85) 100%)`
+            background: `radial-gradient(circle at 50% 0%, ${service.accentColor}40 0%, transparent 70%)`
           }}
         />
         
-        {/* Hexagon pattern overlay */}
+        {/* Light layer - glow effect */}
+        <div className="light-layer absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+          {/* Top glow */}
+          <div 
+            className="absolute top-0 left-0 right-0 h-1/3"
+            style={{
+              background: `radial-gradient(ellipse at 50% 0%, ${service.accentColor}60 0%, transparent 70%)`,
+              filter: 'blur(20px)'
+            }}
+          />
+          {/* Side glows */}
+          <div 
+            className="absolute top-0 bottom-0 left-0 w-1/4"
+            style={{
+              background: `linear-gradient(to right, ${service.accentColor}20, transparent)`,
+              filter: 'blur(10px)'
+            }}
+          />
+          <div 
+            className="absolute top-0 bottom-0 right-0 w-1/4"
+            style={{
+              background: `linear-gradient(to left, ${service.accentColor}20, transparent)`,
+              filter: 'blur(10px)'
+            }}
+          />
+        </div>
+        
+        {/* Border glow */}
         <div 
-          className="absolute inset-0 opacity-5"
+          className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
           style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0l25.98 15v30L30 60 4.02 45V15z' fill='none' stroke='white' stroke-width='1'/%3E%3C/svg%3E")`,
-            backgroundSize: '30px 30px'
+            boxShadow: `0 0 20px ${service.accentColor}80, inset 0 0 20px ${service.accentColor}20`,
+            pointerEvents: 'none'
           }}
         />
         
-        <CardContent className="p-3 w-full h-full flex flex-col relative z-10">
+        <div className="p-3 w-full h-full flex flex-col relative z-10">
           <div className="flex flex-col text-center gap-2 flex-1">
             <div 
               className="flex-shrink-0 p-2 rounded-lg icon-glow transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3 mx-auto"
@@ -359,8 +389,8 @@ function ServiceCard({
               ))}
             </ul>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     </motion.div>
   );
 }
