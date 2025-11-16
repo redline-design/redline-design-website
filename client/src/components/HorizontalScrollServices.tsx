@@ -311,14 +311,6 @@ function ServiceCard({
           '--accent-color': service.accentColor
         } as React.CSSProperties}
       >
-        {/* Background Image */}
-        <div 
-          className="card-bg absolute inset-0 bg-cover bg-center"
-          style={{
-            backgroundImage: `url("${service.imageUrl}")`
-          }}
-        />
-        
         {/* Light Layer System - exact structure from Codepen */}
         <div className="light-layer">
           <div className="slit"></div>
@@ -336,31 +328,28 @@ function ServiceCard({
         </div>
         
         {/* Content */}
-        <div className="card-content p-3 w-full h-full flex flex-col relative z-10">
-          <div className="flex flex-col text-center gap-2 flex-1">
+        <div className="card-content p-6 w-full h-full flex flex-col items-center justify-between relative z-10">
+          {/* Icon at top center */}
+          <div className="flex-shrink-0 mt-8">
             <div 
-              className="flex-shrink-0 p-2 rounded-lg transition-transform duration-300 group-hover:scale-110 mx-auto"
+              className="w-16 h-16 rounded-full flex items-center justify-center transition-transform duration-300 group-hover:scale-110"
               style={{
-                backgroundColor: `${service.accentColor}30`
+                background: `radial-gradient(circle, ${service.accentColor}30 0%, ${service.accentColor}10 100%)`,
+                boxShadow: `0 0 20px ${service.accentColor}20`
               }}
             >
-              <service.icon className="h-5 w-5" style={{ color: service.accentColor }} data-testid={`icon-service-${service.id}`} />
+              <service.icon className="h-8 w-8" style={{ color: service.accentColor }} data-testid={`icon-service-${service.id}`} />
             </div>
-            <div>
-              <h3 className="text-xs font-semibold text-foreground mb-2 line-clamp-1" data-testid={`text-service-title-${service.id}`}>
-                {service.title}
-              </h3>
-            </div>
-            
-            {/* Bullet Points */}
-            <ul className="space-y-1.5 text-left flex-1">
-              {service.details.whatYouGet.slice(0, 2).map((item, idx) => (
-                <li key={idx} className="flex items-start gap-2 text-xs text-foreground">
-                  <span className="text-primary mt-0.5 flex-shrink-0">•</span>
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
+          </div>
+          
+          {/* Bottom section with title and description */}
+          <div className="text-center w-full">
+            <h3 className="text-sm font-semibold text-foreground mb-2" data-testid={`text-service-title-${service.id}`}>
+              {service.title}
+            </h3>
+            <p className="text-xs text-muted-foreground leading-relaxed">
+              {service.details.whatYouGet.slice(0, 2).join(' • ')}
+            </p>
           </div>
         </div>
       </div>
