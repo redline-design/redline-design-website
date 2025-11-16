@@ -329,8 +329,8 @@ function ServiceCard({
         
         {/* Content */}
         <div className="card-content p-6 w-full h-full flex flex-col items-center justify-center relative z-10">
-          {/* Icon */}
-          <div className="icon-3d absolute top-20 transition-all duration-400">
+          {/* Icon - positioned higher to add space between icon and bar */}
+          <div className="icon-3d absolute top-12 transition-all duration-400">
             <service.icon 
               className="h-12 w-12 transition-all duration-400" 
               style={{ 

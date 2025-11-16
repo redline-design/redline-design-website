@@ -1054,7 +1054,7 @@
   .luminous-card .lumen .min {
     width: 70%;
     height: 3rem;
-    background: linear-gradient(rgba(255,255,255,0), rgba(255,255,255,0.67));
+    background: linear-gradient(transparent, var(--accent-color));
     position: absolute;
     left: 0;
     right: 0;
@@ -1068,7 +1068,7 @@
   .luminous-card .lumen .mid {
     width: 74%;
     height: 13rem;
-    background: linear-gradient(rgba(255,255,255,0), rgba(255,255,255,0.67));
+    background: linear-gradient(transparent, var(--accent-color));
     position: absolute;
     left: 0;
     right: 0;
@@ -1084,7 +1084,7 @@
   .luminous-card .lumen .hi {
     width: 50%;
     height: 13rem;
-    background: linear-gradient(rgba(255,255,255,0), rgba(255,255,255,0.67));
+    background: linear-gradient(transparent, var(--accent-color));
     position: absolute;
     left: 0;
     right: 0;
