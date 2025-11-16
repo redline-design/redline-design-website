@@ -517,9 +517,9 @@ export default function Home() {
       <SectionDivider />
 
       <ScrollAnimatedSection>
-        <section id="partners" className="py-16 px-4 sm:px-6 lg:px-8" data-testid="section-partners">
+        <section id="partners" className="py-12 px-4 sm:px-6 lg:px-8" data-testid="section-partners">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
+          <div className="text-center mb-8">
             <h2 className="text-lg sm:text-xl md:text-2xl font-bold uppercase tracking-[0.3em] mb-4 red-glow-pulse" style={{ color: "#ff0000" }}>
               Some of Our Partners
             </h2>

@@ -24,7 +24,7 @@ export default function PartnerLogos() {
   ];
 
   return (
-    <div ref={ref} className="py-16 overflow-hidden" data-testid="section-partner-logos">
+    <div ref={ref} className="overflow-hidden" data-testid="section-partner-logos">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
