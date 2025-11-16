@@ -241,10 +241,10 @@ const SERVICES_DATA = [
   }
 ];
 
-const BASE_WIDTH = 130;
-const BASE_HEIGHT = 130;
-const MAX_WIDTH = 200;
-const MAX_HEIGHT = 200;
+const BASE_WIDTH = 100;
+const BASE_HEIGHT = 100;
+const MAX_WIDTH = 150;
+const MAX_HEIGHT = 150;
 
 interface ServiceCardProps {
   service: typeof SERVICES_DATA[number];
@@ -356,7 +356,7 @@ export default function HorizontalScrollServices() {
 
   return (
     <section 
-      className="pt-20 pb-12 px-4 sm:px-6 lg:px-8 relative"
+      className="pt-20 pb-12 px-4 sm:px-6 lg:px-8 relative overflow-x-auto"
       data-testid="section-services-horizontal"
     >
       <div className="max-w-7xl mx-auto">
