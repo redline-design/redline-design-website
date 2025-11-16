@@ -74,6 +74,66 @@ export default function Home() {
       color: "rgb(249, 115, 22)",
       testId: "stat-social-users" 
     },
+    { 
+      value: "93%", 
+      label: "Mobile Usage", 
+      subtitle: "access via smartphones",
+      trend: "up" as const,
+      trendValue: "15.4%",
+      graphData: [78, 82, 85, 87, 89, 91, 93],
+      color: "rgb(236, 72, 153)",
+      testId: "stat-mobile" 
+    },
+    { 
+      value: "$500B", 
+      label: "Ad Spend", 
+      subtitle: "global digital 2024",
+      trend: "up" as const,
+      trendValue: "11.2%",
+      graphData: [350, 380, 410, 440, 465, 485, 500],
+      color: "rgb(245, 158, 11)",
+      testId: "stat-ad-spend" 
+    },
+    { 
+      value: "68%", 
+      label: "SEO Traffic", 
+      subtitle: "from organic search",
+      trend: "up" as const,
+      trendValue: "9.7%",
+      graphData: [58, 60, 62, 64, 65, 67, 68],
+      color: "rgb(20, 184, 166)",
+      testId: "stat-seo" 
+    },
+    { 
+      value: "4.9", 
+      label: "Avg Rating", 
+      subtitle: "client satisfaction",
+      trend: "up" as const,
+      trendValue: "2.1%",
+      graphData: [4.5, 4.6, 4.7, 4.7, 4.8, 4.8, 4.9],
+      color: "rgb(14, 165, 233)",
+      testId: "stat-rating" 
+    },
+    { 
+      value: "89%", 
+      label: "Email ROI", 
+      subtitle: "marketers see positive",
+      trend: "up" as const,
+      trendValue: "6.3%",
+      graphData: [80, 82, 84, 85, 87, 88, 89],
+      color: "rgb(139, 92, 246)",
+      testId: "stat-email" 
+    },
+    { 
+      value: "2.5x", 
+      label: "Video Engagement", 
+      subtitle: "vs static content",
+      trend: "up" as const,
+      trendValue: "18.9%",
+      graphData: [1.5, 1.7, 1.9, 2.1, 2.2, 2.4, 2.5],
+      color: "rgb(244, 63, 94)",
+      testId: "stat-video" 
+    },
   ];
 
   // Duplicate stats for seamless infinite loop
@@ -573,13 +633,13 @@ export default function Home() {
           <div className="mt-16" data-testid="section-stats-carousel">
             <div className="relative overflow-hidden">
               <motion.div
-                className="flex gap-6 pointer-events-none"
+                className="flex gap-4 pointer-events-none"
                 animate={{
-                  x: prefersReducedMotion ? 0 : [0, -(340 * stats.length)],
+                  x: prefersReducedMotion ? 0 : [0, -(264 * stats.length)],
                 }}
                 transition={{
                   x: {
-                    duration: prefersReducedMotion ? 0 : stats.length * 10,
+                    duration: prefersReducedMotion ? 0 : stats.length * 8,
                     repeat: Infinity,
                     ease: "linear",
                   },
@@ -588,7 +648,7 @@ export default function Home() {
                 {duplicatedStats.map((stat, index) => (
                   <div 
                     key={`${stat.testId}-${index}`}
-                    className="flex-shrink-0 w-[280px] sm:w-[320px]"
+                    className="flex-shrink-0 w-[240px] sm:w-[260px]"
                   >
                     <StatCardWithGraph
                       value={stat.value}

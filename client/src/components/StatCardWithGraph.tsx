@@ -39,25 +39,25 @@ export default function StatCardWithGraph({
       data-testid={testId}
     >
       {/* Content */}
-      <div className="px-6 pt-8 pb-24 text-center relative z-10">
-        <h4 className="text-sm uppercase text-muted-foreground tracking-wide mb-2">
+      <div className="px-4 pt-4 pb-10 text-center relative z-10">
+        <h4 className="text-xs uppercase text-muted-foreground tracking-wide mb-1">
           {label}
         </h4>
-        <h3 className="text-4xl font-bold text-foreground my-3">
+        <h3 className="text-2xl font-bold text-foreground my-1">
           {value}
         </h3>
         <p 
-          className="text-sm font-semibold flex items-center justify-center gap-1"
+          className="text-xs font-semibold flex items-center justify-center gap-1"
           style={{ color }}
         >
           <span>{trend === "up" ? "▲" : "▼"}</span>
           <span>{trendValue}</span>
         </p>
-        <p className="text-xs text-muted-foreground mt-1">{subtitle}</p>
+        <p className="text-xs text-muted-foreground mt-0.5">{subtitle}</p>
       </div>
 
       {/* Mini Graph */}
-      <div className="absolute bottom-0 inset-x-0 h-20">
+      <div className="absolute bottom-0 inset-x-0 h-12">
         <svg
           viewBox="0 0 100 100"
           preserveAspectRatio="none"
