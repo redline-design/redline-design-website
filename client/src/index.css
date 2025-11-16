@@ -927,6 +927,7 @@
     perspective: 1200px;
     perspective-origin: center center;
     min-height: 450px;
+    padding-bottom: 3rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -935,11 +936,13 @@
   }
 
   .services-3d-circle-container.expanded {
-    perspective: 1800px;
+    perspective: 2000px;
+    min-height: 500px;
   }
 
   .services-3d-circle-container.collapsed {
     min-height: 320px;
+    padding-bottom: 0;
   }
 
   .services-circle-wrapper {

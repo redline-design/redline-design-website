@@ -345,7 +345,7 @@ export default function HorizontalScrollServices() {
               const totalServices = services.length;
               const anglePerCard = 360 / totalServices;
               const angle = anglePerCard * index;
-              const radius = isCardHovered ? 400 : 0; // Circle radius - 0 when collapsed
+              const radius = isCardHovered ? 500 : 0; // Circle radius - 0 when collapsed (increased for more spacing)
               
               return (
                 <motion.div
@@ -424,7 +424,7 @@ export default function HorizontalScrollServices() {
           {/* Progress Indicator - only show when cards are visible */}
           {isCardHovered && (
             <motion.div 
-              className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5"
+              className="absolute -bottom-8 left-1/2 -translate-x-1/2 flex gap-1.5"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 10 }}
