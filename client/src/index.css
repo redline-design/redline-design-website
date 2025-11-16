@@ -2563,8 +2563,9 @@
 .slider-carousel-nav-items {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 20px;
   font-family: system-ui, -apple-system, sans-serif;
+  flex-wrap: wrap;
 }
 
 .slider-carousel-nav-item {
@@ -2572,14 +2573,16 @@
   align-items: center;
   gap: 10px;
   transition: all 0.3s ease;
+  opacity: 0.4;
+  cursor: pointer;
 }
 
 .slider-carousel-nav-item.active {
   opacity: 1;
 }
 
-.slider-carousel-nav-item.next {
-  opacity: 0.5;
+.slider-carousel-nav-item:hover {
+  opacity: 0.8;
 }
 
 .slider-carousel-nav-number {
@@ -2613,11 +2616,14 @@
   letter-spacing: 0.5px;
 }
 
-.slider-carousel-nav-divider {
-  font-size: 16px;
-  font-weight: 300;
-  color: rgba(255, 255, 255, 0.4);
-  margin: 0 4px;
+@media (max-width: 1024px) {
+  .slider-carousel-nav-title {
+    font-size: 12px;
+  }
+  
+  .slider-carousel-nav-items {
+    gap: 12px;
+  }
 }
 
 @media (max-width: 768px) {
