@@ -211,13 +211,6 @@ export default function SocialMediaPage() {
           transition={{ duration: 0.5 }}
           className="max-w-7xl mx-auto text-center mt-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-6" data-testid="text-platforms-heading">
-            Platforms We Master
-          </h2>
-          <p className="text-lg text-muted-foreground mb-12" data-testid="text-platforms-description">
-            We create engaging content and manage campaigns across all major social platforms
-          </p>
-          
           <div className="flex justify-center w-full px-4">
             <div 
               className="relative flex flex-nowrap items-end justify-center gap-2 sm:gap-3 md:gap-4 px-4 sm:px-6 py-4 rounded-2xl max-w-full"
