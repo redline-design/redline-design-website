@@ -304,7 +304,7 @@ function ServiceCard({
       }}
     >
       <div
-        className="luminous-card w-[160px] h-[230px] cursor-pointer relative group"
+        className="luminous-card w-[160px] h-[200px] cursor-pointer relative group"
         onClick={() => onSelect(service)}
         data-testid={`card-service-${service.id}`}
         style={{

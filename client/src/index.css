@@ -1018,7 +1018,7 @@
     position: absolute;
     left: 0;
     right: 0;
-    top: 60%;
+    top: 65%;
     bottom: auto;
     margin: auto;
     width: 64%;
@@ -1053,12 +1053,12 @@
 
   .luminous-card .lumen .min {
     width: 70%;
-    height: 8rem;
+    height: 7rem;
     background: linear-gradient(to bottom, transparent 0%, var(--accent-color) 100%);
     position: absolute;
     left: 0;
     right: 0;
-    top: 60%;
+    top: 65%;
     transform: translateY(-100%) rotateX(-42deg);
     opacity: 0.5;
     filter: blur(0.5rem);
@@ -1066,13 +1066,13 @@
 
   .luminous-card .lumen .mid {
     width: 80%;
-    height: 14rem;
+    height: 12rem;
     background: linear-gradient(to bottom, transparent 0%, var(--accent-color) 100%);
     position: absolute;
     left: 0;
     right: 0;
     margin: auto;
-    top: 60%;
+    top: 65%;
     transform: translateY(-100%) rotateX(-38deg);
     filter: blur(1.5rem);
     opacity: 0.6;
@@ -1081,13 +1081,13 @@
 
   .luminous-card .lumen .hi {
     width: 60%;
-    height: 18rem;
+    height: 15rem;
     background: linear-gradient(to bottom, transparent 0%, var(--accent-color) 100%);
     position: absolute;
     left: 0;
     right: 0;
     margin: auto;
-    top: 60%;
+    top: 65%;
     transform: translateY(-100%) rotateX(-30deg);
     filter: blur(2rem);
     opacity: 0.4;
