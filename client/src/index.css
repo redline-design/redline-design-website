@@ -2849,8 +2849,7 @@
   margin-right: auto;
   border-radius: 24px;
   overflow: hidden;
-  max-width: calc(80rem + 2rem);
-  width: fit-content;
+  max-width: calc(80rem + 4rem);
 }
 
 .neumorphic-section::after {
@@ -2870,19 +2869,13 @@
 
 @media (min-width: 640px) {
   .neumorphic-section {
-    max-width: calc(80rem + 3rem);
+    max-width: calc(80rem + 6rem);
   }
 }
 
 @media (min-width: 1024px) {
   .neumorphic-section {
-    max-width: calc(80rem + 4rem);
-  }
-}
-
-@media (min-width: 1280px) {
-  .neumorphic-section {
-    max-width: calc(80rem + 4rem);
+    max-width: calc(80rem + 8rem);
   }
 }
 
