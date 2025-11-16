@@ -199,7 +199,7 @@ export default function SocialMediaPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="max-w-4xl mx-auto text-center mb-16"
+            className="max-w-7xl mx-auto text-center mb-16"
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-6" data-testid="text-platforms-heading">
               Platforms We Master
@@ -208,9 +208,9 @@ export default function SocialMediaPage() {
               We create engaging content and manage campaigns across all major social platforms
             </p>
             
-            <div className="flex justify-center overflow-x-auto">
+            <div className="flex justify-center">
               <div 
-                className="relative inline-flex items-end justify-center gap-4 px-6 py-4 rounded-2xl"
+                className="relative inline-flex items-end justify-center gap-2 sm:gap-3 md:gap-4 px-4 sm:px-6 py-4 rounded-2xl"
                 style={{
                   background: 'rgba(255, 255, 255, 0.03)',
                   backdropFilter: 'blur(20px)',
@@ -227,8 +227,7 @@ export default function SocialMediaPage() {
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.3, delay: index * 0.05 }}
-                    className="flex-shrink-0"
-                    style={{ width: '100px', height: '100px' }}
+                    className="flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28"
                     data-testid={`platform-card-${platform.name.toLowerCase().replace(/\s+/g, '-')}`}
                   >
                     <div
@@ -254,16 +253,14 @@ export default function SocialMediaPage() {
                         {/* 3D Icon with filled circle and cutout */}
                         <div className="icon-3d-container transition-all duration-400">
                           <div 
-                            className="icon-circle-filled"
+                            className="icon-circle-filled w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 lg:w-[4.5rem] lg:h-[4.5rem]"
                             style={{
                               '--icon-color': platform.color,
-                              backgroundColor: platform.color,
-                              width: '4.5rem',
-                              height: '4.5rem'
+                              backgroundColor: platform.color
                             } as React.CSSProperties}
                           >
                             <platform.icon 
-                              className="icon-cutout h-8 w-8" 
+                              className="icon-cutout w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 lg:w-8 lg:h-8" 
                               style={{ 
                                 color: '#1a1a1a'
                               }} 
