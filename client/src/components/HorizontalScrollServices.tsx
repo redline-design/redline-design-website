@@ -424,7 +424,7 @@ export default function HorizontalScrollServices() {
           {/* Progress Indicator - only show when cards are visible */}
           {isCardHovered && (
             <motion.div 
-              className="absolute -bottom-8 left-1/2 -translate-x-1/2 flex gap-1.5"
+              className="absolute -bottom-8 left-1/2 -translate-x-1/2 flex gap-1.5 justify-center items-center"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 10 }}
