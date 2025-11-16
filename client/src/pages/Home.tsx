@@ -431,8 +431,8 @@ export default function Home() {
       <ScrollAnimatedSection>
         <section className="py-20 px-4 sm:px-6 lg:px-8" data-testid="section-why-us">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-8">
-            <h2 className="text-lg sm:text-xl md:text-2xl font-bold uppercase tracking-[0.3em] mb-4 red-glow-pulse" style={{ color: "#ff0000" }}>
+          <div className="text-center mb-4">
+            <h2 className="text-lg sm:text-xl md:text-2xl font-bold uppercase tracking-[0.3em] red-glow-pulse" style={{ color: "#ff0000" }}>
               <TextResolver text="Why Choose Us" delay={0} timeout={15} iterations={2} />
             </h2>
           </div>

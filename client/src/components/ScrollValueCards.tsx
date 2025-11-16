@@ -27,14 +27,10 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
   // Transform scroll progress to spread amount (0 = stacked, 1 = spread)
   const spreadProgress = useTransform(scrollYProgress, [0, 1], [0, 1]);
 
-  // Calculate positions for each card when spread out
+  // Calculate positions for each card when spread out - single row
   const getSpreadPosition = (index: number, total: number) => {
-    const cardsPerRow = Math.min(3, total);
-    const row = Math.floor(index / cardsPerRow);
-    const col = index % cardsPerRow;
-    const xOffset = (col - (cardsPerRow - 1) / 2) * 200; // 200px spacing
-    const yOffset = row * 240; // 240px row spacing
-    return { x: xOffset, y: yOffset };
+    const xOffset = (index - (total - 1) / 2) * 200; // 200px spacing, centered
+    return { x: xOffset, y: 0 };
   };
 
   return (
@@ -43,14 +39,13 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
         className="relative mx-auto"
         style={{
           width: "100%",
-          minHeight: "350px",
+          minHeight: "280px",
           display: "flex",
           justifyContent: "center",
           alignItems: "flex-start",
-          paddingTop: "2rem",
         }}
       >
-        <div className="relative" style={{ width: "600px", height: "400px" }}>
+        <div className="relative" style={{ width: "100%", maxWidth: "1200px", height: "250px" }}>
           {cards.map((card, idx) => {
             const Icon = card.icon;
             const spreadPos = getSpreadPosition(idx, cards.length);
