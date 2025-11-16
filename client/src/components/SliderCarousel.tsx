@@ -72,6 +72,21 @@ export function SliderCarousel({ slides }: SliderCarouselProps) {
           }}
           data-testid={`slide-${getSlideAtPosition(1).id}-active`}
         >
+          {/* Top Navigation Bar */}
+          <div className="slider-carousel-nav-bar" data-testid="slider-nav-bar">
+            <div className="slider-carousel-nav-items">
+              <div className="slider-carousel-nav-item active" data-testid="nav-item-current">
+                <span className="slider-carousel-nav-number">{currentIndex + 1}</span>
+                <span className="slider-carousel-nav-title">{getSlideAtPosition(1).title}</span>
+              </div>
+              <div className="slider-carousel-nav-divider">/</div>
+              <div className="slider-carousel-nav-item next" data-testid="nav-item-next">
+                <span className="slider-carousel-nav-number">{((currentIndex + 1) % slides.length) + 1}</span>
+                <span className="slider-carousel-nav-title">{getSlideAtPosition(2).title}</span>
+              </div>
+            </div>
+          </div>
+          
           <div className="slider-carousel-content">
             <AnimatePresence mode="wait">
               <motion.div
