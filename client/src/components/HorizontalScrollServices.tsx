@@ -383,20 +383,20 @@ export default function HorizontalScrollServices() {
                   <div className="service-card-inner">
                     <div className="flex-1 flex flex-col items-center">
                       <div
-                        className="flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center mx-auto mb-1.5"
+                        className="flex-shrink-0 w-12 h-12 rounded-lg flex items-center justify-center mx-auto mb-2"
                         style={{
                           backgroundColor: `${service.accentColor}20`,
                           color: service.accentColor
                         }}
                       >
-                        <service.icon className="w-5 h-5" />
+                        <service.icon className="w-6 h-6" />
                       </div>
-                      <h3 className="service-card-title text-[11px] font-semibold text-foreground text-center leading-tight mb-1.5">
+                      <h3 className="service-card-title text-sm font-semibold text-foreground text-center leading-tight mb-2">
                         {service.title}
                       </h3>
-                      <ul className="service-card-bullets text-[9px] text-muted-foreground space-y-0.5 mb-2">
+                      <ul className="service-card-bullets text-[10px] text-muted-foreground space-y-1 mb-2">
                         {service.details.whatYouGet.slice(0, 3).map((item, idx) => (
-                          <li key={idx} className="flex items-start gap-1">
+                          <li key={idx} className="flex items-start gap-1.5">
                             <span className="text-primary mt-0.5">•</span>
                             <span className="line-clamp-1">{item}</span>
                           </li>
@@ -405,7 +405,7 @@ export default function HorizontalScrollServices() {
                     </div>
                     <Button
                       size="sm"
-                      className="w-full text-[10px] h-6 bg-primary text-primary-foreground hover:bg-primary/90 gap-1"
+                      className="w-full text-xs h-7 bg-primary text-primary-foreground hover:bg-primary/90 gap-1.5"
                       onClick={(e) => {
                         e.stopPropagation();
                         setSelectedService(service);
@@ -413,13 +413,44 @@ export default function HorizontalScrollServices() {
                       data-testid={`button-learn-more-${service.id}`}
                     >
                       Details
-                      <ArrowRight className="w-3 h-3" />
+                      <ArrowRight className="w-3.5 h-3.5" />
                     </Button>
                   </div>
                 </motion.div>
               );
             })}
           </div>
+
+          {/* Progress Indicator - only show when cards are visible */}
+          {isCardHovered && (
+            <motion.div 
+              className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 10 }}
+              transition={{ duration: 0.3, delay: 0.4 }}
+              data-testid="indicator-progress"
+            >
+              {services.map((_, index) => {
+                const anglePerCard = 360 / services.length;
+                const normalizedRotation = ((rotation % 360) + 360) % 360;
+                const currentIndex = Math.round(normalizedRotation / anglePerCard) % services.length;
+                const isActive = index === currentIndex;
+                
+                return (
+                  <div
+                    key={index}
+                    className="w-1.5 h-1.5 rounded-full transition-all duration-300"
+                    style={{
+                      backgroundColor: isActive ? '#ff0000' : 'hsl(var(--muted-foreground) / 0.3)',
+                      transform: isActive ? 'scale(1.3)' : 'scale(1)',
+                      boxShadow: isActive ? '0 0 8px rgba(255, 0, 0, 0.6)' : 'none'
+                    }}
+                  />
+                );
+              })}
+            </motion.div>
+          )}
         </div>
       </div>
 
