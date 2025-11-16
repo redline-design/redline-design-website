@@ -2640,48 +2640,38 @@
   }
 }
 
-/* CodePen Hover Bubble Cards - Exact Implementation */
+/* CodePen Hover Bubble Cards - EXACT CodePen CSS */
 .solution_card {
   background: #fff;
   box-shadow: 0 2px 4px 0 rgba(136, 144, 195, 0.2),
     0 5px 15px 0 rgba(37, 44, 97, 0.15);
   border-radius: 15px;
   margin: 8px;
-  padding: 25px;
+  padding: 10px 15px;
   position: relative;
   z-index: 1;
-  overflow: hidden;
-  transition: 0.3s;
-  min-height: 200px;
-}
-
-.solution_card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 4px 8px 0 rgba(136, 144, 195, 0.3),
-    0 10px 25px 0 rgba(37, 44, 97, 0.2);
 }
 
 .hover_color_bubble {
   position: absolute;
   background: radial-gradient(
     circle,
-    rgba(59, 130, 246, 0.5) 0%,
-    rgba(59, 130, 246, 0) 70%
+    rgba(247, 112, 98, 1) 0%,
+    rgba(254, 81, 150, 1) 100%
   );
-  width: 0;
-  height: 0;
-  left: 0;
+  width: 0rem;
+  height: 0rem;
   top: 0;
+  left: 0;
   transition: 0.5s;
-  z-index: 0;
-  border-radius: 50%;
+  opacity: 0;
+  z-index: -1;
 }
 
 .solution_card:hover .hover_color_bubble {
   width: 25rem;
   height: 25rem;
-  top: -75px;
-  left: -75px;
+  opacity: 0.3;
 }
 
 .solution_card .card_content {
@@ -2690,15 +2680,15 @@
 }
 
 .solution_card .icon_container {
-  width: 70px;
-  height: 70px;
-  background: linear-gradient(135deg, rgb(59, 130, 246) 0%, rgb(37, 99, 235) 100%);
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, rgb(247, 112, 98) 0%, rgb(254, 81, 150) 100%);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 20px;
-  box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
+  margin-bottom: 15px;
+  box-shadow: 0 5px 15px rgba(247, 112, 98, 0.3);
   transition: 0.3s;
 }
 
