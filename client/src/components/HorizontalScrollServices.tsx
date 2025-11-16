@@ -377,7 +377,7 @@ export default function HorizontalScrollServices() {
       data-testid="section-services-horizontal"
     >
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
+        <div className="text-center mb-8">
           <h2 className="text-lg sm:text-xl md:text-2xl font-bold uppercase tracking-[0.3em] mb-4 red-glow-pulse" style={{ color: "#ff0000" }}>
             What We Do
           </h2>
@@ -387,7 +387,7 @@ export default function HorizontalScrollServices() {
         </div>
 
         {/* Scroll-Based Cards Layout */}
-        <div className="relative min-h-[520px] flex items-start justify-center pt-8" data-testid="container-service-cards">
+        <div className="relative min-h-[520px] flex items-start justify-center pt-4" data-testid="container-service-cards">
           {SERVICES_DATA.map((service, index) => (
             <ServiceCard
               key={service.id}
