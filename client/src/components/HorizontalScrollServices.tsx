@@ -293,7 +293,7 @@ function ServiceCard({
       }}
     >
       <Card
-        className="w-[180px] h-[260px] rounded-2xl backdrop-blur-md bg-card/40 border-white/10 group hover-elevate active-elevate-2 cursor-pointer"
+        className="w-[180px] h-[260px] rounded-2xl backdrop-blur-md bg-card/90 border-border/30 group hover-elevate active-elevate-2 cursor-pointer"
         onClick={() => onSelect(service)}
         data-testid={`card-service-${service.id}`}
       >
