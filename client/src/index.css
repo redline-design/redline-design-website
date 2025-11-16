@@ -1788,3 +1788,52 @@
     background: rgba(255, 0, 0, 1) !important;
   }
 }
+
+/* Glow Card Effect - Mouse-tracking spotlight */
+.glow-card {
+  position: relative;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.glow-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background-image: radial-gradient(
+    600px 600px at
+    calc((var(--x, 0) - var(--left, 0)) * 1px)
+    calc((var(--y, 0) - var(--top, 0)) * 1px),
+    rgba(255, 0, 0, var(--glow-opacity, 0)) 0%,
+    transparent 60%
+  );
+  pointer-events: none;
+  z-index: 1;
+  transition: opacity 0.3s ease;
+}
+
+.glow-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background-image: radial-gradient(
+    300px 300px at
+    calc((var(--x, 0) - var(--left, 0)) * 1px)
+    calc((var(--y, 0) - var(--top, 0)) * 1px),
+    rgba(255, 255, 255, calc(var(--glow-opacity, 0) * 0.5)) 0%,
+    transparent 50%
+  );
+  pointer-events: none;
+  z-index: 1;
+  transition: opacity 0.3s ease;
+}
+
+.glow-card > * {
+  position: relative;
+  z-index: 2;
+}

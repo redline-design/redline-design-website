@@ -10,6 +10,7 @@ import StickyConversionBar from "@/components/StickyConversionBar";
 import SectionDivider from "@/components/SectionDivider";
 import ScrollAnimatedSection from "@/components/ScrollAnimatedSection";
 import TextResolver from "@/components/TextResolver";
+import GlowCard from "@/components/GlowCard";
 import { BarChart3, Sparkles, Globe, DollarSign, Zap, Target, Users, Briefcase, TrendingUp, AlertTriangle, MousePointerClick, LayoutGrid, BarChart2, Monitor, Database, Eye, FileText, LineChart, MapPin, Smartphone } from "lucide-react";
 import { SiGoogleads, SiMeta, SiLinkedin, SiTiktok, SiYoutube, SiX, SiReddit, SiPinterest } from "react-icons/si";
 import { motion } from "framer-motion";
@@ -290,8 +291,8 @@ export default function Home() {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div 
-              className="bg-card rounded-xl p-6 cursor-pointer hover-elevate active-elevate-2" 
+            <GlowCard 
+              className="bg-card/50 rounded-xl p-6 cursor-pointer" 
               data-testid="card-challenge-visibility"
             >
               <div className="flex items-start gap-4">
@@ -303,10 +304,10 @@ export default function Home() {
                   <p className="text-sm text-muted-foreground">Struggling to get found online while watching ad costs skyrocket? We optimize your presence for maximum visibility at minimal cost.</p>
                 </div>
               </div>
-            </div>
+            </GlowCard>
 
-            <div 
-              className="bg-card rounded-xl p-6 cursor-pointer hover-elevate active-elevate-2" 
+            <GlowCard 
+              className="bg-card/50 rounded-xl p-6 cursor-pointer" 
               data-testid="card-challenge-conversion"
             >
               <div className="flex items-start gap-4">
@@ -318,10 +319,10 @@ export default function Home() {
                   <p className="text-sm text-muted-foreground">Traffic without conversions is just noise. We design and optimize for one thing: turning visitors into customers.</p>
                 </div>
               </div>
-            </div>
+            </GlowCard>
 
-            <div 
-              className="bg-card rounded-xl p-6 cursor-pointer hover-elevate active-elevate-2" 
+            <GlowCard 
+              className="bg-card/50 rounded-xl p-6 cursor-pointer" 
               data-testid="card-challenge-fragmented"
             >
               <div className="flex items-start gap-4">
@@ -333,10 +334,10 @@ export default function Home() {
                   <p className="text-sm text-muted-foreground">Juggling multiple agencies and tools that don't talk to each other? We unify your marketing under one roof.</p>
                 </div>
               </div>
-            </div>
+            </GlowCard>
 
-            <div 
-              className="bg-card rounded-xl p-6 cursor-pointer hover-elevate active-elevate-2" 
+            <GlowCard 
+              className="bg-card/50 rounded-xl p-6 cursor-pointer" 
               data-testid="card-challenge-tracking"
             >
               <div className="flex items-start gap-4">
@@ -348,10 +349,10 @@ export default function Home() {
                   <p className="text-sm text-muted-foreground">Can't measure what's working? Our transparent analytics show you exactly where every dollar goes and what it returns.</p>
                 </div>
               </div>
-            </div>
+            </GlowCard>
 
-            <div 
-              className="bg-card rounded-xl p-6 cursor-pointer hover-elevate active-elevate-2" 
+            <GlowCard 
+              className="bg-card/50 rounded-xl p-6 cursor-pointer" 
               data-testid="card-challenge-outdated"
             >
               <div className="flex items-start gap-4">
@@ -363,10 +364,10 @@ export default function Home() {
                   <p className="text-sm text-muted-foreground">Your website should be your best salesperson. We build modern, fast, conversion-focused sites that work 24/7.</p>
                 </div>
               </div>
-            </div>
+            </GlowCard>
 
-            <div 
-              className="bg-card rounded-xl p-6 cursor-pointer hover-elevate active-elevate-2" 
+            <GlowCard 
+              className="bg-card/50 rounded-xl p-6 cursor-pointer" 
               data-testid="card-challenge-crm"
             >
               <div className="flex items-start gap-4">
@@ -378,10 +379,10 @@ export default function Home() {
                   <p className="text-sm text-muted-foreground">Leads slipping through the cracks? We set up and optimize your CRM so no opportunity is ever missed.</p>
                 </div>
               </div>
-            </div>
+            </GlowCard>
 
-            <div 
-              className="bg-card rounded-xl p-6 cursor-pointer md:col-span-2 lg:col-span-3 hover-elevate active-elevate-2" 
+            <GlowCard 
+              className="bg-card/50 rounded-xl p-6 cursor-pointer md:col-span-2 lg:col-span-3" 
               data-testid="card-challenge-fatigue"
             >
               <div className="flex items-start gap-4">
@@ -393,7 +394,7 @@ export default function Home() {
                   <p className="text-sm text-muted-foreground">Burning through ad budgets with diminishing returns? Our data-driven approach ensures every campaign stays fresh and effective.</p>
                 </div>
               </div>
-            </div>
+            </GlowCard>
           </div>
         </div>
       </section>
