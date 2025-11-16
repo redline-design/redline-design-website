@@ -532,7 +532,7 @@ export default function Home() {
               <motion.div
                 className="flex gap-4 pointer-events-none"
                 animate={{
-                  x: prefersReducedMotion ? 0 : [0, 100 * stats.length],
+                  x: prefersReducedMotion ? 0 : [-(100 * stats.length), 0],
                 }}
                 transition={{
                   x: {
