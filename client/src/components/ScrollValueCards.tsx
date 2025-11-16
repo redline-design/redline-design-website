@@ -38,15 +38,16 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
   };
 
   return (
-    <div ref={containerRef} className="relative py-12" data-testid="container-value-cards">
+    <div ref={containerRef} className="relative" data-testid="container-value-cards">
       <div 
         className="relative mx-auto"
         style={{
           width: "100%",
-          minHeight: "500px",
+          minHeight: "350px",
           display: "flex",
           justifyContent: "center",
-          alignItems: "center",
+          alignItems: "flex-start",
+          paddingTop: "2rem",
         }}
       >
         <div className="relative" style={{ width: "600px", height: "400px" }}>

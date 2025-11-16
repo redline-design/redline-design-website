@@ -435,9 +435,6 @@ export default function Home() {
             <h2 className="text-lg sm:text-xl md:text-2xl font-bold uppercase tracking-[0.3em] mb-4 red-glow-pulse" style={{ color: "#ff0000" }}>
               <TextResolver text="Why Choose Us" delay={0} timeout={15} iterations={2} />
             </h2>
-            <p className="text-sm text-muted-foreground" data-testid="text-scroll-hint">
-              ⬇️ Scroll to explore our key differentiators
-            </p>
           </div>
           <ScrollValueCards
             cards={[
