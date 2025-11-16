@@ -203,109 +203,103 @@ export default function SocialMediaPage() {
             </div>
           </motion.div>
         </div>
-      </div>
-      </ScrollAnimatedSection>
 
-      <SectionDivider />
-
-      <ScrollAnimatedSection>
-        <div className="container mx-auto px-4 py-16 md:py-24">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="max-w-7xl mx-auto text-center mb-16"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold mb-6" data-testid="text-platforms-heading">
-              Platforms We Master
-            </h2>
-            <p className="text-lg text-muted-foreground mb-12" data-testid="text-platforms-description">
-              We create engaging content and manage campaigns across all major social platforms
-            </p>
-            
-            <div className="flex justify-center w-full px-4">
-              <div 
-                className="relative flex flex-nowrap items-end justify-center gap-2 sm:gap-3 md:gap-4 px-4 sm:px-6 py-4 rounded-2xl max-w-full"
-                style={{
-                  background: 'rgba(255, 255, 255, 0.03)',
-                  backdropFilter: 'blur(20px)',
-                  WebkitBackdropFilter: 'blur(20px)',
-                  border: '1px solid rgba(255, 255, 255, 0.1)',
-                  boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.37)'
-                }}
-                data-testid="platforms-grid"
-              >
-                {platforms.map((platform, index) => (
-                  <motion.div
-                    key={platform.name}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.3, delay: index * 0.05 }}
-                    className="flex-shrink min-w-0"
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="max-w-7xl mx-auto text-center mt-16"
+        >
+          <h2 className="text-3xl md:text-4xl font-bold mb-6" data-testid="text-platforms-heading">
+            Platforms We Master
+          </h2>
+          <p className="text-lg text-muted-foreground mb-12" data-testid="text-platforms-description">
+            We create engaging content and manage campaigns across all major social platforms
+          </p>
+          
+          <div className="flex justify-center w-full px-4">
+            <div 
+              className="relative flex flex-nowrap items-end justify-center gap-2 sm:gap-3 md:gap-4 px-4 sm:px-6 py-4 rounded-2xl max-w-full"
+              style={{
+                background: 'rgba(255, 255, 255, 0.03)',
+                backdropFilter: 'blur(20px)',
+                WebkitBackdropFilter: 'blur(20px)',
+                border: '1px solid rgba(255, 255, 255, 0.1)',
+                boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.37)'
+              }}
+              data-testid="platforms-grid"
+            >
+              {platforms.map((platform, index) => (
+                <motion.div
+                  key={platform.name}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.3, delay: index * 0.05 }}
+                  className="flex-shrink min-w-0"
+                  style={{
+                    width: 'clamp(4rem, 7vw, 7rem)',
+                    height: 'clamp(4rem, 7vw, 7rem)'
+                  }}
+                  data-testid={`platform-card-${platform.name.toLowerCase().replace(/\s+/g, '-')}`}
+                >
+                  <div
+                    className="luminous-card relative group h-full"
                     style={{
-                      width: 'clamp(4rem, 7vw, 7rem)',
-                      height: 'clamp(4rem, 7vw, 7rem)'
-                    }}
-                    data-testid={`platform-card-${platform.name.toLowerCase().replace(/\s+/g, '-')}`}
+                      '--accent-color': platform.color
+                    } as React.CSSProperties}
                   >
-                    <div
-                      className="luminous-card relative group h-full"
-                      style={{
-                        '--accent-color': platform.color
-                      } as React.CSSProperties}
-                    >
-                      {/* Luminous card layers */}
-                      <div className="luminous-layers">
-                        {/* Hexagon Pattern Overlay */}
-                        <div className="hex-pattern-overlay"></div>
-                        
-                        {/* Light layers */}
-                        <div className="light-layers">
-                          <div className="srl"></div>
-                          <div className="srt"></div>
-                        </div>
-                      </div>
+                    {/* Luminous card layers */}
+                    <div className="luminous-layers">
+                      {/* Hexagon Pattern Overlay */}
+                      <div className="hex-pattern-overlay"></div>
                       
-                      {/* Content */}
-                      <div className="card-content py-0 px-2 w-full h-full flex flex-col items-center justify-center relative z-10">
-                        {/* 3D Icon with filled circle and cutout */}
-                        <div className="icon-3d-container transition-all duration-400">
-                          <div 
-                            className="icon-circle-filled"
-                            style={{
-                              '--icon-color': platform.color,
-                              backgroundColor: platform.color,
-                              width: 'clamp(2.5rem, 5vw, 4.5rem)',
-                              height: 'clamp(2.5rem, 5vw, 4.5rem)'
-                            } as React.CSSProperties}
-                          >
-                            <platform.icon 
-                              className="icon-cutout"
-                              style={{ 
-                                color: '#1a1a1a',
-                                width: 'clamp(1.25rem, 2.5vw, 2rem)',
-                                height: 'clamp(1.25rem, 2.5vw, 2rem)'
-                              }} 
-                            />
-                          </div>
-                        </div>
-                      </div>
-                      
-                      {/* Title as chat bubble above card - hidden by default, shown on hover */}
-                      <div className="service-title-bubble">
-                        <span className="text-xs font-bold tracking-tight whitespace-nowrap uppercase">
-                          {platform.name}
-                        </span>
+                      {/* Light layers */}
+                      <div className="light-layers">
+                        <div className="srl"></div>
+                        <div className="srt"></div>
                       </div>
                     </div>
-                  </motion.div>
-                ))}
-              </div>
+                    
+                    {/* Content */}
+                    <div className="card-content py-0 px-2 w-full h-full flex flex-col items-center justify-center relative z-10">
+                      {/* 3D Icon with filled circle and cutout */}
+                      <div className="icon-3d-container transition-all duration-400">
+                        <div 
+                          className="icon-circle-filled"
+                          style={{
+                            '--icon-color': platform.color,
+                            backgroundColor: platform.color,
+                            width: 'clamp(2.5rem, 5vw, 4.5rem)',
+                            height: 'clamp(2.5rem, 5vw, 4.5rem)'
+                          } as React.CSSProperties}
+                        >
+                          <platform.icon 
+                            className="icon-cutout"
+                            style={{ 
+                              color: '#1a1a1a',
+                              width: 'clamp(1.25rem, 2.5vw, 2rem)',
+                              height: 'clamp(1.25rem, 2.5vw, 2rem)'
+                            }} 
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    
+                    {/* Title as chat bubble above card - hidden by default, shown on hover */}
+                    <div className="service-title-bubble">
+                      <span className="text-xs font-bold tracking-tight whitespace-nowrap uppercase">
+                        {platform.name}
+                      </span>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
             </div>
-          </motion.div>
-        </div>
+          </div>
+        </motion.div>
+      </div>
       </ScrollAnimatedSection>
 
       <SectionDivider />
