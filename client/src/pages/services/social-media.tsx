@@ -228,9 +228,9 @@ export default function SocialMediaPage() {
               We create engaging content and manage campaigns across all major social platforms
             </p>
             
-            <div className="flex justify-center overflow-x-auto">
+            <div className="flex justify-center w-full px-4">
               <div 
-                className="relative inline-flex flex-nowrap items-end justify-center gap-2 sm:gap-3 md:gap-4 px-4 sm:px-6 py-4 rounded-2xl"
+                className="relative flex flex-nowrap items-end justify-center gap-2 sm:gap-3 md:gap-4 px-4 sm:px-6 py-4 rounded-2xl max-w-full"
                 style={{
                   background: 'rgba(255, 255, 255, 0.03)',
                   backdropFilter: 'blur(20px)',
@@ -247,7 +247,11 @@ export default function SocialMediaPage() {
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.3, delay: index * 0.05 }}
-                    className="flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28"
+                    className="flex-shrink min-w-0"
+                    style={{
+                      width: 'clamp(4rem, 7vw, 7rem)',
+                      height: 'clamp(4rem, 7vw, 7rem)'
+                    }}
                     data-testid={`platform-card-${platform.name.toLowerCase().replace(/\s+/g, '-')}`}
                   >
                     <div
@@ -273,16 +277,20 @@ export default function SocialMediaPage() {
                         {/* 3D Icon with filled circle and cutout */}
                         <div className="icon-3d-container transition-all duration-400">
                           <div 
-                            className="icon-circle-filled w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 lg:w-[4.5rem] lg:h-[4.5rem]"
+                            className="icon-circle-filled"
                             style={{
                               '--icon-color': platform.color,
-                              backgroundColor: platform.color
+                              backgroundColor: platform.color,
+                              width: 'clamp(2.5rem, 5vw, 4.5rem)',
+                              height: 'clamp(2.5rem, 5vw, 4.5rem)'
                             } as React.CSSProperties}
                           >
                             <platform.icon 
-                              className="icon-cutout w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 lg:w-8 lg:h-8" 
+                              className="icon-cutout"
                               style={{ 
-                                color: '#1a1a1a'
+                                color: '#1a1a1a',
+                                width: 'clamp(1.25rem, 2.5vw, 2rem)',
+                                height: 'clamp(1.25rem, 2.5vw, 2rem)'
                               }} 
                             />
                           </div>
