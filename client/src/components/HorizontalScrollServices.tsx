@@ -361,27 +361,21 @@ export default function HorizontalScrollServices() {
                   className="service-card-circle"
                   style={{
                     transform: `rotateY(${angle}deg) translateZ(${radius}px)`,
+                    display: isCardHovered ? 'flex' : 'none',
                   }}
                   initial={false}
                   animate={{
                     opacity: isCardHovered ? 1 : 0,
-                    scale: isCardHovered ? 1 : 0.8,
                   }}
                   transition={{
                     transform: {
-                      duration: 1.2,
-                      ease: [0.34, 1.56, 0.64, 1],
-                      delay: isCardHovered ? index * 0.05 : 0
+                      duration: 1,
+                      ease: [0.4, 0, 0.2, 1],
+                      delay: isCardHovered ? index * 0.03 : 0
                     },
                     opacity: {
-                      duration: 0.8,
-                      ease: "easeInOut",
-                      delay: isCardHovered ? index * 0.05 : (services.length - index - 1) * 0.04
-                    },
-                    scale: {
-                      duration: 0.8,
-                      ease: "easeInOut",
-                      delay: isCardHovered ? index * 0.05 : (services.length - index - 1) * 0.04
+                      duration: 0.4,
+                      delay: isCardHovered ? index * 0.03 : 0
                     }
                   }}
                   data-testid={`card-service-3d-${service.title.toLowerCase().replace(/\s/g, "-")}`}
