@@ -1201,6 +1201,45 @@
     filter: drop-shadow(0 3px 6px rgba(0,0,0,0.6));
   }
 
+  /* Service Title Bubble - Chat bubble style above card */
+  .service-title-bubble {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    background: rgba(26, 26, 26, 0.95);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 0.75rem;
+    padding: 0.5rem 1rem;
+    margin-bottom: 0.5rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s ease-in-out;
+    z-index: 30;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    white-space: nowrap;
+  }
+
+  /* Triangle pointer at bottom of bubble */
+  .service-title-bubble::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid rgba(26, 26, 26, 0.95);
+  }
+
+  .luminous-card:hover .service-title-bubble {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
 
   /* 3D Circular Carousel Services Layout */
   .services-3d-circle-container {

@@ -314,11 +314,11 @@ function ServiceCard({ service, mouseX, onSelect }: ServiceCardProps) {
           </div>
         </div>
         
-        {/* Title centered at bottom */}
-        <div className="absolute bottom-0 left-0 right-0 p-2 z-20 flex justify-center">
-          <h3 className="text-[10px] font-bold text-foreground tracking-tight whitespace-nowrap uppercase" data-testid={`text-service-title-${service.id}`}>
+        {/* Title as chat bubble above card - hidden by default, shown on hover */}
+        <div className="service-title-bubble" data-testid={`text-service-title-${service.id}`}>
+          <span className="text-xs font-bold tracking-tight whitespace-nowrap uppercase">
             {service.title}
-          </h3>
+          </span>
         </div>
       </div>
     </motion.div>
