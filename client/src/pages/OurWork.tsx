@@ -108,30 +108,40 @@ export default function OurWork() {
   };
 
   const handleCardClick = (index: number) => {
-    const newProgress = (index / portfolioItems.length) * 100 + 10;
-    setProgress(newProgress);
+    const itemCount = portfolioItems.length;
+    if (itemCount <= 1) return;
+    const newProgress = (index / (itemCount - 1)) * 100;
+    setProgress(Math.max(0, Math.min(newProgress, 100)));
   };
 
   useEffect(() => {
     const carousel = carouselRef.current;
     if (!carousel) return;
 
-    carousel.addEventListener('wheel', handleWheel as any, { passive: false });
-    carousel.addEventListener('mousedown', handleMouseDown as any);
-    carousel.addEventListener('mousemove', handleMouseMove as any);
-    carousel.addEventListener('mouseup', handleMouseUp);
-    carousel.addEventListener('touchstart', handleMouseDown as any);
-    carousel.addEventListener('touchmove', handleMouseMove as any);
-    carousel.addEventListener('touchend', handleMouseUp);
+    const wheelListener = (e: Event) => handleWheel(e as WheelEvent);
+    const mouseDownListener = (e: Event) => handleMouseDown(e as MouseEvent);
+    const touchStartListener = (e: Event) => handleMouseDown(e as TouchEvent);
+    const mouseMoveListener = (e: Event) => handleMouseMove(e as MouseEvent);
+    const touchMoveListener = (e: Event) => handleMouseMove(e as TouchEvent);
+
+    carousel.addEventListener('wheel', wheelListener, { passive: false });
+    carousel.addEventListener('mousedown', mouseDownListener);
+    carousel.addEventListener('touchstart', touchStartListener);
+    
+    document.addEventListener('mousemove', mouseMoveListener);
+    document.addEventListener('touchmove', touchMoveListener);
+    document.addEventListener('mouseup', handleMouseUp);
+    document.addEventListener('touchend', handleMouseUp);
 
     return () => {
-      carousel.removeEventListener('wheel', handleWheel as any);
-      carousel.removeEventListener('mousedown', handleMouseDown as any);
-      carousel.removeEventListener('mousemove', handleMouseMove as any);
-      carousel.removeEventListener('mouseup', handleMouseUp);
-      carousel.removeEventListener('touchstart', handleMouseDown as any);
-      carousel.removeEventListener('touchmove', handleMouseMove as any);
-      carousel.removeEventListener('touchend', handleMouseUp);
+      carousel.removeEventListener('wheel', wheelListener);
+      carousel.removeEventListener('mousedown', mouseDownListener);
+      carousel.removeEventListener('touchstart', touchStartListener);
+      
+      document.removeEventListener('mousemove', mouseMoveListener);
+      document.removeEventListener('touchmove', touchMoveListener);
+      document.removeEventListener('mouseup', handleMouseUp);
+      document.removeEventListener('touchend', handleMouseUp);
     };
   }, [isDown, startX, portfolioItems.length]);
 

@@ -54,15 +54,27 @@ export default function Home() {
             We cut through the marketing nonsense and focus on what actually drives revenue. Real strategies. Real metrics. Real growth.
           </p>
           <div className="grid grid-cols-3 gap-4 mt-6">
-            <div className="text-center p-4 bg-card rounded-lg cursor-pointer hover-elevate active-elevate-2" data-testid="stat-roi">
+            <div className="glass-stat-card" data-testid="stat-roi">
+              <div className="glass-stat-accents">
+                <div className="glass-stat-accent"></div>
+                <div className="glass-stat-light"></div>
+              </div>
               <div className="text-3xl font-bold text-primary">7x</div>
               <div className="text-sm text-foreground">Avg ROI</div>
             </div>
-            <div className="text-center p-4 bg-card rounded-lg cursor-pointer hover-elevate active-elevate-2" data-testid="stat-leads">
+            <div className="glass-stat-card" data-testid="stat-leads">
+              <div className="glass-stat-accents">
+                <div className="glass-stat-accent"></div>
+                <div className="glass-stat-light"></div>
+              </div>
               <div className="text-3xl font-bold text-primary">50k+</div>
               <div className="text-sm text-foreground">Leads Generated</div>
             </div>
-            <div className="text-center p-4 bg-card rounded-lg cursor-pointer hover-elevate active-elevate-2" data-testid="stat-retention">
+            <div className="glass-stat-card" data-testid="stat-retention">
+              <div className="glass-stat-accents">
+                <div className="glass-stat-accent"></div>
+                <div className="glass-stat-light"></div>
+              </div>
               <div className="text-3xl font-bold text-primary">95%</div>
               <div className="text-sm text-foreground">Client Retention</div>
             </div>
