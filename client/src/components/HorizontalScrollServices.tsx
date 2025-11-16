@@ -277,6 +277,9 @@ function ServiceCard({ service, mouseX, onSelect }: ServiceCardProps) {
       <div
         className="luminous-card cursor-pointer relative group h-full"
         onClick={() => onSelect(service)}
+        style={{
+          '--accent-color': service.accentColor
+        } as React.CSSProperties}
       >
         {/* Luminous card layers */}
         <div className="luminous-layers">
