@@ -1053,48 +1053,45 @@
 
   .luminous-card .lumen .min {
     width: 70%;
-    height: 3rem;
-    background: linear-gradient(transparent, var(--accent-color));
+    height: 8rem;
+    background: linear-gradient(to bottom, transparent 0%, var(--accent-color) 100%);
     position: absolute;
     left: 0;
     right: 0;
-    top: 0;
-    bottom: -40%;
-    margin: auto;
-    transform: rotateX(-42deg);
-    opacity: 0.4;
+    top: 60%;
+    transform: translateY(-100%) rotateX(-42deg);
+    opacity: 0.5;
+    filter: blur(0.5rem);
   }
 
   .luminous-card .lumen .mid {
-    width: 74%;
-    height: 13rem;
-    background: linear-gradient(transparent, var(--accent-color));
+    width: 80%;
+    height: 14rem;
+    background: linear-gradient(to bottom, transparent 0%, var(--accent-color) 100%);
     position: absolute;
     left: 0;
     right: 0;
-    top: 0;
-    bottom: -20%;
     margin: auto;
-    transform: rotateX(-42deg);
-    filter: blur(1rem);
-    opacity: 0.8;
-    border-radius: 100% 100% 0 0;
+    top: 60%;
+    transform: translateY(-100%) rotateX(-38deg);
+    filter: blur(1.5rem);
+    opacity: 0.6;
+    border-radius: 50% 50% 0 0;
   }
 
   .luminous-card .lumen .hi {
-    width: 50%;
-    height: 13rem;
-    background: linear-gradient(transparent, var(--accent-color));
+    width: 60%;
+    height: 18rem;
+    background: linear-gradient(to bottom, transparent 0%, var(--accent-color) 100%);
     position: absolute;
     left: 0;
     right: 0;
-    top: 0;
-    bottom: -10%;
     margin: auto;
-    transform: rotateX(22deg);
-    filter: blur(1rem);
-    opacity: 0.6;
-    border-radius: 100% 100% 0 0;
+    top: 60%;
+    transform: translateY(-100%) rotateX(-30deg);
+    filter: blur(2rem);
+    opacity: 0.4;
+    border-radius: 50% 50% 0 0;
   }
 
   /* Darken - shadow layers for depth */
