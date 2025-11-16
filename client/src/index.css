@@ -2686,6 +2686,15 @@
   padding: 20px;
   position: relative;
   z-index: 1;
+  color: #fff;
+}
+
+.codepen-card-content h2,
+.codepen-card-content h3,
+.codepen-card-content p,
+.codepen-card-content span,
+.codepen-card-content li {
+  color: #fff;
 }
 
 .codepen-card-number {
