@@ -969,14 +969,14 @@
     transform-style: preserve-3d;
     border-radius: 12px;
     border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 0 20px 5px rgba(255, 0, 0, 0.15);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     backdrop-filter: blur(20px);
     cursor: default;
     display: flex;
     align-items: flex-start;
     justify-content: flex-start;
     padding: 1rem;
-    transition: box-shadow 0.3s ease, background 0.3s ease;
+    transition: box-shadow 0.3s ease, background 0.3s ease, transform 0.3s ease;
     pointer-events: auto;
     overflow: hidden;
     backface-visibility: hidden;
@@ -1019,8 +1019,7 @@
   }
 
   .service-card-circle:hover {
-    box-shadow: 0 0 30px 10px rgba(255, 0, 0, 0.35);
-    background: hsl(var(--card));
+    box-shadow: 0 0 30px 8px rgba(255, 0, 0, 0.4), 0 4px 20px rgba(0, 0, 0, 0.3);
     z-index: 10;
     transform: scale(1.05);
   }
