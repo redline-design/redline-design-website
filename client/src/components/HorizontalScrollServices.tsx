@@ -257,18 +257,7 @@ export default function HorizontalScrollServices() {
   const [rotation, setRotation] = useState(0);
   const services = useMemo(() => SERVICES_DATA, []);
 
-  // Prevent scrolling when hovering over cards
-  useEffect(() => {
-    if (isCardHovered) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-    
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [isCardHovered]);
+  // No need to prevent body scrolling - handled by wheel event preventDefault
 
   return (
     <section 
@@ -291,6 +280,7 @@ export default function HorizontalScrollServices() {
           onWheel={(e) => {
             if (isCardHovered) {
               e.preventDefault();
+              e.stopPropagation();
               const delta = e.deltaY > 0 ? 1 : -1;
               setRotation(prev => prev + (delta * (360 / services.length)));
             }
@@ -351,22 +341,41 @@ export default function HorizontalScrollServices() {
                   }}
                   onMouseEnter={() => setIsCardHovered(true)}
                   onMouseLeave={() => setIsCardHovered(false)}
-                  onClick={() => setSelectedService(service)}
                   data-testid={`card-service-3d-${service.title.toLowerCase().replace(/\s/g, "-")}`}
                 >
                   <div className="service-card-inner">
                     <div
-                      className="flex-shrink-0 w-14 h-14 rounded-lg flex items-center justify-center mx-auto mb-3"
+                      className="flex-shrink-0 w-12 h-12 rounded-lg flex items-center justify-center mx-auto mb-2"
                       style={{
                         backgroundColor: `${service.accentColor}20`,
                         color: service.accentColor
                       }}
                     >
-                      <service.icon className="w-7 h-7" />
+                      <service.icon className="w-6 h-6" />
                     </div>
-                    <h3 className="service-card-title text-sm font-semibold text-foreground text-center leading-tight">
+                    <h3 className="service-card-title text-xs font-semibold text-foreground text-center leading-tight mb-2">
                       {service.title}
                     </h3>
+                    <ul className="service-card-bullets text-[10px] text-muted-foreground space-y-1 mb-3">
+                      {service.details.whatYouGet.slice(0, 3).map((item, idx) => (
+                        <li key={idx} className="flex items-start gap-1">
+                          <span className="text-primary mt-0.5">•</span>
+                          <span className="line-clamp-1">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      className="w-full text-xs h-7"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setSelectedService(service);
+                      }}
+                      data-testid={`button-learn-more-${service.id}`}
+                    >
+                      Learn More
+                    </Button>
                   </div>
                 </motion.div>
               );
