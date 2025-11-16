@@ -22,13 +22,13 @@ import {
 const platforms = [
   { name: "Facebook", icon: SiFacebook, color: "#1877F2" },
   { name: "Instagram", icon: SiInstagram, color: "#E4405F" },
-  { name: "X (Twitter)", icon: SiX, color: "#000000" },
+  { name: "X (Twitter)", icon: SiX, color: "#FFFFFF" },
   { name: "LinkedIn", icon: SiLinkedin, color: "#0A66C2" },
-  { name: "TikTok", icon: SiTiktok, color: "#000000" },
+  { name: "TikTok", icon: SiTiktok, color: "#FFFFFF" },
   { name: "YouTube", icon: SiYoutube, color: "#FF0000" },
   { name: "Pinterest", icon: SiPinterest, color: "#E60023" },
   { name: "Snapchat", icon: SiSnapchat, color: "#FFFC00" },
-  { name: "Threads", icon: SiThreads, color: "#000000" },
+  { name: "Threads", icon: SiThreads, color: "#FFFFFF" },
   { name: "Reddit", icon: SiReddit, color: "#FF4500" },
 ];
 
