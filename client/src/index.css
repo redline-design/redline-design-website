@@ -1800,8 +1800,8 @@
   background-color: hsl(var(--card) / 0.5);
   box-shadow: 
     0 0 0 var(--border-size) rgba(255, 255, 255, 0.2),
-    0 0 calc(var(--spotlight-size) * 0.3) calc(var(--spotlight-size) * -0.2) rgba(var(--glow-color, 255, 0, 0), calc(var(--glow-opacity, 0) * 0.6)) inset,
-    0 0 calc(var(--spotlight-size) * 0.5) 0 rgba(var(--glow-color, 255, 0, 0), calc(var(--glow-opacity, 0) * 0.4));
+    0 0 calc(var(--spotlight-size) * 0.3) calc(var(--spotlight-size) * -0.2) rgba(var(--glow-color, 255, 0, 0), calc(var(--glow-opacity, 0) * 0.18)) inset,
+    0 0 calc(var(--spotlight-size) * 0.5) 0 rgba(var(--glow-color, 255, 0, 0), calc(var(--glow-opacity, 0) * 0.12));
 }
 
 .glow-card::before,
@@ -1815,29 +1815,30 @@
   transition: opacity 0.3s ease;
 }
 
-/* Border emphasis glow (colored) - highly diffused */
+/* Border emphasis glow (colored) - brighter near cursor */
 .glow-card::before {
   background: radial-gradient(
     calc(var(--spotlight-size) * 1.5) calc(var(--spotlight-size) * 1.5) at
     calc(var(--x, 0) * 1px)
     calc(var(--y, 0) * 1px),
-    rgba(var(--glow-color, 255, 0, 0), 0.9),
-    rgba(var(--glow-color, 255, 0, 0), 0.5) 30%,
-    rgba(var(--glow-color, 255, 0, 0), 0.2) 60%,
+    rgba(var(--glow-color, 255, 0, 0), 1),
+    rgba(var(--glow-color, 255, 0, 0), 0.8) 20%,
+    rgba(var(--glow-color, 255, 0, 0), 0.4) 50%,
     transparent 90%
   );
-  filter: blur(8px) brightness(1.5);
+  filter: blur(8px) brightness(2);
   z-index: -1;
 }
 
-/* Border spotlight (white) - highly diffused */
+/* Border spotlight (white) - brighter near cursor */
 .glow-card::after {
   background: radial-gradient(
     calc(var(--spotlight-size) * 1) calc(var(--spotlight-size) * 1) at
     calc(var(--x, 0) * 1px)
     calc(var(--y, 0) * 1px),
-    rgba(255, 255, 255, 0.7),
-    rgba(255, 255, 255, 0.3) 40%,
+    rgba(255, 255, 255, 0.95),
+    rgba(255, 255, 255, 0.6) 25%,
+    rgba(255, 255, 255, 0.2) 60%,
     transparent 85%
   );
   filter: blur(4px);
