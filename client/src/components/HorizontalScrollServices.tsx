@@ -264,8 +264,8 @@ function ServiceCard({
   scrollYProgress: any;
   onSelect: (service: typeof SERVICES_DATA[number]) => void;
 }) {
-  // Calculate grid position
-  const cols = 4;
+  // Calculate grid position - 6 columns to ensure max 2 rows for 11 cards
+  const cols = 6;
   const row = Math.floor(index / cols);
   const col = index % cols;
   
@@ -276,7 +276,7 @@ function ServiceCard({
     [0, 1, 1]
   );
   
-  const x = useTransform(cardProgress, [0, 1], [0, (col - 1.5) * 280]);
+  const x = useTransform(cardProgress, [0, 1], [0, (col - 2.5) * 190]);
   const y = useTransform(cardProgress, [0, 1], [0, row * 360]);
   const rotation = useTransform(cardProgress, [0, 1], [index * 8 - 40, 0]);
   const opacity = useTransform(cardProgress, [0, 0.3, 1], [0.7, 1, 1]);
@@ -293,19 +293,22 @@ function ServiceCard({
       }}
     >
       <Card
-        className="w-[260px] h-[340px] rounded-2xl backdrop-blur-md bg-card/40 border-white/10 group hover-elevate active-elevate-2 cursor-pointer"
+        className="w-[180px] h-[340px] rounded-2xl backdrop-blur-md bg-card/40 border-white/10 group hover-elevate active-elevate-2 cursor-pointer"
         onClick={() => onSelect(service)}
         data-testid={`card-service-${service.id}`}
       >
-        <CardContent className="p-5 w-full h-full flex flex-col">
+        <CardContent className="p-4 w-full h-full flex flex-col">
           <div className="flex flex-col text-center gap-3 flex-1">
             <div 
-              className="flex-shrink-0 p-3 rounded-lg bg-primary/10 icon-glow transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3 mx-auto"
+              className="flex-shrink-0 p-3 rounded-lg icon-glow transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3 mx-auto"
+              style={{
+                backgroundColor: `${service.accentColor}20`
+              }}
             >
-              <service.icon className="h-6 w-6 text-primary" data-testid={`icon-service-${service.id}`} />
+              <service.icon className="h-6 w-6" style={{ color: service.accentColor }} data-testid={`icon-service-${service.id}`} />
             </div>
             <div>
-              <h3 className="text-base font-semibold text-foreground mb-1" data-testid={`text-service-title-${service.id}`}>
+              <h3 className="text-sm font-semibold text-foreground mb-1" data-testid={`text-service-title-${service.id}`}>
                 {service.title}
               </h3>
               <p className="text-xs text-foreground mb-3" data-testid={`text-service-description-${service.id}`}>
