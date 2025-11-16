@@ -329,18 +329,19 @@ function ServiceCard({
         
         {/* Content */}
         <div className="card-content p-6 w-full h-full flex flex-col items-center justify-center relative z-10">
-          {/* 3D Icon with circular outline */}
+          {/* 3D Icon with filled circle and cutout */}
           <div className="icon-3d-container absolute top-12 transition-all duration-400">
             <div 
-              className="icon-circle-outline"
+              className="icon-circle-filled"
               style={{
-                '--icon-color': service.accentColor
+                '--icon-color': service.accentColor,
+                backgroundColor: service.accentColor
               } as React.CSSProperties}
             >
               <service.icon 
-                className="icon-cutout h-8 w-8" 
+                className="icon-cutout h-6 w-6" 
                 style={{ 
-                  color: service.accentColor
+                  color: '#1a1a1a'
                 }} 
                 data-testid={`icon-service-${service.id}`} 
               />
