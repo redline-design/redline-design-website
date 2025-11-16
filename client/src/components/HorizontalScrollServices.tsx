@@ -403,19 +403,32 @@ export default function HorizontalScrollServices() {
 
       {/* Service Details Dialog */}
       <Dialog open={!!selectedService} onOpenChange={(open) => { if (!open) setSelectedService(null); }}>
-        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto" data-testid="dialog-service-details">
+        <DialogContent 
+          className="max-w-2xl max-h-[90vh] overflow-y-auto relative" 
+          data-testid="dialog-service-details"
+          style={{
+            background: selectedService ? `linear-gradient(135deg, ${selectedService.accentColor}08 0%, transparent 50%, ${selectedService.accentColor}05 100%)` : undefined
+          }}
+        >
           {selectedService && (
             <>
               <DialogHeader>
                 <div className="flex items-start gap-4">
-                  <div
-                    className="flex-shrink-0 w-14 h-14 rounded-lg flex items-center justify-center"
-                    style={{
-                      backgroundColor: `${selectedService.accentColor}20`,
-                      color: selectedService.accentColor
-                    }}
-                  >
-                    <selectedService.icon className="w-7 h-7" />
+                  <div className="flex-shrink-0">
+                    <div 
+                      className="icon-circle-filled"
+                      style={{
+                        '--icon-color': selectedService.accentColor,
+                        backgroundColor: selectedService.accentColor
+                      } as React.CSSProperties}
+                    >
+                      <selectedService.icon 
+                        className="icon-cutout h-5 w-5" 
+                        style={{ 
+                          color: '#1a1a1a'
+                        }} 
+                      />
+                    </div>
                   </div>
                   <div className="flex-1">
                     <div className="flex items-center gap-2 mb-2">
