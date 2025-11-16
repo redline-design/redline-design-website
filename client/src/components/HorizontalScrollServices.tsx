@@ -1,6 +1,6 @@
 import { useState, useMemo, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import { Globe, TrendingUp, Search, Database, BarChart3, Palette, MessageSquare, Mail, Users, Bot, Code, Check, Sparkles } from "lucide-react";
+import { Globe, TrendingUp, Search, Database, BarChart3, Palette, MessageSquare, Mail, Users, Bot, Code, Check, Sparkles, ArrowRight } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -381,37 +381,39 @@ export default function HorizontalScrollServices() {
                   data-testid={`card-service-3d-${service.title.toLowerCase().replace(/\s/g, "-")}`}
                 >
                   <div className="service-card-inner">
-                    <div
-                      className="flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center mx-auto mb-1.5"
-                      style={{
-                        backgroundColor: `${service.accentColor}20`,
-                        color: service.accentColor
-                      }}
-                    >
-                      <service.icon className="w-5 h-5" />
+                    <div className="flex-1 flex flex-col items-center">
+                      <div
+                        className="flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center mx-auto mb-1.5"
+                        style={{
+                          backgroundColor: `${service.accentColor}20`,
+                          color: service.accentColor
+                        }}
+                      >
+                        <service.icon className="w-5 h-5" />
+                      </div>
+                      <h3 className="service-card-title text-[11px] font-semibold text-foreground text-center leading-tight mb-1.5">
+                        {service.title}
+                      </h3>
+                      <ul className="service-card-bullets text-[9px] text-muted-foreground space-y-0.5 mb-2">
+                        {service.details.whatYouGet.slice(0, 3).map((item, idx) => (
+                          <li key={idx} className="flex items-start gap-1">
+                            <span className="text-primary mt-0.5">•</span>
+                            <span className="line-clamp-1">{item}</span>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
-                    <h3 className="service-card-title text-[11px] font-semibold text-foreground text-center leading-tight mb-1.5">
-                      {service.title}
-                    </h3>
-                    <ul className="service-card-bullets text-[9px] text-muted-foreground space-y-0.5 mb-2">
-                      {service.details.whatYouGet.slice(0, 3).map((item, idx) => (
-                        <li key={idx} className="flex items-start gap-1">
-                          <span className="text-primary mt-0.5">•</span>
-                          <span className="line-clamp-1">{item}</span>
-                        </li>
-                      ))}
-                    </ul>
                     <Button
                       size="sm"
-                      variant="outline"
-                      className="w-full text-[10px] h-6"
+                      className="w-full text-[10px] h-6 bg-primary text-primary-foreground hover:bg-primary/90 gap-1"
                       onClick={(e) => {
                         e.stopPropagation();
                         setSelectedService(service);
                       }}
                       data-testid={`button-learn-more-${service.id}`}
                     >
-                      Learn More
+                      Details
+                      <ArrowRight className="w-3 h-3" />
                     </Button>
                   </div>
                 </motion.div>
