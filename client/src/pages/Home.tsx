@@ -32,7 +32,7 @@ export default function Home() {
     { name: 'Pinterest', icon: SiPinterest },
   ];
 
-  // Statistics with 5-year growth data (2020-2024)
+  // Statistics with 5-year growth data (2020-2024) - dramatic variations
   const stats = [
     { 
       value: "7x", 
@@ -40,7 +40,7 @@ export default function Home() {
       subtitle: "5-year growth trend",
       trend: "up" as const,
       trendValue: "250%",
-      graphData: [2.0, 3.2, 4.5, 5.8, 7.0], // 2020-2024
+      graphData: [2.0, 2.8, 3.9, 5.5, 7.0], // Exponential rise
       color: "rgb(34, 197, 94)",
       testId: "stat-roi" 
     },
@@ -50,7 +50,7 @@ export default function Home() {
       subtitle: "since 2020",
       trend: "up" as const,
       trendValue: "69%",
-      graphData: [45, 55, 62, 69, 76], // 2020-2024
+      graphData: [45, 58, 54, 67, 76], // Dip then surge
       color: "rgb(59, 130, 246)",
       testId: "stat-online-research" 
     },
@@ -60,7 +60,7 @@ export default function Home() {
       subtitle: "5-year improvement",
       trend: "up" as const,
       trendValue: "200%",
-      graphData: [1.0, 1.5, 2.0, 2.6, 3.0], // 2020-2024
+      graphData: [1.0, 1.2, 1.9, 2.4, 3.0], // Slow start, sharp rise
       color: "rgb(168, 85, 247)",
       testId: "stat-lead-increase" 
     },
@@ -70,7 +70,7 @@ export default function Home() {
       subtitle: "growth since 2020",
       trend: "up" as const,
       trendValue: "46%",
-      graphData: [3.5, 3.9, 4.3, 4.7, 5.1], // 2020-2024 (billions)
+      graphData: [3.5, 4.1, 3.9, 4.6, 5.1], // Volatile with dip
       color: "rgb(249, 115, 22)",
       testId: "stat-social-users" 
     },
@@ -80,7 +80,7 @@ export default function Home() {
       subtitle: "5-year growth",
       trend: "up" as const,
       trendValue: "50%",
-      graphData: [62, 72, 80, 87, 93], // 2020-2024
+      graphData: [62, 68, 77, 85, 93], // Steady acceleration
       color: "rgb(236, 72, 153)",
       testId: "stat-mobile" 
     },
@@ -90,7 +90,7 @@ export default function Home() {
       subtitle: "since 2020",
       trend: "up" as const,
       trendValue: "100%",
-      graphData: [250, 320, 385, 445, 500], // 2020-2024 (billions)
+      graphData: [250, 290, 340, 420, 500], // J-curve growth
       color: "rgb(245, 158, 11)",
       testId: "stat-ad-spend" 
     },
@@ -100,7 +100,7 @@ export default function Home() {
       subtitle: "5-year increase",
       trend: "up" as const,
       trendValue: "62%",
-      graphData: [42, 50, 57, 63, 68], // 2020-2024
+      graphData: [42, 46, 53, 59, 68], // Strong finish
       color: "rgb(20, 184, 166)",
       testId: "stat-seo" 
     },
@@ -110,7 +110,7 @@ export default function Home() {
       subtitle: "rating since 2020",
       trend: "up" as const,
       trendValue: "23%",
-      graphData: [4.0, 4.3, 4.5, 4.7, 4.9], // 2020-2024
+      graphData: [4.0, 4.2, 4.4, 4.6, 4.9], // Linear improvement
       color: "rgb(14, 165, 233)",
       testId: "stat-rating" 
     },
@@ -120,7 +120,7 @@ export default function Home() {
       subtitle: "ROI growth 5 years",
       trend: "up" as const,
       trendValue: "37%",
-      graphData: [65, 73, 79, 84, 89], // 2020-2024
+      graphData: [65, 70, 68, 81, 89], // Recovery then surge
       color: "rgb(139, 92, 246)",
       testId: "stat-email" 
     },
@@ -130,7 +130,7 @@ export default function Home() {
       subtitle: "since 2020",
       trend: "up" as const,
       trendValue: "150%",
-      graphData: [1.0, 1.4, 1.8, 2.2, 2.5], // 2020-2024
+      graphData: [1.0, 1.1, 1.6, 2.1, 2.5], // Explosive recent growth
       color: "rgb(244, 63, 94)",
       testId: "stat-video" 
     },

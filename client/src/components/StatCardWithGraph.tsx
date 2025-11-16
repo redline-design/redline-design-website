@@ -39,7 +39,7 @@ export default function StatCardWithGraph({
       data-testid={testId}
     >
       {/* Content */}
-      <div className="px-3 pt-2 pb-5 text-center relative z-10">
+      <div className="px-3 pt-2 pb-12 text-center relative z-10">
         <h4 className="text-[10px] uppercase text-muted-foreground tracking-wide mb-0.5">
           {label}
         </h4>
@@ -56,8 +56,8 @@ export default function StatCardWithGraph({
         <p className="text-[9px] text-muted-foreground mt-0">{subtitle}</p>
       </div>
 
-      {/* Mini Graph */}
-      <div className="absolute bottom-0 inset-x-0 h-6">
+      {/* Large Graph */}
+      <div className="absolute bottom-0 inset-x-0 h-16">
         <svg
           viewBox="0 0 100 100"
           preserveAspectRatio="none"
