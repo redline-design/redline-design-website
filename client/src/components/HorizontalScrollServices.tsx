@@ -304,69 +304,42 @@ function ServiceCard({
       }}
     >
       <div
-        className="luminous-card w-[180px] h-[260px] rounded-2xl cursor-pointer overflow-hidden relative group"
+        className="luminous-card w-[180px] h-[260px] cursor-pointer relative group"
         onClick={() => onSelect(service)}
         data-testid={`card-service-${service.id}`}
+        style={{
+          '--accent-color': service.accentColor
+        } as React.CSSProperties}
       >
         {/* Background Image */}
         <div 
-          className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
+          className="card-bg absolute inset-0 bg-cover bg-center"
           style={{
             backgroundImage: `url("${service.imageUrl}")`
           }}
         />
         
-        {/* Base dark overlay */}
-        <div className="absolute inset-0 bg-black/60" />
-        
-        {/* Radial gradient for depth */}
-        <div 
-          className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-          style={{
-            background: `radial-gradient(circle at 50% 0%, ${service.accentColor}40 0%, transparent 70%)`
-          }}
-        />
-        
-        {/* Light layer - glow effect */}
-        <div className="light-layer absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-          {/* Top glow */}
-          <div 
-            className="absolute top-0 left-0 right-0 h-1/3"
-            style={{
-              background: `radial-gradient(ellipse at 50% 0%, ${service.accentColor}60 0%, transparent 70%)`,
-              filter: 'blur(20px)'
-            }}
-          />
-          {/* Side glows */}
-          <div 
-            className="absolute top-0 bottom-0 left-0 w-1/4"
-            style={{
-              background: `linear-gradient(to right, ${service.accentColor}20, transparent)`,
-              filter: 'blur(10px)'
-            }}
-          />
-          <div 
-            className="absolute top-0 bottom-0 right-0 w-1/4"
-            style={{
-              background: `linear-gradient(to left, ${service.accentColor}20, transparent)`,
-              filter: 'blur(10px)'
-            }}
-          />
+        {/* Light Layer System - exact structure from Codepen */}
+        <div className="light-layer">
+          <div className="slit"></div>
+          <div className="lumen">
+            <div className="min"></div>
+            <div className="mid"></div>
+            <div className="hi"></div>
+          </div>
+          <div className="darken">
+            <div className="sl"></div>
+            <div className="ll"></div>
+            <div className="slt"></div>
+            <div className="srt"></div>
+          </div>
         </div>
         
-        {/* Border glow */}
-        <div 
-          className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-          style={{
-            boxShadow: `0 0 20px ${service.accentColor}80, inset 0 0 20px ${service.accentColor}20`,
-            pointerEvents: 'none'
-          }}
-        />
-        
-        <div className="p-3 w-full h-full flex flex-col relative z-10">
+        {/* Content */}
+        <div className="card-content p-3 w-full h-full flex flex-col relative z-10">
           <div className="flex flex-col text-center gap-2 flex-1">
             <div 
-              className="flex-shrink-0 p-2 rounded-lg icon-glow transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3 mx-auto"
+              className="flex-shrink-0 p-2 rounded-lg transition-transform duration-300 group-hover:scale-110 mx-auto"
               style={{
                 backgroundColor: `${service.accentColor}30`
               }}

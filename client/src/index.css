@@ -941,34 +941,179 @@
     }
   }
 
-  /* Luminous Card Effect */
+  /* Luminous Card Effect - exact recreation from Codepen */
   .luminous-card {
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+    border-radius: 1rem;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
   }
 
   .luminous-card:hover {
-    border-color: rgba(255, 255, 255, 0.2);
-    transform: translateY(-4px);
+    transform: translateY(-8px);
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.6);
   }
 
-  .luminous-card::before {
-    content: '';
+  .luminous-card .card-bg {
+    opacity: 0.3;
+    transition: all 0.6s ease;
+  }
+
+  .luminous-card:hover .card-bg {
+    opacity: 0.5;
+    transform: scale(1.05);
+  }
+
+  /* Light Layer System */
+  .luminous-card .light-layer {
     position: absolute;
     inset: 0;
     border-radius: 1rem;
+    overflow: hidden;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+  }
+
+  .luminous-card:hover .light-layer {
+    opacity: 1;
+  }
+
+  /* Slit - thin bright line at top */
+  .luminous-card .slit {
+    position: absolute;
+    top: 0;
+    left: 20%;
+    right: 20%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent-color, #fff) 50%, transparent);
+    box-shadow: 0 0 8px var(--accent-color, #fff);
+  }
+
+  /* Lumen - main glow layers */
+  .luminous-card .lumen {
+    position: absolute;
+    inset: 0;
+  }
+
+  .luminous-card .lumen .min {
+    position: absolute;
+    top: -20%;
+    left: 10%;
+    right: 10%;
+    height: 40%;
+    background: radial-gradient(ellipse at 50% 0%, var(--accent-color, #fff) 0%, transparent 70%);
+    opacity: 0.15;
+    filter: blur(20px);
+  }
+
+  .luminous-card .lumen .mid {
+    position: absolute;
+    top: -10%;
+    left: 20%;
+    right: 20%;
+    height: 30%;
+    background: radial-gradient(ellipse at 50% 0%, var(--accent-color, #fff) 0%, transparent 60%);
+    opacity: 0.25;
+    filter: blur(15px);
+  }
+
+  .luminous-card .lumen .hi {
+    position: absolute;
+    top: -5%;
+    left: 30%;
+    right: 30%;
+    height: 20%;
+    background: radial-gradient(ellipse at 50% 0%, var(--accent-color, #fff) 0%, transparent 50%);
+    opacity: 0.4;
+    filter: blur(8px);
+  }
+
+  /* Darken - shadow layers for depth */
+  .luminous-card .darken {
+    position: absolute;
+    inset: 0;
+  }
+
+  .luminous-card .darken .sl {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 20%;
+    background: linear-gradient(to right, rgba(0,0,0,0.4), transparent);
+  }
+
+  .luminous-card .darken .ll {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 40%;
+    background: linear-gradient(to top, rgba(0,0,0,0.5), transparent);
+  }
+
+  .luminous-card .darken .slt {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 30%;
+    height: 30%;
+    background: radial-gradient(circle at 0% 0%, rgba(0,0,0,0.3), transparent 70%);
+  }
+
+  .luminous-card .darken .srt {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 30%;
+    height: 30%;
+    background: radial-gradient(circle at 100% 0%, rgba(0,0,0,0.3), transparent 70%);
+  }
+
+  /* Border glow effect */
+  .luminous-card::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: 1rem;
     padding: 1px;
-    background: linear-gradient(135deg, rgba(255,255,255,0.1), transparent);
+    background: linear-gradient(135deg, 
+      var(--accent-color, rgba(255,255,255,0.2)) 0%, 
+      transparent 50%, 
+      var(--accent-color, rgba(255,255,255,0.2)) 100%
+    );
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
     opacity: 0;
-    transition: opacity 0.5s;
+    transition: opacity 0.6s ease;
     pointer-events: none;
   }
 
   .luminous-card:hover::before {
-    opacity: 1;
+    opacity: 0.6;
+  }
+
+  /* Outer glow */
+  .luminous-card::after {
+    content: '';
+    position: absolute;
+    inset: -20px;
+    border-radius: 1.5rem;
+    background: radial-gradient(circle at 50% 0%, var(--accent-color, transparent) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.6s ease;
+    pointer-events: none;
+    z-index: -1;
+    filter: blur(20px);
+  }
+
+  .luminous-card:hover::after {
+    opacity: 0.3;
   }
 
   /* 3D Circular Carousel Services Layout */
