@@ -308,12 +308,9 @@ function ServiceCard({
               <service.icon className="h-6 w-6" style={{ color: service.accentColor }} data-testid={`icon-service-${service.id}`} />
             </div>
             <div>
-              <h3 className="text-sm font-semibold text-foreground mb-1" data-testid={`text-service-title-${service.id}`}>
+              <h3 className="text-sm font-semibold text-foreground mb-3" data-testid={`text-service-title-${service.id}`}>
                 {service.title}
               </h3>
-              <p className="text-xs text-foreground mb-3" data-testid={`text-service-description-${service.id}`}>
-                {service.description}
-              </p>
             </div>
             
             {/* Bullet Points */}
