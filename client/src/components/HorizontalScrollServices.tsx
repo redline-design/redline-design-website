@@ -381,7 +381,7 @@ export default function HorizontalScrollServices() {
                   data-testid={`card-service-3d-${service.title.toLowerCase().replace(/\s/g, "-")}`}
                 >
                   <div className="service-card-inner">
-                    <div className="flex-1 flex flex-col items-center">
+                    <div className="flex flex-col items-center w-full">
                       <div
                         className="flex-shrink-0 w-12 h-12 rounded-lg flex items-center justify-center mx-auto mb-2"
                         style={{
@@ -397,15 +397,15 @@ export default function HorizontalScrollServices() {
                       <ul className="service-card-bullets text-[10px] text-muted-foreground space-y-1 mb-2">
                         {service.details.whatYouGet.slice(0, 3).map((item, idx) => (
                           <li key={idx} className="flex items-start gap-1.5">
-                            <span className="text-primary mt-0.5">•</span>
-                            <span className="line-clamp-1">{item}</span>
+                            <span className="text-primary mt-0.5 flex-shrink-0">•</span>
+                            <span>{item}</span>
                           </li>
                         ))}
                       </ul>
                     </div>
                     <Button
                       size="sm"
-                      className="w-full text-xs h-7 bg-primary text-primary-foreground hover:bg-primary/90 gap-1.5"
+                      className="w-full text-xs h-7 bg-primary text-primary-foreground hover:bg-primary/90 gap-1.5 flex-shrink-0"
                       onClick={(e) => {
                         e.stopPropagation();
                         setSelectedService(service);
