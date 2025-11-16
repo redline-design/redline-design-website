@@ -211,7 +211,7 @@ export default function Home() {
               return (
                 <div 
                   key={platform.name} 
-                  className="p-4 bg-card rounded-lg flex flex-col items-center justify-center gap-2 cursor-pointer hover-elevate active-elevate-2" 
+                  className="p-4 neumorphic-card flex flex-col items-center justify-center gap-2 cursor-pointer" 
                   data-testid={`platform-${platform.name.toLowerCase().replace(/\s+/g, '-')}`}
                 >
                   <Icon className="w-8 h-8 text-foreground" />
@@ -335,11 +335,11 @@ export default function Home() {
             Over 60% of searches happen on mobile devices. Our mobile-first approach ensures your website, ads, and landing pages deliver seamless experiences on smartphones and tablets, maximizing conversions from mobile traffic.
           </p>
           <div className="grid grid-cols-2 gap-4 mt-6">
-            <div className="p-4 bg-card rounded-lg cursor-pointer hover-elevate active-elevate-2" data-testid="mobile-stat-traffic">
+            <div className="p-4 neumorphic-card cursor-pointer" data-testid="mobile-stat-traffic">
               <div className="text-2xl font-bold text-primary mb-1">63%</div>
               <div className="text-sm text-foreground">Mobile Search Traffic</div>
             </div>
-            <div className="p-4 bg-card rounded-lg cursor-pointer hover-elevate active-elevate-2" data-testid="mobile-stat-conversion">
+            <div className="p-4 neumorphic-card cursor-pointer" data-testid="mobile-stat-conversion">
               <div className="text-2xl font-bold text-primary mb-1">2.5x</div>
               <div className="text-sm text-foreground">Mobile Conversion Lift</div>
             </div>
@@ -377,7 +377,7 @@ export default function Home() {
 
       {/* Common Challenges We Solve */}
       <ScrollAnimatedSection>
-        <section className="py-20 px-4 sm:px-6 lg:px-8" data-testid="section-challenges">
+        <section className="py-16 px-4 sm:px-6 lg:px-8 neumorphic-section" data-testid="section-challenges">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-lg sm:text-xl md:text-2xl font-bold uppercase tracking-[0.3em] mb-4 red-glow-pulse" style={{ color: "#ff0000" }}>
@@ -508,7 +508,7 @@ export default function Home() {
       <SectionDivider />
 
       <ScrollAnimatedSection>
-        <section className="py-20 px-4 sm:px-6 lg:px-8" data-testid="section-differentiators">
+        <section className="py-16 px-4 sm:px-6 lg:px-8 neumorphic-section" data-testid="section-differentiators">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-lg sm:text-xl md:text-2xl font-bold uppercase tracking-[0.3em] mb-4 red-glow-pulse" style={{ color: "#ff0000" }}>
@@ -527,7 +527,7 @@ export default function Home() {
       <SectionDivider />
 
       <ScrollAnimatedSection>
-        <section className="py-20 px-4 sm:px-6 lg:px-8" data-testid="section-why-us">
+        <section className="py-16 px-4 sm:px-6 lg:px-8 neumorphic-section" data-testid="section-why-us">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-4">
             <h2 className="text-lg sm:text-xl md:text-2xl font-bold uppercase tracking-[0.3em] red-glow-pulse" style={{ color: "#ff0000" }}>
@@ -581,9 +581,11 @@ export default function Home() {
       <SectionDivider />
 
       <ScrollAnimatedSection>
-        <section className="py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-          <div className="max-w-7xl mx-auto neumorphic-raised">
-            <TestimonialsCarousel />
+        <section className="py-16 px-4 sm:px-6 lg:px-8 neumorphic-section relative overflow-hidden">
+          <div className="max-w-7xl mx-auto">
+            <div className="neumorphic-raised">
+              <TestimonialsCarousel />
+            </div>
           </div>
         </section>
       </ScrollAnimatedSection>
@@ -591,7 +593,7 @@ export default function Home() {
       <SectionDivider />
 
       <ScrollAnimatedSection>
-        <section id="partners" className="py-12 px-4 sm:px-6 lg:px-8" data-testid="section-partners">
+        <section id="partners" className="py-16 px-4 sm:px-6 lg:px-8 neumorphic-section" data-testid="section-partners">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-8">
             <h2 className="text-lg sm:text-xl md:text-2xl font-bold uppercase tracking-[0.3em] mb-4 red-glow-pulse" style={{ color: "#ff0000" }}>
@@ -616,7 +618,7 @@ export default function Home() {
       <SectionDivider />
 
       <ScrollAnimatedSection>
-        <section className="py-20 px-4 sm:px-6 lg:px-8" data-testid="section-cta">
+        <section className="py-16 px-4 sm:px-6 lg:px-8 neumorphic-section" data-testid="section-cta">
         <div className="max-w-7xl mx-auto">
           <CTABand
             title="Book a Free Consultation Today!"
