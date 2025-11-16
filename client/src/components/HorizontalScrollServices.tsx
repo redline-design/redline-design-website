@@ -373,7 +373,7 @@ export default function HorizontalScrollServices() {
   return (
     <section 
       ref={containerRef}
-      className="py-20 px-4 sm:px-6 lg:px-8 relative"
+      className="pt-20 pb-12 px-4 sm:px-6 lg:px-8 relative"
       data-testid="section-services-horizontal"
     >
       <div className="max-w-7xl mx-auto">
@@ -387,7 +387,7 @@ export default function HorizontalScrollServices() {
         </div>
 
         {/* Scroll-Based Cards Layout */}
-        <div className="relative min-h-[620px] flex items-start justify-center pt-8" data-testid="container-service-cards">
+        <div className="relative min-h-[520px] flex items-start justify-center pt-8" data-testid="container-service-cards">
           {SERVICES_DATA.map((service, index) => (
             <ServiceCard
               key={service.id}
