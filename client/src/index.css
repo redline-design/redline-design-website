@@ -970,8 +970,8 @@
     border-radius: 12px;
     border: 1px solid hsl(var(--border));
     box-shadow: 0 0 20px 5px rgba(255, 0, 0, 0.15);
-    background: hsl(var(--card) / 0.95);
-    backdrop-filter: blur(10px);
+    background: linear-gradient(135deg, hsl(var(--card) / 0.98) 0%, hsl(var(--card) / 0.95) 100%);
+    backdrop-filter: blur(20px);
     cursor: default;
     display: flex;
     align-items: flex-start;
@@ -984,6 +984,19 @@
     -webkit-backface-visibility: hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    position: relative;
+  }
+
+  .service-card-circle::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 12px;
+    background-image: 
+      repeating-linear-gradient(45deg, transparent, transparent 10px, hsl(var(--primary) / 0.02) 10px, hsl(var(--primary) / 0.02) 20px),
+      repeating-linear-gradient(-45deg, transparent, transparent 10px, hsl(var(--primary) / 0.02) 10px, hsl(var(--primary) / 0.02) 20px);
+    pointer-events: none;
+    z-index: 0;
   }
 
   .services-3d-circle-container.collapsed .service-card-circle {
@@ -1023,6 +1036,8 @@
     justify-content: space-between;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    position: relative;
+    z-index: 1;
   }
 
   .service-card-bullets {
@@ -1045,8 +1060,8 @@
     transition: all 0.4s ease;
     width: 320px;
     padding: 3rem 2rem;
-    background: hsl(var(--card) / 0.98);
-    backdrop-filter: blur(16px);
+    background: linear-gradient(135deg, hsl(var(--card) / 0.98) 0%, hsl(var(--card) / 0.95) 100%);
+    backdrop-filter: blur(20px);
     border-radius: 20px;
     border: 2px solid hsl(var(--primary) / 0.5);
     text-shadow: 0 0 12px rgba(255, 0, 0, 0.4);
@@ -1059,6 +1074,24 @@
     box-shadow: 0 0 40px 12px rgba(255, 0, 0, 0.3), 0 0 80px 20px rgba(255, 0, 0, 0.15);
     pointer-events: auto;
     cursor: pointer;
+    overflow: hidden;
+  }
+
+  .service-hover-hint::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 20px;
+    background-image: 
+      repeating-linear-gradient(45deg, transparent, transparent 10px, hsl(var(--primary) / 0.02) 10px, hsl(var(--primary) / 0.02) 20px),
+      repeating-linear-gradient(-45deg, transparent, transparent 10px, hsl(var(--primary) / 0.02) 10px, hsl(var(--primary) / 0.02) 20px);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .service-hover-hint > * {
+    position: relative;
+    z-index: 1;
   }
 
   .service-hover-hint:hover {
