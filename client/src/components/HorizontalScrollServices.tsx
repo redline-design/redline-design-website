@@ -327,6 +327,43 @@ function ServiceCard({
           </div>
         </div>
         
+        {/* Decorative Elements */}
+        <div className="card-decorations">
+          {/* Top accent line */}
+          <div 
+            className="absolute top-0 left-1/4 right-1/4 h-px opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+            style={{
+              background: `linear-gradient(90deg, transparent, ${service.accentColor}80, transparent)`,
+              boxShadow: `0 0 8px ${service.accentColor}60`
+            }}
+          />
+          
+          {/* Corner accents */}
+          <div 
+            className="absolute top-4 left-4 w-8 h-8 opacity-20 group-hover:opacity-40 transition-opacity duration-500"
+            style={{
+              background: `linear-gradient(135deg, ${service.accentColor}40 0%, transparent 70%)`,
+              borderRadius: '4px 0 0 0'
+            }}
+          />
+          <div 
+            className="absolute top-4 right-4 w-8 h-8 opacity-20 group-hover:opacity-40 transition-opacity duration-500"
+            style={{
+              background: `linear-gradient(225deg, ${service.accentColor}40 0%, transparent 70%)`,
+              borderRadius: '0 4px 0 0'
+            }}
+          />
+          
+          {/* Geometric grid pattern */}
+          <div 
+            className="absolute inset-0 opacity-5 group-hover:opacity-10 transition-opacity duration-500"
+            style={{
+              backgroundImage: `linear-gradient(${service.accentColor}40 1px, transparent 1px), linear-gradient(90deg, ${service.accentColor}40 1px, transparent 1px)`,
+              backgroundSize: '20px 20px'
+            }}
+          />
+        </div>
+        
         {/* Content */}
         <div className="card-content p-6 w-full h-full flex flex-col items-center justify-center relative z-10">
           {/* Large 3D Icon at center */}
@@ -356,7 +393,7 @@ function ServiceCard({
         
         {/* Title in bottom left */}
         <div className="absolute bottom-0 left-0 p-4 z-20">
-          <h3 className="text-sm font-semibold text-foreground" data-testid={`text-service-title-${service.id}`}>
+          <h3 className="text-base font-bold text-foreground tracking-tight" data-testid={`text-service-title-${service.id}`}>
             {service.title}
           </h3>
         </div>
