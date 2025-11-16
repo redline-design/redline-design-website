@@ -11,7 +11,7 @@ const SERVICES_DATA = [
   {
     id: "web",
     icon: Globe,
-    title: "World Class Websites",
+    title: "Websites",
     description: "Unique websites at reasonable prices.",
     tagline: "Your digital storefront that works 24/7",
     link: "/services/websites",
@@ -80,7 +80,7 @@ const SERVICES_DATA = [
   {
     id: "crm",
     icon: Database,
-    title: "CRM Setup & Automation",
+    title: "CRM",
     description: "Streamline your customer relationships and automate workflows.",
     tagline: "Never lose track of a lead again",
     link: "/services/crm",
@@ -103,7 +103,7 @@ const SERVICES_DATA = [
   {
     id: "analytics",
     icon: BarChart3,
-    title: "Analytics & Data Analysis",
+    title: "Analytics",
     description: "Track everything. Understand your customers. Make data-driven decisions.",
     tagline: "Know exactly what's working (and what's not)",
     link: "/services/analytics",
@@ -149,7 +149,7 @@ const SERVICES_DATA = [
   {
     id: "social",
     icon: MessageSquare,
-    title: "Social Media Marketing",
+    title: "Social Media",
     description: "Build your brand and engage your audience.",
     tagline: "Turn followers into customers",
     link: "/services/social-media",
