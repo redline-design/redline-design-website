@@ -1,68 +1,62 @@
-import { motion } from "framer-motion";
-import { useInView } from "react-intersection-observer";
 import { useQuery } from "@tanstack/react-query";
 import { Skeleton } from "@/components/ui/skeleton";
-import { ExternalLink } from "lucide-react";
 import type { PortfolioItem } from "@shared/schema";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
-function PortfolioCard({ item, index }: { item: PortfolioItem; index: number }) {
-  const [isHovered, setIsHovered] = useState(false);
+interface PortfolioCardProps {
+  item: PortfolioItem;
+  index: number;
+  totalItems: number;
+  active: number;
+  onClick: () => void;
+}
 
-  const handleClick = () => {
-    window.open(item.url, '_blank', 'noopener,noreferrer');
+function PortfolioCard({ item, index, totalItems, active, onClick }: PortfolioCardProps) {
+  const getZIndex = (index: number, active: number, totalItems: number): number => {
+    const distance = Math.abs(index - active);
+    return totalItems - distance;
   };
 
+  const zIndex = getZIndex(index, active, totalItems);
+  const activeValue = (index - active) / totalItems;
+
   return (
-    <motion.div
+    <div
       className="carousel-item"
-      initial={{ opacity: 0, x: 100 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.6, delay: index * 0.1 }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      style={{
+        '--zIndex': zIndex,
+        '--active': activeValue,
+        '--items': totalItems,
+      } as React.CSSProperties}
+      onClick={onClick}
       data-testid={`portfolio-card-${item.id}`}
     >
-      <div 
-        className="carousel-box cursor-pointer"
-        onClick={handleClick}
-      >
+      <div className="carousel-box" style={{ '--opacity': zIndex / totalItems * 3 - 2 } as React.CSSProperties}>
         <div className="carousel-title" data-testid={`portfolio-title-${item.id}`}>
           {item.title}
         </div>
         <div className="carousel-num">{String(index + 1).padStart(2, '0')}</div>
-        <div className="carousel-category" data-testid={`portfolio-category-${item.id}`}>
-          {item.category}
-        </div>
+        {item.category && (
+          <div className="carousel-category" data-testid={`portfolio-category-${item.id}`}>
+            {item.category}
+          </div>
+        )}
         <img
           src={item.screenshotUrl || '/placeholder-portfolio.png'}
           alt={item.title}
           className="carousel-img"
           data-testid={`portfolio-image-${item.id}`}
         />
-        <div className={`carousel-overlay ${isHovered ? 'active' : ''}`}>
-          <div className="carousel-icon">
-            <ExternalLink className="h-6 w-6" />
-          </div>
-          {item.description && (
-            <p className="carousel-description" data-testid={`portfolio-description-${item.id}`}>
-              {item.description}
-            </p>
-          )}
-        </div>
       </div>
-    </motion.div>
+    </div>
   );
 }
 
-function PortfolioSkeleton({ index }: { index: number }) {
+function PortfolioSkeleton() {
   return (
-    <div className="carousel-item">
-      <div className="carousel-box">
-        <Skeleton className="h-8 w-32 mb-4" />
-        <Skeleton className="h-12 w-12 mb-2" />
-        <Skeleton className="h-full w-full" />
-      </div>
+    <div className="text-center py-20">
+      <Skeleton className="h-12 w-64 mx-auto mb-4" />
+      <Skeleton className="h-6 w-96 mx-auto" />
     </div>
   );
 }
@@ -72,56 +66,110 @@ export default function OurWork() {
     queryKey: ["/api/portfolio"],
   });
 
-  return (
-    <div className="pt-20 portfolio-page">
-      <section className="py-12 text-center" data-testid="section-portfolio-intro">
-        <div className="max-w-4xl mx-auto px-4">
-          <motion.h1
-            className="text-2xl sm:text-3xl md:text-4xl font-bold uppercase tracking-[0.2em] mb-6 red-glow-pulse"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            style={{ color: "#ff0000" }}
-          >
-            Our Portfolio
-          </motion.h1>
-          <motion.p
-            className="text-base md:text-lg text-muted-foreground mb-8"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            Explore our recent work and see how we've helped businesses create stunning digital experiences that drive results.
-          </motion.p>
-        </div>
-      </section>
+  const [progress, setProgress] = useState(50);
+  const [active, setActive] = useState(0);
+  const [isDown, setIsDown] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const carouselRef = useRef<HTMLDivElement>(null);
 
-      <section className="py-12" data-testid="section-portfolio-carousel">
-        {isLoading ? (
-          <div className="carousel">
-            {[...Array(6)].map((_, i) => (
-              <PortfolioSkeleton key={i} index={i} />
-            ))}
-          </div>
-        ) : portfolioItems.length === 0 ? (
-          <div className="text-center py-20 px-4" data-testid="portfolio-empty-state">
-            <p className="text-lg text-muted-foreground">No portfolio items to display yet.</p>
-          </div>
-        ) : (
-          <div className="carousel">
-            {portfolioItems.map((item, index) => (
-              <PortfolioCard
-                key={item.id}
-                item={item}
-                index={index}
-              />
-            ))}
-          </div>
-        )}
-      </section>
+  const speedWheel = 0.02;
+  const speedDrag = -0.1;
+
+  useEffect(() => {
+    if (portfolioItems.length > 0) {
+      const clampedProgress = Math.max(0, Math.min(progress, 100));
+      const newActive = Math.floor((clampedProgress / 100) * (portfolioItems.length - 1));
+      setActive(newActive);
+    }
+  }, [progress, portfolioItems.length]);
+
+  const handleWheel = (e: WheelEvent) => {
+    e.preventDefault();
+    const wheelProgress = e.deltaY * speedWheel;
+    setProgress(prev => prev + wheelProgress);
+  };
+
+  const handleMouseDown = (e: MouseEvent | TouchEvent) => {
+    setIsDown(true);
+    const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
+    setStartX(clientX);
+  };
+
+  const handleMouseMove = (e: MouseEvent | TouchEvent) => {
+    if (!isDown) return;
+    const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
+    const mouseProgress = (clientX - startX) * speedDrag;
+    setProgress(prev => prev + mouseProgress);
+    setStartX(clientX);
+  };
+
+  const handleMouseUp = () => {
+    setIsDown(false);
+  };
+
+  const handleCardClick = (index: number) => {
+    const newProgress = (index / portfolioItems.length) * 100 + 10;
+    setProgress(newProgress);
+  };
+
+  useEffect(() => {
+    const carousel = carouselRef.current;
+    if (!carousel) return;
+
+    carousel.addEventListener('wheel', handleWheel as any, { passive: false });
+    carousel.addEventListener('mousedown', handleMouseDown as any);
+    carousel.addEventListener('mousemove', handleMouseMove as any);
+    carousel.addEventListener('mouseup', handleMouseUp);
+    carousel.addEventListener('touchstart', handleMouseDown as any);
+    carousel.addEventListener('touchmove', handleMouseMove as any);
+    carousel.addEventListener('touchend', handleMouseUp);
+
+    return () => {
+      carousel.removeEventListener('wheel', handleWheel as any);
+      carousel.removeEventListener('mousedown', handleMouseDown as any);
+      carousel.removeEventListener('mousemove', handleMouseMove as any);
+      carousel.removeEventListener('mouseup', handleMouseUp);
+      carousel.removeEventListener('touchstart', handleMouseDown as any);
+      carousel.removeEventListener('touchmove', handleMouseMove as any);
+      carousel.removeEventListener('touchend', handleMouseUp);
+    };
+  }, [isDown, startX, portfolioItems.length]);
+
+  if (isLoading) {
+    return (
+      <div className="pt-20 portfolio-page">
+        <PortfolioSkeleton />
+      </div>
+    );
+  }
+
+  if (portfolioItems.length === 0) {
+    return (
+      <div className="pt-20 portfolio-page">
+        <div className="text-center py-20 px-4" data-testid="portfolio-empty-state">
+          <p className="text-lg text-muted-foreground">No portfolio items to display yet.</p>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="portfolio-page">
+      <div className="carousel" ref={carouselRef} data-testid="section-portfolio-carousel">
+        {portfolioItems.map((item, index) => (
+          <PortfolioCard
+            key={item.id}
+            item={item}
+            index={index}
+            totalItems={portfolioItems.length}
+            active={active}
+            onClick={() => handleCardClick(index)}
+          />
+        ))}
+      </div>
 
       <div className="layout">
-        <div className="layout-text">
+        <div className="layout-box">
           High-end, full-service<br />digital marketing<br />for growing brands.
         </div>
       </div>
