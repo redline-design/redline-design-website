@@ -271,55 +271,32 @@ function ServiceCard({ service, mouseX, onSelect }: ServiceCardProps) {
     <motion.div
       ref={ref}
       style={{ width, height }}
-      className="flex-shrink-0"
+      className="flex-shrink-0 relative group"
       data-testid={`card-service-${service.id}`}
+      onClick={() => onSelect(service)}
     >
-      <div
-        className="luminous-card cursor-pointer relative group h-full"
-        onClick={() => onSelect(service)}
+      {/* Hexagon Icon */}
+      <div 
+        className="hexagon-icon cursor-pointer transition-all duration-400"
+        style={{
+          '--icon-color': service.accentColor,
+          backgroundColor: service.accentColor,
+        } as React.CSSProperties}
       >
-        {/* Luminous card layers */}
-        <div className="luminous-layers">
-          {/* Hexagon Pattern Overlay */}
-          <div className="hex-pattern-overlay"></div>
-          
-          {/* Light layers */}
-          <div className="light-layers">
-            <div className="srl"></div>
-            <div className="srt"></div>
-          </div>
-        </div>
-        
-        {/* Content */}
-        <div className="card-content py-0 px-2 w-full h-full flex flex-col items-center justify-center relative z-10">
-          {/* 3D Icon with filled circle and cutout */}
-          <div className="icon-3d-container transition-all duration-400">
-            <div 
-              className="icon-circle-filled"
-              style={{
-                '--icon-color': service.accentColor,
-                backgroundColor: service.accentColor,
-                width: '4.5rem',
-                height: '4.5rem'
-              } as React.CSSProperties}
-            >
-              <service.icon 
-                className="icon-cutout h-8 w-8" 
-                style={{ 
-                  color: '#1a1a1a'
-                }} 
-                data-testid={`icon-service-${service.id}`} 
-              />
-            </div>
-          </div>
-        </div>
-        
-        {/* Title as chat bubble above card - hidden by default, shown on hover */}
-        <div className="service-title-bubble" data-testid={`text-service-title-${service.id}`}>
-          <span className="text-xs font-bold tracking-tight whitespace-nowrap uppercase">
-            {service.title}
-          </span>
-        </div>
+        <service.icon 
+          className="h-10 w-10" 
+          style={{ 
+            color: '#ffffff'
+          }} 
+          data-testid={`icon-service-${service.id}`} 
+        />
+      </div>
+      
+      {/* Title as chat bubble above card - hidden by default, shown on hover */}
+      <div className="service-title-bubble" data-testid={`text-service-title-${service.id}`}>
+        <span className="text-xs font-bold tracking-tight whitespace-nowrap uppercase">
+          {service.title}
+        </span>
       </div>
     </motion.div>
   );

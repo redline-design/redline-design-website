@@ -1201,6 +1201,32 @@
     filter: drop-shadow(0 3px 6px rgba(0,0,0,0.6));
   }
 
+  /* Hexagon Icon */
+  .hexagon-icon {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    clip-path: polygon(30% 0%, 70% 0%, 100% 50%, 70% 100%, 30% 100%, 0% 50%);
+    box-shadow: 
+      0 4px 8px rgba(0, 0, 0, 0.3),
+      0 2px 4px rgba(0, 0, 0, 0.2),
+      inset 0 -2px 6px rgba(0, 0, 0, 0.2),
+      inset 0 2px 6px rgba(255, 255, 255, 0.1);
+    transition: all 0.4s ease-in-out;
+  }
+
+  .hexagon-icon:hover {
+    box-shadow: 
+      0 6px 12px rgba(0, 0, 0, 0.4),
+      0 3px 6px rgba(0, 0, 0, 0.3),
+      inset 0 -3px 8px rgba(0, 0, 0, 0.3),
+      inset 0 3px 8px rgba(255, 255, 255, 0.2),
+      0 0 20px var(--icon-color);
+    transform: translateY(-4px);
+  }
+
   /* Service Title Bubble - Chat bubble style above card */
   .service-title-bubble {
     position: absolute;
@@ -1235,7 +1261,7 @@
     border-top: 6px solid rgba(26, 26, 26, 0.95);
   }
 
-  .luminous-card:hover .service-title-bubble {
+  .group:hover .service-title-bubble {
     opacity: 1;
     transform: translateX(-50%) translateY(0);
   }
