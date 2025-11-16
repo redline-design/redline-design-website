@@ -2639,3 +2639,69 @@
     gap: 10px;
   }
 }
+
+/* CodePen-Style 3D Cards */
+.codepen-card {
+  position: relative;
+  min-width: 320px;
+  box-shadow: inset 5px 5px 5px rgba(0, 0, 0, 0.5),
+    inset -5px -5px 15px rgba(255, 255, 255, 0.1),
+    5px 5px 15px rgba(0, 0, 0, 0.5), -5px -5px 15px rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  transition: 0.5s;
+  padding: 1.5rem;
+}
+
+.codepen-card-box {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  right: 20px;
+  bottom: 20px;
+  background: #2a2b2f;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  transition: 0.5s;
+}
+
+.codepen-card:hover .codepen-card-box {
+  transform: translateY(-50px);
+}
+
+.codepen-card-box:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.03);
+  pointer-events: none;
+}
+
+.codepen-card-content {
+  padding: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.codepen-card-number {
+  position: absolute;
+  top: -10px;
+  right: 30px;
+  font-size: 8rem;
+  color: rgba(255, 255, 255, 0.05);
+  font-weight: 800;
+  pointer-events: none;
+  line-height: 1;
+}
+
+@media (max-width: 768px) {
+  .codepen-card-number {
+    font-size: 5rem;
+    right: 20px;
+  }
+}

@@ -114,33 +114,38 @@ export default function SocialMediaPage() {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <Card className="p-8 h-full" data-testid="card-what-you-get">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="p-2 rounded-lg bg-primary/10">
-                  <Check className="w-6 h-6 text-primary" />
+            <div className="codepen-card h-full" data-testid="card-what-you-get">
+              <div className="codepen-card-box">
+                <div className="codepen-card-number">01</div>
+                <div className="codepen-card-content w-full">
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="p-2 rounded-lg bg-primary/10">
+                      <Check className="w-6 h-6 text-primary" />
+                    </div>
+                    <h2 className="text-2xl md:text-3xl font-bold">What You Get</h2>
+                  </div>
+                  
+                  <ul className="space-y-4">
+                    {[
+                      "Content calendar with engaging posts",
+                      "Professional copywriting and graphics",
+                      "Community management and engagement",
+                      "Paid social advertising campaigns",
+                      "Monthly performance analytics"
+                    ].map((item, index) => (
+                      <li 
+                        key={index} 
+                        className="flex items-start gap-3"
+                        data-testid={`list-item-benefit-${index}`}
+                      >
+                        <Check className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                        <span className="text-foreground">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-                <h2 className="text-2xl md:text-3xl font-bold">What You Get</h2>
               </div>
-              
-              <ul className="space-y-4">
-                {[
-                  "Content calendar with engaging posts",
-                  "Professional copywriting and graphics",
-                  "Community management and engagement",
-                  "Paid social advertising campaigns",
-                  "Monthly performance analytics"
-                ].map((item, index) => (
-                  <li 
-                    key={index} 
-                    className="flex items-start gap-3"
-                    data-testid={`list-item-benefit-${index}`}
-                  >
-                    <Check className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                    <span className="text-foreground">{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </Card>
+            </div>
           </motion.div>
 
           <motion.div
@@ -150,41 +155,56 @@ export default function SocialMediaPage() {
             transition={{ duration: 0.5 }}
             className="space-y-6"
           >
-            <Card className="p-8" data-testid="card-perfect-for">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="p-2 rounded-lg bg-primary/10">
-                  <Target className="w-6 h-6 text-primary" />
+            <div className="codepen-card" data-testid="card-perfect-for">
+              <div className="codepen-card-box">
+                <div className="codepen-card-number">02</div>
+                <div className="codepen-card-content w-full">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="p-2 rounded-lg bg-primary/10">
+                      <Target className="w-6 h-6 text-primary" />
+                    </div>
+                    <h3 className="text-xl font-bold">Perfect For</h3>
+                  </div>
+                  <p className="text-foreground" data-testid="text-perfect-for">
+                    Businesses looking to build brand awareness and community
+                  </p>
                 </div>
-                <h3 className="text-xl font-bold">Perfect For</h3>
               </div>
-              <p className="text-foreground" data-testid="text-perfect-for">
-                Businesses looking to build brand awareness and community
-              </p>
-            </Card>
+            </div>
 
-            <Card className="p-8" data-testid="card-timeline">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="p-2 rounded-lg bg-primary/10">
-                  <Clock className="w-6 h-6 text-primary" />
+            <div className="codepen-card" data-testid="card-timeline">
+              <div className="codepen-card-box">
+                <div className="codepen-card-number">03</div>
+                <div className="codepen-card-content w-full">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="p-2 rounded-lg bg-primary/10">
+                      <Clock className="w-6 h-6 text-primary" />
+                    </div>
+                    <h3 className="text-xl font-bold">Timeline</h3>
+                  </div>
+                  <p className="text-foreground" data-testid="text-timeline">
+                    Ongoing monthly retainer
+                  </p>
                 </div>
-                <h3 className="text-xl font-bold">Timeline</h3>
               </div>
-              <p className="text-foreground" data-testid="text-timeline">
-                Ongoing monthly retainer
-              </p>
-            </Card>
+            </div>
 
-            <Card className="p-8" data-testid="card-investment">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="p-2 rounded-lg bg-primary/10">
-                  <DollarSign className="w-6 h-6 text-primary" />
+            <div className="codepen-card" data-testid="card-investment">
+              <div className="codepen-card-box">
+                <div className="codepen-card-number">04</div>
+                <div className="codepen-card-content w-full">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="p-2 rounded-lg bg-primary/10">
+                      <DollarSign className="w-6 h-6 text-primary" />
+                    </div>
+                    <h3 className="text-xl font-bold">Investment</h3>
+                  </div>
+                  <p className="text-2xl font-bold text-primary" data-testid="text-investment">
+                    Starting at $1,000/month
+                  </p>
                 </div>
-                <h3 className="text-xl font-bold">Investment</h3>
               </div>
-              <p className="text-2xl font-bold text-primary" data-testid="text-investment">
-                Starting at $1,000/month
-              </p>
-            </Card>
+            </div>
           </motion.div>
         </div>
       </div>
@@ -208,9 +228,9 @@ export default function SocialMediaPage() {
               We create engaging content and manage campaigns across all major social platforms
             </p>
             
-            <div className="flex justify-center">
+            <div className="flex justify-center overflow-x-auto">
               <div 
-                className="relative inline-flex items-end justify-center gap-2 sm:gap-3 md:gap-4 px-4 sm:px-6 py-4 rounded-2xl"
+                className="relative inline-flex flex-nowrap items-end justify-center gap-2 sm:gap-3 md:gap-4 px-4 sm:px-6 py-4 rounded-2xl"
                 style={{
                   background: 'rgba(255, 255, 255, 0.03)',
                   backdropFilter: 'blur(20px)',
