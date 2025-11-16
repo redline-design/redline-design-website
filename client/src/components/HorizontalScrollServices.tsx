@@ -328,29 +328,37 @@ function ServiceCard({
         </div>
         
         {/* Content */}
-        <div className="card-content p-6 w-full h-full flex flex-col items-center justify-between relative z-10">
-          {/* Icon at top center */}
-          <div className="flex-shrink-0 mt-8">
+        <div className="card-content p-6 w-full h-full flex flex-col items-center justify-center relative z-10">
+          {/* Large 3D Icon at center */}
+          <div className="flex-shrink-0">
             <div 
-              className="w-16 h-16 rounded-full flex items-center justify-center transition-transform duration-300 group-hover:scale-110"
+              className="icon-3d w-24 h-24 rounded-full flex items-center justify-center transition-all duration-500 group-hover:scale-110 group-hover:rotate-6"
               style={{
-                background: `radial-gradient(circle, ${service.accentColor}30 0%, ${service.accentColor}10 100%)`,
-                boxShadow: `0 0 20px ${service.accentColor}20`
+                background: `linear-gradient(145deg, ${service.accentColor}40, ${service.accentColor}10)`,
+                boxShadow: `
+                  0 10px 30px ${service.accentColor}30,
+                  inset 0 -8px 16px rgba(0,0,0,0.3),
+                  inset 0 8px 16px ${service.accentColor}20
+                `
               }}
             >
-              <service.icon className="h-8 w-8" style={{ color: service.accentColor }} data-testid={`icon-service-${service.id}`} />
+              <service.icon 
+                className="h-12 w-12 transition-all duration-500" 
+                style={{ 
+                  color: service.accentColor,
+                  filter: `drop-shadow(0 4px 8px ${service.accentColor}40)`
+                }} 
+                data-testid={`icon-service-${service.id}`} 
+              />
             </div>
           </div>
-          
-          {/* Bottom section with title and description */}
-          <div className="text-center w-full">
-            <h3 className="text-sm font-semibold text-foreground mb-2" data-testid={`text-service-title-${service.id}`}>
-              {service.title}
-            </h3>
-            <p className="text-xs text-muted-foreground leading-relaxed">
-              {service.details.whatYouGet.slice(0, 2).join(' • ')}
-            </p>
-          </div>
+        </div>
+        
+        {/* Title in bottom left */}
+        <div className="absolute bottom-0 left-0 p-4 z-20">
+          <h3 className="text-sm font-semibold text-foreground" data-testid={`text-service-title-${service.id}`}>
+            {service.title}
+          </h3>
         </div>
       </div>
     </motion.div>

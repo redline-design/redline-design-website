@@ -1107,6 +1107,27 @@
     opacity: 0.3;
   }
 
+  /* 3D Icon Effect */
+  .icon-3d {
+    position: relative;
+  }
+
+  .icon-3d::before {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, var(--accent-color) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    filter: blur(12px);
+    z-index: -1;
+  }
+
+  .luminous-card:hover .icon-3d::before {
+    opacity: 0.4;
+  }
+
   /* 3D Circular Carousel Services Layout */
   .services-3d-circle-container {
     perspective: 1200px;
