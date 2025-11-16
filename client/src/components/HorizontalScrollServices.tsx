@@ -1,9 +1,11 @@
-import { useState, useMemo, useEffect, useRef } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { Globe, TrendingUp, Search, Database, BarChart3, Palette, MessageSquare, Mail, Users, Bot, Code, Check, Sparkles, ArrowRight } from "lucide-react";
+import { useInView } from "react-intersection-observer";
+import { Globe, TrendingUp, Search, Database, BarChart3, Palette, MessageSquare, Mail, Users, Bot, Code, Check, ArrowRight } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Card, CardContent } from "@/components/ui/card";
 
 // Services data
 const SERVICES_DATA = [
@@ -252,152 +254,59 @@ const SERVICES_DATA = [
 ] as const;
 
 export default function HorizontalScrollServices() {
-  const [isCardHovered, setIsCardHovered] = useState(false);
-  const [isSectionHovered, setIsSectionHovered] = useState(false);
   const [selectedService, setSelectedService] = useState<typeof SERVICES_DATA[number] | null>(null);
-  const [rotation, setRotation] = useState(0);
-  const services = useMemo(() => SERVICES_DATA, []);
-  const scrollYRef = useRef<number>(0);
+  const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 });
 
-  // Prevent page scrolling when hovering over the section
-  useEffect(() => {
-    if (isSectionHovered) {
-      scrollYRef.current = window.scrollY;
-      document.body.style.position = 'fixed';
-      document.body.style.top = `-${scrollYRef.current}px`;
-      document.body.style.width = '100%';
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.position = '';
-      document.body.style.top = '';
-      document.body.style.width = '';
-      document.body.style.overflow = '';
-      window.scrollTo(0, scrollYRef.current);
-    }
-    
-    return () => {
-      document.body.style.position = '';
-      document.body.style.top = '';
-      document.body.style.width = '';
-      document.body.style.overflow = '';
-    };
-  }, [isSectionHovered]);
 
   return (
     <section 
-      className="relative py-20 px-4 overflow-hidden"
+      className="py-20 px-4 sm:px-6 lg:px-8"
       data-testid="section-services-horizontal"
     >
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-12">
+        <div className="text-center mb-16">
           <h2 className="text-lg sm:text-xl md:text-2xl font-bold uppercase tracking-[0.3em] mb-4 red-glow-pulse" style={{ color: "#ff0000" }}>
             What We Do
           </h2>
-          <p className="text-sm text-muted-foreground hover-hint" data-testid="text-hover-services-hint">
-            ✨ Hover to explore our services
+          <p className="text-lg text-foreground">
+            Comprehensive digital marketing solutions to grow your business
           </p>
         </div>
 
-        {/* 3D Circular Carousel Services Container */}
-        <div 
-          className={`services-3d-circle-container ${isCardHovered ? 'expanded' : 'collapsed'}`}
-          onWheel={(e) => {
-            if (isSectionHovered && isCardHovered) {
-              e.preventDefault();
-              e.stopPropagation();
-              const delta = e.deltaY > 0 ? 1 : -1;
-              setRotation(prev => prev + (delta * (360 / services.length)));
-            }
-          }}
-          data-testid="container-services-3d"
-        >
-          {!isCardHovered && (
-            <motion.div 
-              className="service-hover-hint"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-              transition={{ duration: 0.4 }}
-              onMouseEnter={() => {
-                setIsSectionHovered(true);
-                setIsCardHovered(true);
-              }}
-              onMouseLeave={() => {
-                setIsSectionHovered(false);
-                setIsCardHovered(false);
-              }}
-              data-testid="text-hover-explainer"
+        {/* Grid Layout like Why Choose Us */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" ref={ref}>
+          {SERVICES_DATA.map((service, index) => (
+            <motion.div
+              key={service.id}
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.4, delay: index * 0.1 }}
             >
-              <Sparkles className="w-12 h-12 mb-4 text-primary" style={{ filter: "drop-shadow(0 0 12px rgba(255, 0, 0, 0.6))" }} />
-              <span className="text-base font-semibold">Hover to Explore All Services</span>
-              <span className="text-sm text-muted-foreground mt-2">Scroll to rotate through 11 services</span>
-            </motion.div>
-          )}
-          
-          <div 
-            className="services-circle-wrapper"
-            style={{
-              transform: `rotateY(${rotation}deg)`,
-              transition: 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)'
-            }}
-            onMouseEnter={() => {
-              setIsSectionHovered(true);
-              setIsCardHovered(true);
-            }}
-            onMouseLeave={() => {
-              setIsSectionHovered(false);
-              setIsCardHovered(false);
-            }}
-          >
-            {services.map((service, index) => {
-              const totalServices = services.length;
-              const anglePerCard = 360 / totalServices;
-              const angle = anglePerCard * index;
-              const radius = isCardHovered ? 500 : 0; // Circle radius - 0 when collapsed (increased for more spacing)
-              
-              return (
-                <motion.div
-                  key={service.title}
-                  className="service-card-circle"
-                  style={{
-                    transform: `rotateY(${angle}deg) translateZ(${radius}px)`,
-                    display: isCardHovered ? 'flex' : 'none',
-                    background: `linear-gradient(135deg, ${service.accentColor}85, ${service.accentColor}65)`
-                  }}
-                  initial={false}
-                  animate={{
-                    opacity: isCardHovered ? 1 : 0,
-                  }}
-                  transition={{
-                    transform: {
-                      duration: 1,
-                      ease: [0.4, 0, 0.2, 1],
-                      delay: isCardHovered ? index * 0.03 : 0
-                    },
-                    opacity: {
-                      duration: 0.4,
-                      delay: isCardHovered ? index * 0.03 : 0
-                    }
-                  }}
-                  data-testid={`card-service-3d-${service.title.toLowerCase().replace(/\s/g, "-")}`}
-                >
-                  <div className="service-card-inner">
-                    <div className="flex flex-col items-center w-full">
-                      <div
-                        className="flex-shrink-0 w-12 h-12 rounded-lg flex items-center justify-center mx-auto mb-2"
-                        style={{
-                          backgroundColor: 'rgba(0, 0, 0, 0.2)',
-                          color: '#000000'
-                        }}
-                      >
-                        <service.icon className="w-6 h-6" />
-                      </div>
-                      <h3 className="service-card-title text-sm font-semibold text-foreground text-center leading-tight mb-2">
+              <Card
+                className="h-full transition-all duration-300 rounded-2xl backdrop-blur-md bg-card/40 border-white/10 group hover-elevate active-elevate-2 cursor-pointer"
+                onClick={() => setSelectedService(service)}
+                data-testid={`card-service-${service.id}`}
+              >
+                <CardContent className="p-6 h-full flex flex-col">
+                  <div className="flex flex-col items-center justify-start text-center gap-4 flex-1">
+                    <div 
+                      className="flex-shrink-0 p-3 rounded-lg transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3"
+                      style={{
+                        backgroundColor: `${service.accentColor}20`,
+                      }}
+                    >
+                      <service.icon className="h-8 w-8" style={{ color: service.accentColor }} data-testid={`icon-service-${service.id}`} />
+                    </div>
+                    <div className="flex-1 flex flex-col">
+                      <h3 className="text-lg font-semibold text-foreground mb-2" data-testid={`text-service-title-${service.id}`}>
                         {service.title}
                       </h3>
-                      <ul className="service-card-bullets text-[10px] text-muted-foreground space-y-1 mb-2">
+                      <p className="text-sm text-muted-foreground mb-4" data-testid={`text-service-description-${service.id}`}>
+                        {service.description}
+                      </p>
+                      <ul className="space-y-2 text-left mb-4">
                         {service.details.whatYouGet.slice(0, 3).map((item, idx) => (
-                          <li key={idx} className="flex items-start gap-1.5">
+                          <li key={idx} className="flex items-start gap-2 text-xs text-muted-foreground">
                             <span className="text-primary mt-0.5 flex-shrink-0">•</span>
                             <span>{item}</span>
                           </li>
@@ -406,52 +315,21 @@ export default function HorizontalScrollServices() {
                     </div>
                     <Button
                       size="sm"
-                      className="w-full text-xs h-7 bg-primary text-primary-foreground hover:bg-primary/90 gap-1.5 flex-shrink-0"
+                      className="w-full mt-auto gap-2"
                       onClick={(e) => {
                         e.stopPropagation();
                         setSelectedService(service);
                       }}
                       data-testid={`button-learn-more-${service.id}`}
                     >
-                      Details
-                      <ArrowRight className="w-3.5 h-3.5" />
+                      Learn More
+                      <ArrowRight className="w-4 h-4" />
                     </Button>
                   </div>
-                </motion.div>
-              );
-            })}
-          </div>
-
-          {/* Progress Indicator - only show when cards are visible */}
-          {isCardHovered && (
-            <motion.div 
-              className="absolute -bottom-8 left-1/2 -translate-x-1/2 flex gap-1.5 justify-center items-center"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 10 }}
-              transition={{ duration: 0.3, delay: 0.4 }}
-              data-testid="indicator-progress"
-            >
-              {services.map((_, index) => {
-                const anglePerCard = 360 / services.length;
-                const normalizedRotation = ((rotation % 360) + 360) % 360;
-                const currentIndex = Math.round(normalizedRotation / anglePerCard) % services.length;
-                const isActive = index === currentIndex;
-                
-                return (
-                  <div
-                    key={index}
-                    className="w-1.5 h-1.5 rounded-full transition-all duration-300"
-                    style={{
-                      backgroundColor: isActive ? '#ff0000' : 'hsl(var(--muted-foreground) / 0.3)',
-                      transform: isActive ? 'scale(1.3)' : 'scale(1)',
-                      boxShadow: isActive ? '0 0 8px rgba(255, 0, 0, 0.6)' : 'none'
-                    }}
-                  />
-                );
-              })}
+                </CardContent>
+              </Card>
             </motion.div>
-          )}
+          ))}
         </div>
       </div>
 
