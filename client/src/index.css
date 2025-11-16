@@ -998,7 +998,7 @@
     bottom: -0.5rem;
     --ax: 8rem;
     border-radius: 2.2rem;
-    box-shadow: inset 0 0 0 0.08rem rgba(255,255,255,0.07);
+    box-shadow: inset 0 0 0 0.08rem var(--accent-color);
   }
 
   /* Light Layer System - always visible so slit shows */
@@ -1034,7 +1034,9 @@
   .luminous-card:hover .slit {
     background: var(--accent-color, #fff);
     opacity: 1;
-    box-shadow: 0 0 12px 2px var(--accent-color, #fff);
+    box-shadow: 0 0 24px 6px var(--accent-color, #fff),
+                0 0 40px 10px var(--accent-color, #fff);
+    filter: brightness(1.8);
   }
 
   /* Lumen - main glow layers - hidden until hover */
