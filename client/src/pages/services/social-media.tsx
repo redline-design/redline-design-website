@@ -122,26 +122,17 @@ export default function SocialMediaPage() {
                   ))}
                 </ul>
                 
-                <div className="flex gap-3 mt-auto">
-                  <Link href="/contact" className="flex-1">
-                    <Button 
-                      size="lg" 
-                      className="w-full bg-primary hover:bg-primary/90 text-primary-foreground gap-2"
+                <div className="mt-auto">
+                  <Link href="/contact" className="block">
+                    <button 
+                      className="neumorphic-button w-full"
                       data-testid="button-get-started"
                     >
-                      Get Started
-                      <ArrowRight className="w-4 h-4" />
-                    </Button>
-                  </Link>
-                  <Link href="/book-a-demo" className="flex-1">
-                    <Button 
-                      size="lg" 
-                      variant="outline"
-                      className="w-full"
-                      data-testid="button-book-demo"
-                    >
-                      Book a Demo
-                    </Button>
+                      <span className="flex items-center justify-center gap-2">
+                        Get Started
+                        <ArrowRight className="w-4 h-4" />
+                      </span>
+                    </button>
                   </Link>
                 </div>
               </div>
