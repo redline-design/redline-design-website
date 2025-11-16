@@ -1,6 +1,6 @@
 import Hero from "@/components/Hero";
 import HorizontalScrollServices from "@/components/HorizontalScrollServices";
-import TabbedContent from "@/components/TabbedContent";
+import { SliderCarousel } from "@/components/SliderCarousel";
 import PartnerLogos from "@/components/PartnerLogos";
 import TestimonialsCarousel from "@/components/TestimonialsCarousel";
 import StatCounter from "@/components/StatCounter";
@@ -15,6 +15,11 @@ import { BarChart3, Sparkles, Globe, DollarSign, Zap, Target, Users, Briefcase, 
 import { SiGoogleads, SiMeta, SiLinkedin, SiTiktok, SiYoutube, SiX, SiReddit, SiPinterest } from "react-icons/si";
 import { motion } from "framer-motion";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
+import analyticsImage from '@assets/stock_images/digital_marketing_an_90e73fbc.jpg';
+import seoImage from '@assets/stock_images/seo_search_engine_op_279c13f9.jpg';
+import ppcImage from '@assets/stock_images/paid_advertising_ppc_08198c97.jpg';
+import webDesignImage from '@assets/stock_images/web_design_developme_eb1d2180.jpg';
+import socialMediaImage from '@assets/stock_images/social_media_marketi_6046bd61.jpg';
 
 export default function Home() {
   const prefersReducedMotion = useReducedMotion();
@@ -41,6 +46,50 @@ export default function Home() {
 
   // Duplicate stats for seamless infinite loop
   const duplicatedStats = [...stats, ...stats, ...stats];
+
+  // Slider carousel slides for services
+  const sliderSlides = [
+    {
+      id: 'seo',
+      title: 'SEO & Content Marketing',
+      description: 'Dominate search rankings with data-driven SEO strategies that deliver qualified organic traffic and long-term growth.',
+      image: seoImage,
+      buttonText: 'Learn More',
+      buttonLink: '/services/seo',
+    },
+    {
+      id: 'ppc',
+      title: 'Paid Advertising',
+      description: 'Maximize ROI with precision-targeted PPC campaigns across Google, Meta, and LinkedIn that convert clicks into customers.',
+      image: ppcImage,
+      buttonText: 'Get Started',
+      buttonLink: '/services/ppc',
+    },
+    {
+      id: 'analytics',
+      title: 'Analytics & Insights',
+      description: 'Make data-driven decisions with comprehensive analytics tracking, custom dashboards, and actionable performance insights.',
+      image: analyticsImage,
+      buttonText: 'Explore',
+      buttonLink: '/services/analytics',
+    },
+    {
+      id: 'web-design',
+      title: 'Web Design & Development',
+      description: 'Transform your online presence with modern, conversion-focused websites that work 24/7 to grow your business.',
+      image: webDesignImage,
+      buttonText: 'View Work',
+      buttonLink: '/services/web-design',
+    },
+    {
+      id: 'social',
+      title: 'Social Media Marketing',
+      description: 'Build engaged communities and drive brand awareness with strategic social media campaigns that resonate with your audience.',
+      image: socialMediaImage,
+      buttonText: 'See More',
+      buttonLink: '/services/social-media',
+    },
+  ];
 
   const tabs = [
     {
@@ -434,18 +483,18 @@ export default function Home() {
       <SectionDivider />
 
       <ScrollAnimatedSection>
-        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-card/30 backdrop-blur-sm" data-testid="section-differentiators">
+        <section className="py-20 px-4 sm:px-6 lg:px-8" data-testid="section-differentiators">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-lg sm:text-xl md:text-2xl font-bold uppercase tracking-[0.3em] mb-4 red-glow-pulse" style={{ color: "#ff0000" }}>
-              <TextResolver text="The Redline Difference" delay={0} timeout={15} iterations={2} />
+              <TextResolver text="Our Core Services" delay={0} timeout={15} iterations={2} />
             </h2>
             <p className="text-lg text-foreground">
-              <TextResolver text="Keys to Digital Success" delay={200} timeout={10} iterations={1} />
+              <TextResolver text="Comprehensive Digital Marketing Solutions" delay={200} timeout={10} iterations={1} />
             </p>
           </div>
 
-          <TabbedContent tabs={tabs} />
+          <SliderCarousel slides={sliderSlides} />
         </div>
       </section>
       </ScrollAnimatedSection>
