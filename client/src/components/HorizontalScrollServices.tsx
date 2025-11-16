@@ -291,7 +291,7 @@ function ServiceCard({ service, mouseX, onSelect }: ServiceCardProps) {
         </div>
         
         {/* Content */}
-        <div className="card-content p-2 w-full h-full flex flex-col items-center justify-center relative z-10">
+        <div className="card-content py-0 px-2 w-full h-full flex flex-col items-center justify-center relative z-10">
           {/* 3D Icon with filled circle and cutout */}
           <div className="icon-3d-container transition-all duration-400">
             <div 
@@ -380,7 +380,7 @@ export default function HorizontalScrollServices() {
           >
             <div 
               ref={containerRef}
-              className="relative flex items-end justify-center gap-2" 
+              className="relative flex items-end justify-center gap-4" 
               data-testid="container-service-cards"
               style={{ height: MAX_HEIGHT + 20 }}
             >
