@@ -1018,7 +1018,7 @@
     position: absolute;
     left: 0;
     right: 0;
-    top: 65%;
+    top: 60%;
     bottom: auto;
     margin: auto;
     width: 64%;
@@ -1058,7 +1058,8 @@
     position: absolute;
     left: 0;
     right: 0;
-    top: 65%;
+    margin: 0 auto;
+    top: 60%;
     transform: translateY(-100%) rotateX(-42deg);
     opacity: 0.5;
     filter: blur(0.5rem);
@@ -1071,8 +1072,8 @@
     position: absolute;
     left: 0;
     right: 0;
-    margin: auto;
-    top: 65%;
+    margin: 0 auto;
+    top: 60%;
     transform: translateY(-100%) rotateX(-38deg);
     filter: blur(1.5rem);
     opacity: 0.6;
@@ -1086,8 +1087,8 @@
     position: absolute;
     left: 0;
     right: 0;
-    margin: auto;
-    top: 65%;
+    margin: 0 auto;
+    top: 60%;
     transform: translateY(-100%) rotateX(-30deg);
     filter: blur(2rem);
     opacity: 0.4;
