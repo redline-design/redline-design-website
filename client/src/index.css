@@ -1796,13 +1796,13 @@
   position: relative;
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
-  border: var(--border-size) solid rgba(255, 255, 255, 0.25);
+  border: var(--border-size) solid rgba(255, 255, 255, 0.2);
   overflow: hidden;
   background-image: radial-gradient(
     var(--spotlight-size) var(--spotlight-size) at
     calc(var(--x, 0) * 1px)
     calc(var(--y, 0) * 1px),
-    rgba(var(--glow-color, 255, 0, 0), calc(var(--glow-opacity, 0) * 0.05)),
+    rgba(var(--glow-color, 255, 0, 0), calc(var(--glow-opacity, 0) * 0.02)),
     transparent
   );
   background-color: hsl(var(--card) / 0.5);
@@ -1811,35 +1811,7 @@
   background-attachment: fixed;
 }
 
-/* Border emphasis glow (colored) */
-.glow-card::before {
-  pointer-events: none;
-  content: "";
-  position: absolute;
-  inset: calc(var(--border-size) * -1);
-  border: var(--border-size) solid transparent;
-  border-radius: inherit;
-  background-image: radial-gradient(
-    calc(var(--spotlight-size) * 0.75) calc(var(--spotlight-size) * 0.75) at
-    calc(var(--x, 0) * 1px)
-    calc(var(--y, 0) * 1px),
-    rgba(var(--glow-color, 255, 0, 0), calc(var(--glow-opacity, 0) * 1.5)),
-    transparent 100%
-  );
-  background-attachment: fixed;
-  background-size: calc(100% + (2 * var(--border-size))) calc(100% + (2 * var(--border-size)));
-  background-repeat: no-repeat;
-  background-position: 50% 50%;
-  mask:
-    linear-gradient(transparent, transparent),
-    linear-gradient(white, white);
-  mask-clip: padding-box, border-box;
-  mask-composite: exclude;
-  z-index: 2;
-  filter: brightness(2);
-}
-
-/* Border spotlight (white) */
+.glow-card::before,
 .glow-card::after {
   pointer-events: none;
   content: "";
@@ -1847,13 +1819,6 @@
   inset: calc(var(--border-size) * -1);
   border: var(--border-size) solid transparent;
   border-radius: inherit;
-  background-image: radial-gradient(
-    calc(var(--spotlight-size) * 0.5) calc(var(--spotlight-size) * 0.5) at
-    calc(var(--x, 0) * 1px)
-    calc(var(--y, 0) * 1px),
-    rgba(255, 255, 255, var(--glow-opacity, 0)),
-    transparent 100%
-  );
   background-attachment: fixed;
   background-size: calc(100% + (2 * var(--border-size))) calc(100% + (2 * var(--border-size)));
   background-repeat: no-repeat;
@@ -1862,7 +1827,31 @@
     linear-gradient(transparent, transparent),
     linear-gradient(white, white);
   mask-clip: padding-box, border-box;
-  mask-composite: exclude;
+  mask-composite: intersect;
+}
+
+/* Border emphasis glow (colored) */
+.glow-card::before {
+  background-image: radial-gradient(
+    calc(var(--spotlight-size) * 0.75) calc(var(--spotlight-size) * 0.75) at
+    calc(var(--x, 0) * 1px)
+    calc(var(--y, 0) * 1px),
+    rgba(var(--glow-color, 255, 0, 0), var(--glow-opacity, 0)),
+    transparent 100%
+  );
+  filter: brightness(2);
+  z-index: 2;
+}
+
+/* Border spotlight (white) */
+.glow-card::after {
+  background-image: radial-gradient(
+    calc(var(--spotlight-size) * 0.5) calc(var(--spotlight-size) * 0.5) at
+    calc(var(--x, 0) * 1px)
+    calc(var(--y, 0) * 1px),
+    rgba(255, 255, 255, var(--glow-opacity, 0)),
+    transparent 100%
+  );
   z-index: 2;
 }
 
