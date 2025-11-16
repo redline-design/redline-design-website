@@ -19,7 +19,7 @@ export default function TextResolver({
   iterations = 10,
   delay = 0
 }: TextResolverProps) {
-  const [displayText, setDisplayText] = useState('');
+  const [displayText, setDisplayText] = useState(text);
   const [started, setStarted] = useState(false);
 
   useEffect(() => {
@@ -34,10 +34,11 @@ export default function TextResolver({
     if (!started) return;
 
     let currentIndex = 0;
-    let animationFrameId: number;
+    let intervals: NodeJS.Timeout[] = [];
+    let isActive = true;
 
     const resolveNextCharacter = () => {
-      if (currentIndex >= text.length) {
+      if (!isActive || currentIndex >= text.length) {
         setDisplayText(text);
         return;
       }
@@ -46,25 +47,35 @@ export default function TextResolver({
       const partialString = text.substring(0, currentIndex);
 
       const randomizeInterval = setInterval(() => {
+        if (!isActive) {
+          clearInterval(randomizeInterval);
+          return;
+        }
+        
         if (iterationCount < iterations) {
           const randomChar = characters[Math.floor(Math.random() * characters.length)];
-          setDisplayText(partialString + randomChar);
+          setDisplayText(partialString + randomChar + text.substring(currentIndex + 1));
           iterationCount++;
         } else {
           clearInterval(randomizeInterval);
-          setDisplayText(partialString + text[currentIndex]);
+          setDisplayText(partialString + text[currentIndex] + text.substring(currentIndex + 1));
           currentIndex++;
-          animationFrameId = requestAnimationFrame(resolveNextCharacter);
+          setTimeout(() => {
+            if (isActive) {
+              resolveNextCharacter();
+            }
+          }, 0);
         }
       }, timeout);
+      
+      intervals.push(randomizeInterval);
     };
 
     resolveNextCharacter();
 
     return () => {
-      if (animationFrameId) {
-        cancelAnimationFrame(animationFrameId);
-      }
+      isActive = false;
+      intervals.forEach(interval => clearInterval(interval));
     };
   }, [started, text, characters, timeout, iterations]);
 
