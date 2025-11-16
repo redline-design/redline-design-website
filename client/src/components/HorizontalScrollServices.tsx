@@ -1,6 +1,5 @@
-import { useState } from "react";
-import { motion } from "framer-motion";
-import { useInView } from "react-intersection-observer";
+import { useState, useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Globe, TrendingUp, Search, Database, BarChart3, Palette, MessageSquare, Mail, Users, Bot, Code, Check, ArrowRight } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
@@ -253,14 +252,87 @@ const SERVICES_DATA = [
   }
 ] as const;
 
+// Card component with scroll-based animations
+function ServiceCard({ 
+  service, 
+  index, 
+  scrollYProgress,
+  onSelect
+}: { 
+  service: typeof SERVICES_DATA[number];
+  index: number;
+  scrollYProgress: any;
+  onSelect: (service: typeof SERVICES_DATA[number]) => void;
+}) {
+  // Calculate grid position
+  const cols = 6;
+  const row = Math.floor(index / cols);
+  const col = index % cols;
+  
+  // Each card animates based on scroll progress
+  const cardProgress = useTransform(
+    scrollYProgress,
+    [0.2, 0.3 + (index * 0.03), 0.8],
+    [0, 1, 1]
+  );
+  
+  const x = useTransform(cardProgress, [0, 1], [0, (col - 2.5) * 200]);
+  const y = useTransform(cardProgress, [0, 1], [0, row * 240]);
+  const rotation = useTransform(cardProgress, [0, 1], [index * 8 - 40, 0]);
+  const opacity = useTransform(cardProgress, [0, 0.3, 1], [0.7, 1, 1]);
+
+  return (
+    <motion.div
+      className="absolute"
+      style={{
+        x,
+        y,
+        rotate: rotation,
+        opacity,
+        transformOrigin: "center center"
+      }}
+    >
+      <Card
+        className="w-[180px] h-[200px] rounded-2xl backdrop-blur-md bg-card/40 border-white/10 group hover-elevate active-elevate-2 cursor-pointer flex items-center"
+        onClick={() => onSelect(service)}
+        data-testid={`card-service-${service.id}`}
+      >
+        <CardContent className="p-5 w-full">
+          <div className="flex flex-col items-center justify-center text-center gap-3">
+            <div 
+              className="flex-shrink-0 p-3 rounded-lg bg-primary/10 icon-glow transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3"
+            >
+              <service.icon className="h-6 w-6 text-primary" data-testid={`icon-service-${service.id}`} />
+            </div>
+            <div>
+              <h3 className="text-base font-semibold text-foreground mb-1" data-testid={`text-service-title-${service.id}`}>
+                {service.title}
+              </h3>
+              <p className="text-xs text-foreground" data-testid={`text-service-description-${service.id}`}>
+                {service.description}
+              </p>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    </motion.div>
+  );
+}
+
 export default function HorizontalScrollServices() {
   const [selectedService, setSelectedService] = useState<typeof SERVICES_DATA[number] | null>(null);
-  const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 });
-
+  const containerRef = useRef<HTMLDivElement>(null);
+  
+  // Track scroll progress through this section
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"]
+  });
 
   return (
     <section 
-      className="py-20 px-4 sm:px-6 lg:px-8"
+      ref={containerRef}
+      className="py-20 px-4 sm:px-6 lg:px-8 relative"
       data-testid="section-services-horizontal"
     >
       <div className="max-w-7xl mx-auto">
@@ -273,41 +345,16 @@ export default function HorizontalScrollServices() {
           </p>
         </div>
 
-        {/* Hand of Cards Layout */}
-        <div className="value-cards-hand" ref={ref} data-testid="container-service-cards">
+        {/* Scroll-Based Cards Layout */}
+        <div className="relative min-h-[600px] flex items-center justify-center" data-testid="container-service-cards">
           {SERVICES_DATA.map((service, index) => (
-            <motion.div
+            <ServiceCard
               key={service.id}
-              className="value-card-wrapper"
-              style={{ '--i': index } as React.CSSProperties}
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
-              transition={{ duration: 0.4, delay: index * 0.1 }}
-            >
-              <Card
-                className="value-card h-full transition-all duration-300 rounded-2xl backdrop-blur-md bg-card/40 border-white/10 group hover-elevate active-elevate-2 cursor-pointer flex items-center"
-                onClick={() => setSelectedService(service)}
-                data-testid={`card-service-${service.id}`}
-              >
-                <CardContent className="p-5 w-full">
-                  <div className="flex flex-col items-center justify-center text-center gap-3">
-                    <div 
-                      className="flex-shrink-0 p-3 rounded-lg bg-primary/10 icon-glow transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3"
-                    >
-                      <service.icon className="h-6 w-6 text-primary" data-testid={`icon-service-${service.id}`} />
-                    </div>
-                    <div>
-                      <h3 className="text-base font-semibold text-foreground mb-1" data-testid={`text-service-title-${service.id}`}>
-                        {service.title}
-                      </h3>
-                      <p className="text-xs text-foreground" data-testid={`text-service-description-${service.id}`}>
-                        {service.description}
-                      </p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </motion.div>
+              service={service}
+              index={index}
+              scrollYProgress={scrollYProgress}
+              onSelect={setSelectedService}
+            />
           ))}
         </div>
       </div>
