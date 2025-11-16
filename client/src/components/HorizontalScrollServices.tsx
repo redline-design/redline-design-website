@@ -288,7 +288,7 @@ function ServiceCard({
   );
   
   const x = useTransform(cardProgress, [0, 1], [0, (col - 2.5) * 220]);
-  const y = useTransform(cardProgress, [0, 1], [0, row * 320]);
+  const y = useTransform(cardProgress, [0, 1], [0, row * 260]);
   const rotation = useTransform(cardProgress, [0, 1], [index * 8 - 40, 0]);
   const opacity = useTransform(cardProgress, [0, 0.3, 1], [0.7, 1, 1]);
 
