@@ -40,47 +40,41 @@ export default function SocialMediaPage() {
   return (
     <div className="min-h-screen">
       <ScrollAnimatedSection>
-        <div className="py-20 md:py-32">
-        <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="max-w-4xl mx-auto text-center"
-          >
-            <div className="flex justify-center mb-6">
-              <div 
-                className="p-4 rounded-2xl bg-card/40 backdrop-blur-sm border border-border"
-                data-testid="service-icon"
-              >
-                <MessageSquare className="w-12 h-12 md:w-16 md:h-16" style={{ color: accentColor }} />
-              </div>
+        <div className="container mx-auto px-4 py-20 md:py-32">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="max-w-4xl mx-auto text-center mb-16 md:mb-24"
+        >
+          <div className="flex justify-center mb-6">
+            <div 
+              className="p-4 rounded-2xl bg-card/40 backdrop-blur-sm border border-border"
+              data-testid="service-icon"
+            >
+              <MessageSquare className="w-12 h-12 md:w-16 md:h-16" style={{ color: accentColor }} />
             </div>
-            
-            <h1 
-              className="text-4xl md:text-6xl font-bold mb-6"
-              data-testid="text-service-title"
-            >
-              Social Media Marketing
-            </h1>
-            
-            <p 
-              className="text-xl md:text-2xl text-muted-foreground mb-8"
-              data-testid="text-service-tagline"
-            >
-              Turn followers into customers
-            </p>
-            
-            <p className="text-lg text-foreground/80" data-testid="text-service-description">
-              Build your brand and engage your audience.
-            </p>
-          </motion.div>
-        </div>
-      </div>
-      </ScrollAnimatedSection>
+          </div>
+          
+          <h1 
+            className="text-4xl md:text-6xl font-bold mb-6"
+            data-testid="text-service-title"
+          >
+            Social Media Marketing
+          </h1>
+          
+          <p 
+            className="text-xl md:text-2xl text-muted-foreground mb-8"
+            data-testid="text-service-tagline"
+          >
+            Turn followers into customers
+          </p>
+          
+          <p className="text-lg text-foreground/80" data-testid="text-service-description">
+            Build your brand and engage your audience.
+          </p>
+        </motion.div>
 
-      <ScrollAnimatedSection>
-        <div className="container mx-auto px-4 pb-16 md:pb-24">
         <div className="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
