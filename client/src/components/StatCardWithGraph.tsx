@@ -35,29 +35,29 @@ export default function StatCardWithGraph({
 
   return (
     <div 
-      className="relative overflow-hidden rounded-lg bg-card shadow-lg"
+      className="relative overflow-hidden rounded-lg bg-card shadow-lg h-32"
       data-testid={testId}
     >
-      {/* Content */}
-      <div className="px-3 pt-2 pb-12 text-center relative z-10">
-        <h4 className="text-[10px] uppercase text-muted-foreground tracking-wide mb-0.5">
+      {/* Content overlaying graph */}
+      <div className="absolute inset-0 flex flex-col items-center justify-center text-center z-10 px-4">
+        <h4 className="text-xs uppercase text-muted-foreground tracking-wide mb-1">
           {label}
         </h4>
-        <h3 className="text-xl font-bold text-foreground my-0.5">
+        <h3 className="text-3xl font-bold text-foreground my-1">
           {value}
         </h3>
         <p 
-          className="text-[10px] font-semibold flex items-center justify-center gap-0.5"
+          className="text-sm font-semibold flex items-center justify-center gap-1"
           style={{ color }}
         >
           <span>{trend === "up" ? "▲" : "▼"}</span>
           <span>{trendValue}</span>
         </p>
-        <p className="text-[9px] text-muted-foreground mt-0">{subtitle}</p>
+        <p className="text-xs text-muted-foreground mt-1">{subtitle}</p>
       </div>
 
-      {/* Large Graph */}
-      <div className="absolute bottom-0 inset-x-0 h-16">
+      {/* Large Graph Background */}
+      <div className="absolute inset-0">
         <svg
           viewBox="0 0 100 100"
           preserveAspectRatio="none"
