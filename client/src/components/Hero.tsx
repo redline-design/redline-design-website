@@ -5,6 +5,7 @@ import { Link } from "wouter";
 import { ChevronDown, Sparkles, CalendarCheck } from "lucide-react";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import logoLarge from "@assets/v2h5UOvchlYvZ2HIPfl8w5dPIc_1762041101932.avif";
+import TextResolver from "@/components/TextResolver";
 
 export default function Hero() {
   const containerRef = useRef(null);
@@ -106,7 +107,12 @@ export default function Hero() {
           transition={{ duration: 0.7, delay: 0.4 }}
           style={{ color: "#ff0000" }}
         >
-          Digital Marketing That Doesn't Suck
+          <TextResolver 
+            text="Digital Marketing That Doesn't Suck" 
+            delay={1400}
+            timeout={40}
+            iterations={8}
+          />
         </motion.h2>
 
         {/* CTA Buttons */}
