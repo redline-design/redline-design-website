@@ -277,7 +277,7 @@ function ServiceCard({
   );
   
   const x = useTransform(cardProgress, [0, 1], [0, (col - 2.5) * 190]);
-  const y = useTransform(cardProgress, [0, 1], [0, row * 360]);
+  const y = useTransform(cardProgress, [0, 1], [0, row * 280]);
   const rotation = useTransform(cardProgress, [0, 1], [index * 8 - 40, 0]);
   const opacity = useTransform(cardProgress, [0, 0.3, 1], [0.7, 1, 1]);
 
@@ -293,28 +293,28 @@ function ServiceCard({
       }}
     >
       <Card
-        className="w-[180px] h-[340px] rounded-2xl backdrop-blur-md bg-card/40 border-white/10 group hover-elevate active-elevate-2 cursor-pointer"
+        className="w-[180px] h-[260px] rounded-2xl backdrop-blur-md bg-card/40 border-white/10 group hover-elevate active-elevate-2 cursor-pointer"
         onClick={() => onSelect(service)}
         data-testid={`card-service-${service.id}`}
       >
-        <CardContent className="p-4 w-full h-full flex flex-col">
-          <div className="flex flex-col text-center gap-3 flex-1">
+        <CardContent className="p-3 w-full h-full flex flex-col">
+          <div className="flex flex-col text-center gap-2 flex-1">
             <div 
-              className="flex-shrink-0 p-3 rounded-lg icon-glow transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3 mx-auto"
+              className="flex-shrink-0 p-2 rounded-lg icon-glow transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3 mx-auto"
               style={{
                 backgroundColor: `${service.accentColor}20`
               }}
             >
-              <service.icon className="h-6 w-6" style={{ color: service.accentColor }} data-testid={`icon-service-${service.id}`} />
+              <service.icon className="h-5 w-5" style={{ color: service.accentColor }} data-testid={`icon-service-${service.id}`} />
             </div>
             <div>
-              <h3 className="text-xs font-semibold text-foreground mb-3 line-clamp-1" data-testid={`text-service-title-${service.id}`}>
+              <h3 className="text-xs font-semibold text-foreground mb-2 line-clamp-1" data-testid={`text-service-title-${service.id}`}>
                 {service.title}
               </h3>
             </div>
             
             {/* Bullet Points */}
-            <ul className="space-y-2 text-left mb-3 flex-1">
+            <ul className="space-y-1.5 text-left mb-2 flex-1">
               {service.details.whatYouGet.slice(0, 2).map((item, idx) => (
                 <li key={idx} className="flex items-start gap-2 text-xs text-foreground">
                   <span className="text-primary mt-0.5 flex-shrink-0">•</span>
@@ -324,7 +324,7 @@ function ServiceCard({
             </ul>
             
             {/* Click indicator */}
-            <div className="text-xs text-primary font-medium flex items-center justify-center gap-1 mt-auto bg-primary/5 rounded-lg px-3 py-2 border border-primary/10">
+            <div className="text-xs text-primary font-medium flex items-center justify-center gap-1 mt-auto bg-primary/5 rounded-lg px-2 py-1.5 border border-primary/10">
               <span>Click for details</span>
               <ArrowRight className="w-3 h-3 transition-transform group-hover:translate-x-1" />
             </div>
