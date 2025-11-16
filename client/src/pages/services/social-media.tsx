@@ -54,7 +54,7 @@ export default function SocialMediaPage() {
                 className="p-4 rounded-2xl bg-card/40 backdrop-blur-sm border border-border"
                 data-testid="service-icon"
               >
-                <MessageSquare className="w-12 h-12 md:w-16 md:h-16" style={{ color: '#3b82f6' }} />
+                <MessageSquare className="w-12 h-12 md:w-16 md:h-16" style={{ color: '#737373' }} />
               </div>
             </div>
             
