@@ -1791,8 +1791,8 @@
 
 /* Glow Card Effect - Mouse-tracking spotlight */
 .glow-card {
-  --border-size: 2px;
-  --spotlight-size: 150px;
+  --border-size: calc(var(--border, 2) * 1px);
+  --spotlight-size: calc(var(--size, 150) * 1px);
   position: relative;
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
@@ -1802,13 +1802,12 @@
     var(--spotlight-size) var(--spotlight-size) at
     calc(var(--x, 0) * 1px)
     calc(var(--y, 0) * 1px),
-    rgba(var(--glow-color, 255, 0, 0), calc(var(--glow-opacity, 0) * 0.015)),
+    rgba(var(--glow-color, 255, 0, 0), calc(var(--glow-opacity, 0) * 0.01)),
     transparent
   );
   background-color: hsl(var(--card) / 0.5);
   background-size: calc(100% + (2 * var(--border-size))) calc(100% + (2 * var(--border-size)));
   background-position: 50% 50%;
-  background-attachment: fixed;
 }
 
 .glow-card::before,
@@ -1818,8 +1817,7 @@
   position: absolute;
   inset: calc(var(--border-size) * -1);
   border: var(--border-size) solid transparent;
-  border-radius: inherit;
-  background-attachment: fixed;
+  border-radius: calc(var(--radius, 12) * 1px);
   background-size: calc(100% + (2 * var(--border-size))) calc(100% + (2 * var(--border-size)));
   background-repeat: no-repeat;
   background-position: 50% 50%;

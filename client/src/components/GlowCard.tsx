@@ -53,12 +53,13 @@ export default function GlowCard({ children, className = "", "data-testid": test
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       style={{
-        '--x': mousePosition.x,
-        '--y': mousePosition.y,
-        '--left': cardBounds.left,
-        '--top': cardBounds.top,
+        '--x': mousePosition.x - cardBounds.left,
+        '--y': mousePosition.y - cardBounds.top,
         '--glow-opacity': isHovering ? 1 : 0,
         '--glow-color': glowColor,
+        '--border': 2,
+        '--size': 150,
+        '--radius': 12,
       } as React.CSSProperties}
     >
       {children}
