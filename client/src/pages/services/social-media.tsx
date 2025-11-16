@@ -116,7 +116,9 @@ export default function SocialMediaPage() {
                       className="flex items-start gap-3"
                       data-testid={`list-item-benefit-${index}`}
                     >
-                      <Check className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                      <div className="checkbox-icon mt-0.5">
+                        <Check />
+                      </div>
                       <span>{item}</span>
                     </li>
                   ))}
