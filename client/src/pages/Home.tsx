@@ -32,7 +32,7 @@ export default function Home() {
     { name: 'Pinterest', icon: SiPinterest },
   ];
 
-  // Statistics with graph data
+  // Statistics with graph data - dramatic growth curves
   const stats = [
     { 
       value: "7x", 
@@ -40,7 +40,7 @@ export default function Home() {
       subtitle: "vs traditional marketing",
       trend: "up" as const,
       trendValue: "57.1%",
-      graphData: [3, 4, 3, 5, 6, 5, 7],
+      graphData: [2, 2.5, 3, 4, 5.5, 6.5, 7],
       color: "rgb(34, 197, 94)",
       testId: "stat-roi" 
     },
@@ -50,7 +50,7 @@ export default function Home() {
       subtitle: "before purchasing",
       trend: "up" as const,
       trendValue: "12.3%",
-      graphData: [60, 65, 63, 70, 72, 74, 76],
+      graphData: [45, 52, 58, 64, 68, 72, 76],
       color: "rgb(59, 130, 246)",
       testId: "stat-online-research" 
     },
@@ -60,7 +60,7 @@ export default function Home() {
       subtitle: "vs traditional methods",
       trend: "up" as const,
       trendValue: "23.8%",
-      graphData: [1.5, 1.8, 2.0, 2.3, 2.6, 2.8, 3.0],
+      graphData: [1.0, 1.3, 1.6, 2.0, 2.4, 2.7, 3.0],
       color: "rgb(168, 85, 247)",
       testId: "stat-lead-increase" 
     },
@@ -70,7 +70,7 @@ export default function Home() {
       subtitle: "worldwide in 2024",
       trend: "up" as const,
       trendValue: "8.2%",
-      graphData: [4.2, 4.4, 4.6, 4.7, 4.9, 5.0, 5.1],
+      graphData: [3.5, 3.9, 4.2, 4.5, 4.7, 4.9, 5.1],
       color: "rgb(249, 115, 22)",
       testId: "stat-social-users" 
     },
@@ -80,7 +80,7 @@ export default function Home() {
       subtitle: "access via smartphones",
       trend: "up" as const,
       trendValue: "15.4%",
-      graphData: [78, 82, 85, 87, 89, 91, 93],
+      graphData: [62, 70, 76, 82, 86, 90, 93],
       color: "rgb(236, 72, 153)",
       testId: "stat-mobile" 
     },
@@ -90,7 +90,7 @@ export default function Home() {
       subtitle: "global digital 2024",
       trend: "up" as const,
       trendValue: "11.2%",
-      graphData: [350, 380, 410, 440, 465, 485, 500],
+      graphData: [250, 300, 350, 400, 440, 470, 500],
       color: "rgb(245, 158, 11)",
       testId: "stat-ad-spend" 
     },
@@ -100,7 +100,7 @@ export default function Home() {
       subtitle: "from organic search",
       trend: "up" as const,
       trendValue: "9.7%",
-      graphData: [58, 60, 62, 64, 65, 67, 68],
+      graphData: [42, 48, 54, 58, 62, 65, 68],
       color: "rgb(20, 184, 166)",
       testId: "stat-seo" 
     },
@@ -110,7 +110,7 @@ export default function Home() {
       subtitle: "client satisfaction",
       trend: "up" as const,
       trendValue: "2.1%",
-      graphData: [4.5, 4.6, 4.7, 4.7, 4.8, 4.8, 4.9],
+      graphData: [4.0, 4.2, 4.4, 4.5, 4.6, 4.8, 4.9],
       color: "rgb(14, 165, 233)",
       testId: "stat-rating" 
     },
@@ -120,7 +120,7 @@ export default function Home() {
       subtitle: "marketers see positive",
       trend: "up" as const,
       trendValue: "6.3%",
-      graphData: [80, 82, 84, 85, 87, 88, 89],
+      graphData: [65, 72, 76, 80, 84, 87, 89],
       color: "rgb(139, 92, 246)",
       testId: "stat-email" 
     },
@@ -130,7 +130,7 @@ export default function Home() {
       subtitle: "vs static content",
       trend: "up" as const,
       trendValue: "18.9%",
-      graphData: [1.5, 1.7, 1.9, 2.1, 2.2, 2.4, 2.5],
+      graphData: [1.0, 1.2, 1.5, 1.8, 2.0, 2.3, 2.5],
       color: "rgb(244, 63, 94)",
       testId: "stat-video" 
     },
