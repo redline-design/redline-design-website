@@ -284,7 +284,7 @@ function ServiceCard({
   // Each card animates based on scroll progress
   const cardProgress = useTransform(
     scrollYProgress,
-    [0.2, 0.3 + (index * 0.03), 0.8],
+    [0.1, 0.2 + (index * 0.015), 0.5],
     [0, 1, 1]
   );
   
