@@ -57,7 +57,7 @@ export default function GlowCard({ children, className = "", "data-testid": test
         '--y': mousePosition.y,
         '--left': cardBounds.left,
         '--top': cardBounds.top,
-        '--glow-opacity': isHovering ? 0.2 : 0,
+        '--glow-opacity': isHovering ? 1 : 0,
         '--glow-color': glowColor,
       } as React.CSSProperties}
     >
