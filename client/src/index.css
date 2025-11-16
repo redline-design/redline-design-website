@@ -1673,8 +1673,8 @@
 .custom-cursor.hover {
   width: 24px;
   height: 24px;
-  background: #ffffff;
-  border: none;
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px solid #ffffff;
   box-shadow: 
     0 0 30px rgba(255, 255, 255, 0.9),
     0 0 60px rgba(255, 255, 255, 0.5);
