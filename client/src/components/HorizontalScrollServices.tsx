@@ -362,7 +362,7 @@ export default function HorizontalScrollServices() {
         </div>
 
         {/* Scroll-Based Cards Layout */}
-        <div className="relative min-h-[1000px] flex items-start justify-center pt-8" data-testid="container-service-cards">
+        <div className="relative min-h-[620px] flex items-start justify-center pt-8" data-testid="container-service-cards">
           {SERVICES_DATA.map((service, index) => (
             <ServiceCard
               key={service.id}
