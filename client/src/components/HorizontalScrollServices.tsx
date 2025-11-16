@@ -241,10 +241,10 @@ const SERVICES_DATA = [
   }
 ];
 
-const BASE_WIDTH = 140;
-const BASE_HEIGHT = 180;
-const MAX_WIDTH = 220;
-const MAX_HEIGHT = 280;
+const BASE_WIDTH = 100;
+const BASE_HEIGHT = 130;
+const MAX_WIDTH = 160;
+const MAX_HEIGHT = 200;
 
 interface ServiceCardProps {
   service: typeof SERVICES_DATA[number];
@@ -291,18 +291,20 @@ function ServiceCard({ service, mouseX, onSelect }: ServiceCardProps) {
         </div>
         
         {/* Content */}
-        <div className="card-content p-6 w-full h-full flex flex-col items-center justify-center relative z-10">
+        <div className="card-content p-4 w-full h-full flex flex-col items-center justify-center relative z-10">
           {/* 3D Icon with filled circle and cutout */}
-          <div className="icon-3d-container absolute top-12 transition-all duration-400">
+          <div className="icon-3d-container absolute top-8 transition-all duration-400">
             <div 
               className="icon-circle-filled"
               style={{
                 '--icon-color': service.accentColor,
-                backgroundColor: service.accentColor
+                backgroundColor: service.accentColor,
+                width: '2rem',
+                height: '2rem'
               } as React.CSSProperties}
             >
               <service.icon 
-                className="icon-cutout h-5 w-5" 
+                className="icon-cutout h-4 w-4" 
                 style={{ 
                   color: '#1a1a1a'
                 }} 
@@ -313,8 +315,8 @@ function ServiceCard({ service, mouseX, onSelect }: ServiceCardProps) {
         </div>
         
         {/* Title centered at bottom */}
-        <div className="absolute bottom-0 left-0 right-0 p-4 z-20 flex justify-center">
-          <h3 className="text-xs font-bold text-foreground tracking-tight whitespace-nowrap uppercase" data-testid={`text-service-title-${service.id}`}>
+        <div className="absolute bottom-0 left-0 right-0 p-2 z-20 flex justify-center">
+          <h3 className="text-[10px] font-bold text-foreground tracking-tight whitespace-nowrap uppercase" data-testid={`text-service-title-${service.id}`}>
             {service.title}
           </h3>
         </div>
@@ -364,21 +366,34 @@ export default function HorizontalScrollServices() {
           </p>
         </div>
 
-        {/* Dock-Style Cards Layout */}
-        <div 
-          ref={containerRef}
-          className="relative flex items-end justify-center gap-3 py-8 overflow-x-auto" 
-          data-testid="container-service-cards"
-          style={{ height: MAX_HEIGHT + 80 }}
-        >
-          {SERVICES_DATA.map((service) => (
-            <ServiceCard
-              key={service.id}
-              service={service}
-              mouseX={mouseX}
-              onSelect={setSelectedService}
-            />
-          ))}
+        {/* Dock-Style Cards Layout with Frosted Glass Background */}
+        <div className="flex justify-center">
+          <div 
+            className="relative inline-flex items-end justify-center gap-2 px-6 py-4 rounded-2xl"
+            style={{
+              background: 'rgba(255, 255, 255, 0.03)',
+              backdropFilter: 'blur(20px)',
+              WebkitBackdropFilter: 'blur(20px)',
+              border: '1px solid rgba(255, 255, 255, 0.1)',
+              boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.37)'
+            }}
+          >
+            <div 
+              ref={containerRef}
+              className="relative flex items-end justify-center gap-2" 
+              data-testid="container-service-cards"
+              style={{ height: MAX_HEIGHT + 20 }}
+            >
+              {SERVICES_DATA.map((service) => (
+                <ServiceCard
+                  key={service.id}
+                  service={service}
+                  mouseX={mouseX}
+                  onSelect={setSelectedService}
+                />
+              ))}
+            </div>
+          </div>
         </div>
       </div>
 
