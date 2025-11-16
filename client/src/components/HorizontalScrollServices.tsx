@@ -324,7 +324,7 @@ function ServiceCard({
             </ul>
             
             {/* Click indicator */}
-            <div className="text-xs text-primary font-medium flex items-center justify-center gap-1 mt-auto">
+            <div className="text-xs text-primary font-medium flex items-center justify-center gap-1 mt-auto bg-primary/5 rounded-lg px-3 py-2 border border-primary/10">
               <span>Click for details</span>
               <ArrowRight className="w-3 h-3 transition-transform group-hover:translate-x-1" />
             </div>
