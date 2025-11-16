@@ -327,88 +327,17 @@ function ServiceCard({
           </div>
         </div>
         
-        {/* Decorative Elements */}
-        <div className="card-decorations">
-          {/* Top accent line */}
-          <div 
-            className="absolute top-0 left-1/4 right-1/4 h-px opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-            style={{
-              background: `linear-gradient(90deg, transparent, ${service.accentColor}80, transparent)`,
-              boxShadow: `0 0 8px ${service.accentColor}60`
-            }}
-          />
-          
-          {/* Corner accents */}
-          <div 
-            className="absolute top-4 left-4 w-8 h-8 opacity-20 group-hover:opacity-40 transition-opacity duration-500"
-            style={{
-              background: `linear-gradient(135deg, ${service.accentColor}40 0%, transparent 70%)`,
-              borderRadius: '4px 0 0 0'
-            }}
-          />
-          <div 
-            className="absolute top-4 right-4 w-8 h-8 opacity-20 group-hover:opacity-40 transition-opacity duration-500"
-            style={{
-              background: `linear-gradient(225deg, ${service.accentColor}40 0%, transparent 70%)`,
-              borderRadius: '0 4px 0 0'
-            }}
-          />
-          
-          {/* Geometric grid pattern */}
-          <div 
-            className="absolute inset-0 opacity-5 group-hover:opacity-10 transition-opacity duration-500"
-            style={{
-              backgroundImage: `linear-gradient(${service.accentColor}40 1px, transparent 1px), linear-gradient(90deg, ${service.accentColor}40 1px, transparent 1px)`,
-              backgroundSize: '20px 20px'
-            }}
-          />
-        </div>
-        
         {/* Content */}
         <div className="card-content p-6 w-full h-full flex flex-col items-center justify-center relative z-10">
-          {/* Large 3D Icon at center */}
-          <div className="flex-shrink-0 flex flex-col items-center gap-6">
-            <div 
-              className="icon-3d w-24 h-24 rounded-full flex items-center justify-center transition-all duration-500 group-hover:scale-110 group-hover:rotate-6"
-              style={{
-                background: `linear-gradient(145deg, ${service.accentColor}40, ${service.accentColor}10)`,
-                boxShadow: `
-                  0 10px 30px ${service.accentColor}30,
-                  inset 0 -8px 16px rgba(0,0,0,0.3),
-                  inset 0 8px 16px ${service.accentColor}20
-                `
-              }}
-            >
-              <service.icon 
-                className="h-12 w-12 transition-all duration-500 icon-shadow-caster" 
-                style={{ 
-                  color: service.accentColor,
-                  filter: `drop-shadow(0 4px 8px ${service.accentColor}40)`
-                }} 
-                data-testid={`icon-service-${service.id}`} 
-              />
-            </div>
-            
-            {/* Illuminated bar with icon shadow */}
-            <div className="illuminated-bar-container relative w-32">
-              {/* The bar itself - always visible */}
-              <div 
-                className="illuminated-bar h-1 rounded-full transition-all duration-500"
-                style={{
-                  background: `linear-gradient(90deg, transparent, ${service.accentColor}40, transparent)`,
-                  boxShadow: `0 0 8px ${service.accentColor}20`
-                }}
-              />
-              {/* Icon shadow projection on the bar - subtle always, prominent on hover */}
-              <div 
-                className="icon-shadow absolute top-0 left-1/2 -translate-x-1/2 w-16 h-1 rounded-full opacity-30 group-hover:opacity-100 transition-opacity duration-500"
-                style={{
-                  background: `radial-gradient(ellipse, ${service.accentColor}80 0%, transparent 70%)`,
-                  filter: 'blur(8px)',
-                  transform: 'translateX(-50%) scale(1.2)'
-                }}
-              />
-            </div>
+          {/* Icon */}
+          <div className="icon-3d absolute top-20 transition-all duration-400">
+            <service.icon 
+              className="h-12 w-12 transition-all duration-400" 
+              style={{ 
+                color: service.accentColor
+              }} 
+              data-testid={`icon-service-${service.id}`} 
+            />
           </div>
         </div>
         
