@@ -241,9 +241,9 @@ const SERVICES_DATA = [
   }
 ];
 
-const BASE_WIDTH = 100;
+const BASE_WIDTH = 130;
 const BASE_HEIGHT = 130;
-const MAX_WIDTH = 160;
+const MAX_WIDTH = 200;
 const MAX_HEIGHT = 200;
 
 interface ServiceCardProps {
