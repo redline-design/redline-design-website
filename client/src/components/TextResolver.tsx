@@ -20,33 +20,53 @@ export default function TextResolver({
   delay = 0
 }: TextResolverProps) {
   const [displayText, setDisplayText] = useState('');
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [started, setStarted] = useState(false);
 
   useEffect(() => {
     const startTimeout = setTimeout(() => {
-      if (currentIndex <= text.length) {
-        let iterationCount = 0;
-        const randomInterval = setInterval(() => {
-          if (iterationCount < iterations) {
-            const partialString = text.substring(0, currentIndex);
-            const randomChar = characters[Math.floor(Math.random() * characters.length)];
-            setDisplayText(partialString + randomChar);
-            iterationCount++;
-          } else {
-            clearInterval(randomInterval);
-            setDisplayText(text.substring(0, currentIndex));
-            setCurrentIndex(currentIndex + 1);
-          }
-        }, timeout);
-
-        return () => clearInterval(randomInterval);
-      } else {
-        setDisplayText(text);
-      }
+      setStarted(true);
     }, delay);
 
     return () => clearTimeout(startTimeout);
-  }, [currentIndex, text, characters, timeout, iterations, delay]);
+  }, [delay]);
+
+  useEffect(() => {
+    if (!started) return;
+
+    let currentIndex = 0;
+    let animationFrameId: number;
+
+    const resolveNextCharacter = () => {
+      if (currentIndex >= text.length) {
+        setDisplayText(text);
+        return;
+      }
+
+      let iterationCount = 0;
+      const partialString = text.substring(0, currentIndex);
+
+      const randomizeInterval = setInterval(() => {
+        if (iterationCount < iterations) {
+          const randomChar = characters[Math.floor(Math.random() * characters.length)];
+          setDisplayText(partialString + randomChar);
+          iterationCount++;
+        } else {
+          clearInterval(randomizeInterval);
+          setDisplayText(partialString + text[currentIndex]);
+          currentIndex++;
+          animationFrameId = requestAnimationFrame(resolveNextCharacter);
+        }
+      }, timeout);
+    };
+
+    resolveNextCharacter();
+
+    return () => {
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+      }
+    };
+  }, [started, text, characters, timeout, iterations]);
 
   return (
     <span className={className} style={style}>

@@ -110,8 +110,8 @@ export default function Hero() {
           <TextResolver 
             text="Digital Marketing That Doesn't Suck" 
             delay={400}
-            timeout={30}
-            iterations={3}
+            timeout={20}
+            iterations={2}
           />
         </motion.h2>
 
