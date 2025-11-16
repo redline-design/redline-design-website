@@ -19,6 +19,7 @@ export default function WebsitesPage() {
       timeline="2-4 weeks"
       investment="Starting at $1,000"
       status="accepting"
+      accentColor="rgb(96, 165, 250)"
     />
   );
 }

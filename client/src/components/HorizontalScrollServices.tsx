@@ -17,7 +17,7 @@ const SERVICES_DATA = [
     tagline: "Your digital storefront that works 24/7",
     link: "/services/websites",
     status: "accepting" as const,
-    accentColor: "#737373",
+    accentColor: "rgb(96, 165, 250)",
     imageUrl: "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=400&h=300&fit=crop",
     details: {
       whatYouGet: [
@@ -40,7 +40,7 @@ const SERVICES_DATA = [
     tagline: "Get customers today, not months from now",
     link: "/services/paid-advertising",
     status: "accepting" as const,
-    accentColor: "#737373",
+    accentColor: "rgb(167, 139, 250)",
     imageUrl: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop",
     details: {
       whatYouGet: [
@@ -63,7 +63,7 @@ const SERVICES_DATA = [
     tagline: "Show up when customers are searching for you",
     link: "/services/seo",
     status: "waitlist" as const,
-    accentColor: "#737373",
+    accentColor: "rgb(110, 231, 183)",
     imageUrl: "https://images.unsplash.com/photo-1432888622747-4eb9a8f2c293?w=400&h=300&fit=crop",
     details: {
       whatYouGet: [
@@ -86,7 +86,7 @@ const SERVICES_DATA = [
     tagline: "Never lose track of a lead again",
     link: "/services/crm",
     status: "accepting" as const,
-    accentColor: "#737373",
+    accentColor: "rgb(251, 146, 60)",
     imageUrl: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop",
     details: {
       whatYouGet: [
@@ -109,7 +109,7 @@ const SERVICES_DATA = [
     tagline: "Know exactly what's working (and what's not)",
     link: "/services/analytics",
     status: "accepting" as const,
-    accentColor: "#737373",
+    accentColor: "rgb(236, 72, 153)",
     imageUrl: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop",
     details: {
       whatYouGet: [
@@ -132,7 +132,7 @@ const SERVICES_DATA = [
     tagline: "Make your brand impossible to ignore",
     link: "/services/design",
     status: "accepting" as const,
-    accentColor: "#737373",
+    accentColor: "rgb(245, 158, 11)",
     imageUrl: "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400&h=300&fit=crop",
     details: {
       whatYouGet: [
@@ -155,7 +155,7 @@ const SERVICES_DATA = [
     tagline: "Turn followers into customers",
     link: "/services/social-media",
     status: "accepting" as const,
-    accentColor: "#737373",
+    accentColor: "rgb(52, 211, 153)",
     imageUrl: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=400&h=300&fit=crop",
     details: {
       whatYouGet: [
@@ -178,7 +178,7 @@ const SERVICES_DATA = [
     tagline: "Your customers' inbox is still the best ROI channel",
     link: "/services/email-marketing",
     status: "accepting" as const,
-    accentColor: "#737373",
+    accentColor: "rgb(239, 68, 68)",
     imageUrl: "https://images.unsplash.com/photo-1596526131083-e8c633c948d2?w=400&h=300&fit=crop",
     details: {
       whatYouGet: [
@@ -201,7 +201,7 @@ const SERVICES_DATA = [
     tagline: "Your reputation is your most valuable asset",
     link: "/services/reputation-management",
     status: "waitlist" as const,
-    accentColor: "#737373",
+    accentColor: "rgb(139, 92, 246)",
     imageUrl: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=400&h=300&fit=crop",
     details: {
       whatYouGet: [
@@ -224,7 +224,7 @@ const SERVICES_DATA = [
     tagline: "The future of business is here",
     link: "/services/ai-solutions",
     status: "waitlist" as const,
-    accentColor: "#737373",
+    accentColor: "rgb(14, 165, 233)",
     imageUrl: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400&h=300&fit=crop",
     details: {
       whatYouGet: [
@@ -361,7 +361,7 @@ export default function HorizontalScrollServices() {
     >
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-8">
-          <h2 className="text-lg sm:text-xl md:text-2xl font-bold uppercase tracking-[0.3em] mb-4 service-section-heading service-glow-pulse">
+          <h2 className="text-lg sm:text-xl md:text-2xl font-bold uppercase tracking-[0.3em] mb-4 red-glow-pulse" style={{ color: "#ff0000" }}>
             <TextResolver text="What We Do" delay={0} timeout={15} iterations={2} />
           </h2>
           <p className="text-lg text-foreground">
@@ -458,7 +458,7 @@ export default function HorizontalScrollServices() {
                   <ul className="space-y-2.5">
                     {selectedService.details.whatYouGet.map((item, idx) => (
                       <li key={idx} className="flex items-start gap-3 text-sm text-muted-foreground">
-                        <Check className="w-5 h-5 flex-shrink-0 mt-0.5" style={{ color: '#6B7C6E' }} />
+                        <Check className="w-5 h-5 flex-shrink-0 mt-0.5" style={{ color: selectedService.accentColor }} />
                         <span>{item}</span>
                       </li>
                     ))}

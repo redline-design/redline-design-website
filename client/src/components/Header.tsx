@@ -110,7 +110,7 @@ export default function Header() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
                 className={`relative px-3 py-2 text-sm font-medium transition-colors group rounded-lg ${
-                  location === "/" ? "text-foreground" : "text-muted-foreground"
+                  location === "/" ? "text-primary" : "text-foreground"
                 }`}
                 data-testid="link-nav-home"
               >
@@ -131,7 +131,7 @@ export default function Header() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2 }}
                   className={`relative px-4 py-2 text-sm font-medium transition-colors group rounded-lg flex items-center gap-1 ${
-                    location.startsWith("/services") ? "text-foreground" : "text-muted-foreground"
+                    location.startsWith("/services") ? "text-primary" : "text-foreground"
                   }`}
                   data-testid="button-nav-services"
                 >
@@ -166,7 +166,7 @@ export default function Header() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: (index + 1) * 0.1 + 0.2 }}
                   className={`relative px-4 py-2 text-sm font-medium transition-colors group rounded-lg ${
-                    location === link.href ? "text-foreground" : "text-muted-foreground"
+                    location === link.href ? "text-primary" : "text-foreground"
                   }`}
                   data-testid={`link-nav-${link.label.toLowerCase().replace(/\s/g, "-")}`}
                 >
@@ -232,7 +232,7 @@ export default function Header() {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0 }}
                   className={`flex items-center gap-3 px-4 py-3 rounded-lg text-base font-medium hover-elevate active-elevate-2 transition-colors ${
-                    location === "/" ? "text-foreground bg-muted" : "text-muted-foreground"
+                    location === "/" ? "text-primary bg-primary/10" : "text-foreground"
                   }`}
                   onClick={() => setIsMobileMenuOpen(false)}
                   data-testid="link-mobile-home"
@@ -249,7 +249,7 @@ export default function Header() {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.1 }}
                   className={`w-full flex items-center justify-between px-4 py-3 rounded-lg text-base font-medium hover-elevate active-elevate-2 transition-colors ${
-                    location.startsWith("/services") ? "text-foreground bg-muted" : "text-muted-foreground"
+                    location.startsWith("/services") ? "text-primary bg-primary/10" : "text-foreground"
                   }`}
                   onClick={() => setServicesOpen(!servicesOpen)}
                   data-testid="button-mobile-services"
@@ -295,7 +295,7 @@ export default function Header() {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: (index + 2) * 0.1 }}
                     className={`block px-4 py-3 rounded-lg text-base font-medium hover-elevate active-elevate-2 transition-colors ${
-                      location === link.href ? "text-foreground bg-muted" : "text-muted-foreground"
+                      location === link.href ? "text-primary bg-primary/10" : "text-foreground"
                     }`}
                     onClick={() => setIsMobileMenuOpen(false)}
                     data-testid={`link-mobile-${link.label.toLowerCase().replace(/\s/g, "-")}`}

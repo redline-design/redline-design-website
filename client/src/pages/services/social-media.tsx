@@ -21,20 +21,22 @@ import {
 } from "react-icons/si";
 
 const platforms = [
-  { name: "Facebook", icon: SiFacebook, color: "#737373" },
-  { name: "Instagram", icon: SiInstagram, color: "#737373" },
-  { name: "X (Twitter)", icon: SiX, color: "#737373" },
-  { name: "LinkedIn", icon: SiLinkedin, color: "#737373" },
-  { name: "TikTok", icon: SiTiktok, color: "#737373" },
-  { name: "YouTube", icon: SiYoutube, color: "#737373" },
-  { name: "Pinterest", icon: SiPinterest, color: "#737373" },
-  { name: "Snapchat", icon: SiSnapchat, color: "#737373" },
-  { name: "Threads", icon: SiThreads, color: "#737373" },
-  { name: "Reddit", icon: SiReddit, color: "#737373" },
-  { name: "Google My Business", icon: SiGoogle, color: "#737373" },
+  { name: "Facebook", icon: SiFacebook, color: "#1877F2" },
+  { name: "Instagram", icon: SiInstagram, color: "#E4405F" },
+  { name: "X (Twitter)", icon: SiX, color: "#FFFFFF" },
+  { name: "LinkedIn", icon: SiLinkedin, color: "#0A66C2" },
+  { name: "TikTok", icon: SiTiktok, color: "#FFFFFF" },
+  { name: "YouTube", icon: SiYoutube, color: "#FF0000" },
+  { name: "Pinterest", icon: SiPinterest, color: "#E60023" },
+  { name: "Snapchat", icon: SiSnapchat, color: "#FFFC00" },
+  { name: "Threads", icon: SiThreads, color: "#FFFFFF" },
+  { name: "Reddit", icon: SiReddit, color: "#FF4500" },
+  { name: "Google My Business", icon: SiGoogle, color: "#4285F4" },
 ];
 
 export default function SocialMediaPage() {
+  const accentColor = "#ff0000";
+  
   return (
     <div className="min-h-screen">
       <ScrollAnimatedSection>
@@ -52,7 +54,7 @@ export default function SocialMediaPage() {
                 className="p-4 rounded-2xl bg-card/40 backdrop-blur-sm border border-border"
                 data-testid="service-icon"
               >
-                <MessageSquare className="w-12 h-12 md:w-16 md:h-16" style={{ color: '#737373' }} />
+                <MessageSquare className="w-12 h-12 md:w-16 md:h-16" style={{ color: '#3b82f6' }} />
               </div>
             </div>
             
@@ -189,7 +191,7 @@ export default function SocialMediaPage() {
                   </div>
                   <div className="flex-1">
                     <h3 className="text-xl font-bold mb-2">Investment</h3>
-                    <p className="text-2xl font-bold text-foreground" data-testid="text-investment">
+                    <p className="text-2xl font-bold text-primary" data-testid="text-investment">
                       Starting at $1,000/month
                     </p>
                   </div>

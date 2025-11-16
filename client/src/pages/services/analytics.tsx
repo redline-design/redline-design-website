@@ -19,6 +19,7 @@ export default function AnalyticsPage() {
       timeline="1 week setup, ongoing monthly reports"
       investment="Included with all marketing plans"
       status="accepting"
+      accentColor="rgb(236, 72, 153)"
     />
   );
 }

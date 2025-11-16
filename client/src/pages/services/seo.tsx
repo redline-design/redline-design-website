@@ -54,6 +54,7 @@ interface SEOAnalysis {
 
 export default function SEOPage() {
   const [url, setUrl] = useState("");
+  const accentColor = "rgb(110, 231, 183)";
 
   const analyzeMutation = useMutation({
     mutationFn: async (url: string) => {
@@ -97,7 +98,7 @@ export default function SEOPage() {
           >
             <div className="flex justify-center mb-6">
               <div className="p-4 rounded-2xl bg-card/40 backdrop-blur-sm border border-border">
-                <Search className="w-12 h-12 md:w-16 md:h-16" style={{ color: '#737373' }} />
+                <Search className="w-12 h-12 md:w-16 md:h-16" style={{ color: accentColor }} />
               </div>
             </div>
             
