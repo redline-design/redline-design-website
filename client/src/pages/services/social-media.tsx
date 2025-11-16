@@ -64,14 +64,10 @@ export default function SocialMediaPage() {
           </h1>
           
           <p 
-            className="text-xl md:text-2xl text-muted-foreground mb-8"
+            className="text-xl md:text-2xl text-muted-foreground"
             data-testid="text-service-tagline"
           >
             Turn followers into customers
-          </p>
-          
-          <p className="text-lg text-foreground/80" data-testid="text-service-description">
-            Build your brand and engage your audience.
           </p>
         </motion.div>
 
