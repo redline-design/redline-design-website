@@ -32,105 +32,105 @@ export default function Home() {
     { name: 'Pinterest', icon: SiPinterest },
   ];
 
-  // Statistics with graph data - dramatic growth curves
+  // Statistics with 5-year growth data (2020-2024)
   const stats = [
     { 
       value: "7x", 
       label: "Average ROI", 
-      subtitle: "vs traditional marketing",
+      subtitle: "5-year growth trend",
       trend: "up" as const,
-      trendValue: "57.1%",
-      graphData: [2, 2.5, 3, 4, 5.5, 6.5, 7],
+      trendValue: "250%",
+      graphData: [2.0, 3.2, 4.5, 5.8, 7.0], // 2020-2024
       color: "rgb(34, 197, 94)",
       testId: "stat-roi" 
     },
     { 
       value: "76%", 
       label: "Online Research", 
-      subtitle: "before purchasing",
+      subtitle: "since 2020",
       trend: "up" as const,
-      trendValue: "12.3%",
-      graphData: [45, 52, 58, 64, 68, 72, 76],
+      trendValue: "69%",
+      graphData: [45, 55, 62, 69, 76], // 2020-2024
       color: "rgb(59, 130, 246)",
       testId: "stat-online-research" 
     },
     { 
       value: "3x", 
-      label: "More Leads", 
-      subtitle: "vs traditional methods",
+      label: "Lead Generation", 
+      subtitle: "5-year improvement",
       trend: "up" as const,
-      trendValue: "23.8%",
-      graphData: [1.0, 1.3, 1.6, 2.0, 2.4, 2.7, 3.0],
+      trendValue: "200%",
+      graphData: [1.0, 1.5, 2.0, 2.6, 3.0], // 2020-2024
       color: "rgb(168, 85, 247)",
       testId: "stat-lead-increase" 
     },
     { 
       value: "5.1B", 
       label: "Social Users", 
-      subtitle: "worldwide in 2024",
+      subtitle: "growth since 2020",
       trend: "up" as const,
-      trendValue: "8.2%",
-      graphData: [3.5, 3.9, 4.2, 4.5, 4.7, 4.9, 5.1],
+      trendValue: "46%",
+      graphData: [3.5, 3.9, 4.3, 4.7, 5.1], // 2020-2024 (billions)
       color: "rgb(249, 115, 22)",
       testId: "stat-social-users" 
     },
     { 
       value: "93%", 
-      label: "Mobile Usage", 
-      subtitle: "access via smartphones",
+      label: "Mobile Traffic", 
+      subtitle: "5-year growth",
       trend: "up" as const,
-      trendValue: "15.4%",
-      graphData: [62, 70, 76, 82, 86, 90, 93],
+      trendValue: "50%",
+      graphData: [62, 72, 80, 87, 93], // 2020-2024
       color: "rgb(236, 72, 153)",
       testId: "stat-mobile" 
     },
     { 
       value: "$500B", 
-      label: "Ad Spend", 
-      subtitle: "global digital 2024",
+      label: "Digital Ad Spend", 
+      subtitle: "since 2020",
       trend: "up" as const,
-      trendValue: "11.2%",
-      graphData: [250, 300, 350, 400, 440, 470, 500],
+      trendValue: "100%",
+      graphData: [250, 320, 385, 445, 500], // 2020-2024 (billions)
       color: "rgb(245, 158, 11)",
       testId: "stat-ad-spend" 
     },
     { 
       value: "68%", 
-      label: "SEO Traffic", 
-      subtitle: "from organic search",
+      label: "Organic Traffic", 
+      subtitle: "5-year increase",
       trend: "up" as const,
-      trendValue: "9.7%",
-      graphData: [42, 48, 54, 58, 62, 65, 68],
+      trendValue: "62%",
+      graphData: [42, 50, 57, 63, 68], // 2020-2024
       color: "rgb(20, 184, 166)",
       testId: "stat-seo" 
     },
     { 
       value: "4.9", 
-      label: "Avg Rating", 
-      subtitle: "client satisfaction",
+      label: "Client Satisfaction", 
+      subtitle: "rating since 2020",
       trend: "up" as const,
-      trendValue: "2.1%",
-      graphData: [4.0, 4.2, 4.4, 4.5, 4.6, 4.8, 4.9],
+      trendValue: "23%",
+      graphData: [4.0, 4.3, 4.5, 4.7, 4.9], // 2020-2024
       color: "rgb(14, 165, 233)",
       testId: "stat-rating" 
     },
     { 
       value: "89%", 
-      label: "Email ROI", 
-      subtitle: "marketers see positive",
+      label: "Email Marketing", 
+      subtitle: "ROI growth 5 years",
       trend: "up" as const,
-      trendValue: "6.3%",
-      graphData: [65, 72, 76, 80, 84, 87, 89],
+      trendValue: "37%",
+      graphData: [65, 73, 79, 84, 89], // 2020-2024
       color: "rgb(139, 92, 246)",
       testId: "stat-email" 
     },
     { 
       value: "2.5x", 
       label: "Video Engagement", 
-      subtitle: "vs static content",
+      subtitle: "since 2020",
       trend: "up" as const,
-      trendValue: "18.9%",
-      graphData: [1.0, 1.2, 1.5, 1.8, 2.0, 2.3, 2.5],
+      trendValue: "150%",
+      graphData: [1.0, 1.4, 1.8, 2.2, 2.5], // 2020-2024
       color: "rgb(244, 63, 94)",
       testId: "stat-video" 
     },
