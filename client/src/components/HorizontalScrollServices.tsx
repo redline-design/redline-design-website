@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { Globe, TrendingUp, Search, Database, BarChart3, Palette, MessageSquare, Mail, Users, Bot, Code, Check, Sparkles } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -257,28 +257,29 @@ export default function HorizontalScrollServices() {
   const [selectedService, setSelectedService] = useState<typeof SERVICES_DATA[number] | null>(null);
   const [rotation, setRotation] = useState(0);
   const services = useMemo(() => SERVICES_DATA, []);
+  const scrollYRef = useRef<number>(0);
 
   // Prevent page scrolling when hovering over the section
   useEffect(() => {
     if (isSectionHovered) {
-      const scrollY = window.scrollY;
+      scrollYRef.current = window.scrollY;
       document.body.style.position = 'fixed';
-      document.body.style.top = `-${scrollY}px`;
+      document.body.style.top = `-${scrollYRef.current}px`;
       document.body.style.width = '100%';
+      document.body.style.overflow = 'hidden';
     } else {
-      const scrollY = document.body.style.top;
       document.body.style.position = '';
       document.body.style.top = '';
       document.body.style.width = '';
-      if (scrollY) {
-        window.scrollTo(0, parseInt(scrollY || '0') * -1);
-      }
+      document.body.style.overflow = '';
+      window.scrollTo(0, scrollYRef.current);
     }
     
     return () => {
       document.body.style.position = '';
       document.body.style.top = '';
       document.body.style.width = '';
+      document.body.style.overflow = '';
     };
   }, [isSectionHovered]);
 
