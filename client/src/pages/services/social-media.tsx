@@ -163,39 +163,34 @@ export default function SocialMediaPage() {
                   <DollarSign className="w-6 h-6" />
                 </div>
                 <h3 className="text-xl font-bold mb-4">Investment</h3>
-                <p className="text-2xl font-bold text-primary" data-testid="text-investment">
+                <p className="text-2xl font-bold text-primary mb-6" data-testid="text-investment">
                   Starting at $1,000/month
                 </p>
+                
+                <div className="flex flex-col gap-3 mt-auto">
+                  <Link href="/contact" className="w-full">
+                    <Button 
+                      size="lg" 
+                      className="w-full bg-primary hover:bg-primary/90 text-primary-foreground gap-2"
+                      data-testid="button-get-started"
+                    >
+                      Get Started
+                      <ArrowRight className="w-4 h-4" />
+                    </Button>
+                  </Link>
+                  <Link href="/book-a-demo" className="w-full">
+                    <Button 
+                      size="lg" 
+                      variant="outline"
+                      className="w-full"
+                      data-testid="button-book-demo"
+                    >
+                      Book a Demo
+                    </Button>
+                  </Link>
+                </div>
               </div>
             </div>
-          </motion.div>
-          
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="mt-12 flex flex-col sm:flex-row gap-4 justify-center"
-          >
-            <Link href="/contact">
-              <Button 
-                size="lg" 
-                className="bg-primary hover:bg-primary/90 text-primary-foreground gap-2"
-                data-testid="button-get-started"
-              >
-                Get Started
-                <ArrowRight className="w-4 h-4" />
-              </Button>
-            </Link>
-            <Link href="/book-a-demo">
-              <Button 
-                size="lg" 
-                variant="outline"
-                data-testid="button-book-demo"
-              >
-                Book a Demo
-              </Button>
-            </Link>
           </motion.div>
         </div>
       </div>
