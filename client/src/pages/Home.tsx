@@ -11,6 +11,7 @@ import SectionDivider from "@/components/SectionDivider";
 import ScrollAnimatedSection from "@/components/ScrollAnimatedSection";
 import TextResolver from "@/components/TextResolver";
 import GlowCard from "@/components/GlowCard";
+import StatCardWithGraph from "@/components/StatCardWithGraph";
 import { BarChart3, Sparkles, Globe, DollarSign, Zap, Target, Users, Briefcase, TrendingUp, AlertTriangle, MousePointerClick, LayoutGrid, BarChart2, Monitor, Database, Eye, FileText, LineChart, MapPin, Smartphone } from "lucide-react";
 import { SiGoogleads, SiMeta, SiLinkedin, SiTiktok, SiYoutube, SiX, SiReddit, SiPinterest } from "react-icons/si";
 import { motion } from "framer-motion";
@@ -31,12 +32,48 @@ export default function Home() {
     { name: 'Pinterest', icon: SiPinterest },
   ];
 
-  // Simplified statistics - outcome-focused for beginners
+  // Statistics with graph data
   const stats = [
-    { value: "7x", label: "Average ROI", subtitle: "average 7x ROI, up to 14x seen", testId: "stat-roi" },
-    { value: "76%", label: "of consumers", subtitle: "research online before purchasing", testId: "stat-online-research" },
-    { value: "3x", label: "More Leads", subtitle: "with digital vs traditional marketing", testId: "stat-lead-increase" },
-    { value: "5.1B", label: "Social Users", subtitle: "active social media users worldwide", testId: "stat-social-users" },
+    { 
+      value: "7x", 
+      label: "Average ROI", 
+      subtitle: "vs traditional marketing",
+      trend: "up" as const,
+      trendValue: "57.1%",
+      graphData: [3, 4, 3, 5, 6, 5, 7],
+      color: "rgb(34, 197, 94)",
+      testId: "stat-roi" 
+    },
+    { 
+      value: "76%", 
+      label: "Online Research", 
+      subtitle: "before purchasing",
+      trend: "up" as const,
+      trendValue: "12.3%",
+      graphData: [60, 65, 63, 70, 72, 74, 76],
+      color: "rgb(59, 130, 246)",
+      testId: "stat-online-research" 
+    },
+    { 
+      value: "3x", 
+      label: "More Leads", 
+      subtitle: "vs traditional methods",
+      trend: "up" as const,
+      trendValue: "23.8%",
+      graphData: [1.5, 1.8, 2.0, 2.3, 2.6, 2.8, 3.0],
+      color: "rgb(168, 85, 247)",
+      testId: "stat-lead-increase" 
+    },
+    { 
+      value: "5.1B", 
+      label: "Social Users", 
+      subtitle: "worldwide in 2024",
+      trend: "up" as const,
+      trendValue: "8.2%",
+      graphData: [4.2, 4.4, 4.6, 4.7, 4.9, 5.0, 5.1],
+      color: "rgb(249, 115, 22)",
+      testId: "stat-social-users" 
+    },
   ];
 
   // Duplicate stats for seamless infinite loop
@@ -532,17 +569,17 @@ export default function Home() {
           </div>
           <PartnerLogos />
 
-          {/* Industry Statistics - Auto-Scrolling */}
+          {/* Industry Statistics - Auto-Scrolling with Graphs */}
           <div className="mt-16" data-testid="section-stats-carousel">
             <div className="relative overflow-hidden">
               <motion.div
-                className="flex gap-4 pointer-events-none"
+                className="flex gap-6 pointer-events-none"
                 animate={{
-                  x: prefersReducedMotion ? 0 : [0, -100 * stats.length],
+                  x: prefersReducedMotion ? 0 : [0, -(340 * stats.length)],
                 }}
                 transition={{
                   x: {
-                    duration: prefersReducedMotion ? 0 : stats.length * 8,
+                    duration: prefersReducedMotion ? 0 : stats.length * 10,
                     repeat: Infinity,
                     ease: "linear",
                   },
@@ -553,18 +590,23 @@ export default function Home() {
                     key={`${stat.testId}-${index}`}
                     className="flex-shrink-0 w-[280px] sm:w-[320px]"
                   >
-                    <div className="text-center p-4 bg-card rounded-lg" data-testid={index < stats.length ? stat.testId : undefined}>
-                      <div className="text-3xl sm:text-4xl font-bold text-primary mb-1">{stat.value}</div>
-                      <div className="text-sm text-foreground font-medium mb-0.5">{stat.label}</div>
-                      <div className="text-xs text-muted-foreground">{stat.subtitle}</div>
-                    </div>
+                    <StatCardWithGraph
+                      value={stat.value}
+                      label={stat.label}
+                      subtitle={stat.subtitle}
+                      trend={stat.trend}
+                      trendValue={stat.trendValue}
+                      graphData={stat.graphData}
+                      color={stat.color}
+                      testId={index < stats.length ? stat.testId : undefined}
+                    />
                   </div>
                 ))}
               </motion.div>
 
               {/* Gradient overlays for fade effect */}
-              <div className="absolute top-0 left-0 w-16 h-full bg-gradient-to-r from-card/30 to-transparent pointer-events-none z-10" />
-              <div className="absolute top-0 right-0 w-16 h-full bg-gradient-to-l from-card/30 to-transparent pointer-events-none z-10" />
+              <div className="absolute top-0 left-0 w-24 h-full bg-gradient-to-r from-background to-transparent pointer-events-none z-10" />
+              <div className="absolute top-0 right-0 w-24 h-full bg-gradient-to-l from-background to-transparent pointer-events-none z-10" />
             </div>
           </div>
         </div>
