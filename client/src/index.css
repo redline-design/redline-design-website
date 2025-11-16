@@ -2785,8 +2785,17 @@
     inset 8px 8px 16px rgba(0, 0, 0, 0.8),
     inset -8px -8px 16px rgba(255, 255, 255, 0.12);
   position: relative;
-  margin-top: 3rem;
   margin-bottom: 3rem;
+}
+
+.neumorphic-section::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: hsl(var(--primary));
 }
 
 .neumorphic-card {
