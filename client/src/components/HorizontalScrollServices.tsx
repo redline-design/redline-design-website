@@ -339,7 +339,7 @@ function ServiceCard({
               } as React.CSSProperties}
             >
               <service.icon 
-                className="icon-cutout h-6 w-6" 
+                className="icon-cutout h-10 w-10" 
                 style={{ 
                   color: '#1a1a1a'
                 }} 
