@@ -1816,33 +1816,48 @@
   pointer-events: none;
   content: "";
   position: absolute;
-  inset: 0;
+  inset: calc(var(--border-size) * -1);
+  border: var(--border-size) solid transparent;
   border-radius: calc(var(--radius, 12) * 1px);
   opacity: var(--glow-opacity, 0);
   transition: opacity 0.3s ease;
+  background-attachment: fixed;
+  background-size: calc(100% + (2 * var(--border-size))) calc(100% + (2 * var(--border-size)));
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  mask: linear-gradient(black, black) padding-box, linear-gradient(black, black);
+  mask-clip: padding-box, border-box;
+  mask-composite: exclude;
+  -webkit-mask: linear-gradient(black, black) padding-box, linear-gradient(black, black);
+  -webkit-mask-clip: padding-box, border-box;
+  -webkit-mask-composite: xor;
 }
 
-/* Border emphasis glow (colored) */
+/* Border emphasis glow (colored) - more diffused */
 .glow-card::before {
-  background: radial-gradient(
-    calc(var(--spotlight-size) * 0.75) calc(var(--spotlight-size) * 0.75) at
+  background-image: radial-gradient(
+    calc(var(--spotlight-size) * 1.2) calc(var(--spotlight-size) * 1.2) at
     calc(var(--x, 0) * 1px)
     calc(var(--y, 0) * 1px),
-    rgba(var(--glow-color, 255, 0, 0), 0.5),
-    transparent 70%
+    rgba(var(--glow-color, 255, 0, 0), 0.8),
+    rgba(var(--glow-color, 255, 0, 0), 0.4) 40%,
+    transparent 80%
   );
-  filter: brightness(1.5);
+  filter: brightness(1.8);
+  z-index: 2;
 }
 
-/* Border spotlight (white) */
+/* Border spotlight (white) - more diffused */
 .glow-card::after {
-  background: radial-gradient(
-    calc(var(--spotlight-size) * 0.5) calc(var(--spotlight-size) * 0.5) at
+  background-image: radial-gradient(
+    calc(var(--spotlight-size) * 0.8) calc(var(--spotlight-size) * 0.8) at
     calc(var(--x, 0) * 1px)
     calc(var(--y, 0) * 1px),
-    rgba(255, 255, 255, 0.3),
-    transparent 70%
+    rgba(255, 255, 255, 0.6),
+    rgba(255, 255, 255, 0.2) 50%,
+    transparent 80%
   );
+  z-index: 3;
 }
 
 .glow-card > * {
