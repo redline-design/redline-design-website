@@ -1034,9 +1034,7 @@
   .luminous-card:hover .slit {
     background: var(--accent-color, #fff);
     opacity: 1;
-    box-shadow: 0 0 24px 6px var(--accent-color, #fff),
-                0 0 40px 10px var(--accent-color, #fff);
-    filter: brightness(1.8);
+    filter: brightness(2);
   }
 
   /* Lumen - main glow layers - hidden until hover */
