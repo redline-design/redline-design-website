@@ -349,9 +349,9 @@ function ServiceCard({
           </div>
         </div>
         
-        {/* Title in bottom left */}
-        <div className="absolute bottom-0 left-0 p-4 z-20">
-          <h3 className="text-base font-bold text-foreground tracking-tight" data-testid={`text-service-title-${service.id}`}>
+        {/* Title centered at bottom */}
+        <div className="absolute bottom-0 left-0 right-0 p-4 z-20 flex justify-center">
+          <h3 className="text-base font-bold text-foreground tracking-tight whitespace-nowrap" data-testid={`text-service-title-${service.id}`}>
             {service.title}
           </h3>
         </div>

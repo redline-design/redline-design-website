@@ -1058,10 +1058,9 @@
     position: absolute;
     left: 0;
     right: 0;
-    top: 0;
-    bottom: 2.5rem;
+    top: 60%;
     margin: auto;
-    transform: rotateX(-42deg);
+    transform: rotateX(-42deg) translateY(-50%);
     opacity: 0.4;
   }
 
@@ -1072,10 +1071,9 @@
     position: absolute;
     left: 0;
     right: 0;
-    top: 0;
-    bottom: 10rem;
+    top: 60%;
     margin: auto;
-    transform: rotateX(-42deg);
+    transform: rotateX(-42deg) translateY(-80%);
     filter: blur(1rem);
     opacity: 0.8;
     border-radius: 100% 100% 0 0;
@@ -1088,10 +1086,9 @@
     position: absolute;
     left: 0;
     right: 0;
-    top: 0;
-    bottom: 12rem;
+    top: 60%;
     margin: auto;
-    transform: rotateX(22deg);
+    transform: rotateX(22deg) translateY(-90%);
     filter: blur(1rem);
     opacity: 0.6;
     border-radius: 100% 100% 0 0;
