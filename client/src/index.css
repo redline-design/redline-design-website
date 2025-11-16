@@ -1642,6 +1642,53 @@
   }
 }
 
+/* Custom red dot cursor */
+.custom-cursor {
+  position: fixed;
+  width: 16px;
+  height: 16px;
+  background: #ff0000;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transition: width 0.2s ease, height 0.2s ease, box-shadow 0.2s ease;
+  will-change: transform;
+  box-shadow: 
+    0 0 20px rgba(255, 0, 0, 0.8),
+    0 0 40px rgba(255, 0, 0, 0.4);
+  animation: cursorPulse 2s ease-in-out infinite;
+}
+
+.custom-cursor.hover {
+  width: 24px;
+  height: 24px;
+  background: rgba(255, 0, 0, 0.3);
+  border: 2px solid #ff0000;
+  box-shadow: 
+    0 0 30px rgba(255, 0, 0, 0.9),
+    0 0 60px rgba(255, 0, 0, 0.5);
+}
+
+@keyframes cursorPulse {
+  0%, 100% {
+    box-shadow: 
+      0 0 20px rgba(255, 0, 0, 0.8),
+      0 0 40px rgba(255, 0, 0, 0.4);
+  }
+  50% {
+    box-shadow: 
+      0 0 30px rgba(255, 0, 0, 1),
+      0 0 60px rgba(255, 0, 0, 0.6);
+  }
+}
+
+/* Hide custom cursor on mobile/tablet */
+@media (max-width: 1024px) {
+  .custom-cursor {
+    display: none !important;
+  }
+}
+
 /* Accessibility: Respect user's reduced motion preference */
 @media (prefers-reduced-motion: reduce) {
   *,
