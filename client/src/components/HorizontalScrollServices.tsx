@@ -362,7 +362,7 @@ export default function HorizontalScrollServices() {
                   style={{
                     transform: `rotateY(${angle}deg) translateZ(${radius}px)`,
                     display: isCardHovered ? 'flex' : 'none',
-                    background: `linear-gradient(135deg, ${service.accentColor}25, ${service.accentColor}15)`
+                    background: `linear-gradient(135deg, ${service.accentColor}85, ${service.accentColor}65)`
                   }}
                   initial={false}
                   animate={{
@@ -386,7 +386,7 @@ export default function HorizontalScrollServices() {
                       <div
                         className="flex-shrink-0 w-12 h-12 rounded-lg flex items-center justify-center mx-auto mb-2"
                         style={{
-                          backgroundColor: `${service.accentColor}35`,
+                          backgroundColor: 'rgba(0, 0, 0, 0.2)',
                           color: '#000000'
                         }}
                       >
