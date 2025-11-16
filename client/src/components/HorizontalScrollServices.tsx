@@ -301,15 +301,10 @@ export default function HorizontalScrollServices() {
         {/* 3D Circular Carousel Services Container */}
         <div 
           className={`services-3d-circle-container ${isCardHovered ? 'expanded' : 'collapsed'}`}
-          onMouseEnter={() => setIsSectionHovered(true)}
-          onMouseLeave={() => {
-            setIsSectionHovered(false);
-            setIsCardHovered(false);
-          }}
           onWheel={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            if (isCardHovered) {
+            if (isSectionHovered && isCardHovered) {
+              e.preventDefault();
+              e.stopPropagation();
               const delta = e.deltaY > 0 ? 1 : -1;
               setRotation(prev => prev + (delta * (360 / services.length)));
             }
@@ -323,7 +318,14 @@ export default function HorizontalScrollServices() {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.9 }}
               transition={{ duration: 0.4 }}
-              onMouseEnter={() => setIsCardHovered(true)}
+              onMouseEnter={() => {
+                setIsSectionHovered(true);
+                setIsCardHovered(true);
+              }}
+              onMouseLeave={() => {
+                setIsSectionHovered(false);
+                setIsCardHovered(false);
+              }}
               data-testid="text-hover-explainer"
             >
               <Sparkles className="w-8 h-8 mb-3 text-primary" style={{ filter: "drop-shadow(0 0 8px rgba(255, 0, 0, 0.5))" }} />
@@ -368,8 +370,14 @@ export default function HorizontalScrollServices() {
                       delay: isCardHovered ? index * 0.03 : 0
                     }
                   }}
-                  onMouseEnter={() => setIsCardHovered(true)}
-                  onMouseLeave={() => setIsCardHovered(false)}
+                  onMouseEnter={() => {
+                    setIsSectionHovered(true);
+                    setIsCardHovered(true);
+                  }}
+                  onMouseLeave={() => {
+                    setIsSectionHovered(false);
+                    setIsCardHovered(false);
+                  }}
                   data-testid={`card-service-3d-${service.title.toLowerCase().replace(/\s/g, "-")}`}
                 >
                   <div className="service-card-inner">
