@@ -19,7 +19,6 @@ export default function ConsultingPage() {
       timeline="Flexible engagement"
       investment="Starting at $200/hour"
       status="accepting"
-      accentColor="rgb(168, 85, 247)"
     />
   );
 }

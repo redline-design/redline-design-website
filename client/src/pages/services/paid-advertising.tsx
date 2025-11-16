@@ -19,7 +19,6 @@ export default function PaidAdvertisingPage() {
       timeline="See results in 1-2 weeks"
       investment="25% of ad spend (min $500/month)"
       status="accepting"
-      accentColor="rgb(167, 139, 250)"
     />
   );
 }

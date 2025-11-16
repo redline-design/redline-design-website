@@ -124,8 +124,8 @@ export default function ServicePageTemplate({
           >
             <Card className="p-8 h-full" data-testid="card-what-you-get">
               <div className="flex items-center gap-3 mb-6">
-                <div className="p-2 rounded-lg bg-primary/10">
-                  <Check className="w-6 h-6 text-primary" />
+                <div className="p-2 rounded-lg" style={{ backgroundColor: '#6B7C6E20' }}>
+                  <Check className="w-6 h-6" style={{ color: '#6B7C6E' }} />
                 </div>
                 <h2 className="text-2xl md:text-3xl font-bold">What You Get</h2>
               </div>
@@ -137,7 +137,7 @@ export default function ServicePageTemplate({
                     className="flex items-start gap-3"
                     data-testid={`list-item-benefit-${index}`}
                   >
-                    <Check className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                    <Check className="w-5 h-5 flex-shrink-0 mt-0.5" style={{ color: '#6B7C6E' }} />
                     <span className="text-foreground">{item}</span>
                   </li>
                 ))}
@@ -154,8 +154,8 @@ export default function ServicePageTemplate({
           >
             <Card className="p-8" data-testid="card-perfect-for">
               <div className="flex items-center gap-3 mb-4">
-                <div className="p-2 rounded-lg bg-primary/10">
-                  <Target className="w-6 h-6 text-primary" />
+                <div className="p-2 rounded-lg" style={{ backgroundColor: '#73737320' }}>
+                  <Target className="w-6 h-6" style={{ color: '#737373' }} />
                 </div>
                 <h3 className="text-xl font-bold">Perfect For</h3>
               </div>
@@ -164,8 +164,8 @@ export default function ServicePageTemplate({
 
             <Card className="p-8" data-testid="card-timeline">
               <div className="flex items-center gap-3 mb-4">
-                <div className="p-2 rounded-lg bg-primary/10">
-                  <Clock className="w-6 h-6 text-primary" />
+                <div className="p-2 rounded-lg" style={{ backgroundColor: '#73737320' }}>
+                  <Clock className="w-6 h-6" style={{ color: '#737373' }} />
                 </div>
                 <h3 className="text-xl font-bold">Timeline</h3>
               </div>
@@ -174,12 +174,12 @@ export default function ServicePageTemplate({
 
             <Card className="p-8" data-testid="card-investment">
               <div className="flex items-center gap-3 mb-4">
-                <div className="p-2 rounded-lg bg-primary/10">
-                  <DollarSign className="w-6 h-6 text-primary" />
+                <div className="p-2 rounded-lg" style={{ backgroundColor: '#73737320' }}>
+                  <DollarSign className="w-6 h-6" style={{ color: '#737373' }} />
                 </div>
                 <h3 className="text-xl font-bold">Investment</h3>
               </div>
-              <p className="text-2xl font-bold text-primary" data-testid="text-investment">{investment}</p>
+              <p className="text-2xl font-bold text-foreground" data-testid="text-investment">{investment}</p>
             </Card>
           </motion.div>
         </div>

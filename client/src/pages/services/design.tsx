@@ -19,7 +19,6 @@ export default function DesignPage() {
       timeline="1+ weeks depending on scope"
       investment="Starting at $200 per project"
       status="accepting"
-      accentColor="rgb(249, 115, 22)"
     />
   );
 }

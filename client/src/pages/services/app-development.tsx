@@ -19,7 +19,6 @@ export default function AppDevelopmentPage() {
       timeline="4-12 weeks depending on complexity"
       investment="Starting at $5,000"
       status="accepting"
-      accentColor="rgb(139, 92, 246)"
     />
   );
 }

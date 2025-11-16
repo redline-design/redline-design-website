@@ -19,7 +19,6 @@ export default function CRMPage() {
       timeline="1-2 weeks setup, ongoing optimization"
       investment="Starting at $1,000 one-time + $100/month per user added"
       status="accepting"
-      accentColor="rgb(251, 146, 60)"
     />
   );
 }
