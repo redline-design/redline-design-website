@@ -367,7 +367,7 @@ function ServiceCard({
         {/* Content */}
         <div className="card-content p-6 w-full h-full flex flex-col items-center justify-center relative z-10">
           {/* Large 3D Icon at center */}
-          <div className="flex-shrink-0">
+          <div className="flex-shrink-0 flex flex-col items-center gap-6">
             <div 
               className="icon-3d w-24 h-24 rounded-full flex items-center justify-center transition-all duration-500 group-hover:scale-110 group-hover:rotate-6"
               style={{
@@ -380,12 +380,33 @@ function ServiceCard({
               }}
             >
               <service.icon 
-                className="h-12 w-12 transition-all duration-500" 
+                className="h-12 w-12 transition-all duration-500 icon-shadow-caster" 
                 style={{ 
                   color: service.accentColor,
                   filter: `drop-shadow(0 4px 8px ${service.accentColor}40)`
                 }} 
                 data-testid={`icon-service-${service.id}`} 
+              />
+            </div>
+            
+            {/* Illuminated bar with icon shadow */}
+            <div className="illuminated-bar-container relative w-32">
+              {/* The bar itself */}
+              <div 
+                className="illuminated-bar h-1 rounded-full transition-all duration-500"
+                style={{
+                  background: `linear-gradient(90deg, transparent, ${service.accentColor}60, transparent)`,
+                  boxShadow: `0 0 16px ${service.accentColor}40`
+                }}
+              />
+              {/* Icon shadow projection on the bar */}
+              <div 
+                className="icon-shadow absolute top-0 left-1/2 -translate-x-1/2 w-16 h-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                style={{
+                  background: `radial-gradient(ellipse, ${service.accentColor}80 0%, transparent 70%)`,
+                  filter: 'blur(8px)',
+                  transform: 'translateX(-50%) scale(1.2)'
+                }}
               />
             </div>
           </div>
