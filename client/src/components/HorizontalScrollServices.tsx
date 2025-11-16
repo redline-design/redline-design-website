@@ -17,6 +17,7 @@ const SERVICES_DATA = [
     link: "/services/websites",
     status: "accepting" as const,
     accentColor: "rgb(96, 165, 250)",
+    imageUrl: "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=400&h=300&fit=crop",
     details: {
       whatYouGet: [
         "Mobile-responsive design that looks great on any device",
@@ -39,6 +40,7 @@ const SERVICES_DATA = [
     link: "/services/paid-advertising",
     status: "accepting" as const,
     accentColor: "rgb(167, 139, 250)",
+    imageUrl: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop",
     details: {
       whatYouGet: [
         "Google Ads campaigns targeting your ideal customers",
@@ -61,6 +63,7 @@ const SERVICES_DATA = [
     link: "/services/seo",
     status: "waitlist" as const,
     accentColor: "rgb(110, 231, 183)",
+    imageUrl: "https://images.unsplash.com/photo-1432888622747-4eb9a8f2c293?w=400&h=300&fit=crop",
     details: {
       whatYouGet: [
         "Keyword research to find what your customers search",
@@ -83,6 +86,7 @@ const SERVICES_DATA = [
     link: "/services/crm",
     status: "accepting" as const,
     accentColor: "rgb(251, 146, 60)",
+    imageUrl: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop",
     details: {
       whatYouGet: [
         "Custom CRM setup tailored to your business",
@@ -105,6 +109,7 @@ const SERVICES_DATA = [
     link: "/services/analytics",
     status: "accepting" as const,
     accentColor: "rgb(236, 72, 153)",
+    imageUrl: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop",
     details: {
       whatYouGet: [
         "Google Analytics 4 setup and configuration",
@@ -127,6 +132,7 @@ const SERVICES_DATA = [
     link: "/services/design",
     status: "accepting" as const,
     accentColor: "rgb(249, 115, 22)",
+    imageUrl: "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400&h=300&fit=crop",
     details: {
       whatYouGet: [
         "Custom logo and brand identity",
@@ -149,6 +155,7 @@ const SERVICES_DATA = [
     link: "/services/social-media",
     status: "accepting" as const,
     accentColor: "rgb(59, 130, 246)",
+    imageUrl: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=400&h=300&fit=crop",
     details: {
       whatYouGet: [
         "Content calendar with engaging posts",
@@ -171,6 +178,7 @@ const SERVICES_DATA = [
     link: "/services/email-marketing",
     status: "accepting" as const,
     accentColor: "rgb(34, 197, 94)",
+    imageUrl: "https://images.unsplash.com/photo-1596526131083-e8c633c948d2?w=400&h=300&fit=crop",
     details: {
       whatYouGet: [
         "Automated welcome and nurture sequences",
@@ -193,6 +201,7 @@ const SERVICES_DATA = [
     link: "/services/consulting",
     status: "accepting" as const,
     accentColor: "rgb(168, 85, 247)",
+    imageUrl: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=300&fit=crop",
     details: {
       whatYouGet: [
         "Strategic marketing planning sessions",
@@ -215,6 +224,7 @@ const SERVICES_DATA = [
     link: "/services/ai-automation",
     status: "accepting" as const,
     accentColor: "rgb(234, 88, 12)",
+    imageUrl: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400&h=300&fit=crop",
     details: {
       whatYouGet: [
         "Custom AI chatbots for customer service",
@@ -237,6 +247,7 @@ const SERVICES_DATA = [
     link: "/services/app-development",
     status: "accepting" as const,
     accentColor: "rgb(139, 92, 246)",
+    imageUrl: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=400&h=300&fit=crop",
     details: {
       whatYouGet: [
         "Custom web and mobile applications",
@@ -296,21 +307,31 @@ function ServiceCard({
         className="w-[180px] h-[260px] rounded-2xl border-border/30 group hover-elevate active-elevate-2 cursor-pointer overflow-hidden relative"
         onClick={() => onSelect(service)}
         data-testid={`card-service-${service.id}`}
-        style={{
-          background: `linear-gradient(135deg, ${service.accentColor}15 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.6) 100%)`
-        }}
       >
+        {/* Background Image */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center"
+          style={{
+            backgroundImage: `url("${service.imageUrl}")`
+          }}
+        />
+        
+        {/* Colored overlay matching icon color */}
+        <div 
+          className="absolute inset-0"
+          style={{
+            background: `linear-gradient(135deg, ${service.accentColor}40 0%, rgba(0,0,0,0.6) 50%, rgba(0,0,0,0.85) 100%)`
+          }}
+        />
+        
         {/* Hexagon pattern overlay */}
         <div 
-          className="absolute inset-0 opacity-10"
+          className="absolute inset-0 opacity-5"
           style={{
             backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0l25.98 15v30L30 60 4.02 45V15z' fill='none' stroke='white' stroke-width='1'/%3E%3C/svg%3E")`,
             backgroundSize: '30px 30px'
           }}
         />
-        
-        {/* Content with backdrop blur */}
-        <div className="absolute inset-0 backdrop-blur-sm bg-black/20" />
         
         <CardContent className="p-3 w-full h-full flex flex-col relative z-10">
           <div className="flex flex-col text-center gap-2 flex-1">
