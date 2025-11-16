@@ -10,6 +10,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import { Button } from "@/components/ui/button";
 import ContactForm from "@/components/ContactForm";
 import { TrendingUp, DollarSign, Zap, Target, Users, Briefcase, Award, Shield, Lightbulb } from "lucide-react";
+import TextResolver from "@/components/TextResolver";
 
 export default function WhyUs() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -44,7 +45,7 @@ export default function WhyUs() {
             transition={{ duration: 0.6 }}
             style={{ color: "#ff0000" }}
           >
-            We Think We're Pretty Cool
+            <TextResolver text="We Think We're Pretty Cool" delay={0} timeout={15} iterations={2} />
           </motion.h1>
           <motion.p
             className="text-lg md:text-xl text-foreground mb-8"
@@ -52,7 +53,7 @@ export default function WhyUs() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            And we think you will too. Here's why businesses choose Redline Design for their digital marketing needs.
+            <TextResolver text="And we think you will too. Here's why businesses choose Redline Design for their digital marketing needs." delay={200} timeout={10} iterations={1} />
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -87,10 +88,10 @@ export default function WhyUs() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-lg sm:text-xl md:text-2xl font-bold uppercase tracking-[0.3em] mb-4 red-glow-pulse" style={{ color: "#ff0000" }}>
-              What Sets Us Apart
+              <TextResolver text="What Sets Us Apart" delay={0} timeout={15} iterations={2} />
             </h2>
             <p className="text-lg text-foreground">
-              Our commitment to results, transparency, and partnership
+              <TextResolver text="Our commitment to results, transparency, and partnership" delay={200} timeout={10} iterations={1} />
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -141,7 +142,7 @@ export default function WhyUs() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-lg sm:text-xl md:text-2xl font-bold uppercase tracking-[0.3em] mb-4 red-glow-pulse" style={{ color: "#ff0000" }}>
-              More Reasons to Choose Redline
+              <TextResolver text="More Reasons to Choose Redline" delay={0} timeout={15} iterations={2} />
             </h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">

@@ -5,6 +5,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Star, Quote } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import type { Review } from "@shared/schema";
+import TextResolver from "@/components/TextResolver";
 
 function getInitials(name: string): string {
   const parts = name.split(" ");
@@ -47,9 +48,11 @@ export default function TestimonialsSlider() {
       >
         <div className="text-center mb-12">
           <h2 className="text-lg sm:text-xl md:text-2xl font-bold uppercase tracking-[0.3em] mb-4 red-glow-pulse" style={{ color: "#ff0000" }}>
-            What Our Clients Say
+            <TextResolver text="What Our Clients Say" delay={0} timeout={15} iterations={2} />
           </h2>
-          <p className="text-foreground">Real results from real businesses</p>
+          <p className="text-foreground">
+            <TextResolver text="Real results from real businesses" delay={200} timeout={10} iterations={1} />
+          </p>
         </div>
         
         <div className="relative">

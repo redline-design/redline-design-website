@@ -10,6 +10,7 @@ import { useState, useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { format } from "date-fns";
 import type { BlogPost as BlogPostType } from "@shared/schema";
+import TextResolver from "@/components/TextResolver";
 
 interface BlogPostCardProps {
   post: BlogPostType;
@@ -173,7 +174,7 @@ export default function Blog() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
-            Latest Articles
+            <TextResolver text="Latest Articles" delay={0} timeout={15} iterations={2} />
           </motion.h2>
         </div>
       </section>

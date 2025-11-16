@@ -7,6 +7,7 @@ import StatCounter from "@/components/StatCounter";
 import CTABand from "@/components/CTABand";
 import { Search, TrendingUp, Globe, Share2, Mail, MessageCircle, Palette, Pencil, MousePointerClick, Layout, Users, Database as DatabaseIcon, GraduationCap, BarChart } from "lucide-react";
 import { Link } from "wouter";
+import TextResolver from "@/components/TextResolver";
 
 interface ServiceSectionProps {
   id: string;
@@ -50,8 +51,12 @@ function ServiceSection({ id, icon: Icon, title, description, features, outcomes
               <Icon className="h-10 w-10 text-primary" />
             </motion.div>
             <div>
-              <h2 className="text-lg sm:text-xl md:text-2xl font-bold uppercase tracking-[0.3em] mb-3 red-glow-pulse" style={{ color: "#ff0000" }}>{title}</h2>
-              <p className="text-lg text-foreground">{description}</p>
+              <h2 className="text-lg sm:text-xl md:text-2xl font-bold uppercase tracking-[0.3em] mb-3 red-glow-pulse" style={{ color: "#ff0000" }}>
+                <TextResolver text={title} delay={0} timeout={15} iterations={2} />
+              </h2>
+              <p className="text-lg text-foreground">
+                <TextResolver text={description} delay={200} timeout={10} iterations={1} />
+              </p>
             </div>
           </div>
 
@@ -239,10 +244,10 @@ export default function Services() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-lg sm:text-xl md:text-2xl font-bold uppercase tracking-[0.3em] mb-4 red-glow-pulse" style={{ color: "#ff0000" }}>
-              Our Process
+              <TextResolver text="Our Process" delay={0} timeout={15} iterations={2} />
             </h2>
             <p className="text-lg text-foreground max-w-3xl mx-auto">
-              From consultation to analytics, we guide you through every step of your digital transformation
+              <TextResolver text="From consultation to analytics, we guide you through every step of your digital transformation" delay={200} timeout={10} iterations={1} />
             </p>
           </div>
 

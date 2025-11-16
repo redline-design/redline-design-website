@@ -3,6 +3,7 @@ import { useInView } from "react-intersection-observer";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { ArrowRight } from "lucide-react";
+import TextResolver from "@/components/TextResolver";
 
 interface CTABandProps {
   title: string;
@@ -25,11 +26,11 @@ export default function CTABand({ title, subtitle, buttonText, buttonLink }: CTA
     >
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <h2 className="text-lg sm:text-xl md:text-2xl font-bold uppercase tracking-[0.3em] mb-4 red-glow-pulse" style={{ color: "#ff0000" }} data-testid="text-cta-title">
-          {title}
+          <TextResolver text={title} delay={0} timeout={15} iterations={2} />
         </h2>
         {subtitle && (
           <p className="text-lg text-muted-foreground mb-8" data-testid="text-cta-subtitle">
-            {subtitle}
+            <TextResolver text={subtitle} delay={200} timeout={10} iterations={1} />
           </p>
         )}
         <Link href={buttonLink}>

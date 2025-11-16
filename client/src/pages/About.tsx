@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Target, Zap, TrendingUp, Users } from "lucide-react";
+import TextResolver from "@/components/TextResolver";
 
 export default function About() {
   return (
@@ -14,7 +15,7 @@ export default function About() {
             transition={{ duration: 0.6 }}
             style={{ color: "#ff0000" }}
           >
-            About Redline Design
+            <TextResolver text="About Redline Design" delay={0} timeout={15} iterations={2} />
           </motion.h1>
           <motion.p 
             className="text-lg sm:text-xl text-foreground max-w-3xl mx-auto"
@@ -22,7 +23,7 @@ export default function About() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
-            Digital Marketing That Doesn't Suck
+            <TextResolver text="Digital Marketing That Doesn't Suck" delay={200} timeout={10} iterations={1} />
           </motion.p>
         </div>
       </section>
