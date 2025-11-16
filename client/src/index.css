@@ -1001,19 +1001,16 @@
     box-shadow: inset 0 0 0 0.08rem rgba(255,255,255,0.07);
   }
 
-  /* Light Layer System */
+  /* Light Layer System - always visible so slit shows */
   .luminous-card .light-layer {
     position: absolute;
     inset: 0;
     border-radius: 1rem;
     overflow: hidden;
     pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.6s ease;
-  }
-
-  .luminous-card:hover .light-layer {
     opacity: 1;
+    transform-style: preserve-3d;
+    perspective: 400px;
   }
 
   /* Slit - 3D rotated bar - always visible, illuminates on hover */
@@ -1040,10 +1037,18 @@
     box-shadow: 0 0 12px 2px var(--accent-color, #fff);
   }
 
-  /* Lumen - main glow layers */
+  /* Lumen - main glow layers - hidden until hover */
   .luminous-card .lumen {
     position: absolute;
     inset: 0;
+    pointer-events: none;
+    perspective: 400px;
+    opacity: 0;
+    transition: opacity 0.4s ease-in-out;
+  }
+
+  .luminous-card:hover .lumen {
+    opacity: 0.5;
   }
 
   .luminous-card .lumen .min {
