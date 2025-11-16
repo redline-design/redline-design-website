@@ -853,21 +853,24 @@
     animation: subtle-pulse 2s ease-in-out infinite;
   }
 
-  /* Hand of Cards Layout - Single Row */
+  /* Hand of Cards Layout - Responsive Multi-Row */
   .value-cards-hand {
     display: grid;
-    grid-template-columns: repeat(6, 0);
+    grid-template-columns: repeat(auto-fit, 0px);
     gap: 0;
     transition: all 300ms ease-out;
     width: 100%;
     justify-content: center;
     padding: 3rem 0;
     min-height: 280px;
+    position: relative;
   }
 
   .value-cards-hand:hover {
-    grid-template-columns: repeat(6, 180px);
+    grid-template-columns: repeat(auto-fit, minmax(180px, 180px));
     gap: 0.75rem;
+    max-width: 1200px;
+    margin: 0 auto;
   }
 
   .value-card-wrapper {
@@ -882,7 +885,7 @@
     width: 180px;
     height: 200px;
     transform-origin: 50% 100%;
-    transform: translateX(-50%) rotate(calc((var(--i) * 8deg) - 20deg));
+    transform: translateX(-50%) rotate(calc((var(--i) * 8deg) - 40deg));
     transition: all 300ms ease-out;
     will-change: transform;
   }
@@ -893,6 +896,22 @@
 
   .value-cards-hand:hover .value-card-wrapper:hover .value-card {
     transform: translateX(-50%) rotate(0) translateY(-5%);
+  }
+
+  /* Tablet responsive - 2 columns */
+  @media (max-width: 1024px) {
+    .value-cards-hand:hover {
+      grid-template-columns: repeat(auto-fit, minmax(160px, 160px));
+    }
+    
+    .value-card {
+      width: 160px;
+      height: 180px;
+    }
+    
+    .value-card-wrapper {
+      height: 200px;
+    }
   }
 
   /* Mobile responsive - stack cards normally */
