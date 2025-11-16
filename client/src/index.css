@@ -2713,6 +2713,8 @@
 }
 
 .neumorphic-button {
+  position: relative;
+  overflow: hidden;
   background: linear-gradient(135deg, rgb(220, 38, 38) 0%, rgb(185, 28, 28) 100%);
   color: white;
   font-weight: 600;
@@ -2726,6 +2728,27 @@
     inset -2px -2px 4px rgba(0, 0, 0, 0.3),
     inset 2px 2px 4px rgba(255, 100, 100, 0.15),
     4px 4px 8px rgba(0, 0, 0, 0.6);
+}
+
+.neumorphic-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(135deg, rgb(255, 60, 60) 0%, rgb(220, 38, 38) 100%);
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 0;
+}
+
+.neumorphic-button:hover::before {
+  width: 100%;
+}
+
+.neumorphic-button span {
+  position: relative;
+  z-index: 1;
 }
 
 .neumorphic-button:hover {
