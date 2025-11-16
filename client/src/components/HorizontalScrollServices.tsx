@@ -369,7 +369,7 @@ export default function HorizontalScrollServices() {
         {/* Dock-Style Cards Layout with Frosted Glass Background */}
         <div className="flex justify-center">
           <div 
-            className="relative inline-flex items-end justify-center gap-2 px-6 py-4 rounded-2xl"
+            className="relative inline-flex items-end justify-center gap-2 px-6 py-2 rounded-2xl overflow-visible"
             style={{
               background: 'rgba(255, 255, 255, 0.03)',
               backdropFilter: 'blur(20px)',
@@ -380,9 +380,9 @@ export default function HorizontalScrollServices() {
           >
             <div 
               ref={containerRef}
-              className="relative flex items-end justify-center gap-4" 
+              className="relative flex items-end justify-center gap-4 overflow-visible" 
               data-testid="container-service-cards"
-              style={{ height: MAX_HEIGHT + 20 }}
+              style={{ height: BASE_HEIGHT + 10 }}
             >
               {SERVICES_DATA.map((service) => (
                 <ServiceCard
