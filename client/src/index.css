@@ -275,7 +275,7 @@
 
   --sidebar-border: 0 0% 90%;
 
-  --sidebar-primary: 210 100% 50%;
+  --sidebar-primary: 0 100% 50%;
 
   --sidebar-primary-foreground: 0 0% 100%;
 
@@ -283,7 +283,7 @@
 
   --sidebar-accent-foreground: 0 0% 5%;
 
-  --sidebar-ring: 210 100% 50%;
+  --sidebar-ring: 0 100% 50%;
 
   --popover: 0 0% 100%;
 
@@ -291,7 +291,7 @@
 
   --popover-border: 0 0% 88%;
 
-  --primary: 210 100% 55%;
+  --primary: 0 100% 50%;
 
   --primary-foreground: 0 0% 100%;
 
@@ -312,12 +312,12 @@
   --destructive-foreground: 0 0% 98%;
 
   --input: 0 0% 88%;
-  --ring: 210 100% 50%;
-  --chart-1: 210 100% 60%;
-  --chart-2: 210 90% 65%;
-  --chart-3: 200 85% 68%;
-  --chart-4: 220 75% 65%;
-  --chart-5: 195 80% 65%;
+  --ring: 0 100% 50%;
+  --chart-1: 0 100% 60%;
+  --chart-2: 0 90% 65%;
+  --chart-3: 0 85% 68%;
+  --chart-4: 0 75% 65%;
+  --chart-5: 0 80% 65%;
 
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
   --font-serif: Georgia, serif;
@@ -334,8 +334,8 @@
   --tracking-normal: 0em;
   --spacing: 0.25rem;
 
-  /* Glow/accent color for animations and effects - Blue in light mode */
-  --glow-rgb: 59, 130, 246;
+  /* Glow/accent color for animations and effects - Red in light mode */
+  --glow-rgb: 255, 0, 0;
 
   /* Automatically computed borders - intensity can be controlled by the user by the --opaque-button-border-intensity setting */
 
@@ -2652,7 +2652,7 @@
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.3),
     0 5px 15px 0 rgba(0, 0, 0, 0.2);
   border-radius: 15px;
-  padding: 1.5rem;
+  padding: 1rem;
   position: relative;
   z-index: 2;
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -2690,7 +2690,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 15px;
   box-shadow: 0 5px 15px rgba(220, 38, 38, 0.4);
   transition: 0.3s;
 }

@@ -35,7 +35,7 @@ const platforms = [
 ];
 
 export default function SocialMediaPage() {
-  const accentColor = "rgb(59, 130, 246)";
+  const accentColor = "#ff0000";
   
   return (
     <div className="min-h-screen">
@@ -96,12 +96,14 @@ export default function SocialMediaPage() {
             <div className="hover_color_bubble"></div>
             <div className="solution_card h-full flex flex-col" data-testid="card-what-you-get">
               <div className="card_content flex flex-col flex-1">
-                <div className="icon_container">
-                  <Check className="w-6 h-6" />
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="icon_container">
+                    <Check className="w-6 h-6" />
+                  </div>
+                  <h2 className="text-2xl md:text-3xl font-bold">What You Get</h2>
                 </div>
-                <h2 className="text-2xl md:text-3xl font-bold mb-6">What You Get</h2>
                 
-                <ul className="space-y-4 mb-6">
+                <ul className="space-y-3 mb-4">
                   {[
                     "Content calendar with engaging posts",
                     "Professional copywriting and graphics",
@@ -156,39 +158,51 @@ export default function SocialMediaPage() {
             <div className="card_wrapper" data-testid="card-perfect-for">
               <div className="hover_color_bubble"></div>
               <div className="solution_card">
-                <div className="icon_container">
-                  <Target className="w-6 h-6" />
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <div className="icon_container flex-shrink-0 sm:mb-0 mb-0">
+                    <Target className="w-6 h-6" />
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-xl font-bold mb-2">Perfect For</h3>
+                    <p data-testid="text-perfect-for">
+                      Businesses looking to build brand awareness and community
+                    </p>
+                  </div>
                 </div>
-                <h3 className="text-xl font-bold mb-4">Perfect For</h3>
-                <p data-testid="text-perfect-for">
-                  Businesses looking to build brand awareness and community
-                </p>
               </div>
             </div>
 
             <div className="card_wrapper" data-testid="card-timeline">
               <div className="hover_color_bubble"></div>
               <div className="solution_card">
-                <div className="icon_container">
-                  <Clock className="w-6 h-6" />
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <div className="icon_container flex-shrink-0 sm:mb-0 mb-0">
+                    <Clock className="w-6 h-6" />
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-xl font-bold mb-2">Timeline</h3>
+                    <p data-testid="text-timeline">
+                      Ongoing monthly retainer
+                    </p>
+                  </div>
                 </div>
-                <h3 className="text-xl font-bold mb-4">Timeline</h3>
-                <p data-testid="text-timeline">
-                  Ongoing monthly retainer
-                </p>
               </div>
             </div>
 
             <div className="card_wrapper" data-testid="card-investment">
               <div className="hover_color_bubble"></div>
               <div className="solution_card">
-                <div className="icon_container">
-                  <DollarSign className="w-6 h-6" />
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <div className="icon_container flex-shrink-0 sm:mb-0 mb-0">
+                    <DollarSign className="w-6 h-6" />
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-xl font-bold mb-2">Investment</h3>
+                    <p className="text-2xl font-bold text-primary" data-testid="text-investment">
+                      Starting at $1,000/month
+                    </p>
+                  </div>
                 </div>
-                <h3 className="text-xl font-bold mb-4">Investment</h3>
-                <p className="text-2xl font-bold text-primary" data-testid="text-investment">
-                  Starting at $1,000/month
-                </p>
               </div>
             </div>
           </motion.div>
