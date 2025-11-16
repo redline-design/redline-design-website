@@ -304,6 +304,7 @@ export default function HorizontalScrollServices() {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.9 }}
               transition={{ duration: 0.4 }}
+              onMouseEnter={() => setIsCardHovered(true)}
               data-testid="text-hover-explainer"
             >
               <Sparkles className="w-8 h-8 mb-3 text-primary" style={{ filter: "drop-shadow(0 0 8px rgba(255, 0, 0, 0.5))" }} />
@@ -331,11 +332,11 @@ export default function HorizontalScrollServices() {
                   className="service-card-circle"
                   style={{
                     transform: `rotateY(${angle}deg) translateZ(${radius}px)`,
-                    display: !isCardHovered && index !== 0 ? 'none' : 'flex',
+                    display: isCardHovered ? 'flex' : 'none',
                   }}
                   initial={false}
                   animate={{
-                    opacity: isCardHovered || index === 0 ? 1 : 0,
+                    opacity: isCardHovered ? 1 : 0,
                   }}
                   transition={{
                     transform: {
