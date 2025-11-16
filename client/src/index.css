@@ -1797,7 +1797,7 @@
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
   overflow: visible;
-  background-color: hsl(var(--card) / 0.5);
+  background-color: hsl(var(--card) / 0.95);
   box-shadow: 
     0 0 0 var(--border-size) rgba(255, 255, 255, 0.2),
     0 0 calc(var(--spotlight-size) * 0.3) calc(var(--spotlight-size) * -0.2) rgba(var(--glow-color, 255, 0, 0), calc(var(--glow-opacity, 0) * 0.02)) inset,
