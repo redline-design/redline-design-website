@@ -94,14 +94,14 @@ export default function SocialMediaPage() {
             className="card_wrapper h-full"
           >
             <div className="hover_color_bubble"></div>
-            <div className="solution_card h-full" data-testid="card-what-you-get">
-              <div className="card_content">
+            <div className="solution_card h-full flex flex-col" data-testid="card-what-you-get">
+              <div className="card_content flex flex-col flex-1">
                 <div className="icon_container">
                   <Check className="w-6 h-6" />
                 </div>
                 <h2 className="text-2xl md:text-3xl font-bold mb-6">What You Get</h2>
                 
-                <ul className="space-y-4">
+                <ul className="space-y-4 mb-6">
                   {[
                     "Content calendar with engaging posts",
                     "Professional copywriting and graphics",
@@ -120,8 +120,8 @@ export default function SocialMediaPage() {
                   ))}
                 </ul>
                 
-                <div className="flex flex-col gap-3 mt-6">
-                  <Link href="/contact" className="w-full">
+                <div className="flex gap-3 mt-auto">
+                  <Link href="/contact" className="flex-1">
                     <Button 
                       size="lg" 
                       className="w-full bg-primary hover:bg-primary/90 text-primary-foreground gap-2"
@@ -131,7 +131,7 @@ export default function SocialMediaPage() {
                       <ArrowRight className="w-4 h-4" />
                     </Button>
                   </Link>
-                  <Link href="/book-a-demo" className="w-full">
+                  <Link href="/book-a-demo" className="flex-1">
                     <Button 
                       size="lg" 
                       variant="outline"
