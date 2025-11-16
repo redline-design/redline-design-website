@@ -114,36 +114,32 @@ export default function SocialMediaPage() {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <div className="codepen-card h-full" data-testid="card-what-you-get">
-              <div className="codepen-card-box">
-                <div className="codepen-card-number">01</div>
-                <div className="codepen-card-content w-full">
-                  <div className="flex items-center gap-3 mb-6">
-                    <div className="p-2 rounded-lg bg-primary/10">
-                      <Check className="w-6 h-6 text-primary" />
-                    </div>
-                    <h2 className="text-2xl md:text-3xl font-bold">What You Get</h2>
-                  </div>
-                  
-                  <ul className="space-y-4">
-                    {[
-                      "Content calendar with engaging posts",
-                      "Professional copywriting and graphics",
-                      "Community management and engagement",
-                      "Paid social advertising campaigns",
-                      "Monthly performance analytics"
-                    ].map((item, index) => (
-                      <li 
-                        key={index} 
-                        className="flex items-start gap-3"
-                        data-testid={`list-item-benefit-${index}`}
-                      >
-                        <Check className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                        <span className="text-foreground">{item}</span>
-                      </li>
-                    ))}
-                  </ul>
+            <div className="solution_card h-full" data-testid="card-what-you-get">
+              <div className="hover_color_bubble"></div>
+              <div className="card_content">
+                <div className="icon_container">
+                  <Check className="w-6 h-6 text-primary" />
                 </div>
+                <h2 className="text-2xl md:text-3xl font-bold mb-6">What You Get</h2>
+                
+                <ul className="space-y-4">
+                  {[
+                    "Content calendar with engaging posts",
+                    "Professional copywriting and graphics",
+                    "Community management and engagement",
+                    "Paid social advertising campaigns",
+                    "Monthly performance analytics"
+                  ].map((item, index) => (
+                    <li 
+                      key={index} 
+                      className="flex items-start gap-3"
+                      data-testid={`list-item-benefit-${index}`}
+                    >
+                      <Check className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
           </motion.div>
@@ -155,54 +151,42 @@ export default function SocialMediaPage() {
             transition={{ duration: 0.5 }}
             className="space-y-6"
           >
-            <div className="codepen-card" data-testid="card-perfect-for">
-              <div className="codepen-card-box">
-                <div className="codepen-card-number">02</div>
-                <div className="codepen-card-content w-full">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="p-2 rounded-lg bg-primary/10">
-                      <Target className="w-6 h-6 text-primary" />
-                    </div>
-                    <h3 className="text-xl font-bold">Perfect For</h3>
-                  </div>
-                  <p className="text-foreground" data-testid="text-perfect-for">
-                    Businesses looking to build brand awareness and community
-                  </p>
+            <div className="solution_card" data-testid="card-perfect-for">
+              <div className="hover_color_bubble"></div>
+              <div className="card_content">
+                <div className="icon_container">
+                  <Target className="w-6 h-6 text-primary" />
                 </div>
+                <h3 className="text-xl font-bold mb-4">Perfect For</h3>
+                <p data-testid="text-perfect-for">
+                  Businesses looking to build brand awareness and community
+                </p>
               </div>
             </div>
 
-            <div className="codepen-card" data-testid="card-timeline">
-              <div className="codepen-card-box">
-                <div className="codepen-card-number">03</div>
-                <div className="codepen-card-content w-full">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="p-2 rounded-lg bg-primary/10">
-                      <Clock className="w-6 h-6 text-primary" />
-                    </div>
-                    <h3 className="text-xl font-bold">Timeline</h3>
-                  </div>
-                  <p className="text-foreground" data-testid="text-timeline">
-                    Ongoing monthly retainer
-                  </p>
+            <div className="solution_card" data-testid="card-timeline">
+              <div className="hover_color_bubble"></div>
+              <div className="card_content">
+                <div className="icon_container">
+                  <Clock className="w-6 h-6 text-primary" />
                 </div>
+                <h3 className="text-xl font-bold mb-4">Timeline</h3>
+                <p data-testid="text-timeline">
+                  Ongoing monthly retainer
+                </p>
               </div>
             </div>
 
-            <div className="codepen-card" data-testid="card-investment">
-              <div className="codepen-card-box">
-                <div className="codepen-card-number">04</div>
-                <div className="codepen-card-content w-full">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="p-2 rounded-lg bg-primary/10">
-                      <DollarSign className="w-6 h-6 text-primary" />
-                    </div>
-                    <h3 className="text-xl font-bold">Investment</h3>
-                  </div>
-                  <p className="text-2xl font-bold text-primary" data-testid="text-investment">
-                    Starting at $1,000/month
-                  </p>
+            <div className="solution_card" data-testid="card-investment">
+              <div className="hover_color_bubble"></div>
+              <div className="card_content">
+                <div className="icon_container">
+                  <DollarSign className="w-6 h-6 text-primary" />
                 </div>
+                <h3 className="text-xl font-bold mb-4">Investment</h3>
+                <p className="text-2xl font-bold text-primary" data-testid="text-investment">
+                  Starting at $1,000/month
+                </p>
               </div>
             </div>
           </motion.div>
