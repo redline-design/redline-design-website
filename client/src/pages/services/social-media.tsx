@@ -83,10 +83,10 @@ export default function SocialMediaPage() {
       <SectionDivider />
 
       <ScrollAnimatedSection>
-        <div className="relative overflow-hidden bg-gradient-to-br from-background/80 via-card/40 to-background/80">
+        <div className="container mx-auto px-4 py-16 md:py-24">
+        <div className="relative overflow-hidden bg-gradient-to-br from-background/80 via-card/40 to-background/80 rounded-2xl p-8 md:p-12 max-w-6xl mx-auto">
         <div className="absolute inset-0 bg-grid-white/5 [mask-image:linear-gradient(0deg,transparent,black)]" />
-        <div className="container mx-auto px-4 py-16 md:py-24 relative z-10">
-        <div className="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto">
+        <div className="grid md:grid-cols-2 gap-12 relative z-10">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -209,7 +209,7 @@ export default function SocialMediaPage() {
           </motion.div>
         </div>
         </div>
-      </div>
+        </div>
       </ScrollAnimatedSection>
 
       <SectionDivider />
