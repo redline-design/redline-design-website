@@ -283,48 +283,25 @@ export default function HorizontalScrollServices() {
               transition={{ duration: 0.4, delay: index * 0.1 }}
             >
               <Card
-                className="h-full transition-all duration-300 rounded-2xl backdrop-blur-md bg-card/40 border-white/10 group hover-elevate active-elevate-2 cursor-pointer"
+                className="h-full transition-all duration-300 rounded-2xl backdrop-blur-md bg-card/40 border-white/10 group hover-elevate active-elevate-2 cursor-pointer flex items-center"
                 onClick={() => setSelectedService(service)}
                 data-testid={`card-service-${service.id}`}
               >
-                <CardContent className="p-6 h-full flex flex-col">
-                  <div className="flex flex-col items-center justify-start text-center gap-4 flex-1">
+                <CardContent className="p-5 w-full">
+                  <div className="flex flex-col items-center justify-center text-center gap-3">
                     <div 
-                      className="flex-shrink-0 p-3 rounded-lg transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3"
-                      style={{
-                        backgroundColor: `${service.accentColor}20`,
-                      }}
+                      className="flex-shrink-0 p-3 rounded-lg bg-primary/10 icon-glow transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3"
                     >
-                      <service.icon className="h-8 w-8" style={{ color: service.accentColor }} data-testid={`icon-service-${service.id}`} />
+                      <service.icon className="h-6 w-6 text-primary" data-testid={`icon-service-${service.id}`} />
                     </div>
-                    <div className="flex-1 flex flex-col">
-                      <h3 className="text-lg font-semibold text-foreground mb-2" data-testid={`text-service-title-${service.id}`}>
+                    <div>
+                      <h3 className="text-base font-semibold text-foreground mb-1" data-testid={`text-service-title-${service.id}`}>
                         {service.title}
                       </h3>
-                      <p className="text-sm text-muted-foreground mb-4" data-testid={`text-service-description-${service.id}`}>
+                      <p className="text-xs text-foreground" data-testid={`text-service-description-${service.id}`}>
                         {service.description}
                       </p>
-                      <ul className="space-y-2 text-left mb-4">
-                        {service.details.whatYouGet.slice(0, 3).map((item, idx) => (
-                          <li key={idx} className="flex items-start gap-2 text-xs text-muted-foreground">
-                            <span className="text-primary mt-0.5 flex-shrink-0">•</span>
-                            <span>{item}</span>
-                          </li>
-                        ))}
-                      </ul>
                     </div>
-                    <Button
-                      size="sm"
-                      className="w-full mt-auto gap-2"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setSelectedService(service);
-                      }}
-                      data-testid={`button-learn-more-${service.id}`}
-                    >
-                      Learn More
-                      <ArrowRight className="w-4 h-4" />
-                    </Button>
                   </div>
                 </CardContent>
               </Card>
