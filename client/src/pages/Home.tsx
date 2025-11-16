@@ -390,7 +390,7 @@ export default function Home() {
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <GlowCard 
-              className="bg-card/50 rounded-xl p-6 cursor-pointer" 
+              className="neumorphic-card p-6 cursor-pointer" 
               data-testid="card-challenge-visibility"
               glowColor="59, 130, 246"
             >
@@ -406,7 +406,7 @@ export default function Home() {
             </GlowCard>
 
             <GlowCard 
-              className="bg-card/50 rounded-xl p-6 cursor-pointer" 
+              className="neumorphic-card p-6 cursor-pointer" 
               data-testid="card-challenge-conversion"
               glowColor="249, 115, 22"
             >
@@ -422,7 +422,7 @@ export default function Home() {
             </GlowCard>
 
             <GlowCard 
-              className="bg-card/50 rounded-xl p-6 cursor-pointer" 
+              className="neumorphic-card p-6 cursor-pointer" 
               data-testid="card-challenge-fragmented"
               glowColor="168, 85, 247"
             >
@@ -438,7 +438,7 @@ export default function Home() {
             </GlowCard>
 
             <GlowCard 
-              className="bg-card/50 rounded-xl p-6 cursor-pointer" 
+              className="neumorphic-card p-6 cursor-pointer" 
               data-testid="card-challenge-tracking"
               glowColor="34, 197, 94"
             >
@@ -454,7 +454,7 @@ export default function Home() {
             </GlowCard>
 
             <GlowCard 
-              className="bg-card/50 rounded-xl p-6 cursor-pointer" 
+              className="neumorphic-card p-6 cursor-pointer" 
               data-testid="card-challenge-outdated"
               glowColor="6, 182, 212"
             >
@@ -470,7 +470,7 @@ export default function Home() {
             </GlowCard>
 
             <GlowCard 
-              className="bg-card/50 rounded-xl p-6 cursor-pointer" 
+              className="neumorphic-card p-6 cursor-pointer" 
               data-testid="card-challenge-crm"
               glowColor="236, 72, 153"
             >
@@ -486,7 +486,7 @@ export default function Home() {
             </GlowCard>
 
             <GlowCard 
-              className="bg-card/50 rounded-xl p-6 cursor-pointer md:col-span-2 lg:col-span-3" 
+              className="neumorphic-card p-6 cursor-pointer md:col-span-2 lg:col-span-3" 
               data-testid="card-challenge-fatigue"
               glowColor="234, 179, 8"
             >
@@ -581,17 +581,8 @@ export default function Home() {
       <SectionDivider />
 
       <ScrollAnimatedSection>
-        <section className="py-8 px-4 sm:px-6 lg:px-8 bg-card/20 backdrop-blur-sm relative overflow-hidden">
-          {/* Subtle radial gradient background */}
-          <div className="absolute inset-0 pointer-events-none">
-            <div 
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full"
-              style={{
-                background: 'radial-gradient(circle at center, hsl(var(--primary) / 0.05) 0%, transparent 70%)'
-              }}
-            />
-          </div>
-          <div className="max-w-7xl mx-auto relative z-10">
+        <section className="py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+          <div className="max-w-7xl mx-auto neumorphic-raised">
             <TestimonialsCarousel />
           </div>
         </section>
