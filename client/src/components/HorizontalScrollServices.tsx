@@ -253,11 +253,34 @@ const SERVICES_DATA = [
 
 export default function HorizontalScrollServices() {
   const [isCardHovered, setIsCardHovered] = useState(false);
+  const [isSectionHovered, setIsSectionHovered] = useState(false);
   const [selectedService, setSelectedService] = useState<typeof SERVICES_DATA[number] | null>(null);
   const [rotation, setRotation] = useState(0);
   const services = useMemo(() => SERVICES_DATA, []);
 
-  // No need to prevent body scrolling - handled by wheel event preventDefault
+  // Prevent page scrolling when hovering over the section
+  useEffect(() => {
+    if (isSectionHovered) {
+      const scrollY = window.scrollY;
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.width = '100%';
+    } else {
+      const scrollY = document.body.style.top;
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
+      if (scrollY) {
+        window.scrollTo(0, parseInt(scrollY || '0') * -1);
+      }
+    }
+    
+    return () => {
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
+    };
+  }, [isSectionHovered]);
 
   return (
     <section 
@@ -277,10 +300,15 @@ export default function HorizontalScrollServices() {
         {/* 3D Circular Carousel Services Container */}
         <div 
           className={`services-3d-circle-container ${isCardHovered ? 'expanded' : 'collapsed'}`}
+          onMouseEnter={() => setIsSectionHovered(true)}
+          onMouseLeave={() => {
+            setIsSectionHovered(false);
+            setIsCardHovered(false);
+          }}
           onWheel={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
             if (isCardHovered) {
-              e.preventDefault();
-              e.stopPropagation();
               const delta = e.deltaY > 0 ? 1 : -1;
               setRotation(prev => prev + (delta * (360 / services.length)));
             }
