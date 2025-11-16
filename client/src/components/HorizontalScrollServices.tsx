@@ -328,9 +328,9 @@ export default function HorizontalScrollServices() {
               }}
               data-testid="text-hover-explainer"
             >
-              <Sparkles className="w-8 h-8 mb-3 text-primary" style={{ filter: "drop-shadow(0 0 8px rgba(255, 0, 0, 0.5))" }} />
-              <span className="text-sm font-medium">Hover to Explore All Services</span>
-              <span className="text-xs text-muted-foreground mt-1">Scroll to rotate</span>
+              <Sparkles className="w-12 h-12 mb-4 text-primary" style={{ filter: "drop-shadow(0 0 12px rgba(255, 0, 0, 0.6))" }} />
+              <span className="text-base font-semibold">Hover to Explore All Services</span>
+              <span className="text-sm text-muted-foreground mt-2">Scroll to rotate through 11 services</span>
             </motion.div>
           )}
           
@@ -382,18 +382,18 @@ export default function HorizontalScrollServices() {
                 >
                   <div className="service-card-inner">
                     <div
-                      className="flex-shrink-0 w-12 h-12 rounded-lg flex items-center justify-center mx-auto mb-2"
+                      className="flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center mx-auto mb-1.5"
                       style={{
                         backgroundColor: `${service.accentColor}20`,
                         color: service.accentColor
                       }}
                     >
-                      <service.icon className="w-6 h-6" />
+                      <service.icon className="w-5 h-5" />
                     </div>
-                    <h3 className="service-card-title text-xs font-semibold text-foreground text-center leading-tight mb-2">
+                    <h3 className="service-card-title text-[11px] font-semibold text-foreground text-center leading-tight mb-1.5">
                       {service.title}
                     </h3>
-                    <ul className="service-card-bullets text-[10px] text-muted-foreground space-y-1 mb-3">
+                    <ul className="service-card-bullets text-[9px] text-muted-foreground space-y-0.5 mb-2">
                       {service.details.whatYouGet.slice(0, 3).map((item, idx) => (
                         <li key={idx} className="flex items-start gap-1">
                           <span className="text-primary mt-0.5">•</span>
@@ -404,7 +404,7 @@ export default function HorizontalScrollServices() {
                     <Button
                       size="sm"
                       variant="outline"
-                      className="w-full text-xs h-7"
+                      className="w-full text-[10px] h-6"
                       onClick={(e) => {
                         e.stopPropagation();
                         setSelectedService(service);
