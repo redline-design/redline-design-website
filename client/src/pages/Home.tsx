@@ -294,10 +294,11 @@ export default function Home() {
             <GlowCard 
               className="bg-card/50 rounded-xl p-6 cursor-pointer" 
               data-testid="card-challenge-visibility"
+              glowColor="59, 130, 246"
             >
               <div className="flex items-start gap-4">
-                <div className="p-3 bg-primary/10 rounded-lg">
-                  <Eye className="h-6 w-6 text-primary" />
+                <div className="p-3 rounded-lg" style={{ backgroundColor: 'rgba(59, 130, 246, 0.1)' }}>
+                  <Eye className="h-6 w-6" style={{ color: 'rgb(59, 130, 246)' }} />
                 </div>
                 <div>
                   <h3 className="text-lg font-bold text-foreground mb-2">Low Visibility & High Ad Costs</h3>
@@ -309,10 +310,11 @@ export default function Home() {
             <GlowCard 
               className="bg-card/50 rounded-xl p-6 cursor-pointer" 
               data-testid="card-challenge-conversion"
+              glowColor="249, 115, 22"
             >
               <div className="flex items-start gap-4">
-                <div className="p-3 bg-primary/10 rounded-lg">
-                  <MousePointerClick className="h-6 w-6 text-primary" />
+                <div className="p-3 rounded-lg" style={{ backgroundColor: 'rgba(249, 115, 22, 0.1)' }}>
+                  <MousePointerClick className="h-6 w-6" style={{ color: 'rgb(249, 115, 22)' }} />
                 </div>
                 <div>
                   <h3 className="text-lg font-bold text-foreground mb-2">Poor Website Conversion</h3>
@@ -324,10 +326,11 @@ export default function Home() {
             <GlowCard 
               className="bg-card/50 rounded-xl p-6 cursor-pointer" 
               data-testid="card-challenge-fragmented"
+              glowColor="168, 85, 247"
             >
               <div className="flex items-start gap-4">
-                <div className="p-3 bg-primary/10 rounded-lg">
-                  <LayoutGrid className="h-6 w-6 text-primary" />
+                <div className="p-3 rounded-lg" style={{ backgroundColor: 'rgba(168, 85, 247, 0.1)' }}>
+                  <LayoutGrid className="h-6 w-6" style={{ color: 'rgb(168, 85, 247)' }} />
                 </div>
                 <div>
                   <h3 className="text-lg font-bold text-foreground mb-2">Fragmented Marketing</h3>
@@ -339,10 +342,11 @@ export default function Home() {
             <GlowCard 
               className="bg-card/50 rounded-xl p-6 cursor-pointer" 
               data-testid="card-challenge-tracking"
+              glowColor="34, 197, 94"
             >
               <div className="flex items-start gap-4">
-                <div className="p-3 bg-primary/10 rounded-lg">
-                  <BarChart2 className="h-6 w-6 text-primary" />
+                <div className="p-3 rounded-lg" style={{ backgroundColor: 'rgba(34, 197, 94, 0.1)' }}>
+                  <BarChart2 className="h-6 w-6" style={{ color: 'rgb(34, 197, 94)' }} />
                 </div>
                 <div>
                   <h3 className="text-lg font-bold text-foreground mb-2">No ROI Tracking</h3>
@@ -354,10 +358,11 @@ export default function Home() {
             <GlowCard 
               className="bg-card/50 rounded-xl p-6 cursor-pointer" 
               data-testid="card-challenge-outdated"
+              glowColor="6, 182, 212"
             >
               <div className="flex items-start gap-4">
-                <div className="p-3 bg-primary/10 rounded-lg">
-                  <Monitor className="h-6 w-6 text-primary" />
+                <div className="p-3 rounded-lg" style={{ backgroundColor: 'rgba(6, 182, 212, 0.1)' }}>
+                  <Monitor className="h-6 w-6" style={{ color: 'rgb(6, 182, 212)' }} />
                 </div>
                 <div>
                   <h3 className="text-lg font-bold text-foreground mb-2">Outdated Websites</h3>
@@ -369,10 +374,11 @@ export default function Home() {
             <GlowCard 
               className="bg-card/50 rounded-xl p-6 cursor-pointer" 
               data-testid="card-challenge-crm"
+              glowColor="236, 72, 153"
             >
               <div className="flex items-start gap-4">
-                <div className="p-3 bg-primary/10 rounded-lg">
-                  <Database className="h-6 w-6 text-primary" />
+                <div className="p-3 rounded-lg" style={{ backgroundColor: 'rgba(236, 72, 153, 0.1)' }}>
+                  <Database className="h-6 w-6" style={{ color: 'rgb(236, 72, 153)' }} />
                 </div>
                 <div>
                   <h3 className="text-lg font-bold text-foreground mb-2">No CRM Integration</h3>
@@ -384,10 +390,11 @@ export default function Home() {
             <GlowCard 
               className="bg-card/50 rounded-xl p-6 cursor-pointer md:col-span-2 lg:col-span-3" 
               data-testid="card-challenge-fatigue"
+              glowColor="234, 179, 8"
             >
               <div className="flex items-start gap-4">
-                <div className="p-3 bg-primary/10 rounded-lg">
-                  <AlertTriangle className="h-6 w-6 text-primary" />
+                <div className="p-3 rounded-lg" style={{ backgroundColor: 'rgba(234, 179, 8, 0.1)' }}>
+                  <AlertTriangle className="h-6 w-6" style={{ color: 'rgb(234, 179, 8)' }} />
                 </div>
                 <div>
                   <h3 className="text-lg font-bold text-foreground mb-2">Ad Fatigue & Wasted Spend</h3>

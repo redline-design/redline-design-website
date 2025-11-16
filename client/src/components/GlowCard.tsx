@@ -4,9 +4,10 @@ interface GlowCardProps {
   children: ReactNode;
   className?: string;
   "data-testid"?: string;
+  glowColor?: string;
 }
 
-export default function GlowCard({ children, className = "", "data-testid": testId }: GlowCardProps) {
+export default function GlowCard({ children, className = "", "data-testid": testId, glowColor = "255, 0, 0" }: GlowCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [cardBounds, setCardBounds] = useState({ left: 0, top: 0 });
@@ -57,6 +58,7 @@ export default function GlowCard({ children, className = "", "data-testid": test
         '--left': cardBounds.left,
         '--top': cardBounds.top,
         '--glow-opacity': isHovering ? 0.15 : 0,
+        '--glow-color': glowColor,
       } as React.CSSProperties}
     >
       {children}
