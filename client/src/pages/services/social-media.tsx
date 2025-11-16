@@ -73,31 +73,9 @@ export default function SocialMediaPage() {
               Turn followers into customers
             </p>
             
-            <p className="text-lg text-foreground/80 mb-8" data-testid="text-service-description">
+            <p className="text-lg text-foreground/80" data-testid="text-service-description">
               Build your brand and engage your audience.
             </p>
-            
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/contact">
-                <Button 
-                  size="lg" 
-                  className="bg-primary hover:bg-primary/90 text-primary-foreground gap-2"
-                  data-testid="button-get-started"
-                >
-                  Get Started
-                  <ArrowRight className="w-4 h-4" />
-                </Button>
-              </Link>
-              <Link href="/book-a-demo">
-                <Button 
-                  size="lg" 
-                  variant="outline"
-                  data-testid="button-book-demo"
-                >
-                  Book a Demo
-                </Button>
-              </Link>
-            </div>
           </motion.div>
         </div>
       </div>
@@ -190,6 +168,34 @@ export default function SocialMediaPage() {
                 </p>
               </div>
             </div>
+          </motion.div>
+          
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="mt-12 flex flex-col sm:flex-row gap-4 justify-center"
+          >
+            <Link href="/contact">
+              <Button 
+                size="lg" 
+                className="bg-primary hover:bg-primary/90 text-primary-foreground gap-2"
+                data-testid="button-get-started"
+              >
+                Get Started
+                <ArrowRight className="w-4 h-4" />
+              </Button>
+            </Link>
+            <Link href="/book-a-demo">
+              <Button 
+                size="lg" 
+                variant="outline"
+                data-testid="button-book-demo"
+              >
+                Book a Demo
+              </Button>
+            </Link>
           </motion.div>
         </div>
       </div>
