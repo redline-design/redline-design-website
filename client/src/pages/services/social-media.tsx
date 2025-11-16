@@ -155,42 +155,39 @@ export default function SocialMediaPage() {
             <div className="card_wrapper" data-testid="card-perfect-for">
               <div className="hover_color_bubble"></div>
               <div className="solution_card">
-                  <div className="icon_container">
-                    <Target className="w-6 h-6" />
-                  </div>
-                  <h3 className="text-xl font-bold mb-4">Perfect For</h3>
-                  <p data-testid="text-perfect-for">
-                    Businesses looking to build brand awareness and community
-                  </p>
+                <div className="icon_container">
+                  <Target className="w-6 h-6" />
                 </div>
+                <h3 className="text-xl font-bold mb-4">Perfect For</h3>
+                <p data-testid="text-perfect-for">
+                  Businesses looking to build brand awareness and community
+                </p>
               </div>
             </div>
 
             <div className="card_wrapper" data-testid="card-timeline">
               <div className="hover_color_bubble"></div>
               <div className="solution_card">
-                  <div className="icon_container">
-                    <Clock className="w-6 h-6" />
-                  </div>
-                  <h3 className="text-xl font-bold mb-4">Timeline</h3>
-                  <p data-testid="text-timeline">
-                    Ongoing monthly retainer
-                  </p>
+                <div className="icon_container">
+                  <Clock className="w-6 h-6" />
                 </div>
+                <h3 className="text-xl font-bold mb-4">Timeline</h3>
+                <p data-testid="text-timeline">
+                  Ongoing monthly retainer
+                </p>
               </div>
             </div>
 
             <div className="card_wrapper" data-testid="card-investment">
               <div className="hover_color_bubble"></div>
               <div className="solution_card">
-                  <div className="icon_container">
-                    <DollarSign className="w-6 h-6" />
-                  </div>
-                  <h3 className="text-xl font-bold mb-4">Investment</h3>
-                  <p className="text-2xl font-bold text-primary" data-testid="text-investment">
-                    Starting at $1,000/month
-                  </p>
+                <div className="icon_container">
+                  <DollarSign className="w-6 h-6" />
                 </div>
+                <h3 className="text-xl font-bold mb-4">Investment</h3>
+                <p className="text-2xl font-bold text-primary" data-testid="text-investment">
+                  Starting at $1,000/month
+                </p>
               </div>
             </div>
           </motion.div>
