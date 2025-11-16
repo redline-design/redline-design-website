@@ -308,14 +308,14 @@ function ServiceCard({
               <service.icon className="h-6 w-6" style={{ color: service.accentColor }} data-testid={`icon-service-${service.id}`} />
             </div>
             <div>
-              <h3 className="text-sm font-semibold text-foreground mb-3" data-testid={`text-service-title-${service.id}`}>
+              <h3 className="text-xs font-semibold text-foreground mb-3 line-clamp-1" data-testid={`text-service-title-${service.id}`}>
                 {service.title}
               </h3>
             </div>
             
             {/* Bullet Points */}
             <ul className="space-y-2 text-left mb-3 flex-1">
-              {service.details.whatYouGet.slice(0, 3).map((item, idx) => (
+              {service.details.whatYouGet.slice(0, 2).map((item, idx) => (
                 <li key={idx} className="flex items-start gap-2 text-xs text-foreground">
                   <span className="text-primary mt-0.5 flex-shrink-0">•</span>
                   <span>{item}</span>
