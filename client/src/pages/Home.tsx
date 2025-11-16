@@ -9,6 +9,7 @@ import CTABand from "@/components/CTABand";
 import StickyConversionBar from "@/components/StickyConversionBar";
 import SectionDivider from "@/components/SectionDivider";
 import ScrollAnimatedSection from "@/components/ScrollAnimatedSection";
+import TextResolver from "@/components/TextResolver";
 import { BarChart3, Sparkles, Globe, DollarSign, Zap, Target, Users, Briefcase, TrendingUp, AlertTriangle, MousePointerClick, LayoutGrid, BarChart2, Monitor, Database, Eye, FileText, LineChart, MapPin, Smartphone } from "lucide-react";
 import { SiGoogleads, SiMeta, SiLinkedin, SiTiktok, SiYoutube, SiX, SiReddit, SiPinterest } from "react-icons/si";
 import { motion } from "framer-motion";
@@ -281,10 +282,10 @@ export default function Home() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-lg sm:text-xl md:text-2xl font-bold uppercase tracking-[0.3em] mb-4 red-glow-pulse" style={{ color: "#ff0000" }}>
-              Common Challenges We Solve
+              <TextResolver text="Common Challenges We Solve" delay={0} timeout={15} iterations={2} />
             </h2>
             <p className="text-lg text-foreground max-w-3xl mx-auto">
-              Are you struggling with any of these pain points? You're not alone.
+              <TextResolver text="Are you struggling with any of these pain points? You're not alone." delay={200} timeout={10} iterations={1} />
             </p>
           </div>
           
@@ -405,10 +406,10 @@ export default function Home() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-lg sm:text-xl md:text-2xl font-bold uppercase tracking-[0.3em] mb-4 red-glow-pulse" style={{ color: "#ff0000" }}>
-              The Redline Difference
+              <TextResolver text="The Redline Difference" delay={0} timeout={15} iterations={2} />
             </h2>
             <p className="text-lg text-foreground">
-              Keys to Digital Success
+              <TextResolver text="Keys to Digital Success" delay={200} timeout={10} iterations={1} />
             </p>
           </div>
 
@@ -424,7 +425,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-lg sm:text-xl md:text-2xl font-bold uppercase tracking-[0.3em] mb-4 red-glow-pulse" style={{ color: "#ff0000" }}>
-              Why Choose Us
+              <TextResolver text="Why Choose Us" delay={0} timeout={15} iterations={2} />
             </h2>
             <p className="text-sm text-muted-foreground hover-hint" data-testid="text-hover-hint">
               ✨ Hover to explore our key differentiators
