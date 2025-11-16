@@ -527,12 +527,12 @@ export default function Home() {
           <PartnerLogos />
 
           {/* Industry Statistics - Auto-Scrolling */}
-          <div className="mt-16" data-testid="section-stats-carousel">
+          <div className="mt-8" data-testid="section-stats-carousel">
             <div className="relative overflow-hidden">
               <motion.div
                 className="flex gap-4 pointer-events-none"
                 animate={{
-                  x: prefersReducedMotion ? 0 : [0, -100 * stats.length],
+                  x: prefersReducedMotion ? 0 : [0, 100 * stats.length],
                 }}
                 transition={{
                   x: {
