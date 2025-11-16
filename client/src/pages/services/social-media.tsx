@@ -113,9 +113,10 @@ export default function SocialMediaPage() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
+            className="card_wrapper h-full"
           >
+            <div className="hover_color_bubble"></div>
             <div className="solution_card h-full" data-testid="card-what-you-get">
-              <div className="hover_color_bubble"></div>
               <div className="card_content">
                 <div className="icon_container">
                   <Check className="w-6 h-6" />
@@ -151,42 +152,45 @@ export default function SocialMediaPage() {
             transition={{ duration: 0.5 }}
             className="space-y-6"
           >
-            <div className="solution_card" data-testid="card-perfect-for">
+            <div className="card_wrapper" data-testid="card-perfect-for">
               <div className="hover_color_bubble"></div>
-              <div className="card_content">
-                <div className="icon_container">
-                  <Target className="w-6 h-6" />
+              <div className="solution_card">
+                  <div className="icon_container">
+                    <Target className="w-6 h-6" />
+                  </div>
+                  <h3 className="text-xl font-bold mb-4">Perfect For</h3>
+                  <p data-testid="text-perfect-for">
+                    Businesses looking to build brand awareness and community
+                  </p>
                 </div>
-                <h3 className="text-xl font-bold mb-4">Perfect For</h3>
-                <p data-testid="text-perfect-for">
-                  Businesses looking to build brand awareness and community
-                </p>
               </div>
             </div>
 
-            <div className="solution_card" data-testid="card-timeline">
+            <div className="card_wrapper" data-testid="card-timeline">
               <div className="hover_color_bubble"></div>
-              <div className="card_content">
-                <div className="icon_container">
-                  <Clock className="w-6 h-6" />
+              <div className="solution_card">
+                  <div className="icon_container">
+                    <Clock className="w-6 h-6" />
+                  </div>
+                  <h3 className="text-xl font-bold mb-4">Timeline</h3>
+                  <p data-testid="text-timeline">
+                    Ongoing monthly retainer
+                  </p>
                 </div>
-                <h3 className="text-xl font-bold mb-4">Timeline</h3>
-                <p data-testid="text-timeline">
-                  Ongoing monthly retainer
-                </p>
               </div>
             </div>
 
-            <div className="solution_card" data-testid="card-investment">
+            <div className="card_wrapper" data-testid="card-investment">
               <div className="hover_color_bubble"></div>
-              <div className="card_content">
-                <div className="icon_container">
-                  <DollarSign className="w-6 h-6" />
+              <div className="solution_card">
+                  <div className="icon_container">
+                    <DollarSign className="w-6 h-6" />
+                  </div>
+                  <h3 className="text-xl font-bold mb-4">Investment</h3>
+                  <p className="text-2xl font-bold text-primary" data-testid="text-investment">
+                    Starting at $1,000/month
+                  </p>
                 </div>
-                <h3 className="text-xl font-bold mb-4">Investment</h3>
-                <p className="text-2xl font-bold text-primary" data-testid="text-investment">
-                  Starting at $1,000/month
-                </p>
               </div>
             </div>
           </motion.div>

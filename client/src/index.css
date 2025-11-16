@@ -2640,24 +2640,30 @@
   }
 }
 
-/* CodePen Hover Bubble Cards - EXACT CodePen CSS */
-.solution_card {
-  background: #fff;
-  box-shadow: 0 2px 4px 0 rgba(136, 144, 195, 0.2),
-    0 5px 15px 0 rgba(37, 44, 97, 0.15);
-  border-radius: 15px;
-  margin: 8px;
-  padding: 10px 15px;
+/* CodePen Hover Bubble Cards - Dark Theme */
+.card_wrapper {
   position: relative;
-  z-index: 1;
+  overflow: hidden;
+}
+
+.solution_card {
+  background: rgba(26, 26, 26, 0.8);
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.3),
+    0 5px 15px 0 rgba(0, 0, 0, 0.2);
+  border-radius: 15px;
+  padding: 1.5rem;
+  position: relative;
+  z-index: 2;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
 }
 
 .hover_color_bubble {
   position: absolute;
   background: radial-gradient(
     circle,
-    rgba(247, 112, 98, 1) 0%,
-    rgba(254, 81, 150, 1) 100%
+    rgba(255, 0, 0, 0.4) 0%,
+    rgba(255, 0, 0, 0) 70%
   );
   width: 0rem;
   height: 0rem;
@@ -2665,34 +2671,36 @@
   left: 0;
   transition: 0.5s;
   opacity: 0;
-  z-index: -1;
+  z-index: 1;
+  border-radius: 50%;
+  pointer-events: none;
 }
 
-.solution_card:hover .hover_color_bubble {
-  width: 25rem;
-  height: 25rem;
-  opacity: 0.3;
+.card_wrapper:hover .hover_color_bubble {
+  width: 30rem;
+  height: 30rem;
+  opacity: 1;
 }
 
 .solution_card .card_content {
   position: relative;
-  z-index: 2;
+  z-index: 3;
 }
 
 .solution_card .icon_container {
   width: 60px;
   height: 60px;
-  background: linear-gradient(135deg, rgb(247, 112, 98) 0%, rgb(254, 81, 150) 100%);
+  background: linear-gradient(135deg, rgb(220, 38, 38) 0%, rgb(185, 28, 28) 100%);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 15px;
-  box-shadow: 0 5px 15px rgba(247, 112, 98, 0.3);
+  box-shadow: 0 5px 15px rgba(220, 38, 38, 0.4);
   transition: 0.3s;
 }
 
-.solution_card:hover .icon_container {
+.card_wrapper:hover .solution_card .icon_container {
   transform: scale(1.1);
 }
 
@@ -2701,7 +2709,7 @@
 .solution_card p,
 .solution_card li,
 .solution_card span {
-  color: #2d3748;
+  color: #e5e7eb;
 }
 
 .solution_card .icon_container svg {
