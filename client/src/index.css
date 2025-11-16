@@ -2845,13 +2845,12 @@
     -8px -8px 20px rgba(255, 255, 255, 0.03);
   position: relative;
   margin-bottom: 3rem;
-  margin-left: 2rem;
-  margin-right: 2rem;
+  margin-left: auto;
+  margin-right: auto;
   border-radius: 24px;
-}
-
-.neumorphic-section {
   overflow: hidden;
+  max-width: calc(80rem + 2rem);
+  width: fit-content;
 }
 
 .neumorphic-section::after {
@@ -2871,22 +2870,19 @@
 
 @media (min-width: 640px) {
   .neumorphic-section {
-    margin-left: 4rem;
-    margin-right: 4rem;
+    max-width: calc(80rem + 3rem);
   }
 }
 
 @media (min-width: 1024px) {
   .neumorphic-section {
-    margin-left: 6rem;
-    margin-right: 6rem;
+    max-width: calc(80rem + 4rem);
   }
 }
 
 @media (min-width: 1280px) {
   .neumorphic-section {
-    margin-left: 8rem;
-    margin-right: 8rem;
+    max-width: calc(80rem + 4rem);
   }
 }
 
