@@ -105,47 +105,6 @@ export default function SocialMediaPage() {
 
       <ScrollAnimatedSection>
         <div className="container mx-auto px-4 py-16 md:py-24">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="max-w-4xl mx-auto text-center mb-16"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold mb-6" data-testid="text-platforms-heading">
-              Platforms We Master
-            </h2>
-            <p className="text-lg text-muted-foreground mb-12" data-testid="text-platforms-description">
-              We create engaging content and manage campaigns across all major social platforms
-            </p>
-            
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6" data-testid="platforms-grid">
-              {platforms.map((platform, index) => (
-                <motion.div
-                  key={platform.name}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.3, delay: index * 0.05 }}
-                  className="flex flex-col items-center gap-3 p-6 rounded-xl bg-card/40 backdrop-blur-sm border border-border hover-elevate active-elevate-2"
-                  data-testid={`platform-card-${platform.name.toLowerCase().replace(/\s+/g, '-')}`}
-                >
-                  <platform.icon 
-                    className="w-10 h-10" 
-                    style={{ color: platform.color }}
-                  />
-                  <span className="text-sm font-medium text-foreground">{platform.name}</span>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-        </div>
-      </ScrollAnimatedSection>
-
-      <SectionDivider />
-
-      <ScrollAnimatedSection>
-        <div className="container mx-auto px-4 py-16 md:py-24">
         <div className="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
@@ -227,6 +186,47 @@ export default function SocialMediaPage() {
           </motion.div>
         </div>
       </div>
+      </ScrollAnimatedSection>
+
+      <SectionDivider />
+
+      <ScrollAnimatedSection>
+        <div className="container mx-auto px-4 py-16 md:py-24">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="max-w-4xl mx-auto text-center mb-16"
+          >
+            <h2 className="text-3xl md:text-4xl font-bold mb-6" data-testid="text-platforms-heading">
+              Platforms We Master
+            </h2>
+            <p className="text-lg text-muted-foreground mb-12" data-testid="text-platforms-description">
+              We create engaging content and manage campaigns across all major social platforms
+            </p>
+            
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6" data-testid="platforms-grid">
+              {platforms.map((platform, index) => (
+                <motion.div
+                  key={platform.name}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.3, delay: index * 0.05 }}
+                  className="flex flex-col items-center gap-3 p-6 rounded-xl bg-card/40 backdrop-blur-sm border border-border hover-elevate active-elevate-2"
+                  data-testid={`platform-card-${platform.name.toLowerCase().replace(/\s+/g, '-')}`}
+                >
+                  <platform.icon 
+                    className="w-10 h-10" 
+                    style={{ color: platform.color }}
+                  />
+                  <span className="text-sm font-medium text-foreground">{platform.name}</span>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
       </ScrollAnimatedSection>
 
       <SectionDivider />
