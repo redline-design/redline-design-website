@@ -31,7 +31,7 @@ export default function ServicePageTemplate({
   timeline,
   investment,
   status,
-  accentColor = "rgb(255, 0, 0)"
+  accentColor = "#737373"
 }: ServicePageTemplateProps) {
   return (
     <div className="min-h-screen">

@@ -35,8 +35,6 @@ const platforms = [
 ];
 
 export default function SocialMediaPage() {
-  const accentColor = "#ff0000";
-  
   return (
     <div className="min-h-screen">
       <ScrollAnimatedSection>
@@ -191,7 +189,7 @@ export default function SocialMediaPage() {
                   </div>
                   <div className="flex-1">
                     <h3 className="text-xl font-bold mb-2">Investment</h3>
-                    <p className="text-2xl font-bold text-primary" data-testid="text-investment">
+                    <p className="text-2xl font-bold text-foreground" data-testid="text-investment">
                       Starting at $1,000/month
                     </p>
                   </div>
