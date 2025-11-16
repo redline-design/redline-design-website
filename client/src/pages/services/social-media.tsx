@@ -40,7 +40,7 @@ export default function SocialMediaPage() {
   return (
     <div className="min-h-screen">
       <ScrollAnimatedSection>
-        <div className="relative overflow-hidden py-12 md:py-16">
+        <div className="relative overflow-hidden py-20 md:py-32">
         
         <div className="container mx-auto px-4 relative z-10">
           <motion.div
@@ -84,7 +84,7 @@ export default function SocialMediaPage() {
 
       <ScrollAnimatedSection>
         <div className="container mx-auto px-4 py-16 md:py-24">
-        <div className="relative overflow-hidden bg-gradient-to-br from-background/80 via-card/40 to-background/80 rounded-2xl p-8 md:p-12 max-w-6xl mx-auto">
+        <div className="relative overflow-hidden bg-gradient-to-br from-background via-card/80 to-background rounded-2xl p-8 md:p-12 max-w-6xl mx-auto">
         <div className="absolute inset-0 bg-grid-white/5 [mask-image:linear-gradient(0deg,transparent,black)]" />
         <div className="grid md:grid-cols-2 gap-12 relative z-10">
           <motion.div
