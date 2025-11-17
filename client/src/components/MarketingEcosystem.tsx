@@ -36,6 +36,57 @@ export default function MarketingEcosystem() {
     <div ref={ref} className="relative py-12 px-4">
       {/* Desktop: Circular Layout */}
       <div className="hidden lg:block relative w-full max-w-5xl mx-auto aspect-square">
+        {/* Single SVG for all connection lines */}
+        <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ zIndex: 5 }}>
+          <defs>
+            {channels.map((channel, index) => (
+              <linearGradient key={`gradient-${index}`} id={`gradient-${index}`}>
+                <stop offset="0%" stopColor="#ff0000" stopOpacity="0.8" />
+                <stop offset="100%" stopColor={channel.color} stopOpacity="0.8" />
+              </linearGradient>
+            ))}
+          </defs>
+          {channels.map((channel, index) => {
+            const radius = 280;
+            const angleInRadians = (channel.angle * Math.PI) / 180;
+            const x = Math.cos(angleInRadians) * radius;
+            const y = Math.sin(angleInRadians) * radius;
+            
+            return (
+              <g key={`line-${index}`}>
+                <motion.line
+                  x1="50%"
+                  y1="50%"
+                  x2={`calc(50% + ${x}px)`}
+                  y2={`calc(50% + ${y}px)`}
+                  stroke={`url(#gradient-${index})`}
+                  strokeWidth="2"
+                  initial={{ pathLength: 0, opacity: 0 }}
+                  animate={isInView ? { pathLength: 1, opacity: 0.5 } : {}}
+                  transition={{ duration: 1, delay: 0.6 + index * 0.1 }}
+                />
+                <motion.circle
+                  r="3"
+                  fill={channel.color}
+                  initial={{ opacity: 0 }}
+                  animate={isInView ? {
+                    cx: [`50%`, `calc(50% + ${x}px)`],
+                    cy: [`50%`, `calc(50% + ${y}px)`],
+                    opacity: [0, 1, 1, 0],
+                  } : {}}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    delay: index * 0.3,
+                    ease: "easeInOut",
+                  }}
+                  style={{ filter: `drop-shadow(0 0 4px ${channel.color})` }}
+                />
+              </g>
+            );
+          })}
+        </svg>
+
         {/* Central Hub */}
         <motion.div
           initial={{ scale: 0, opacity: 0 }}
@@ -86,68 +137,18 @@ export default function MarketingEcosystem() {
           const y = Math.sin(angleInRadians) * radius;
 
           return (
-            <div
+            <motion.div
               key={channel.label}
+              initial={{ scale: 0, opacity: 0 }}
+              animate={isInView ? { scale: 1, opacity: 1 } : {}}
+              transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
               className="absolute top-1/2 left-1/2 z-10 w-32 h-32"
               style={{
                 transform: `translate(-50%, -50%) translate(${x}px, ${y}px)`,
               }}
               data-testid={`ecosystem-channel-${index}`}
             >
-              {/* Animated connection line */}
-              <svg
-                className="absolute top-1/2 left-1/2 -z-10 pointer-events-none"
-                style={{
-                  width: `${Math.abs(x) + 100}px`,
-                  height: `${Math.abs(y) + 100}px`,
-                  transform: `translate(-50%, -50%)`,
-                }}
-              >
-                <motion.line
-                  x1={x < 0 ? Math.abs(x) + 50 : 50}
-                  y1={y < 0 ? Math.abs(y) + 50 : 50}
-                  x2={x < 0 ? 50 : Math.abs(x) + 50}
-                  y2={y < 0 ? 50 : Math.abs(y) + 50}
-                  stroke={`url(#gradient-${index})`}
-                  strokeWidth="2"
-                  initial={{ pathLength: 0, opacity: 0 }}
-                  animate={isInView ? { pathLength: 1, opacity: 0.5 } : {}}
-                  transition={{ duration: 1, delay: 0.6 + index * 0.1 }}
-                />
-                <defs>
-                  <linearGradient id={`gradient-${index}`} gradientUnits="userSpaceOnUse">
-                    <stop offset="0%" stopColor="#ff0000" stopOpacity="0.8" />
-                    <stop offset="100%" stopColor={channel.color} stopOpacity="0.8" />
-                  </linearGradient>
-                </defs>
-
-                {/* Animated particle */}
-                <motion.circle
-                  r="3"
-                  fill={channel.color}
-                  initial={{ opacity: 0 }}
-                  animate={isInView ? {
-                    cx: [x < 0 ? Math.abs(x) + 50 : 50, x < 0 ? 50 : Math.abs(x) + 50],
-                    cy: [y < 0 ? Math.abs(y) + 50 : 50, y < 0 ? 50 : Math.abs(y) + 50],
-                    opacity: [0, 1, 1, 0],
-                  } : {}}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    delay: index * 0.3,
-                    ease: "easeInOut",
-                  }}
-                  style={{ filter: `drop-shadow(0 0 4px ${channel.color})` }}
-                />
-              </svg>
-
-              {/* Channel node */}
-              <motion.div 
-                initial={{ scale: 0, opacity: 0 }}
-                animate={isInView ? { scale: 1, opacity: 1 } : {}}
-                transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
-                className="relative neumorphic-card p-4 rounded-2xl bg-[#1e1e1e] cursor-pointer hover-elevate active-elevate-2 w-full h-full flex flex-col items-center justify-center"
-              >
+              <div className="neumorphic-card p-4 rounded-2xl bg-[#1e1e1e] cursor-pointer hover-elevate active-elevate-2 w-full h-full flex flex-col items-center justify-center">
                 <Icon 
                   className="h-10 w-10 mb-2 flex-shrink-0" 
                   style={{ 
@@ -158,8 +159,8 @@ export default function MarketingEcosystem() {
                 <p className="text-xs font-semibold text-foreground text-center leading-tight">
                   {channel.label}
                 </p>
-              </motion.div>
-            </div>
+              </div>
+            </motion.div>
           );
         })}
       </div>
