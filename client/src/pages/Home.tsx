@@ -378,7 +378,7 @@ export default function Home() {
 
       {/* Marketing Ecosystem */}
       <ScrollAnimatedSection>
-        <section className="py-2 px-2 sm:px-3 lg:px-4 neumorphic-section" data-testid="section-ecosystem">
+        <section className="py-2 px-2 sm:px-3 lg:px-4" data-testid="section-ecosystem">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-8">
             <h2 className="text-xl sm:text-2xl md:text-3xl font-bold uppercase tracking-[0.3em] mb-4" style={{ color: "#ff0000" }}>
