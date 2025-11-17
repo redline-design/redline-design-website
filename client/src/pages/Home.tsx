@@ -11,8 +11,8 @@ import ScrollAnimatedSection from "@/components/ScrollAnimatedSection";
 import TextResolver from "@/components/TextResolver";
 import GlowCard from "@/components/GlowCard";
 import ScrollValueCards from "@/components/ScrollValueCards";
-import MarketingEcosystem from "@/components/MarketingEcosystem";
-import { BarChart3, Sparkles, Globe, DollarSign, Zap, Target, Users, Briefcase, TrendingUp, AlertTriangle, MousePointerClick, LayoutGrid, BarChart2, Monitor, Database, Eye, FileText, LineChart, MapPin, Smartphone } from "lucide-react";
+import ChallengesCarousel from "@/components/ChallengesCarousel";
+import { BarChart3, Sparkles, Globe, DollarSign, Zap, Target, Users, Briefcase, TrendingUp, FileText, LineChart, MapPin, Smartphone } from "lucide-react";
 import { SiGoogleads, SiMeta, SiLinkedin, SiTiktok, SiYoutube, SiX, SiReddit, SiPinterest } from "react-icons/si";
 import { motion } from "framer-motion";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
@@ -376,20 +376,20 @@ export default function Home() {
 
       <SectionDivider />
 
-      {/* Marketing Ecosystem */}
+      {/* Common Challenges We Solve */}
       <ScrollAnimatedSection>
-        <section className="py-2 px-2 sm:px-3 lg:px-4" data-testid="section-ecosystem">
+        <section className="py-2 px-2 sm:px-3 lg:px-4 neumorphic-section" data-testid="section-challenges">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-8">
+          <div className="text-center mb-12">
             <h2 className="text-xl sm:text-2xl md:text-3xl font-bold uppercase tracking-[0.3em] mb-4" style={{ color: "#ff0000" }}>
-              <TextResolver text="Your Complete Marketing Ecosystem" delay={0} timeout={15} iterations={2} />
+              <TextResolver text="Common Challenges We Solve" delay={0} timeout={15} iterations={2} />
             </h2>
             <p className="text-base text-muted-foreground max-w-3xl mx-auto">
-              <TextResolver text="All your marketing channels, unified and working together to drive growth." delay={200} timeout={10} iterations={1} />
+              <TextResolver text="Are you struggling with any of these pain points? You're not alone." delay={200} timeout={10} iterations={1} />
             </p>
           </div>
           
-          <MarketingEcosystem />
+          <ChallengesCarousel />
         </div>
       </section>
       </ScrollAnimatedSection>
