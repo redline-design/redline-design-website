@@ -31,7 +31,7 @@ export default function MarketingEcosystem() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
-  const RADIUS = 240; // Distance from center to channels
+  const RADIUS = 300; // Distance from center to channels
 
   return (
     <div ref={ref} className="relative py-12 px-4">
@@ -97,7 +97,7 @@ export default function MarketingEcosystem() {
                 initial={{ scaleY: 0, opacity: 0 }}
                 animate={isInView ? { scaleY: 1, opacity: 0.5 } : {}}
                 transition={{ duration: 1, delay: 0.6 + index * 0.1 }}
-                className="absolute left-1/2 -translate-x-1/2 origin-top"
+                className="absolute left-1/2 -translate-x-1/2 origin-top z-0"
                 style={{
                   width: "2px",
                   height: `${RADIUS}px`,
