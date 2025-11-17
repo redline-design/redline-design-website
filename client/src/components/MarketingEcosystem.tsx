@@ -88,13 +88,15 @@ export default function MarketingEcosystem() {
           return (
             <motion.div
               key={channel.label}
-              initial={{ scale: 0, opacity: 0 }}
-              animate={isInView ? { scale: 1, opacity: 1 } : {}}
+              initial={{ scale: 0, opacity: 0, x: -50 + '%', y: -50 + '%' }}
+              animate={isInView ? { 
+                scale: 1, 
+                opacity: 1,
+                x: `calc(-50% + ${x}px)`,
+                y: `calc(-50% + ${y}px)`
+              } : {}}
               transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
               className="absolute top-1/2 left-1/2 z-10"
-              style={{
-                transform: `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`,
-              }}
               data-testid={`ecosystem-channel-${index}`}
             >
               {/* Animated connection line */}
