@@ -280,10 +280,7 @@
 .challenge-bg-blue::before {
   content: '';
   position: absolute;
-  top: 10%;
-  left: 10%;
-  right: 10%;
-  bottom: 10%;
+  inset: 0;
   background: 
     radial-gradient(circle at 20% 30%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
     radial-gradient(circle at 80% 70%, rgba(96, 165, 250, 0.15) 0%, transparent 50%),
@@ -303,8 +300,8 @@
   content: '';
   position: absolute;
   bottom: 15%;
-  left: 10%;
-  right: 10%;
+  left: 0;
+  right: 0;
   height: 3px;
   background: linear-gradient(90deg, 
     transparent 0%,
@@ -330,10 +327,7 @@
 .challenge-bg-orange::before {
   content: '';
   position: absolute;
-  top: 12%;
-  left: 15%;
-  right: 15%;
-  bottom: 15%;
+  inset: 0;
   background: 
     radial-gradient(circle at 50% 20%, rgba(251, 146, 60, 0.2) 0%, transparent 40%),
     linear-gradient(0deg, transparent 0%, transparent 60%, rgba(249, 115, 22, 0.15) 60%, rgba(249, 115, 22, 0.15) 63%, transparent 63%),
@@ -348,8 +342,8 @@
   content: '';
   position: absolute;
   bottom: 12%;
-  left: 15%;
-  right: 15%;
+  left: 0;
+  right: 0;
   height: 3px;
   background: linear-gradient(90deg, 
     rgba(249, 115, 22, 0.3) 0%,
@@ -371,10 +365,7 @@
 .challenge-bg-purple::before {
   content: '';
   position: absolute;
-  top: 10%;
-  left: 10%;
-  right: 10%;
-  bottom: 10%;
+  inset: 0;
   background: 
     radial-gradient(circle at 25% 25%, rgba(168, 85, 247, 0.15) 0%, transparent 50%),
     radial-gradient(circle at 75% 75%, rgba(192, 132, 252, 0.15) 0%, transparent 50%),
@@ -389,8 +380,8 @@
   content: '';
   position: absolute;
   top: 18%;
-  left: 12%;
-  right: 12%;
+  left: 0;
+  right: 0;
   bottom: 18%;
   background: 
     linear-gradient(90deg, rgba(168, 85, 247, 0.15) 0%, rgba(168, 85, 247, 0.15) 3%, transparent 3%, transparent 30%, rgba(192, 132, 252, 0.2) 30%, rgba(192, 132, 252, 0.2) 33%, transparent 33%, transparent 65%, rgba(216, 180, 254, 0.15) 65%, rgba(216, 180, 254, 0.15) 68%, transparent 68%);
@@ -409,10 +400,10 @@
 .challenge-bg-green::before {
   content: '';
   position: absolute;
-  bottom: 12%;
-  left: 12%;
-  right: 12%;
-  height: 55%;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 45%;
   background:
     radial-gradient(circle at 50% 0%, rgba(34, 197, 94, 0.15) 0%, transparent 50%),
     linear-gradient(0deg, transparent 0%, transparent 75%, rgba(74, 222, 128, 0.15) 75%, rgba(74, 222, 128, 0.15) 78%, transparent 78%),
@@ -431,8 +422,8 @@
   content: '';
   position: absolute;
   bottom: 12%;
-  left: 12%;
-  right: 12%;
+  left: 0;
+  right: 0;
   height: 3px;
   background: linear-gradient(90deg, 
     rgba(34, 197, 94, 0.3) 0%, 
@@ -453,10 +444,7 @@
 .challenge-bg-cyan::before {
   content: '';
   position: absolute;
-  top: 10%;
-  left: 10%;
-  right: 10%;
-  bottom: 10%;
+  inset: 0;
   background: 
     radial-gradient(circle at 70% 30%, rgba(6, 182, 212, 0.12) 0%, transparent 50%),
     radial-gradient(circle at 30% 70%, rgba(34, 211, 238, 0.12) 0%, transparent 50%),
@@ -476,9 +464,9 @@
   content: '';
   position: absolute;
   top: 22%;
-  left: 15%;
-  right: 15%;
-  height: 52%;
+  left: 0;
+  right: 0;
+  bottom: 22%;
   background: 
     linear-gradient(90deg, rgba(6, 182, 212, 0.15) 0%, rgba(6, 182, 212, 0.15) 4%, transparent 4%, transparent 100%),
     linear-gradient(90deg, transparent 0%, transparent 6%, rgba(34, 211, 238, 0.2) 6%, rgba(34, 211, 238, 0.2) 16%, transparent 16%, transparent 100%),
@@ -501,10 +489,7 @@
 .challenge-bg-pink::before {
   content: '';
   position: absolute;
-  top: 15%;
-  left: 12%;
-  right: 12%;
-  bottom: 15%;
+  inset: 0;
   background:
     radial-gradient(circle at 50% 50%, rgba(236, 72, 153, 0.15) 0%, transparent 40%),
     radial-gradient(circle at 20% 30%, rgba(219, 39, 119, 0.1) 0%, transparent 35%),
@@ -522,8 +507,8 @@
   content: '';
   position: absolute;
   top: 50%;
-  left: 12%;
-  right: 12%;
+  left: 0;
+  right: 0;
   height: 3px;
   background: linear-gradient(90deg,
     transparent 0%,
@@ -547,10 +532,10 @@
 .challenge-bg-yellow::before {
   content: '';
   position: absolute;
-  bottom: 12%;
-  left: 12%;
-  right: 12%;
-  height: 55%;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 45%;
   background:
     radial-gradient(circle at 30% 20%, rgba(251, 191, 36, 0.15) 0%, transparent 50%),
     radial-gradient(circle at 70% 40%, rgba(234, 179, 8, 0.12) 0%, transparent 40%),
@@ -563,10 +548,10 @@
 .challenge-bg-yellow::after {
   content: '';
   position: absolute;
-  bottom: 12%;
-  left: 12%;
-  right: 12%;
-  height: 55%;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 45%;
   background:
     linear-gradient(0deg, transparent 0%, transparent 58%, rgba(250, 204, 21, 0.2) 58%, rgba(250, 204, 21, 0.2) 62%, transparent 62%),
     linear-gradient(0deg, transparent 0%, transparent 48%, rgba(251, 191, 36, 0.15) 48%, rgba(251, 191, 36, 0.15) 52%, transparent 52%),
