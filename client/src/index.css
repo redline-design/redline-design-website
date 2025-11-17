@@ -1810,53 +1810,26 @@
 /* Glow Card Effect - Mouse-tracking spotlight */
 .glow-card {
   position: relative;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 2px solid rgba(255, 255, 255, 0.2);
+  background: #141414;
   box-shadow: 
-    inset 0 0 20px rgba(255, 255, 255, 0.05),
-    0 8px 32px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-  overflow: hidden;
+    12px 12px 24px rgba(0, 0, 0, 1),
+    -8px -8px 16px rgba(255, 255, 255, 0.03),
+    inset 2px 2px 4px rgba(0, 0, 0, 0.3);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: visible;
 }
 
-.glow-card::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background-image: radial-gradient(
-    600px 600px at
-    calc((var(--x, 0) - var(--left, 0)) * 1px)
-    calc((var(--y, 0) - var(--top, 0)) * 1px),
-    rgba(var(--glow-color, 255, 0, 0), var(--glow-opacity, 0)) 0%,
-    transparent 60%
-  );
-  pointer-events: none;
-  z-index: 1;
-  transition: opacity 0.3s ease;
-}
-
-.glow-card::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background-image: radial-gradient(
-    300px 300px at
-    calc((var(--x, 0) - var(--left, 0)) * 1px)
-    calc((var(--y, 0) - var(--top, 0)) * 1px),
-    rgba(255, 255, 255, calc(var(--glow-opacity, 0) * 0.5)) 0%,
-    transparent 50%
-  );
-  pointer-events: none;
-  z-index: 1;
-  transition: opacity 0.3s ease;
+.glow-card:hover {
+  box-shadow: 
+    16px 16px 32px rgba(0, 0, 0, 1),
+    -10px -10px 20px rgba(255, 255, 255, 0.04),
+    inset 2px 2px 4px rgba(0, 0, 0, 0.3);
+  transform: translateY(-4px);
 }
 
 .glow-card > * {
   position: relative;
-  z-index: 2;
+  z-index: 1;
 }
 
 /* Portfolio Carousel Styles - 3D Stacked Cards */
