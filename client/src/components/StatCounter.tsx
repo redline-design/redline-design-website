@@ -40,7 +40,7 @@ export default function StatCounter({ value, suffix = "", prefix = "", label, de
       initial={{ opacity: 0, y: 20 }}
       animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
       transition={{ duration: 0.5, delay }}
-      className="text-center"
+      className="neumorphic-card p-6 text-center"
       data-testid={`stat-${label.toLowerCase().replace(/\s/g, "-")}`}
     >
       <div className="text-4xl md:text-5xl font-black text-primary mb-2 number-pop" data-testid={`text-stat-value-${label.toLowerCase().replace(/\s/g, "-")}`}>
