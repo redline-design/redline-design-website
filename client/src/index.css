@@ -139,22 +139,20 @@
 
 /* New digital/technical animation keyframes */
 @keyframes challenge-blue-ranking {
-  0% {
-    transform: translateY(0%);
+  0%, 100% {
+    opacity: 0.8;
   }
-  100% {
-    transform: translateY(-100%);
+  50% {
+    opacity: 1;
   }
 }
 
 @keyframes challenge-blue-data-line {
   0%, 100% {
     opacity: 0.6;
-    transform: scaleX(0.95);
   }
   50% {
     opacity: 1;
-    transform: scaleX(1.05);
   }
 }
 
@@ -170,20 +168,18 @@
 @keyframes challenge-orange-conversion {
   0%, 100% {
     opacity: 0.6;
-    transform: scaleX(0.9);
   }
   50% {
     opacity: 1;
-    transform: scaleX(1);
   }
 }
 
 @keyframes challenge-purple-grid {
-  0% {
-    transform: translate(0, 0);
+  0%, 100% {
+    opacity: 0.8;
   }
-  100% {
-    transform: translate(80px, 80px);
+  50% {
+    opacity: 1;
   }
 }
 
@@ -209,11 +205,11 @@
 }
 
 @keyframes challenge-cyan-code {
-  0% {
-    transform: translateY(0%);
+  0%, 100% {
+    opacity: 0.8;
   }
-  100% {
-    transform: translateY(-100%);
+  50% {
+    opacity: 1;
   }
 }
 
@@ -241,11 +237,9 @@
 @keyframes challenge-pink-flow-line {
   0%, 100% {
     opacity: 0.6;
-    transform: scaleX(0.9);
   }
   50% {
     opacity: 1;
-    transform: scaleX(1);
   }
 }
 
