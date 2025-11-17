@@ -377,9 +377,9 @@ export default function Home() {
 
       {/* Common Challenges We Solve */}
       <ScrollAnimatedSection>
-        <section className="py-2 px-2 sm:px-3 lg:px-4 neumorphic-section" data-testid="section-challenges">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-8">
+        <section className="py-8 px-4 sm:px-6 lg:px-8" data-testid="section-challenges">
+        <div className="max-w-[90rem] mx-auto">
+          <div className="text-center mb-10">
             <h2 className="text-lg sm:text-xl md:text-2xl font-bold uppercase tracking-[0.3em] mb-2" style={{ color: "#ff0000" }}>
               <TextResolver text="Common Challenges We Solve" delay={0} timeout={15} iterations={2} />
             </h2>
@@ -388,17 +388,17 @@ export default function Home() {
             </p>
           </div>
           
-          <div className="grid grid-cols-7 gap-3">
+          <div className="grid grid-cols-7 gap-4">
             <GlowCard 
-              className="neumorphic-card p-4 cursor-pointer" 
+              className="neumorphic-card p-6 cursor-pointer" 
               data-testid="card-challenge-visibility"
             >
-              <div className="flex flex-col items-center text-center gap-3">
-                <div className="neumorphic-inset p-4 rounded-lg">
-                  <Eye className="h-8 w-8" style={{ color: 'rgb(59, 130, 246)' }} />
+              <div className="flex flex-col items-center text-center gap-4">
+                <div className="neumorphic-inset p-5 rounded-lg">
+                  <Eye className="h-10 w-10" style={{ color: 'rgb(59, 130, 246)' }} />
                 </div>
                 <div>
-                  <h3 className="text-base font-bold text-foreground mb-2">Low Visibility & High Ad Costs</h3>
+                  <h3 className="text-lg font-bold text-foreground mb-3">Low Visibility & High Ad Costs</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">Struggling to get found online while watching ad costs skyrocket? We optimize your presence for maximum visibility at minimal cost.</p>
                 </div>
               </div>
