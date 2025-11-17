@@ -13,6 +13,10 @@ export default function MarketingEcosystem() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });
 
+  const radius = 280; // Distance from center
+  const centerX = 400; // Center X position
+  const centerY = 350; // Center Y position
+
   const hexagons = [
     { 
       id: 1,
@@ -20,8 +24,7 @@ export default function MarketingEcosystem() {
       label: "SEO Strategy",
       desc: "Rank higher in search results and drive organic traffic to your website through strategic optimization.",
       color: "#e2dc00",
-      position: "top-[0px] left-1/2 -translate-x-1/2",
-      textPosition: "top-[-100px] left-1/2 -translate-x-1/2 text-center",
+      angle: -90, // Top
       delay: 0.2
     },
     { 
@@ -30,8 +33,7 @@ export default function MarketingEcosystem() {
       label: "Social Media",
       desc: "Build brand awareness and engage audiences across Facebook, Instagram, and LinkedIn.",
       color: "#353535",
-      position: "top-[150px] right-[50px]",
-      textPosition: "top-[40px] left-[240px] text-left",
+      angle: -30, // Top-right
       delay: 0.4
     },
     { 
@@ -40,8 +42,7 @@ export default function MarketingEcosystem() {
       label: "PPC Advertising",
       desc: "Generate immediate leads through targeted Google Ads and social media campaigns.",
       color: "#353535",
-      position: "bottom-[150px] right-[50px]",
-      textPosition: "bottom-[40px] left-[240px] text-left",
+      angle: 30, // Bottom-right
       delay: 0.6
     },
     { 
@@ -50,8 +51,7 @@ export default function MarketingEcosystem() {
       label: "Email Marketing",
       desc: "Nurture leads with automated email sequences that guide prospects to conversion.",
       color: "#e2dc00",
-      position: "bottom-[0px] left-1/2 -translate-x-1/2",
-      textPosition: "bottom-[-100px] left-1/2 -translate-x-1/2 text-center",
+      angle: 90, // Bottom
       delay: 0.8
     },
     { 
@@ -60,8 +60,7 @@ export default function MarketingEcosystem() {
       label: "Content Marketing",
       desc: "Establish authority with blog posts, videos, and resources that attract ideal customers.",
       color: "#353535",
-      position: "bottom-[150px] left-[50px]",
-      textPosition: "bottom-[40px] right-[240px] text-right",
+      angle: 150, // Bottom-left
       delay: 1.0
     },
     { 
@@ -70,21 +69,25 @@ export default function MarketingEcosystem() {
       label: "Analytics",
       desc: "Track performance metrics and optimize campaigns based on data-driven insights.",
       color: "#e2dc00",
-      position: "top-[150px] left-[50px]",
-      textPosition: "top-[40px] right-[240px] text-right",
+      angle: 210, // Top-left
       delay: 1.2
     },
   ];
 
   return (
     <div ref={ref} className="relative w-full px-4 py-32">
-      <div className="relative max-w-5xl mx-auto" style={{ minHeight: "700px" }}>
+      <div className="relative mx-auto" style={{ width: "800px", height: "700px" }}>
         {/* Central Circle */}
         <motion.div
           initial={{ scale: 0, opacity: 0 }}
           animate={isInView ? { scale: 1, opacity: 1 } : {}}
           transition={{ duration: 0.6, delay: 0.2, type: "spring" }}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20"
+          className="absolute z-20"
+          style={{
+            left: `${centerX}px`,
+            top: `${centerY}px`,
+            transform: "translate(-50%, -50%)"
+          }}
         >
           <div className="relative w-[185px] h-[185px] rounded-full bg-white shadow-2xl flex flex-col items-center justify-center border-8 border-[#e7e8ea]">
             <p className="text-[26px] font-black text-black leading-tight">MAIN</p>
@@ -95,6 +98,14 @@ export default function MarketingEcosystem() {
         {/* Hexagons */}
         {hexagons.map((hex) => {
           const Icon = hex.icon;
+          const angleRad = (hex.angle * Math.PI) / 180;
+          const x = centerX + radius * Math.cos(angleRad);
+          const y = centerY + radius * Math.sin(angleRad);
+          
+          // Calculate text position (further out from hexagon)
+          const textDistance = radius + 150;
+          const textX = centerX + textDistance * Math.cos(angleRad);
+          const textY = centerY + textDistance * Math.sin(angleRad);
           
           return (
             <div key={hex.id}>
@@ -108,7 +119,12 @@ export default function MarketingEcosystem() {
                   type: "spring",
                   stiffness: 100
                 }}
-                className={`absolute ${hex.position} z-10`}
+                className="absolute z-10"
+                style={{
+                  left: `${x}px`,
+                  top: `${y}px`,
+                  transform: "translate(-50%, -50%)"
+                }}
               >
                 <div 
                   className="relative w-[215px] h-[215px] flex flex-col items-center justify-center"
@@ -142,31 +158,25 @@ export default function MarketingEcosystem() {
                   </motion.div>
                 </div>
 
-                {/* Connector line */}
+                {/* Connector line - from hexagon to center */}
                 <motion.div
-                  initial={{ scaleY: 0 }}
-                  animate={isInView ? { scaleY: 1 } : {}}
+                  initial={{ scaleX: 0 }}
+                  animate={isInView ? { scaleX: 1 } : {}}
                   transition={{ duration: 0.4, delay: hex.delay + 0.2 }}
-                  className="absolute w-[3px] h-[30px] bg-[#7c7b7b] left-1/2 -translate-x-1/2"
+                  className="absolute w-[80px] h-[3px] bg-[#7c7b7b] top-1/2 left-1/2 origin-left"
                   style={{
-                    top: hex.position.includes("top-[0px]") ? "100%" : 
-                         hex.position.includes("bottom-[0px]") ? "auto" : 
-                         hex.position.includes("top-[150px]") ? "100%" : "auto",
-                    bottom: hex.position.includes("bottom-[0px]") ? "100%" :
-                            hex.position.includes("bottom-[150px]") ? "100%" : "auto",
-                    transformOrigin: hex.position.includes("bottom") ? "bottom" : "top",
+                    transform: `translate(-50%, -50%) rotate(${hex.angle + 180}deg)`,
                   }}
                 />
+                
+                {/* Connector dot */}
                 <motion.div
                   initial={{ scale: 0 }}
                   animate={isInView ? { scale: 1 } : {}}
                   transition={{ delay: hex.delay + 0.5 }}
-                  className="absolute w-[12px] h-[12px] rounded-full bg-[#7c7b7b] left-1/2 -translate-x-1/2"
+                  className="absolute w-[12px] h-[12px] rounded-full bg-[#7c7b7b] top-1/2 left-1/2"
                   style={{
-                    top: hex.position.includes("top-[0px]") ? "calc(100% + 30px)" : 
-                         hex.position.includes("top-[150px]") ? "calc(100% + 30px)" : "auto",
-                    bottom: hex.position.includes("bottom-[0px]") ? "calc(100% + 30px)" :
-                            hex.position.includes("bottom-[150px]") ? "calc(100% + 30px)" : "auto",
+                    transform: `translate(-50%, -50%) translate(${-40 * Math.cos(angleRad)}px, ${-40 * Math.sin(angleRad)}px)`,
                   }}
                 />
               </motion.div>
@@ -176,7 +186,13 @@ export default function MarketingEcosystem() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ delay: hex.delay + 0.4 }}
-                className={`absolute ${hex.textPosition} w-[240px]`}
+                className="absolute w-[220px]"
+                style={{
+                  left: `${textX}px`,
+                  top: `${textY}px`,
+                  transform: "translate(-50%, -50%)",
+                  textAlign: "center"
+                }}
               >
                 <p className="text-[14px] text-neutral-800 leading-relaxed">
                   {hex.desc}
