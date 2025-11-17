@@ -125,8 +125,8 @@ export default function MarketingEcosystem() {
             />
 
             {/* Main hub */}
-            <div className="relative neumorphic-card p-8 rounded-full bg-[#1e1e1e]">
-              <Target className="h-16 w-16 text-[#ff0000]" style={{
+            <div className="relative neumorphic-card p-6 rounded-full bg-[#1e1e1e] flex items-center justify-center">
+              <Target className="h-12 w-12 text-[#ff0000]" style={{
                 filter: "drop-shadow(0 0 8px rgba(255, 0, 0, 0.5))"
               }} />
             </div>
