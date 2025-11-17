@@ -224,12 +224,22 @@ export function ChallengesSlider({ challenges }: ChallengesSliderProps) {
         {/* Slides 2, 3 - Preview cards */}
         {[1, 2].map((position, idx) => {
           const slide = getSlideAtPosition(position);
+          const Icon = slide.icon;
           return (
             <div
               key={`preview-${position}`}
               className={`slider-carousel-item slider-carousel-item-${position + 1} ${getGradientClassForColor(slide.color)}`}
               data-testid={`challenge-slide-preview-${position + 1}`}
-            />
+            >
+              {/* Preview Content */}
+              <div className="challenge-preview-content">
+                <div className={`challenge-preview-icon challenge-icon-${slide.color}`}>
+                  <Icon className="w-8 h-8" />
+                </div>
+                <h4 className="challenge-preview-title">{slide.title}</h4>
+                <p className="challenge-preview-description">{slide.description}</p>
+              </div>
+            </div>
           );
         })}
       </div>
