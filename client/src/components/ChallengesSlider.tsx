@@ -60,18 +60,18 @@ export function ChallengesSlider({ challenges }: ChallengesSliderProps) {
 
   const activeSlideIndex = (currentIndex + 1) % challenges.length;
 
-  // Generate gradient background based on challenge color
-  const getGradientForColor = (color: string) => {
-    const gradients: Record<string, string> = {
-      blue: 'linear-gradient(135deg, #1e3a8a 0%, #1e40af 50%, #3b82f6 100%)',
-      orange: 'linear-gradient(135deg, #7c2d12 0%, #ea580c 50%, #fb923c 100%)',
-      purple: 'linear-gradient(135deg, #581c87 0%, #9333ea 50%, #a855f7 100%)',
-      green: 'linear-gradient(135deg, #14532d 0%, #16a34a 50%, #4ade80 100%)',
-      cyan: 'linear-gradient(135deg, #164e63 0%, #0891b2 50%, #22d3ee 100%)',
-      pink: 'linear-gradient(135deg, #831843 0%, #db2777 50%, #f472b6 100%)',
-      yellow: 'linear-gradient(135deg, #713f12 0%, #ca8a04 50%, #facc15 100%)',
+  // Get CSS class for animated gradient background based on challenge color
+  const getGradientClassForColor = (color: string) => {
+    const gradientClasses: Record<string, string> = {
+      blue: 'challenge-bg-blue',
+      orange: 'challenge-bg-orange',
+      purple: 'challenge-bg-purple',
+      green: 'challenge-bg-green',
+      cyan: 'challenge-bg-cyan',
+      pink: 'challenge-bg-pink',
+      yellow: 'challenge-bg-yellow',
     };
-    return gradients[color] || gradients.blue;
+    return gradientClasses[color] || gradientClasses.blue;
   };
 
   return (
@@ -79,19 +79,13 @@ export function ChallengesSlider({ challenges }: ChallengesSliderProps) {
       <div className="slider-carousel-slide">
         {/* Slide 0 - Background */}
         <div
-          className="slider-carousel-item slider-carousel-item-0"
-          style={{
-            background: getGradientForColor(getSlideAtPosition(0).color),
-          }}
+          className={`slider-carousel-item slider-carousel-item-0 ${getGradientClassForColor(getSlideAtPosition(0).color)}`}
           data-testid={`challenge-slide-${getSlideAtPosition(0).id}`}
         />
         
         {/* Slide 1 - Active */}
         <div
-          className="slider-carousel-item slider-carousel-item-1"
-          style={{
-            background: getGradientForColor(getSlideAtPosition(1).color),
-          }}
+          className={`slider-carousel-item slider-carousel-item-1 ${getGradientClassForColor(getSlideAtPosition(1).color)}`}
           data-testid={`challenge-slide-${getSlideAtPosition(1).id}-active`}
         >
           {/* Top Navigation Bar */}
@@ -183,10 +177,7 @@ export function ChallengesSlider({ challenges }: ChallengesSliderProps) {
           return (
             <div
               key={`preview-${position}`}
-              className={`slider-carousel-item slider-carousel-item-${position}`}
-              style={{
-                background: getGradientForColor(slide.color),
-              }}
+              className={`slider-carousel-item slider-carousel-item-${position} ${getGradientClassForColor(slide.color)}`}
               data-testid={`challenge-slide-preview-${position}`}
             />
           );
