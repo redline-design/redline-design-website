@@ -32,12 +32,21 @@ export default function MarketingEcosystem() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
+  // SVG coordinate system - use viewBox for consistent coordinates
+  const SVG_SIZE = 1000;
+  const CENTER = SVG_SIZE / 2; // 500
+  const RADIUS = 280; // Distance from center to channels
+
   return (
     <div ref={ref} className="relative py-12 px-4">
       {/* Desktop: Circular Layout */}
       <div className="hidden lg:block relative w-full max-w-5xl mx-auto aspect-square">
         {/* Single SVG for all connection lines */}
-        <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ zIndex: 5 }}>
+        <svg 
+          className="absolute inset-0 w-full h-full pointer-events-none" 
+          viewBox={`0 0 ${SVG_SIZE} ${SVG_SIZE}`}
+          style={{ zIndex: 5 }}
+        >
           <defs>
             {channels.map((channel, index) => (
               <linearGradient key={`gradient-${index}`} id={`gradient-${index}`}>
@@ -47,18 +56,19 @@ export default function MarketingEcosystem() {
             ))}
           </defs>
           {channels.map((channel, index) => {
-            const radius = 280;
             const angleInRadians = (channel.angle * Math.PI) / 180;
-            const x = Math.cos(angleInRadians) * radius;
-            const y = Math.sin(angleInRadians) * radius;
+            const x = Math.cos(angleInRadians) * RADIUS;
+            const y = Math.sin(angleInRadians) * RADIUS;
+            const endX = CENTER + x;
+            const endY = CENTER + y;
             
             return (
               <g key={`line-${index}`}>
                 <motion.line
-                  x1="50%"
-                  y1="50%"
-                  x2={`calc(50% + ${x}px)`}
-                  y2={`calc(50% + ${y}px)`}
+                  x1={CENTER}
+                  y1={CENTER}
+                  x2={endX}
+                  y2={endY}
                   stroke={`url(#gradient-${index})`}
                   strokeWidth="2"
                   initial={{ pathLength: 0, opacity: 0 }}
@@ -70,8 +80,8 @@ export default function MarketingEcosystem() {
                   fill={channel.color}
                   initial={{ opacity: 0 }}
                   animate={isInView ? {
-                    cx: [`50%`, `calc(50% + ${x}px)`],
-                    cy: [`50%`, `calc(50% + ${y}px)`],
+                    cx: [CENTER, endX],
+                    cy: [CENTER, endY],
                     opacity: [0, 1, 1, 0],
                   } : {}}
                   transition={{
@@ -131,10 +141,9 @@ export default function MarketingEcosystem() {
         {/* Channels */}
         {channels.map((channel, index) => {
           const Icon = channel.icon;
-          const radius = 280;
           const angleInRadians = (channel.angle * Math.PI) / 180;
-          const x = Math.cos(angleInRadians) * radius;
-          const y = Math.sin(angleInRadians) * radius;
+          const x = Math.cos(angleInRadians) * RADIUS;
+          const y = Math.sin(angleInRadians) * RADIUS;
 
           return (
             <div
