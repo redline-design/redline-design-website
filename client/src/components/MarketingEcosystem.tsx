@@ -145,7 +145,7 @@ export default function MarketingEcosystem() {
               </svg>
 
               {/* Channel node */}
-              <div className="relative neumorphic-card p-6 rounded-2xl bg-[#1e1e1e] cursor-pointer hover:scale-105 transition-transform">
+              <div className="relative neumorphic-card p-6 rounded-2xl bg-[#1e1e1e] cursor-pointer hover-elevate active-elevate-2">
                 <Icon 
                   className="h-10 w-10 mb-2" 
                   style={{ 
@@ -211,7 +211,7 @@ export default function MarketingEcosystem() {
               transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
               data-testid={`ecosystem-channel-mobile-${index}`}
             >
-              <div className="neumorphic-card p-6 rounded-2xl bg-[#1e1e1e] cursor-pointer hover:scale-105 transition-transform h-full flex flex-col items-center justify-center text-center">
+              <div className="neumorphic-card p-6 rounded-2xl bg-[#1e1e1e] cursor-pointer hover-elevate active-elevate-2 h-full flex flex-col items-center justify-center text-center">
                 <Icon 
                   className="h-10 w-10 mb-3" 
                   style={{ 
