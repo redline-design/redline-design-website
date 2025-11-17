@@ -2853,19 +2853,35 @@
 }
 
 .neumorphic-card {
-  background: #181818;
+  background: #1e1e1e;
   box-shadow: 
-    12px 12px 24px rgba(0, 0, 0, 1),
-    -8px -8px 16px rgba(255, 255, 255, 0.015);
+    8px 8px 16px rgba(0, 0, 0, 0.9),
+    -4px -4px 8px rgba(255, 255, 255, 0.02);
   border-radius: 16px;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .neumorphic-card:hover {
   box-shadow: 
-    16px 16px 32px rgba(0, 0, 0, 1),
-    -10px -10px 20px rgba(255, 255, 255, 0.02);
+    10px 10px 20px rgba(0, 0, 0, 0.95),
+    -5px -5px 10px rgba(255, 255, 255, 0.025);
   transform: translateY(-4px);
+}
+
+.neumorphic-card-carousel {
+  background: #1e1e1e;
+  box-shadow: 
+    8px 8px 16px rgba(0, 0, 0, 0.9),
+    -4px -4px 8px rgba(255, 255, 255, 0.02);
+  border-radius: 16px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.neumorphic-card-carousel:hover {
+  box-shadow: 
+    10px 10px 20px rgba(0, 0, 0, 0.95),
+    -5px -5px 10px rgba(255, 255, 255, 0.025);
+  transform: translateY(-2px);
 }
 
 .neumorphic-raised {
@@ -2926,4 +2942,48 @@
   color: rgb(234, 179, 8);
   filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.8)) 
           drop-shadow(-1px -1px 2px rgba(234, 179, 8, 0.3));
+}
+
+/* Circular Icon Container - Neumorphic */
+.neumorphic-icon-circle {
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #1a1a1a;
+  border-radius: 50%;
+  box-shadow: 
+    4px 4px 8px rgba(0, 0, 0, 0.8),
+    -2px -2px 6px rgba(255, 255, 255, 0.02);
+  transition: all 0.3s ease;
+}
+
+.neumorphic-icon-circle:hover {
+  box-shadow: 
+    6px 6px 12px rgba(0, 0, 0, 0.85),
+    -3px -3px 8px rgba(255, 255, 255, 0.025);
+}
+
+/* Neumorphic Navigation Buttons */
+.neumorphic-button {
+  background: #1a1a1a;
+  box-shadow: 
+    4px 4px 8px rgba(0, 0, 0, 0.8),
+    -2px -2px 6px rgba(255, 255, 255, 0.02);
+  transition: all 0.3s ease;
+}
+
+.neumorphic-button:hover:not(:disabled) {
+  box-shadow: 
+    6px 6px 12px rgba(0, 0, 0, 0.85),
+    -3px -3px 8px rgba(255, 255, 255, 0.025);
+  transform: translateY(-1px);
+}
+
+.neumorphic-button:active:not(:disabled) {
+  box-shadow: 
+    2px 2px 4px rgba(0, 0, 0, 0.9),
+    -1px -1px 3px rgba(255, 255, 255, 0.015);
+  transform: translateY(0);
 }
