@@ -1,6 +1,7 @@
 import Hero from "@/components/Hero";
 import HorizontalScrollServices from "@/components/HorizontalScrollServices";
 import { SliderCarousel } from "@/components/SliderCarousel";
+import { ChallengesSlider } from "@/components/ChallengesSlider";
 import PartnerLogos from "@/components/PartnerLogos";
 import TestimonialsCarousel from "@/components/TestimonialsCarousel";
 import StatCounter from "@/components/StatCounter";
@@ -11,8 +12,7 @@ import ScrollAnimatedSection from "@/components/ScrollAnimatedSection";
 import TextResolver from "@/components/TextResolver";
 import GlowCard from "@/components/GlowCard";
 import ScrollValueCards from "@/components/ScrollValueCards";
-import ChallengesCarousel from "@/components/ChallengesCarousel";
-import { BarChart3, Sparkles, Globe, DollarSign, Zap, Target, Users, Briefcase, TrendingUp, FileText, LineChart, MapPin, Smartphone } from "lucide-react";
+import { BarChart3, Sparkles, Globe, DollarSign, Zap, Target, Users, Briefcase, TrendingUp, FileText, LineChart, MapPin, Smartphone, Eye, MousePointerClick, LayoutGrid, BarChart2, Monitor, Database, AlertTriangle } from "lucide-react";
 import { SiGoogleads, SiMeta, SiLinkedin, SiTiktok, SiYoutube, SiX, SiReddit, SiPinterest } from "react-icons/si";
 import { motion } from "framer-motion";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
@@ -49,6 +49,73 @@ export default function Home() {
 
   // Duplicate stats for seamless infinite loop
   const duplicatedStats = [...stats, ...stats, ...stats];
+
+  // Challenges slider data
+  const challengesSlides = [
+    {
+      id: 'visibility',
+      icon: Eye,
+      color: 'blue',
+      title: 'Low Visibility & High Ad Costs',
+      description: 'Struggling to get found online while watching ad costs skyrocket? We optimize your presence for maximum visibility at minimal cost.',
+      buttonText: 'Boost Visibility',
+      buttonLink: '/services/seo',
+    },
+    {
+      id: 'conversion',
+      icon: MousePointerClick,
+      color: 'orange',
+      title: 'Poor Website Conversion',
+      description: 'Traffic without conversions is just noise. We design and optimize for one thing: turning visitors into customers.',
+      buttonText: 'Increase Conversions',
+      buttonLink: '/services/web-design',
+    },
+    {
+      id: 'fragmented',
+      icon: LayoutGrid,
+      color: 'purple',
+      title: 'Fragmented Marketing',
+      description: 'Juggling multiple agencies and tools that don\'t talk to each other? We unify your marketing under one roof.',
+      buttonText: 'Unify Your Marketing',
+      buttonLink: '/why-us',
+    },
+    {
+      id: 'tracking',
+      icon: BarChart2,
+      color: 'green',
+      title: 'No ROI Tracking',
+      description: 'Can\'t measure what\'s working? Our transparent analytics show exactly where every dollar goes and what it returns.',
+      buttonText: 'Track ROI',
+      buttonLink: '/services/analytics',
+    },
+    {
+      id: 'outdated',
+      icon: Monitor,
+      color: 'cyan',
+      title: 'Outdated Websites',
+      description: 'Your website should be your best salesperson. We build modern, fast, conversion-focused sites that work 24/7.',
+      buttonText: 'Modernize Website',
+      buttonLink: '/services/web-design',
+    },
+    {
+      id: 'crm',
+      icon: Database,
+      color: 'pink',
+      title: 'No CRM Integration',
+      description: 'Leads slipping through the cracks? We set up and optimize your CRM so no opportunity is ever missed.',
+      buttonText: 'Setup CRM',
+      buttonLink: '/book-a-demo',
+    },
+    {
+      id: 'fatigue',
+      icon: AlertTriangle,
+      color: 'yellow',
+      title: 'Ad Fatigue & Wasted Spend',
+      description: 'Burning through ad budgets with diminishing returns? Our data-driven approach ensures every campaign stays fresh.',
+      buttonText: 'Optimize Ads',
+      buttonLink: '/services/ppc',
+    },
+  ];
 
   // Slider carousel slides for services - The Redline Difference
   const sliderSlides = [
@@ -406,19 +473,8 @@ export default function Home() {
 
       {/* Common Challenges We Solve */}
       <ScrollAnimatedSection>
-        <section className="py-2 px-2 sm:px-3 lg:px-4 neumorphic-section" data-testid="section-challenges">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold uppercase tracking-[0.3em] mb-4" style={{ color: "#ff0000" }}>
-              <TextResolver text="Common Challenges We Solve" delay={0} timeout={15} iterations={2} />
-            </h2>
-            <p className="text-base text-muted-foreground max-w-3xl mx-auto">
-              <TextResolver text="Are you struggling with any of these pain points? You're not alone." delay={200} timeout={10} iterations={1} />
-            </p>
-          </div>
-          
-          <ChallengesCarousel />
-        </div>
+        <section className="py-2 px-2 sm:px-3 lg:px-4" data-testid="section-challenges">
+          <ChallengesSlider challenges={challengesSlides} />
       </section>
       </ScrollAnimatedSection>
 
