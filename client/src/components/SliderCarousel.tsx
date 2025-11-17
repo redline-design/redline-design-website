@@ -37,6 +37,13 @@ export function SliderCarousel({ slides }: SliderCarouselProps) {
     setTimeout(() => setIsAnimating(false), 500);
   };
 
+  const handleNavClick = (index: number) => {
+    if (isAnimating || index === currentIndex) return;
+    setIsAnimating(true);
+    setCurrentIndex(index);
+    setTimeout(() => setIsAnimating(false), 500);
+  };
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'ArrowLeft') handlePrev();
@@ -76,14 +83,17 @@ export function SliderCarousel({ slides }: SliderCarouselProps) {
           <div className="slider-carousel-nav-bar" data-testid="slider-nav-bar">
             <div className="slider-carousel-nav-items">
               {slides.map((slide, index) => (
-                <div 
+                <button 
                   key={slide.id}
+                  onClick={() => handleNavClick(index)}
+                  disabled={isAnimating}
                   className={`slider-carousel-nav-item ${index === currentIndex ? 'active' : ''}`}
                   data-testid={`nav-item-${index}`}
+                  aria-label={`Go to slide ${index + 1}: ${slide.title}`}
                 >
                   <span className="slider-carousel-nav-number">{index + 1}</span>
                   <span className="slider-carousel-nav-title">{slide.title}</span>
-                </div>
+                </button>
               ))}
             </div>
           </div>

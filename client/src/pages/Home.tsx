@@ -426,9 +426,7 @@ export default function Home() {
 
       <ScrollAnimatedSection>
         <section className="py-2 px-2 sm:px-3 lg:px-4" data-testid="section-differentiators">
-        <div className="max-w-7xl mx-auto">
           <SliderCarousel slides={sliderSlides} />
-        </div>
       </section>
       </ScrollAnimatedSection>
 
