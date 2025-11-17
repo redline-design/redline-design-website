@@ -2855,17 +2855,17 @@
 .neumorphic-card {
   background: #141414;
   box-shadow: 
-    10px 10px 20px rgba(0, 0, 0, 1),
-    -6px -6px 12px rgba(255, 255, 255, 0.015);
-  border-radius: 12px;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    12px 12px 24px rgba(0, 0, 0, 1),
+    -8px -8px 16px rgba(255, 255, 255, 0.015);
+  border-radius: 16px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .neumorphic-card:hover {
   box-shadow: 
-    14px 14px 28px rgba(0, 0, 0, 1),
-    -8px -8px 16px rgba(255, 255, 255, 0.02);
-  transform: translateY(-2px);
+    16px 16px 32px rgba(0, 0, 0, 1),
+    -10px -10px 20px rgba(255, 255, 255, 0.02);
+  transform: translateY(-4px);
 }
 
 .neumorphic-raised {
@@ -2883,4 +2883,18 @@
     inset 3px 3px 6px rgba(0, 0, 0, 1),
     inset -1px -1px 3px rgba(255, 255, 255, 0.01);
   border-radius: 8px;
+}
+
+.neumorphic-icon-flat {
+  background: #141414;
+  box-shadow: 
+    6px 6px 12px rgba(0, 0, 0, 0.8),
+    -4px -4px 8px rgba(255, 255, 255, 0.015);
+  transition: all 0.3s ease;
+}
+
+.neumorphic-icon-flat:hover {
+  box-shadow: 
+    8px 8px 16px rgba(0, 0, 0, 0.9),
+    -5px -5px 10px rgba(255, 255, 255, 0.02);
 }
