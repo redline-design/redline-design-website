@@ -394,9 +394,7 @@ export default function Home() {
               data-testid="card-challenge-visibility"
             >
               <div className="flex flex-col items-center text-center gap-6">
-                <div className="neumorphic-icon-flat p-5 rounded-xl">
-                  <Eye className="h-10 w-10" style={{ color: 'rgb(59, 130, 246)' }} />
-                </div>
+                <Eye className="h-12 w-12 icon-3d-blue" />
                 <div>
                   <h3 className="text-lg font-bold text-foreground mb-3">Low Visibility & High Ad Costs</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">Struggling to get found online while watching ad costs skyrocket? We optimize your presence for maximum visibility at minimal cost.</p>
@@ -409,9 +407,7 @@ export default function Home() {
               data-testid="card-challenge-conversion"
             >
               <div className="flex flex-col items-center text-center gap-6">
-                <div className="neumorphic-icon-flat p-5 rounded-xl">
-                  <MousePointerClick className="h-10 w-10" style={{ color: 'rgb(249, 115, 22)' }} />
-                </div>
+                <MousePointerClick className="h-12 w-12 icon-3d-orange" />
                 <div>
                   <h3 className="text-lg font-bold text-foreground mb-3">Poor Website Conversion</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">Traffic without conversions is just noise. We design and optimize for one thing: turning visitors into customers.</p>
@@ -424,9 +420,7 @@ export default function Home() {
               data-testid="card-challenge-fragmented"
             >
               <div className="flex flex-col items-center text-center gap-6">
-                <div className="neumorphic-icon-flat p-5 rounded-xl">
-                  <LayoutGrid className="h-10 w-10" style={{ color: 'rgb(168, 85, 247)' }} />
-                </div>
+                <LayoutGrid className="h-12 w-12 icon-3d-purple" />
                 <div>
                   <h3 className="text-lg font-bold text-foreground mb-3">Fragmented Marketing</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">Juggling multiple agencies and tools that don't talk to each other? We unify your marketing under one roof.</p>
@@ -439,9 +433,7 @@ export default function Home() {
               data-testid="card-challenge-tracking"
             >
               <div className="flex flex-col items-center text-center gap-6">
-                <div className="neumorphic-icon-flat p-5 rounded-xl">
-                  <BarChart2 className="h-10 w-10" style={{ color: 'rgb(34, 197, 94)' }} />
-                </div>
+                <BarChart2 className="h-12 w-12 icon-3d-green" />
                 <div>
                   <h3 className="text-lg font-bold text-foreground mb-3">No ROI Tracking</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">Can't measure what's working? Our transparent analytics show you exactly where every dollar goes and what it returns.</p>
@@ -454,9 +446,7 @@ export default function Home() {
               data-testid="card-challenge-outdated"
             >
               <div className="flex flex-col items-center text-center gap-6">
-                <div className="neumorphic-icon-flat p-5 rounded-xl">
-                  <Monitor className="h-10 w-10" style={{ color: 'rgb(6, 182, 212)' }} />
-                </div>
+                <Monitor className="h-12 w-12 icon-3d-cyan" />
                 <div>
                   <h3 className="text-lg font-bold text-foreground mb-3">Outdated Websites</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">Your website should be your best salesperson. We build modern, fast, conversion-focused sites that work 24/7.</p>
@@ -469,9 +459,7 @@ export default function Home() {
               data-testid="card-challenge-crm"
             >
               <div className="flex flex-col items-center text-center gap-6">
-                <div className="neumorphic-icon-flat p-5 rounded-xl">
-                  <Database className="h-10 w-10" style={{ color: 'rgb(236, 72, 153)' }} />
-                </div>
+                <Database className="h-12 w-12 icon-3d-pink" />
                 <div>
                   <h3 className="text-lg font-bold text-foreground mb-3">No CRM Integration</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">Leads slipping through the cracks? We set up and optimize your CRM so no opportunity is ever missed.</p>
@@ -484,9 +472,7 @@ export default function Home() {
               data-testid="card-challenge-fatigue"
             >
               <div className="flex flex-col items-center text-center gap-6 max-w-2xl mx-auto">
-                <div className="neumorphic-icon-flat p-5 rounded-xl">
-                  <AlertTriangle className="h-10 w-10" style={{ color: 'rgb(234, 179, 8)' }} />
-                </div>
+                <AlertTriangle className="h-12 w-12 icon-3d-yellow" />
                 <div>
                   <h3 className="text-lg font-bold text-foreground mb-3">Ad Fatigue & Wasted Spend</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">Burning through ad budgets with diminishing returns? Our data-driven approach ensures every campaign stays fresh and effective.</p>
