@@ -21,6 +21,8 @@ import seoImage from '@assets/generated_images/seo_optimization_workspace_588cf4
 import ppcImage from '@assets/generated_images/ppc_campaign_management_dashboard_70cb822e.png';
 import webDesignImage from '@assets/generated_images/data_analytics_growth_center_3fe12d50.png';
 import socialMediaImage from '@assets/generated_images/social_media_analytics_hub_216308e5.png';
+import automationImage from '@assets/generated_images/marketing_automation_workflow_dashboard_1a5087a7.png';
+import roiAttributionImage from '@assets/generated_images/roi_attribution_analytics_center_b97acdf0.png';
 
 export default function Home() {
   const prefersReducedMotion = useReducedMotion();
@@ -113,6 +115,32 @@ export default function Home() {
         { value: '100%', label: 'Visibility' },
         { value: '24/7', label: 'Monitoring' },
         { value: '3x', label: 'More Leads' },
+      ],
+    },
+    {
+      id: 'automation',
+      title: 'Marketing Automation',
+      description: 'Scale your marketing with intelligent automation. Trigger-based campaigns, customer journey mapping, and AI-powered insights that work while you sleep.',
+      image: automationImage,
+      buttonText: 'Explore Automation',
+      buttonLink: '/services/ai-automation',
+      stats: [
+        { value: '85%', label: 'Time Saved' },
+        { value: '3.5x', label: 'Lead Nurture Rate' },
+        { value: '24/7', label: 'Active Campaigns' },
+      ],
+    },
+    {
+      id: 'attribution',
+      title: 'ROI Attribution',
+      description: 'Know exactly where every dollar goes and what it returns. Multi-touch attribution modeling shows you which channels drive real revenue.',
+      image: roiAttributionImage,
+      buttonText: 'Track ROI',
+      buttonLink: '/services/analytics',
+      stats: [
+        { value: '100%', label: 'Budget Visibility' },
+        { value: '2.8x', label: 'ROAS Average' },
+        { value: '99%', label: 'Accuracy' },
       ],
     },
   ];
@@ -397,17 +425,8 @@ export default function Home() {
       <SectionDivider />
 
       <ScrollAnimatedSection>
-        <section className="py-2 px-2 sm:px-3 lg:px-4 neumorphic-section" data-testid="section-differentiators">
+        <section className="py-2 px-2 sm:px-3 lg:px-4" data-testid="section-differentiators">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-lg sm:text-xl md:text-2xl font-bold uppercase tracking-[0.3em] mb-4 red-glow-pulse" style={{ color: "#ff0000" }}>
-              <TextResolver text="The Redline Difference" delay={0} timeout={15} iterations={2} />
-            </h2>
-            <p className="text-lg text-foreground">
-              <TextResolver text="Comprehensive Digital Marketing Solutions" delay={200} timeout={10} iterations={1} />
-            </p>
-          </div>
-
           <SliderCarousel slides={sliderSlides} />
         </div>
       </section>
