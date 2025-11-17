@@ -32,9 +32,6 @@ export default function MarketingEcosystem() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
-  // SVG coordinate system - use viewBox for consistent coordinates
-  const SVG_SIZE = 1000;
-  const CENTER = SVG_SIZE / 2; // 500
   const RADIUS = 280; // Distance from center to channels
 
   return (
@@ -44,7 +41,6 @@ export default function MarketingEcosystem() {
         {/* Single SVG for all connection lines */}
         <svg 
           className="absolute inset-0 w-full h-full pointer-events-none" 
-          viewBox={`0 0 ${SVG_SIZE} ${SVG_SIZE}`}
           style={{ zIndex: 5 }}
         >
           <defs>
@@ -59,29 +55,30 @@ export default function MarketingEcosystem() {
             const angleInRadians = (channel.angle * Math.PI) / 180;
             const x = Math.cos(angleInRadians) * RADIUS;
             const y = Math.sin(angleInRadians) * RADIUS;
-            const endX = CENTER + x;
-            const endY = CENTER + y;
             
             return (
               <g key={`line-${index}`}>
                 <motion.line
-                  x1={CENTER}
-                  y1={CENTER}
-                  x2={endX}
-                  y2={endY}
+                  x1="50%"
+                  y1="50%"
+                  x2={`calc(50% + ${x}px)`}
+                  y2={`calc(50% + ${y}px)`}
                   stroke={`url(#gradient-${index})`}
                   strokeWidth="2"
+                  vectorEffect="non-scaling-stroke"
                   initial={{ pathLength: 0, opacity: 0 }}
                   animate={isInView ? { pathLength: 1, opacity: 0.5 } : {}}
                   transition={{ duration: 1, delay: 0.6 + index * 0.1 }}
                 />
                 <motion.circle
+                  cx="50%"
+                  cy="50%"
                   r="3"
                   fill={channel.color}
                   initial={{ opacity: 0 }}
                   animate={isInView ? {
-                    cx: [CENTER, endX],
-                    cy: [CENTER, endY],
+                    cx: ["50%", `calc(50% + ${x}px)`],
+                    cy: ["50%", `calc(50% + ${y}px)`],
                     opacity: [0, 1, 1, 0],
                   } : {}}
                   transition={{
