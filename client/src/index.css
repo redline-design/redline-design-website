@@ -587,6 +587,14 @@
   z-index: 1;
 }
 
+/* Disable complex animations on preview cards (positions 2 and 3) */
+.slider-carousel-item-2::before,
+.slider-carousel-item-2::after,
+.slider-carousel-item-3::before,
+.slider-carousel-item-3::after {
+  display: none;
+}
+
 /* Respect reduced motion preference */
 @media (prefers-reduced-motion: reduce) {
   .challenge-bg-blue,
