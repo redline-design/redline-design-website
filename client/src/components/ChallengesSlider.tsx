@@ -8,6 +8,12 @@ interface ChallengeSlide {
   color: string;
   title: string;
   description: string;
+  painPoints: string[];
+  solutions: string[];
+  stat: {
+    value: string;
+    label: string;
+  };
   buttonText: string;
   buttonLink: string;
 }
@@ -35,10 +41,9 @@ export function ChallengesSlider({ challenges }: ChallengesSliderProps) {
   };
 
   const handleNavClick = (index: number) => {
-    const targetIndex = (index - 1 + challenges.length) % challenges.length;
-    if (isAnimating || targetIndex === currentIndex) return;
+    if (isAnimating || index === currentIndex) return;
     setIsAnimating(true);
-    setCurrentIndex(targetIndex);
+    setCurrentIndex(index);
     setTimeout(() => setIsAnimating(false), 500);
   };
 
@@ -58,7 +63,7 @@ export function ChallengesSlider({ challenges }: ChallengesSliderProps) {
     return challenges[index >= 0 ? index : index + challenges.length];
   };
 
-  const activeSlideIndex = (currentIndex + 1) % challenges.length;
+  const activeSlideIndex = currentIndex;
 
   // Get CSS class for animated gradient background based on challenge color
   const getGradientClassForColor = (color: string) => {
@@ -79,14 +84,14 @@ export function ChallengesSlider({ challenges }: ChallengesSliderProps) {
       <div className="slider-carousel-slide">
         {/* Slide 0 - Background */}
         <div
-          className={`slider-carousel-item slider-carousel-item-0 ${getGradientClassForColor(getSlideAtPosition(0).color)}`}
-          data-testid={`challenge-slide-${getSlideAtPosition(0).id}`}
+          className={`slider-carousel-item slider-carousel-item-0 ${getGradientClassForColor(getSlideAtPosition(-1).color)}`}
+          data-testid={`challenge-slide-${getSlideAtPosition(-1).id}`}
         />
         
         {/* Slide 1 - Active */}
         <div
-          className={`slider-carousel-item slider-carousel-item-1 ${getGradientClassForColor(getSlideAtPosition(1).color)}`}
-          data-testid={`challenge-slide-${getSlideAtPosition(1).id}-active`}
+          className={`slider-carousel-item slider-carousel-item-1 ${getGradientClassForColor(getSlideAtPosition(0).color)}`}
+          data-testid={`challenge-slide-${getSlideAtPosition(0).id}-active`}
         >
           {/* Top Navigation Bar */}
           <div className="slider-carousel-nav-bar" data-testid="challenges-nav-bar">
@@ -122,47 +127,92 @@ export function ChallengesSlider({ challenges }: ChallengesSliderProps) {
                 <div className="challenges-slider-frosted-card">
                   {/* Icon */}
                   <motion.div
-                    className={`challenges-slider-icon-wrapper challenge-icon-${getSlideAtPosition(1).color}`}
+                    className={`challenges-slider-icon-wrapper challenge-icon-${getSlideAtPosition(0).color}`}
                     initial={{ opacity: 0, scale: 0.5, filter: 'blur(10px)' }}
                     animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
                     transition={{ duration: 0.8, ease: 'easeOut' }}
                   >
                     {(() => {
-                      const Icon = getSlideAtPosition(1).icon;
-                      return <Icon className="w-12 h-12 sm:w-16 sm:h-16" />;
+                      const Icon = getSlideAtPosition(0).icon;
+                      return <Icon className="w-10 h-10 sm:w-12 sm:h-12" />;
                     })()}
                   </motion.div>
 
                   {/* Title */}
-                  <motion.div
-                    className="slider-carousel-title"
-                    initial={{ opacity: 0, y: 100, filter: 'blur(33px)' }}
+                  <motion.h3
+                    className="challenges-slider-title"
+                    initial={{ opacity: 0, y: 50, filter: 'blur(20px)' }}
                     animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                    transition={{ duration: 1, ease: 'easeInOut', delay: 0.2 }}
+                    transition={{ duration: 0.7, ease: 'easeOut', delay: 0.1 }}
                   >
-                    {getSlideAtPosition(1).title}
-                  </motion.div>
+                    {getSlideAtPosition(0).title}
+                  </motion.h3>
 
                   {/* Description */}
-                  <motion.div
-                    className="slider-carousel-description"
-                    initial={{ opacity: 0, y: 100, filter: 'blur(33px)' }}
+                  <motion.p
+                    className="challenges-slider-description"
+                    initial={{ opacity: 0, y: 30, filter: 'blur(15px)' }}
                     animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                    transition={{ duration: 1, ease: 'easeInOut', delay: 0.4 }}
+                    transition={{ duration: 0.7, ease: 'easeOut', delay: 0.2 }}
                   >
-                    {getSlideAtPosition(1).description}
+                    {getSlideAtPosition(0).description}
+                  </motion.p>
+
+                  {/* Content Grid: Pain Points & Solutions */}
+                  <motion.div
+                    className="challenges-slider-content-grid"
+                    initial={{ opacity: 0, y: 30, filter: 'blur(15px)' }}
+                    animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                    transition={{ duration: 0.7, ease: 'easeOut', delay: 0.3 }}
+                  >
+                    {/* Pain Points */}
+                    <div className="challenges-slider-section">
+                      <h4 className="challenges-slider-section-title">Pain Points</h4>
+                      <ul className="challenges-slider-list">
+                        {getSlideAtPosition(0).painPoints.map((point, idx) => (
+                          <li key={idx} className="challenges-slider-list-item">
+                            <span className="challenges-slider-bullet">×</span>
+                            <span>{point}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    {/* Solutions */}
+                    <div className="challenges-slider-section">
+                      <h4 className="challenges-slider-section-title">How We Fix It</h4>
+                      <ul className="challenges-slider-list">
+                        {getSlideAtPosition(0).solutions.map((solution, idx) => (
+                          <li key={idx} className="challenges-slider-list-item">
+                            <span className="challenges-slider-bullet-success">✓</span>
+                            <span>{solution}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </motion.div>
+
+                  {/* Stat Bar */}
+                  <motion.div
+                    className="challenges-slider-stat-bar"
+                    initial={{ opacity: 0, scale: 0.9, filter: 'blur(10px)' }}
+                    animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+                    transition={{ duration: 0.7, ease: 'easeOut', delay: 0.4 }}
+                  >
+                    <div className="challenges-slider-stat-value">{getSlideAtPosition(0).stat.value}</div>
+                    <div className="challenges-slider-stat-label">{getSlideAtPosition(0).stat.label}</div>
                   </motion.div>
 
                   {/* CTA Button */}
                   <motion.a
-                    href={getSlideAtPosition(1).buttonLink}
-                    initial={{ opacity: 0, y: 100, filter: 'blur(33px)' }}
+                    href={getSlideAtPosition(0).buttonLink}
+                    initial={{ opacity: 0, y: 20, filter: 'blur(10px)' }}
                     animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                    transition={{ duration: 1, ease: 'easeInOut', delay: 0.6 }}
+                    transition={{ duration: 0.7, ease: 'easeOut', delay: 0.5 }}
                     data-testid="button-challenge-cta"
                   >
-                    <button className="slider-carousel-button">
-                      {getSlideAtPosition(1).buttonText}
+                    <button className="challenges-slider-cta-button">
+                      {getSlideAtPosition(0).buttonText}
                     </button>
                   </motion.a>
                 </div>
@@ -172,13 +222,13 @@ export function ChallengesSlider({ challenges }: ChallengesSliderProps) {
         </div>
 
         {/* Slides 2, 3 - Preview cards */}
-        {[2, 3].map((position) => {
+        {[1, 2].map((position, idx) => {
           const slide = getSlideAtPosition(position);
           return (
             <div
               key={`preview-${position}`}
-              className={`slider-carousel-item slider-carousel-item-${position} ${getGradientClassForColor(slide.color)}`}
-              data-testid={`challenge-slide-preview-${position}`}
+              className={`slider-carousel-item slider-carousel-item-${position + 1} ${getGradientClassForColor(slide.color)}`}
+              data-testid={`challenge-slide-preview-${position + 1}`}
             />
           );
         })}

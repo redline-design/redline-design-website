@@ -2505,7 +2505,7 @@
   position: absolute;
   top: 50%;
   left: 100px;
-  width: 600px;
+  width: 800px;
   max-width: calc(100% - 120px);
   text-align: left;
   color: #eee;
@@ -2911,6 +2911,214 @@
     width: 56px;
     height: 56px;
     margin-bottom: 20px;
+  }
+}
+
+/* Challenges Slider - Typography and Layout */
+.challenges-slider-title {
+  font-size: 36px;
+  font-weight: 700;
+  color: #ffffff;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+
+.challenges-slider-description {
+  font-size: 16px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.85);
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
+  margin-bottom: 24px;
+}
+
+.challenges-slider-content-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.challenges-slider-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.challenges-slider-section-title {
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 4px;
+}
+
+.challenges-slider-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.challenges-slider-list-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.challenges-slider-bullet {
+  flex-shrink: 0;
+  font-size: 18px;
+  font-weight: bold;
+  color: #ff4444;
+  line-height: 1;
+  margin-top: 2px;
+}
+
+.challenges-slider-bullet-success {
+  flex-shrink: 0;
+  font-size: 16px;
+  font-weight: bold;
+  color: #22c55e;
+  line-height: 1;
+  margin-top: 2px;
+}
+
+.challenges-slider-stat-bar {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  padding: 20px 24px;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.challenges-slider-stat-value {
+  font-size: 42px;
+  font-weight: 800;
+  color: #ff0000;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.challenges-slider-stat-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.8);
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
+}
+
+.challenges-slider-cta-button {
+  padding: 14px 36px;
+  border: none;
+  cursor: pointer;
+  border-radius: 12px;
+  background-color: rgba(255, 0, 0, 0.9);
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 15px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 16px rgba(255, 0, 0, 0.4);
+  width: 100%;
+  text-align: center;
+}
+
+.challenges-slider-cta-button:hover {
+  background-color: rgb(255, 0, 0);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(255, 0, 0, 0.5);
+}
+
+@media (max-width: 1024px) {
+  .challenges-slider-title {
+    font-size: 28px;
+  }
+
+  .challenges-slider-description {
+    font-size: 15px;
+  }
+
+  .challenges-slider-content-grid {
+    gap: 20px;
+  }
+
+  .challenges-slider-stat-value {
+    font-size: 36px;
+  }
+}
+
+@media (max-width: 768px) {
+  .challenges-slider-title {
+    font-size: 24px;
+    margin-bottom: 12px;
+  }
+
+  .challenges-slider-description {
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+
+  .challenges-slider-content-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+
+  .challenges-slider-list-item {
+    font-size: 13px;
+  }
+
+  .challenges-slider-stat-bar {
+    padding: 16px 20px;
+    margin-bottom: 20px;
+  }
+
+  .challenges-slider-stat-value {
+    font-size: 32px;
+  }
+
+  .challenges-slider-stat-label {
+    font-size: 13px;
+  }
+
+  .challenges-slider-cta-button {
+    padding: 12px 28px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 640px) {
+  .challenges-slider-title {
+    font-size: 20px;
+  }
+
+  .challenges-slider-description {
+    font-size: 13px;
+  }
+
+  .challenges-slider-section-title {
+    font-size: 12px;
+  }
+
+  .challenges-slider-list-item {
+    font-size: 12px;
+  }
+
+  .challenges-slider-stat-value {
+    font-size: 28px;
+  }
+
+  .challenges-slider-stat-label {
+    font-size: 12px;
   }
 }
 

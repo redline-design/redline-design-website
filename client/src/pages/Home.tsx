@@ -57,7 +57,18 @@ export default function Home() {
       icon: Eye,
       color: 'blue',
       title: 'Low Visibility & High Ad Costs',
-      description: 'Struggling to get found online while watching ad costs skyrocket? We optimize your presence for maximum visibility at minimal cost.',
+      description: 'Your competitors dominate page 1 while you\'re invisible. Every click costs more and converts less.',
+      painPoints: [
+        'Burning budget on ads with shrinking returns',
+        'Competitors outrank you for your own keywords',
+        'Can\'t afford to compete with big players'
+      ],
+      solutions: [
+        'Data-driven SEO that targets high-intent keywords',
+        'PPC optimization that cuts cost-per-click by 40%+',
+        'Multi-channel strategy that compounds visibility'
+      ],
+      stat: { value: '300%', label: 'Avg Traffic Increase' },
       buttonText: 'Boost Visibility',
       buttonLink: '/services/seo',
     },
@@ -66,16 +77,38 @@ export default function Home() {
       icon: MousePointerClick,
       color: 'orange',
       title: 'Poor Website Conversion',
-      description: 'Traffic without conversions is just noise. We design and optimize for one thing: turning visitors into customers.',
+      description: 'Traffic without conversions is just noise. Your site looks good but doesn\'t convert.',
+      painPoints: [
+        'High bounce rates and abandoned carts',
+        'Visitors don\'t know where to click or what to do',
+        'Mobile users leave before pages even load'
+      ],
+      solutions: [
+        'Conversion-focused design with clear CTAs',
+        'A/B testing to optimize every element',
+        'Fast-loading mobile-first experiences'
+      ],
+      stat: { value: '2.8x', label: 'Avg Conversion Lift' },
       buttonText: 'Increase Conversions',
-      buttonLink: '/services/web-design',
+      buttonLink: '/services/websites',
     },
     {
       id: 'fragmented',
       icon: LayoutGrid,
       color: 'purple',
       title: 'Fragmented Marketing',
-      description: 'Juggling multiple agencies and tools that don\'t talk to each other? We unify your marketing under one roof.',
+      description: 'Juggling multiple agencies, tools, and platforms with no unified strategy or reporting.',
+      painPoints: [
+        'Different agencies pointing fingers when results lag',
+        'Disconnected data across 5+ platforms',
+        'Wasting time coordinating between vendors'
+      ],
+      solutions: [
+        'Unified marketing strategy across all channels',
+        'Single dashboard for all your metrics',
+        'One team accountable for total performance'
+      ],
+      stat: { value: '85%', label: 'Time Saved on Coordination' },
       buttonText: 'Unify Your Marketing',
       buttonLink: '/why-us',
     },
@@ -84,7 +117,18 @@ export default function Home() {
       icon: BarChart2,
       color: 'green',
       title: 'No ROI Tracking',
-      description: 'Can\'t measure what\'s working? Our transparent analytics show exactly where every dollar goes and what it returns.',
+      description: 'Flying blind with no idea which marketing dollars actually drive revenue and which are wasted.',
+      painPoints: [
+        'Can\'t prove marketing ROI to leadership',
+        'Don\'t know which channels deliver real customers',
+        'Guessing where to invest next month\'s budget'
+      ],
+      solutions: [
+        'Multi-touch attribution across all channels',
+        'Revenue tracking tied to every campaign',
+        'Real-time dashboards that show what\'s working'
+      ],
+      stat: { value: '100%', label: 'Budget Visibility' },
       buttonText: 'Track ROI',
       buttonLink: '/services/analytics',
     },
@@ -92,28 +136,61 @@ export default function Home() {
       id: 'outdated',
       icon: Monitor,
       color: 'cyan',
-      title: 'Outdated Websites',
-      description: 'Your website should be your best salesperson. We build modern, fast, conversion-focused sites that work 24/7.',
+      title: 'Outdated Website',
+      description: 'Your website looks like it\'s from 2015. Slow loading, poor mobile experience, and losing you sales daily.',
+      painPoints: [
+        'Site looks outdated compared to competitors',
+        '3+ second load times killing mobile conversions',
+        'Can\'t update content without paying a developer'
+      ],
+      solutions: [
+        'Modern design that builds trust and credibility',
+        'Lightning-fast performance on all devices',
+        'Easy CMS so you can update content anytime'
+      ],
+      stat: { value: '65%', label: 'Faster Load Times' },
       buttonText: 'Modernize Website',
-      buttonLink: '/services/web-design',
+      buttonLink: '/services/websites',
     },
     {
       id: 'crm',
       icon: Database,
       color: 'pink',
       title: 'No CRM Integration',
-      description: 'Leads slipping through the cracks? We set up and optimize your CRM so no opportunity is ever missed.',
+      description: 'Leads slipping through the cracks. No follow-up system. Sales and marketing not talking to each other.',
+      painPoints: [
+        'Losing 40%+ of leads due to slow follow-up',
+        'Sales team can\'t see marketing touchpoints',
+        'No automated nurture for cold leads'
+      ],
+      solutions: [
+        'Full CRM setup with automated lead routing',
+        'Marketing automation that nurtures 24/7',
+        'Sales & marketing alignment with shared data'
+      ],
+      stat: { value: '3.5x', label: 'Lead Nurture Rate' },
       buttonText: 'Setup CRM',
-      buttonLink: '/book-a-demo',
+      buttonLink: '/services/crm',
     },
     {
       id: 'fatigue',
       icon: AlertTriangle,
       color: 'yellow',
       title: 'Ad Fatigue & Wasted Spend',
-      description: 'Burning through ad budgets with diminishing returns? Our data-driven approach ensures every campaign stays fresh.',
+      description: 'Same ads. Same audiences. Declining performance. Watching costs rise while conversions plummet.',
+      painPoints: [
+        'CPCs increasing 20%+ month over month',
+        'Audience burnout from seeing same ads',
+        'Can\'t scale profitably without killing ROI'
+      ],
+      solutions: [
+        'Fresh creative rotation to combat fatigue',
+        'Audience expansion strategies that work',
+        'Performance optimization that maintains ROI at scale'
+      ],
+      stat: { value: '40%', label: 'CPC Reduction' },
       buttonText: 'Optimize Ads',
-      buttonLink: '/services/ppc',
+      buttonLink: '/services/paid-advertising',
     },
   ];
 
