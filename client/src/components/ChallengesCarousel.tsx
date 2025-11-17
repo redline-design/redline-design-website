@@ -61,8 +61,9 @@ export default function ChallengesCarousel() {
     loop: false,
     slidesToScroll: 1,
     breakpoints: {
-      '(min-width: 768px)': { slidesToScroll: 2 },
+      '(min-width: 640px)': { slidesToScroll: 2 },
       '(min-width: 1024px)': { slidesToScroll: 3 },
+      '(min-width: 1536px)': { slidesToScroll: 4 },
     },
   });
 
@@ -99,24 +100,24 @@ export default function ChallengesCarousel() {
   return (
     <div className="relative">
       <div className="overflow-hidden" ref={emblaRef}>
-        <div className="flex gap-6">
+        <div className="flex gap-4">
           {challenges.map((challenge) => {
             const Icon = challenge.icon;
             return (
               <div
                 key={challenge.id}
-                className="flex-[0_0_100%] min-w-0 md:flex-[0_0_calc(50%-12px)] lg:flex-[0_0_calc(33.333%-16px)]"
+                className="flex-[0_0_100%] min-w-0 sm:flex-[0_0_calc(50%-8px)] lg:flex-[0_0_calc(33.333%-11px)] 2xl:flex-[0_0_calc(25%-12px)]"
               >
                 <GlowCard
-                  className="neumorphic-card-carousel p-8 cursor-pointer h-full"
+                  className="neumorphic-card-carousel p-6 cursor-pointer h-full"
                   data-testid={`card-challenge-${challenge.id}`}
                 >
-                  <div className="flex flex-col items-center text-center gap-6 min-h-[280px]">
-                    <div className="neumorphic-icon-circle">
-                      <Icon className={`h-10 w-10 icon-3d-${challenge.color}`} />
+                  <div className="flex flex-col items-center text-center gap-4 min-h-[240px]">
+                    <div className="neumorphic-icon-circle-compact">
+                      <Icon className={`h-8 w-8 icon-3d-${challenge.color}`} />
                     </div>
                     <div>
-                      <h3 className="text-lg font-bold text-foreground mb-3">{challenge.title}</h3>
+                      <h3 className="text-base font-bold text-foreground mb-2">{challenge.title}</h3>
                       <p className="text-sm text-muted-foreground leading-relaxed">{challenge.description}</p>
                     </div>
                   </div>
