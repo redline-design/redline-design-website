@@ -1,4 +1,3 @@
-import { useRef } from "react";
 import Hero from "@/components/Hero";
 import HorizontalScrollServices from "@/components/HorizontalScrollServices";
 import { SliderCarousel } from "@/components/SliderCarousel";
@@ -12,7 +11,6 @@ import ScrollAnimatedSection from "@/components/ScrollAnimatedSection";
 import TextResolver from "@/components/TextResolver";
 import GlowCard from "@/components/GlowCard";
 import ScrollValueCards from "@/components/ScrollValueCards";
-import ChallengesIconOrchestrator from "@/components/ChallengesIconOrchestrator";
 import { BarChart3, Sparkles, Globe, DollarSign, Zap, Target, Users, Briefcase, TrendingUp, AlertTriangle, MousePointerClick, LayoutGrid, BarChart2, Monitor, Database, Eye, FileText, LineChart, MapPin, Smartphone } from "lucide-react";
 import { SiGoogleads, SiMeta, SiLinkedin, SiTiktok, SiYoutube, SiX, SiReddit, SiPinterest } from "react-icons/si";
 import { motion } from "framer-motion";
@@ -25,16 +23,6 @@ import socialMediaImage from '@assets/stock_images/social_media_marketi_6046bd61
 
 export default function Home() {
   const prefersReducedMotion = useReducedMotion();
-  
-  const iconRefs = [
-    useRef<SVGSVGElement>(null),
-    useRef<SVGSVGElement>(null),
-    useRef<SVGSVGElement>(null),
-    useRef<SVGSVGElement>(null),
-    useRef<SVGSVGElement>(null),
-    useRef<SVGSVGElement>(null),
-    useRef<SVGSVGElement>(null),
-  ];
 
   // Platform icons mapping
   const platforms = [
@@ -406,7 +394,7 @@ export default function Home() {
               data-testid="card-challenge-visibility"
             >
               <div className="flex flex-col items-center text-center gap-6">
-                <Eye ref={iconRefs[0]} className="h-12 w-12 icon-3d-blue" />
+                <Eye className="h-12 w-12 icon-3d-blue" />
                 <div>
                   <h3 className="text-lg font-bold text-foreground mb-3">Low Visibility & High Ad Costs</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">Struggling to get found online while watching ad costs skyrocket? We optimize your presence for maximum visibility at minimal cost.</p>
@@ -419,7 +407,7 @@ export default function Home() {
               data-testid="card-challenge-conversion"
             >
               <div className="flex flex-col items-center text-center gap-6">
-                <MousePointerClick ref={iconRefs[1]} className="h-12 w-12 icon-3d-orange" />
+                <MousePointerClick className="h-12 w-12 icon-3d-orange" />
                 <div>
                   <h3 className="text-lg font-bold text-foreground mb-3">Poor Website Conversion</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">Traffic without conversions is just noise. We design and optimize for one thing: turning visitors into customers.</p>
@@ -432,7 +420,7 @@ export default function Home() {
               data-testid="card-challenge-fragmented"
             >
               <div className="flex flex-col items-center text-center gap-6">
-                <LayoutGrid ref={iconRefs[2]} className="h-12 w-12 icon-3d-purple" />
+                <LayoutGrid className="h-12 w-12 icon-3d-purple" />
                 <div>
                   <h3 className="text-lg font-bold text-foreground mb-3">Fragmented Marketing</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">Juggling multiple agencies and tools that don't talk to each other? We unify your marketing under one roof.</p>
@@ -445,7 +433,7 @@ export default function Home() {
               data-testid="card-challenge-tracking"
             >
               <div className="flex flex-col items-center text-center gap-6">
-                <BarChart2 ref={iconRefs[3]} className="h-12 w-12 icon-3d-green" />
+                <BarChart2 className="h-12 w-12 icon-3d-green" />
                 <div>
                   <h3 className="text-lg font-bold text-foreground mb-3">No ROI Tracking</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">Can't measure what's working? Our transparent analytics show you exactly where every dollar goes and what it returns.</p>
@@ -458,7 +446,7 @@ export default function Home() {
               data-testid="card-challenge-outdated"
             >
               <div className="flex flex-col items-center text-center gap-6">
-                <Monitor ref={iconRefs[4]} className="h-12 w-12 icon-3d-cyan" />
+                <Monitor className="h-12 w-12 icon-3d-cyan" />
                 <div>
                   <h3 className="text-lg font-bold text-foreground mb-3">Outdated Websites</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">Your website should be your best salesperson. We build modern, fast, conversion-focused sites that work 24/7.</p>
@@ -471,7 +459,7 @@ export default function Home() {
               data-testid="card-challenge-crm"
             >
               <div className="flex flex-col items-center text-center gap-6">
-                <Database ref={iconRefs[5]} className="h-12 w-12 icon-3d-pink" />
+                <Database className="h-12 w-12 icon-3d-pink" />
                 <div>
                   <h3 className="text-lg font-bold text-foreground mb-3">No CRM Integration</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">Leads slipping through the cracks? We set up and optimize your CRM so no opportunity is ever missed.</p>
@@ -484,7 +472,7 @@ export default function Home() {
               data-testid="card-challenge-fatigue"
             >
               <div className="flex flex-col items-center text-center gap-6 max-w-2xl mx-auto">
-                <AlertTriangle ref={iconRefs[6]} className="h-12 w-12 icon-3d-yellow" />
+                <AlertTriangle className="h-12 w-12 icon-3d-yellow" />
                 <div>
                   <h3 className="text-lg font-bold text-foreground mb-3">Ad Fatigue & Wasted Spend</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">Burning through ad budgets with diminishing returns? Our data-driven approach ensures every campaign stays fresh and effective.</p>
@@ -494,7 +482,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <ChallengesIconOrchestrator iconRefs={iconRefs} />
       </ScrollAnimatedSection>
 
       <SectionDivider />

@@ -1,32 +1,19 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Calendar, X, ChevronDown, Lightbulb, TrendingUp, Users, Target, Eye, MousePointerClick, LayoutGrid, BarChart2, Monitor, Database, AlertTriangle, Layers } from "lucide-react";
+import { Calendar, X, ChevronDown, Lightbulb, TrendingUp, Users, Target } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
-import { useChallengesIconContext } from "@/contexts/ChallengesIconContext";
 
 export default function StickyConversionBar() {
   const [isVisible, setIsVisible] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const [isDismissed, setIsDismissed] = useState(() => {
+    // Check localStorage on mount
     if (typeof window !== 'undefined') {
       return localStorage.getItem('stickyBarDismissed') === 'true';
     }
     return false;
   });
-
-  const { hasMergedIcons, isHovering, setIsHovering } = useChallengesIconContext();
-  const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  const challengeIcons = [
-    { Icon: Eye, className: "icon-3d-blue", label: "Visibility" },
-    { Icon: MousePointerClick, className: "icon-3d-orange", label: "Conversion" },
-    { Icon: LayoutGrid, className: "icon-3d-purple", label: "Integration" },
-    { Icon: BarChart2, className: "icon-3d-green", label: "Analytics" },
-    { Icon: Monitor, className: "icon-3d-cyan", label: "Modern Sites" },
-    { Icon: Database, className: "icon-3d-pink", label: "CRM" },
-    { Icon: AlertTriangle, className: "icon-3d-yellow", label: "Optimization" },
-  ];
 
   useEffect(() => {
     let lastScrollY = window.scrollY;
@@ -92,56 +79,6 @@ export default function StickyConversionBar() {
                   </div>
 
                   <div className="flex items-center gap-2">
-                    {hasMergedIcons && (
-                      <div className="relative">
-                        <button
-                          onMouseEnter={() => setIsHovering(true)}
-                          onMouseLeave={() => setIsHovering(false)}
-                          className="p-2 rounded-lg hover-elevate active-elevate-2 text-primary hover:text-primary transition-colors"
-                          data-testid="button-challenges-icon"
-                          aria-label="View Challenges We Solve"
-                        >
-                          <Layers className="h-6 w-6" />
-                        </button>
-                        
-                        <AnimatePresence>
-                          {isHovering && (
-                            <motion.div
-                              initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              exit={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
-                              transition={{ 
-                                duration: prefersReducedMotion ? 0 : 0.3,
-                                staggerChildren: prefersReducedMotion ? 0 : 0.05,
-                                delayChildren: prefersReducedMotion ? 0 : 0.1
-                              }}
-                              className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 bg-card/95 backdrop-blur-md border border-primary/30 rounded-xl p-3 shadow-2xl"
-                              data-testid="challenges-icons-popup"
-                            >
-                              <div className="flex flex-col gap-2">
-                                {challengeIcons.map(({ Icon, className, label }, index) => (
-                                  <motion.div
-                                    key={index}
-                                    initial={prefersReducedMotion ? {} : { opacity: 0, x: -10 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    transition={{
-                                      duration: prefersReducedMotion ? 0 : 0.2,
-                                      delay: prefersReducedMotion ? 0 : index * 0.05
-                                    }}
-                                    className="flex items-center gap-2 p-2 rounded-lg hover-elevate"
-                                    data-testid={`challenge-icon-${index}`}
-                                  >
-                                    <Icon className={`h-5 w-5 ${className}`} />
-                                    <span className="text-xs text-foreground whitespace-nowrap">{label}</span>
-                                  </motion.div>
-                                ))}
-                              </div>
-                            </motion.div>
-                          )}
-                        </AnimatePresence>
-                      </div>
-                    )}
-
                     <Link href="/contact">
                       <Button 
                         size="lg" 
