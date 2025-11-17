@@ -11,8 +11,7 @@ import ScrollAnimatedSection from "@/components/ScrollAnimatedSection";
 import TextResolver from "@/components/TextResolver";
 import GlowCard from "@/components/GlowCard";
 import ScrollValueCards from "@/components/ScrollValueCards";
-import ChallengesCarousel from "@/components/ChallengesCarousel";
-import { BarChart3, Sparkles, Globe, DollarSign, Zap, Target, Users, Briefcase, TrendingUp, FileText, LineChart, MapPin, Smartphone } from "lucide-react";
+import { BarChart3, Sparkles, Globe, DollarSign, Zap, Target, Users, Briefcase, TrendingUp, AlertTriangle, MousePointerClick, LayoutGrid, BarChart2, Monitor, Database, Eye, FileText, LineChart, MapPin, Smartphone } from "lucide-react";
 import { SiGoogleads, SiMeta, SiLinkedin, SiTiktok, SiYoutube, SiX, SiReddit, SiPinterest } from "react-icons/si";
 import { motion } from "framer-motion";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
@@ -389,7 +388,98 @@ export default function Home() {
             </p>
           </div>
           
-          <ChallengesCarousel />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <GlowCard 
+              className="neumorphic-card p-8 cursor-pointer" 
+              data-testid="card-challenge-visibility"
+            >
+              <div className="flex flex-col items-center text-center gap-6">
+                <Eye className="h-12 w-12 icon-3d-blue" />
+                <div>
+                  <h3 className="text-lg font-bold text-foreground mb-3">Low Visibility & High Ad Costs</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">Struggling to get found online while watching ad costs skyrocket? We optimize your presence for maximum visibility at minimal cost.</p>
+                </div>
+              </div>
+            </GlowCard>
+
+            <GlowCard 
+              className="neumorphic-card p-8 cursor-pointer" 
+              data-testid="card-challenge-conversion"
+            >
+              <div className="flex flex-col items-center text-center gap-6">
+                <MousePointerClick className="h-12 w-12 icon-3d-orange" />
+                <div>
+                  <h3 className="text-lg font-bold text-foreground mb-3">Poor Website Conversion</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">Traffic without conversions is just noise. We design and optimize for one thing: turning visitors into customers.</p>
+                </div>
+              </div>
+            </GlowCard>
+
+            <GlowCard 
+              className="neumorphic-card p-8 cursor-pointer" 
+              data-testid="card-challenge-fragmented"
+            >
+              <div className="flex flex-col items-center text-center gap-6">
+                <LayoutGrid className="h-12 w-12 icon-3d-purple" />
+                <div>
+                  <h3 className="text-lg font-bold text-foreground mb-3">Fragmented Marketing</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">Juggling multiple agencies and tools that don't talk to each other? We unify your marketing under one roof.</p>
+                </div>
+              </div>
+            </GlowCard>
+
+            <GlowCard 
+              className="neumorphic-card p-8 cursor-pointer" 
+              data-testid="card-challenge-tracking"
+            >
+              <div className="flex flex-col items-center text-center gap-6">
+                <BarChart2 className="h-12 w-12 icon-3d-green" />
+                <div>
+                  <h3 className="text-lg font-bold text-foreground mb-3">No ROI Tracking</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">Can't measure what's working? Our transparent analytics show you exactly where every dollar goes and what it returns.</p>
+                </div>
+              </div>
+            </GlowCard>
+
+            <GlowCard 
+              className="neumorphic-card p-8 cursor-pointer" 
+              data-testid="card-challenge-outdated"
+            >
+              <div className="flex flex-col items-center text-center gap-6">
+                <Monitor className="h-12 w-12 icon-3d-cyan" />
+                <div>
+                  <h3 className="text-lg font-bold text-foreground mb-3">Outdated Websites</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">Your website should be your best salesperson. We build modern, fast, conversion-focused sites that work 24/7.</p>
+                </div>
+              </div>
+            </GlowCard>
+
+            <GlowCard 
+              className="neumorphic-card p-8 cursor-pointer" 
+              data-testid="card-challenge-crm"
+            >
+              <div className="flex flex-col items-center text-center gap-6">
+                <Database className="h-12 w-12 icon-3d-pink" />
+                <div>
+                  <h3 className="text-lg font-bold text-foreground mb-3">No CRM Integration</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">Leads slipping through the cracks? We set up and optimize your CRM so no opportunity is ever missed.</p>
+                </div>
+              </div>
+            </GlowCard>
+
+            <GlowCard 
+              className="neumorphic-card p-8 cursor-pointer md:col-span-2 lg:col-span-3" 
+              data-testid="card-challenge-fatigue"
+            >
+              <div className="flex flex-col items-center text-center gap-6 max-w-2xl mx-auto">
+                <AlertTriangle className="h-12 w-12 icon-3d-yellow" />
+                <div>
+                  <h3 className="text-lg font-bold text-foreground mb-3">Ad Fatigue & Wasted Spend</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">Burning through ad budgets with diminishing returns? Our data-driven approach ensures every campaign stays fresh and effective.</p>
+                </div>
+              </div>
+            </GlowCard>
+          </div>
         </div>
       </section>
       </ScrollAnimatedSection>
