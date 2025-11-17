@@ -1,5 +1,5 @@
 import { motion, useInView } from "framer-motion";
-import { useRef, useState, useEffect } from "react";
+import { useRef } from "react";
 import { 
   Globe, 
   Search, 
@@ -15,177 +15,147 @@ interface Channel {
   icon: any;
   label: string;
   color: string;
-  angle: number;
 }
 
 const channels: Channel[] = [
-  { icon: Globe, label: "Website & Landing Pages", color: "#3b82f6", angle: 0 },
-  { icon: Search, label: "SEO", color: "#22c55e", angle: 51.4 },
-  { icon: DollarSign, label: "PPC Advertising", color: "#f97316", angle: 102.8 },
-  { icon: Share2, label: "Social Media", color: "#a855f7", angle: 154.2 },
-  { icon: Mail, label: "Email Marketing", color: "#06b6d4", angle: 205.6 },
-  { icon: Database, label: "CRM & Analytics", color: "#ec4899", angle: 257 },
-  { icon: FileText, label: "Content Marketing", color: "#eab308", angle: 308.4 },
+  { icon: Globe, label: "Website & Landing Pages", color: "#3b82f6" },
+  { icon: Search, label: "SEO", color: "#22c55e" },
+  { icon: DollarSign, label: "PPC Advertising", color: "#f97316" },
+  { icon: Share2, label: "Social Media", color: "#a855f7" },
+  { icon: Mail, label: "Email Marketing", color: "#06b6d4" },
+  { icon: Database, label: "CRM & Analytics", color: "#ec4899" },
+  { icon: FileText, label: "Content Marketing", color: "#eab308" },
 ];
 
 export default function MarketingEcosystem() {
   const ref = useRef(null);
-  const containerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const [containerSize, setContainerSize] = useState({ width: 800, height: 800 });
 
-  const RADIUS = 280;
-
-  useEffect(() => {
-    const updateSize = () => {
-      if (containerRef.current) {
-        const { width, height } = containerRef.current.getBoundingClientRect();
-        setContainerSize({ width, height });
-      }
-    };
-
-    updateSize();
-    window.addEventListener('resize', updateSize);
-    return () => window.removeEventListener('resize', updateSize);
-  }, []);
-
-  const centerX = containerSize.width / 2;
-  const centerY = containerSize.height / 2;
+  const RADIUS = 240; // Distance from center to channels
 
   return (
     <div ref={ref} className="relative py-12 px-4">
       {/* Desktop: Circular Layout */}
-      <div ref={containerRef} className="hidden lg:block relative w-full max-w-5xl mx-auto aspect-square">
-        {/* Single SVG for all connection lines */}
-        <svg 
-          className="absolute inset-0 w-full h-full pointer-events-none" 
-          viewBox={`0 0 ${containerSize.width} ${containerSize.height}`}
-          style={{ zIndex: 5 }}
-        >
-          <defs>
-            {channels.map((channel, index) => (
-              <linearGradient key={`gradient-${index}`} id={`gradient-${index}`}>
-                <stop offset="0%" stopColor="#ff0000" stopOpacity="0.8" />
-                <stop offset="100%" stopColor={channel.color} stopOpacity="0.8" />
-              </linearGradient>
-            ))}
-          </defs>
-          {channels.map((channel, index) => {
-            const angleInRadians = (channel.angle * Math.PI) / 180;
-            const x = Math.cos(angleInRadians) * RADIUS;
-            const y = Math.sin(angleInRadians) * RADIUS;
-            const endX = centerX + x;
-            const endY = centerY + y;
-            
-            return (
-              <g key={`line-${index}`}>
-                <motion.line
-                  x1={centerX}
-                  y1={centerY}
-                  x2={endX}
-                  y2={endY}
-                  stroke={`url(#gradient-${index})`}
-                  strokeWidth="2"
-                  initial={{ pathLength: 0, opacity: 0 }}
-                  animate={isInView ? { pathLength: 1, opacity: 0.5 } : {}}
-                  transition={{ duration: 1, delay: 0.6 + index * 0.1 }}
-                />
-                <motion.circle
-                  r="3"
-                  fill={channel.color}
-                  initial={{ opacity: 0 }}
-                  animate={isInView ? {
-                    cx: [centerX, endX],
-                    cy: [centerY, endY],
-                    opacity: [0, 1, 1, 0],
-                  } : {}}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    delay: index * 0.3,
-                    ease: "easeInOut",
-                  }}
-                  style={{ filter: `drop-shadow(0 0 4px ${channel.color})` }}
-                />
-              </g>
-            );
-          })}
-        </svg>
-
+      <div className="hidden lg:block relative w-full max-w-4xl mx-auto aspect-square">
         {/* Central Hub */}
-        <motion.div
-          initial={{ scale: 0, opacity: 0 }}
-          animate={isInView ? { scale: 1, opacity: 1 } : {}}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20"
-          data-testid="ecosystem-hub"
-        >
-          <div className="relative">
-            {/* Pulsing rings */}
-            <motion.div
-              animate={{
-                scale: [1, 1.3, 1],
-                opacity: [0.3, 0, 0.3],
-              }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-              className="absolute inset-0 rounded-full"
-              style={{
-                background: "radial-gradient(circle, rgba(255, 0, 0, 0.3) 0%, transparent 70%)",
-                filter: "blur(8px)",
-              }}
-            />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
+          <motion.div
+            initial={{ scale: 0, opacity: 0 }}
+            animate={isInView ? { scale: 1, opacity: 1 } : {}}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            <div className="relative">
+              {/* Pulsing rings */}
+              <motion.div
+                animate={{
+                  scale: [1, 1.3, 1],
+                  opacity: [0.3, 0, 0.3],
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+                className="absolute inset-0 rounded-full"
+                style={{
+                  background: "radial-gradient(circle, rgba(255, 0, 0, 0.3) 0%, transparent 70%)",
+                  filter: "blur(8px)",
+                }}
+              />
 
-            {/* Main hub */}
-            <div className="relative neumorphic-card p-6 rounded-full bg-[#1e1e1e] flex items-center justify-center">
-              <Target className="h-12 w-12 text-[#ff0000]" style={{
-                filter: "drop-shadow(0 0 8px rgba(255, 0, 0, 0.5))"
-              }} />
+              {/* Main hub */}
+              <div className="relative neumorphic-card p-6 rounded-full bg-[#1e1e1e] flex items-center justify-center">
+                <Target className="h-12 w-12 text-[#ff0000]" style={{
+                  filter: "drop-shadow(0 0 8px rgba(255, 0, 0, 0.5))"
+                }} />
+              </div>
+
+              {/* Hub label */}
+              <div className="absolute -bottom-12 left-1/2 -translate-x-1/2 whitespace-nowrap">
+                <p className="text-sm font-bold text-foreground">Your Business</p>
+              </div>
             </div>
+          </motion.div>
+        </div>
 
-            {/* Hub label */}
-            <div className="absolute -bottom-12 left-1/2 -translate-x-1/2 whitespace-nowrap">
-              <p className="text-sm font-bold text-foreground">Your Business</p>
-            </div>
-          </div>
-        </motion.div>
-
-        {/* Channels */}
+        {/* Channels arranged in circle */}
         {channels.map((channel, index) => {
           const Icon = channel.icon;
-          const angleInRadians = (channel.angle * Math.PI) / 180;
-          const x = Math.cos(angleInRadians) * RADIUS;
-          const y = Math.sin(angleInRadians) * RADIUS;
+          const totalChannels = channels.length;
+          const angle = (index * 360) / totalChannels; // Distribute evenly
 
           return (
             <div
               key={channel.label}
-              className="absolute top-1/2 left-1/2 z-10 w-32 h-32"
+              className="absolute top-1/2 left-1/2"
               style={{
-                transform: `translate(-50%, -50%) translate(${x}px, ${y}px)`,
+                transform: `translate(-50%, -50%) rotate(${angle}deg)`,
               }}
-              data-testid={`ecosystem-channel-${index}`}
             >
+              {/* Connection line */}
               <motion.div
-                initial={{ scale: 0, opacity: 0 }}
-                animate={isInView ? { scale: 1, opacity: 1 } : {}}
-                transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
-                className="neumorphic-card p-4 rounded-2xl bg-[#1e1e1e] cursor-pointer hover-elevate active-elevate-2 w-full h-full flex flex-col items-center justify-center"
+                initial={{ scaleY: 0, opacity: 0 }}
+                animate={isInView ? { scaleY: 1, opacity: 0.5 } : {}}
+                transition={{ duration: 1, delay: 0.6 + index * 0.1 }}
+                className="absolute left-1/2 -translate-x-1/2 origin-top"
+                style={{
+                  width: "2px",
+                  height: `${RADIUS}px`,
+                  background: `linear-gradient(to bottom, #ff0000, ${channel.color})`,
+                }}
+              />
+
+              {/* Channel card wrapper - positioned at end of line */}
+              <div
+                style={{
+                  transform: `translateY(-${RADIUS}px)`,
+                }}
+                className="absolute left-1/2 -translate-x-1/2"
               >
-                <Icon 
-                  className="h-10 w-10 mb-2 flex-shrink-0" 
-                  style={{ 
-                    color: channel.color,
-                    filter: `drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.8)) drop-shadow(-1px -1px 2px ${channel.color}40)`
-                  }} 
-                />
-                <p className="text-xs font-semibold text-foreground text-center leading-tight">
-                  {channel.label}
-                </p>
-              </motion.div>
+                {/* Counter-rotate the card so it's upright */}
+                <motion.div
+                  initial={{ scale: 0, opacity: 0 }}
+                  animate={isInView ? { scale: 1, opacity: 1 } : {}}
+                  transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
+                  style={{
+                    transform: `rotate(-${angle}deg)`,
+                  }}
+                  data-testid={`ecosystem-channel-${index}`}
+                >
+                  <div className="neumorphic-card p-4 rounded-2xl bg-[#1e1e1e] cursor-pointer hover-elevate active-elevate-2 w-32 h-32 flex flex-col items-center justify-center">
+                    <Icon 
+                      className="h-10 w-10 mb-2 flex-shrink-0" 
+                      style={{ 
+                        color: channel.color,
+                        filter: `drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.8)) drop-shadow(-1px -1px 2px ${channel.color}40)`
+                      }} 
+                    />
+                    <p className="text-xs font-semibold text-foreground text-center leading-tight">
+                      {channel.label}
+                    </p>
+                  </div>
+                </motion.div>
+              </div>
+
+              {/* Animated particle on the line */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={isInView ? {
+                  y: [0, -RADIUS],
+                  opacity: [0, 1, 1, 0],
+                } : {}}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  delay: index * 0.3,
+                  ease: "easeInOut",
+                }}
+                className="absolute left-1/2 -translate-x-1/2 w-2 h-2 rounded-full"
+                style={{
+                  backgroundColor: channel.color,
+                  filter: `drop-shadow(0 0 4px ${channel.color})`,
+                }}
+              />
             </div>
           );
         })}
