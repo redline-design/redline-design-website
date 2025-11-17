@@ -581,18 +581,6 @@ export default function Home() {
       <SectionDivider />
 
       <ScrollAnimatedSection>
-        <section className="py-2 px-2 sm:px-3 lg:px-4 neumorphic-section relative overflow-hidden">
-          <div className="max-w-7xl mx-auto">
-            <div className="neumorphic-raised">
-              <TestimonialsCarousel />
-            </div>
-          </div>
-        </section>
-      </ScrollAnimatedSection>
-
-      <SectionDivider />
-
-      <ScrollAnimatedSection>
         <section id="partners" className="py-2 px-2 sm:px-3 lg:px-4 neumorphic-section" data-testid="section-partners">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-8">
@@ -609,6 +597,13 @@ export default function Home() {
               <StatCounter value={7} suffix="x" label="Average ROI" delay={0.1} />
               <StatCounter value={15} suffix="+" label="Years of Experience" delay={0.2} />
               <StatCounter value={95} suffix="%" label="Client Retention" delay={0.3} />
+            </div>
+          </div>
+
+          {/* Testimonials Section */}
+          <div className="mt-12">
+            <div className="neumorphic-raised">
+              <TestimonialsCarousel />
             </div>
           </div>
         </div>
