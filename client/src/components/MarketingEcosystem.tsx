@@ -1,5 +1,5 @@
 import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { 
   Search, 
   DollarSign, 
@@ -12,64 +12,65 @@ import {
 export default function MarketingEcosystem() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });
+  const [hoveredId, setHoveredId] = useState<number | null>(null);
 
-  const radius = 280; // Distance from center
-  const centerX = 400; // Center X position
-  const centerY = 350; // Center Y position
+  const radius = 200; // Closer to center
+  const centerX = 400;
+  const centerY = 350;
 
   const hexagons = [
     { 
       id: 1,
       icon: Search, 
       label: "SEO Strategy",
-      desc: "Rank higher in search results and drive organic traffic to your website through strategic optimization.",
+      desc: "Rank higher in search results and drive organic traffic through strategic optimization.",
       color: "#e2dc00",
-      angle: -90, // Top
+      angle: -90,
       delay: 0.2
     },
     { 
       id: 2,
       icon: Share2, 
       label: "Social Media",
-      desc: "Build brand awareness and engage audiences across Facebook, Instagram, and LinkedIn.",
+      desc: "Build brand awareness and engage audiences across all platforms.",
       color: "#353535",
-      angle: -30, // Top-right
+      angle: -30,
       delay: 0.4
     },
     { 
       id: 3,
       icon: DollarSign, 
-      label: "PPC Advertising",
-      desc: "Generate immediate leads through targeted Google Ads and social media campaigns.",
+      label: "PPC Ads",
+      desc: "Generate immediate leads through targeted paid campaigns.",
       color: "#353535",
-      angle: 30, // Bottom-right
+      angle: 30,
       delay: 0.6
     },
     { 
       id: 4,
       icon: Mail, 
-      label: "Email Marketing",
-      desc: "Nurture leads with automated email sequences that guide prospects to conversion.",
+      label: "Email",
+      desc: "Nurture leads with automated email sequences that convert.",
       color: "#e2dc00",
-      angle: 90, // Bottom
+      angle: 90,
       delay: 0.8
     },
     { 
       id: 5,
       icon: FileText, 
-      label: "Content Marketing",
-      desc: "Establish authority with blog posts, videos, and resources that attract ideal customers.",
+      label: "Content",
+      desc: "Establish authority with blog posts and resources.",
       color: "#353535",
-      angle: 150, // Bottom-left
+      angle: 150,
       delay: 1.0
     },
     { 
       id: 6,
       icon: BarChart3, 
       label: "Analytics",
-      desc: "Track performance metrics and optimize campaigns based on data-driven insights.",
+      desc: "Track performance and optimize based on data.",
       color: "#e2dc00",
-      angle: 210, // Top-left
+      angle: 210,
       delay: 1.2
     },
   ];
@@ -81,7 +82,7 @@ export default function MarketingEcosystem() {
         <motion.div
           initial={{ scale: 0, opacity: 0 }}
           animate={isInView ? { scale: 1, opacity: 1 } : {}}
-          transition={{ duration: 0.6, delay: 0.2, type: "spring" }}
+          transition={{ duration: 0.8, delay: 0.2, type: "spring", stiffness: 100 }}
           className="absolute z-20"
           style={{
             left: `${centerX}px`,
@@ -89,10 +90,30 @@ export default function MarketingEcosystem() {
             transform: "translate(-50%, -50%)"
           }}
         >
-          <div className="relative w-[185px] h-[185px] rounded-full bg-white shadow-2xl flex flex-col items-center justify-center border-8 border-[#e7e8ea]">
-            <p className="text-[26px] font-black text-black leading-tight">MAIN</p>
-            <p className="text-[32px] font-medium text-[#7c7b7b] leading-tight">HEADING</p>
-          </div>
+          <motion.div 
+            className="relative w-[200px] h-[200px] rounded-full bg-[#0a0a0a] flex flex-col items-center justify-center"
+            style={{
+              boxShadow: `
+                12px 12px 24px rgba(0, 0, 0, 0.4),
+                -8px -8px 16px rgba(255, 255, 255, 0.02)
+              `,
+            }}
+            animate={{
+              boxShadow: [
+                "12px 12px 24px rgba(0, 0, 0, 0.4), -8px -8px 16px rgba(255, 255, 255, 0.02)",
+                "16px 16px 32px rgba(0, 0, 0, 0.5), -12px -12px 24px rgba(255, 255, 255, 0.03)",
+                "12px 12px 24px rgba(0, 0, 0, 0.4), -8px -8px 16px rgba(255, 255, 255, 0.02)",
+              ]
+            }}
+            transition={{
+              duration: 3,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          >
+            <p className="text-[28px] font-black text-foreground leading-tight">MAIN</p>
+            <p className="text-[20px] font-medium text-muted-foreground leading-tight">ECOSYSTEM</p>
+          </motion.div>
         </motion.div>
 
         {/* Hexagons */}
@@ -101,104 +122,115 @@ export default function MarketingEcosystem() {
           const angleRad = (hex.angle * Math.PI) / 180;
           const x = centerX + radius * Math.cos(angleRad);
           const y = centerY + radius * Math.sin(angleRad);
-          
-          // Calculate text position (further out from hexagon)
-          const textDistance = radius + 150;
-          const textX = centerX + textDistance * Math.cos(angleRad);
-          const textY = centerY + textDistance * Math.sin(angleRad);
+          const isHovered = hoveredId === hex.id;
           
           return (
-            <div key={hex.id}>
-              {/* Hexagon */}
-              <motion.div
-                initial={{ scale: 0, opacity: 0 }}
-                animate={isInView ? { scale: 1, opacity: 1 } : {}}
-                transition={{ 
-                  duration: 0.5, 
-                  delay: hex.delay,
-                  type: "spring",
-                  stiffness: 100
-                }}
-                className="absolute z-10"
+            <motion.div
+              key={hex.id}
+              initial={{ scale: 0, opacity: 0 }}
+              animate={isInView ? { scale: 1, opacity: 1 } : {}}
+              whileHover={{ 
+                scale: 1.1,
+                zIndex: 30,
+              }}
+              transition={{ 
+                duration: 0.5, 
+                delay: hex.delay,
+                type: "spring",
+                stiffness: 100
+              }}
+              className="absolute z-10 cursor-pointer"
+              style={{
+                left: `${x}px`,
+                top: `${y}px`,
+                transform: "translate(-50%, -50%)"
+              }}
+              onMouseEnter={() => setHoveredId(hex.id)}
+              onMouseLeave={() => setHoveredId(null)}
+            >
+              <motion.div 
+                className="relative w-[180px] h-[180px] flex flex-col items-center justify-center overflow-hidden"
                 style={{
-                  left: `${x}px`,
-                  top: `${y}px`,
-                  transform: "translate(-50%, -50%)"
+                  clipPath: "polygon(30% 0%, 70% 0%, 100% 50%, 70% 100%, 30% 100%, 0% 50%)",
+                  backgroundColor: hex.color,
+                }}
+                animate={{
+                  boxShadow: isHovered 
+                    ? [
+                        "0 8px 20px rgba(0, 0, 0, 0.3)",
+                        "0 16px 40px rgba(0, 0, 0, 0.5)",
+                        "0 8px 20px rgba(0, 0, 0, 0.3)",
+                      ]
+                    : "0 8px 20px rgba(0, 0, 0, 0.15)",
+                }}
+                transition={{
+                  boxShadow: {
+                    duration: 1.5,
+                    repeat: isHovered ? Infinity : 0,
+                    ease: "easeInOut"
+                  }
                 }}
               >
-                <div 
-                  className="relative w-[215px] h-[215px] flex flex-col items-center justify-center"
-                  style={{
-                    clipPath: "polygon(30% 0%, 70% 0%, 100% 50%, 70% 100%, 30% 100%, 0% 50%)",
-                    backgroundColor: hex.color,
-                    boxShadow: "0 8px 20px rgba(0, 0, 0, 0.15)",
+                {/* Default state - Icon + Label */}
+                <motion.div
+                  initial={{ opacity: 1, y: 0 }}
+                  animate={{ 
+                    opacity: isHovered ? 0 : 1,
+                    y: isHovered ? -20 : 0,
                   }}
+                  transition={{ duration: 0.3 }}
+                  className="absolute inset-0 flex flex-col items-center justify-center gap-3 px-4"
                 >
                   <motion.div
-                    initial={{ y: 10, opacity: 0 }}
-                    animate={isInView ? { y: 0, opacity: 1 } : {}}
-                    transition={{ delay: hex.delay + 0.3 }}
-                    className="flex flex-col items-center gap-3"
+                    animate={{
+                      y: [0, -5, 0],
+                    }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      delay: hex.delay,
+                      ease: "easeInOut"
+                    }}
                   >
                     <Icon 
-                      className="h-16 w-16" 
+                      className="h-14 w-14" 
                       style={{ 
                         color: hex.color === "#e2dc00" ? "#353535" : "#e2dc00",
-                        filter: `drop-shadow(0 2px 4px rgba(0,0,0,0.2))`
+                        filter: `drop-shadow(0 2px 6px rgba(0,0,0,0.3))`
                       }} 
                     />
-                    <p 
-                      className="text-[20px] font-extrabold leading-tight text-center px-4"
-                      style={{ 
-                        color: hex.color === "#e2dc00" ? "#353535" : "#e2dc00"
-                      }}
-                    >
-                      {hex.label}
-                    </p>
                   </motion.div>
-                </div>
+                  <p 
+                    className="text-[18px] font-extrabold leading-tight text-center"
+                    style={{ 
+                      color: hex.color === "#e2dc00" ? "#353535" : "#e2dc00"
+                    }}
+                  >
+                    {hex.label}
+                  </p>
+                </motion.div>
 
-                {/* Connector line - from hexagon to center */}
+                {/* Hover state - Description */}
                 <motion.div
-                  initial={{ scaleX: 0 }}
-                  animate={isInView ? { scaleX: 1 } : {}}
-                  transition={{ duration: 0.4, delay: hex.delay + 0.2 }}
-                  className="absolute w-[80px] h-[3px] bg-[#7c7b7b] top-1/2 left-1/2 origin-left"
-                  style={{
-                    transform: `translate(-50%, -50%) rotate(${hex.angle + 180}deg)`,
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ 
+                    opacity: isHovered ? 1 : 0,
+                    y: isHovered ? 0 : 20,
                   }}
-                />
-                
-                {/* Connector dot */}
-                <motion.div
-                  initial={{ scale: 0 }}
-                  animate={isInView ? { scale: 1 } : {}}
-                  transition={{ delay: hex.delay + 0.5 }}
-                  className="absolute w-[12px] h-[12px] rounded-full bg-[#7c7b7b] top-1/2 left-1/2"
-                  style={{
-                    transform: `translate(-50%, -50%) translate(${-40 * Math.cos(angleRad)}px, ${-40 * Math.sin(angleRad)}px)`,
-                  }}
-                />
+                  transition={{ duration: 0.3 }}
+                  className="absolute inset-0 flex items-center justify-center p-6"
+                >
+                  <p 
+                    className="text-[13px] leading-relaxed text-center font-medium"
+                    style={{ 
+                      color: hex.color === "#e2dc00" ? "#353535" : "#e2dc00"
+                    }}
+                  >
+                    {hex.desc}
+                  </p>
+                </motion.div>
               </motion.div>
-
-              {/* Description Text */}
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ delay: hex.delay + 0.4 }}
-                className="absolute w-[220px]"
-                style={{
-                  left: `${textX}px`,
-                  top: `${textY}px`,
-                  transform: "translate(-50%, -50%)",
-                  textAlign: "center"
-                }}
-              >
-                <p className="text-[14px] text-neutral-800 leading-relaxed">
-                  {hex.desc}
-                </p>
-              </motion.div>
-            </div>
+            </motion.div>
           );
         })}
       </div>
