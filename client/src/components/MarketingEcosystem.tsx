@@ -1,5 +1,5 @@
 import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { 
   Globe, 
   Search, 
@@ -30,17 +30,36 @@ const channels: Channel[] = [
 
 export default function MarketingEcosystem() {
   const ref = useRef(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const [containerSize, setContainerSize] = useState({ width: 800, height: 800 });
 
-  const RADIUS = 280; // Distance from center to channels
+  const RADIUS = 280;
+
+  useEffect(() => {
+    const updateSize = () => {
+      if (containerRef.current) {
+        const { width, height } = containerRef.current.getBoundingClientRect();
+        setContainerSize({ width, height });
+      }
+    };
+
+    updateSize();
+    window.addEventListener('resize', updateSize);
+    return () => window.removeEventListener('resize', updateSize);
+  }, []);
+
+  const centerX = containerSize.width / 2;
+  const centerY = containerSize.height / 2;
 
   return (
     <div ref={ref} className="relative py-12 px-4">
       {/* Desktop: Circular Layout */}
-      <div className="hidden lg:block relative w-full max-w-5xl mx-auto aspect-square">
+      <div ref={containerRef} className="hidden lg:block relative w-full max-w-5xl mx-auto aspect-square">
         {/* Single SVG for all connection lines */}
         <svg 
           className="absolute inset-0 w-full h-full pointer-events-none" 
+          viewBox={`0 0 ${containerSize.width} ${containerSize.height}`}
           style={{ zIndex: 5 }}
         >
           <defs>
@@ -55,30 +74,29 @@ export default function MarketingEcosystem() {
             const angleInRadians = (channel.angle * Math.PI) / 180;
             const x = Math.cos(angleInRadians) * RADIUS;
             const y = Math.sin(angleInRadians) * RADIUS;
+            const endX = centerX + x;
+            const endY = centerY + y;
             
             return (
               <g key={`line-${index}`}>
                 <motion.line
-                  x1="50%"
-                  y1="50%"
-                  x2={`calc(50% + ${x}px)`}
-                  y2={`calc(50% + ${y}px)`}
+                  x1={centerX}
+                  y1={centerY}
+                  x2={endX}
+                  y2={endY}
                   stroke={`url(#gradient-${index})`}
                   strokeWidth="2"
-                  vectorEffect="non-scaling-stroke"
                   initial={{ pathLength: 0, opacity: 0 }}
                   animate={isInView ? { pathLength: 1, opacity: 0.5 } : {}}
                   transition={{ duration: 1, delay: 0.6 + index * 0.1 }}
                 />
                 <motion.circle
-                  cx="50%"
-                  cy="50%"
                   r="3"
                   fill={channel.color}
                   initial={{ opacity: 0 }}
                   animate={isInView ? {
-                    cx: ["50%", `calc(50% + ${x}px)`],
-                    cy: ["50%", `calc(50% + ${y}px)`],
+                    cx: [centerX, endX],
+                    cy: [centerY, endY],
                     opacity: [0, 1, 1, 0],
                   } : {}}
                   transition={{
