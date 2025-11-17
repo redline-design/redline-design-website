@@ -587,7 +587,27 @@
   z-index: 1;
 }
 
-/* Disable complex animations on preview cards (positions 2 and 3) */
+/* Only apply complex animations to the main active card (position 1) */
+.slider-carousel-item-1.challenge-bg-blue::before,
+.slider-carousel-item-1.challenge-bg-blue::after,
+.slider-carousel-item-1.challenge-bg-orange::before,
+.slider-carousel-item-1.challenge-bg-orange::after,
+.slider-carousel-item-1.challenge-bg-purple::before,
+.slider-carousel-item-1.challenge-bg-purple::after,
+.slider-carousel-item-1.challenge-bg-green::before,
+.slider-carousel-item-1.challenge-bg-green::after,
+.slider-carousel-item-1.challenge-bg-cyan::before,
+.slider-carousel-item-1.challenge-bg-cyan::after,
+.slider-carousel-item-1.challenge-bg-pink::before,
+.slider-carousel-item-1.challenge-bg-pink::after,
+.slider-carousel-item-1.challenge-bg-yellow::before,
+.slider-carousel-item-1.challenge-bg-yellow::after {
+  z-index: 0;
+}
+
+/* Disable pseudo-element animations on non-active cards */
+.slider-carousel-item-0::before,
+.slider-carousel-item-0::after,
 .slider-carousel-item-2::before,
 .slider-carousel-item-2::after,
 .slider-carousel-item-3::before,
