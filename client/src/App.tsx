@@ -11,6 +11,7 @@ import AnimatedBackground from "@/components/AnimatedBackground";
 import ChatWidget from "@/components/ChatWidget";
 import ScrollProgressBar from "@/components/ScrollProgressBar";
 import { AnimatePresence, motion } from "framer-motion";
+import { ChallengesIconProvider } from "@/contexts/ChallengesIconContext";
 
 const Home = lazy(() => import("@/pages/Home"));
 const Services = lazy(() => import("@/pages/Services"));
@@ -1020,21 +1021,23 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <CustomCursor />
-        <ScrollProgressBar />
-        <div className="flex flex-col min-h-screen relative">
-          <AnimatedBackground />
-          <DiagonalStripes />
-          <Header />
-          <main className="flex-1 relative z-10">
-            <Suspense fallback={<LoadingFallback />}>
-              <Router />
-            </Suspense>
-          </main>
-          <Footer />
-          <ChatWidget />
-        </div>
-        <Toaster />
+        <ChallengesIconProvider>
+          <CustomCursor />
+          <ScrollProgressBar />
+          <div className="flex flex-col min-h-screen relative">
+            <AnimatedBackground />
+            <DiagonalStripes />
+            <Header />
+            <main className="flex-1 relative z-10">
+              <Suspense fallback={<LoadingFallback />}>
+                <Router />
+              </Suspense>
+            </main>
+            <Footer />
+            <ChatWidget />
+          </div>
+          <Toaster />
+        </ChallengesIconProvider>
       </TooltipProvider>
     </QueryClientProvider>
   );
