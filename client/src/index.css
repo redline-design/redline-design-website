@@ -280,14 +280,20 @@
 .challenge-bg-blue::before {
   content: '';
   position: absolute;
-  inset: 0;
-  background: repeating-linear-gradient(
-    0deg,
-    transparent 0px,
-    transparent 40px,
-    rgba(255, 255, 255, 0.08) 40px,
-    rgba(255, 255, 255, 0.08) 42px
-  );
+  top: 10%;
+  left: 10%;
+  right: 10%;
+  bottom: 10%;
+  background: 
+    radial-gradient(circle at 20% 30%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(96, 165, 250, 0.15) 0%, transparent 50%),
+    repeating-linear-gradient(
+      0deg,
+      transparent 0px,
+      transparent 35px,
+      rgba(147, 197, 253, 0.12) 35px,
+      rgba(147, 197, 253, 0.12) 37px
+    );
   animation: challenge-blue-ranking 8s linear infinite;
   pointer-events: none;
   z-index: 0;
@@ -296,20 +302,23 @@
 .challenge-bg-blue::after {
   content: '';
   position: absolute;
-  bottom: 20%;
+  bottom: 15%;
   left: 10%;
-  width: 80%;
-  height: 2px;
+  right: 10%;
+  height: 3px;
   background: linear-gradient(90deg, 
     transparent 0%,
-    rgba(255, 255, 255, 0.1) 10%,
-    rgba(255, 255, 255, 0.15) 50%,
-    rgba(255, 255, 255, 0.1) 90%,
+    rgba(59, 130, 246, 0.3) 10%,
+    rgba(96, 165, 250, 0.5) 30%,
+    rgba(147, 197, 253, 0.6) 50%,
+    rgba(96, 165, 250, 0.5) 70%,
+    rgba(59, 130, 246, 0.3) 90%,
     transparent 100%
   );
   animation: challenge-blue-data-line 4s ease-in-out infinite;
   pointer-events: none;
   z-index: 0;
+  box-shadow: 0 0 10px rgba(96, 165, 250, 0.3);
 }
 
 .challenge-bg-orange {
@@ -321,14 +330,15 @@
 .challenge-bg-orange::before {
   content: '';
   position: absolute;
-  top: 15%;
-  left: 20%;
-  width: 60%;
-  height: 70%;
+  top: 12%;
+  left: 15%;
+  right: 15%;
+  bottom: 15%;
   background: 
-    linear-gradient(0deg, transparent 0%, transparent 60%, rgba(255, 255, 255, 0.09) 60%, rgba(255, 255, 255, 0.09) 62%, transparent 62%),
-    linear-gradient(0deg, transparent 0%, transparent 40%, rgba(255, 255, 255, 0.12) 40%, rgba(255, 255, 255, 0.12) 42%, transparent 42%),
-    linear-gradient(0deg, transparent 0%, transparent 20%, rgba(255, 255, 255, 0.09) 20%, rgba(255, 255, 255, 0.09) 22%, transparent 22%);
+    radial-gradient(circle at 50% 20%, rgba(251, 146, 60, 0.2) 0%, transparent 40%),
+    linear-gradient(0deg, transparent 0%, transparent 60%, rgba(249, 115, 22, 0.15) 60%, rgba(249, 115, 22, 0.15) 63%, transparent 63%),
+    linear-gradient(0deg, transparent 0%, transparent 35%, rgba(251, 146, 60, 0.2) 35%, rgba(251, 146, 60, 0.2) 38%, transparent 38%),
+    linear-gradient(0deg, transparent 0%, transparent 15%, rgba(253, 186, 116, 0.15) 15%, rgba(253, 186, 116, 0.15) 18%, transparent 18%);
   animation: challenge-orange-funnel 6s ease-in-out infinite;
   pointer-events: none;
   z-index: 0;
@@ -337,18 +347,19 @@
 .challenge-bg-orange::after {
   content: '';
   position: absolute;
-  bottom: 15%;
+  bottom: 12%;
   left: 15%;
-  width: 70%;
-  height: 2px;
+  right: 15%;
+  height: 3px;
   background: linear-gradient(90deg, 
-    rgba(255, 255, 255, 0.08) 0%,
-    rgba(255, 255, 255, 0.15) 50%,
-    rgba(255, 255, 255, 0.08) 100%
+    rgba(249, 115, 22, 0.3) 0%,
+    rgba(251, 146, 60, 0.6) 50%,
+    rgba(249, 115, 22, 0.3) 100%
   );
   animation: challenge-orange-conversion 3s ease-in-out infinite;
   pointer-events: none;
   z-index: 0;
+  box-shadow: 0 0 15px rgba(251, 146, 60, 0.4);
 }
 
 .challenge-bg-purple {
@@ -360,10 +371,15 @@
 .challenge-bg-purple::before {
   content: '';
   position: absolute;
-  inset: 0;
+  top: 10%;
+  left: 10%;
+  right: 10%;
+  bottom: 10%;
   background: 
-    repeating-linear-gradient(90deg, transparent 0px, transparent 80px, rgba(255, 255, 255, 0.08) 80px, rgba(255, 255, 255, 0.08) 82px),
-    repeating-linear-gradient(0deg, transparent 0px, transparent 80px, rgba(255, 255, 255, 0.08) 80px, rgba(255, 255, 255, 0.08) 82px);
+    radial-gradient(circle at 25% 25%, rgba(168, 85, 247, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 75% 75%, rgba(192, 132, 252, 0.15) 0%, transparent 50%),
+    repeating-linear-gradient(90deg, transparent 0px, transparent 70px, rgba(168, 85, 247, 0.1) 70px, rgba(168, 85, 247, 0.1) 72px),
+    repeating-linear-gradient(0deg, transparent 0px, transparent 70px, rgba(192, 132, 252, 0.1) 70px, rgba(192, 132, 252, 0.1) 72px);
   animation: challenge-purple-grid 20s linear infinite;
   pointer-events: none;
   z-index: 0;
@@ -372,15 +388,16 @@
 .challenge-bg-purple::after {
   content: '';
   position: absolute;
-  top: 20%;
-  left: 15%;
-  width: 70%;
-  height: 60%;
+  top: 18%;
+  left: 12%;
+  right: 12%;
+  bottom: 18%;
   background: 
-    linear-gradient(90deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.1) 2%, transparent 2%, transparent 32%, rgba(255, 255, 255, 0.1) 32%, rgba(255, 255, 255, 0.1) 34%, transparent 34%, transparent 66%, rgba(255, 255, 255, 0.1) 66%, rgba(255, 255, 255, 0.1) 68%, transparent 68%);
+    linear-gradient(90deg, rgba(168, 85, 247, 0.15) 0%, rgba(168, 85, 247, 0.15) 3%, transparent 3%, transparent 30%, rgba(192, 132, 252, 0.2) 30%, rgba(192, 132, 252, 0.2) 33%, transparent 33%, transparent 65%, rgba(216, 180, 254, 0.15) 65%, rgba(216, 180, 254, 0.15) 68%, transparent 68%);
   animation: challenge-purple-dashboard 5s ease-in-out infinite;
   pointer-events: none;
   z-index: 0;
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.15);
 }
 
 .challenge-bg-green {
@@ -392,17 +409,18 @@
 .challenge-bg-green::before {
   content: '';
   position: absolute;
-  bottom: 15%;
-  left: 15%;
-  width: 70%;
-  height: 50%;
+  bottom: 12%;
+  left: 12%;
+  right: 12%;
+  height: 55%;
   background:
-    linear-gradient(0deg, transparent 0%, transparent 80%, rgba(255, 255, 255, 0.09) 80%, rgba(255, 255, 255, 0.09) 82%, transparent 82%),
-    linear-gradient(0deg, transparent 0%, transparent 60%, rgba(255, 255, 255, 0.12) 60%, rgba(255, 255, 255, 0.12) 62%, transparent 62%),
-    linear-gradient(0deg, transparent 0%, transparent 40%, rgba(255, 255, 255, 0.13) 40%, rgba(255, 255, 255, 0.13) 42%, transparent 42%),
-    linear-gradient(0deg, transparent 0%, transparent 20%, rgba(255, 255, 255, 0.11) 20%, rgba(255, 255, 255, 0.11) 22%, transparent 22%);
-  background-position: 10% 100%, 30% 100%, 50% 100%, 70% 100%;
-  background-size: 15% 100%, 15% 100%, 15% 100%, 15% 100%;
+    radial-gradient(circle at 50% 0%, rgba(34, 197, 94, 0.15) 0%, transparent 50%),
+    linear-gradient(0deg, transparent 0%, transparent 75%, rgba(74, 222, 128, 0.15) 75%, rgba(74, 222, 128, 0.15) 78%, transparent 78%),
+    linear-gradient(0deg, transparent 0%, transparent 55%, rgba(34, 197, 94, 0.2) 55%, rgba(34, 197, 94, 0.2) 58%, transparent 58%),
+    linear-gradient(0deg, transparent 0%, transparent 35%, rgba(74, 222, 128, 0.25) 35%, rgba(74, 222, 128, 0.25) 38%, transparent 38%),
+    linear-gradient(0deg, transparent 0%, transparent 15%, rgba(134, 239, 172, 0.2) 15%, rgba(134, 239, 172, 0.2) 18%, transparent 18%);
+  background-position: center, 12% 100%, 32% 100%, 52% 100%, 72% 100%;
+  background-size: 100% 100%, 16% 100%, 16% 100%, 16% 100%, 16% 100%;
   background-repeat: no-repeat;
   animation: challenge-green-chart 5s ease-in-out infinite;
   pointer-events: none;
@@ -412,13 +430,18 @@
 .challenge-bg-green::after {
   content: '';
   position: absolute;
-  bottom: 15%;
-  left: 15%;
-  width: 70%;
-  height: 2px;
-  background: rgba(255, 255, 255, 0.15);
+  bottom: 12%;
+  left: 12%;
+  right: 12%;
+  height: 3px;
+  background: linear-gradient(90deg, 
+    rgba(34, 197, 94, 0.3) 0%, 
+    rgba(74, 222, 128, 0.5) 50%, 
+    rgba(34, 197, 94, 0.3) 100%
+  );
   pointer-events: none;
   z-index: 0;
+  box-shadow: 0 0 12px rgba(34, 197, 94, 0.3);
 }
 
 .challenge-bg-cyan {
@@ -430,14 +453,20 @@
 .challenge-bg-cyan::before {
   content: '';
   position: absolute;
-  inset: 0;
-  background: repeating-linear-gradient(
-    0deg,
-    transparent 0px,
-    transparent 20px,
-    rgba(255, 255, 255, 0.07) 20px,
-    rgba(255, 255, 255, 0.07) 22px
-  );
+  top: 10%;
+  left: 10%;
+  right: 10%;
+  bottom: 10%;
+  background: 
+    radial-gradient(circle at 70% 30%, rgba(6, 182, 212, 0.12) 0%, transparent 50%),
+    radial-gradient(circle at 30% 70%, rgba(34, 211, 238, 0.12) 0%, transparent 50%),
+    repeating-linear-gradient(
+      0deg,
+      transparent 0px,
+      transparent 18px,
+      rgba(103, 232, 249, 0.12) 18px,
+      rgba(103, 232, 249, 0.12) 20px
+    );
   animation: challenge-cyan-code 10s linear infinite;
   pointer-events: none;
   z-index: 0;
@@ -446,20 +475,21 @@
 .challenge-bg-cyan::after {
   content: '';
   position: absolute;
-  top: 25%;
-  left: 20%;
-  width: 60%;
-  height: 50%;
+  top: 22%;
+  left: 15%;
+  right: 15%;
+  height: 52%;
   background: 
-    linear-gradient(90deg, rgba(255, 255, 255, 0.09) 0%, rgba(255, 255, 255, 0.09) 3%, transparent 3%, transparent 100%),
-    linear-gradient(90deg, transparent 0%, transparent 5%, rgba(255, 255, 255, 0.12) 5%, rgba(255, 255, 255, 0.12) 14%, transparent 14%, transparent 100%),
-    linear-gradient(90deg, transparent 0%, transparent 15%, rgba(255, 255, 255, 0.09) 15%, rgba(255, 255, 255, 0.09) 27%, transparent 27%, transparent 100%);
-  background-position: 0% 20%, 0% 40%, 0% 60%;
-  background-size: 100% 20%, 100% 20%, 100% 20%;
+    linear-gradient(90deg, rgba(6, 182, 212, 0.15) 0%, rgba(6, 182, 212, 0.15) 4%, transparent 4%, transparent 100%),
+    linear-gradient(90deg, transparent 0%, transparent 6%, rgba(34, 211, 238, 0.2) 6%, rgba(34, 211, 238, 0.2) 16%, transparent 16%, transparent 100%),
+    linear-gradient(90deg, transparent 0%, transparent 18%, rgba(103, 232, 249, 0.15) 18%, rgba(103, 232, 249, 0.15) 32%, transparent 32%, transparent 100%);
+  background-position: 0% 22%, 0% 44%, 0% 66%;
+  background-size: 100% 22%, 100% 22%, 100% 22%;
   background-repeat: no-repeat;
   animation: challenge-cyan-typing 4s ease-in-out infinite;
   pointer-events: none;
   z-index: 0;
+  box-shadow: 0 0 15px rgba(6, 182, 212, 0.1);
 }
 
 .challenge-bg-pink {
@@ -471,15 +501,18 @@
 .challenge-bg-pink::before {
   content: '';
   position: absolute;
-  top: 20%;
-  left: 15%;
-  width: 70%;
-  height: 60%;
+  top: 15%;
+  left: 12%;
+  right: 12%;
+  bottom: 15%;
   background:
-    linear-gradient(90deg, transparent 0%, transparent 47%, rgba(255, 255, 255, 0.1) 47%, rgba(255, 255, 255, 0.1) 53%, transparent 53%),
-    linear-gradient(0deg, transparent 0%, transparent 47%, rgba(255, 255, 255, 0.1) 47%, rgba(255, 255, 255, 0.1) 53%, transparent 53%);
-  background-size: 60px 100%, 100% 60px;
-  background-position: center;
+    radial-gradient(circle at 50% 50%, rgba(236, 72, 153, 0.15) 0%, transparent 40%),
+    radial-gradient(circle at 20% 30%, rgba(219, 39, 119, 0.1) 0%, transparent 35%),
+    radial-gradient(circle at 80% 70%, rgba(244, 114, 182, 0.1) 0%, transparent 35%),
+    linear-gradient(90deg, transparent 0%, transparent 46%, rgba(236, 72, 153, 0.15) 46%, rgba(236, 72, 153, 0.15) 54%, transparent 54%),
+    linear-gradient(0deg, transparent 0%, transparent 46%, rgba(244, 114, 182, 0.15) 46%, rgba(244, 114, 182, 0.15) 54%, transparent 54%);
+  background-size: 100% 100%, 100% 100%, 100% 100%, 55px 100%, 100% 55px;
+  background-position: center, center, center, center, center;
   animation: challenge-pink-data-flow 6s ease-in-out infinite;
   pointer-events: none;
   z-index: 0;
@@ -489,19 +522,20 @@
   content: '';
   position: absolute;
   top: 50%;
-  left: 15%;
-  width: 70%;
-  height: 2px;
+  left: 12%;
+  right: 12%;
+  height: 3px;
   background: linear-gradient(90deg,
     transparent 0%,
-    rgba(255, 255, 255, 0.1) 10%,
-    rgba(255, 255, 255, 0.15) 50%,
-    rgba(255, 255, 255, 0.1) 90%,
+    rgba(219, 39, 119, 0.3) 10%,
+    rgba(236, 72, 153, 0.5) 50%,
+    rgba(219, 39, 119, 0.3) 90%,
     transparent 100%
   );
   animation: challenge-pink-flow-line 3s ease-in-out infinite;
   pointer-events: none;
   z-index: 0;
+  box-shadow: 0 0 15px rgba(236, 72, 153, 0.3);
 }
 
 .challenge-bg-yellow {
@@ -513,12 +547,14 @@
 .challenge-bg-yellow::before {
   content: '';
   position: absolute;
-  bottom: 15%;
-  left: 15%;
-  width: 70%;
-  height: 50%;
+  bottom: 12%;
+  left: 12%;
+  right: 12%;
+  height: 55%;
   background:
-    linear-gradient(135deg, transparent 0%, transparent 47%, rgba(255, 255, 255, 0.1) 47%, rgba(255, 255, 255, 0.1) 51%, transparent 51%);
+    radial-gradient(circle at 30% 20%, rgba(251, 191, 36, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 70% 40%, rgba(234, 179, 8, 0.12) 0%, transparent 40%),
+    linear-gradient(135deg, transparent 0%, transparent 46%, rgba(250, 204, 21, 0.18) 46%, rgba(250, 204, 21, 0.18) 52%, transparent 52%);
   animation: challenge-yellow-trend 6s ease-in-out infinite;
   pointer-events: none;
   z-index: 0;
@@ -527,21 +563,22 @@
 .challenge-bg-yellow::after {
   content: '';
   position: absolute;
-  bottom: 15%;
-  left: 15%;
-  width: 70%;
-  height: 50%;
+  bottom: 12%;
+  left: 12%;
+  right: 12%;
+  height: 55%;
   background:
-    linear-gradient(0deg, transparent 0%, transparent 60%, rgba(255, 255, 255, 0.11) 60%, rgba(255, 255, 255, 0.11) 62%, transparent 62%),
-    linear-gradient(0deg, transparent 0%, transparent 50%, rgba(255, 255, 255, 0.09) 50%, rgba(255, 255, 255, 0.09) 52%, transparent 52%),
-    linear-gradient(0deg, transparent 0%, transparent 40%, rgba(255, 255, 255, 0.09) 40%, rgba(255, 255, 255, 0.09) 42%, transparent 42%),
-    linear-gradient(0deg, transparent 0%, transparent 30%, rgba(255, 255, 255, 0.07) 30%, rgba(255, 255, 255, 0.07) 32%, transparent 32%);
-  background-position: 10% 100%, 30% 100%, 50% 100%, 70% 100%;
-  background-size: 15% 100%, 15% 100%, 15% 100%, 15% 100%;
+    linear-gradient(0deg, transparent 0%, transparent 58%, rgba(250, 204, 21, 0.2) 58%, rgba(250, 204, 21, 0.2) 62%, transparent 62%),
+    linear-gradient(0deg, transparent 0%, transparent 48%, rgba(251, 191, 36, 0.15) 48%, rgba(251, 191, 36, 0.15) 52%, transparent 52%),
+    linear-gradient(0deg, transparent 0%, transparent 38%, rgba(234, 179, 8, 0.15) 38%, rgba(234, 179, 8, 0.15) 42%, transparent 42%),
+    linear-gradient(0deg, transparent 0%, transparent 28%, rgba(253, 224, 71, 0.12) 28%, rgba(253, 224, 71, 0.12) 32%, transparent 32%);
+  background-position: 12% 100%, 32% 100%, 52% 100%, 72% 100%;
+  background-size: 16% 100%, 16% 100%, 16% 100%, 16% 100%;
   background-repeat: no-repeat;
   animation: challenge-yellow-decline 5s ease-in-out infinite;
   pointer-events: none;
   z-index: 0;
+  box-shadow: 0 0 20px rgba(234, 179, 8, 0.1);
 }
 
 
