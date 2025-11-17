@@ -7,237 +7,194 @@ import {
   Share2, 
   Mail, 
   Database, 
-  FileText,
-  Target
+  FileText
 } from "lucide-react";
-
-interface Channel {
-  icon: any;
-  label: string;
-  color: string;
-}
-
-const channels: Channel[] = [
-  { icon: Globe, label: "Website & Landing Pages", color: "#3b82f6" },
-  { icon: Search, label: "SEO", color: "#22c55e" },
-  { icon: DollarSign, label: "PPC Advertising", color: "#f97316" },
-  { icon: Share2, label: "Social Media", color: "#a855f7" },
-  { icon: Mail, label: "Email Marketing", color: "#06b6d4" },
-  { icon: Database, label: "CRM & Analytics", color: "#ec4899" },
-  { icon: FileText, label: "Content Marketing", color: "#eab308" },
-];
+import { ChevronDown } from "lucide-react";
 
 export default function MarketingEcosystem() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
-  const RADIUS = 300; // Distance from center to channels
+  const topChannels = [
+    { icon: Search, label: "SEO", color: "#22c55e" },
+    { icon: FileText, label: "Content Marketing", color: "#eab308" },
+    { icon: DollarSign, label: "PPC Advertising", color: "#f97316" },
+    { icon: Share2, label: "Social Media", color: "#a855f7" },
+  ];
 
   return (
     <div ref={ref} className="relative py-12 px-4">
-      {/* Desktop: Circular Layout */}
-      <div className="hidden lg:block relative w-full max-w-4xl mx-auto aspect-square">
-        {/* Central Hub */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
-          <motion.div
-            initial={{ scale: 0, opacity: 0 }}
-            animate={isInView ? { scale: 1, opacity: 1 } : {}}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            <div className="relative">
-              {/* Pulsing rings */}
+      <div className="max-w-4xl mx-auto">
+        {/* Top Level: Marketing Channels */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+          {topChannels.map((channel, index) => {
+            const Icon = channel.icon;
+            return (
               <motion.div
-                animate={{
-                  scale: [1, 1.3, 1],
-                  opacity: [0.3, 0, 0.3],
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-                className="absolute inset-0 rounded-full"
-                style={{
-                  background: "radial-gradient(circle, rgba(255, 0, 0, 0.3) 0%, transparent 70%)",
-                  filter: "blur(8px)",
-                }}
-              />
-
-              {/* Main hub */}
-              <div className="relative neumorphic-card p-6 rounded-full bg-[#1e1e1e] flex items-center justify-center">
-                <Target className="h-12 w-12 text-[#ff0000]" style={{
-                  filter: "drop-shadow(0 0 8px rgba(255, 0, 0, 0.5))"
-                }} />
-              </div>
-
-              {/* Hub label */}
-              <div className="absolute -bottom-12 left-1/2 -translate-x-1/2 whitespace-nowrap">
-                <p className="text-sm font-bold text-foreground">Your Business</p>
-              </div>
-            </div>
-          </motion.div>
+                key={channel.label}
+                initial={{ opacity: 0, y: -20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                data-testid={`funnel-top-${index}`}
+              >
+                <div className="neumorphic-card p-4 rounded-2xl bg-[#1e1e1e] h-full flex flex-col items-center justify-center text-center hover-elevate active-elevate-2 cursor-pointer">
+                  <Icon 
+                    className="h-8 w-8 mb-2" 
+                    style={{ 
+                      color: channel.color,
+                      filter: `drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.8)) drop-shadow(-1px -1px 2px ${channel.color}40)`
+                    }} 
+                  />
+                  <p className="text-xs font-semibold text-foreground leading-tight">
+                    {channel.label}
+                  </p>
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
 
-        {/* Channels arranged in circle */}
-        {channels.map((channel, index) => {
-          const Icon = channel.icon;
-          const totalChannels = channels.length;
-          const angle = (index * 360) / totalChannels; // Distribute evenly
-
-          return (
-            <div
-              key={channel.label}
-              className="absolute top-1/2 left-1/2"
-              style={{
-                transform: `translate(-50%, -50%) rotate(${angle}deg)`,
-              }}
-            >
-              {/* Connection line */}
-              <motion.div
-                initial={{ scaleY: 0, opacity: 0 }}
-                animate={isInView ? { scaleY: 1, opacity: 0.5 } : {}}
-                transition={{ duration: 1, delay: 0.6 + index * 0.1 }}
-                className="absolute left-1/2 -translate-x-1/2 origin-top z-0"
-                style={{
-                  width: "2px",
-                  height: `${RADIUS}px`,
-                  background: `linear-gradient(to bottom, #ff0000, ${channel.color})`,
-                }}
-              />
-
-              {/* Channel card wrapper - positioned at end of line */}
-              <div
-                style={{
-                  transform: `translateY(-${RADIUS}px)`,
-                }}
-                className="absolute left-1/2 -translate-x-1/2"
-              >
-                {/* Counter-rotate the card so it's upright */}
-                <motion.div
-                  initial={{ scale: 0, opacity: 0 }}
-                  animate={isInView ? { scale: 1, opacity: 1 } : {}}
-                  transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
-                  style={{
-                    transform: `rotate(-${angle}deg)`,
-                  }}
-                  data-testid={`ecosystem-channel-${index}`}
-                >
-                  <div className="neumorphic-card p-4 rounded-2xl bg-[#1e1e1e] cursor-pointer hover-elevate active-elevate-2 w-32 h-32 flex flex-col items-center justify-center">
-                    <Icon 
-                      className="h-10 w-10 mb-2 flex-shrink-0" 
-                      style={{ 
-                        color: channel.color,
-                        filter: `drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.8)) drop-shadow(-1px -1px 2px ${channel.color}40)`
-                      }} 
-                    />
-                    <p className="text-xs font-semibold text-foreground text-center leading-tight">
-                      {channel.label}
-                    </p>
-                  </div>
-                </motion.div>
-              </div>
-
-              {/* Animated particle on the line */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={isInView ? {
-                  y: [0, -RADIUS],
-                  opacity: [0, 1, 1, 0],
-                } : {}}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  delay: index * 0.3,
-                  ease: "easeInOut",
-                }}
-                className="absolute left-1/2 -translate-x-1/2 w-2 h-2 rounded-full"
-                style={{
-                  backgroundColor: channel.color,
-                  filter: `drop-shadow(0 0 4px ${channel.color})`,
-                }}
-              />
-            </div>
-          );
-        })}
-      </div>
-
-      {/* Mobile/Tablet: Grid Layout */}
-      <div className="lg:hidden grid grid-cols-2 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-        {/* Central Hub - Full width on mobile */}
-        <motion.div
-          initial={{ scale: 0, opacity: 0 }}
-          animate={isInView ? { scale: 1, opacity: 1 } : {}}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="col-span-2 md:col-span-3 flex justify-center mb-4"
-          data-testid="ecosystem-hub-mobile"
+        {/* Arrow Down */}
+        <motion.div 
+          className="flex justify-center mb-8"
+          initial={{ opacity: 0, scale: 0.5 }}
+          animate={isInView ? { opacity: 1, scale: 1 } : {}}
+          transition={{ duration: 0.5, delay: 0.5 }}
         >
-          <div className="relative">
-            <motion.div
+          <div className="flex flex-col items-center">
+            <ChevronDown className="h-8 w-8 text-[#ff0000]" style={{
+              filter: "drop-shadow(0 0 8px rgba(255, 0, 0, 0.5))"
+            }} />
+            <motion.div 
+              className="w-1 h-12 bg-gradient-to-b from-[#ff0000] to-transparent"
               animate={{
-                scale: [1, 1.2, 1],
-                opacity: [0.3, 0, 0.3],
+                opacity: [0.3, 0.8, 0.3],
               }}
               transition={{
                 duration: 2,
                 repeat: Infinity,
                 ease: "easeInOut",
               }}
-              className="absolute inset-0 rounded-full"
-              style={{
-                background: "radial-gradient(circle, rgba(255, 0, 0, 0.3) 0%, transparent 70%)",
-                filter: "blur(8px)",
-              }}
             />
-            <div className="relative neumorphic-card p-8 rounded-full bg-[#1e1e1e]">
-              <Target className="h-12 w-12 text-[#ff0000]" style={{
-                filter: "drop-shadow(0 0 8px rgba(255, 0, 0, 0.5))"
-              }} />
-            </div>
-            <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 whitespace-nowrap">
-              <p className="text-sm font-bold text-foreground">Your Business</p>
+          </div>
+        </motion.div>
+
+        {/* Middle Level: Website & Landing Pages */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={isInView ? { opacity: 1, scale: 1 } : {}}
+          transition={{ duration: 0.5, delay: 0.6 }}
+          className="mb-8"
+          data-testid="funnel-middle"
+        >
+          <div className="neumorphic-card p-6 rounded-2xl bg-[#1e1e1e] hover-elevate active-elevate-2 cursor-pointer">
+            <div className="flex items-center justify-center gap-4">
+              <Globe 
+                className="h-12 w-12" 
+                style={{ 
+                  color: "#3b82f6",
+                  filter: "drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.8)) drop-shadow(-1px -1px 2px #3b82f640)"
+                }} 
+              />
+              <div className="text-center">
+                <h3 className="text-lg font-bold text-foreground mb-1">
+                  Website & Landing Pages
+                </h3>
+                <p className="text-xs text-muted-foreground">
+                  Converting visitors into leads
+                </p>
+              </div>
             </div>
           </div>
         </motion.div>
 
-        {/* Channels in grid */}
-        {channels.map((channel, index) => {
-          const Icon = channel.icon;
-          return (
-            <motion.div
-              key={channel.label}
-              initial={{ scale: 0, opacity: 0 }}
-              animate={isInView ? { scale: 1, opacity: 1 } : {}}
-              transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
-              data-testid={`ecosystem-channel-mobile-${index}`}
-            >
-              <div className="neumorphic-card p-6 rounded-2xl bg-[#1e1e1e] cursor-pointer hover-elevate active-elevate-2 h-full flex flex-col items-center justify-center text-center">
-                <Icon 
-                  className="h-10 w-10 mb-3" 
-                  style={{ 
-                    color: channel.color,
-                    filter: `drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.8)) drop-shadow(-1px -1px 2px ${channel.color}40)`
-                  }} 
-                />
-                <p className="text-sm font-semibold text-foreground">
-                  {channel.label}
-                </p>
-              </div>
-            </motion.div>
-          );
-        })}
-      </div>
+        {/* Arrow Down */}
+        <motion.div 
+          className="flex justify-center mb-8"
+          initial={{ opacity: 0, scale: 0.5 }}
+          animate={isInView ? { opacity: 1, scale: 1 } : {}}
+          transition={{ duration: 0.5, delay: 0.7 }}
+        >
+          <div className="flex flex-col items-center">
+            <ChevronDown className="h-8 w-8 text-[#ff0000]" style={{
+              filter: "drop-shadow(0 0 8px rgba(255, 0, 0, 0.5))"
+            }} />
+            <motion.div 
+              className="w-1 h-12 bg-gradient-to-b from-[#ff0000] to-transparent"
+              animate={{
+                opacity: [0.3, 0.8, 0.3],
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: 0.5,
+              }}
+            />
+          </div>
+        </motion.div>
 
-      {/* Bottom text */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={isInView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.6, delay: 1.2 }}
-        className="text-center mt-16"
-      >
-        <p className="text-base text-muted-foreground max-w-2xl mx-auto">
-          All channels work together, feeding data into your CRM and analytics for a complete view of your marketing performance.
-        </p>
-      </motion.div>
+        {/* Bottom Level: CRM & Analytics + Email */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.5, delay: 0.8 }}
+            data-testid="funnel-bottom-crm"
+          >
+            <div className="neumorphic-card p-6 rounded-2xl bg-[#1e1e1e] h-full flex flex-col items-center justify-center text-center hover-elevate active-elevate-2 cursor-pointer">
+              <Database 
+                className="h-10 w-10 mb-3" 
+                style={{ 
+                  color: "#ec4899",
+                  filter: "drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.8)) drop-shadow(-1px -1px 2px #ec489940)"
+                }} 
+              />
+              <h4 className="text-sm font-bold text-foreground mb-1">
+                CRM & Analytics
+              </h4>
+              <p className="text-xs text-muted-foreground">
+                Track and nurture leads
+              </p>
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.5, delay: 0.9 }}
+            data-testid="funnel-bottom-email"
+          >
+            <div className="neumorphic-card p-6 rounded-2xl bg-[#1e1e1e] h-full flex flex-col items-center justify-center text-center hover-elevate active-elevate-2 cursor-pointer">
+              <Mail 
+                className="h-10 w-10 mb-3" 
+                style={{ 
+                  color: "#06b6d4",
+                  filter: "drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.8)) drop-shadow(-1px -1px 2px #06b6d440)"
+                }} 
+              />
+              <h4 className="text-sm font-bold text-foreground mb-1">
+                Email Marketing
+              </h4>
+              <p className="text-xs text-muted-foreground">
+                Automate follow-ups
+              </p>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Bottom text */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 1.0 }}
+          className="text-center mt-12"
+        >
+          <p className="text-base text-muted-foreground max-w-2xl mx-auto">
+            Your complete marketing funnel working together: drive traffic, convert visitors, and nurture leads into customers.
+          </p>
+        </motion.div>
+      </div>
     </div>
   );
 }
