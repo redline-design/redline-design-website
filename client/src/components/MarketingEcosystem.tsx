@@ -86,17 +86,12 @@ export default function MarketingEcosystem() {
           const y = Math.sin(angleInRadians) * radius;
 
           return (
-            <motion.div
+            <div
               key={channel.label}
-              initial={{ scale: 0, opacity: 0, x: -50 + '%', y: -50 + '%' }}
-              animate={isInView ? { 
-                scale: 1, 
-                opacity: 1,
-                x: `calc(-50% + ${x}px)`,
-                y: `calc(-50% + ${y}px)`
-              } : {}}
-              transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
               className="absolute top-1/2 left-1/2 z-10"
+              style={{
+                transform: `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`,
+              }}
               data-testid={`ecosystem-channel-${index}`}
             >
               {/* Animated connection line */}
@@ -113,14 +108,14 @@ export default function MarketingEcosystem() {
                   y1={y < 0 ? Math.abs(y) + 50 : 50}
                   x2={x < 0 ? 50 : Math.abs(x) + 50}
                   y2={y < 0 ? 50 : Math.abs(y) + 50}
-                  stroke="url(#gradient)"
+                  stroke={`url(#gradient-${index})`}
                   strokeWidth="2"
                   initial={{ pathLength: 0, opacity: 0 }}
                   animate={isInView ? { pathLength: 1, opacity: 0.5 } : {}}
                   transition={{ duration: 1, delay: 0.6 + index * 0.1 }}
                 />
                 <defs>
-                  <linearGradient id="gradient" gradientUnits="userSpaceOnUse">
+                  <linearGradient id={`gradient-${index}`} gradientUnits="userSpaceOnUse">
                     <stop offset="0%" stopColor="#ff0000" stopOpacity="0.8" />
                     <stop offset="100%" stopColor={channel.color} stopOpacity="0.8" />
                   </linearGradient>
@@ -147,19 +142,24 @@ export default function MarketingEcosystem() {
               </svg>
 
               {/* Channel node */}
-              <div className="relative neumorphic-card p-6 rounded-2xl bg-[#1e1e1e] cursor-pointer hover-elevate active-elevate-2">
+              <motion.div 
+                initial={{ scale: 0, opacity: 0 }}
+                animate={isInView ? { scale: 1, opacity: 1 } : {}}
+                transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
+                className="relative neumorphic-card p-4 rounded-2xl bg-[#1e1e1e] cursor-pointer hover-elevate active-elevate-2 w-32 h-32 flex flex-col items-center justify-center"
+              >
                 <Icon 
-                  className="h-10 w-10 mb-2" 
+                  className="h-10 w-10 mb-2 flex-shrink-0" 
                   style={{ 
                     color: channel.color,
                     filter: `drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.8)) drop-shadow(-1px -1px 2px ${channel.color}40)`
                   }} 
                 />
-                <p className="text-xs font-semibold text-foreground text-center max-w-[120px]">
+                <p className="text-xs font-semibold text-foreground text-center leading-tight">
                   {channel.label}
                 </p>
-              </div>
-            </motion.div>
+              </motion.div>
+            </div>
           );
         })}
       </div>
