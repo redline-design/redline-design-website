@@ -100,26 +100,26 @@ export default function ChallengesCarousel() {
   return (
     <div className="relative">
       <div className="overflow-hidden" ref={emblaRef}>
-        <div className="flex gap-4">
+        <div className="flex gap-5">
           {challenges.map((challenge) => {
             const Icon = challenge.icon;
             return (
               <div
                 key={challenge.id}
-                className="flex-[0_0_100%] min-w-0 sm:flex-[0_0_calc(50%-8px)] lg:flex-[0_0_calc(33.333%-11px)] 2xl:flex-[0_0_calc(25%-12px)]"
+                className="flex-[0_0_100%] min-w-0 sm:flex-[0_0_calc(50%-10px)] lg:flex-[0_0_calc(33.333%-14px)] 2xl:flex-[0_0_calc(25%-15px)]"
               >
                 <GlowCard
-                  className="neumorphic-card-carousel p-6 cursor-pointer h-full"
+                  className="p-7 cursor-pointer h-full group hover:scale-[1.02] transition-transform duration-300"
                   data-testid={`card-challenge-${challenge.id}`}
                 >
-                  <div className="flex flex-col items-center text-center gap-4 min-h-[240px]">
-                    <div className="neumorphic-icon-circle-compact">
-                      <Icon className={`h-8 w-8 icon-3d-${challenge.color}`} />
+                  <div className="flex flex-col gap-5 h-full backdrop-blur-sm bg-black/20 p-6 rounded-2xl">
+                    <div className="flex items-start gap-4">
+                      <div className={`challenge-icon-wrapper challenge-icon-${challenge.color} flex-shrink-0`}>
+                        <Icon className="h-6 w-6" />
+                      </div>
+                      <h3 className="text-lg font-bold text-foreground leading-tight pt-0.5">{challenge.title}</h3>
                     </div>
-                    <div>
-                      <h3 className="text-base font-bold text-foreground mb-2">{challenge.title}</h3>
-                      <p className="text-sm text-muted-foreground leading-relaxed">{challenge.description}</p>
-                    </div>
+                    <p className="text-sm text-muted-foreground/90 leading-relaxed">{challenge.description}</p>
                   </div>
                 </GlowCard>
               </div>
