@@ -38,15 +38,6 @@ export default function TestimonialsCarousel() {
 
   return (
     <div className="relative">
-      <div className="text-center mb-8">
-        <h2 className="text-base sm:text-lg md:text-xl font-bold uppercase tracking-[0.3em] mb-2 red-glow-pulse" style={{ color: "#ff0000" }}>
-          From Skeptical to Successful
-        </h2>
-        <p className="text-sm text-foreground">
-          Real business owners who took the leap (you can too)
-        </p>
-      </div>
-
       <div className="relative overflow-hidden">
         <motion.div
           className="flex gap-4 pointer-events-none"

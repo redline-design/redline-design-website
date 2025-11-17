@@ -602,9 +602,7 @@ export default function Home() {
 
           {/* Testimonials Section */}
           <div className="mt-12">
-            <div className="neumorphic-raised">
-              <TestimonialsCarousel />
-            </div>
+            <TestimonialsCarousel />
           </div>
         </div>
       </section>
