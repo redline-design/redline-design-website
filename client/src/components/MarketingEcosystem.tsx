@@ -8,164 +8,263 @@ import {
   Mail, 
   Database, 
   FileText,
-  ArrowRight,
-  ArrowDown
+  TrendingUp
 } from "lucide-react";
 
 export default function MarketingEcosystem() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });
 
-  const channels = [
-    { icon: Search, label: "SEO", color: "#22c55e" },
-    { icon: FileText, label: "Content Marketing", color: "#eab308" },
-    { icon: DollarSign, label: "PPC Ads", color: "#f97316" },
-    { icon: Share2, label: "Social Media", color: "#a855f7" },
+  const items = [
+    { 
+      icon: Search, 
+      label: "SEO Strategy", 
+      desc: "Organic search optimization to drive qualified traffic to your website through strategic keyword targeting and content.",
+      color: "#26bf19",
+      lineColor: "#26bf19"
+    },
+    { 
+      icon: DollarSign, 
+      label: "PPC Advertising", 
+      desc: "Targeted paid campaigns across Google Ads and social platforms to generate immediate leads and conversions.",
+      color: "#cd0000",
+      lineColor: "#cd0000"
+    },
+    { 
+      icon: Share2, 
+      label: "Social Media", 
+      desc: "Build brand awareness and engage your audience across Facebook, Instagram, LinkedIn, and other platforms.",
+      color: "#cd00ac",
+      lineColor: "#cd00ac"
+    },
+    { 
+      icon: FileText, 
+      label: "Content Marketing", 
+      desc: "Strategic blog posts, videos, and resources that establish authority and attract your ideal customers.",
+      color: "#8b00cd",
+      lineColor: "#8b00cd"
+    },
+    { 
+      icon: Mail, 
+      label: "Email Automation", 
+      desc: "Nurture leads with personalized email sequences that guide prospects through your sales funnel.",
+      color: "#0077cd",
+      lineColor: "#0077cd"
+    },
   ];
 
   return (
     <div ref={ref} className="relative py-20 px-4">
       <div className="max-w-6xl mx-auto">
-        {/* Top row - 4 channels */}
-        <div className="flex flex-wrap justify-center items-center gap-8 mb-12">
-          {channels.map((channel, index) => {
-            const Icon = channel.icon;
-            return (
-              <div key={channel.label} className="flex items-center gap-8">
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                  transition={{ 
-                    duration: 0.5, 
-                    delay: index * 0.15,
-                    type: "spring"
-                  }}
-                  className="flex flex-col items-center gap-3"
-                >
-                  <motion.div
-                    whileHover={{ scale: 1.1, y: -4 }}
-                    transition={{ type: "spring", stiffness: 300 }}
-                  >
-                    <Icon 
-                      className="h-12 w-12" 
-                      style={{ 
-                        color: channel.color,
-                        filter: `drop-shadow(0 4px 12px ${channel.color}60)`
-                      }} 
-                    />
-                  </motion.div>
-                  <span className="text-sm font-semibold text-foreground text-center">
-                    {channel.label}
-                  </span>
-                </motion.div>
-
-                {/* Arrow between icons (except after last) */}
-                {index < channels.length - 1 && (
-                  <motion.div
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={isInView ? { opacity: 0.5, x: 0 } : {}}
-                    transition={{ duration: 0.4, delay: 0.6 + index * 0.15 }}
-                    className="hidden lg:block"
-                  >
-                    <ArrowRight className="h-6 w-6 text-muted-foreground" />
-                  </motion.div>
-                )}
-              </div>
-            );
-          })}
-        </div>
-
-        {/* Down arrow */}
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={isInView ? { opacity: 0.5, y: 0 } : {}}
-          transition={{ duration: 0.4, delay: 0.8 }}
-          className="flex justify-center mb-12"
-        >
-          <ArrowDown className="h-8 w-8 text-muted-foreground" />
-        </motion.div>
-
-        {/* Center - Website */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={isInView ? { opacity: 1, scale: 1 } : {}}
-          transition={{ 
-            duration: 0.6, 
-            delay: 1.0,
-            type: "spring"
-          }}
-          className="flex flex-col items-center gap-3 mb-12"
-        >
+        <div className="grid lg:grid-cols-[300px_1fr] gap-12 items-start">
+          {/* Main Header Box */}
           <motion.div
-            whileHover={{ scale: 1.1, rotate: 5 }}
-            transition={{ type: "spring", stiffness: 300 }}
+            initial={{ opacity: 0, x: -30 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.6 }}
+            className="relative"
           >
-            <Globe 
-              className="h-16 w-16" 
-              style={{ 
-                color: "#3b82f6",
-                filter: "drop-shadow(0 6px 16px rgba(59, 130, 246, 0.5))"
-              }} 
-            />
+            <div className="bg-[#1e1e1e] rounded-2xl p-8 border-4 border-[#2a2a2a]"
+              style={{
+                boxShadow: "0 8px 24px rgba(0, 0, 0, 0.3)",
+              }}
+            >
+              <h3 className="text-3xl font-bold text-center text-foreground leading-tight">
+                MARKETING ECOSYSTEM
+              </h3>
+            </div>
           </motion.div>
-          <h3 className="text-xl font-bold text-foreground">Website</h3>
-          <p className="text-sm text-muted-foreground">Convert visitors into leads</p>
-        </motion.div>
 
-        {/* Down arrow */}
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={isInView ? { opacity: 0.5, y: 0 } : {}}
-          transition={{ duration: 0.4, delay: 1.2 }}
-          className="flex justify-center mb-12"
-        >
-          <ArrowDown className="h-8 w-8 text-muted-foreground" />
-        </motion.div>
+          {/* Cards Grid */}
+          <div className="relative space-y-8">
+            {/* SVG Lines Layer */}
+            <svg 
+              className="absolute inset-0 w-full h-full pointer-events-none" 
+              style={{ zIndex: 0 }}
+              viewBox="0 0 600 800"
+              preserveAspectRatio="none"
+            >
+              <defs>
+                {items.map((item, i) => (
+                  <linearGradient key={`gradient-${i}`} id={`gradient-${i}`} x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stopColor={item.lineColor} stopOpacity="0.6" />
+                    <stop offset="100%" stopColor={item.lineColor} stopOpacity="0.8" />
+                  </linearGradient>
+                ))}
+              </defs>
 
-        {/* Bottom row - 2 channels */}
-        <div className="flex flex-wrap justify-center items-center gap-16">
-          {[
-            { icon: Database, label: "CRM & Analytics", color: "#ec4899" },
-            { icon: Mail, label: "Email Marketing", color: "#06b6d4" },
-          ].map((channel, index) => {
-            const Icon = channel.icon;
-            return (
-              <motion.div
-                key={channel.label}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                transition={{ 
-                  duration: 0.5, 
-                  delay: 1.4 + index * 0.15,
-                  type: "spring"
-                }}
-                className="flex flex-col items-center gap-3"
-              >
+              {/* Line to first card */}
+              <motion.path
+                d="M -100 80 Q 100 80, 150 60"
+                stroke={`url(#gradient-0)`}
+                strokeWidth="3"
+                fill="none"
+                initial={{ pathLength: 0, opacity: 0 }}
+                animate={isInView ? { pathLength: 1, opacity: 1 } : {}}
+                transition={{ duration: 0.8, delay: 0.3 }}
+              />
+              <motion.circle
+                cx="150"
+                cy="60"
+                r="5"
+                fill={items[0].color}
+                initial={{ scale: 0 }}
+                animate={isInView ? { scale: 1 } : {}}
+                transition={{ duration: 0.3, delay: 1.1 }}
+              />
+
+              {/* Line to second card */}
+              <motion.path
+                d="M -100 200 Q 50 200, 150 200"
+                stroke={`url(#gradient-1)`}
+                strokeWidth="3"
+                fill="none"
+                initial={{ pathLength: 0, opacity: 0 }}
+                animate={isInView ? { pathLength: 1, opacity: 1 } : {}}
+                transition={{ duration: 0.8, delay: 0.5 }}
+              />
+              <motion.circle
+                cx="150"
+                cy="200"
+                r="5"
+                fill={items[1].color}
+                initial={{ scale: 0 }}
+                animate={isInView ? { scale: 1 } : {}}
+                transition={{ duration: 0.3, delay: 1.3 }}
+              />
+
+              {/* Line to third card */}
+              <motion.path
+                d="M -100 320 Q 80 360, 150 360"
+                stroke={`url(#gradient-2)`}
+                strokeWidth="3"
+                fill="none"
+                initial={{ pathLength: 0, opacity: 0 }}
+                animate={isInView ? { pathLength: 1, opacity: 1 } : {}}
+                transition={{ duration: 0.8, delay: 0.7 }}
+              />
+              <motion.circle
+                cx="150"
+                cy="360"
+                r="5"
+                fill={items[2].color}
+                initial={{ scale: 0 }}
+                animate={isInView ? { scale: 1 } : {}}
+                transition={{ duration: 0.3, delay: 1.5 }}
+              />
+
+              {/* Line to fourth card */}
+              <motion.path
+                d="M -100 450 Q 50 520, 150 530"
+                stroke={`url(#gradient-3)`}
+                strokeWidth="3"
+                fill="none"
+                initial={{ pathLength: 0, opacity: 0 }}
+                animate={isInView ? { pathLength: 1, opacity: 1 } : {}}
+                transition={{ duration: 0.8, delay: 0.9 }}
+              />
+              <motion.circle
+                cx="150"
+                cy="530"
+                r="5"
+                fill={items[3].color}
+                initial={{ scale: 0 }}
+                animate={isInView ? { scale: 1 } : {}}
+                transition={{ duration: 0.3, delay: 1.7 }}
+              />
+
+              {/* Line to fifth card */}
+              <motion.path
+                d="M -100 580 Q 100 680, 150 700"
+                stroke={`url(#gradient-4)`}
+                strokeWidth="3"
+                fill="none"
+                initial={{ pathLength: 0, opacity: 0 }}
+                animate={isInView ? { pathLength: 1, opacity: 1 } : {}}
+                transition={{ duration: 0.8, delay: 1.1 }}
+              />
+              <motion.circle
+                cx="150"
+                cy="700"
+                r="5"
+                fill={items[4].color}
+                initial={{ scale: 0 }}
+                animate={isInView ? { scale: 1 } : {}}
+                transition={{ duration: 0.3, delay: 1.9 }}
+              />
+            </svg>
+
+            {/* Cards */}
+            {items.map((item, index) => {
+              const Icon = item.icon;
+              return (
                 <motion.div
-                  whileHover={{ scale: 1.1, y: -4 }}
-                  transition={{ type: "spring", stiffness: 300 }}
+                  key={item.label}
+                  initial={{ opacity: 0, x: 30 }}
+                  animate={isInView ? { opacity: 1, x: 0 } : {}}
+                  transition={{ 
+                    duration: 0.6, 
+                    delay: 0.4 + index * 0.15,
+                    type: "spring",
+                    stiffness: 100
+                  }}
+                  className="relative z-10"
                 >
-                  <Icon 
-                    className="h-12 w-12" 
-                    style={{ 
-                      color: channel.color,
-                      filter: `drop-shadow(0 4px 12px ${channel.color}60)`
-                    }} 
-                  />
+                  <div 
+                    className="bg-[#1e1e1e] rounded-xl p-6 border-4 border-[#2a2a2a] relative overflow-hidden"
+                    style={{
+                      boxShadow: "0 4px 16px rgba(0, 0, 0, 0.2)",
+                    }}
+                  >
+                    {/* Colored accent border - top right */}
+                    <div 
+                      className="absolute top-0 right-0 w-24 h-24 rounded-bl-xl"
+                      style={{
+                        borderRight: `15px solid ${item.color}`,
+                        borderTop: `15px solid ${item.color}`,
+                        borderTopRightRadius: "0.75rem",
+                      }}
+                    />
+
+                    <div className="flex gap-4 items-start">
+                      {/* Icon */}
+                      <div className="flex-shrink-0 mt-1">
+                        <div className="bg-[#2a2a2a] rounded-lg p-3 border-2 border-[#3a3a3a]">
+                          <Icon 
+                            className="h-10 w-10" 
+                            style={{ 
+                              color: item.color,
+                              filter: `drop-shadow(0 2px 8px ${item.color}40)`
+                            }} 
+                          />
+                        </div>
+                      </div>
+
+                      {/* Content */}
+                      <div className="flex-1">
+                        <h4 
+                          className="text-lg font-bold mb-2 uppercase tracking-wide"
+                          style={{ color: item.color }}
+                        >
+                          {item.label}
+                        </h4>
+                        <p className="text-sm text-muted-foreground leading-relaxed">
+                          {item.desc}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
                 </motion.div>
-                <span className="text-sm font-semibold text-foreground text-center">
-                  {channel.label}
-                </span>
-              </motion.div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
 
-        {/* Bottom description */}
+        {/* Bottom text */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 1.8 }}
+          transition={{ duration: 0.6, delay: 2.2 }}
           className="text-center mt-16"
         >
           <p className="text-base text-muted-foreground max-w-2xl mx-auto">
