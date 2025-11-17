@@ -16,11 +16,11 @@ import { BarChart3, Sparkles, Globe, DollarSign, Zap, Target, Users, Briefcase, 
 import { SiGoogleads, SiMeta, SiLinkedin, SiTiktok, SiYoutube, SiX, SiReddit, SiPinterest } from "react-icons/si";
 import { motion } from "framer-motion";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
-import analyticsImage from '@assets/stock_images/digital_marketing_an_90e73fbc.jpg';
-import seoImage from '@assets/stock_images/seo_search_engine_op_279c13f9.jpg';
-import ppcImage from '@assets/stock_images/paid_advertising_ppc_08198c97.jpg';
-import webDesignImage from '@assets/stock_images/web_design_developme_eb1d2180.jpg';
-import socialMediaImage from '@assets/stock_images/social_media_marketi_6046bd61.jpg';
+import analyticsImage from '@assets/generated_images/analytics_dashboard_data_visualization_c2fe954e.png';
+import seoImage from '@assets/generated_images/seo_optimization_workspace_588cf445.png';
+import ppcImage from '@assets/generated_images/ppc_campaign_management_dashboard_70cb822e.png';
+import webDesignImage from '@assets/generated_images/data_analytics_growth_center_3fe12d50.png';
+import socialMediaImage from '@assets/generated_images/social_media_analytics_hub_216308e5.png';
 
 export default function Home() {
   const prefersReducedMotion = useReducedMotion();
