@@ -379,117 +379,117 @@ export default function Home() {
       <ScrollAnimatedSection>
         <section className="py-2 px-2 sm:px-3 lg:px-4 neumorphic-section" data-testid="section-challenges">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-lg sm:text-xl md:text-2xl font-bold uppercase tracking-[0.3em] mb-3" style={{ color: "#ff0000" }}>
+          <div className="text-center mb-8">
+            <h2 className="text-lg sm:text-xl md:text-2xl font-bold uppercase tracking-[0.3em] mb-2" style={{ color: "#ff0000" }}>
               <TextResolver text="Common Challenges We Solve" delay={0} timeout={15} iterations={2} />
             </h2>
-            <p className="text-base text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-sm text-muted-foreground max-w-2xl mx-auto">
               <TextResolver text="Are you struggling with any of these pain points? You're not alone." delay={200} timeout={10} iterations={1} />
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
             <GlowCard 
-              className="neumorphic-card p-5 cursor-pointer" 
+              className="neumorphic-card p-4 cursor-pointer" 
               data-testid="card-challenge-visibility"
             >
-              <div className="flex flex-col gap-3">
-                <div className="neumorphic-inset p-3 rounded-lg w-fit">
-                  <Eye className="h-5 w-5" style={{ color: 'rgb(59, 130, 246)' }} />
+              <div className="flex flex-col items-center text-center gap-2">
+                <div className="neumorphic-inset p-2.5 rounded-lg">
+                  <Eye className="h-4 w-4" style={{ color: 'rgb(59, 130, 246)' }} />
                 </div>
                 <div>
-                  <h3 className="text-base font-bold text-foreground mb-1.5">Low Visibility & High Ad Costs</h3>
-                  <p className="text-xs text-muted-foreground leading-relaxed">Struggling to get found online while watching ad costs skyrocket? We optimize your presence for maximum visibility at minimal cost.</p>
+                  <h3 className="text-sm font-bold text-foreground mb-1">Low Visibility & High Ad Costs</h3>
+                  <p className="text-xs text-muted-foreground leading-snug">Struggling to get found online while watching ad costs skyrocket? We optimize your presence for maximum visibility at minimal cost.</p>
                 </div>
               </div>
             </GlowCard>
 
             <GlowCard 
-              className="neumorphic-card p-5 cursor-pointer" 
+              className="neumorphic-card p-4 cursor-pointer" 
               data-testid="card-challenge-conversion"
             >
-              <div className="flex flex-col gap-3">
-                <div className="neumorphic-inset p-3 rounded-lg w-fit">
-                  <MousePointerClick className="h-5 w-5" style={{ color: 'rgb(249, 115, 22)' }} />
+              <div className="flex flex-col items-center text-center gap-2">
+                <div className="neumorphic-inset p-2.5 rounded-lg">
+                  <MousePointerClick className="h-4 w-4" style={{ color: 'rgb(249, 115, 22)' }} />
                 </div>
                 <div>
-                  <h3 className="text-base font-bold text-foreground mb-1.5">Poor Website Conversion</h3>
-                  <p className="text-xs text-muted-foreground leading-relaxed">Traffic without conversions is just noise. We design and optimize for one thing: turning visitors into customers.</p>
+                  <h3 className="text-sm font-bold text-foreground mb-1">Poor Website Conversion</h3>
+                  <p className="text-xs text-muted-foreground leading-snug">Traffic without conversions is just noise. We design and optimize for one thing: turning visitors into customers.</p>
                 </div>
               </div>
             </GlowCard>
 
             <GlowCard 
-              className="neumorphic-card p-5 cursor-pointer" 
+              className="neumorphic-card p-4 cursor-pointer" 
               data-testid="card-challenge-fragmented"
             >
-              <div className="flex flex-col gap-3">
-                <div className="neumorphic-inset p-3 rounded-lg w-fit">
-                  <LayoutGrid className="h-5 w-5" style={{ color: 'rgb(168, 85, 247)' }} />
+              <div className="flex flex-col items-center text-center gap-2">
+                <div className="neumorphic-inset p-2.5 rounded-lg">
+                  <LayoutGrid className="h-4 w-4" style={{ color: 'rgb(168, 85, 247)' }} />
                 </div>
                 <div>
-                  <h3 className="text-base font-bold text-foreground mb-1.5">Fragmented Marketing</h3>
-                  <p className="text-xs text-muted-foreground leading-relaxed">Juggling multiple agencies and tools that don't talk to each other? We unify your marketing under one roof.</p>
+                  <h3 className="text-sm font-bold text-foreground mb-1">Fragmented Marketing</h3>
+                  <p className="text-xs text-muted-foreground leading-snug">Juggling multiple agencies and tools that don't talk to each other? We unify your marketing under one roof.</p>
                 </div>
               </div>
             </GlowCard>
 
             <GlowCard 
-              className="neumorphic-card p-5 cursor-pointer" 
+              className="neumorphic-card p-4 cursor-pointer" 
               data-testid="card-challenge-tracking"
             >
-              <div className="flex flex-col gap-3">
-                <div className="neumorphic-inset p-3 rounded-lg w-fit">
-                  <BarChart2 className="h-5 w-5" style={{ color: 'rgb(34, 197, 94)' }} />
+              <div className="flex flex-col items-center text-center gap-2">
+                <div className="neumorphic-inset p-2.5 rounded-lg">
+                  <BarChart2 className="h-4 w-4" style={{ color: 'rgb(34, 197, 94)' }} />
                 </div>
                 <div>
-                  <h3 className="text-base font-bold text-foreground mb-1.5">No ROI Tracking</h3>
-                  <p className="text-xs text-muted-foreground leading-relaxed">Can't measure what's working? Our transparent analytics show you exactly where every dollar goes and what it returns.</p>
+                  <h3 className="text-sm font-bold text-foreground mb-1">No ROI Tracking</h3>
+                  <p className="text-xs text-muted-foreground leading-snug">Can't measure what's working? Our transparent analytics show you exactly where every dollar goes and what it returns.</p>
                 </div>
               </div>
             </GlowCard>
 
             <GlowCard 
-              className="neumorphic-card p-5 cursor-pointer" 
+              className="neumorphic-card p-4 cursor-pointer" 
               data-testid="card-challenge-outdated"
             >
-              <div className="flex flex-col gap-3">
-                <div className="neumorphic-inset p-3 rounded-lg w-fit">
-                  <Monitor className="h-5 w-5" style={{ color: 'rgb(6, 182, 212)' }} />
+              <div className="flex flex-col items-center text-center gap-2">
+                <div className="neumorphic-inset p-2.5 rounded-lg">
+                  <Monitor className="h-4 w-4" style={{ color: 'rgb(6, 182, 212)' }} />
                 </div>
                 <div>
-                  <h3 className="text-base font-bold text-foreground mb-1.5">Outdated Websites</h3>
-                  <p className="text-xs text-muted-foreground leading-relaxed">Your website should be your best salesperson. We build modern, fast, conversion-focused sites that work 24/7.</p>
+                  <h3 className="text-sm font-bold text-foreground mb-1">Outdated Websites</h3>
+                  <p className="text-xs text-muted-foreground leading-snug">Your website should be your best salesperson. We build modern, fast, conversion-focused sites that work 24/7.</p>
                 </div>
               </div>
             </GlowCard>
 
             <GlowCard 
-              className="neumorphic-card p-5 cursor-pointer" 
+              className="neumorphic-card p-4 cursor-pointer" 
               data-testid="card-challenge-crm"
             >
-              <div className="flex flex-col gap-3">
-                <div className="neumorphic-inset p-3 rounded-lg w-fit">
-                  <Database className="h-5 w-5" style={{ color: 'rgb(236, 72, 153)' }} />
+              <div className="flex flex-col items-center text-center gap-2">
+                <div className="neumorphic-inset p-2.5 rounded-lg">
+                  <Database className="h-4 w-4" style={{ color: 'rgb(236, 72, 153)' }} />
                 </div>
                 <div>
-                  <h3 className="text-base font-bold text-foreground mb-1.5">No CRM Integration</h3>
-                  <p className="text-xs text-muted-foreground leading-relaxed">Leads slipping through the cracks? We set up and optimize your CRM so no opportunity is ever missed.</p>
+                  <h3 className="text-sm font-bold text-foreground mb-1">No CRM Integration</h3>
+                  <p className="text-xs text-muted-foreground leading-snug">Leads slipping through the cracks? We set up and optimize your CRM so no opportunity is ever missed.</p>
                 </div>
               </div>
             </GlowCard>
 
             <GlowCard 
-              className="neumorphic-card p-5 cursor-pointer md:col-span-2 lg:col-span-3" 
+              className="neumorphic-card p-4 cursor-pointer col-span-2" 
               data-testid="card-challenge-fatigue"
             >
-              <div className="flex flex-col sm:flex-row gap-3">
-                <div className="neumorphic-inset p-3 rounded-lg w-fit">
-                  <AlertTriangle className="h-5 w-5" style={{ color: 'rgb(234, 179, 8)' }} />
+              <div className="flex flex-col items-center text-center gap-2">
+                <div className="neumorphic-inset p-2.5 rounded-lg">
+                  <AlertTriangle className="h-4 w-4" style={{ color: 'rgb(234, 179, 8)' }} />
                 </div>
                 <div>
-                  <h3 className="text-base font-bold text-foreground mb-1.5">Ad Fatigue & Wasted Spend</h3>
-                  <p className="text-xs text-muted-foreground leading-relaxed">Burning through ad budgets with diminishing returns? Our data-driven approach ensures every campaign stays fresh and effective.</p>
+                  <h3 className="text-sm font-bold text-foreground mb-1">Ad Fatigue & Wasted Spend</h3>
+                  <p className="text-xs text-muted-foreground leading-snug">Burning through ad budgets with diminishing returns? Our data-driven approach ensures every campaign stays fresh and effective.</p>
                 </div>
               </div>
             </GlowCard>
