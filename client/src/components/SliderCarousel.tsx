@@ -38,9 +38,11 @@ export function SliderCarousel({ slides }: SliderCarouselProps) {
   };
 
   const handleNavClick = (index: number) => {
-    if (isAnimating || index === currentIndex) return;
+    // Calculate the currentIndex needed to display the clicked slide at position 1
+    const targetIndex = (index - 1 + slides.length) % slides.length;
+    if (isAnimating || targetIndex === currentIndex) return;
     setIsAnimating(true);
-    setCurrentIndex(index);
+    setCurrentIndex(targetIndex);
     setTimeout(() => setIsAnimating(false), 500);
   };
 
@@ -59,6 +61,9 @@ export function SliderCarousel({ slides }: SliderCarouselProps) {
     const index = (currentIndex + position) % slides.length;
     return slides[index >= 0 ? index : index + slides.length];
   };
+
+  // Calculate which slide is currently active (displayed at position 1)
+  const activeSlideIndex = (currentIndex + 1) % slides.length;
 
   return (
     <div className="slider-carousel-container" data-testid="slider-carousel">
@@ -87,7 +92,7 @@ export function SliderCarousel({ slides }: SliderCarouselProps) {
                   key={slide.id}
                   onClick={() => handleNavClick(index)}
                   disabled={isAnimating}
-                  className={`slider-carousel-nav-item ${index === currentIndex ? 'active' : ''}`}
+                  className={`slider-carousel-nav-item ${index === activeSlideIndex ? 'active' : ''}`}
                   data-testid={`nav-item-${index}`}
                   aria-label={`Go to slide ${index + 1}: ${slide.title}`}
                 >
