@@ -287,12 +287,12 @@
     0deg,
     transparent 0px,
     transparent 40px,
-    rgba(96, 165, 250, 0.08) 40px,
-    rgba(96, 165, 250, 0.08) 41px
+    rgba(255, 255, 255, 0.02) 40px,
+    rgba(255, 255, 255, 0.02) 41px
   );
   animation: challenge-blue-ranking 8s linear infinite;
   pointer-events: none;
-  z-index: 1;
+  z-index: 0;
 }
 
 .challenge-bg-blue::after {
@@ -304,14 +304,14 @@
   height: 1px;
   background: linear-gradient(90deg, 
     transparent 0%,
-    rgba(96, 165, 250, 0.1) 10%,
-    rgba(96, 165, 250, 0.15) 50%,
-    rgba(96, 165, 250, 0.1) 90%,
+    rgba(255, 255, 255, 0.03) 10%,
+    rgba(255, 255, 255, 0.04) 50%,
+    rgba(255, 255, 255, 0.03) 90%,
     transparent 100%
   );
   animation: challenge-blue-data-line 4s ease-in-out infinite;
   pointer-events: none;
-  z-index: 1;
+  z-index: 0;
 }
 
 .challenge-bg-orange {
@@ -330,12 +330,12 @@
   width: 60%;
   height: 70%;
   background: 
-    linear-gradient(0deg, transparent 0%, transparent 60%, rgba(251, 146, 60, 0.1) 60%, rgba(251, 146, 60, 0.1) 61%, transparent 61%),
-    linear-gradient(0deg, transparent 0%, transparent 40%, rgba(251, 146, 60, 0.12) 40%, rgba(251, 146, 60, 0.12) 41%, transparent 41%),
-    linear-gradient(0deg, transparent 0%, transparent 20%, rgba(251, 146, 60, 0.1) 20%, rgba(251, 146, 60, 0.1) 21%, transparent 21%);
+    linear-gradient(0deg, transparent 0%, transparent 60%, rgba(255, 255, 255, 0.025) 60%, rgba(255, 255, 255, 0.025) 61%, transparent 61%),
+    linear-gradient(0deg, transparent 0%, transparent 40%, rgba(255, 255, 255, 0.03) 40%, rgba(255, 255, 255, 0.03) 41%, transparent 41%),
+    linear-gradient(0deg, transparent 0%, transparent 20%, rgba(255, 255, 255, 0.025) 20%, rgba(255, 255, 255, 0.025) 21%, transparent 21%);
   animation: challenge-orange-funnel 6s ease-in-out infinite;
   pointer-events: none;
-  z-index: 1;
+  z-index: 0;
 }
 
 .challenge-bg-orange::after {
@@ -344,15 +344,15 @@
   bottom: 15%;
   left: 15%;
   width: 70%;
-  height: 2px;
+  height: 1px;
   background: linear-gradient(90deg, 
-    rgba(251, 146, 60, 0.1) 0%,
-    rgba(251, 146, 60, 0.15) 50%,
-    rgba(251, 146, 60, 0.1) 100%
+    rgba(255, 255, 255, 0.025) 0%,
+    rgba(255, 255, 255, 0.04) 50%,
+    rgba(255, 255, 255, 0.025) 100%
   );
   animation: challenge-orange-conversion 3s ease-in-out infinite;
   pointer-events: none;
-  z-index: 1;
+  z-index: 0;
 }
 
 .challenge-bg-purple {
