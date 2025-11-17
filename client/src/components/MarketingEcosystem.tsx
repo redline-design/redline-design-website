@@ -137,18 +137,20 @@ export default function MarketingEcosystem() {
           const y = Math.sin(angleInRadians) * radius;
 
           return (
-            <motion.div
+            <div
               key={channel.label}
-              initial={{ scale: 0, opacity: 0 }}
-              animate={isInView ? { scale: 1, opacity: 1 } : {}}
-              transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
               className="absolute top-1/2 left-1/2 z-10 w-32 h-32"
               style={{
                 transform: `translate(-50%, -50%) translate(${x}px, ${y}px)`,
               }}
               data-testid={`ecosystem-channel-${index}`}
             >
-              <div className="neumorphic-card p-4 rounded-2xl bg-[#1e1e1e] cursor-pointer hover-elevate active-elevate-2 w-full h-full flex flex-col items-center justify-center">
+              <motion.div
+                initial={{ scale: 0, opacity: 0 }}
+                animate={isInView ? { scale: 1, opacity: 1 } : {}}
+                transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
+                className="neumorphic-card p-4 rounded-2xl bg-[#1e1e1e] cursor-pointer hover-elevate active-elevate-2 w-full h-full flex flex-col items-center justify-center"
+              >
                 <Icon 
                   className="h-10 w-10 mb-2 flex-shrink-0" 
                   style={{ 
@@ -159,8 +161,8 @@ export default function MarketingEcosystem() {
                 <p className="text-xs font-semibold text-foreground text-center leading-tight">
                   {channel.label}
                 </p>
-              </div>
-            </motion.div>
+              </motion.div>
+            </div>
           );
         })}
       </div>
