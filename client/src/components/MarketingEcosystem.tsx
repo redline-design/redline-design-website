@@ -88,9 +88,9 @@ export default function MarketingEcosystem() {
           return (
             <div
               key={channel.label}
-              className="absolute top-1/2 left-1/2 z-10"
+              className="absolute top-1/2 left-1/2 z-10 w-32 h-32"
               style={{
-                transform: `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`,
+                transform: `translate(-50%, -50%) translate(${x}px, ${y}px)`,
               }}
               data-testid={`ecosystem-channel-${index}`}
             >
@@ -146,7 +146,7 @@ export default function MarketingEcosystem() {
                 initial={{ scale: 0, opacity: 0 }}
                 animate={isInView ? { scale: 1, opacity: 1 } : {}}
                 transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
-                className="relative neumorphic-card p-4 rounded-2xl bg-[#1e1e1e] cursor-pointer hover-elevate active-elevate-2 w-32 h-32 flex flex-col items-center justify-center"
+                className="relative neumorphic-card p-4 rounded-2xl bg-[#1e1e1e] cursor-pointer hover-elevate active-elevate-2 w-full h-full flex flex-col items-center justify-center"
               >
                 <Icon 
                   className="h-10 w-10 mb-2 flex-shrink-0" 
