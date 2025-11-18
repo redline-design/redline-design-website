@@ -320,8 +320,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       // If remotePostId is provided, try to update the existing post
       if (remotePostId) {
-        const posts = await storage.getBlogPosts({ published: false });
-        const existingPost = posts.find(p => p.remotePostId === remotePostId);
+        const allPosts = await storage.getBlogPosts({});
+        const existingPost = allPosts.find(p => p.remotePostId === remotePostId);
         
         if (existingPost) {
           // Update the existing post
@@ -344,10 +344,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
       }
       
-      // Check for duplicate using idempotency key
+      // Check for duplicate using idempotency key (check both published and unpublished)
       if (idempotencyKey) {
-        const posts = await storage.getBlogPosts({ published: false });
-        const existingPost = posts.find(p => p.idempotencyKey === idempotencyKey);
+        const allPosts = await storage.getBlogPosts({});
+        const existingPost = allPosts.find(p => p.idempotencyKey === idempotencyKey);
         
         if (existingPost) {
           return res.json({ 
