@@ -8,6 +8,7 @@ import multer from "multer";
 import path from "path";
 import fs from "fs/promises";
 import { optimizeUploadedFile } from "./imageOptimizer";
+import sanitizeHtml from "sanitize-html";
 
 // API key middleware for external integrations
 const requireApiKey: RequestHandler = (req, res, next) => {
@@ -24,6 +25,49 @@ const requireApiKey: RequestHandler = (req, res, next) => {
   
   next();
 };
+
+// Redline OS API key middleware
+const requireRedlineApiKey: RequestHandler = (req, res, next) => {
+  const apiKey = req.headers['x-redline-api-key'];
+  const validApiKey = process.env.REDLINE_API_KEY;
+  
+  if (!validApiKey) {
+    return res.status(500).json({ error: "Redline API key not configured on server" });
+  }
+  
+  if (!apiKey) {
+    return res.status(401).json({ error: "Missing API key" });
+  }
+  
+  if (apiKey !== validApiKey) {
+    return res.status(401).json({ error: "Invalid API key" });
+  }
+  
+  next();
+};
+
+// Helper function to generate URL-friendly slug
+function generateSlug(title: string): string {
+  return title
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '');
+}
+
+// Helper function to sanitize HTML content
+function sanitizeContent(html: string): string {
+  return sanitizeHtml(html, {
+    allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'iframe']),
+    allowedAttributes: {
+      ...sanitizeHtml.defaults.allowedAttributes,
+      '*': ['class', 'id', 'style'],
+      img: ['src', 'alt', 'title', 'width', 'height', 'loading'],
+      a: ['href', 'target', 'rel'],
+      iframe: ['src', 'width', 'height', 'frameborder', 'allowfullscreen']
+    },
+    allowedIframeHostnames: ['www.youtube.com', 'player.vimeo.com']
+  });
+}
 
 // Configure multer for file uploads
 const uploadDir = path.join(process.cwd(), 'attached_assets', 'portfolio_logos');
@@ -247,6 +291,100 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error: any) {
       console.error("Error upserting blog post via external API:", error);
       res.status(400).json({ error: "Failed to upsert blog post", details: error.message });
+    }
+  });
+
+  // Redline OS SEO Tool Integration Endpoint
+  app.post("/api/redline/content", requireRedlineApiKey, async (req, res) => {
+    try {
+      const {
+        title,
+        body,
+        metaDescription,
+        slug,
+        imageUrl,
+        idempotencyKey,
+        remotePostId
+      } = req.body;
+      
+      // Validate required fields
+      if (!title || !body) {
+        return res.status(400).json({ error: 'Missing required fields: title and body' });
+      }
+      
+      // Sanitize HTML content for security
+      const sanitizedContent = sanitizeContent(body);
+      
+      // Generate slug if not provided
+      const finalSlug = slug || generateSlug(title);
+      
+      // If remotePostId is provided, try to update the existing post
+      if (remotePostId) {
+        const posts = await storage.getBlogPosts({ published: false });
+        const existingPost = posts.find(p => p.remotePostId === remotePostId);
+        
+        if (existingPost) {
+          // Update the existing post
+          const updatedPost = await storage.updateBlogPost(existingPost.id, {
+            title,
+            content: sanitizedContent,
+            metaDescription,
+            slug: finalSlug,
+            imageUrl,
+            idempotencyKey,
+            published: true,
+            publishedAt: new Date(),
+          });
+          
+          return res.json({ 
+            postId: updatedPost.id,
+            status: 'updated',
+            url: `https://www.redlinedesignllc.com/blog/${updatedPost.slug}`
+          });
+        }
+      }
+      
+      // Check for duplicate using idempotency key
+      if (idempotencyKey) {
+        const posts = await storage.getBlogPosts({ published: false });
+        const existingPost = posts.find(p => p.idempotencyKey === idempotencyKey);
+        
+        if (existingPost) {
+          return res.json({ 
+            postId: existingPost.id, 
+            status: 'already_exists',
+            url: `https://www.redlinedesignllc.com/blog/${existingPost.slug}`
+          });
+        }
+      }
+      
+      // Create a new blog post
+      const newPost = await storage.createBlogPost({
+        title,
+        content: sanitizedContent,
+        metaDescription,
+        slug: finalSlug,
+        imageUrl,
+        idempotencyKey,
+        remotePostId,
+        excerpt: metaDescription || body.substring(0, 160).replace(/<[^>]*>/g, ''),
+        category: 'SEO & Marketing',
+        author: 'Redline Design LLC',
+        readTime: `${Math.ceil(body.split(' ').length / 200)} min read`,
+        featured: false,
+        published: true,
+        publishedAt: new Date(),
+      });
+      
+      res.json({ 
+        postId: newPost.id,
+        status: 'created',
+        url: `https://www.redlinedesignllc.com/blog/${newPost.slug}`
+      });
+      
+    } catch (error: any) {
+      console.error('Error creating/updating blog post from Redline OS:', error);
+      res.status(500).json({ error: 'Failed to create/update blog post', details: error.message });
     }
   });
 
