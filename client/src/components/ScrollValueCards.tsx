@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { motion, useScroll, useTransform, MotionValue } from "framer-motion";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { Card, CardContent } from "@/components/ui/card";
@@ -25,12 +25,16 @@ interface AnimatedValueCardProps {
   totalCards: number;
   spreadProgress: MotionValue<number>;
   getSpreadPosition: (index: number, total: number) => { x: number; y: number };
+  hoveredIndex: number | null;
+  onHover: (index: number | null) => void;
 }
 
-function AnimatedValueCard({ card, index, totalCards, spreadProgress, getSpreadPosition }: AnimatedValueCardProps) {
+function AnimatedValueCard({ card, index, totalCards, spreadProgress, getSpreadPosition, hoveredIndex, onHover }: AnimatedValueCardProps) {
   const prefersReducedMotion = useReducedMotion();
   const Icon = card.icon;
   const spreadPos = getSpreadPosition(index, totalCards);
+  const isHovered = hoveredIndex === index;
+  const isOtherHovered = hoveredIndex !== null && hoveredIndex !== index;
   
   const rotation = useTransform(
     spreadProgress,
@@ -67,17 +71,32 @@ function AnimatedValueCard({ card, index, totalCards, spreadProgress, getSpreadP
         transformOrigin: "50% 100%",
         willChange: "transform",
       }}
+      onMouseEnter={() => onHover(index)}
+      onMouseLeave={() => onHover(null)}
     >
       <Card
         className="h-full transition-all duration-300 rounded-2xl backdrop-blur-md group hover-elevate active-elevate-2 overflow-hidden"
         data-testid={`card-value-${card.title.toLowerCase().replace(/\s/g, "-")}`}
         style={{ 
           height: "340px",
-          background: "rgba(20, 20, 20, 0.6)",
+          background: isOtherHovered ? "rgba(20, 20, 20, 0.3)" : "rgba(20, 20, 20, 0.6)",
           border: "1px solid rgba(255, 255, 255, 0.1)",
           boxShadow: "0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05)",
+          backdropFilter: isOtherHovered ? "blur(20px)" : "blur(0px)",
+          WebkitBackdropFilter: isOtherHovered ? "blur(20px)" : "blur(0px)",
         }}
       >
+        {/* Animated background on hover */}
+        {isHovered && (
+          <div 
+            className="absolute inset-0 opacity-30 pointer-events-none"
+            style={{
+              background: `radial-gradient(circle at 50% 50%, ${accentColor}40 0%, transparent 70%)`,
+              animation: "pulseGlow 2s ease-in-out infinite",
+            }}
+          />
+        )}
+        
         <CardContent className="p-5 w-full h-full relative z-10 flex flex-col">
           <div className="flex flex-col h-full">
             <div className="flex items-center gap-3 mb-4">
@@ -104,7 +123,7 @@ function AnimatedValueCard({ card, index, totalCards, spreadProgress, getSpreadP
                       width="16" 
                       height="16" 
                       viewBox="0 0 16 16"
-                      style={{ color: accentColor }}
+                      style={{ color: "#00ff88" }}
                     >
                       <rect width="16" height="16" rx="3" fill="currentColor" opacity="0.2" />
                       <path 
@@ -136,6 +155,7 @@ function AnimatedValueCard({ card, index, totalCards, spreadProgress, getSpreadP
 
 export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -304,6 +324,8 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
                 totalCards={cards.length}
                 spreadProgress={spreadProgress}
                 getSpreadPosition={getSpreadPosition}
+                hoveredIndex={hoveredIndex}
+                onHover={setHoveredIndex}
               />
             ))}
           </div>
