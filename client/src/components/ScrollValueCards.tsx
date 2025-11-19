@@ -148,9 +148,10 @@ function AnimatedValueCard({ card, index, totalCards, spreadProgress, getSpreadP
         
         <CardContent className="p-5 pb-8 w-full h-full relative z-10 flex flex-col">
           <div className="flex flex-col h-full">
-            <div className="flex items-center gap-3 mb-4">
+            {/* Icon centered at top */}
+            <div className="flex justify-center mb-3">
               <div 
-                className="flex-shrink-0 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3"
+                className="transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3"
               >
                 <Icon 
                   className="h-10 w-10" 
@@ -158,10 +159,12 @@ function AnimatedValueCard({ card, index, totalCards, spreadProgress, getSpreadP
                   data-testid={`icon-value-${card.title.toLowerCase().replace(/\s/g, "-")}`} 
                 />
               </div>
-              <h3 className="text-lg font-bold text-foreground whitespace-nowrap" data-testid={`text-value-title-${card.title.toLowerCase().replace(/\s/g, "-")}`}>
-                {card.title}
-              </h3>
             </div>
+            
+            {/* Title centered below icon */}
+            <h3 className="text-lg font-bold text-foreground text-center mb-6" data-testid={`text-value-title-${card.title.toLowerCase().replace(/\s/g, "-")}`}>
+              {card.title}
+            </h3>
             
             {card.bullets ? (
               <div className="flex-1 space-y-3.5">
