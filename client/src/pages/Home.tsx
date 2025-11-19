@@ -400,8 +400,13 @@ export default function Home() {
         <div className="home-snap-section">
           <div 
             id="learn-more" 
-            className="home-snap-content bg-background"
-            style={{ zIndex: 10 }}
+            className="home-snap-content"
+            style={{ 
+              zIndex: 10,
+              background: 'rgba(10, 10, 10, 0.4)',
+              backdropFilter: 'blur(20px)',
+              WebkitBackdropFilter: 'blur(20px)',
+            }}
           >
             <div className="w-full">
               <HorizontalScrollServices />
@@ -412,8 +417,13 @@ export default function Home() {
         {/* Section 2: Slider Carousel */}
         <div className="home-snap-section">
           <section 
-            className="home-snap-content py-2 px-2 sm:px-3 lg:px-4 bg-background" 
-            style={{ zIndex: 20 }}
+            className="home-snap-content py-2 px-2 sm:px-3 lg:px-4" 
+            style={{ 
+              zIndex: 20,
+              background: 'rgba(10, 10, 10, 0.4)',
+              backdropFilter: 'blur(20px)',
+              WebkitBackdropFilter: 'blur(20px)',
+            }}
             data-testid="section-differentiators"
           >
             <div className="w-full">
@@ -425,8 +435,13 @@ export default function Home() {
         {/* Section 3: Scroll Value Cards */}
         <div className="home-snap-section">
           <section 
-            className="home-snap-content py-2 px-2 sm:px-3 lg:px-4 bg-background" 
-            style={{ zIndex: 30 }}
+            className="home-snap-content py-2 px-2 sm:px-3 lg:px-4" 
+            style={{ 
+              zIndex: 30,
+              background: 'rgba(10, 10, 10, 0.4)',
+              backdropFilter: 'blur(20px)',
+              WebkitBackdropFilter: 'blur(20px)',
+            }}
             data-testid="section-why-us"
           >
             <div className="w-full">
@@ -526,8 +541,13 @@ export default function Home() {
         <div className="home-snap-section">
           <section 
             id="partners" 
-            className="home-snap-content py-2 px-2 sm:px-3 lg:px-4 bg-background" 
-            style={{ zIndex: 40 }}
+            className="home-snap-content py-2 px-2 sm:px-3 lg:px-4" 
+            style={{ 
+              zIndex: 40,
+              background: 'rgba(10, 10, 10, 0.4)',
+              backdropFilter: 'blur(20px)',
+              WebkitBackdropFilter: 'blur(20px)',
+            }}
             data-testid="section-partners"
           >
             <div className="w-full">
@@ -653,8 +673,13 @@ export default function Home() {
         {/* Section 5: CTA Band */}
         <div className="home-snap-section">
           <section 
-            className="home-snap-content py-2 px-2 sm:px-3 lg:px-4 neumorphic-section bg-background" 
-            style={{ zIndex: 50 }}
+            className="home-snap-content py-2 px-2 sm:px-3 lg:px-4 neumorphic-section" 
+            style={{ 
+              zIndex: 50,
+              background: 'rgba(10, 10, 10, 0.4)',
+              backdropFilter: 'blur(20px)',
+              WebkitBackdropFilter: 'blur(20px)',
+            }}
             data-testid="section-cta"
           >
             <div className="w-full max-w-7xl mx-auto">
