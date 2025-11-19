@@ -396,7 +396,11 @@ export default function Home() {
       <Hero />
 
       <ScrollAnimatedSection>
-        <div id="learn-more">
+        <div 
+          id="learn-more" 
+          className="sticky top-0 bg-background"
+          style={{ zIndex: 10 }}
+        >
           <HorizontalScrollServices />
         </div>
       </ScrollAnimatedSection>
@@ -404,7 +408,11 @@ export default function Home() {
       <SectionDivider />
 
       <ScrollAnimatedSection>
-        <section className="py-2 px-2 sm:px-3 lg:px-4" data-testid="section-differentiators">
+        <section 
+          className="sticky top-0 py-2 px-2 sm:px-3 lg:px-4 bg-background" 
+          style={{ zIndex: 20 }}
+          data-testid="section-differentiators"
+        >
           <SliderCarousel slides={sliderSlides} />
       </section>
       </ScrollAnimatedSection>
@@ -412,7 +420,11 @@ export default function Home() {
       <SectionDivider />
 
       <ScrollAnimatedSection>
-        <section className="py-2 px-2 sm:px-3 lg:px-4" data-testid="section-why-us">
+        <section 
+          className="sticky top-0 py-2 px-2 sm:px-3 lg:px-4 bg-background" 
+          style={{ zIndex: 30 }}
+          data-testid="section-why-us"
+        >
           <ScrollValueCards
             cards={[
               {
@@ -507,7 +519,12 @@ export default function Home() {
       <SectionDivider />
 
       <ScrollAnimatedSection>
-        <section id="partners" className="py-2 px-2 sm:px-3 lg:px-4" data-testid="section-partners">
+        <section 
+          id="partners" 
+          className="sticky top-0 py-2 px-2 sm:px-3 lg:px-4 bg-background" 
+          style={{ zIndex: 40 }}
+          data-testid="section-partners"
+        >
           <div className="relative mx-auto" style={{ width: "95%", maxWidth: "2400px" }}>
             <div 
               className="relative rounded-2xl px-8 py-12"
@@ -629,7 +646,11 @@ export default function Home() {
       <SectionDivider />
 
       <ScrollAnimatedSection>
-        <section className="py-2 px-2 sm:px-3 lg:px-4 neumorphic-section" data-testid="section-cta">
+        <section 
+          className="sticky top-0 py-2 px-2 sm:px-3 lg:px-4 neumorphic-section bg-background" 
+          style={{ zIndex: 50 }}
+          data-testid="section-cta"
+        >
         <div className="max-w-7xl mx-auto">
           <CTABand
             title="Book a Free Consultation Today!"
