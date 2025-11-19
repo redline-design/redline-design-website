@@ -395,32 +395,41 @@ export default function Home() {
     <div>
       <Hero />
 
-      <div className="relative" style={{ minHeight: '150vh' }}>
-        <div 
-          id="learn-more" 
-          className="sticky top-0 bg-background"
-          style={{ zIndex: 10 }}
-        >
-          <HorizontalScrollServices />
+      <div className="home-snap-container">
+        {/* Section 1: Horizontal Scroll Services */}
+        <div className="home-snap-section">
+          <div 
+            id="learn-more" 
+            className="home-snap-content bg-background"
+            style={{ zIndex: 10 }}
+          >
+            <div className="w-full">
+              <HorizontalScrollServices />
+            </div>
+          </div>
         </div>
-      </div>
 
-      <div className="relative" style={{ minHeight: '150vh' }}>
-        <section 
-          className="sticky top-0 py-2 px-2 sm:px-3 lg:px-4 bg-background" 
-          style={{ zIndex: 20 }}
-          data-testid="section-differentiators"
-        >
-          <SliderCarousel slides={sliderSlides} />
-        </section>
-      </div>
+        {/* Section 2: Slider Carousel */}
+        <div className="home-snap-section">
+          <section 
+            className="home-snap-content py-2 px-2 sm:px-3 lg:px-4 bg-background" 
+            style={{ zIndex: 20 }}
+            data-testid="section-differentiators"
+          >
+            <div className="w-full">
+              <SliderCarousel slides={sliderSlides} />
+            </div>
+          </section>
+        </div>
 
-      <div className="relative" style={{ minHeight: '150vh' }}>
-        <section 
-          className="sticky top-0 py-2 px-2 sm:px-3 lg:px-4 bg-background" 
-          style={{ zIndex: 30 }}
-          data-testid="section-why-us"
-        >
+        {/* Section 3: Scroll Value Cards */}
+        <div className="home-snap-section">
+          <section 
+            className="home-snap-content py-2 px-2 sm:px-3 lg:px-4 bg-background" 
+            style={{ zIndex: 30 }}
+            data-testid="section-why-us"
+          >
+            <div className="w-full">
           <ScrollValueCards
             cards={[
               {
@@ -509,16 +518,19 @@ export default function Home() {
               },
             ]}
           />
-        </section>
-      </div>
+            </div>
+          </section>
+        </div>
 
-      <div className="relative" style={{ minHeight: '150vh' }}>
-        <section 
-          id="partners" 
-          className="sticky top-0 py-2 px-2 sm:px-3 lg:px-4 bg-background" 
-          style={{ zIndex: 40 }}
-          data-testid="section-partners"
-        >
+        {/* Section 4: Partners & Metrics */}
+        <div className="home-snap-section">
+          <section 
+            id="partners" 
+            className="home-snap-content py-2 px-2 sm:px-3 lg:px-4 bg-background" 
+            style={{ zIndex: 40 }}
+            data-testid="section-partners"
+          >
+            <div className="w-full">
           <div className="relative mx-auto" style={{ width: "95%", maxWidth: "2400px" }}>
             <div 
               className="relative rounded-2xl px-8 py-12"
@@ -634,24 +646,27 @@ export default function Home() {
               </div>
             </div>
           </div>
-        </section>
-      </div>
-
-      <div className="relative" style={{ minHeight: '100vh' }}>
-        <section 
-          className="sticky top-0 py-2 px-2 sm:px-3 lg:px-4 neumorphic-section bg-background" 
-          style={{ zIndex: 50 }}
-          data-testid="section-cta"
-        >
-        <div className="max-w-7xl mx-auto">
-          <CTABand
-            title="Book a Free Consultation Today!"
-            subtitle="Let's discuss how we can grow your business with data-driven marketing."
-            buttonText="Get Started"
-            buttonLink="/book-a-demo"
-          />
+            </div>
+          </section>
         </div>
-      </section>
+
+        {/* Section 5: CTA Band */}
+        <div className="home-snap-section">
+          <section 
+            className="home-snap-content py-2 px-2 sm:px-3 lg:px-4 neumorphic-section bg-background" 
+            style={{ zIndex: 50 }}
+            data-testid="section-cta"
+          >
+            <div className="w-full max-w-7xl mx-auto">
+              <CTABand
+                title="Book a Free Consultation Today!"
+                subtitle="Let's discuss how we can grow your business with data-driven marketing."
+                buttonText="Get Started"
+                buttonLink="/book-a-demo"
+              />
+            </div>
+          </section>
+        </div>
       </div>
 
       <StickyConversionBar />

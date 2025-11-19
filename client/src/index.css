@@ -2,6 +2,43 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Homepage Scroll-Snap Layering */
+.home-snap-container {
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+  overflow-y: scroll;
+  height: 100vh;
+  overflow-x: hidden;
+}
+
+.home-snap-section {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  min-height: 100svh;
+  position: relative;
+}
+
+.home-snap-content {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Disable snap on reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .home-snap-container {
+    scroll-snap-type: none;
+    scroll-behavior: auto;
+  }
+  .home-snap-section {
+    scroll-snap-align: none;
+    scroll-snap-stop: normal;
+  }
+}
+
 /* ScrollValueCards - Pulsing glow animation for hovered cards */
 @keyframes pulseGlow {
   0% {
