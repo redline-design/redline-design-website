@@ -7,7 +7,8 @@ import { LucideIcon } from "lucide-react";
 interface ValueCardData {
   icon: LucideIcon;
   title: string;
-  description: string;
+  description?: string;
+  bullets?: string[];
   index: number;
   accentColor?: string;
   gradientFrom?: string;
@@ -78,22 +79,54 @@ function AnimatedValueCard({ card, index, totalCards, spreadProgress, getSpreadP
         }}
       >
         <CardContent className="p-5 w-full h-full relative z-10 flex flex-col">
-          <div className="flex flex-col items-center text-center h-full">
-            <div 
-              className="flex-shrink-0 mb-4 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3"
-            >
-              <Icon 
-                className="h-9 w-9" 
-                style={{ color: accentColor, filter: `drop-shadow(0 0 10px ${accentColor}80)` }}
-                data-testid={`icon-value-${card.title.toLowerCase().replace(/\s/g, "-")}`} 
-              />
+          <div className="flex flex-col h-full">
+            <div className="flex items-center gap-3 mb-4">
+              <div 
+                className="flex-shrink-0 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3"
+              >
+                <Icon 
+                  className="h-8 w-8" 
+                  style={{ color: accentColor, filter: `drop-shadow(0 0 10px ${accentColor}80)` }}
+                  data-testid={`icon-value-${card.title.toLowerCase().replace(/\s/g, "-")}`} 
+                />
+              </div>
+              <h3 className="text-lg font-bold text-foreground" data-testid={`text-value-title-${card.title.toLowerCase().replace(/\s/g, "-")}`}>
+                {card.title}
+              </h3>
             </div>
-            <h3 className="text-base font-semibold text-foreground mb-3" data-testid={`text-value-title-${card.title.toLowerCase().replace(/\s/g, "-")}`}>
-              {card.title}
-            </h3>
-            <p className="text-sm text-muted-foreground leading-relaxed flex-1 flex items-center" data-testid={`text-value-description-${card.title.toLowerCase().replace(/\s/g, "-")}`}>
-              {card.description}
-            </p>
+            
+            {card.bullets ? (
+              <div className="flex-1 space-y-2.5">
+                {card.bullets.map((bullet, idx) => (
+                  <div key={idx} className="flex items-start gap-2.5 text-left">
+                    <svg 
+                      className="flex-shrink-0 mt-0.5" 
+                      width="16" 
+                      height="16" 
+                      viewBox="0 0 16 16"
+                      style={{ color: accentColor }}
+                    >
+                      <rect width="16" height="16" rx="3" fill="currentColor" opacity="0.2" />
+                      <path 
+                        d="M12 5L6.5 10.5L4 8" 
+                        stroke="currentColor" 
+                        strokeWidth="2" 
+                        strokeLinecap="round" 
+                        strokeLinejoin="round"
+                        fill="none"
+                      />
+                    </svg>
+                    <span className="text-sm text-muted-foreground leading-snug flex-1">
+                      {bullet}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            ) : card.description ? (
+              <p className="text-sm text-muted-foreground leading-relaxed flex-1" data-testid={`text-value-description-${card.title.toLowerCase().replace(/\s/g, "-")}`}>
+                {card.description}
+              </p>
+            ) : null}
           </div>
         </CardContent>
       </Card>

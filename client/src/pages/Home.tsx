@@ -423,56 +423,74 @@ export default function Home() {
               {
                 icon: TrendingUp,
                 title: "Maximum ROI",
-                description: "Average 7x return on investment with some clients achieving up to 14x. We focus relentlessly on revenue growth.",
+                bullets: [
+                  "Average 7x return on investment",
+                  "Some clients achieving up to 14x ROI",
+                  "Focus relentlessly on revenue growth",
+                  "Data-driven optimization"
+                ],
                 index: 0,
                 accentColor: "#ff0000",
-                gradientFrom: "rgba(255, 0, 0, 0.15)",
-                gradientTo: "rgba(0, 0, 0, 0.4)",
               },
               {
                 icon: DollarSign,
                 title: "Surprisingly Affordable",
-                description: "Enterprise-level marketing starting at just $500/mo. No long-term contracts or hidden fees.",
+                bullets: [
+                  "Enterprise-level marketing from $500/mo",
+                  "No long-term contracts required",
+                  "No hidden fees or surprises",
+                  "Flexible pricing plans"
+                ],
                 index: 1,
                 accentColor: "#00ff88",
-                gradientFrom: "rgba(0, 255, 136, 0.12)",
-                gradientTo: "rgba(0, 0, 0, 0.4)",
               },
               {
                 icon: Zap,
                 title: "Quick Turnaround",
-                description: "Most updates completed within 24 business hours. We move fast so you can capitalize on opportunities.",
+                bullets: [
+                  "Most updates within 24 business hours",
+                  "Fast-paced execution",
+                  "Capitalize on opportunities quickly",
+                  "Agile workflow processes"
+                ],
                 index: 2,
                 accentColor: "#ffaa00",
-                gradientFrom: "rgba(255, 170, 0, 0.15)",
-                gradientTo: "rgba(0, 0, 0, 0.4)",
               },
               {
                 icon: Target,
                 title: "Success Driven",
-                description: "We measure everything that matters. Real-time dashboards track conversions, ROI, and customer acquisition.",
+                bullets: [
+                  "Measure everything that matters",
+                  "Real-time performance dashboards",
+                  "Track conversions and ROI live",
+                  "Customer acquisition metrics"
+                ],
                 index: 3,
                 accentColor: "#0088ff",
-                gradientFrom: "rgba(0, 136, 255, 0.15)",
-                gradientTo: "rgba(0, 0, 0, 0.4)",
               },
               {
                 icon: Briefcase,
                 title: "Full Service",
-                description: "Web design, SEO, PPC, social media, email marketing, CRM, and creative—all under one roof.",
+                bullets: [
+                  "Web design & development",
+                  "SEO, PPC & paid advertising",
+                  "Social media & content marketing",
+                  "Email marketing & CRM integration"
+                ],
                 index: 4,
                 accentColor: "#aa00ff",
-                gradientFrom: "rgba(170, 0, 255, 0.12)",
-                gradientTo: "rgba(0, 0, 0, 0.4)",
               },
               {
                 icon: Users,
                 title: "Individual Focus",
-                description: "Personalized strategies tailored to your business goals, industry, and target audience. No cookie-cutter solutions.",
+                bullets: [
+                  "Personalized strategies for your business",
+                  "Tailored to your industry & audience",
+                  "No cookie-cutter solutions",
+                  "Dedicated account management"
+                ],
                 index: 5,
                 accentColor: "#ff0088",
-                gradientFrom: "rgba(255, 0, 136, 0.12)",
-                gradientTo: "rgba(0, 0, 0, 0.4)",
               },
             ]}
           />
