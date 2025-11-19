@@ -77,25 +77,23 @@ function AnimatedValueCard({ card, index, totalCards, spreadProgress, getSpreadP
           boxShadow: "0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05)",
         }}
       >
-        <CardContent className="p-6 w-full h-full relative z-10">
-          <div className="flex flex-col items-center text-center gap-4 h-full">
+        <CardContent className="p-5 w-full h-full relative z-10 flex flex-col">
+          <div className="flex flex-col items-center text-center h-full">
             <div 
-              className="flex-shrink-0 p-4 rounded-lg transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3 mt-3"
+              className="flex-shrink-0 mb-4 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3"
             >
               <Icon 
-                className="h-10 w-10" 
+                className="h-9 w-9" 
                 style={{ color: accentColor, filter: `drop-shadow(0 0 10px ${accentColor}80)` }}
                 data-testid={`icon-value-${card.title.toLowerCase().replace(/\s/g, "-")}`} 
               />
             </div>
-            <div className="flex-1 flex flex-col justify-center">
-              <h3 className="text-base font-semibold text-foreground mb-3" data-testid={`text-value-title-${card.title.toLowerCase().replace(/\s/g, "-")}`}>
-                {card.title}
-              </h3>
-              <p className="text-sm text-muted-foreground leading-relaxed" data-testid={`text-value-description-${card.title.toLowerCase().replace(/\s/g, "-")}`}>
-                {card.description}
-              </p>
-            </div>
+            <h3 className="text-base font-semibold text-foreground mb-3" data-testid={`text-value-title-${card.title.toLowerCase().replace(/\s/g, "-")}`}>
+              {card.title}
+            </h3>
+            <p className="text-sm text-muted-foreground leading-relaxed flex-1 flex items-center" data-testid={`text-value-description-${card.title.toLowerCase().replace(/\s/g, "-")}`}>
+              {card.description}
+            </p>
           </div>
         </CardContent>
       </Card>
@@ -117,7 +115,7 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
   // Calculate positions for each card when spread out - single row
   const getSpreadPosition = (index: number, total: number) => {
     const cardWidth = 280;
-    const spacing = total <= 6 ? 360 : 320; // More spacing for larger cards
+    const spacing = total <= 6 ? 310 : 290; // Tighter spacing to fit within view
     const xOffset = (index - (total - 1) / 2) * spacing;
     return { x: xOffset, y: 0 };
   };
@@ -136,12 +134,13 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
         }}
       >
         <div 
-          className="relative rounded-2xl overflow-hidden" 
+          className="relative rounded-2xl" 
           style={{ 
             width: "100%", 
             height: "400px",
             border: "1px solid rgba(255, 255, 255, 0.1)",
             boxShadow: "0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1)",
+            overflow: "visible",
           }}
         >
           {/* Animated hexagon background */}
