@@ -395,7 +395,7 @@ export default function Home() {
     <div>
       <Hero />
 
-      <ScrollAnimatedSection>
+      <div className="relative" style={{ minHeight: '150vh' }}>
         <div 
           id="learn-more" 
           className="sticky top-0 bg-background"
@@ -403,23 +403,19 @@ export default function Home() {
         >
           <HorizontalScrollServices />
         </div>
-      </ScrollAnimatedSection>
+      </div>
 
-      <SectionDivider />
-
-      <ScrollAnimatedSection>
+      <div className="relative" style={{ minHeight: '150vh' }}>
         <section 
           className="sticky top-0 py-2 px-2 sm:px-3 lg:px-4 bg-background" 
           style={{ zIndex: 20 }}
           data-testid="section-differentiators"
         >
           <SliderCarousel slides={sliderSlides} />
-      </section>
-      </ScrollAnimatedSection>
+        </section>
+      </div>
 
-      <SectionDivider />
-
-      <ScrollAnimatedSection>
+      <div className="relative" style={{ minHeight: '150vh' }}>
         <section 
           className="sticky top-0 py-2 px-2 sm:px-3 lg:px-4 bg-background" 
           style={{ zIndex: 30 }}
@@ -513,12 +509,10 @@ export default function Home() {
               },
             ]}
           />
-      </section>
-      </ScrollAnimatedSection>
+        </section>
+      </div>
 
-      <SectionDivider />
-
-      <ScrollAnimatedSection>
+      <div className="relative" style={{ minHeight: '150vh' }}>
         <section 
           id="partners" 
           className="sticky top-0 py-2 px-2 sm:px-3 lg:px-4 bg-background" 
@@ -641,11 +635,9 @@ export default function Home() {
             </div>
           </div>
         </section>
-      </ScrollAnimatedSection>
+      </div>
 
-      <SectionDivider />
-
-      <ScrollAnimatedSection>
+      <div className="relative" style={{ minHeight: '100vh' }}>
         <section 
           className="sticky top-0 py-2 px-2 sm:px-3 lg:px-4 neumorphic-section bg-background" 
           style={{ zIndex: 50 }}
@@ -660,7 +652,7 @@ export default function Home() {
           />
         </div>
       </section>
-      </ScrollAnimatedSection>
+      </div>
 
       <StickyConversionBar />
     </div>
