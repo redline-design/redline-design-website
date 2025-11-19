@@ -62,13 +62,14 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
         >
           {/* Technical background pattern */}
           <div
-            className="absolute inset-0 opacity-30"
+            className="absolute inset-0"
             style={{
+              background: "#0a0a0a",
               backgroundImage: `
-                linear-gradient(90deg, rgba(255, 0, 0, 0.1) 1px, transparent 1px),
-                linear-gradient(0deg, rgba(255, 0, 0, 0.1) 1px, transparent 1px),
-                linear-gradient(135deg, transparent 48%, rgba(0, 136, 255, 0.2) 49%, rgba(0, 136, 255, 0.2) 51%, transparent 52%),
-                linear-gradient(45deg, transparent 48%, rgba(0, 255, 136, 0.2) 49%, rgba(0, 255, 136, 0.2) 51%, transparent 52%)
+                linear-gradient(90deg, rgba(255, 0, 0, 0.3) 1px, transparent 1px),
+                linear-gradient(0deg, rgba(255, 0, 0, 0.3) 1px, transparent 1px),
+                linear-gradient(135deg, transparent 48%, rgba(0, 136, 255, 0.4) 49%, rgba(0, 136, 255, 0.4) 51%, transparent 52%),
+                linear-gradient(45deg, transparent 48%, rgba(0, 255, 136, 0.4) 49%, rgba(0, 255, 136, 0.4) 51%, transparent 52%)
               `,
               backgroundSize: "40px 40px, 40px 40px, 80px 80px, 80px 80px",
               backgroundPosition: "0 0, 0 0, 0 0, 40px 40px",
@@ -77,37 +78,43 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
           
           {/* Data visualization overlay */}
           <svg 
-            className="absolute inset-0 w-full h-full opacity-20"
-            style={{ mixBlendMode: 'screen' }}
+            className="absolute inset-0 w-full h-full"
+            style={{ opacity: 0.6 }}
           >
             <defs>
               <linearGradient id="graphGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" style={{ stopColor: '#ff0000', stopOpacity: 0.3 }} />
-                <stop offset="50%" style={{ stopColor: '#0088ff', stopOpacity: 0.3 }} />
-                <stop offset="100%" style={{ stopColor: '#00ff88', stopOpacity: 0.3 }} />
+                <stop offset="0%" style={{ stopColor: '#ff0000', stopOpacity: 1 }} />
+                <stop offset="50%" style={{ stopColor: '#0088ff', stopOpacity: 1 }} />
+                <stop offset="100%" style={{ stopColor: '#00ff88', stopOpacity: 1 }} />
               </linearGradient>
             </defs>
             <polyline
               fill="none"
               stroke="url(#graphGradient)"
-              strokeWidth="2"
+              strokeWidth="3"
               points="0,180 200,120 400,140 600,80 800,100 1000,60 1200,90 1400,50 1600,70 1800,40 2000,60 2200,30"
+              style={{ filter: 'drop-shadow(0 0 8px rgba(255, 0, 0, 0.5))' }}
             />
             <polyline
               fill="none"
-              stroke="rgba(255, 170, 0, 0.3)"
-              strokeWidth="2"
+              stroke="rgba(255, 170, 0, 0.8)"
+              strokeWidth="3"
               points="0,200 200,160 400,180 600,140 800,150 1000,120 1200,130 1400,100 1600,110 1800,90 2000,100 2200,80"
+              style={{ filter: 'drop-shadow(0 0 8px rgba(255, 170, 0, 0.5))' }}
             />
+            {/* Data points */}
+            <circle cx="600" cy="80" r="4" fill="#0088ff" style={{ filter: 'drop-shadow(0 0 6px #0088ff)' }} />
+            <circle cx="1000" cy="60" r="4" fill="#00ff88" style={{ filter: 'drop-shadow(0 0 6px #00ff88)' }} />
+            <circle cx="1400" cy="50" r="4" fill="#ff0000" style={{ filter: 'drop-shadow(0 0 6px #ff0000)' }} />
           </svg>
 
           {/* Frosted glass overlay */}
           <div
             className="absolute inset-0"
             style={{
-              background: "rgba(0, 0, 0, 0.5)",
-              backdropFilter: "blur(25px)",
-              WebkitBackdropFilter: "blur(25px)",
+              background: "rgba(0, 0, 0, 0.2)",
+              backdropFilter: "blur(15px)",
+              WebkitBackdropFilter: "blur(15px)",
             }}
           />
 
