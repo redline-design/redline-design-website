@@ -456,18 +456,6 @@ export default function Home() {
                 description: "Personalized strategies tailored to your business goals, industry, and target audience. No cookie-cutter solutions.",
                 index: 5,
               },
-              {
-                icon: BarChart3,
-                title: "Data-Driven Decisions",
-                description: "Advanced analytics and attribution modeling ensure every marketing dollar is optimized for maximum impact.",
-                index: 6,
-              },
-              {
-                icon: Sparkles,
-                title: "Proven Track Record",
-                description: "95% client retention rate. 50,000+ qualified leads generated. Hundreds of successful campaigns launched.",
-                index: 7,
-              },
             ]}
           />
       </section>

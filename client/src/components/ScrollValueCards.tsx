@@ -29,7 +29,9 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
 
   // Calculate positions for each card when spread out - single row
   const getSpreadPosition = (index: number, total: number) => {
-    const xOffset = (index - (total - 1) / 2) * 230; // 230px spacing for wider layout
+    const cardWidth = 210;
+    const spacing = total <= 6 ? 280 : 240; // More spacing for 6 or fewer cards
+    const xOffset = (index - (total - 1) / 2) * spacing;
     return { x: xOffset, y: 0 };
   };
 
@@ -38,14 +40,15 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
       <div 
         className="relative mx-auto"
         style={{
-          width: "100%",
+          width: "95%",
           minHeight: "280px",
+          maxWidth: "2200px",
           display: "flex",
           justifyContent: "center",
           alignItems: "flex-start",
         }}
       >
-        <div className="relative" style={{ width: "100%", maxWidth: "1800px", height: "260px" }}>
+        <div className="relative" style={{ width: "100%", height: "260px" }}>
           {cards.map((card, idx) => {
             const Icon = card.icon;
             const spreadPos = getSpreadPosition(idx, cards.length);
