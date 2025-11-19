@@ -413,7 +413,6 @@ export default function Home() {
 
       <ScrollAnimatedSection>
         <section className="py-2 px-2 sm:px-3 lg:px-4 neumorphic-section" data-testid="section-why-us">
-        <div className="max-w-7xl mx-auto">
           <div className="text-center mb-4">
             <h2 className="text-lg sm:text-xl md:text-2xl font-bold uppercase tracking-[0.3em] red-glow-pulse" style={{ color: "#ff0000" }}>
               <TextResolver text="Why Choose Us" delay={0} timeout={15} iterations={2} />
@@ -424,42 +423,53 @@ export default function Home() {
               {
                 icon: TrendingUp,
                 title: "Maximum ROI",
-                description: "We've seen returns up to 14x.",
+                description: "Average 7x return on investment with some clients achieving up to 14x. We focus relentlessly on revenue growth.",
                 index: 0,
               },
               {
                 icon: DollarSign,
                 title: "Surprisingly Affordable",
-                description: "Plans start at $500/mo.",
+                description: "Enterprise-level marketing starting at just $500/mo. No long-term contracts or hidden fees.",
                 index: 1,
               },
               {
                 icon: Zap,
                 title: "Quick Turnaround",
-                description: "Most updates in <24 business hours.",
+                description: "Most updates completed within 24 business hours. We move fast so you can capitalize on opportunities.",
                 index: 2,
               },
               {
                 icon: Target,
                 title: "Success Driven",
-                description: "We measure everything that matters.",
+                description: "We measure everything that matters. Real-time dashboards track conversions, ROI, and customer acquisition.",
                 index: 3,
               },
               {
                 icon: Briefcase,
                 title: "Full Service",
-                description: "Web, CRM, creative—one team.",
+                description: "Web design, SEO, PPC, social media, email marketing, CRM, and creative—all under one roof.",
                 index: 4,
               },
               {
                 icon: Users,
                 title: "Individual Focus",
-                description: "Personalized strategies for your business.",
+                description: "Personalized strategies tailored to your business goals, industry, and target audience. No cookie-cutter solutions.",
                 index: 5,
+              },
+              {
+                icon: BarChart3,
+                title: "Data-Driven Decisions",
+                description: "Advanced analytics and attribution modeling ensure every marketing dollar is optimized for maximum impact.",
+                index: 6,
+              },
+              {
+                icon: Sparkles,
+                title: "Proven Track Record",
+                description: "95% client retention rate. 50,000+ qualified leads generated. Hundreds of successful campaigns launched.",
+                index: 7,
               },
             ]}
           />
-        </div>
       </section>
       </ScrollAnimatedSection>
 
