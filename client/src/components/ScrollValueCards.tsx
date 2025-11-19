@@ -71,27 +71,38 @@ function AnimatedValueCard({ card, index, totalCards, spreadProgress, getSpreadP
         transformOrigin: "50% 100%",
         willChange: "transform",
       }}
-      onMouseEnter={() => onHover(index)}
-      onMouseLeave={() => onHover(null)}
     >
       <Card
-        className="h-full transition-all duration-300 rounded-2xl backdrop-blur-md group hover-elevate active-elevate-2 overflow-hidden"
+        className="h-full transition-all duration-500 rounded-2xl group hover-elevate active-elevate-2 overflow-hidden relative"
         data-testid={`card-value-${card.title.toLowerCase().replace(/\s/g, "-")}`}
+        onMouseEnter={() => onHover(index)}
+        onMouseLeave={() => onHover(null)}
         style={{ 
           height: "340px",
-          background: isOtherHovered ? "rgba(20, 20, 20, 0.3)" : "rgba(20, 20, 20, 0.6)",
+          background: "rgba(20, 20, 20, 0.6)",
           border: "1px solid rgba(255, 255, 255, 0.1)",
           boxShadow: "0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05)",
-          backdropFilter: isOtherHovered ? "blur(20px)" : "blur(0px)",
-          WebkitBackdropFilter: isOtherHovered ? "blur(20px)" : "blur(0px)",
         }}
       >
+        {/* Heavy frost overlay for non-hovered cards */}
+        {isOtherHovered && (
+          <div 
+            className="absolute inset-0 pointer-events-none z-20"
+            style={{
+              background: "rgba(10, 10, 10, 0.7)",
+              backdropFilter: "blur(8px)",
+              WebkitBackdropFilter: "blur(8px)",
+              transition: "all 0.3s ease-in-out",
+            }}
+          />
+        )}
+        
         {/* Animated background on hover */}
         {isHovered && (
           <div 
-            className="absolute inset-0 opacity-30 pointer-events-none"
+            className="absolute inset-0 pointer-events-none z-[1]"
             style={{
-              background: `radial-gradient(circle at 50% 50%, ${accentColor}40 0%, transparent 70%)`,
+              background: `radial-gradient(circle at 50% 50%, ${accentColor}60 0%, ${accentColor}20 40%, transparent 70%)`,
               animation: "pulseGlow 2s ease-in-out infinite",
             }}
           />
