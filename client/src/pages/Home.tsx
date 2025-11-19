@@ -412,7 +412,7 @@ export default function Home() {
       <SectionDivider />
 
       <ScrollAnimatedSection>
-        <section className="py-2 px-2 sm:px-3 lg:px-4 neumorphic-section" data-testid="section-why-us">
+        <section className="py-2 px-2 sm:px-3 lg:px-4" data-testid="section-why-us">
           <div className="text-center mb-4">
             <h2 className="text-lg sm:text-xl md:text-2xl font-bold uppercase tracking-[0.3em] red-glow-pulse" style={{ color: "#ff0000" }}>
               <TextResolver text="Why Choose Us" delay={0} timeout={15} iterations={2} />
