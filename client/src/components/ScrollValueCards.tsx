@@ -395,7 +395,7 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
           </div>
 
           {/* Content container */}
-          <div className="relative w-full h-full">
+          <div className="relative w-full h-full px-8 py-8">
             {cards.map((card, idx) => (
               <AnimatedValueCard
                 key={card.title}
