@@ -384,6 +384,13 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
             }}
           />
 
+          {/* Title */}
+          <div className="absolute top-8 left-0 right-0 z-20 text-center">
+            <h2 className="text-lg sm:text-xl md:text-2xl font-bold uppercase tracking-[0.3em] red-glow-pulse" style={{ color: "#ff0000" }}>
+              Why Choose Us
+            </h2>
+          </div>
+
           {/* Content container */}
           <div className="relative w-full h-full">
             {cards.map((card, idx) => (
