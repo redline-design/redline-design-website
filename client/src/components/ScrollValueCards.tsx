@@ -109,10 +109,15 @@ function AnimatedValueCard({ card, index, totalCards, spreadProgress, getSpreadP
         onMouseEnter={() => onHover(index)}
         onMouseLeave={() => onHover(null)}
         style={{ 
-          height: "450px",
-          background: "rgba(20, 20, 20, 0.6)",
-          border: "1px solid rgba(255, 255, 255, 0.1)",
-          boxShadow: "0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05)",
+          height: "540px",
+          background: "linear-gradient(145deg, rgba(25, 25, 25, 0.7), rgba(15, 15, 15, 0.7))",
+          border: "1px solid rgba(255, 255, 255, 0.08)",
+          boxShadow: `
+            12px 12px 24px rgba(0, 0, 0, 0.5),
+            -8px -8px 16px rgba(40, 40, 40, 0.1),
+            inset 1px 1px 2px rgba(255, 255, 255, 0.03),
+            inset -1px -1px 2px rgba(0, 0, 0, 0.3)
+          `,
         }}
       >
         {/* Heavy frost overlay for non-hovered cards - completely hides content */}
@@ -159,26 +164,47 @@ function AnimatedValueCard({ card, index, totalCards, spreadProgress, getSpreadP
             </div>
             
             {card.bullets ? (
-              <div className="flex-1 space-y-3">
+              <div className="flex-1 space-y-3.5">
                 {card.bullets.map((bullet, idx) => (
-                  <div key={idx} className="flex items-start gap-3 text-left">
-                    <svg 
-                      className="flex-shrink-0 mt-1" 
-                      width="18" 
-                      height="18" 
-                      viewBox="0 0 16 16"
-                      style={{ color: "#00ff88" }}
+                  <div key={idx} className="flex items-start gap-3.5 text-left">
+                    <div 
+                      className="flex-shrink-0 mt-0.5"
+                      style={{
+                        width: "24px",
+                        height: "24px",
+                        borderRadius: "6px",
+                        background: "linear-gradient(145deg, rgba(0, 255, 136, 0.15), rgba(0, 255, 136, 0.05))",
+                        border: "1px solid rgba(0, 255, 136, 0.3)",
+                        boxShadow: `
+                          inset 2px 2px 4px rgba(0, 0, 0, 0.4),
+                          inset -2px -2px 4px rgba(0, 255, 136, 0.1),
+                          0 2px 8px rgba(0, 255, 136, 0.2)
+                        `,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        position: "relative"
+                      }}
                     >
-                      <rect width="16" height="16" rx="3" fill="currentColor" opacity="0.2" />
-                      <path 
-                        d="M12 5L6.5 10.5L4 8" 
-                        stroke="currentColor" 
-                        strokeWidth="2" 
-                        strokeLinecap="round" 
-                        strokeLinejoin="round"
-                        fill="none"
-                      />
-                    </svg>
+                      <svg 
+                        width="14" 
+                        height="14" 
+                        viewBox="0 0 16 16"
+                        style={{ 
+                          color: "#00ff88",
+                          filter: "drop-shadow(0 1px 2px rgba(0, 255, 136, 0.4))"
+                        }}
+                      >
+                        <path 
+                          d="M13 4L6 11L3 8" 
+                          stroke="currentColor" 
+                          strokeWidth="2.5" 
+                          strokeLinecap="round" 
+                          strokeLinejoin="round"
+                          fill="none"
+                        />
+                      </svg>
+                    </div>
                     <span className="text-base text-muted-foreground leading-relaxed flex-1">
                       {bullet}
                     </span>
@@ -223,7 +249,7 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
         className="relative mx-auto"
         style={{
           width: "95%",
-          minHeight: "520px",
+          minHeight: "620px",
           maxWidth: "2400px",
           display: "flex",
           justifyContent: "center",
@@ -234,7 +260,7 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
           className="relative rounded-2xl" 
           style={{ 
             width: "100%", 
-            height: "500px",
+            height: "600px",
             border: "1px solid rgba(255, 255, 255, 0.1)",
             boxShadow: "0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1)",
             overflow: "visible",
