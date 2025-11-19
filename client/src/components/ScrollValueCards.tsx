@@ -162,7 +162,7 @@ function AnimatedValueCard({ card, index, totalCards, spreadProgress, getSpreadP
             </div>
             
             {/* Title centered below icon */}
-            <h3 className="text-lg font-bold text-foreground text-center mb-6" data-testid={`text-value-title-${card.title.toLowerCase().replace(/\s/g, "-")}`}>
+            <h3 className="text-lg font-black text-foreground text-center mb-6 uppercase tracking-wider" data-testid={`text-value-title-${card.title.toLowerCase().replace(/\s/g, "-")}`}>
               {card.title}
             </h3>
             
