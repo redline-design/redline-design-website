@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import { motion, useReducedMotion } from "framer-motion";
-import { TrendingUp } from "lucide-react";
+import { LucideIcon } from "lucide-react";
 
 interface StatCounterProps {
   value: number;
@@ -9,9 +9,10 @@ interface StatCounterProps {
   prefix?: string;
   label: string;
   delay?: number;
+  icon: LucideIcon;
 }
 
-export default function StatCounter({ value, suffix = "", prefix = "", label, delay = 0 }: StatCounterProps) {
+export default function StatCounter({ value, suffix = "", prefix = "", label, delay = 0, icon: Icon }: StatCounterProps) {
   const [count, setCount] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.5 });
@@ -113,7 +114,7 @@ export default function StatCounter({ value, suffix = "", prefix = "", label, de
               `,
             }}
           >
-            <TrendingUp 
+            <Icon 
               className="w-8 h-8 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12" 
               style={{ 
                 color: "#ff0000",

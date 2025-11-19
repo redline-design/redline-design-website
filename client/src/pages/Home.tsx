@@ -11,7 +11,7 @@ import ScrollAnimatedSection from "@/components/ScrollAnimatedSection";
 import TextResolver from "@/components/TextResolver";
 import GlowCard from "@/components/GlowCard";
 import ScrollValueCards from "@/components/ScrollValueCards";
-import { BarChart3, Sparkles, Globe, DollarSign, Zap, Target, Users, Briefcase, TrendingUp, FileText, LineChart, MapPin, Smartphone, Eye, MousePointerClick, LayoutGrid, BarChart2, Monitor, Database, AlertTriangle } from "lucide-react";
+import { BarChart3, Sparkles, Globe, DollarSign, Zap, Target, Users, Briefcase, TrendingUp, FileText, LineChart, MapPin, Smartphone, Eye, MousePointerClick, LayoutGrid, BarChart2, Monitor, Database, AlertTriangle, Heart, Award } from "lucide-react";
 import { SiGoogleads, SiMeta, SiLinkedin, SiTiktok, SiYoutube, SiX, SiReddit, SiPinterest } from "react-icons/si";
 import { motion } from "framer-motion";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
@@ -609,10 +609,10 @@ export default function Home() {
                 {/* Metrics Section */}
                 <div className="mt-12" data-testid="section-metrics">
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                    <StatCounter value={98} suffix="%" label="Client Satisfaction" />
-                    <StatCounter value={7} suffix="x" label="Average ROI" delay={0.1} />
-                    <StatCounter value={15} suffix="+" label="Years of Experience" delay={0.2} />
-                    <StatCounter value={95} suffix="%" label="Client Retention" delay={0.3} />
+                    <StatCounter value={98} suffix="%" label="Client Satisfaction" icon={Heart} />
+                    <StatCounter value={7} suffix="x" label="Average ROI" delay={0.1} icon={TrendingUp} />
+                    <StatCounter value={15} suffix="+" label="Years of Experience" delay={0.2} icon={Award} />
+                    <StatCounter value={95} suffix="%" label="Client Retention" delay={0.3} icon={Users} />
                   </div>
                 </div>
 
