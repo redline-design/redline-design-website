@@ -417,11 +417,11 @@ export default function Home() {
         {/* Section 2: Slider Carousel */}
         <div className="home-snap-section">
           <section 
-            className="home-snap-content py-2 px-2 sm:px-3 lg:px-4" 
+            className="home-snap-content" 
             style={{ zIndex: 20 }}
             data-testid="section-differentiators"
           >
-            <div className="w-full">
+            <div className="w-full flex items-center justify-center">
               <SliderCarousel slides={sliderSlides} />
             </div>
           </section>
@@ -430,11 +430,11 @@ export default function Home() {
         {/* Section 3: Scroll Value Cards */}
         <div className="home-snap-section">
           <section 
-            className="home-snap-content py-2 px-2 sm:px-3 lg:px-4" 
+            className="home-snap-content" 
             style={{ zIndex: 30 }}
             data-testid="section-why-us"
           >
-            <div className="w-full">
+            <div className="w-full flex items-center justify-center">
           <ScrollValueCards
             cards={[
               {
@@ -531,11 +531,11 @@ export default function Home() {
         <div className="home-snap-section">
           <section 
             id="partners" 
-            className="home-snap-content py-2 px-2 sm:px-3 lg:px-4" 
+            className="home-snap-content" 
             style={{ zIndex: 40 }}
             data-testid="section-partners"
           >
-            <div className="w-full">
+            <div className="w-full flex items-center justify-center">
           <div className="relative mx-auto" style={{ width: "95%", maxWidth: "2400px" }}>
             <div 
               className="relative rounded-2xl px-8 py-12"
@@ -660,11 +660,11 @@ export default function Home() {
         {/* Section 5: CTA Band */}
         <div className="home-snap-section">
           <section 
-            className="home-snap-content py-2 px-2 sm:px-3 lg:px-4 neumorphic-section" 
+            className="home-snap-content neumorphic-section" 
             style={{ zIndex: 50 }}
             data-testid="section-cta"
           >
-            <div className="w-full">
+            <div className="w-full flex items-center justify-center">
               <div 
                 className="relative mx-auto rounded-2xl px-8 py-12"
                 style={{
