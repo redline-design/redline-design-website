@@ -159,8 +159,6 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
             );
 
             const accentColor = card.accentColor || '#ff0000';
-            const gradientFrom = card.gradientFrom || 'rgba(0, 0, 0, 0.4)';
-            const gradientTo = card.gradientTo || 'rgba(0, 0, 0, 0.2)';
             
             return (
               <motion.div
@@ -180,35 +178,31 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
                 }}
               >
                 <Card
-                  className="h-full transition-all duration-300 rounded-2xl backdrop-blur-md group flex items-center hover-elevate active-elevate-2 overflow-hidden"
+                  className="h-full transition-all duration-300 rounded-2xl backdrop-blur-md group hover-elevate active-elevate-2 overflow-hidden"
                   data-testid={`card-value-${card.title.toLowerCase().replace(/\s/g, "-")}`}
                   style={{ 
                     height: "240px",
-                    background: `linear-gradient(135deg, ${gradientFrom}, ${gradientTo})`,
-                    border: `1px solid ${accentColor}30`,
-                    boxShadow: `0 0 20px ${accentColor}15, inset 0 1px 0 rgba(255, 255, 255, 0.1)`,
+                    background: "rgba(20, 20, 20, 0.6)",
+                    border: "1px solid rgba(255, 255, 255, 0.1)",
+                    boxShadow: "0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05)",
                   }}
                 >
-                  <CardContent className="p-5 w-full relative z-10">
-                    <div className="flex flex-col items-center justify-center text-center gap-2">
+                  <CardContent className="p-5 w-full h-full relative z-10">
+                    <div className="flex flex-col items-center text-center gap-3 h-full">
                       <div 
-                        className="flex-shrink-0 p-3 rounded-lg transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3"
-                        style={{
-                          background: `${accentColor}20`,
-                          boxShadow: `0 0 15px ${accentColor}30`,
-                        }}
+                        className="flex-shrink-0 p-3 rounded-lg transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3 mt-2"
                       >
                         <Icon 
-                          className="h-6 w-6" 
-                          style={{ color: accentColor }}
+                          className="h-8 w-8" 
+                          style={{ color: accentColor, filter: `drop-shadow(0 0 8px ${accentColor}80)` }}
                           data-testid={`icon-value-${card.title.toLowerCase().replace(/\s/g, "-")}`} 
                         />
                       </div>
-                      <div>
-                        <h3 className="text-sm font-semibold text-foreground mb-1.5" data-testid={`text-value-title-${card.title.toLowerCase().replace(/\s/g, "-")}`}>
+                      <div className="flex-1 flex flex-col justify-center">
+                        <h3 className="text-sm font-semibold text-foreground mb-2" data-testid={`text-value-title-${card.title.toLowerCase().replace(/\s/g, "-")}`}>
                           {card.title}
                         </h3>
-                        <p className="text-xs text-foreground leading-relaxed" data-testid={`text-value-description-${card.title.toLowerCase().replace(/\s/g, "-")}`}>
+                        <p className="text-xs text-muted-foreground leading-relaxed" data-testid={`text-value-description-${card.title.toLowerCase().replace(/\s/g, "-")}`}>
                           {card.description}
                         </p>
                       </div>
