@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, MotionValue } from "framer-motion";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { Card, CardContent } from "@/components/ui/card";
 import { LucideIcon } from "lucide-react";
@@ -18,9 +18,93 @@ interface ScrollValueCardsProps {
   cards: ValueCardData[];
 }
 
+interface AnimatedValueCardProps {
+  card: ValueCardData;
+  index: number;
+  totalCards: number;
+  spreadProgress: MotionValue<number>;
+  getSpreadPosition: (index: number, total: number) => { x: number; y: number };
+}
+
+function AnimatedValueCard({ card, index, totalCards, spreadProgress, getSpreadPosition }: AnimatedValueCardProps) {
+  const prefersReducedMotion = useReducedMotion();
+  const Icon = card.icon;
+  const spreadPos = getSpreadPosition(index, totalCards);
+  
+  const rotation = useTransform(
+    spreadProgress,
+    [0, 1],
+    prefersReducedMotion ? [0, 0] : [index * 6 - 42, 0]
+  );
+  
+  const xPos = useTransform(
+    spreadProgress,
+    [0, 1],
+    [0, spreadPos.x]
+  );
+  
+  const yPos = useTransform(
+    spreadProgress,
+    [0, 1],
+    [0, spreadPos.y]
+  );
+
+  const accentColor = card.accentColor || '#ff0000';
+  
+  return (
+    <motion.div
+      style={{
+        position: "absolute",
+        top: "50%",
+        left: "50%",
+        x: xPos,
+        y: yPos,
+        translateX: "-50%",
+        translateY: "-50%",
+        width: "280px",
+        rotate: rotation,
+        transformOrigin: "50% 100%",
+        willChange: "transform",
+      }}
+    >
+      <Card
+        className="h-full transition-all duration-300 rounded-2xl backdrop-blur-md group hover-elevate active-elevate-2 overflow-hidden"
+        data-testid={`card-value-${card.title.toLowerCase().replace(/\s/g, "-")}`}
+        style={{ 
+          height: "340px",
+          background: "rgba(20, 20, 20, 0.6)",
+          border: "1px solid rgba(255, 255, 255, 0.1)",
+          boxShadow: "0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05)",
+        }}
+      >
+        <CardContent className="p-6 w-full h-full relative z-10">
+          <div className="flex flex-col items-center text-center gap-4 h-full">
+            <div 
+              className="flex-shrink-0 p-4 rounded-lg transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3 mt-3"
+            >
+              <Icon 
+                className="h-10 w-10" 
+                style={{ color: accentColor, filter: `drop-shadow(0 0 10px ${accentColor}80)` }}
+                data-testid={`icon-value-${card.title.toLowerCase().replace(/\s/g, "-")}`} 
+              />
+            </div>
+            <div className="flex-1 flex flex-col justify-center">
+              <h3 className="text-base font-semibold text-foreground mb-3" data-testid={`text-value-title-${card.title.toLowerCase().replace(/\s/g, "-")}`}>
+                {card.title}
+              </h3>
+              <p className="text-sm text-muted-foreground leading-relaxed" data-testid={`text-value-description-${card.title.toLowerCase().replace(/\s/g, "-")}`}>
+                {card.description}
+              </p>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    </motion.div>
+  );
+}
+
 export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const prefersReducedMotion = useReducedMotion();
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -32,8 +116,8 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
 
   // Calculate positions for each card when spread out - single row
   const getSpreadPosition = (index: number, total: number) => {
-    const cardWidth = 210;
-    const spacing = total <= 6 ? 280 : 240; // More spacing for 6 or fewer cards
+    const cardWidth = 280;
+    const spacing = total <= 6 ? 360 : 320; // More spacing for larger cards
     const xOffset = (index - (total - 1) / 2) * spacing;
     return { x: xOffset, y: 0 };
   };
@@ -44,8 +128,8 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
         className="relative mx-auto"
         style={{
           width: "95%",
-          minHeight: "280px",
-          maxWidth: "2200px",
+          minHeight: "420px",
+          maxWidth: "2400px",
           display: "flex",
           justifyContent: "center",
           alignItems: "flex-start",
@@ -55,7 +139,7 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
           className="relative rounded-2xl overflow-hidden" 
           style={{ 
             width: "100%", 
-            height: "260px",
+            height: "400px",
             border: "1px solid rgba(255, 255, 255, 0.1)",
             boxShadow: "0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1)",
           }}
@@ -179,84 +263,17 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
           />
 
           {/* Content container */}
-          <div className="relative w-full h-full"
-          >
-          {cards.map((card, idx) => {
-            const Icon = card.icon;
-            const spreadPos = getSpreadPosition(idx, cards.length);
-            
-            const rotation = useTransform(
-              spreadProgress,
-              [0, 1],
-              prefersReducedMotion ? [0, 0] : [idx * 6 - 42, 0]
-            );
-            
-            const xPos = useTransform(
-              spreadProgress,
-              [0, 1],
-              [0, spreadPos.x]
-            );
-            
-            const yPos = useTransform(
-              spreadProgress,
-              [0, 1],
-              [0, spreadPos.y]
-            );
-
-            const accentColor = card.accentColor || '#ff0000';
-            
-            return (
-              <motion.div
+          <div className="relative w-full h-full">
+            {cards.map((card, idx) => (
+              <AnimatedValueCard
                 key={card.title}
-                style={{
-                  position: "absolute",
-                  top: "50%",
-                  left: "50%",
-                  x: xPos,
-                  y: yPos,
-                  translateX: "-50%",
-                  translateY: "-50%",
-                  width: "210px",
-                  rotate: rotation,
-                  transformOrigin: "50% 100%",
-                  willChange: "transform",
-                }}
-              >
-                <Card
-                  className="h-full transition-all duration-300 rounded-2xl backdrop-blur-md group hover-elevate active-elevate-2 overflow-hidden"
-                  data-testid={`card-value-${card.title.toLowerCase().replace(/\s/g, "-")}`}
-                  style={{ 
-                    height: "240px",
-                    background: "rgba(20, 20, 20, 0.6)",
-                    border: "1px solid rgba(255, 255, 255, 0.1)",
-                    boxShadow: "0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05)",
-                  }}
-                >
-                  <CardContent className="p-5 w-full h-full relative z-10">
-                    <div className="flex flex-col items-center text-center gap-3 h-full">
-                      <div 
-                        className="flex-shrink-0 p-3 rounded-lg transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3 mt-2"
-                      >
-                        <Icon 
-                          className="h-8 w-8" 
-                          style={{ color: accentColor, filter: `drop-shadow(0 0 8px ${accentColor}80)` }}
-                          data-testid={`icon-value-${card.title.toLowerCase().replace(/\s/g, "-")}`} 
-                        />
-                      </div>
-                      <div className="flex-1 flex flex-col justify-center">
-                        <h3 className="text-sm font-semibold text-foreground mb-2" data-testid={`text-value-title-${card.title.toLowerCase().replace(/\s/g, "-")}`}>
-                          {card.title}
-                        </h3>
-                        <p className="text-xs text-muted-foreground leading-relaxed" data-testid={`text-value-description-${card.title.toLowerCase().replace(/\s/g, "-")}`}>
-                          {card.description}
-                        </p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            );
-          })}
+                card={card}
+                index={idx}
+                totalCards={cards.length}
+                spreadProgress={spreadProgress}
+                getSpreadPosition={getSpreadPosition}
+              />
+            ))}
           </div>
         </div>
       </div>
