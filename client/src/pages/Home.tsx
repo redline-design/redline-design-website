@@ -512,31 +512,123 @@ export default function Home() {
       <SectionDivider />
 
       <ScrollAnimatedSection>
-        <section id="partners" className="py-2 px-2 sm:px-3 lg:px-4 neumorphic-section" data-testid="section-partners">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-8">
-            <h2 className="text-lg sm:text-xl md:text-2xl font-bold uppercase tracking-[0.3em] mb-4 red-glow-pulse" style={{ color: "#ff0000" }}>
-              Some of Our Partners
-            </h2>
-          </div>
-          <PartnerLogos />
-          
-          {/* Metrics Section */}
-          <div className="mt-12" data-testid="section-metrics">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-              <StatCounter value={98} suffix="%" label="Client Satisfaction" />
-              <StatCounter value={7} suffix="x" label="Average ROI" delay={0.1} />
-              <StatCounter value={15} suffix="+" label="Years of Experience" delay={0.2} />
-              <StatCounter value={95} suffix="%" label="Client Retention" delay={0.3} />
+        <section id="partners" className="py-2 px-2 sm:px-3 lg:px-4" data-testid="section-partners">
+          <div className="relative mx-auto" style={{ width: "95%", maxWidth: "2400px" }}>
+            <div 
+              className="relative rounded-2xl px-8 py-12"
+              style={{
+                background: "#0a0a0a",
+                border: "1px solid rgba(255, 255, 255, 0.1)",
+                boxShadow: "0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1)",
+                overflow: "hidden",
+              }}
+            >
+              {/* Animated hexagon background */}
+              <div className="absolute inset-0 overflow-hidden" style={{ background: "#0a0a0a" }}>
+                <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <pattern id="hexPatternPartners" x="0" y="0" width="100" height="86.6" patternUnits="userSpaceOnUse">
+                      <polygon
+                        points="50,0 93.3,25 93.3,75 50,100 6.7,75 6.7,25"
+                        fill="none"
+                        stroke="rgba(255, 0, 0, 0.2)"
+                        strokeWidth="1"
+                      />
+                      <polygon
+                        points="50,0 93.3,25 93.3,75 50,100 6.7,75 6.7,25"
+                        fill="rgba(255, 0, 0, 0.02)"
+                        stroke="none"
+                      >
+                        <animate
+                          attributeName="fill"
+                          values="rgba(255, 0, 0, 0.02);rgba(0, 136, 255, 0.05);rgba(0, 255, 136, 0.03);rgba(255, 0, 0, 0.02)"
+                          dur="8s"
+                          repeatCount="indefinite"
+                        />
+                      </polygon>
+                    </pattern>
+                    
+                    <pattern id="hexPatternPartnersOffset" x="50" y="43.3" width="100" height="86.6" patternUnits="userSpaceOnUse">
+                      <polygon
+                        points="50,0 93.3,25 93.3,75 50,100 6.7,75 6.7,25"
+                        fill="none"
+                        stroke="rgba(0, 136, 255, 0.2)"
+                        strokeWidth="1"
+                      />
+                      <polygon
+                        points="50,0 93.3,25 93.3,75 50,100 6.7,75 6.7,25"
+                        fill="rgba(0, 136, 255, 0.02)"
+                        stroke="none"
+                      >
+                        <animate
+                          attributeName="fill"
+                          values="rgba(0, 136, 255, 0.02);rgba(0, 255, 136, 0.05);rgba(255, 0, 0, 0.03);rgba(0, 136, 255, 0.02)"
+                          dur="8s"
+                          begin="2s"
+                          repeatCount="indefinite"
+                        />
+                      </polygon>
+                    </pattern>
+                  </defs>
+                  
+                  <rect width="100%" height="100%" fill="url(#hexPatternPartners)">
+                    <animateTransform
+                      attributeName="transform"
+                      type="translate"
+                      values="0,0; 25,43.3; 0,0"
+                      dur="20s"
+                      repeatCount="indefinite"
+                    />
+                  </rect>
+                  <rect width="100%" height="100%" fill="url(#hexPatternPartnersOffset)">
+                    <animateTransform
+                      attributeName="transform"
+                      type="translate"
+                      values="0,0; -25,-43.3; 0,0"
+                      dur="25s"
+                      repeatCount="indefinite"
+                    />
+                  </rect>
+                </svg>
+              </div>
+
+              {/* Light frosted overlay */}
+              <div
+                className="absolute inset-0"
+                style={{
+                  background: "rgba(0, 0, 0, 0.05)",
+                  backdropFilter: "blur(3px)",
+                  WebkitBackdropFilter: "blur(3px)",
+                }}
+              />
+
+              {/* Content */}
+              <div className="relative z-10">
+                <div className="text-center mb-8">
+                  <h2 className="text-lg sm:text-xl md:text-2xl font-bold uppercase tracking-[0.3em] mb-4 red-glow-pulse" style={{ color: "#ff0000" }}>
+                    Some of Our Partners
+                  </h2>
+                </div>
+                <PartnerLogos />
+                
+                {/* Metrics Section */}
+                <div className="mt-12" data-testid="section-metrics">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <StatCounter value={98} suffix="%" label="Client Satisfaction" />
+                    <StatCounter value={7} suffix="x" label="Average ROI" delay={0.1} />
+                    <StatCounter value={15} suffix="+" label="Years of Experience" delay={0.2} />
+                    <StatCounter value={95} suffix="%" label="Client Retention" delay={0.3} />
+                  </div>
+                </div>
+
+                {/* Testimonials Section */}
+                <div className="mt-12">
+                  <TestimonialsCarousel />
+                </div>
+              </div>
             </div>
           </div>
-
-          {/* Testimonials Section */}
-          <div className="mt-12">
-            <TestimonialsCarousel />
-          </div>
-        </div>
-      </section>
+        </section>
       </ScrollAnimatedSection>
 
       <SectionDivider />
