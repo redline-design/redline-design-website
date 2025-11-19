@@ -141,7 +141,7 @@ function AnimatedValueCard({ card, index, totalCards, spreadProgress, getSpreadP
           />
         )}
         
-        <CardContent className="p-5 w-full h-full relative z-10 flex flex-col">
+        <CardContent className="p-5 pb-8 w-full h-full relative z-10 flex flex-col">
           <div className="flex flex-col h-full">
             <div className="flex items-center gap-3 mb-4">
               <div 
@@ -212,7 +212,7 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
   // Calculate positions for each card when spread out - single row
   const getSpreadPosition = (index: number, total: number) => {
     const cardWidth = 290;
-    const spacing = total <= 6 ? 300 : 290; // Optimized to fit all 6 cards in viewport
+    const spacing = total <= 6 ? 310 : 300; // Increased spacing between cards
     const xOffset = (index - (total - 1) / 2) * spacing;
     return { x: xOffset, y: 0 };
   };
