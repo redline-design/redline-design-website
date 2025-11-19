@@ -52,17 +52,68 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
         }}
       >
         <div 
-          className="relative rounded-2xl" 
+          className="relative rounded-2xl overflow-hidden" 
           style={{ 
             width: "100%", 
             height: "260px",
-            background: "rgba(0, 0, 0, 0.3)",
-            backdropFilter: "blur(20px)",
-            WebkitBackdropFilter: "blur(20px)",
             border: "1px solid rgba(255, 255, 255, 0.1)",
             boxShadow: "0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1)",
           }}
         >
+          {/* Technical background pattern */}
+          <div
+            className="absolute inset-0 opacity-30"
+            style={{
+              backgroundImage: `
+                linear-gradient(90deg, rgba(255, 0, 0, 0.1) 1px, transparent 1px),
+                linear-gradient(0deg, rgba(255, 0, 0, 0.1) 1px, transparent 1px),
+                linear-gradient(135deg, transparent 48%, rgba(0, 136, 255, 0.2) 49%, rgba(0, 136, 255, 0.2) 51%, transparent 52%),
+                linear-gradient(45deg, transparent 48%, rgba(0, 255, 136, 0.2) 49%, rgba(0, 255, 136, 0.2) 51%, transparent 52%)
+              `,
+              backgroundSize: "40px 40px, 40px 40px, 80px 80px, 80px 80px",
+              backgroundPosition: "0 0, 0 0, 0 0, 40px 40px",
+            }}
+          />
+          
+          {/* Data visualization overlay */}
+          <svg 
+            className="absolute inset-0 w-full h-full opacity-20"
+            style={{ mixBlendMode: 'screen' }}
+          >
+            <defs>
+              <linearGradient id="graphGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" style={{ stopColor: '#ff0000', stopOpacity: 0.3 }} />
+                <stop offset="50%" style={{ stopColor: '#0088ff', stopOpacity: 0.3 }} />
+                <stop offset="100%" style={{ stopColor: '#00ff88', stopOpacity: 0.3 }} />
+              </linearGradient>
+            </defs>
+            <polyline
+              fill="none"
+              stroke="url(#graphGradient)"
+              strokeWidth="2"
+              points="0,180 200,120 400,140 600,80 800,100 1000,60 1200,90 1400,50 1600,70 1800,40 2000,60 2200,30"
+            />
+            <polyline
+              fill="none"
+              stroke="rgba(255, 170, 0, 0.3)"
+              strokeWidth="2"
+              points="0,200 200,160 400,180 600,140 800,150 1000,120 1200,130 1400,100 1600,110 1800,90 2000,100 2200,80"
+            />
+          </svg>
+
+          {/* Frosted glass overlay */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background: "rgba(0, 0, 0, 0.5)",
+              backdropFilter: "blur(25px)",
+              WebkitBackdropFilter: "blur(25px)",
+            }}
+          />
+
+          {/* Content container */}
+          <div className="relative w-full h-full"
+          >
           {cards.map((card, idx) => {
             const Icon = card.icon;
             const spreadPos = getSpreadPosition(idx, cards.length);
@@ -145,6 +196,7 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
               </motion.div>
             );
           })}
+          </div>
         </div>
       </div>
     </div>
