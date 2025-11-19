@@ -60,67 +60,112 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
             boxShadow: "0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1)",
           }}
         >
-          {/* Animated technical background */}
+          {/* Animated hexagon background */}
           <div
             className="absolute inset-0 overflow-hidden"
             style={{ background: "#0a0a0a" }}
           >
-            {/* Animated flowing particles */}
-            <div
-              className="absolute inset-0"
-              style={{
-                backgroundImage: `
-                  radial-gradient(circle at 20% 50%, rgba(255, 0, 0, 0.15) 0%, transparent 50%),
-                  radial-gradient(circle at 80% 80%, rgba(0, 136, 255, 0.15) 0%, transparent 50%),
-                  radial-gradient(circle at 40% 20%, rgba(0, 255, 136, 0.15) 0%, transparent 50%)
-                `,
-                backgroundSize: "200% 200%",
-                animation: "gradientFlow 15s ease infinite",
-              }}
-            />
-            
-            {/* Animated grid lines */}
-            <div
-              className="absolute inset-0"
-              style={{
-                backgroundImage: `
-                  linear-gradient(90deg, rgba(255, 0, 0, 0.2) 1px, transparent 1px),
-                  linear-gradient(0deg, rgba(255, 0, 0, 0.2) 1px, transparent 1px)
-                `,
-                backgroundSize: "50px 50px",
-                animation: "gridPulse 3s ease-in-out infinite",
-              }}
-            />
-            
-            {/* Animated diagonal lines */}
-            <div
-              className="absolute inset-0"
-              style={{
-                backgroundImage: `
-                  linear-gradient(45deg, transparent 48%, rgba(0, 136, 255, 0.3) 49%, rgba(0, 136, 255, 0.3) 51%, transparent 52%)
-                `,
-                backgroundSize: "100px 100px",
-                animation: "diagonalSlide 20s linear infinite",
-              }}
-            />
-            
-            {/* Floating data points */}
-            {[...Array(12)].map((_, i) => (
-              <div
-                key={i}
-                className="absolute rounded-full"
-                style={{
-                  width: "4px",
-                  height: "4px",
-                  background: i % 3 === 0 ? '#ff0000' : i % 3 === 1 ? '#0088ff' : '#00ff88',
-                  boxShadow: `0 0 10px ${i % 3 === 0 ? '#ff0000' : i % 3 === 1 ? '#0088ff' : '#00ff88'}`,
-                  left: `${(i * 8 + 5)}%`,
-                  top: `${30 + (i % 4) * 15}%`,
-                  animation: `floatParticle ${8 + (i % 5) * 2}s ease-in-out infinite`,
-                  animationDelay: `${i * 0.5}s`,
-                }}
-              />
-            ))}
+            <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <pattern id="hexPattern" x="0" y="0" width="100" height="86.6" patternUnits="userSpaceOnUse">
+                  {/* Hexagon path */}
+                  <polygon
+                    points="50,0 93.3,25 93.3,75 50,100 6.7,75 6.7,25"
+                    fill="none"
+                    stroke="rgba(255, 0, 0, 0.2)"
+                    strokeWidth="1"
+                  />
+                  <polygon
+                    points="50,0 93.3,25 93.3,75 50,100 6.7,75 6.7,25"
+                    fill="rgba(255, 0, 0, 0.02)"
+                    stroke="none"
+                  >
+                    <animate
+                      attributeName="fill"
+                      values="rgba(255, 0, 0, 0.02);rgba(0, 136, 255, 0.05);rgba(0, 255, 136, 0.03);rgba(255, 0, 0, 0.02)"
+                      dur="8s"
+                      repeatCount="indefinite"
+                    />
+                  </polygon>
+                </pattern>
+                
+                <pattern id="hexPatternOffset" x="50" y="43.3" width="100" height="86.6" patternUnits="userSpaceOnUse">
+                  <polygon
+                    points="50,0 93.3,25 93.3,75 50,100 6.7,75 6.7,25"
+                    fill="none"
+                    stroke="rgba(0, 136, 255, 0.2)"
+                    strokeWidth="1"
+                  />
+                  <polygon
+                    points="50,0 93.3,25 93.3,75 50,100 6.7,75 6.7,25"
+                    fill="rgba(0, 136, 255, 0.02)"
+                    stroke="none"
+                  >
+                    <animate
+                      attributeName="fill"
+                      values="rgba(0, 136, 255, 0.02);rgba(0, 255, 136, 0.05);rgba(255, 0, 0, 0.03);rgba(0, 136, 255, 0.02)"
+                      dur="8s"
+                      begin="2s"
+                      repeatCount="indefinite"
+                    />
+                  </polygon>
+                </pattern>
+              </defs>
+              
+              {/* Hexagon grid layers */}
+              <rect width="100%" height="100%" fill="url(#hexPattern)">
+                <animateTransform
+                  attributeName="transform"
+                  type="translate"
+                  values="0,0; 25,43.3; 0,0"
+                  dur="20s"
+                  repeatCount="indefinite"
+                />
+              </rect>
+              <rect width="100%" height="100%" fill="url(#hexPatternOffset)">
+                <animateTransform
+                  attributeName="transform"
+                  type="translate"
+                  values="0,0; -25,-43.3; 0,0"
+                  dur="25s"
+                  repeatCount="indefinite"
+                />
+              </rect>
+              
+              {/* Glowing hexagons scattered across */}
+              {[
+                { cx: 150, cy: 100, color: '#ff0000', delay: '0s' },
+                { cx: 450, cy: 80, color: '#0088ff', delay: '2s' },
+                { cx: 750, cy: 150, color: '#00ff88', delay: '4s' },
+                { cx: 1050, cy: 90, color: '#ff0000', delay: '1s' },
+                { cx: 1350, cy: 130, color: '#0088ff', delay: '3s' },
+                { cx: 250, cy: 200, color: '#00ff88', delay: '5s' },
+              ].map((hex, i) => (
+                <polygon
+                  key={i}
+                  points={`${hex.cx},${hex.cy - 30} ${hex.cx + 26},${hex.cy - 15} ${hex.cx + 26},${hex.cy + 15} ${hex.cx},${hex.cy + 30} ${hex.cx - 26},${hex.cy + 15} ${hex.cx - 26},${hex.cy - 15}`}
+                  fill="none"
+                  stroke={hex.color}
+                  strokeWidth="2"
+                  opacity="0.3"
+                >
+                  <animate
+                    attributeName="opacity"
+                    values="0.1;0.6;0.1"
+                    dur="4s"
+                    begin={hex.delay}
+                    repeatCount="indefinite"
+                  />
+                  <animate
+                    attributeName="stroke-width"
+                    values="1;3;1"
+                    dur="4s"
+                    begin={hex.delay}
+                    repeatCount="indefinite"
+                  />
+                </polygon>
+              ))}
+            </svg>
           </div>
 
           {/* Light frosted overlay */}
