@@ -9,6 +9,9 @@ interface ValueCardData {
   title: string;
   description: string;
   index: number;
+  accentColor?: string;
+  gradientFrom?: string;
+  gradientTo?: string;
 }
 
 interface ScrollValueCardsProps {
@@ -71,6 +74,10 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
               [0, spreadPos.y]
             );
 
+            const accentColor = card.accentColor || '#ff0000';
+            const gradientFrom = card.gradientFrom || 'rgba(0, 0, 0, 0.4)';
+            const gradientTo = card.gradientTo || 'rgba(0, 0, 0, 0.2)';
+            
             return (
               <motion.div
                 key={card.title}
@@ -89,14 +96,29 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
                 }}
               >
                 <Card
-                  className="h-full transition-all duration-300 rounded-2xl backdrop-blur-md bg-card/40 border-white/10 group flex items-center hover-elevate active-elevate-2"
+                  className="h-full transition-all duration-300 rounded-2xl backdrop-blur-md group flex items-center hover-elevate active-elevate-2 overflow-hidden"
                   data-testid={`card-value-${card.title.toLowerCase().replace(/\s/g, "-")}`}
-                  style={{ height: "240px" }}
+                  style={{ 
+                    height: "240px",
+                    background: `linear-gradient(135deg, ${gradientFrom}, ${gradientTo})`,
+                    border: `1px solid ${accentColor}30`,
+                    boxShadow: `0 0 20px ${accentColor}15, inset 0 1px 0 rgba(255, 255, 255, 0.1)`,
+                  }}
                 >
-                  <CardContent className="p-5 w-full">
+                  <CardContent className="p-5 w-full relative z-10">
                     <div className="flex flex-col items-center justify-center text-center gap-2">
-                      <div className="flex-shrink-0 p-3 rounded-lg bg-primary/10 icon-glow transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3">
-                        <Icon className="h-6 w-6 text-primary" data-testid={`icon-value-${card.title.toLowerCase().replace(/\s/g, "-")}`} />
+                      <div 
+                        className="flex-shrink-0 p-3 rounded-lg transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3"
+                        style={{
+                          background: `${accentColor}20`,
+                          boxShadow: `0 0 15px ${accentColor}30`,
+                        }}
+                      >
+                        <Icon 
+                          className="h-6 w-6" 
+                          style={{ color: accentColor }}
+                          data-testid={`icon-value-${card.title.toLowerCase().replace(/\s/g, "-")}`} 
+                        />
                       </div>
                       <div>
                         <h3 className="text-sm font-semibold text-foreground mb-1.5" data-testid={`text-value-title-${card.title.toLowerCase().replace(/\s/g, "-")}`}>
