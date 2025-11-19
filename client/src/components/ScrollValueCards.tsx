@@ -91,7 +91,7 @@ function AnimatedValueCard({ card, index, totalCards, spreadProgress, getSpreadP
     <motion.div
       style={{
         position: "absolute",
-        top: "50%",
+        top: "58%",
         left: "50%",
         x: xPos,
         y: yPos,
