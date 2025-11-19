@@ -60,61 +60,76 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
             boxShadow: "0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1)",
           }}
         >
-          {/* Technical background pattern */}
+          {/* Animated technical background */}
           <div
-            className="absolute inset-0"
-            style={{
-              background: "#0a0a0a",
-              backgroundImage: `
-                linear-gradient(90deg, rgba(255, 0, 0, 0.3) 1px, transparent 1px),
-                linear-gradient(0deg, rgba(255, 0, 0, 0.3) 1px, transparent 1px),
-                linear-gradient(135deg, transparent 48%, rgba(0, 136, 255, 0.4) 49%, rgba(0, 136, 255, 0.4) 51%, transparent 52%),
-                linear-gradient(45deg, transparent 48%, rgba(0, 255, 136, 0.4) 49%, rgba(0, 255, 136, 0.4) 51%, transparent 52%)
-              `,
-              backgroundSize: "40px 40px, 40px 40px, 80px 80px, 80px 80px",
-              backgroundPosition: "0 0, 0 0, 0 0, 40px 40px",
-            }}
-          />
-          
-          {/* Data visualization overlay */}
-          <svg 
-            className="absolute inset-0 w-full h-full"
-            style={{ opacity: 0.6 }}
+            className="absolute inset-0 overflow-hidden"
+            style={{ background: "#0a0a0a" }}
           >
-            <defs>
-              <linearGradient id="graphGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" style={{ stopColor: '#ff0000', stopOpacity: 1 }} />
-                <stop offset="50%" style={{ stopColor: '#0088ff', stopOpacity: 1 }} />
-                <stop offset="100%" style={{ stopColor: '#00ff88', stopOpacity: 1 }} />
-              </linearGradient>
-            </defs>
-            <polyline
-              fill="none"
-              stroke="url(#graphGradient)"
-              strokeWidth="3"
-              points="0,180 200,120 400,140 600,80 800,100 1000,60 1200,90 1400,50 1600,70 1800,40 2000,60 2200,30"
-              style={{ filter: 'drop-shadow(0 0 8px rgba(255, 0, 0, 0.5))' }}
+            {/* Animated flowing particles */}
+            <div
+              className="absolute inset-0"
+              style={{
+                backgroundImage: `
+                  radial-gradient(circle at 20% 50%, rgba(255, 0, 0, 0.15) 0%, transparent 50%),
+                  radial-gradient(circle at 80% 80%, rgba(0, 136, 255, 0.15) 0%, transparent 50%),
+                  radial-gradient(circle at 40% 20%, rgba(0, 255, 136, 0.15) 0%, transparent 50%)
+                `,
+                backgroundSize: "200% 200%",
+                animation: "gradientFlow 15s ease infinite",
+              }}
             />
-            <polyline
-              fill="none"
-              stroke="rgba(255, 170, 0, 0.8)"
-              strokeWidth="3"
-              points="0,200 200,160 400,180 600,140 800,150 1000,120 1200,130 1400,100 1600,110 1800,90 2000,100 2200,80"
-              style={{ filter: 'drop-shadow(0 0 8px rgba(255, 170, 0, 0.5))' }}
+            
+            {/* Animated grid lines */}
+            <div
+              className="absolute inset-0"
+              style={{
+                backgroundImage: `
+                  linear-gradient(90deg, rgba(255, 0, 0, 0.2) 1px, transparent 1px),
+                  linear-gradient(0deg, rgba(255, 0, 0, 0.2) 1px, transparent 1px)
+                `,
+                backgroundSize: "50px 50px",
+                animation: "gridPulse 3s ease-in-out infinite",
+              }}
             />
-            {/* Data points */}
-            <circle cx="600" cy="80" r="4" fill="#0088ff" style={{ filter: 'drop-shadow(0 0 6px #0088ff)' }} />
-            <circle cx="1000" cy="60" r="4" fill="#00ff88" style={{ filter: 'drop-shadow(0 0 6px #00ff88)' }} />
-            <circle cx="1400" cy="50" r="4" fill="#ff0000" style={{ filter: 'drop-shadow(0 0 6px #ff0000)' }} />
-          </svg>
+            
+            {/* Animated diagonal lines */}
+            <div
+              className="absolute inset-0"
+              style={{
+                backgroundImage: `
+                  linear-gradient(45deg, transparent 48%, rgba(0, 136, 255, 0.3) 49%, rgba(0, 136, 255, 0.3) 51%, transparent 52%)
+                `,
+                backgroundSize: "100px 100px",
+                animation: "diagonalSlide 20s linear infinite",
+              }}
+            />
+            
+            {/* Floating data points */}
+            {[...Array(12)].map((_, i) => (
+              <div
+                key={i}
+                className="absolute rounded-full"
+                style={{
+                  width: "4px",
+                  height: "4px",
+                  background: i % 3 === 0 ? '#ff0000' : i % 3 === 1 ? '#0088ff' : '#00ff88',
+                  boxShadow: `0 0 10px ${i % 3 === 0 ? '#ff0000' : i % 3 === 1 ? '#0088ff' : '#00ff88'}`,
+                  left: `${(i * 8 + 5)}%`,
+                  top: `${30 + (i % 4) * 15}%`,
+                  animation: `floatParticle ${8 + (i % 5) * 2}s ease-in-out infinite`,
+                  animationDelay: `${i * 0.5}s`,
+                }}
+              />
+            ))}
+          </div>
 
-          {/* Frosted glass overlay */}
+          {/* Light frosted overlay */}
           <div
             className="absolute inset-0"
             style={{
-              background: "rgba(0, 0, 0, 0.2)",
-              backdropFilter: "blur(15px)",
-              WebkitBackdropFilter: "blur(15px)",
+              background: "rgba(0, 0, 0, 0.05)",
+              backdropFilter: "blur(3px)",
+              WebkitBackdropFilter: "blur(3px)",
             }}
           />
 
