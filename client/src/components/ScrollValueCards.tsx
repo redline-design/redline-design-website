@@ -51,7 +51,18 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
           alignItems: "flex-start",
         }}
       >
-        <div className="relative" style={{ width: "100%", height: "260px" }}>
+        <div 
+          className="relative rounded-2xl" 
+          style={{ 
+            width: "100%", 
+            height: "260px",
+            background: "rgba(0, 0, 0, 0.3)",
+            backdropFilter: "blur(20px)",
+            WebkitBackdropFilter: "blur(20px)",
+            border: "1px solid rgba(255, 255, 255, 0.1)",
+            boxShadow: "0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1)",
+          }}
+        >
           {cards.map((card, idx) => {
             const Icon = card.icon;
             const spreadPos = getSpreadPosition(idx, cards.length);
