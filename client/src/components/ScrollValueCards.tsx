@@ -97,7 +97,7 @@ function AnimatedValueCard({ card, index, totalCards, spreadProgress, getSpreadP
         y: yPos,
         translateX: "-50%",
         translateY: "-50%",
-        width: "340px",
+        width: "290px",
         rotate: rotation,
         transformOrigin: "50% 100%",
         willChange: "transform",
@@ -153,7 +153,7 @@ function AnimatedValueCard({ card, index, totalCards, spreadProgress, getSpreadP
                   data-testid={`icon-value-${card.title.toLowerCase().replace(/\s/g, "-")}`} 
                 />
               </div>
-              <h3 className="text-xl font-bold text-foreground" data-testid={`text-value-title-${card.title.toLowerCase().replace(/\s/g, "-")}`}>
+              <h3 className="text-lg font-bold text-foreground whitespace-nowrap" data-testid={`text-value-title-${card.title.toLowerCase().replace(/\s/g, "-")}`}>
                 {card.title}
               </h3>
             </div>
@@ -211,8 +211,8 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
 
   // Calculate positions for each card when spread out - single row
   const getSpreadPosition = (index: number, total: number) => {
-    const cardWidth = 340;
-    const spacing = total <= 6 ? 370 : 350; // Tighter spacing to fit within view
+    const cardWidth = 290;
+    const spacing = total <= 6 ? 300 : 290; // Optimized to fit all 6 cards in viewport
     const xOffset = (index - (total - 1) / 2) * spacing;
     return { x: xOffset, y: 0 };
   };
