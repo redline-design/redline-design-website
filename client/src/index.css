@@ -2,6 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ScrollValueCards - Pulsing glow animation for hovered cards */
+@keyframes pulseGlow {
+  0% {
+    opacity: 0.6;
+    transform: scale(0.95);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  100% {
+    opacity: 0.6;
+    transform: scale(0.95);
+  }
+}
+
 /* Service Word Slider - Scroll-driven 3D animation */
 @keyframes zoom-in {
   0% {

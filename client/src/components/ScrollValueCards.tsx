@@ -29,6 +29,37 @@ interface AnimatedValueCardProps {
   onHover: (index: number | null) => void;
 }
 
+// Helper function to convert colors to rgba format with alpha
+function colorToRgba(color: string, alpha: number): string {
+  // If already a CSS variable or rgb/rgba format, use as-is with opacity wrapper
+  if (color.startsWith('var(') || color.startsWith('rgb(') || color.startsWith('rgba(')) {
+    // For CSS variables and rgb, we can't easily add alpha, so return with opacity layer
+    // This will be used in a radial-gradient, so we'll handle it differently
+    return color;
+  }
+  
+  // Handle hex colors
+  let hex = color.replace('#', '');
+  
+  // Handle shorthand hex (e.g., #fff -> #ffffff)
+  if (hex.length === 3) {
+    hex = hex.split('').map(char => char + char).join('');
+  }
+  
+  // Validate hex format
+  if (!/^[0-9A-Fa-f]{6}$/.test(hex)) {
+    // Fallback to red if invalid
+    hex = 'ff0000';
+  }
+  
+  // Parse hex values
+  const r = parseInt(hex.substring(0, 2), 16);
+  const g = parseInt(hex.substring(2, 4), 16);
+  const b = parseInt(hex.substring(4, 6), 16);
+  
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+}
+
 function AnimatedValueCard({ card, index, totalCards, spreadProgress, getSpreadPosition, hoveredIndex, onHover }: AnimatedValueCardProps) {
   const prefersReducedMotion = useReducedMotion();
   const Icon = card.icon;
@@ -84,27 +115,29 @@ function AnimatedValueCard({ card, index, totalCards, spreadProgress, getSpreadP
           boxShadow: "0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05)",
         }}
       >
-        {/* Heavy frost overlay for non-hovered cards */}
+        {/* Heavy frost overlay for non-hovered cards - completely hides content */}
         {isOtherHovered && (
           <div 
             className="absolute inset-0 pointer-events-none z-20"
             style={{
-              background: "rgba(10, 10, 10, 0.7)",
-              backdropFilter: "blur(8px)",
-              WebkitBackdropFilter: "blur(8px)",
+              background: "rgba(10, 10, 10, 0.92)",
+              backdropFilter: "blur(12px)",
+              WebkitBackdropFilter: "blur(12px)",
               transition: "all 0.3s ease-in-out",
             }}
+            data-testid="frost-overlay"
           />
         )}
         
-        {/* Animated background on hover */}
+        {/* Animated background on hover - color-themed pulsing glow (respects reduced motion) */}
         {isHovered && (
           <div 
             className="absolute inset-0 pointer-events-none z-[1]"
             style={{
-              background: `radial-gradient(circle at 50% 50%, ${accentColor}60 0%, ${accentColor}20 40%, transparent 70%)`,
-              animation: "pulseGlow 2s ease-in-out infinite",
+              background: `radial-gradient(circle at 50% 50%, ${colorToRgba(accentColor, 0.6)} 0%, ${colorToRgba(accentColor, 0.2)} 40%, transparent 70%)`,
+              animation: prefersReducedMotion ? "none" : "pulseGlow 2s ease-in-out infinite",
             }}
+            data-testid="animated-glow"
           />
         )}
         
@@ -116,7 +149,7 @@ function AnimatedValueCard({ card, index, totalCards, spreadProgress, getSpreadP
               >
                 <Icon 
                   className="h-8 w-8" 
-                  style={{ color: accentColor, filter: `drop-shadow(0 0 10px ${accentColor}80)` }}
+                  style={{ color: accentColor, filter: `drop-shadow(0 0 10px ${colorToRgba(accentColor, 0.5)})` }}
                   data-testid={`icon-value-${card.title.toLowerCase().replace(/\s/g, "-")}`} 
                 />
               </div>
@@ -185,7 +218,7 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
   };
 
   return (
-    <div ref={containerRef} className="relative" data-testid="container-value-cards">
+    <div ref={containerRef} className="relative" style={{ position: "relative" }} data-testid="container-value-cards">
       <div 
         className="relative mx-auto"
         style={{
