@@ -259,7 +259,7 @@ export default function ServicesDeepDive() {
                             className="w-full"
                             data-testid={`button-book-${service.id}`}
                           >
-                            <a href="#contact">
+                            <a href="/contact">
                               {service.status === "waitlist" ? "Join Waitlist" : "Book Free Consultation"}
                             </a>
                           </Button>

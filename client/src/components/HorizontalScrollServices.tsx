@@ -503,7 +503,7 @@ export default function HorizontalScrollServices() {
                     className="w-full"
                     data-testid={`button-book-${selectedService.id}`}
                   >
-                    <a href="#contact">
+                    <a href="/contact">
                       {selectedService.status === "waitlist" ? "Join Waitlist" : "Book Free Consultation"}
                     </a>
                   </Button>
