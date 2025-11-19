@@ -109,7 +109,7 @@ function AnimatedValueCard({ card, index, totalCards, spreadProgress, getSpreadP
         onMouseEnter={() => onHover(index)}
         onMouseLeave={() => onHover(null)}
         style={{ 
-          height: "340px",
+          height: "450px",
           background: "rgba(20, 20, 20, 0.6)",
           border: "1px solid rgba(255, 255, 255, 0.1)",
           boxShadow: "0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05)",
@@ -148,24 +148,24 @@ function AnimatedValueCard({ card, index, totalCards, spreadProgress, getSpreadP
                 className="flex-shrink-0 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3"
               >
                 <Icon 
-                  className="h-8 w-8" 
-                  style={{ color: accentColor, filter: `drop-shadow(0 0 10px ${colorToRgba(accentColor, 0.5)})` }}
+                  className="h-10 w-10" 
+                  style={{ color: accentColor, filter: `drop-shadow(0 0 12px ${colorToRgba(accentColor, 0.5)})` }}
                   data-testid={`icon-value-${card.title.toLowerCase().replace(/\s/g, "-")}`} 
                 />
               </div>
-              <h3 className="text-lg font-bold text-foreground" data-testid={`text-value-title-${card.title.toLowerCase().replace(/\s/g, "-")}`}>
+              <h3 className="text-xl font-bold text-foreground" data-testid={`text-value-title-${card.title.toLowerCase().replace(/\s/g, "-")}`}>
                 {card.title}
               </h3>
             </div>
             
             {card.bullets ? (
-              <div className="flex-1 space-y-2.5">
+              <div className="flex-1 space-y-3">
                 {card.bullets.map((bullet, idx) => (
-                  <div key={idx} className="flex items-start gap-2.5 text-left">
+                  <div key={idx} className="flex items-start gap-3 text-left">
                     <svg 
-                      className="flex-shrink-0 mt-0.5" 
-                      width="16" 
-                      height="16" 
+                      className="flex-shrink-0 mt-1" 
+                      width="18" 
+                      height="18" 
                       viewBox="0 0 16 16"
                       style={{ color: "#00ff88" }}
                     >
@@ -179,14 +179,14 @@ function AnimatedValueCard({ card, index, totalCards, spreadProgress, getSpreadP
                         fill="none"
                       />
                     </svg>
-                    <span className="text-sm text-muted-foreground leading-snug flex-1">
+                    <span className="text-base text-muted-foreground leading-relaxed flex-1">
                       {bullet}
                     </span>
                   </div>
                 ))}
               </div>
             ) : card.description ? (
-              <p className="text-sm text-muted-foreground leading-relaxed flex-1" data-testid={`text-value-description-${card.title.toLowerCase().replace(/\s/g, "-")}`}>
+              <p className="text-base text-muted-foreground leading-relaxed flex-1" data-testid={`text-value-description-${card.title.toLowerCase().replace(/\s/g, "-")}`}>
                 {card.description}
               </p>
             ) : null}
@@ -223,7 +223,7 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
         className="relative mx-auto"
         style={{
           width: "95%",
-          minHeight: "420px",
+          minHeight: "520px",
           maxWidth: "2400px",
           display: "flex",
           justifyContent: "center",
@@ -234,7 +234,7 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
           className="relative rounded-2xl" 
           style={{ 
             width: "100%", 
-            height: "400px",
+            height: "500px",
             border: "1px solid rgba(255, 255, 255, 0.1)",
             boxShadow: "0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1)",
             overflow: "visible",

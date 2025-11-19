@@ -427,7 +427,9 @@ export default function Home() {
                   "Average 7x return on investment",
                   "Some clients achieving up to 14x ROI",
                   "Focus relentlessly on revenue growth",
-                  "Data-driven optimization"
+                  "Data-driven optimization strategies",
+                  "Continuous A/B testing & refinement",
+                  "ROI tracking across all channels"
                 ],
                 index: 0,
                 accentColor: "#ff0000",
@@ -439,7 +441,9 @@ export default function Home() {
                   "Enterprise-level marketing from $500/mo",
                   "No long-term contracts required",
                   "No hidden fees or surprises",
-                  "Flexible pricing plans"
+                  "Flexible pricing plans for all budgets",
+                  "Month-to-month billing options",
+                  "Scale up or down as needed"
                 ],
                 index: 1,
                 accentColor: "#00ff88",
@@ -449,9 +453,11 @@ export default function Home() {
                 title: "Quick Turnaround",
                 bullets: [
                   "Most updates within 24 business hours",
-                  "Fast-paced execution",
+                  "Fast-paced execution on all projects",
                   "Capitalize on opportunities quickly",
-                  "Agile workflow processes"
+                  "Agile workflow processes",
+                  "Rapid response to market changes",
+                  "Launch campaigns in days, not weeks"
                 ],
                 index: 2,
                 accentColor: "#ffaa00",
@@ -463,7 +469,9 @@ export default function Home() {
                   "Measure everything that matters",
                   "Real-time performance dashboards",
                   "Track conversions and ROI live",
-                  "Customer acquisition metrics"
+                  "Customer acquisition cost tracking",
+                  "Detailed analytics & insights reports",
+                  "Goal-oriented campaign planning"
                 ],
                 index: 3,
                 accentColor: "#0088ff",
@@ -475,7 +483,9 @@ export default function Home() {
                   "Web design & development",
                   "SEO, PPC & paid advertising",
                   "Social media & content marketing",
-                  "Email marketing & CRM integration"
+                  "Email marketing & CRM integration",
+                  "Graphic design & branding",
+                  "Analytics & conversion optimization"
                 ],
                 index: 4,
                 accentColor: "#aa00ff",
@@ -487,7 +497,9 @@ export default function Home() {
                   "Personalized strategies for your business",
                   "Tailored to your industry & audience",
                   "No cookie-cutter solutions",
-                  "Dedicated account management"
+                  "Dedicated account management",
+                  "Custom reporting for your needs",
+                  "Direct access to your marketing team"
                 ],
                 index: 5,
                 accentColor: "#ff0088",
