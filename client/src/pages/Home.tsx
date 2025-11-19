@@ -421,15 +421,7 @@ export default function Home() {
             style={{ zIndex: 20 }}
             data-testid="section-differentiators"
           >
-            <div 
-              className="w-full max-w-7xl mx-auto rounded-2xl px-6 py-8"
-              style={{
-                background: 'rgba(10, 10, 10, 0.6)',
-                backdropFilter: 'blur(20px)',
-                WebkitBackdropFilter: 'blur(20px)',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
-              }}
-            >
+            <div className="w-full">
               <SliderCarousel slides={sliderSlides} />
             </div>
           </section>
@@ -442,15 +434,7 @@ export default function Home() {
             style={{ zIndex: 30 }}
             data-testid="section-why-us"
           >
-            <div 
-              className="w-full max-w-7xl mx-auto rounded-2xl px-6 py-8"
-              style={{
-                background: 'rgba(10, 10, 10, 0.6)',
-                backdropFilter: 'blur(20px)',
-                WebkitBackdropFilter: 'blur(20px)',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
-              }}
-            >
+            <div className="w-full">
           <ScrollValueCards
             cards={[
               {
@@ -551,13 +535,16 @@ export default function Home() {
             style={{ zIndex: 40 }}
             data-testid="section-partners"
           >
+            <div className="w-full">
+          <div className="relative mx-auto" style={{ width: "95%", maxWidth: "2400px" }}>
             <div 
-              className="w-full max-w-7xl mx-auto rounded-2xl px-8 py-12"
+              className="relative rounded-2xl px-8 py-12"
               style={{
                 background: 'rgba(10, 10, 10, 0.6)',
                 backdropFilter: 'blur(20px)',
                 WebkitBackdropFilter: 'blur(20px)',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
+                border: "1px solid rgba(255, 255, 255, 0.1)",
+                boxShadow: "0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1)",
                 overflow: "hidden",
               }}
             >
@@ -674,21 +661,29 @@ export default function Home() {
         <div className="home-snap-section">
           <section 
             className="home-snap-content py-2 px-2 sm:px-3 lg:px-4 neumorphic-section" 
-            style={{ 
-              zIndex: 50,
-              background: 'rgba(10, 10, 10, 0.4)',
-              backdropFilter: 'blur(20px)',
-              WebkitBackdropFilter: 'blur(20px)',
-            }}
+            style={{ zIndex: 50 }}
             data-testid="section-cta"
           >
-            <div className="w-full max-w-7xl mx-auto">
-              <CTABand
-                title="Book a Free Consultation Today!"
-                subtitle="Let's discuss how we can grow your business with data-driven marketing."
-                buttonText="Get Started"
-                buttonLink="/book-a-demo"
-              />
+            <div className="w-full">
+              <div 
+                className="relative mx-auto rounded-2xl px-8 py-12"
+                style={{
+                  width: "95%",
+                  maxWidth: "2400px",
+                  background: "rgba(10, 10, 10, 0.6)",
+                  backdropFilter: "blur(20px)",
+                  WebkitBackdropFilter: "blur(20px)",
+                  border: "1px solid rgba(255, 255, 255, 0.1)",
+                  boxShadow: "0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1)",
+                }}
+              >
+                <CTABand
+                  title="Book a Free Consultation Today!"
+                  subtitle="Let's discuss how we can grow your business with data-driven marketing."
+                  buttonText="Get Started"
+                  buttonLink="/book-a-demo"
+                />
+              </div>
             </div>
           </section>
         </div>

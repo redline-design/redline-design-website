@@ -2872,7 +2872,9 @@
   max-width: 2200px;
   height: 750px;
   margin: 0 auto;
-  background: transparent;
+  background: rgba(10, 10, 10, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   box-shadow: 0 30px 50px rgba(0, 0, 0, 0.3);
   border-radius: 20px;
   overflow: hidden;

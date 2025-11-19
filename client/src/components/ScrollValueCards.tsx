@@ -272,7 +272,11 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
           {/* Animated hexagon background */}
           <div
             className="absolute inset-0 overflow-hidden"
-            style={{ background: "#0a0a0a" }}
+            style={{ 
+              background: "rgba(10, 10, 10, 0.6)",
+              backdropFilter: "blur(20px)",
+              WebkitBackdropFilter: "blur(20px)",
+            }}
           >
             <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
               <defs>
