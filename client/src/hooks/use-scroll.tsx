@@ -23,26 +23,45 @@ class ScrollManager {
     showHeader: true,
   };
   private rafId: number | null = null;
-  private lastScrollY = 0;
-  private lastUpdateTime = Date.now();
+  private lastEventScrollY = 0;
+  private cachedScrollY = 0;
+  private cachedIsScrollingDown = false;
+  private cachedIsScrollingUp = false;
   private hasScrollListener = false;
 
-  private updateState = () => {
+  private handleScroll = () => {
+    // Cache scroll position and direction immediately in event handler
+    const currentScrollY = window.scrollY;
+    const delta = currentScrollY - this.lastEventScrollY;
+    
+    // Update cached position
+    this.cachedScrollY = currentScrollY;
+    
+    // Only update direction on non-zero deltas to preserve last direction
+    if (delta !== 0) {
+      this.cachedIsScrollingDown = delta > 0;
+      this.cachedIsScrollingUp = delta < 0;
+      this.lastEventScrollY = currentScrollY;
+    }
+    
+    // Schedule RAF to broadcast cached values
+    this.scheduleUpdate();
+  };
+
+  private scheduleUpdate = () => {
     if (this.rafId) return;
 
     this.rafId = requestAnimationFrame(() => {
-      const currentScrollY = window.scrollY;
       const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = scrollHeight > 0 ? (currentScrollY / scrollHeight) * 100 : 0;
+      const progress = scrollHeight > 0 ? (this.cachedScrollY / scrollHeight) * 100 : 0;
       
-      // Simple, reliable direction detection
-      const delta = currentScrollY - this.lastScrollY;
-      const isScrollingDown = delta > 0;
-      const isScrollingUp = delta < 0;
+      // Use cached direction values computed in scroll event
+      const isScrollingDown = this.cachedIsScrollingDown;
+      const isScrollingUp = this.cachedIsScrollingUp;
       
-      // Simple header show/hide logic
-      let showHeader = true;
-      if (currentScrollY < 50) {
+      // Header show/hide logic
+      let showHeader = this.state.showHeader;
+      if (this.cachedScrollY < 50) {
         showHeader = true;
       } else if (isScrollingDown) {
         showHeader = false;
@@ -51,9 +70,9 @@ class ScrollManager {
       }
 
       const newState: ScrollState = {
-        scrollY: currentScrollY,
+        scrollY: this.cachedScrollY,
         scrollProgress: progress,
-        isScrolled: currentScrollY > 50,
+        isScrolled: this.cachedScrollY > 50,
         isScrollingDown,
         isScrollingUp,
         showHeader,
@@ -70,7 +89,6 @@ class ScrollManager {
       });
 
       this.state = newState;
-      this.lastScrollY = currentScrollY;
       this.rafId = null;
     });
   };
@@ -86,10 +104,10 @@ class ScrollManager {
     
     // Start scroll listener if needed
     if (!this.hasScrollListener) {
-      window.addEventListener("scroll", this.updateState, { passive: true });
+      window.addEventListener("scroll", this.handleScroll, { passive: true });
       this.hasScrollListener = true;
       // Initial update
-      this.updateState();
+      this.handleScroll();
     }
 
     return () => {
@@ -106,7 +124,7 @@ class ScrollManager {
       
       // Stop scroll listener if no more listeners
       if (this.listeners.size === 0) {
-        window.removeEventListener("scroll", this.updateState);
+        window.removeEventListener("scroll", this.handleScroll);
         this.hasScrollListener = false;
         if (this.rafId) {
           cancelAnimationFrame(this.rafId);
