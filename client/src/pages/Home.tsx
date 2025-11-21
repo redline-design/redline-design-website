@@ -635,8 +635,10 @@ export default function Home() {
 
       <SectionDivider />
 
-      <section className="fixed bottom-0 left-0 right-0 z-40 px-2 sm:px-3 lg:px-4" data-testid="section-cta">
-        <div className="max-w-7xl mx-auto">
+      <StickyConversionBar />
+
+      <section className="w-full" data-testid="section-cta">
+        <div className="max-w-7xl mx-auto px-2 sm:px-3 lg:px-4">
           <CTABand
             title="Book a Free Consultation Today!"
             subtitle="Let's discuss how we can grow your business with data-driven marketing."
@@ -645,8 +647,6 @@ export default function Home() {
           />
         </div>
       </section>
-
-      <StickyConversionBar />
     </div>
   );
 }

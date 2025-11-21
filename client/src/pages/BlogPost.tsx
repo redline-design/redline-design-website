@@ -49,6 +49,8 @@ function LoadingSkeleton() {
           </div>
         </div>
       </div>
+      </div>
+      </div>
     </div>
   );
 }
