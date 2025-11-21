@@ -141,9 +141,16 @@ export default function Hero() {
         transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
         style={{ opacity }}
       >
-        <div className="flex flex-col items-center gap-2">
-          <span className="text-xs text-muted-foreground uppercase tracking-wider">Scroll</span>
-          <ChevronDown className="h-6 w-6 text-foreground" data-testid="icon-scroll-indicator" />
+        <div 
+          className="flex flex-col items-center gap-3 px-6 py-4 rounded-lg"
+          style={{
+            background: 'linear-gradient(135deg, rgba(255, 0, 0, 0.15) 0%, rgba(255, 0, 0, 0.05) 100%)',
+            boxShadow: 'inset 0 2px 4px rgba(255, 0, 0, 0.2), inset 0 -2px 4px rgba(0, 0, 0, 0.1), 0 4px 12px rgba(255, 0, 0, 0.1)',
+            border: '1px solid rgba(255, 0, 0, 0.2)'
+          }}
+        >
+          <span className="text-xs font-semibold uppercase tracking-wider" style={{ color: '#ff0000' }}>Scroll</span>
+          <ChevronDown className="h-5 w-5 animate-bounce" style={{ color: '#ff0000' }} data-testid="icon-scroll-indicator" />
         </div>
       </motion.div>
     </section>
