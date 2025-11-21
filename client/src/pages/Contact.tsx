@@ -80,12 +80,8 @@ export default function Contact() {
 
   return (
     <div className="min-h-screen py-16 md:py-24">
-      <div className="layout">
-        <div className="layout-box">
-          High-end, full-service<br />digital marketing<br />for growing brands.
-        </div>
-      </div>
-      <div className="container mx-auto px-4">
+      <div style={{ position: 'relative', minHeight: '100vh' }}>
+        <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -290,6 +286,12 @@ export default function Contact() {
             </Card>
           </div>
         </motion.div>
+        <div className="layout">
+          <div className="layout-box">
+            High-end, full-service<br />digital marketing<br />for growing brands.
+          </div>
+        </div>
+      </div>
       </div>
     </div>
   );

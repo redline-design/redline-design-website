@@ -60,12 +60,8 @@ export default function Articles() {
 
   return (
     <div className="pt-20">
-      <div className="layout">
-        <div className="layout-box">
-          High-end, full-service<br />digital marketing<br />for growing brands.
-        </div>
-      </div>
-      <section className="py-20 px-4 sm:px-6 lg:px-8 text-center" data-testid="section-articles-intro">
+      <div style={{ position: 'relative', minHeight: '100vh' }}>
+        <section className="py-20 px-4 sm:px-6 lg:px-8 text-center" data-testid="section-articles-intro">
         <div className="max-w-4xl mx-auto">
           <motion.h1
             className="text-4xl md:text-5xl lg:text-6xl font-black text-foreground mb-6"
@@ -122,6 +118,12 @@ export default function Articles() {
           )}
         </div>
       </section>
+        <div className="layout">
+          <div className="layout-box">
+            High-end, full-service<br />digital marketing<br />for growing brands.
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

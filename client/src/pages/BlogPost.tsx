@@ -12,12 +12,8 @@ import type { BlogPost as BlogPostType } from "@shared/schema";
 function LoadingSkeleton() {
   return (
     <div className="pt-20 px-4 sm:px-6 lg:px-8 py-12">
-      <div className="layout">
-        <div className="layout-box">
-          High-end, full-service<br />digital marketing<br />for growing brands.
-        </div>
-      </div>
-      <div className="max-w-4xl mx-auto">
+      <div style={{ position: 'relative', minHeight: '100vh' }}>
+        <div className="max-w-4xl mx-auto">
         <div className="mb-8">
           <Skeleton className="h-8 w-32 mb-4" />
         </div>
@@ -47,6 +43,11 @@ function LoadingSkeleton() {
             </div>
           </CardContent>
         </Card>
+        <div className="layout">
+          <div className="layout-box">
+            High-end, full-service<br />digital marketing<br />for growing brands.
+          </div>
+        </div>
       </div>
     </div>
   );

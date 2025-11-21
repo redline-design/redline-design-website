@@ -6,12 +6,8 @@ import { Clock, CheckCircle2, MessageSquare } from "lucide-react";
 export default function BookDemo() {
   return (
     <div className="pt-20">
-      <div className="layout">
-        <div className="layout-box">
-          High-end, full-service<br />digital marketing<br />for growing brands.
-        </div>
-      </div>
-      <section className="py-20 px-4 sm:px-6 lg:px-8" data-testid="section-book-demo">
+      <div style={{ position: 'relative', minHeight: '100vh' }}>
+        <section className="py-20 px-4 sm:px-6 lg:px-8" data-testid="section-book-demo">
         <div className="max-w-5xl mx-auto">
           <motion.div
             className="text-center mb-16"
@@ -97,6 +93,12 @@ export default function BookDemo() {
           </motion.div>
         </div>
       </section>
+        <div className="layout">
+          <div className="layout-box">
+            High-end, full-service<br />digital marketing<br />for growing brands.
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
