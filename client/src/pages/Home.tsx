@@ -393,6 +393,11 @@ export default function Home() {
 
   return (
     <div>
+      <div className="layout">
+        <div className="layout-box">
+          High-end, full-service<br />digital marketing<br />for growing brands.
+        </div>
+      </div>
       <Hero />
 
       <ScrollAnimatedSection>

@@ -85,6 +85,11 @@ export default function SEOPage() {
 
   return (
     <div className="min-h-screen">
+      <div className="layout">
+        <div className="layout-box">
+          High-end, full-service<br />digital marketing<br />for growing brands.
+        </div>
+      </div>
       {/* Hero Section */}
       <div className="relative overflow-hidden bg-gradient-to-br from-background/80 via-card/40 to-background/80 py-20 md:py-32">
         <div className="absolute inset-0 bg-grid-white/5 [mask-image:linear-gradient(0deg,transparent,black)]" />

@@ -60,6 +60,11 @@ export default function Articles() {
 
   return (
     <div className="pt-20">
+      <div className="layout">
+        <div className="layout-box">
+          High-end, full-service<br />digital marketing<br />for growing brands.
+        </div>
+      </div>
       <section className="py-20 px-4 sm:px-6 lg:px-8 text-center" data-testid="section-articles-intro">
         <div className="max-w-4xl mx-auto">
           <motion.h1

@@ -39,6 +39,11 @@ export default function SocialMediaPage() {
   
   return (
     <div className="min-h-screen">
+      <div className="layout">
+        <div className="layout-box">
+          High-end, full-service<br />digital marketing<br />for growing brands.
+        </div>
+      </div>
       <ScrollAnimatedSection>
         <div className="relative overflow-hidden pt-20 md:pt-32 pb-8 md:pb-12">
         
