@@ -34,7 +34,7 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
   return (
     <div 
       ref={containerRef} 
-      className="relative overflow-hidden"
+      className="relative overflow-hidden -my-2 -mx-2 sm:-mx-3 lg:-mx-4"
       data-testid="container-value-cards"
     >
       {/* Parallax background layer */}
