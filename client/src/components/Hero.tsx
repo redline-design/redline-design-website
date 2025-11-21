@@ -5,6 +5,7 @@ import { Link } from "wouter";
 import { ChevronDown, Sparkles, CalendarCheck } from "lucide-react";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import logoLarge from "@assets/v2h5UOvchlYvZ2HIPfl8w5dPIc_1762041101932.avif";
+import newLogoFull from "@assets/RedlineLogoFull_1763765504169.png";
 import TextResolver from "@/components/TextResolver";
 
 export default function Hero() {
@@ -71,7 +72,7 @@ export default function Hero() {
           <div className="relative w-full max-w-sm md:max-w-md lg:max-w-lg mx-auto">
             {/* Base logo */}
             <img 
-              src={logoLarge} 
+              src={newLogoFull} 
               alt="Redline Design" 
               loading="eager"
               className="w-full"
@@ -79,7 +80,7 @@ export default function Hero() {
             />
             {/* Red glow overlay - only affects red parts */}
             <img 
-              src={logoLarge} 
+              src={newLogoFull} 
               alt="" 
               loading="eager"
               className="w-full absolute inset-0"
