@@ -91,13 +91,13 @@ function AnimatedValueCard({ card, index, totalCards, spreadProgress, getSpreadP
     <motion.div
       style={{
         position: "absolute",
-        top: "58%",
+        top: "50%",
         left: "50%",
         x: xPos,
         y: yPos,
         translateX: "-50%",
         translateY: "-50%",
-        width: "290px",
+        width: "250px",
         rotate: rotation,
         transformOrigin: "50% 100%",
         willChange: "transform",
@@ -109,7 +109,7 @@ function AnimatedValueCard({ card, index, totalCards, spreadProgress, getSpreadP
         onMouseEnter={() => onHover(index)}
         onMouseLeave={() => onHover(null)}
         style={{ 
-          height: "400px",
+          height: "350px",
           background: "linear-gradient(145deg, rgba(25, 25, 25, 0.7), rgba(15, 15, 15, 0.7))",
           border: "1px solid rgba(255, 255, 255, 0.08)",
           boxShadow: `
@@ -240,8 +240,8 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
 
   // Calculate positions for each card when spread out - single row
   const getSpreadPosition = (index: number, total: number) => {
-    const cardWidth = 290;
-    const spacing = total <= 6 ? 310 : 300; // Increased spacing between cards
+    const cardWidth = 250;
+    const spacing = total <= 6 ? 140 : 120; // Constrained spacing to fit within container
     const xOffset = (index - (total - 1) / 2) * spacing;
     return { x: xOffset, y: 0 };
   };
