@@ -72,8 +72,8 @@ export default function OurWork() {
   const [startX, setStartX] = useState(0);
   const carouselRef = useRef<HTMLDivElement>(null);
 
-  const speedWheel = 0.02;
-  const speedDrag = -0.1;
+  const speedWheel = 0.04;
+  const speedDrag = -0.2;
 
   useEffect(() => {
     if (portfolioItems.length > 0) {
