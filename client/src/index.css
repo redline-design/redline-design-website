@@ -2562,7 +2562,7 @@
 .layout {
   position: absolute;
   z-index: 0;
-  top: 2rem;
+  bottom: 2rem;
   left: 2rem;
   pointer-events: none;
 }
@@ -2571,7 +2571,7 @@
   content: '';
   position: absolute;
   z-index: 1;
-  top: calc(-2rem);
+  top: -100vh;
   left: 4rem;
   width: 1px;
   height: 100vh;
