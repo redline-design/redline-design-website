@@ -633,16 +633,22 @@ export default function Home() {
         </section>
       </ScrollAnimatedSection>
 
-      <SectionDivider />
-
       <StickyConversionBar />
 
       <section className="w-full" data-testid="section-cta" style={{
-        background: 'linear-gradient(135deg, rgb(26, 26, 26) 0%, rgb(20, 20, 20) 100%)',
-        boxShadow: 'inset 0 2px 4px rgba(255, 0, 0, 0.2), inset 0 -2px 4px rgba(0, 0, 0, 0.5), 0 8px 16px rgba(0, 0, 0, 0.3)',
-        border: '1px solid rgba(255, 0, 0, 0.15)'
+        background: 'linear-gradient(180deg, rgb(26, 26, 26) 0%, rgb(18, 18, 18) 50%, rgb(15, 15, 15) 100%)',
+        boxShadow: 'inset 0 4px 8px rgba(255, 0, 0, 0.25), inset 0 -8px 16px rgba(0, 0, 0, 0.8), 0 16px 32px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05)',
+        border: '1px solid rgba(255, 0, 0, 0.2)',
+        position: 'relative'
       }}>
-        <div className="max-w-7xl mx-auto px-2 sm:px-3 lg:px-4">
+        {/* Depth effect with pseudo-element */}
+        <div style={{
+          position: 'absolute',
+          inset: 0,
+          background: 'linear-gradient(to right, rgba(255, 0, 0, 0.05), transparent, rgba(255, 0, 0, 0.05))',
+          pointerEvents: 'none'
+        }} />
+        <div className="max-w-7xl mx-auto px-2 sm:px-3 lg:px-4 relative z-10">
           <CTABand
             title="Book a Free Consultation Today!"
             subtitle="Let's discuss how we can grow your business with data-driven marketing."
