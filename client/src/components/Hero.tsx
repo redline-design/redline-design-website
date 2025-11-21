@@ -68,7 +68,7 @@ export default function Hero() {
               }
             }
           `}</style>
-          <div className="relative w-full max-w-sm md:max-w-md lg:max-w-lg mx-auto" style={{ clipPath: 'inset(0 0 40% 0)' }}>
+          <div className="relative w-full max-w-sm md:max-w-md lg:max-w-lg mx-auto">
             {/* Base logo */}
             <img 
               src={logoLarge} 
