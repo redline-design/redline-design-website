@@ -68,14 +68,13 @@ export default function Hero() {
               }
             }
           `}</style>
-          <div className="relative w-full max-w-sm md:max-w-md lg:max-w-lg mx-auto overflow-hidden" style={{ maxHeight: '320px' }}>
+          <div className="relative w-full max-w-sm md:max-w-md lg:max-w-lg mx-auto" style={{ clipPath: 'inset(0 0 40% 0)' }}>
             {/* Base logo */}
             <img 
               src={logoLarge} 
               alt="Redline Design" 
               loading="eager"
               className="w-full"
-              style={{ objectFit: 'cover', objectPosition: 'center top' }}
               data-testid="img-hero-logo"
             />
             {/* Red glow overlay - only affects red parts */}
@@ -85,8 +84,6 @@ export default function Hero() {
               loading="eager"
               className="w-full absolute inset-0"
               style={{
-                objectFit: 'cover',
-                objectPosition: 'center top',
                 filter: 'brightness(2.5) saturate(3) hue-rotate(-10deg) contrast(1.5) sepia(0.3)',
                 animation: 'heroLogoShimmer 4s ease-in-out infinite',
                 mixBlendMode: 'lighten',
