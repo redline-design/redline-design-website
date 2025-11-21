@@ -64,7 +64,7 @@ export default function TestimonialsCarousel() {
     <div className="relative">
       <div 
         ref={scrollContainerRef}
-        className="relative overflow-x-auto snap-x snap-always scrollbar-hide scroll-smooth"
+        className="relative overflow-hidden snap-x snap-always scroll-smooth"
         style={{ scrollBehavior: 'smooth', scrollSnapType: 'x mandatory' }}
       >
         <motion.div
@@ -115,7 +115,18 @@ interface TestimonialCardProps {
 function TestimonialCard({ review }: TestimonialCardProps) {
   return (
     <div className="h-full" data-testid={`card-testimonial-${review.id}`}>
-      <Card className="rounded-xl backdrop-blur-md bg-card/40 border-white/10 h-full">
+      <div 
+        className="rounded-xl h-full transition-all duration-300"
+        style={{
+          background: "linear-gradient(135deg, #1e1e1e 0%, #1a1a1a 100%)",
+          boxShadow: `
+            8px 8px 16px rgba(0, 0, 0, 0.9),
+            -4px -4px 8px rgba(255, 255, 255, 0.02),
+            inset 1px 1px 2px rgba(255, 255, 255, 0.05),
+            inset -1px -1px 2px rgba(0, 0, 0, 0.2)
+          `,
+        }}
+      >
         <CardContent className="p-6">
           {/* Profile */}
           <div className="flex items-center gap-3 mb-4">
@@ -162,7 +173,7 @@ function TestimonialCard({ review }: TestimonialCardProps) {
             "{review.content}"
           </p>
         </CardContent>
-      </Card>
+      </div>
     </div>
   );
 }
