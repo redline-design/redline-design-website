@@ -29,8 +29,34 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
   });
 
   return (
-    <div ref={containerRef} className="relative py-12" data-testid="container-value-cards">
-      <div className="mx-auto px-4 md:px-6 max-w-6xl">
+    <div 
+      ref={containerRef} 
+      className="relative py-16 md:py-20"
+      style={{
+        background: "linear-gradient(135deg, rgba(10, 10, 10, 0.8) 0%, rgba(15, 20, 30, 0.6) 50%, rgba(10, 15, 25, 0.8) 100%)",
+        backgroundAttachment: "fixed"
+      }}
+      data-testid="container-value-cards"
+    >
+      {/* Animated background elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div 
+          className="absolute top-0 left-10 w-72 h-72 rounded-full opacity-5"
+          style={{
+            background: "radial-gradient(circle, #ff0000, transparent)",
+            animation: "pulse 8s ease-in-out infinite"
+          }}
+        />
+        <div 
+          className="absolute bottom-0 right-10 w-72 h-72 rounded-full opacity-5"
+          style={{
+            background: "radial-gradient(circle, #0088ff, transparent)",
+            animation: "pulse 10s ease-in-out infinite 2s"
+          }}
+        />
+      </div>
+
+      <div className="mx-auto px-4 md:px-6 max-w-6xl relative z-10">
         {/* Section Title */}
         <motion.div 
           className="text-center mb-12"
@@ -39,10 +65,13 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-3xl md:text-4xl font-black uppercase tracking-wider mb-2 red-glow-pulse" style={{ color: "#ff0000" }}>
+          <h2 className="text-4xl md:text-5xl font-black uppercase tracking-widest mb-3 red-glow-pulse" style={{ color: "#ff0000", letterSpacing: "0.05em" }}>
             Why Choose Us
           </h2>
-          <div className="h-1 w-24 bg-red-500 mx-auto rounded-full" style={{ background: "linear-gradient(90deg, #ff0000, #0088ff, #00ff88)" }} />
+          <p className="text-muted-foreground text-base md:text-lg mb-8 max-w-2xl mx-auto">
+            Results-driven digital marketing that actually delivers measurable ROI
+          </p>
+          <div className="h-1.5 w-32 mx-auto rounded-full" style={{ background: "linear-gradient(90deg, #ff0000, #0088ff, #00ff88)" }} />
         </motion.div>
 
         {/* Cards Grid */}
@@ -87,18 +116,33 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
                   />
 
                   <CardContent className="p-6 h-full flex flex-col relative z-10">
-                    {/* Icon */}
+                    {/* Icon Container */}
                     <motion.div 
-                      className="flex justify-center mb-4"
-                      whileHover={{ scale: 1.1, rotate: 5 }}
-                      transition={{ type: "spring", stiffness: 300 }}
+                      className="flex justify-center mb-6"
+                      whileHover={{ scale: 1.15, rotate: 8 }}
+                      transition={{ type: "spring", stiffness: 300, damping: 20 }}
                     >
-                      <div className="relative">
+                      <div 
+                        className="relative flex items-center justify-center"
+                        style={{
+                          width: "80px",
+                          height: "80px",
+                          borderRadius: "16px",
+                          background: `linear-gradient(145deg, rgba(255, 0, 0, 0.15), rgba(255, 0, 0, 0.05))`,
+                          border: `1.5px solid ${accentColor}40`,
+                          boxShadow: `
+                            8px 8px 20px rgba(0, 0, 0, 0.3),
+                            -4px -4px 12px rgba(${parseInt(accentColor.slice(1,3), 16)}, ${parseInt(accentColor.slice(3,5), 16)}, ${parseInt(accentColor.slice(5,7), 16)}, 0.1),
+                            inset 1px 1px 2px rgba(255, 255, 255, 0.05),
+                            0 0 24px ${accentColor}30
+                          `,
+                        }}
+                      >
                         <Icon 
-                          className="h-12 w-12"
+                          className="h-10 w-10"
                           style={{ 
                             color: accentColor,
-                            filter: `drop-shadow(0 0 12px ${accentColor}40)`
+                            filter: `drop-shadow(0 0 8px ${accentColor}60)`
                           }}
                           data-testid={`icon-value-${card.title.toLowerCase().replace(/\s/g, "-")}`}
                         />
@@ -107,7 +151,8 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
 
                     {/* Title */}
                     <h3 
-                      className="text-lg font-black text-foreground text-center mb-4 uppercase tracking-wider leading-tight"
+                      className="text-xl font-black text-center mb-5 uppercase tracking-widest leading-tight"
+                      style={{ color: accentColor, letterSpacing: "0.05em" }}
                       data-testid={`text-value-title-${card.title.toLowerCase().replace(/\s/g, "-")}`}
                     >
                       {card.title}
@@ -126,39 +171,39 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
                             viewport={{ once: true }}
                           >
                             {/* Checkmark */}
-                            <div 
-                              className="flex-shrink-0 mt-1 w-5 h-5 rounded-sm flex items-center justify-center flex-none"
+                            <motion.div 
+                              className="flex-shrink-0 mt-0.5 w-6 h-6 rounded-md flex items-center justify-center flex-none"
+                              whileHover={{ scale: 1.1 }}
                               style={{
-                                background: "linear-gradient(145deg, rgba(0, 255, 136, 0.2), rgba(0, 255, 136, 0.1))",
-                                border: "1px solid rgba(0, 255, 136, 0.4)",
+                                background: "linear-gradient(135deg, #00ff88 0%, #00dd77 100%)",
                                 boxShadow: `
-                                  inset 1px 1px 2px rgba(0, 0, 0, 0.3),
-                                  inset -1px -1px 2px rgba(0, 255, 136, 0.1),
-                                  0 1px 4px rgba(0, 255, 136, 0.15)
+                                  0 4px 12px rgba(0, 255, 136, 0.25),
+                                  inset 1px 1px 2px rgba(255, 255, 255, 0.2),
+                                  inset -1px -1px 2px rgba(0, 0, 0, 0.2)
                                 `,
                               }}
                             >
                               <svg 
-                                width="12" 
-                                height="12" 
+                                width="14" 
+                                height="14" 
                                 viewBox="0 0 16 16"
                                 style={{ 
-                                  color: "#00ff88",
-                                  filter: "drop-shadow(0 0.5px 1px rgba(0, 255, 136, 0.3))"
+                                  color: "#0a0a0a",
+                                  filter: "drop-shadow(0 0.5px 1px rgba(0, 0, 0, 0.2))"
                                 }}
                               >
                                 <path 
                                   d="M13 4L6 11L3 8" 
                                   stroke="currentColor" 
-                                  strokeWidth="2.5" 
+                                  strokeWidth="3" 
                                   strokeLinecap="round" 
                                   strokeLinejoin="round"
                                   fill="none"
                                 />
                               </svg>
-                            </div>
+                            </motion.div>
                             {/* Text */}
-                            <span className="text-sm text-muted-foreground leading-relaxed">
+                            <span className="text-sm text-foreground/90 leading-relaxed font-medium">
                               {bullet}
                             </span>
                           </motion.div>
