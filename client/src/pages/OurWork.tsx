@@ -72,8 +72,8 @@ export default function OurWork() {
   const [startX, setStartX] = useState(0);
   const carouselRef = useRef<HTMLDivElement>(null);
 
-  const speedWheel = 0.04;
-  const speedDrag = -0.2;
+  const speedWheel = 0.08;
+  const speedDrag = -0.4;
 
   useEffect(() => {
     if (portfolioItems.length > 0) {
@@ -176,6 +176,16 @@ export default function OurWork() {
             onClick={() => handleCardClick(index)}
           />
         ))}
+      </div>
+
+      <div className="portfolio-progress" data-testid="portfolio-progress">
+        <span className="progress-number" data-testid="portfolio-progress-count">
+          {String(active + 1).padStart(2, '0')}
+        </span>
+        <span className="progress-divider">/</span>
+        <span className="progress-total">
+          {String(portfolioItems.length).padStart(2, '0')}
+        </span>
       </div>
 
       <div className="layout">
