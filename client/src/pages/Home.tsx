@@ -638,7 +638,7 @@ export default function Home() {
       <StickyConversionBar />
 
       <section className="w-full" data-testid="section-cta" style={{
-        background: 'linear-gradient(135deg, rgba(26, 26, 26, 0.9) 0%, rgba(20, 20, 20, 0.8) 100%)',
+        background: 'linear-gradient(135deg, rgb(26, 26, 26) 0%, rgb(20, 20, 20) 100%)',
         boxShadow: 'inset 0 2px 4px rgba(255, 0, 0, 0.2), inset 0 -2px 4px rgba(0, 0, 0, 0.5), 0 8px 16px rgba(0, 0, 0, 0.3)',
         border: '1px solid rgba(255, 0, 0, 0.15)'
       }}>
