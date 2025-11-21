@@ -285,6 +285,12 @@ export default function Contact() {
             </Card>
           </div>
         </motion.div>
+
+        <div className="layout">
+          <div className="layout-box">
+            High-end, full-service<br />digital marketing<br />for growing brands.
+          </div>
+        </div>
       </div>
     </div>
   );

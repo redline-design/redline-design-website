@@ -641,6 +641,12 @@ export default function Home() {
       </section>
       </ScrollAnimatedSection>
 
+      <div className="layout">
+        <div className="layout-box">
+          High-end, full-service<br />digital marketing<br />for growing brands.
+        </div>
+      </div>
+
       <StickyConversionBar />
     </div>
   );
