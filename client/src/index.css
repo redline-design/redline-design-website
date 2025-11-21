@@ -6,26 +6,26 @@
 .home-snap-container {
   scroll-snap-type: y mandatory;
   scroll-behavior: smooth;
-  overflow-y: scroll;
-  height: 100vh;
-  overflow-x: hidden;
+  width: 100%;
 }
 
 .home-snap-section {
   scroll-snap-align: start;
   scroll-snap-stop: always;
-  min-height: 100svh;
+  height: 100vh;
   position: relative;
+  overflow: hidden;
 }
 
 .home-snap-content {
-  position: sticky;
-  top: 0;
+  width: 100%;
   height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding: 0;
+  margin: 0;
 }
 
 /* Disable snap on reduced motion */
