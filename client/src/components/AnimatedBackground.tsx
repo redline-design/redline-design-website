@@ -34,12 +34,21 @@ export default function AnimatedBackground() {
     let animationFrameId: number;
     let needsResize = false;
     let isTabVisible = true;
+    let lastMouseMoveTime = Date.now();
+    let lastScrollTime = Date.now();
+    let isMouseActive = true; // Start active
 
     // Check if tab is visible
     const handleVisibilityChange = () => {
       isTabVisible = !document.hidden;
     };
     document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    // Track scroll activity to keep animation alive during scroll
+    const handleScroll = () => {
+      lastScrollTime = Date.now();
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
 
     const resizeCanvas = () => {
       needsResize = true;
@@ -60,13 +69,15 @@ export default function AnimatedBackground() {
     };
     window.addEventListener("resize", debouncedResize);
 
-    // Track mouse position with throttling
+    // Track mouse position with throttling and activity detection
     let mouseThrottle = false;
     const handleMouseMove = (e: MouseEvent) => {
       if (mouseThrottle) return;
       mouseThrottle = true;
       setTimeout(() => mouseThrottle = false, 16); // ~60fps
       mousePosRef.current = { x: e.clientX, y: e.clientY };
+      lastMouseMoveTime = Date.now();
+      isMouseActive = true;
     };
     window.addEventListener("mousemove", handleMouseMove, { passive: true });
 
@@ -134,6 +145,23 @@ export default function AnimatedBackground() {
       // Skip animation when tab is not visible or user prefers reduced motion
       if (!isTabVisible || prefersReducedMotion) {
         return;
+      }
+
+      // Pause animation if no mouse or scroll activity for 3 seconds to save GPU
+      const timeSinceMouseMove = Date.now() - lastMouseMoveTime;
+      const timeSinceScroll = Date.now() - lastScrollTime;
+      const timeSinceActivity = Math.min(timeSinceMouseMove, timeSinceScroll);
+      
+      if (timeSinceActivity > 3000 && isMouseActive) {
+        isMouseActive = false;
+        // Keep last rendered frame visible, just stop animating
+        return;
+      } else if (timeSinceActivity > 3000) {
+        // Keep paused - last frame stays visible
+        return;
+      } else if (!isMouseActive) {
+        // Resume animation
+        isMouseActive = true;
       }
 
       // FPS throttling
@@ -211,6 +239,7 @@ export default function AnimatedBackground() {
     return () => {
       window.removeEventListener("resize", debouncedResize);
       window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("scroll", handleScroll);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
       clearTimeout(resizeTimeout);
       cancelAnimationFrame(animationFrameId);

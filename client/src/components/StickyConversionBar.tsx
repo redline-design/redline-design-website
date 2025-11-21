@@ -3,10 +3,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Calendar, X, ChevronDown, Lightbulb, TrendingUp, Users, Target } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
-import { useScroll } from "@/hooks/use-scroll";
+import { useScrollValue } from "@/hooks/use-scroll";
 
 export default function StickyConversionBar() {
-  const { scrollY, isScrollingUp } = useScroll();
+  const { scrollY, isScrollingUp } = useScrollValue(['scrollY', 'isScrollingUp']);
   const [isExpanded, setIsExpanded] = useState(false);
   const [isDismissed, setIsDismissed] = useState(() => {
     // Check localStorage on mount

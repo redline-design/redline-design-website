@@ -1,7 +1,14 @@
-import { useScroll } from "@/hooks/use-scroll";
+import { useScrollProgressImperative } from "@/hooks/use-scroll";
+import { useRef } from "react";
 
 export default function ScrollProgressBar() {
-  const { scrollProgress } = useScroll();
+  const fillRef = useRef<HTMLDivElement>(null);
+
+  useScrollProgressImperative((progress) => {
+    if (fillRef.current) {
+      fillRef.current.style.transform = `scaleY(${progress / 100})`;
+    }
+  });
 
   return (
     <div 
@@ -9,9 +16,10 @@ export default function ScrollProgressBar() {
       data-testid="scroll-progress-bar"
     >
       <div
-        className="w-full h-full bg-gradient-to-b from-primary to-primary/60 origin-top transition-transform duration-75 ease-out"
+        ref={fillRef}
+        className="w-full h-full bg-gradient-to-b from-primary to-primary/60 origin-top"
         style={{
-          transform: `scaleY(${scrollProgress / 100})`,
+          transform: 'scaleY(0)',
           boxShadow: "0 0 20px rgba(255, 0, 0, 0.5), 0 0 40px rgba(255, 0, 0, 0.3)",
         }}
         data-testid="scroll-progress-fill"

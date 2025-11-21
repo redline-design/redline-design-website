@@ -9,10 +9,10 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useScroll } from "@/hooks/use-scroll";
+import { useScrollValue } from "@/hooks/use-scroll";
 
 export default function Header() {
-  const { isScrolled, showHeader } = useScroll();
+  const { isScrolled, showHeader } = useScrollValue(['isScrolled', 'showHeader']);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [location] = useLocation();
 
@@ -41,8 +41,8 @@ export default function Header() {
   return (
     <motion.header
       initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
+      animate={{ y: showHeader ? 0 : -100 }}
+      transition={{ duration: 0.3, ease: "easeInOut" }}
       className="fixed top-0 left-0 right-0 z-50"
       data-testid="header-main"
     >

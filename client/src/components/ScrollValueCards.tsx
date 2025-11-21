@@ -36,7 +36,8 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
       ref={containerRef} 
       className="relative w-full"
       style={{
-        background: "linear-gradient(135deg, rgba(10, 10, 10, 0.95) 0%, rgba(15, 20, 30, 0.90) 50%, rgba(10, 15, 25, 0.95) 100%)"
+        background: "linear-gradient(135deg, rgba(10, 10, 10, 0.95) 0%, rgba(15, 20, 30, 0.90) 50%, rgba(10, 15, 25, 0.95) 100%)",
+        position: "relative"
       }}
       data-testid="container-value-cards"
     >
@@ -101,6 +102,10 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
                   ease: "easeOut"
                 }}
                 viewport={{ once: true, margin: "-100px" }}
+                style={{
+                  willChange: "transform, opacity",
+                  contain: "layout paint"
+                }}
                 data-testid={`card-value-${card.title.toLowerCase().replace(/\s/g, "-")}`}
               >
                 <Card 

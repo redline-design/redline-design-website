@@ -107,24 +107,24 @@ export function SliderCarousel({ slides }: SliderCarouselProps) {
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentIndex}
-                initial={{ opacity: 0, y: 100, filter: 'blur(33px)' }}
-                animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                exit={{ opacity: 0, y: -50, filter: 'blur(10px)' }}
-                transition={{ duration: 0.6 }}
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
               >
                 <motion.div
                   className="slider-carousel-title"
-                  initial={{ opacity: 0, y: 100, filter: 'blur(33px)' }}
-                  animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                  transition={{ duration: 1, ease: 'easeInOut' }}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, ease: 'easeOut' }}
                 >
                   {getSlideAtPosition(1).title}
                 </motion.div>
                 <motion.div
                   className="slider-carousel-description"
-                  initial={{ opacity: 0, y: 100, filter: 'blur(33px)' }}
-                  animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                  transition={{ duration: 1, ease: 'easeInOut', delay: 0.3 }}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, ease: 'easeOut', delay: 0.1 }}
                 >
                   {getSlideAtPosition(1).description}
                 </motion.div>
@@ -132,9 +132,9 @@ export function SliderCarousel({ slides }: SliderCarouselProps) {
                 {getSlideAtPosition(1).stats && (
                   <motion.div
                     className="slider-carousel-stats"
-                    initial={{ opacity: 0, y: 100, filter: 'blur(33px)' }}
-                    animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                    transition={{ duration: 1, ease: 'easeInOut', delay: 0.5 }}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, ease: 'easeOut', delay: 0.2 }}
                     data-testid="slider-stats-container"
                   >
                     {getSlideAtPosition(1).stats?.map((stat, idx) => {
@@ -165,9 +165,9 @@ export function SliderCarousel({ slides }: SliderCarouselProps) {
                 
                 <motion.a
                   href={getSlideAtPosition(1).buttonLink}
-                  initial={{ opacity: 0, y: 100, filter: 'blur(33px)' }}
-                  animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                  transition={{ duration: 1, ease: 'easeInOut', delay: 0.7 }}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, ease: 'easeOut', delay: 0.3 }}
                   data-testid="button-slider-cta"
                 >
                   <button className="slider-carousel-button">

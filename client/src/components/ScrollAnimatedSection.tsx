@@ -41,6 +41,10 @@ export default function ScrollAnimatedSection({ children, className = "" }: Scro
         duration: prefersReducedMotion ? 0 : 0.6,
         ease: "easeOut"
       }}
+      style={{
+        willChange: "transform, opacity",
+        contain: "layout paint"
+      }}
     >
       {children}
     </motion.div>
