@@ -109,7 +109,7 @@ function AnimatedValueCard({ card, index, totalCards, spreadProgress, getSpreadP
         onMouseEnter={() => onHover(index)}
         onMouseLeave={() => onHover(null)}
         style={{ 
-          height: "540px",
+          height: "400px",
           background: "linear-gradient(145deg, rgba(25, 25, 25, 0.7), rgba(15, 15, 15, 0.7))",
           border: "1px solid rgba(255, 255, 255, 0.08)",
           boxShadow: `
@@ -266,7 +266,7 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
             height: "600px",
             border: "1px solid rgba(255, 255, 255, 0.1)",
             boxShadow: "0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1)",
-            overflow: "visible",
+            overflow: "hidden",
           }}
         >
           {/* Animated hexagon background */}
