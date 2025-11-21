@@ -3,6 +3,7 @@ import { Star } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { useQuery } from "@tanstack/react-query";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
+import { useState, useRef, useEffect } from "react";
 
 interface Review {
   id: string;
@@ -16,10 +17,33 @@ interface Review {
 
 export default function TestimonialsCarousel() {
   const prefersReducedMotion = useReducedMotion();
+  const [currentCard, setCurrentCard] = useState(0);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   const { data: reviews, isLoading } = useQuery<Review[]>({
     queryKey: ["/api/reviews"],
   });
+
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (!container || !reviews || reviews.length === 0) return;
+
+    const handleScroll = () => {
+      const scrollLeft = container.scrollLeft;
+      const cardWidth = container.querySelector('[data-card-width]')?.getAttribute('data-card-width');
+      
+      if (cardWidth) {
+        const width = parseFloat(cardWidth);
+        const gap = 4; // gap-1 = 0.25rem = 4px
+        const totalWidth = width + gap;
+        const index = Math.round(scrollLeft / totalWidth) % reviews.length;
+        setCurrentCard(index);
+      }
+    };
+
+    container.addEventListener('scroll', handleScroll, { passive: true });
+    return () => container.removeEventListener('scroll', handleScroll);
+  }, [reviews]);
 
   if (isLoading) {
     return (
@@ -38,9 +62,13 @@ export default function TestimonialsCarousel() {
 
   return (
     <div className="relative">
-      <div className="relative overflow-x-auto snap-x snap-mandatory scrollbar-hide">
+      <div 
+        ref={scrollContainerRef}
+        className="relative overflow-x-auto snap-x snap-always scrollbar-hide scroll-smooth"
+        style={{ scrollBehavior: 'smooth', scrollSnapType: 'x mandatory' }}
+      >
         <motion.div
-          className="flex gap-2 pointer-events-none"
+          className="flex gap-1 pointer-events-none"
           animate={{
             x: prefersReducedMotion ? 0 : [0, -100 * reviews.length],
           }}
@@ -55,7 +83,8 @@ export default function TestimonialsCarousel() {
           {duplicatedReviews.map((review, index) => (
             <div 
               key={`${review.id}-${index}`}
-              className="flex-shrink-0 w-[300px] sm:w-[350px] snap-start"
+              className="flex-shrink-0 w-[380px] sm:w-[450px] snap-start"
+              data-card-width="380"
             >
               <TestimonialCard review={review} />
             </div>
@@ -65,6 +94,15 @@ export default function TestimonialsCarousel() {
         {/* Gradient overlays for fade effect */}
         <div className="absolute top-0 left-0 w-20 h-full bg-gradient-to-r from-card/20 to-transparent pointer-events-none z-10" />
         <div className="absolute top-0 right-0 w-20 h-full bg-gradient-to-l from-card/20 to-transparent pointer-events-none z-10" />
+      </div>
+
+      {/* Card Counter */}
+      <div className="flex justify-center mt-6" data-testid="testimonials-counter">
+        <span className="text-sm font-medium text-muted-foreground">
+          <span className="text-primary font-bold">{currentCard + 1}</span>
+          <span className="text-muted-foreground"> / </span>
+          <span className="font-bold">{reviews.length}</span>
+        </span>
       </div>
     </div>
   );
