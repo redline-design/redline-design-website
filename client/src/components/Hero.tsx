@@ -141,16 +141,17 @@ export default function Hero() {
         transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
         style={{ opacity }}
       >
-        <div 
-          className="flex flex-col items-center gap-3 px-6 py-4 rounded-lg"
-          style={{
-            background: 'linear-gradient(135deg, rgba(255, 0, 0, 0.15) 0%, rgba(255, 0, 0, 0.05) 100%)',
-            boxShadow: 'inset 0 2px 4px rgba(255, 0, 0, 0.2), inset 0 -2px 4px rgba(0, 0, 0, 0.1), 0 4px 12px rgba(255, 0, 0, 0.1)',
-            border: '1px solid rgba(255, 0, 0, 0.2)'
-          }}
-        >
-          <span className="text-xs font-semibold uppercase tracking-wider" style={{ color: '#ff0000' }}>Scroll</span>
-          <ChevronDown className="h-5 w-5 animate-bounce" style={{ color: '#ff0000' }} data-testid="icon-scroll-indicator" />
+        <div className="flex flex-col items-center gap-4">
+          <span className="text-xs font-semibold uppercase tracking-widest" style={{ color: '#ff0000' }}>Scroll</span>
+          <div 
+            className="flex items-center justify-center w-12 h-12 rounded-full"
+            style={{
+              background: 'linear-gradient(135deg, #1a1a1a 0%, #141414 100%)',
+              boxShadow: 'inset 0 2px 4px rgba(255, 0, 0, 0.3), inset 0 -2px 4px rgba(0, 0, 0, 0.8), 0 8px 16px rgba(0, 0, 0, 0.4)',
+            }}
+          >
+            <ChevronDown className="h-6 w-6" style={{ color: '#ff0000' }} data-testid="icon-scroll-indicator" />
+          </div>
         </div>
       </motion.div>
     </section>
