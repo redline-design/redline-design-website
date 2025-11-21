@@ -2445,8 +2445,8 @@
 }
 
 .carousel-item {
-  --width: clamp(200px, 35vw, 400px);
-  --height: clamp(300px, 50vw, 600px);
+  --width: clamp(280px, 50vw, 550px);
+  --height: clamp(400px, 65vw, 750px);
   --x: calc(var(--active) * 800%);
   --y: calc(var(--active) * 200%);
   --rot: calc(var(--active) * 120deg);
@@ -2592,8 +2592,8 @@
 
 @media (max-width: 1024px) {
   .carousel-item {
-    --width: clamp(180px, 40vw, 350px);
-    --height: clamp(270px, 55vw, 500px);
+    --width: clamp(240px, 48vw, 480px);
+    --height: clamp(360px, 62vw, 680px);
   }
   
   .carousel-title {
@@ -2626,8 +2626,8 @@
 
 @media (max-width: 640px) {
   .carousel-item {
-    --width: clamp(160px, 70vw, 300px);
-    --height: clamp(240px, 90vw, 450px);
+    --width: clamp(200px, 75vw, 380px);
+    --height: clamp(300px, 95vw, 580px);
     --x: calc(var(--active) * 600%);
     --y: calc(var(--active) * 150%);
     --rot: calc(var(--active) * 90deg);
