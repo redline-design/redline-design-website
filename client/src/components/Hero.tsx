@@ -30,28 +30,9 @@ export default function Hero() {
       >
 
       <motion.div 
-        className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 pt-32 pb-20 text-center"
+        className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 pt-12 pb-20 text-center"
         style={{ opacity, scale, y }}
       >
-        {/* Badge */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.5 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5, type: "spring", stiffness: 100 }}
-          className="mb-8"
-        >
-          <Link href="/book-a-demo">
-            <motion.div 
-              className="inline-flex items-center gap-2 px-5 py-2.5 border border-border/50 bg-card/30 backdrop-blur-sm rounded-full text-xs font-semibold uppercase tracking-wider text-foreground mb-8 hover-elevate active-elevate-2 transition-all subtle-shimmer"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <Sparkles className="h-3.5 w-3.5" />
-              <span>Free Strategy Session Available</span>
-            </motion.div>
-          </Link>
-        </motion.div>
-
         {/* Logo */}
         <motion.div 
           className="mb-8 relative"
@@ -129,6 +110,25 @@ export default function Hero() {
                 <CalendarCheck className="w-5 h-5" />
                 Book Your Free Consultation
               </Button>
+            </motion.div>
+          </Link>
+        </motion.div>
+
+        {/* Badge - Moved to bottom */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.5 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, type: "spring", stiffness: 100, delay: 0.6 }}
+          className="mt-12"
+        >
+          <Link href="/book-a-demo">
+            <motion.div 
+              className="inline-flex items-center gap-2 px-5 py-2.5 border border-border/50 bg-card/30 backdrop-blur-sm rounded-full text-xs font-semibold uppercase tracking-wider text-foreground hover-elevate active-elevate-2 transition-all subtle-shimmer"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Sparkles className="h-3.5 w-3.5" />
+              <span>Free Strategy Session Available</span>
             </motion.div>
           </Link>
         </motion.div>
