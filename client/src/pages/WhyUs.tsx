@@ -148,46 +148,145 @@ export default function WhyUs() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="text-center p-8 rounded-2xl bg-card/30 backdrop-blur-sm border border-border/50 hover-elevate"
+              transition={{ duration: 0.5 }}
+              className="h-full"
             >
-              <div className="inline-flex p-6 rounded-2xl bg-primary/10 mb-6">
-                <Award className="h-12 w-12 text-primary" />
-              </div>
-              <h3 className="text-2xl font-bold text-foreground mb-3">Industry Expertise</h3>
-              <p className="text-foreground">
-                We've worked across dozens of industries and know what works. From e-commerce to B2B SaaS, we've got you covered.
-              </p>
+              <motion.div
+                whileHover={{ y: -6 }}
+                transition={{ type: "spring", stiffness: 300, damping: 25 }}
+                className="h-full"
+              >
+                <div
+                  className="neumorphic-card h-full text-center p-8 rounded-2xl transition-all duration-300 flex flex-col items-center justify-center"
+                  style={{
+                    background: "linear-gradient(135deg, #1e1e1e 0%, #1a1a1a 100%)",
+                    boxShadow: `
+                      8px 8px 16px rgba(0, 0, 0, 0.9),
+                      -4px -4px 8px rgba(255, 255, 255, 0.02),
+                      inset 1px 1px 2px rgba(255, 255, 255, 0.05),
+                      inset -1px -1px 2px rgba(0, 0, 0, 0.2)
+                    `,
+                  }}
+                >
+                  <motion.div 
+                    className="inline-flex p-5 rounded-lg mb-6"
+                    whileHover={{ scale: 1.15 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                    style={{
+                      background: "linear-gradient(135deg, rgba(255, 0, 0, 0.15) 0%, rgba(255, 0, 0, 0.05) 100%)",
+                      border: "1.5px solid rgba(255, 0, 0, 0.3)",
+                      boxShadow: `
+                        6px 6px 12px rgba(0, 0, 0, 0.4),
+                        -3px -3px 8px rgba(255, 255, 255, 0.02),
+                        inset 1px 1px 2px rgba(255, 255, 255, 0.05),
+                        0 0 16px rgba(255, 0, 0, 0.2)
+                      `,
+                    }}
+                  >
+                    <Award className="h-8 w-8 text-primary drop-shadow-lg" />
+                  </motion.div>
+                  <h3 className="text-xl font-bold text-foreground mb-3 uppercase tracking-wider">Industry Expertise</h3>
+                  <p className="text-foreground/80 text-sm leading-relaxed">
+                    We've worked across dozens of industries and know what works. From e-commerce to B2B SaaS, we've got you covered.
+                  </p>
+                </div>
+              </motion.div>
             </motion.div>
 
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-center p-8 rounded-2xl bg-card/30 backdrop-blur-sm border border-border/50 hover-elevate"
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="h-full"
             >
-              <div className="inline-flex p-6 rounded-2xl bg-primary/10 mb-6">
-                <Shield className="h-12 w-12 text-primary" />
-              </div>
-              <h3 className="text-2xl font-bold text-foreground mb-3">Transparency & Trust</h3>
-              <p className="text-foreground">
-                No black boxes. We show you exactly what we're doing, why we're doing it, and what results we're getting.
-              </p>
+              <motion.div
+                whileHover={{ y: -6 }}
+                transition={{ type: "spring", stiffness: 300, damping: 25 }}
+                className="h-full"
+              >
+                <div
+                  className="neumorphic-card h-full text-center p-8 rounded-2xl transition-all duration-300 flex flex-col items-center justify-center"
+                  style={{
+                    background: "linear-gradient(135deg, #1e1e1e 0%, #1a1a1a 100%)",
+                    boxShadow: `
+                      8px 8px 16px rgba(0, 0, 0, 0.9),
+                      -4px -4px 8px rgba(255, 255, 255, 0.02),
+                      inset 1px 1px 2px rgba(255, 255, 255, 0.05),
+                      inset -1px -1px 2px rgba(0, 0, 0, 0.2)
+                    `,
+                  }}
+                >
+                  <motion.div 
+                    className="inline-flex p-5 rounded-lg mb-6"
+                    whileHover={{ scale: 1.15 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                    style={{
+                      background: "linear-gradient(135deg, rgba(255, 0, 0, 0.15) 0%, rgba(255, 0, 0, 0.05) 100%)",
+                      border: "1.5px solid rgba(255, 0, 0, 0.3)",
+                      boxShadow: `
+                        6px 6px 12px rgba(0, 0, 0, 0.4),
+                        -3px -3px 8px rgba(255, 255, 255, 0.02),
+                        inset 1px 1px 2px rgba(255, 255, 255, 0.05),
+                        0 0 16px rgba(255, 0, 0, 0.2)
+                      `,
+                    }}
+                  >
+                    <Shield className="h-8 w-8 text-primary drop-shadow-lg" />
+                  </motion.div>
+                  <h3 className="text-xl font-bold text-foreground mb-3 uppercase tracking-wider">Transparency & Trust</h3>
+                  <p className="text-foreground/80 text-sm leading-relaxed">
+                    No black boxes. We show you exactly what we're doing, why we're doing it, and what results we're getting.
+                  </p>
+                </div>
+              </motion.div>
             </motion.div>
 
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-center p-8 rounded-2xl bg-card/30 backdrop-blur-sm border border-border/50 hover-elevate"
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="h-full"
             >
-              <div className="inline-flex p-6 rounded-2xl bg-primary/10 mb-6">
-                <Lightbulb className="h-12 w-12 text-primary" />
-              </div>
-              <h3 className="text-2xl font-bold text-foreground mb-3">Strategic Partnership</h3>
-              <p className="text-foreground">
-                We're not just vendors—we're partners in your success. Your wins are our wins, and we're invested in your growth.
-              </p>
+              <motion.div
+                whileHover={{ y: -6 }}
+                transition={{ type: "spring", stiffness: 300, damping: 25 }}
+                className="h-full"
+              >
+                <div
+                  className="neumorphic-card h-full text-center p-8 rounded-2xl transition-all duration-300 flex flex-col items-center justify-center"
+                  style={{
+                    background: "linear-gradient(135deg, #1e1e1e 0%, #1a1a1a 100%)",
+                    boxShadow: `
+                      8px 8px 16px rgba(0, 0, 0, 0.9),
+                      -4px -4px 8px rgba(255, 255, 255, 0.02),
+                      inset 1px 1px 2px rgba(255, 255, 255, 0.05),
+                      inset -1px -1px 2px rgba(0, 0, 0, 0.2)
+                    `,
+                  }}
+                >
+                  <motion.div 
+                    className="inline-flex p-5 rounded-lg mb-6"
+                    whileHover={{ scale: 1.15 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                    style={{
+                      background: "linear-gradient(135deg, rgba(255, 0, 0, 0.15) 0%, rgba(255, 0, 0, 0.05) 100%)",
+                      border: "1.5px solid rgba(255, 0, 0, 0.3)",
+                      boxShadow: `
+                        6px 6px 12px rgba(0, 0, 0, 0.4),
+                        -3px -3px 8px rgba(255, 255, 255, 0.02),
+                        inset 1px 1px 2px rgba(255, 255, 255, 0.05),
+                        0 0 16px rgba(255, 0, 0, 0.2)
+                      `,
+                    }}
+                  >
+                    <Lightbulb className="h-8 w-8 text-primary drop-shadow-lg" />
+                  </motion.div>
+                  <h3 className="text-xl font-bold text-foreground mb-3 uppercase tracking-wider">Strategic Partnership</h3>
+                  <p className="text-foreground/80 text-sm leading-relaxed">
+                    We're not just vendors—we're partners in your success. Your wins are our wins, and we're invested in your growth.
+                  </p>
+                </div>
+              </motion.div>
             </motion.div>
           </div>
         </div>
