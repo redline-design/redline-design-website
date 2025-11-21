@@ -146,15 +146,15 @@ function AnimatedValueCard({ card, index, totalCards, spreadProgress, getSpreadP
           />
         )}
         
-        <CardContent className="p-5 pb-8 w-full h-full relative z-10 flex flex-col">
-          <div className="flex flex-col h-full">
+        <CardContent className="p-3 pb-4 w-full h-full relative z-10 flex flex-col overflow-hidden">
+          <div className="flex flex-col h-full overflow-y-auto">
             {/* Icon centered at top */}
-            <div className="flex justify-center mb-3">
+            <div className="flex justify-center mb-2 flex-shrink-0">
               <div 
                 className="transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3"
               >
                 <Icon 
-                  className="h-10 w-10" 
+                  className="h-9 w-9" 
                   style={{ color: accentColor, filter: `drop-shadow(0 0 12px ${colorToRgba(accentColor, 0.5)})` }}
                   data-testid={`icon-value-${card.title.toLowerCase().replace(/\s/g, "-")}`} 
                 />
@@ -162,20 +162,20 @@ function AnimatedValueCard({ card, index, totalCards, spreadProgress, getSpreadP
             </div>
             
             {/* Title centered below icon */}
-            <h3 className="text-lg font-black text-foreground text-center mb-6 uppercase tracking-wider" data-testid={`text-value-title-${card.title.toLowerCase().replace(/\s/g, "-")}`}>
+            <h3 className="text-base font-black text-foreground text-center mb-3 uppercase tracking-wider flex-shrink-0" data-testid={`text-value-title-${card.title.toLowerCase().replace(/\s/g, "-")}`}>
               {card.title}
             </h3>
             
             {card.bullets ? (
-              <div className="flex-1 space-y-3.5">
+              <div className="flex-1 space-y-2 overflow-y-auto">
                 {card.bullets.map((bullet, idx) => (
-                  <div key={idx} className="flex items-start gap-3.5 text-left">
+                  <div key={idx} className="flex items-start gap-2 text-left">
                     <div 
                       className="flex-shrink-0 mt-0.5"
                       style={{
-                        width: "24px",
-                        height: "24px",
-                        borderRadius: "6px",
+                        width: "18px",
+                        height: "18px",
+                        borderRadius: "3px",
                         background: "linear-gradient(145deg, rgba(0, 255, 136, 0.15), rgba(0, 255, 136, 0.05))",
                         border: "1px solid rgba(0, 255, 136, 0.3)",
                         boxShadow: `
@@ -190,8 +190,8 @@ function AnimatedValueCard({ card, index, totalCards, spreadProgress, getSpreadP
                       }}
                     >
                       <svg 
-                        width="14" 
-                        height="14" 
+                        width="10" 
+                        height="10" 
                         viewBox="0 0 16 16"
                         style={{ 
                           color: "#00ff88",
@@ -208,14 +208,14 @@ function AnimatedValueCard({ card, index, totalCards, spreadProgress, getSpreadP
                         />
                       </svg>
                     </div>
-                    <span className="text-base text-muted-foreground leading-relaxed flex-1">
+                    <span className="text-xs text-muted-foreground leading-snug flex-1">
                       {bullet}
                     </span>
                   </div>
                 ))}
               </div>
             ) : card.description ? (
-              <p className="text-base text-muted-foreground leading-relaxed flex-1" data-testid={`text-value-description-${card.title.toLowerCase().replace(/\s/g, "-")}`}>
+              <p className="text-xs text-muted-foreground leading-relaxed flex-1 overflow-y-auto" data-testid={`text-value-description-${card.title.toLowerCase().replace(/\s/g, "-")}`}>
                 {card.description}
               </p>
             ) : null}
