@@ -92,28 +92,6 @@ export default function Hero() {
           />
         </motion.h2>
 
-        {/* CTA Buttons */}
-        <motion.div
-          className="absolute left-1/2 -translate-x-1/2 bottom-32"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.5 }}
-        >
-          <Link href="/book-a-demo">
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Button 
-                size="lg" 
-                variant="default" 
-                className="text-base px-8 py-6 font-semibold" 
-                data-testid="button-hero-book-demo"
-              >
-                <CalendarCheck className="w-5 h-5" />
-                Book Your Free Consultation
-              </Button>
-            </motion.div>
-          </Link>
-        </motion.div>
-
         {/* Badge - Moved to bottom */}
         <motion.div
           initial={{ opacity: 0, scale: 0.5 }}
@@ -132,6 +110,28 @@ export default function Hero() {
             </motion.div>
           </Link>
         </motion.div>
+      </motion.div>
+
+      {/* CTA Buttons */}
+      <motion.div
+        className="absolute left-1/2 -translate-x-1/2 bottom-24 z-10"
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, delay: 0.5 }}
+      >
+        <Link href="/book-a-demo">
+          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+            <Button 
+              size="lg" 
+              variant="default" 
+              className="text-base px-8 py-6 font-semibold" 
+              data-testid="button-hero-book-demo"
+            >
+              <CalendarCheck className="w-5 h-5" />
+              Book Your Free Consultation
+            </Button>
+          </motion.div>
+        </Link>
       </motion.div>
 
       {/* Scroll indicator */}
