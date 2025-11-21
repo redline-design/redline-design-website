@@ -2571,7 +2571,7 @@
   content: '';
   position: absolute;
   z-index: 1;
-  top: -100vh;
+  top: calc(-2rem);
   left: 4rem;
   width: 1px;
   height: 100vh;
