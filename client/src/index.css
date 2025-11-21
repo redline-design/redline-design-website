@@ -2560,7 +2560,7 @@
 }
 
 .layout {
-  position: absolute;
+  position: fixed;
   z-index: 0;
   bottom: 2rem;
   left: 2rem;
