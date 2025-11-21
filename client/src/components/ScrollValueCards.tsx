@@ -34,7 +34,7 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
   return (
     <div 
       ref={containerRef} 
-      className="relative py-16 md:py-20 overflow-hidden"
+      className="relative overflow-hidden"
       data-testid="container-value-cards"
     >
       {/* Parallax background layer */}
@@ -64,7 +64,7 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
         />
       </div>
 
-      <div className="mx-auto px-4 md:px-6 max-w-6xl relative z-10">
+      <div className="mx-auto px-4 md:px-6 max-w-6xl relative z-10 py-16 md:py-20">
         {/* Section Title */}
         <motion.div 
           className="text-center mb-12"
