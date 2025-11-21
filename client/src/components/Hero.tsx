@@ -130,18 +130,6 @@ export default function Hero() {
               </Button>
             </motion.div>
           </Link>
-          <a href="#learn-more">
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Button 
-                size="lg" 
-                variant="outline" 
-                className="text-base px-8 py-6 font-semibold" 
-                data-testid="button-hero-learn-more"
-              >
-                Learn More
-              </Button>
-            </motion.div>
-          </a>
         </motion.div>
       </motion.div>
 
