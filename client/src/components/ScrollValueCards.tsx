@@ -41,7 +41,7 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
       <motion.div
         className="absolute inset-0 -z-10"
         style={{
-          background: "linear-gradient(135deg, rgba(10, 10, 10, 0.8) 0%, rgba(15, 20, 30, 0.6) 50%, rgba(10, 15, 25, 0.8) 100%)",
+          background: "linear-gradient(135deg, rgba(10, 10, 10, 0.95) 0%, rgba(15, 20, 30, 0.90) 50%, rgba(10, 15, 25, 0.95) 100%)",
           y: backgroundY,
           willChange: "transform"
         }}
