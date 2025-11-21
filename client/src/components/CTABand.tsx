@@ -21,11 +21,6 @@ export default function CTABand({ title, subtitle, buttonText, buttonLink }: CTA
       animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
       transition={{ duration: 0.6 }}
       className="py-8 px-4 text-center relative"
-      style={{
-        background: 'linear-gradient(135deg, rgba(26, 26, 26, 0.5) 0%, rgba(20, 20, 20, 0.3) 100%)',
-        boxShadow: 'inset 0 1px 2px rgba(255, 0, 0, 0.1), inset 0 -1px 2px rgba(0, 0, 0, 0.3)',
-        border: '1px solid rgba(255, 0, 0, 0.1)'
-      }}
       data-testid="section-cta-band"
     >
       {/* Content */}
