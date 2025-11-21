@@ -2446,7 +2446,7 @@
 
 .carousel-item {
   --width: clamp(500px, 65vw, 900px);
-  --height: clamp(280px, 35vw, 450px);
+  --height: clamp(350px, 50vw, 600px);
   --x: calc(var(--active) * 800%);
   --y: calc(var(--active) * 200%);
   --rot: calc(var(--active) * 120deg);
@@ -2634,7 +2634,7 @@
 @media (max-width: 1024px) {
   .carousel-item {
     --width: clamp(420px, 60vw, 800px);
-    --height: clamp(240px, 32vw, 400px);
+    --height: clamp(300px, 45vw, 550px);
   }
   
   .carousel-title {
@@ -2668,7 +2668,7 @@
 @media (max-width: 640px) {
   .carousel-item {
     --width: clamp(300px, 85vw, 500px);
-    --height: clamp(200px, 50vw, 320px);
+    --height: clamp(260px, 70vw, 420px);
     --x: calc(var(--active) * 600%);
     --y: calc(var(--active) * 150%);
     --rot: calc(var(--active) * 90deg);
