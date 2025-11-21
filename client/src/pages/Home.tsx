@@ -635,8 +635,7 @@ export default function Home() {
 
       <SectionDivider />
 
-      <ScrollAnimatedSection>
-        <section className="py-2 px-2 sm:px-3 lg:px-4 neumorphic-section" data-testid="section-cta">
+      <section className="fixed bottom-0 left-0 right-0 z-40 px-2 sm:px-3 lg:px-4" data-testid="section-cta">
         <div className="max-w-7xl mx-auto">
           <CTABand
             title="Book a Free Consultation Today!"
@@ -646,7 +645,6 @@ export default function Home() {
           />
         </div>
       </section>
-      </ScrollAnimatedSection>
 
       <StickyConversionBar />
     </div>
