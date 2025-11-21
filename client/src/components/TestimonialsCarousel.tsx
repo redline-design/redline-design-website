@@ -30,13 +30,11 @@ export default function TestimonialsCarousel() {
 
     const handleScroll = () => {
       const scrollLeft = container.scrollLeft;
-      const cardWidth = container.querySelector('[data-card-width]')?.getAttribute('data-card-width');
+      const cardElement = container.querySelector('[data-card-width]') as HTMLElement;
       
-      if (cardWidth) {
-        const width = parseFloat(cardWidth);
-        const gap = 4; // gap-1 = 0.25rem = 4px
-        const totalWidth = width + gap;
-        const index = Math.round(scrollLeft / totalWidth) % reviews.length;
+      if (cardElement) {
+        const cardWidth = cardElement.offsetWidth;
+        const index = Math.round(scrollLeft / cardWidth) % reviews.length;
         setCurrentCard(index);
       }
     };
@@ -64,11 +62,11 @@ export default function TestimonialsCarousel() {
     <div className="relative">
       <div 
         ref={scrollContainerRef}
-        className="relative overflow-x-auto snap-x snap-always scrollbar-hide scroll-smooth"
+        className="relative overflow-x-auto snap-x snap-mandatory scrollbar-hide scroll-smooth"
         style={{ scrollBehavior: 'smooth', scrollSnapType: 'x mandatory' }}
       >
         <motion.div
-          className="flex gap-1 pointer-events-none"
+          className="flex gap-0 pointer-events-none"
           animate={{
             x: prefersReducedMotion ? 0 : [0, -100 * reviews.length],
           }}
@@ -83,8 +81,8 @@ export default function TestimonialsCarousel() {
           {duplicatedReviews.map((review, index) => (
             <div 
               key={`${review.id}-${index}`}
-              className="flex-shrink-0 w-[380px] sm:w-[450px] snap-start"
-              data-card-width="380"
+              className="flex-shrink-0 w-full sm:w-[calc(100vw-100px)] lg:w-[calc(100vw-120px)] snap-center snap-always"
+              data-card-width="100"
             >
               <TestimonialCard review={review} />
             </div>
