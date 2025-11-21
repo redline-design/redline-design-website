@@ -395,46 +395,24 @@ export default function Home() {
     <div>
       <Hero />
 
-      <div className="home-snap-container">
-        {/* Section 1: Horizontal Scroll Services */}
-        <div className="home-snap-section">
-          <div 
-            id="learn-more" 
-            className="home-snap-content"
-            style={{ 
-              zIndex: 10,
-              background: 'rgba(10, 10, 10, 0.4)',
-              backdropFilter: 'blur(20px)',
-              WebkitBackdropFilter: 'blur(20px)',
-            }}
-          >
-            <div className="w-full">
-              <HorizontalScrollServices />
-            </div>
-          </div>
+      <ScrollAnimatedSection>
+        <div id="learn-more">
+          <HorizontalScrollServices />
         </div>
+      </ScrollAnimatedSection>
 
-        {/* Section 2: Slider Carousel */}
-        <div className="home-snap-section">
-          <section 
-            className="home-snap-content" 
-            style={{ zIndex: 20 }}
-            data-testid="section-differentiators"
-          >
-            <div className="w-full flex items-center justify-center">
-              <SliderCarousel slides={sliderSlides} />
-            </div>
-          </section>
-        </div>
+      <SectionDivider />
 
-        {/* Section 3: Scroll Value Cards */}
-        <div className="home-snap-section">
-          <section 
-            className="home-snap-content" 
-            style={{ zIndex: 30 }}
-            data-testid="section-why-us"
-          >
-            <div className="w-full flex items-center justify-center">
+      <ScrollAnimatedSection>
+        <section className="py-2 px-2 sm:px-3 lg:px-4" data-testid="section-differentiators">
+          <SliderCarousel slides={sliderSlides} />
+      </section>
+      </ScrollAnimatedSection>
+
+      <SectionDivider />
+
+      <ScrollAnimatedSection>
+        <section className="py-2 px-2 sm:px-3 lg:px-4" data-testid="section-why-us">
           <ScrollValueCards
             cards={[
               {
@@ -523,26 +501,18 @@ export default function Home() {
               },
             ]}
           />
-            </div>
-          </section>
-        </div>
+      </section>
+      </ScrollAnimatedSection>
 
-        {/* Section 4: Partners & Metrics */}
-        <div className="home-snap-section">
-          <section 
-            id="partners" 
-            className="home-snap-content" 
-            style={{ zIndex: 40 }}
-            data-testid="section-partners"
-          >
-            <div className="w-full flex items-center justify-center">
+      <SectionDivider />
+
+      <ScrollAnimatedSection>
+        <section id="partners" className="py-2 px-2 sm:px-3 lg:px-4" data-testid="section-partners">
           <div className="relative mx-auto" style={{ width: "95%", maxWidth: "2400px" }}>
             <div 
               className="relative rounded-2xl px-8 py-12"
               style={{
-                background: 'rgba(10, 10, 10, 0.6)',
-                backdropFilter: 'blur(20px)',
-                WebkitBackdropFilter: 'blur(20px)',
+                background: "#0a0a0a",
                 border: "1px solid rgba(255, 255, 255, 0.1)",
                 boxShadow: "0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1)",
                 overflow: "hidden",
@@ -653,41 +623,23 @@ export default function Home() {
               </div>
             </div>
           </div>
-            </div>
-          </section>
-        </div>
+        </section>
+      </ScrollAnimatedSection>
 
-        {/* Section 5: CTA Band */}
-        <div className="home-snap-section">
-          <section 
-            className="home-snap-content neumorphic-section" 
-            style={{ zIndex: 50 }}
-            data-testid="section-cta"
-          >
-            <div className="w-full flex items-center justify-center">
-              <div 
-                className="relative mx-auto rounded-2xl px-8 py-12"
-                style={{
-                  width: "95%",
-                  maxWidth: "2400px",
-                  background: "rgba(10, 10, 10, 0.6)",
-                  backdropFilter: "blur(20px)",
-                  WebkitBackdropFilter: "blur(20px)",
-                  border: "1px solid rgba(255, 255, 255, 0.1)",
-                  boxShadow: "0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1)",
-                }}
-              >
-                <CTABand
-                  title="Book a Free Consultation Today!"
-                  subtitle="Let's discuss how we can grow your business with data-driven marketing."
-                  buttonText="Get Started"
-                  buttonLink="/book-a-demo"
-                />
-              </div>
-            </div>
-          </section>
+      <SectionDivider />
+
+      <ScrollAnimatedSection>
+        <section className="py-2 px-2 sm:px-3 lg:px-4 neumorphic-section" data-testid="section-cta">
+        <div className="max-w-7xl mx-auto">
+          <CTABand
+            title="Book a Free Consultation Today!"
+            subtitle="Let's discuss how we can grow your business with data-driven marketing."
+            buttonText="Get Started"
+            buttonLink="/book-a-demo"
+          />
         </div>
-      </div>
+      </section>
+      </ScrollAnimatedSection>
 
       <StickyConversionBar />
     </div>
