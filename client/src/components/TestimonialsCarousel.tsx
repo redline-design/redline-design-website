@@ -38,9 +38,9 @@ export default function TestimonialsCarousel() {
 
   return (
     <div className="relative">
-      <div className="relative overflow-hidden">
+      <div className="relative overflow-x-auto snap-x snap-mandatory scrollbar-hide">
         <motion.div
-          className="flex gap-4 pointer-events-none"
+          className="flex gap-2 pointer-events-none"
           animate={{
             x: prefersReducedMotion ? 0 : [0, -100 * reviews.length],
           }}
@@ -55,7 +55,7 @@ export default function TestimonialsCarousel() {
           {duplicatedReviews.map((review, index) => (
             <div 
               key={`${review.id}-${index}`}
-              className="flex-shrink-0 w-[300px] sm:w-[350px]"
+              className="flex-shrink-0 w-[300px] sm:w-[350px] snap-start"
             >
               <TestimonialCard review={review} />
             </div>
