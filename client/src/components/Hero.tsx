@@ -59,18 +59,16 @@ export default function Hero() {
               className="w-full"
               data-testid="img-hero-logo"
             />
-            {/* Red glow overlay - only affects red parts */}
+            {/* Red glow overlay - simplified for performance */}
             <img 
               src={newLogoFull} 
               alt="" 
               loading="eager"
               className="w-full absolute inset-0"
               style={{
-                filter: 'brightness(2.5) saturate(3) hue-rotate(-10deg) contrast(1.5) sepia(0.3)',
+                filter: 'brightness(1.8) saturate(2)',
                 animation: 'heroLogoShimmer 4s ease-in-out infinite',
-                mixBlendMode: 'lighten',
-                WebkitMaskImage: 'linear-gradient(to right, rgba(255,0,0,1), rgba(255,0,0,1))',
-                maskImage: 'linear-gradient(to right, rgba(255,0,0,1), rgba(255,0,0,1))'
+                opacity: 0.7
               }}
             />
           </div>
@@ -101,7 +99,12 @@ export default function Hero() {
         >
           <Link href="/book-a-demo">
             <motion.div 
-              className="inline-flex items-center gap-2 px-5 py-2.5 border border-border/50 bg-card/30 backdrop-blur-sm rounded-full text-xs font-semibold uppercase tracking-wider text-foreground hover-elevate active-elevate-2 transition-all subtle-shimmer"
+              className="inline-flex items-center gap-2 px-5 py-2.5 border border-border/50 rounded-full text-xs font-semibold uppercase tracking-wider text-foreground hover-elevate active-elevate-2 transition-all subtle-shimmer"
+              style={{
+                background: 'rgba(15, 15, 15, 0.85)',
+                transform: 'translateZ(0)',
+                willChange: 'transform'
+              }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -145,7 +148,10 @@ export default function Hero() {
           className="flex items-center justify-center w-12 h-12 rounded-full"
           style={{
             background: 'linear-gradient(135deg, #1a1a1a 0%, #141414 100%)',
-            boxShadow: 'inset 0 2px 4px rgba(255, 0, 0, 0.3), inset 0 -2px 4px rgba(0, 0, 0, 0.8), 0 8px 16px rgba(0, 0, 0, 0.4)',
+            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.5)',
+            border: '1px solid rgba(255, 0, 0, 0.2)',
+            transform: 'translateZ(0)',
+            willChange: 'transform'
           }}
         >
           <ChevronDown className="h-6 w-6" style={{ color: '#ff0000' }} data-testid="icon-scroll-indicator" />

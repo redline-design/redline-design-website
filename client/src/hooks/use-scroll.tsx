@@ -7,6 +7,7 @@ interface ScrollState {
   isScrollingDown: boolean;
   isScrollingUp: boolean;
   showHeader: boolean;
+  isPastConversionThreshold: boolean;
 }
 
 type ScrollKey = keyof ScrollState;
@@ -21,6 +22,7 @@ class ScrollManager {
     isScrollingDown: false,
     isScrollingUp: false,
     showHeader: true,
+    isPastConversionThreshold: false,
   };
   private rafId: number | null = null;
   private lastEventScrollY = 0;
@@ -76,6 +78,7 @@ class ScrollManager {
         isScrollingDown,
         isScrollingUp,
         showHeader,
+        isPastConversionThreshold: this.cachedScrollY > 300,
       };
 
       // Only notify listeners for values that actually changed

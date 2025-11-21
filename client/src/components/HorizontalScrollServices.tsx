@@ -374,11 +374,11 @@ export default function HorizontalScrollServices() {
           <div 
             className="relative inline-flex items-end justify-center gap-2 px-6 py-2 rounded-2xl overflow-visible"
             style={{
-              background: 'rgba(255, 255, 255, 0.03)',
-              backdropFilter: 'blur(20px)',
-              WebkitBackdropFilter: 'blur(20px)',
+              background: 'rgba(15, 15, 15, 0.8)',
               border: '1px solid rgba(255, 255, 255, 0.1)',
-              boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.37)'
+              boxShadow: '0 4px 12px rgba(0, 0, 0, 0.4)',
+              transform: 'translateZ(0)',
+              willChange: 'transform'
             }}
           >
             <div 

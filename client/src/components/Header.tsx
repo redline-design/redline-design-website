@@ -58,11 +58,11 @@ export default function Header() {
                 transition={{ duration: 0.3, ease: "easeInOut" }}
                 className="hidden md:flex items-center gap-1 rounded-full px-4 py-2"
                 style={{
-                  backgroundColor: "hsl(var(--background) / 0.7)",
-                  backdropFilter: "blur(20px)",
-                  WebkitBackdropFilter: "blur(20px)",
-                  border: "1px solid hsl(var(--border) / 0.2)",
-                  boxShadow: "0 8px 32px 0 rgba(0, 0, 0, 0.1)",
+                  backgroundColor: "rgba(10, 10, 10, 0.95)",
+                  border: "1px solid rgba(255, 255, 255, 0.1)",
+                  boxShadow: "0 4px 12px rgba(0, 0, 0, 0.3)",
+                  transform: "translateZ(0)",
+                  willChange: "transform"
                 }}
                 data-testid="nav-desktop"
               >
@@ -184,7 +184,12 @@ export default function Header() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="md:hidden border-t border-border/50 bg-background/95 backdrop-blur-xl overflow-hidden" 
+            className="md:hidden border-t border-border/50 overflow-hidden" 
+            style={{
+              background: 'rgba(10, 10, 10, 0.98)',
+              transform: 'translateZ(0)',
+              willChange: 'transform'
+            }}
             data-testid="nav-mobile"
           >
             <div className="px-6 py-6 space-y-2">

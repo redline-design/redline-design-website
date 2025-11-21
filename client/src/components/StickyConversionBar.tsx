@@ -6,7 +6,7 @@ import { Link } from "wouter";
 import { useScrollValue } from "@/hooks/use-scroll";
 
 export default function StickyConversionBar() {
-  const { scrollY, isScrollingUp } = useScrollValue(['scrollY', 'isScrollingUp']);
+  const { isPastConversionThreshold, isScrollingUp } = useScrollValue(['isPastConversionThreshold', 'isScrollingUp']);
   const [isExpanded, setIsExpanded] = useState(false);
   const [isDismissed, setIsDismissed] = useState(() => {
     // Check localStorage on mount
@@ -16,8 +16,8 @@ export default function StickyConversionBar() {
     return false;
   });
 
-  // Only show if scrolled past 300px, not dismissed, and scrolling up
-  const isVisible = scrollY > 300 && !isDismissed && isScrollingUp;
+  // Only show if scrolled past threshold, not dismissed, and scrolling up
+  const isVisible = isPastConversionThreshold && !isDismissed && isScrollingUp;
 
   const handleDismiss = () => {
     setIsDismissed(true);
@@ -37,9 +37,17 @@ export default function StickyConversionBar() {
           data-testid="section-sticky-conversion-bar"
         >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-4 pointer-events-auto">
-            <div className="bg-card border border-primary/30 rounded-2xl shadow-2xl backdrop-blur-xl relative overflow-hidden">
-              {/* Glow effect */}
-              <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-primary/10 to-primary/5 animate-pulse" />
+            <div 
+              className="border border-primary/30 rounded-2xl relative overflow-hidden"
+              style={{
+                background: 'rgba(15, 15, 15, 0.98)',
+                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.5)',
+                willChange: 'transform',
+                transform: 'translateZ(0)'
+              }}
+            >
+              {/* Subtle glow effect */}
+              <div className="absolute inset-0 bg-gradient-to-r from-primary/3 via-primary/5 to-primary/3 opacity-70 pointer-events-none" />
               
               <div className="relative p-4 sm:p-5">
                 {/* Main CTA Row */}

@@ -594,13 +594,12 @@ export default function Home() {
                 </svg>
               </div>
 
-              {/* Dark frosted glass overlay */}
+              {/* Dark overlay */}
               <div
                 className="absolute inset-0"
                 style={{
-                  background: "rgba(0, 0, 0, 0.5)",
-                  backdropFilter: "blur(8px)",
-                  WebkitBackdropFilter: "blur(8px)",
+                  background: "rgba(0, 0, 0, 0.7)",
+                  transform: "translateZ(0)"
                 }}
               />
 
@@ -637,16 +636,19 @@ export default function Home() {
 
       <div className="w-full" data-testid="section-cta-footer" style={{
         background: 'linear-gradient(180deg, rgb(26, 26, 26) 0%, rgb(18, 18, 18) 50%, rgb(15, 15, 15) 100%)',
-        boxShadow: 'inset 0 4px 8px rgba(255, 0, 0, 0.25), inset 0 -8px 16px rgba(0, 0, 0, 0.8), 0 16px 32px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05)',
-        border: '1px solid rgba(255, 0, 0, 0.2)',
-        position: 'relative'
+        boxShadow: '0 -2px 8px rgba(0, 0, 0, 0.3)',
+        borderTop: '1px solid rgba(255, 0, 0, 0.2)',
+        position: 'relative',
+        transform: 'translateZ(0)',
+        willChange: 'transform'
       }}>
-        {/* Depth effect with pseudo-element */}
+        {/* Simplified depth effect */}
         <div style={{
           position: 'absolute',
           inset: 0,
-          background: 'linear-gradient(to right, rgba(255, 0, 0, 0.05), transparent, rgba(255, 0, 0, 0.05))',
-          pointerEvents: 'none'
+          background: 'linear-gradient(to bottom, rgba(255, 0, 0, 0.03) 0%, transparent 50%)',
+          pointerEvents: 'none',
+          opacity: 0.8
         }} />
         <section className="max-w-7xl mx-auto px-2 sm:px-3 lg:px-4 relative z-10">
           <CTABand

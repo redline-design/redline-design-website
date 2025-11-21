@@ -42,8 +42,9 @@ const Footer = memo(function Footer() {
   return (
     <footer className="w-full relative z-10" style={{
       background: 'linear-gradient(180deg, rgb(15, 15, 15) 0%, rgb(10, 10, 10) 100%)',
-      boxShadow: 'inset 0 4px 8px rgba(255, 0, 0, 0.15), inset 0 -8px 16px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.05)',
-      borderTop: '1px solid rgba(255, 0, 0, 0.2)'
+      borderTop: '1px solid rgba(255, 0, 0, 0.15)',
+      transform: 'translateZ(0)',
+      willChange: 'transform'
     }} data-testid="footer-main">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
