@@ -114,7 +114,7 @@ export default function Hero() {
 
       {/* CTA Buttons */}
       <motion.div
-        className="absolute inset-x-0 bottom-24 z-10 flex justify-center"
+        className="absolute inset-x-0 bottom-32 z-10 flex justify-center"
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, delay: 0.5 }}
