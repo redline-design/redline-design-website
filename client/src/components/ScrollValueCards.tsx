@@ -34,23 +34,21 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
   return (
     <div 
       ref={containerRef} 
-      className="relative overflow-hidden -my-2 -mx-2 sm:-mx-3 lg:-mx-4"
+      className="relative w-full"
+      style={{
+        background: "linear-gradient(135deg, rgba(10, 10, 10, 0.95) 0%, rgba(15, 20, 30, 0.90) 50%, rgba(10, 15, 25, 0.95) 100%)"
+      }}
       data-testid="container-value-cards"
     >
-      {/* Parallax background layer */}
+      {/* Parallax overlay */}
       <motion.div
+        className="absolute inset-0 pointer-events-none"
         style={{
-          position: 'absolute',
-          top: '-1rem',
-          left: '-1rem',
-          right: '-1rem',
-          bottom: '-1rem',
-          zIndex: -10,
-          background: "linear-gradient(135deg, rgba(10, 10, 10, 0.95) 0%, rgba(15, 20, 30, 0.90) 50%, rgba(10, 15, 25, 0.95) 100%)",
           y: backgroundY,
           willChange: "transform"
         }}
       />
+      
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div 
