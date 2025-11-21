@@ -74,7 +74,7 @@ export default function TestimonialsCarousel() {
           }}
           transition={{
             x: {
-              duration: prefersReducedMotion ? 0 : reviews.length * 20,
+              duration: prefersReducedMotion ? 0 : reviews.length * 8,
               repeat: Infinity,
               ease: "linear",
             },
@@ -94,15 +94,6 @@ export default function TestimonialsCarousel() {
         {/* Gradient overlays for fade effect */}
         <div className="absolute top-0 left-0 w-20 h-full bg-gradient-to-r from-card/20 to-transparent pointer-events-none z-10" />
         <div className="absolute top-0 right-0 w-20 h-full bg-gradient-to-l from-card/20 to-transparent pointer-events-none z-10" />
-      </div>
-
-      {/* Card Counter */}
-      <div className="flex justify-center mt-6" data-testid="testimonials-counter">
-        <span className="text-sm font-medium text-muted-foreground">
-          <span className="text-primary font-bold">{currentCard + 1}</span>
-          <span className="text-muted-foreground"> / </span>
-          <span className="font-bold">{reviews.length}</span>
-        </span>
       </div>
     </div>
   );
