@@ -587,13 +587,13 @@ export default function Home() {
                 </svg>
               </div>
 
-              {/* Light frosted overlay */}
+              {/* Dark frosted glass overlay */}
               <div
                 className="absolute inset-0"
                 style={{
-                  background: "rgba(0, 0, 0, 0.05)",
-                  backdropFilter: "blur(3px)",
-                  WebkitBackdropFilter: "blur(3px)",
+                  background: "rgba(0, 0, 0, 0.5)",
+                  backdropFilter: "blur(8px)",
+                  WebkitBackdropFilter: "blur(8px)",
                 }}
               />
 
