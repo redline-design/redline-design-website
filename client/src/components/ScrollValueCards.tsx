@@ -65,13 +65,12 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-4xl md:text-5xl font-black uppercase tracking-widest mb-3 red-glow-pulse" style={{ color: "#ff0000", letterSpacing: "0.05em" }}>
+          <h2 className="text-lg sm:text-xl md:text-2xl font-bold uppercase tracking-[0.3em] mb-4 red-glow-pulse" style={{ color: "#ff0000" }}>
             Why Choose Us
           </h2>
           <p className="text-muted-foreground text-base md:text-lg mb-8 max-w-2xl mx-auto">
             Results-driven digital marketing that actually delivers measurable ROI
           </p>
-          <div className="h-1.5 w-32 mx-auto rounded-full" style={{ background: "linear-gradient(90deg, #ff0000, #0088ff, #00ff88)" }} />
         </motion.div>
 
         {/* Cards Grid */}
