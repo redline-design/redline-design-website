@@ -28,16 +28,24 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
     offset: ["start 60%", "start 20%"]
   });
 
+  // GPU-friendly parallax effect instead of background-attachment: fixed
+  const backgroundY = prefersReducedMotion ? 0 : useTransform(scrollYProgress, [0, 1], ['0%', '10%']);
+
   return (
     <div 
       ref={containerRef} 
-      className="relative py-16 md:py-20"
-      style={{
-        background: "linear-gradient(135deg, rgba(10, 10, 10, 0.8) 0%, rgba(15, 20, 30, 0.6) 50%, rgba(10, 15, 25, 0.8) 100%)",
-        backgroundAttachment: "fixed"
-      }}
+      className="relative py-16 md:py-20 overflow-hidden"
       data-testid="container-value-cards"
     >
+      {/* Parallax background layer */}
+      <motion.div
+        className="absolute inset-0 -z-10"
+        style={{
+          background: "linear-gradient(135deg, rgba(10, 10, 10, 0.8) 0%, rgba(15, 20, 30, 0.6) 50%, rgba(10, 15, 25, 0.8) 100%)",
+          y: backgroundY,
+          willChange: "transform"
+        }}
+      />
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div 

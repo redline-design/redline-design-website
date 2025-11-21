@@ -3237,6 +3237,7 @@
   text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  white-space: nowrap;
 }
 
 @media (max-width: 1024px) {

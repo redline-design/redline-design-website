@@ -1,14 +1,32 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
+import { useIsMobile } from "@/hooks/use-mobile";
+import { useInView } from "react-intersection-observer";
 
 export default function AnimatedBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const mousePosRef = useRef({ x: 0, y: 0 });
   const prefersReducedMotion = useReducedMotion();
+  const isMobile = useIsMobile();
+  const { ref: intersectionRef, inView } = useInView({
+    threshold: 0,
+    rootMargin: "100px",
+  });
+  const [containerRef, setContainerRef] = useState<HTMLDivElement | null>(null);
+
+  // Combine refs
+  useEffect(() => {
+    if (containerRef) {
+      intersectionRef(containerRef);
+    }
+  }, [containerRef, intersectionRef]);
+
+  // Skip animation entirely on mobile or reduced motion
+  const shouldAnimate = !isMobile && !prefersReducedMotion && inView;
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas) return;
+    if (!canvas || !shouldAnimate) return;
 
     const ctx = canvas.getContext("2d", { alpha: false, desynchronized: true });
     if (!ctx) return;
@@ -197,13 +215,29 @@ export default function AnimatedBackground() {
       clearTimeout(resizeTimeout);
       cancelAnimationFrame(animationFrameId);
     };
-  }, [prefersReducedMotion]);
+  }, [shouldAnimate]);
+
+  // Show static fallback for mobile/reduced-motion
+  if (!shouldAnimate) {
+    return (
+      <div
+        ref={setContainerRef}
+        className="fixed inset-0 z-0 pointer-events-none"
+        style={{
+          background: "linear-gradient(180deg, #000000 0%, #0a0a0a 100%)",
+          opacity: 1,
+        }}
+      />
+    );
+  }
 
   return (
-    <canvas
-      ref={canvasRef}
-      className="fixed inset-0 z-0 pointer-events-none"
-      style={{ opacity: 1 }}
-    />
+    <div ref={setContainerRef} className="fixed inset-0 z-0">
+      <canvas
+        ref={canvasRef}
+        className="w-full h-full pointer-events-none"
+        style={{ opacity: 1 }}
+      />
+    </div>
   );
 }

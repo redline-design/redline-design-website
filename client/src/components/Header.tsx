@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Home, ChevronDown, ArrowRight } from "lucide-react";
@@ -9,49 +9,12 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useScroll } from "@/hooks/use-scroll";
 
 export default function Header() {
-  const [isScrolled, setIsScrolled] = useState(false);
+  const { isScrolled, showHeader } = useScroll();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [showNav, setShowNav] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
   const [location] = useLocation();
-  const rafRef = useRef<number>();
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (rafRef.current) return; // Skip if update already scheduled
-      
-      rafRef.current = requestAnimationFrame(() => {
-        const currentScrollY = window.scrollY;
-        
-        setIsScrolled(currentScrollY > 50);
-        
-        // Show nav when scrolling up, hide when scrolling down
-        if (currentScrollY < 100) {
-          // Always show when near top
-          setShowNav(true);
-        } else if (currentScrollY < lastScrollY) {
-          // Scrolling up
-          setShowNav(true);
-        } else if (currentScrollY > lastScrollY) {
-          // Scrolling down
-          setShowNav(false);
-        }
-        
-        setLastScrollY(currentScrollY);
-        rafRef.current = undefined;
-      });
-    };
-    
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      if (rafRef.current) {
-        cancelAnimationFrame(rafRef.current);
-      }
-    };
-  }, [lastScrollY]);
 
   const serviceLinks = [
     { href: "/services/websites", label: "Websites" },
@@ -87,7 +50,7 @@ export default function Header() {
         <div className="relative h-20 flex items-center justify-center">
           {/* Desktop Navigation - Centered pill */}
           <AnimatePresence>
-            {showNav && (
+            {showHeader && (
               <motion.nav 
                 initial={{ opacity: 1, y: 0 }}
                 animate={{ opacity: 1, y: 0 }}

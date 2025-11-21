@@ -36,7 +36,7 @@ function ServiceSection({ id, icon: Icon, title, description, features, outcomes
         scale,
         opacity,
       }}
-      className="scroll-mt-24 sticky top-[100px] mb-6"
+      className="relative scroll-mt-24 sticky top-[100px] mb-6"
       data-testid={`section-service-${id}`}
     >
       <Card className="rounded-2xl overflow-hidden backdrop-blur-xl bg-card/95 border-border/50 shadow-2xl">
@@ -118,10 +118,10 @@ export default function Services() {
       <section className="py-12 px-4 sm:px-6 lg:px-8 bg-card/50" data-testid="section-metrics">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            <StatCounter value={14} suffix="x" label="Average ROI" />
-            <StatCounter value={350} suffix="%" label="Traffic Growth" delay={0.1} />
-            <StatCounter value={2} suffix="x" label="Conversion Rate" delay={0.2} />
-            <StatCounter value={95} suffix="%" label="Client Retention" delay={0.3} />
+            <StatCounter value={14} suffix="x" label="Average ROI" icon={BarChart} />
+            <StatCounter value={350} suffix="%" label="Traffic Growth" icon={TrendingUp} delay={0.1} />
+            <StatCounter value={2} suffix="x" label="Conversion Rate" icon={MousePointerClick} delay={0.2} />
+            <StatCounter value={95} suffix="%" label="Client Retention" icon={Users} delay={0.3} />
           </div>
         </div>
       </section>

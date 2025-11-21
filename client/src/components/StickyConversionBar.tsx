@@ -1,11 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Calendar, X, ChevronDown, Lightbulb, TrendingUp, Users, Target } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
+import { useScroll } from "@/hooks/use-scroll";
 
 export default function StickyConversionBar() {
-  const [isVisible, setIsVisible] = useState(false);
+  const { scrollY, isScrollingUp } = useScroll();
   const [isExpanded, setIsExpanded] = useState(false);
   const [isDismissed, setIsDismissed] = useState(() => {
     // Check localStorage on mount
@@ -15,37 +16,11 @@ export default function StickyConversionBar() {
     return false;
   });
 
-  useEffect(() => {
-    let lastScrollY = window.scrollY;
-    let ticking = false;
-
-    const handleScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          const currentScrollY = window.scrollY;
-          const scrollingDown = currentScrollY > lastScrollY;
-          
-          // Only show if scrolled past 300px, not dismissed, and scrolling up
-          if (currentScrollY > 300 && !isDismissed && !scrollingDown) {
-            setIsVisible(true);
-          } else if (currentScrollY <= 300 || scrollingDown) {
-            setIsVisible(false);
-          }
-
-          lastScrollY = currentScrollY;
-          ticking = false;
-        });
-        ticking = true;
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [isDismissed]);
+  // Only show if scrolled past 300px, not dismissed, and scrolling up
+  const isVisible = scrollY > 300 && !isDismissed && isScrollingUp;
 
   const handleDismiss = () => {
     setIsDismissed(true);
-    setIsVisible(false);
     // Persist dismissal to localStorage
     localStorage.setItem('stickyBarDismissed', 'true');
   };
