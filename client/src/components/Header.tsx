@@ -72,16 +72,20 @@ export default function Header() {
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
+                whileHover={{ y: -2 }}
                 className={`relative px-3 py-2 text-sm font-medium transition-all duration-300 group rounded-lg ${
                   location === "/" ? "text-primary" : "text-foreground"
                 }`}
                 style={{
                   background: location === "/" 
-                    ? "linear-gradient(145deg, rgba(255, 0, 0, 0.15), rgba(200, 0, 0, 0.1))"
-                    : "linear-gradient(145deg, rgba(25, 25, 25, 0.6), rgba(15, 15, 15, 0.4))",
+                    ? "linear-gradient(145deg, rgba(255, 30, 30, 0.3), rgba(200, 0, 0, 0.2))"
+                    : "linear-gradient(145deg, rgba(45, 45, 45, 0.9), rgba(25, 25, 25, 0.8))",
                   boxShadow: location === "/"
-                    ? "inset 2px 2px 4px rgba(0, 0, 0, 0.3), inset -2px -2px 4px rgba(255, 0, 0, 0.1), 0 2px 8px rgba(255, 0, 0, 0.2)"
-                    : "2px 2px 4px rgba(0, 0, 0, 0.4), -1px -1px 3px rgba(40, 40, 40, 0.1)",
+                    ? "inset 3px 3px 6px rgba(0, 0, 0, 0.4), inset -3px -3px 6px rgba(255, 0, 0, 0.15), 0 4px 12px rgba(255, 0, 0, 0.4), 0 0 20px rgba(255, 0, 0, 0.2)"
+                    : "4px 4px 8px rgba(0, 0, 0, 0.6), -2px -2px 6px rgba(60, 60, 60, 0.3), inset 1px 1px 2px rgba(80, 80, 80, 0.2)",
+                  border: location === "/"
+                    ? "1px solid rgba(255, 0, 0, 0.4)"
+                    : "1px solid rgba(255, 255, 255, 0.15)",
                   transform: "translateZ(0)"
                 }}
                 data-testid="link-nav-home"
@@ -90,8 +94,8 @@ export default function Header() {
                   className="h-5 w-5" 
                   style={{ 
                     filter: location === "/" 
-                      ? "drop-shadow(0 2px 4px rgba(255, 0, 0, 0.4))" 
-                      : "drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3))" 
+                      ? "drop-shadow(0 2px 6px rgba(255, 0, 0, 0.6))" 
+                      : "drop-shadow(0 2px 4px rgba(255, 255, 255, 0.1))" 
                   }}
                 />
               </motion.div>
@@ -104,16 +108,20 @@ export default function Header() {
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2 }}
+                  whileHover={{ y: -2 }}
                   className={`relative px-4 py-2 text-sm font-medium transition-all duration-300 group rounded-lg flex items-center gap-1 ${
                     location.startsWith("/services") ? "text-primary" : "text-foreground"
                   }`}
                   style={{
                     background: location.startsWith("/services")
-                      ? "linear-gradient(145deg, rgba(255, 0, 0, 0.15), rgba(200, 0, 0, 0.1))"
-                      : "linear-gradient(145deg, rgba(25, 25, 25, 0.6), rgba(15, 15, 15, 0.4))",
+                      ? "linear-gradient(145deg, rgba(255, 30, 30, 0.3), rgba(200, 0, 0, 0.2))"
+                      : "linear-gradient(145deg, rgba(45, 45, 45, 0.9), rgba(25, 25, 25, 0.8))",
                     boxShadow: location.startsWith("/services")
-                      ? "inset 2px 2px 4px rgba(0, 0, 0, 0.3), inset -2px -2px 4px rgba(255, 0, 0, 0.1), 0 2px 8px rgba(255, 0, 0, 0.2)"
-                      : "2px 2px 4px rgba(0, 0, 0, 0.4), -1px -1px 3px rgba(40, 40, 40, 0.1)",
+                      ? "inset 3px 3px 6px rgba(0, 0, 0, 0.4), inset -3px -3px 6px rgba(255, 0, 0, 0.15), 0 4px 12px rgba(255, 0, 0, 0.4), 0 0 20px rgba(255, 0, 0, 0.2)"
+                      : "4px 4px 8px rgba(0, 0, 0, 0.6), -2px -2px 6px rgba(60, 60, 60, 0.3), inset 1px 1px 2px rgba(80, 80, 80, 0.2)",
+                    border: location.startsWith("/services")
+                      ? "1px solid rgba(255, 0, 0, 0.4)"
+                      : "1px solid rgba(255, 255, 255, 0.15)",
                     transform: "translateZ(0)"
                   }}
                   data-testid="button-nav-services"
@@ -124,7 +132,7 @@ export default function Header() {
                   <ChevronDown 
                     className="h-3 w-3 transition-transform group-hover:translate-y-0.5" 
                     style={{ 
-                      filter: "drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3))" 
+                      filter: "drop-shadow(0 2px 4px rgba(255, 255, 255, 0.1))" 
                     }}
                   />
                 </motion.button>
@@ -148,16 +156,20 @@ export default function Header() {
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: (index + 1) * 0.1 + 0.2 }}
+                  whileHover={{ y: -2 }}
                   className={`relative px-4 py-2 text-sm font-medium transition-all duration-300 group rounded-lg ${
                     location === link.href ? "text-primary" : "text-foreground"
                   }`}
                   style={{
                     background: location === link.href
-                      ? "linear-gradient(145deg, rgba(255, 0, 0, 0.15), rgba(200, 0, 0, 0.1))"
-                      : "linear-gradient(145deg, rgba(25, 25, 25, 0.6), rgba(15, 15, 15, 0.4))",
+                      ? "linear-gradient(145deg, rgba(255, 30, 30, 0.3), rgba(200, 0, 0, 0.2))"
+                      : "linear-gradient(145deg, rgba(45, 45, 45, 0.9), rgba(25, 25, 25, 0.8))",
                     boxShadow: location === link.href
-                      ? "inset 2px 2px 4px rgba(0, 0, 0, 0.3), inset -2px -2px 4px rgba(255, 0, 0, 0.1), 0 2px 8px rgba(255, 0, 0, 0.2)"
-                      : "2px 2px 4px rgba(0, 0, 0, 0.4), -1px -1px 3px rgba(40, 40, 40, 0.1)",
+                      ? "inset 3px 3px 6px rgba(0, 0, 0, 0.4), inset -3px -3px 6px rgba(255, 0, 0, 0.15), 0 4px 12px rgba(255, 0, 0, 0.4), 0 0 20px rgba(255, 0, 0, 0.2)"
+                      : "4px 4px 8px rgba(0, 0, 0, 0.6), -2px -2px 6px rgba(60, 60, 60, 0.3), inset 1px 1px 2px rgba(80, 80, 80, 0.2)",
+                    border: location === link.href
+                      ? "1px solid rgba(255, 0, 0, 0.4)"
+                      : "1px solid rgba(255, 255, 255, 0.15)",
                     transform: "translateZ(0)"
                   }}
                   data-testid={`link-nav-${link.label.toLowerCase().replace(/\s/g, "-")}`}
@@ -175,22 +187,22 @@ export default function Header() {
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: navLinks.length * 0.1 + 0.2 }}
-                whileHover={{ scale: 1.05 }}
+                whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
                 className="px-4 py-2 text-sm font-medium text-white rounded-lg transition-all ml-1 flex items-center gap-2"
                 style={{
-                  background: "linear-gradient(145deg, #ff1a1a, #cc0000)",
-                  boxShadow: "3px 3px 6px rgba(0, 0, 0, 0.5), -2px -2px 4px rgba(255, 50, 50, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.2)",
+                  background: "linear-gradient(145deg, #ff3333, #dd0000)",
+                  boxShadow: "5px 5px 10px rgba(0, 0, 0, 0.7), -3px -3px 8px rgba(255, 80, 80, 0.4), inset 0 2px 1px rgba(255, 255, 255, 0.3), inset 0 -2px 1px rgba(0, 0, 0, 0.3), 0 0 30px rgba(255, 0, 0, 0.5)",
                   transform: "translateZ(0)",
-                  border: "1px solid rgba(255, 0, 0, 0.3)"
+                  border: "1.5px solid rgba(255, 50, 50, 0.6)"
                 }}
                 data-testid="button-nav-get-started"
               >
-                <span style={{ textShadow: "0 1px 2px rgba(0, 0, 0, 0.3)" }}>Get Started</span>
+                <span style={{ textShadow: "0 2px 4px rgba(0, 0, 0, 0.5), 0 0 10px rgba(255, 255, 255, 0.3)" }}>Get Started</span>
                 <ArrowRight 
                   className="h-4 w-4" 
                   style={{ 
-                    filter: "drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3))" 
+                    filter: "drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5)) drop-shadow(0 0 6px rgba(255, 255, 255, 0.4))" 
                   }}
                 />
               </motion.div>
