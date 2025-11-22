@@ -151,7 +151,21 @@ export default function Header() {
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: navLinks.length * 0.1 + 0.2 }}
-                className="px-4 py-2 text-sm font-medium bg-primary text-white rounded-lg hover-elevate active-elevate-2 transition-all ml-1 primary-button-fill flex items-center gap-2"
+                className="px-4 py-2 text-sm font-medium text-white rounded-lg transition-all ml-1 primary-button-fill flex items-center gap-2 cursor-pointer"
+                style={{
+                  background: 'linear-gradient(145deg, #ff0000, #cc0000)',
+                  boxShadow: '0 4px 15px rgba(255, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2), inset 0 -1px 0 rgba(0, 0, 0, 0.3)',
+                  transform: 'translateZ(0)',
+                  willChange: 'transform'
+                }}
+                whileHover={{
+                  boxShadow: '0 6px 20px rgba(255, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3), inset 0 -1px 0 rgba(0, 0, 0, 0.4)',
+                  y: -2
+                }}
+                whileTap={{
+                  boxShadow: '0 2px 8px rgba(255, 0, 0, 0.3), inset 0 2px 4px rgba(0, 0, 0, 0.4)',
+                  y: 0
+                }}
                 data-testid="button-nav-get-started"
               >
                 Get Started
@@ -199,13 +213,46 @@ export default function Header() {
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0 }}
-                  className={`flex items-center gap-3 px-4 py-3 rounded-lg text-base font-medium hover-elevate active-elevate-2 transition-colors ${
-                    location === "/" ? "text-primary bg-primary/10" : "text-foreground"
+                  className={`flex items-center gap-3 px-4 py-3 rounded-lg text-base font-medium transition-colors ${
+                    location === "/" ? "text-primary" : "text-foreground"
                   }`}
+                  style={{
+                    background: location === "/" 
+                      ? 'linear-gradient(145deg, rgba(255, 0, 0, 0.15), rgba(255, 0, 0, 0.05))'
+                      : 'linear-gradient(145deg, rgba(30, 30, 30, 0.8), rgba(20, 20, 20, 0.8))',
+                    boxShadow: location === "/"
+                      ? '0 4px 12px rgba(255, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1), inset 0 -1px 0 rgba(0, 0, 0, 0.3)'
+                      : '0 2px 8px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.05), inset 0 -1px 0 rgba(0, 0, 0, 0.2)',
+                    transform: 'translateZ(0)',
+                    willChange: 'transform'
+                  }}
+                  whileHover={{
+                    boxShadow: location === "/"
+                      ? '0 6px 16px rgba(255, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.15), inset 0 -1px 0 rgba(0, 0, 0, 0.3)'
+                      : '0 4px 12px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.08), inset 0 -1px 0 rgba(0, 0, 0, 0.3)',
+                    y: -2
+                  }}
+                  whileTap={{
+                    boxShadow: '0 1px 4px rgba(0, 0, 0, 0.4), inset 0 2px 4px rgba(0, 0, 0, 0.3)',
+                    y: 0
+                  }}
                   onClick={() => setIsMobileMenuOpen(false)}
                   data-testid="link-mobile-home"
                 >
-                  <Home className="h-5 w-5" />
+                  <motion.div
+                    style={{
+                      padding: '6px',
+                      borderRadius: '8px',
+                      background: location === "/"
+                        ? 'linear-gradient(145deg, rgba(255, 0, 0, 0.2), rgba(255, 0, 0, 0.1))'
+                        : 'linear-gradient(145deg, rgba(40, 40, 40, 0.8), rgba(25, 25, 25, 0.8))',
+                      boxShadow: location === "/"
+                        ? 'inset 2px 2px 4px rgba(0, 0, 0, 0.3), inset -2px -2px 4px rgba(255, 0, 0, 0.2)'
+                        : 'inset 2px 2px 4px rgba(0, 0, 0, 0.4), inset -2px -2px 4px rgba(60, 60, 60, 0.3)'
+                    }}
+                  >
+                    <Home className="h-5 w-5" />
+                  </motion.div>
                   <span>Home</span>
                 </motion.div>
               </Link>
@@ -277,7 +324,21 @@ export default function Header() {
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: navLinks.length * 0.1 }}
-                  className="flex items-center justify-center gap-2 px-4 py-3 rounded-lg text-base font-medium bg-primary text-white hover-elevate active-elevate-2 mt-4 primary-button-fill"
+                  className="flex items-center justify-center gap-2 px-4 py-3 rounded-lg text-base font-medium text-white mt-4 primary-button-fill cursor-pointer"
+                  style={{
+                    background: 'linear-gradient(145deg, #ff0000, #cc0000)',
+                    boxShadow: '0 4px 15px rgba(255, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2), inset 0 -1px 0 rgba(0, 0, 0, 0.3)',
+                    transform: 'translateZ(0)',
+                    willChange: 'transform'
+                  }}
+                  whileHover={{
+                    boxShadow: '0 6px 20px rgba(255, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3), inset 0 -1px 0 rgba(0, 0, 0, 0.4)',
+                    y: -2
+                  }}
+                  whileTap={{
+                    boxShadow: '0 2px 8px rgba(255, 0, 0, 0.3), inset 0 2px 4px rgba(0, 0, 0, 0.4)',
+                    y: 0
+                  }}
                   onClick={() => setIsMobileMenuOpen(false)}
                   data-testid="link-mobile-get-started"
                 >
