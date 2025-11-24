@@ -614,7 +614,7 @@ export default function Home() {
                 
                 {/* Metrics Section */}
                 <div className="mt-12" data-testid="section-metrics">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                  <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
                     <StatCounter value={98} suffix="%" label="Client Satisfaction" icon={Heart} />
                     <StatCounter value={7} suffix="x" label="Average ROI" delay={0.1} icon={TrendingUp} />
                     <StatCounter value={15} suffix="+" label="Years of Experience" delay={0.2} icon={Award} />
