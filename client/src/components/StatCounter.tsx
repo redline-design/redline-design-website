@@ -93,7 +93,7 @@ export default function StatCounter({ value, suffix = "", prefix = "", label, de
         />
       )}
 
-      <div className="relative h-full flex flex-col items-center justify-center p-2 md:p-6 z-10">
+      <div className="relative h-full flex flex-col items-center justify-center px-1 py-2 md:p-6 z-10">
         {/* Icon */}
         <motion.div
           initial={{ scale: 0, rotate: -180 }}
@@ -102,7 +102,7 @@ export default function StatCounter({ value, suffix = "", prefix = "", label, de
           className="mb-1 md:mb-4"
         >
           <div
-            className="w-8 h-8 md:w-16 md:h-16 rounded-full flex items-center justify-center"
+            className="w-6 h-6 md:w-16 md:h-16 rounded-full flex items-center justify-center"
             style={{
               background: "linear-gradient(145deg, rgba(255, 0, 0, 0.2), rgba(255, 0, 0, 0.05))",
               border: "1px solid rgba(255, 0, 0, 0.3)",
@@ -114,7 +114,7 @@ export default function StatCounter({ value, suffix = "", prefix = "", label, de
             }}
           >
             <Icon 
-              className="w-4 h-4 md:w-8 md:h-8 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12" 
+              className="w-3 h-3 md:w-8 md:h-8 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12" 
               style={{ 
                 color: "#ff0000",
                 filter: "drop-shadow(0 2px 4px rgba(255, 0, 0, 0.5))"
@@ -125,7 +125,7 @@ export default function StatCounter({ value, suffix = "", prefix = "", label, de
 
         {/* Number */}
         <motion.div
-          className="text-2xl md:text-6xl font-black mb-0.5 md:mb-3"
+          className="text-xl md:text-6xl font-black mb-0.5 md:mb-3"
           style={{
             color: "#ff0000",
             textShadow: "0 0 20px rgba(255, 0, 0, 0.5), 0 0 40px rgba(255, 0, 0, 0.3)",
@@ -139,7 +139,7 @@ export default function StatCounter({ value, suffix = "", prefix = "", label, de
 
         {/* Label */}
         <div 
-          className="text-[8px] md:text-base font-semibold text-foreground uppercase tracking-tight md:tracking-wider"
+          className="text-[7px] md:text-base font-semibold text-foreground uppercase tracking-tighter md:tracking-wider text-center leading-tight"
           data-testid={`text-stat-label-${label.toLowerCase().replace(/\s/g, "-")}`}
         >
           {label}
