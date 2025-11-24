@@ -4387,3 +4387,13 @@
     transform: scale(1.02);
   }
 }
+
+/* Chat Widget Mobile Frosted Glass */
+@media (max-width: 768px) {
+  .chat-widget-button {
+    background: rgba(10, 10, 10, 0.7) !important;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+  }
+}

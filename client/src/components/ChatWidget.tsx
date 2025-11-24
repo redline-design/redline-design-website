@@ -170,7 +170,7 @@ export default function ChatWidget() {
       {/* Toggle Button */}
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-16 h-16 rounded-full flex items-center justify-center transition-all overflow-hidden p-2 hover-elevate active-elevate-2 relative"
+        className="w-16 h-16 rounded-full flex items-center justify-center transition-all overflow-hidden p-2 hover-elevate active-elevate-2 relative chat-widget-button"
         whileHover={{ scale: 1.08 }}
         whileTap={{ scale: 0.92 }}
         style={{
