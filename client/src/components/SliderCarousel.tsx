@@ -84,8 +84,20 @@ export function SliderCarousel({ slides }: SliderCarouselProps) {
           }}
           data-testid={`slide-${getSlideAtPosition(1).id}-active`}
         >
-          {/* Top Navigation Bar */}
-          <div className="slider-carousel-nav-bar" data-testid="slider-nav-bar">
+          {/* Navigation Bar */}
+          <div className="slider-carousel-nav-bar md:static md:bottom-auto" data-testid="slider-nav-bar">
+            {/* Mobile: Left Arrow */}
+            <button
+              onClick={handlePrev}
+              className="slider-carousel-nav-button md:hidden"
+              disabled={isAnimating}
+              aria-label="Previous slide"
+              data-testid="button-slider-prev-mobile"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+
+            {/* Dots */}
             <div className="slider-carousel-nav-items">
               {slides.map((slide, index) => (
                 <button 
@@ -101,6 +113,17 @@ export function SliderCarousel({ slides }: SliderCarouselProps) {
                 </button>
               ))}
             </div>
+
+            {/* Mobile: Right Arrow */}
+            <button
+              onClick={handleNext}
+              className="slider-carousel-nav-button md:hidden"
+              disabled={isAnimating}
+              aria-label="Next slide"
+              data-testid="button-slider-next-mobile"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </button>
           </div>
           
           <div className="slider-carousel-content">
