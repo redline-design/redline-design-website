@@ -416,11 +416,11 @@ export default function HorizontalScrollServices() {
                     data-testid={`card-service-${service.id}`}
                   >
                     <div
-                      className="luminous-card relative group h-full"
+                      className="luminous-card relative group h-full aspect-square"
                       style={{
                         '--accent-color': service.accentColor,
-                        minHeight: '60px',
-                        maxHeight: '60px'
+                        minHeight: '90px',
+                        maxHeight: '90px'
                       } as React.CSSProperties}
                     >
                       <div className="luminous-layers">
@@ -431,26 +431,26 @@ export default function HorizontalScrollServices() {
                         </div>
                       </div>
                       
-                      <div className="card-content py-1 px-0.5 w-full h-full flex flex-col items-center justify-center gap-0.5 relative z-10">
+                      <div className="card-content py-2 px-1 w-full h-full flex flex-col items-center justify-center gap-1 relative z-10">
                         <div className="icon-3d-container transition-all duration-400 flex-shrink-0">
                           <div 
                             className="icon-circle-filled"
                             style={{
                               '--icon-color': service.accentColor,
                               backgroundColor: service.accentColor,
-                              width: '1.25rem',
-                              height: '1.25rem'
+                              width: '2rem',
+                              height: '2rem'
                             } as React.CSSProperties}
                           >
                             <service.icon 
-                              className="icon-cutout h-2.5 w-2.5" 
+                              className="icon-cutout h-4 w-4" 
                               style={{ color: '#1a1a1a' }} 
                               data-testid={`icon-service-${service.id}`} 
                             />
                           </div>
                         </div>
                         <div className="text-center w-full">
-                          <span className="text-[7px] font-bold tracking-tighter uppercase block leading-tight">
+                          <span className="text-[8px] font-bold tracking-tighter uppercase block leading-tight">
                             {service.title}
                           </span>
                         </div>
