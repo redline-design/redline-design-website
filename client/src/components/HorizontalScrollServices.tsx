@@ -372,7 +372,7 @@ export default function HorizontalScrollServices() {
         {/* Mobile Grid Layout (hidden on md+) */}
         <div className="md:hidden">
           <div 
-            className="rounded-2xl px-4 py-6"
+            className="rounded-2xl px-3 py-4"
             style={{
               background: 'rgba(15, 15, 15, 0.8)',
               border: '1px solid rgba(255, 255, 255, 0.1)',
@@ -381,7 +381,7 @@ export default function HorizontalScrollServices() {
               willChange: 'transform'
             }}
           >
-            <div className="grid grid-cols-3 gap-3">
+            <div className="grid grid-cols-4 gap-2">
               {SERVICES_DATA.map((service) => (
                 <div
                   key={service.id}
@@ -393,7 +393,7 @@ export default function HorizontalScrollServices() {
                     className="luminous-card relative group h-full"
                     style={{
                       '--accent-color': service.accentColor,
-                      minHeight: '100px'
+                      minHeight: '85px'
                     } as React.CSSProperties}
                   >
                     <div className="luminous-layers">
@@ -404,26 +404,26 @@ export default function HorizontalScrollServices() {
                       </div>
                     </div>
                     
-                    <div className="card-content py-3 px-2 w-full h-full flex flex-col items-center justify-center relative z-10">
+                    <div className="card-content py-2 px-1 w-full h-full flex flex-col items-center justify-center relative z-10">
                       <div className="icon-3d-container transition-all duration-400">
                         <div 
                           className="icon-circle-filled"
                           style={{
                             '--icon-color': service.accentColor,
                             backgroundColor: service.accentColor,
-                            width: '3rem',
-                            height: '3rem'
+                            width: '2.5rem',
+                            height: '2.5rem'
                           } as React.CSSProperties}
                         >
                           <service.icon 
-                            className="icon-cutout h-5 w-5" 
+                            className="icon-cutout h-4 w-4" 
                             style={{ color: '#1a1a1a' }} 
                             data-testid={`icon-service-${service.id}`} 
                           />
                         </div>
                       </div>
-                      <div className="mt-2 text-center">
-                        <span className="text-[10px] font-bold tracking-tight uppercase block" style={{ lineHeight: '1.1' }}>
+                      <div className="mt-1.5 text-center">
+                        <span className="text-[9px] font-bold tracking-tight uppercase block leading-tight">
                           {service.title}
                         </span>
                       </div>
