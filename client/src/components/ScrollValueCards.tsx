@@ -1,8 +1,8 @@
-import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef, useState } from "react";
+import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { Card, CardContent } from "@/components/ui/card";
-import { LucideIcon } from "lucide-react";
+import { LucideIcon, ChevronLeft, ChevronRight } from "lucide-react";
 
 interface ValueCardData {
   icon: LucideIcon;
@@ -22,6 +22,7 @@ interface ScrollValueCardsProps {
 export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = useReducedMotion();
+  const [currentCardIndex, setCurrentCardIndex] = useState(0);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -30,6 +31,14 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
 
   // GPU-friendly parallax effect instead of background-attachment: fixed
   const backgroundY = prefersReducedMotion ? 0 : useTransform(scrollYProgress, [0, 1], ['0%', '10%']);
+
+  const handlePrevCard = () => {
+    setCurrentCardIndex((prev) => (prev === 0 ? cards.length - 1 : prev - 1));
+  };
+
+  const handleNextCard = () => {
+    setCurrentCardIndex((prev) => (prev === cards.length - 1 ? 0 : prev + 1));
+  };
 
   return (
     <div 
@@ -85,8 +94,168 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
           </p>
         </motion.div>
 
-        {/* Cards Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-5">
+        {/* Mobile Carousel */}
+        <div className="sm:hidden relative">
+          <AnimatePresence mode="wait">
+            {(() => {
+              const card = cards[currentCardIndex];
+              const Icon = card.icon;
+              const accentColor = card.accentColor || '#ff0000';
+              
+              return (
+                <motion.div
+                  key={currentCardIndex}
+                  initial={{ opacity: 0, x: 50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -50 }}
+                  transition={{ duration: 0.3 }}
+                  data-testid={`card-value-${card.title.toLowerCase().replace(/\s/g, "-")}`}
+                >
+                  <Card 
+                    className="h-full relative group hover-elevate active-elevate-2 overflow-hidden min-h-[320px]"
+                    style={{
+                      background: "linear-gradient(145deg, rgba(25, 25, 25, 0.8), rgba(15, 15, 15, 0.8))",
+                      border: "1px solid rgba(255, 255, 255, 0.1)",
+                      boxShadow: `
+                        4px 4px 12px rgba(0, 0, 0, 0.4),
+                        -2px -2px 8px rgba(40, 40, 40, 0.08),
+                        inset 1px 1px 2px rgba(255, 255, 255, 0.05)
+                      `,
+                      transition: "all 0.3s ease-out"
+                    }}
+                  >
+                    <CardContent className="p-5 h-full flex flex-col relative z-10">
+                      {/* Icon Container */}
+                      <div className="flex justify-center mb-4">
+                        <div 
+                          className="relative flex items-center justify-center w-[60px] h-[60px]"
+                          style={{
+                            borderRadius: "12px",
+                            background: `linear-gradient(145deg, rgba(255, 0, 0, 0.15), rgba(255, 0, 0, 0.05))`,
+                            border: `1px solid ${accentColor}40`,
+                            boxShadow: `
+                              2px 2px 8px rgba(0, 0, 0, 0.3),
+                              0 0 12px ${accentColor}20
+                            `,
+                          }}
+                        >
+                          <Icon 
+                            className="h-7 w-7"
+                            style={{ 
+                              color: accentColor,
+                            }}
+                            data-testid={`icon-value-${card.title.toLowerCase().replace(/\s/g, "-")}`}
+                          />
+                        </div>
+                      </div>
+
+                      {/* Title */}
+                      <h3 
+                        className="text-base font-black text-center mb-4 uppercase tracking-tight leading-tight"
+                        style={{ color: accentColor }}
+                        data-testid={`text-value-title-${card.title.toLowerCase().replace(/\s/g, "-")}`}
+                      >
+                        {card.title}
+                      </h3>
+
+                      {/* Content - Bullets or Description */}
+                      {card.bullets ? (
+                        <div className="flex-1 space-y-2.5">
+                          {card.bullets.map((bullet, bulletIdx) => (
+                            <div 
+                              key={bulletIdx} 
+                              className="flex items-start gap-2"
+                            >
+                              {/* Checkmark */}
+                              <div 
+                                className="flex-shrink-0 mt-0.5 w-5 h-5 rounded flex items-center justify-center flex-none"
+                                style={{
+                                  background: "linear-gradient(135deg, #00ff88 0%, #00dd77 100%)",
+                                }}
+                              >
+                                <svg 
+                                  width="11" 
+                                  height="11" 
+                                  viewBox="0 0 16 16"
+                                  style={{ color: "#0a0a0a" }}
+                                >
+                                  <path 
+                                    d="M13 4L6 11L3 8" 
+                                    stroke="currentColor" 
+                                    strokeWidth="3" 
+                                    strokeLinecap="round" 
+                                    strokeLinejoin="round"
+                                    fill="none"
+                                  />
+                                </svg>
+                              </div>
+                              {/* Text */}
+                              <span className="text-sm text-foreground/90 leading-snug font-medium">
+                                {bullet}
+                              </span>
+                            </div>
+                          ))}
+                        </div>
+                      ) : card.description ? (
+                        <p 
+                          className="text-sm text-muted-foreground leading-snug flex-1"
+                          data-testid={`text-value-description-${card.title.toLowerCase().replace(/\s/g, "-")}`}
+                        >
+                          {card.description}
+                        </p>
+                      ) : null}
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              );
+            })()}
+          </AnimatePresence>
+
+          {/* Navigation Arrows */}
+          <div className="flex justify-center items-center gap-3 mt-6">
+            <button
+              onClick={handlePrevCard}
+              className="w-12 h-12 rounded-lg border-2 border-white/30 flex items-center justify-center transition-all"
+              style={{
+                background: "rgba(15, 15, 15, 0.8)",
+                color: "#fff"
+              }}
+              aria-label="Previous card"
+              data-testid="button-value-prev"
+            >
+              <ChevronLeft className="w-6 h-6" />
+            </button>
+            
+            {/* Dots */}
+            <div className="flex gap-2">
+              {cards.map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => setCurrentCardIndex(idx)}
+                  className={`transition-all ${idx === currentCardIndex ? 'w-6 h-2 bg-red-600' : 'w-2 h-2 bg-white/30'} rounded-full`}
+                  aria-label={`Go to card ${idx + 1}`}
+                  data-testid={`dot-value-${idx}`}
+                />
+              ))}
+            </div>
+
+            <button
+              onClick={handleNextCard}
+              className="w-12 h-12 rounded-lg border-2 border-white/30 flex items-center justify-center transition-all"
+              style={{
+                background: "rgba(15, 15, 15, 0.8)",
+                color: "#fff"
+              }}
+              aria-label="Next card"
+              data-testid="button-value-next"
+            >
+              <ChevronRight className="w-6 h-6" />
+            </button>
+          </div>
+        </div>
+
+        {/* Desktop Grid */}
+        <div className="hidden sm:grid grid-cols-2 lg:grid-cols-3 gap-2 md:gap-5">
           {cards.map((card, idx) => {
             const Icon = card.icon;
             const accentColor = card.accentColor || '#ff0000';
