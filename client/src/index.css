@@ -3209,6 +3209,7 @@
     font-size: 28px;
     margin-bottom: 16px;
     line-height: 1.2;
+    color: #ffffff;
   }
   
   .slider-carousel-description {
@@ -3216,6 +3217,7 @@
     margin-bottom: 20px;
     line-height: 1.5;
     max-width: 90%;
+    color: #ffffff;
   }
   
   .slider-carousel-button {
@@ -3243,11 +3245,13 @@
   .slider-carousel-stat-value {
     font-size: 22px;
     font-weight: bold;
+    color: #ff0000;
   }
   
   .slider-carousel-stat-label {
     font-size: 10px;
     line-height: 1.2;
+    color: #ffffff;
   }
   
   .slider-carousel-buttons {
@@ -3274,11 +3278,13 @@
   
   .slider-carousel-title {
     font-size: 24px;
+    color: #ffffff;
   }
   
   .slider-carousel-description {
     font-size: 14px;
     max-width: 95%;
+    color: #ffffff;
   }
   
   .slider-carousel-button {
@@ -3295,11 +3301,13 @@
   .slider-carousel-stat-value {
     font-size: 18px;
     font-weight: bold;
+    color: #ff0000;
   }
   
   .slider-carousel-stat-label {
     font-size: 9px;
     line-height: 1.2;
+    color: #ffffff;
   }
 }
 
