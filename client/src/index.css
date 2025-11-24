@@ -3105,7 +3105,7 @@
 @media (max-width: 768px) {
   .slider-carousel-container {
     height: auto;
-    min-height: 550px;
+    min-height: 620px;
     max-width: 100%;
     width: 100%;
   }
@@ -3113,7 +3113,7 @@
   .slider-carousel-slide {
     border-radius: 16px;
     height: 100%;
-    min-height: 550px;
+    min-height: 620px;
   }
   
   .slider-carousel-item {
@@ -3127,10 +3127,11 @@
     left: 0;
     width: 100%;
     height: 100%;
-    min-height: 550px;
+    min-height: 620px;
     transform: none;
     background-size: cover;
     background-position: center;
+    padding: 40px 0;
   }
   
   .slider-carousel-item-1::before {
@@ -3209,11 +3210,12 @@
     font-size: 28px;
     margin-bottom: 16px;
     line-height: 1.2;
-    color: #ffffff;
+    color: #ff0000;
+    text-shadow: 0 0 20px rgba(255, 0, 0, 0.5), 0 0 40px rgba(255, 0, 0, 0.3);
   }
   
   .slider-carousel-description {
-    font-size: 15px;
+    font-size: 17px;
     margin-bottom: 20px;
     line-height: 1.5;
     max-width: 90%;
@@ -3261,15 +3263,16 @@
 
 @media (max-width: 640px) {
   .slider-carousel-container {
-    min-height: 500px;
+    min-height: 570px;
   }
   
   .slider-carousel-slide {
-    min-height: 500px;
+    min-height: 570px;
   }
   
   .slider-carousel-item-1 {
-    min-height: 500px;
+    min-height: 570px;
+    padding: 30px 0;
   }
   
   .slider-carousel-content {
@@ -3278,11 +3281,12 @@
   
   .slider-carousel-title {
     font-size: 24px;
-    color: #ffffff;
+    color: #ff0000;
+    text-shadow: 0 0 20px rgba(255, 0, 0, 0.5), 0 0 40px rgba(255, 0, 0, 0.3);
   }
   
   .slider-carousel-description {
-    font-size: 14px;
+    font-size: 16px;
     max-width: 95%;
     color: #ffffff;
   }
