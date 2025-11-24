@@ -83,7 +83,7 @@ export default function TestimonialsCarousel() {
           {duplicatedReviews.map((review, index) => (
             <div 
               key={`${review.id}-${index}`}
-              className="flex-shrink-0 w-[380px] sm:w-[450px] snap-start"
+              className="flex-shrink-0 w-[90vw] sm:w-[380px] md:w-[450px] snap-start"
               data-card-width="380"
             >
               <TestimonialCard review={review} />

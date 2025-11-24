@@ -66,7 +66,7 @@ export default function StatCounter({ value, suffix = "", prefix = "", label, de
       onMouseLeave={() => setIsHovered(false)}
       className="group relative overflow-hidden rounded-2xl transition-all duration-500"
       style={{
-        height: "240px",
+        minHeight: "200px",
         background: "linear-gradient(145deg, rgba(25, 25, 25, 0.7), rgba(15, 15, 15, 0.7))",
         border: "1px solid rgba(255, 255, 255, 0.08)",
         boxShadow: `
