@@ -378,7 +378,8 @@ export default function HorizontalScrollServices() {
       data-testid="section-services-horizontal"
     >
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-8">
+        {/* Desktop Title (shown on md+) */}
+        <div className="hidden md:block text-center mb-8">
           <h2 className="text-lg sm:text-xl md:text-2xl font-bold uppercase tracking-[0.3em] mb-4 red-glow-pulse" style={{ color: "#ff0000" }}>
             <TextResolver text="What We Do" delay={0} timeout={15} iterations={2} />
           </h2>
@@ -387,9 +388,9 @@ export default function HorizontalScrollServices() {
           </p>
         </div>
 
-        {/* Mobile Carousel Layout (hidden on md+) */}
+        {/* Mobile Carousel Layout with Title (hidden on md+) */}
         <div 
-          className="md:hidden relative rounded-2xl px-3 py-6"
+          className="md:hidden relative rounded-2xl px-3 py-6 mt-8"
           style={{
             background: 'rgba(15, 15, 15, 0.8)',
             border: '1px solid rgba(255, 255, 255, 0.1)',
@@ -398,6 +399,16 @@ export default function HorizontalScrollServices() {
             willChange: 'transform'
           }}
         >
+          {/* Title inside background on mobile */}
+          <div className="text-center mb-6">
+            <h2 className="text-lg sm:text-xl font-bold uppercase tracking-[0.3em] mb-4 red-glow-pulse" style={{ color: "#ff0000" }}>
+              <TextResolver text="What We Do" delay={0} timeout={15} iterations={2} />
+            </h2>
+            <p className="text-lg text-foreground">
+              <TextResolver text="Comprehensive digital marketing solutions to grow your business" delay={200} timeout={10} iterations={1} />
+            </p>
+          </div>
+
           <div>
             <AnimatePresence mode="wait">
               <motion.div
