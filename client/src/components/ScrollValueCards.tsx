@@ -114,11 +114,10 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
                   <Card 
                     className="h-full relative group hover-elevate active-elevate-2 overflow-hidden min-h-[320px]"
                     style={{
-                      background: "linear-gradient(145deg, rgba(25, 25, 25, 0.8), rgba(15, 15, 15, 0.8))",
-                      border: "1px solid rgba(255, 255, 255, 0.1)",
+                      background: "rgba(15, 15, 15, 0.4)",
+                      border: "1px solid rgba(255, 255, 255, 0.2)",
                       boxShadow: `
-                        4px 4px 12px rgba(0, 0, 0, 0.4),
-                        -2px -2px 8px rgba(40, 40, 40, 0.08),
+                        4px 4px 12px rgba(0, 0, 0, 0.3),
                         inset 1px 1px 2px rgba(255, 255, 255, 0.05)
                       `,
                       transition: "all 0.3s ease-out"
