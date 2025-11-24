@@ -103,6 +103,45 @@ export function SliderCarousel({ slides }: SliderCarouselProps) {
               ))}
             </div>
           </div>
+
+          {/* Mobile Navigation - Above Content */}
+          <div className="md:hidden flex items-center justify-center gap-3 pt-6 pb-4">
+            {/* Mobile: Left Arrow */}
+            <button
+              onClick={handlePrev}
+              className="slider-carousel-nav-button"
+              disabled={isAnimating}
+              aria-label="Previous slide"
+              data-testid="button-slider-prev-mobile"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+
+            {/* Mobile Dots */}
+            <div className="flex gap-2">
+              {slides.map((slide, index) => (
+                <button 
+                  key={slide.id}
+                  onClick={() => handleNavClick(index)}
+                  disabled={isAnimating}
+                  className={`transition-all ${index === activeSlideIndex ? 'w-6 h-2 bg-red-600' : 'w-2 h-2 bg-white/30'} rounded-full`}
+                  data-testid={`nav-dot-${index}`}
+                  aria-label={`Go to slide ${index + 1}: ${slide.title}`}
+                />
+              ))}
+            </div>
+
+            {/* Mobile: Right Arrow */}
+            <button
+              onClick={handleNext}
+              className="slider-carousel-nav-button"
+              disabled={isAnimating}
+              aria-label="Next slide"
+              data-testid="button-slider-next-mobile"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </button>
+          </div>
           
           <div className="slider-carousel-content">
             <AnimatePresence mode="wait">
@@ -177,45 +216,6 @@ export function SliderCarousel({ slides }: SliderCarouselProps) {
                 </motion.a>
               </motion.div>
             </AnimatePresence>
-          </div>
-
-          {/* Mobile Navigation - Below CTA */}
-          <div className="md:hidden flex items-center justify-center gap-3 mt-6">
-            {/* Mobile: Left Arrow */}
-            <button
-              onClick={handlePrev}
-              className="slider-carousel-nav-button"
-              disabled={isAnimating}
-              aria-label="Previous slide"
-              data-testid="button-slider-prev-mobile"
-            >
-              <ChevronLeft className="w-5 h-5" />
-            </button>
-
-            {/* Mobile Dots */}
-            <div className="flex gap-2">
-              {slides.map((slide, index) => (
-                <button 
-                  key={slide.id}
-                  onClick={() => handleNavClick(index)}
-                  disabled={isAnimating}
-                  className={`transition-all ${index === activeSlideIndex ? 'w-6 h-2 bg-red-600' : 'w-2 h-2 bg-white/30'} rounded-full`}
-                  data-testid={`nav-dot-${index}`}
-                  aria-label={`Go to slide ${index + 1}: ${slide.title}`}
-                />
-              ))}
-            </div>
-
-            {/* Mobile: Right Arrow */}
-            <button
-              onClick={handleNext}
-              className="slider-carousel-nav-button"
-              disabled={isAnimating}
-              aria-label="Next slide"
-              data-testid="button-slider-next-mobile"
-            >
-              <ChevronRight className="w-5 h-5" />
-            </button>
           </div>
         </div>
 
