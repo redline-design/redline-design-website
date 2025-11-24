@@ -419,7 +419,8 @@ export default function HorizontalScrollServices() {
                       className="luminous-card relative group h-full"
                       style={{
                         '--accent-color': service.accentColor,
-                        minHeight: '85px'
+                        minHeight: '60px',
+                        maxHeight: '60px'
                       } as React.CSSProperties}
                     >
                       <div className="luminous-layers">
@@ -430,26 +431,26 @@ export default function HorizontalScrollServices() {
                         </div>
                       </div>
                       
-                      <div className="card-content py-2 px-1 w-full h-full flex flex-col items-center justify-center relative z-10">
+                      <div className="card-content py-1.5 px-1 w-full h-full flex flex-col items-center justify-center relative z-10">
                         <div className="icon-3d-container transition-all duration-400">
                           <div 
                             className="icon-circle-filled"
                             style={{
                               '--icon-color': service.accentColor,
                               backgroundColor: service.accentColor,
-                              width: '2.5rem',
-                              height: '2.5rem'
+                              width: '1.75rem',
+                              height: '1.75rem'
                             } as React.CSSProperties}
                           >
                             <service.icon 
-                              className="icon-cutout h-4 w-4" 
+                              className="icon-cutout h-3 w-3" 
                               style={{ color: '#1a1a1a' }} 
                               data-testid={`icon-service-${service.id}`} 
                             />
                           </div>
                         </div>
-                        <div className="mt-1.5 text-center">
-                          <span className="text-[9px] font-bold tracking-tight uppercase block leading-tight">
+                        <div className="mt-1 text-center">
+                          <span className="text-[8px] font-bold tracking-tight uppercase block leading-tight">
                             {service.title}
                           </span>
                         </div>
