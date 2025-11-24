@@ -64,9 +64,8 @@ export default function StatCounter({ value, suffix = "", prefix = "", label, de
       }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="group relative overflow-hidden rounded-2xl transition-all duration-500"
+      className="group relative overflow-hidden rounded-2xl transition-all duration-500 min-h-[120px] md:min-h-[200px]"
       style={{
-        minHeight: "200px",
         background: "linear-gradient(145deg, rgba(25, 25, 25, 0.7), rgba(15, 15, 15, 0.7))",
         border: "1px solid rgba(255, 255, 255, 0.08)",
         boxShadow: `
