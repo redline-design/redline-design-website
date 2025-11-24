@@ -93,16 +93,17 @@ export default function StatCounter({ value, suffix = "", prefix = "", label, de
         />
       )}
 
-      <div className="relative h-full flex flex-col items-center justify-center px-1 py-2 md:p-6 z-10">
+      {/* Mobile Horizontal Layout (hidden on md+) */}
+      <div className="md:hidden relative h-full flex flex-row items-center gap-2 px-2 py-3 z-10">
         {/* Icon */}
         <motion.div
           initial={{ scale: 0, rotate: -180 }}
           animate={inView ? { scale: 1, rotate: 0 } : { scale: 0, rotate: -180 }}
           transition={{ duration: 0.6, delay: delay + 0.2 }}
-          className="mb-1 md:mb-4"
+          className="flex-shrink-0"
         >
           <div
-            className="w-6 h-6 md:w-16 md:h-16 rounded-full flex items-center justify-center"
+            className="w-8 h-8 rounded-full flex items-center justify-center"
             style={{
               background: "linear-gradient(145deg, rgba(255, 0, 0, 0.2), rgba(255, 0, 0, 0.05))",
               border: "1px solid rgba(255, 0, 0, 0.3)",
@@ -114,7 +115,61 @@ export default function StatCounter({ value, suffix = "", prefix = "", label, de
             }}
           >
             <Icon 
-              className="w-3 h-3 md:w-8 md:h-8 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12" 
+              className="w-4 h-4 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12" 
+              style={{ 
+                color: "#ff0000",
+                filter: "drop-shadow(0 2px 4px rgba(255, 0, 0, 0.5))"
+              }}
+            />
+          </div>
+        </motion.div>
+
+        {/* Number and Label */}
+        <div className="flex-1 min-w-0">
+          <motion.div
+            className="text-2xl font-black leading-none mb-1"
+            style={{
+              color: "#ff0000",
+              textShadow: "0 0 20px rgba(255, 0, 0, 0.5), 0 0 40px rgba(255, 0, 0, 0.3)",
+              filter: isHovered ? "brightness(1.3)" : "brightness(1)",
+              transition: "filter 0.3s ease",
+            }}
+            data-testid={`text-stat-value-${label.toLowerCase().replace(/\s/g, "-")}`}
+          >
+            {prefix}{count}{suffix}
+          </motion.div>
+          <div 
+            className="text-[9px] font-semibold text-foreground uppercase tracking-tight leading-tight"
+            data-testid={`text-stat-label-${label.toLowerCase().replace(/\s/g, "-")}`}
+          >
+            {label}
+          </div>
+        </div>
+      </div>
+
+      {/* Desktop Vertical Layout (hidden on mobile, shown on md+) */}
+      <div className="hidden md:flex relative h-full flex-col items-center justify-center p-6 z-10">
+        {/* Icon */}
+        <motion.div
+          initial={{ scale: 0, rotate: -180 }}
+          animate={inView ? { scale: 1, rotate: 0 } : { scale: 0, rotate: -180 }}
+          transition={{ duration: 0.6, delay: delay + 0.2 }}
+          className="mb-4"
+        >
+          <div
+            className="w-16 h-16 rounded-full flex items-center justify-center"
+            style={{
+              background: "linear-gradient(145deg, rgba(255, 0, 0, 0.2), rgba(255, 0, 0, 0.05))",
+              border: "1px solid rgba(255, 0, 0, 0.3)",
+              boxShadow: `
+                inset 2px 2px 4px rgba(0, 0, 0, 0.4),
+                inset -2px -2px 4px rgba(255, 0, 0, 0.1),
+                0 4px 12px rgba(255, 0, 0, 0.3)
+              `,
+            }}
+          >
+            <Icon 
+              className="w-8 h-8 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12" 
               style={{ 
                 color: "#ff0000",
                 filter: "drop-shadow(0 2px 4px rgba(255, 0, 0, 0.5))"
@@ -125,7 +180,7 @@ export default function StatCounter({ value, suffix = "", prefix = "", label, de
 
         {/* Number */}
         <motion.div
-          className="text-xl md:text-6xl font-black mb-0.5 md:mb-3"
+          className="text-6xl font-black mb-3"
           style={{
             color: "#ff0000",
             textShadow: "0 0 20px rgba(255, 0, 0, 0.5), 0 0 40px rgba(255, 0, 0, 0.3)",
@@ -139,7 +194,7 @@ export default function StatCounter({ value, suffix = "", prefix = "", label, de
 
         {/* Label */}
         <div 
-          className="text-[7px] md:text-base font-semibold text-foreground uppercase tracking-tighter md:tracking-wider text-center leading-tight"
+          className="text-base font-semibold text-foreground uppercase tracking-wider text-center"
           data-testid={`text-stat-label-${label.toLowerCase().replace(/\s/g, "-")}`}
         >
           {label}
