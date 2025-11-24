@@ -406,13 +406,12 @@ export default function HorizontalScrollServices() {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -50 }}
                 transition={{ duration: 0.3 }}
-                className="grid grid-cols-3 gap-2 w-full"
-                style={{ gridAutoRows: 'minmax(60px, 60px)' }}
+                className="flex flex-row items-center justify-center gap-1 w-full"
               >
                 {getCurrentPageServices().map((service) => (
                   <div
                     key={service.id}
-                    className="cursor-pointer"
+                    className="cursor-pointer flex-1"
                     onClick={() => setSelectedService(service)}
                     data-testid={`card-service-${service.id}`}
                   >
@@ -432,26 +431,26 @@ export default function HorizontalScrollServices() {
                         </div>
                       </div>
                       
-                      <div className="card-content py-1.5 px-1 w-full h-full flex flex-row items-center justify-center gap-1.5 relative z-10">
+                      <div className="card-content py-1 px-0.5 w-full h-full flex flex-col items-center justify-center gap-0.5 relative z-10">
                         <div className="icon-3d-container transition-all duration-400 flex-shrink-0">
                           <div 
                             className="icon-circle-filled"
                             style={{
                               '--icon-color': service.accentColor,
                               backgroundColor: service.accentColor,
-                              width: '1.75rem',
-                              height: '1.75rem'
+                              width: '1.25rem',
+                              height: '1.25rem'
                             } as React.CSSProperties}
                           >
                             <service.icon 
-                              className="icon-cutout h-3 w-3" 
+                              className="icon-cutout h-2.5 w-2.5" 
                               style={{ color: '#1a1a1a' }} 
                               data-testid={`icon-service-${service.id}`} 
                             />
                           </div>
                         </div>
-                        <div className="text-left">
-                          <span className="text-[8px] font-bold tracking-tight uppercase block leading-tight">
+                        <div className="text-center w-full">
+                          <span className="text-[7px] font-bold tracking-tighter uppercase block leading-tight">
                             {service.title}
                           </span>
                         </div>
