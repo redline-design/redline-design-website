@@ -21,8 +21,8 @@ export default function AnimatedBackground() {
     }
   }, [containerRef, intersectionRef]);
 
-  // Skip animation entirely on mobile or reduced motion
-  const shouldAnimate = !isMobile && !prefersReducedMotion && inView;
+  // Skip animation only for reduced motion preference
+  const shouldAnimate = !prefersReducedMotion && inView;
 
   useEffect(() => {
     const canvas = canvasRef.current;
