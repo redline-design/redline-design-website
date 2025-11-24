@@ -614,7 +614,14 @@ export default function Home() {
                 
                 {/* Metrics Section */}
                 <div className="mt-12" data-testid="section-metrics">
-                  <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)' }}>
+                  <div 
+                    className="md:grid md:grid-cols-2 lg:grid-cols-4 md:gap-8"
+                    style={{ 
+                      display: 'grid', 
+                      gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', 
+                      gap: '1rem' 
+                    }}
+                  >
                     <StatCounter value={98} suffix="%" label="Client Satisfaction" icon={Heart} />
                     <StatCounter value={7} suffix="x" label="Average ROI" delay={0.1} icon={TrendingUp} />
                     <StatCounter value={15} suffix="+" label="Years of Experience" delay={0.2} icon={Award} />

@@ -117,7 +117,14 @@ export default function Services() {
 
       <section className="py-12 px-4 sm:px-6 lg:px-8 bg-card/50" data-testid="section-metrics">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)' }}>
+          <div 
+            className="md:grid md:grid-cols-2 lg:grid-cols-4 md:gap-8"
+            style={{ 
+              display: 'grid', 
+              gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', 
+              gap: '1rem' 
+            }}
+          >
             <StatCounter value={14} suffix="x" label="Average ROI" icon={BarChart} />
             <StatCounter value={350} suffix="%" label="Traffic Growth" icon={TrendingUp} delay={0.1} />
             <StatCounter value={2} suffix="x" label="Conversion Rate" icon={MousePointerClick} delay={0.2} />
