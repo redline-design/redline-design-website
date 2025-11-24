@@ -431,8 +431,8 @@ export default function HorizontalScrollServices() {
                         </div>
                       </div>
                       
-                      <div className="card-content py-1.5 px-1 w-full h-full flex flex-col items-center justify-center relative z-10">
-                        <div className="icon-3d-container transition-all duration-400">
+                      <div className="card-content py-1.5 px-1 w-full h-full flex flex-row items-center justify-center gap-1.5 relative z-10">
+                        <div className="icon-3d-container transition-all duration-400 flex-shrink-0">
                           <div 
                             className="icon-circle-filled"
                             style={{
@@ -449,7 +449,7 @@ export default function HorizontalScrollServices() {
                             />
                           </div>
                         </div>
-                        <div className="mt-1 text-center">
+                        <div className="text-left">
                           <span className="text-[8px] font-bold tracking-tight uppercase block leading-tight">
                             {service.title}
                           </span>
