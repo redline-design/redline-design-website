@@ -388,17 +388,17 @@ export default function HorizontalScrollServices() {
         </div>
 
         {/* Mobile Carousel Layout (hidden on md+) */}
-        <div className="md:hidden relative">
-          <div 
-            className="rounded-2xl px-3 py-4"
-            style={{
-              background: 'rgba(15, 15, 15, 0.8)',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
-              boxShadow: '0 4px 12px rgba(0, 0, 0, 0.4)',
-              transform: 'translateZ(0)',
-              willChange: 'transform'
-            }}
-          >
+        <div 
+          className="md:hidden relative rounded-2xl px-3 py-6"
+          style={{
+            background: 'rgba(15, 15, 15, 0.8)',
+            border: '1px solid rgba(255, 255, 255, 0.1)',
+            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.4)',
+            transform: 'translateZ(0)',
+            willChange: 'transform'
+          }}
+        >
+          <div>
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentPage}
