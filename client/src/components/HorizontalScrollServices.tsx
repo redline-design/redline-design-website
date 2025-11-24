@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { Globe, TrendingUp, Search, Database, BarChart3, Palette, MessageSquare, Mail, Users, Bot, Code, Check, ArrowRight } from "lucide-react";
+import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from "framer-motion";
+import { Globe, TrendingUp, Search, Database, BarChart3, Palette, MessageSquare, Mail, Users, Bot, Code, Check, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -330,8 +330,26 @@ function ServiceCard({ service, mouseX, onSelect }: ServiceCardProps) {
 
 export default function HorizontalScrollServices() {
   const [selectedService, setSelectedService] = useState<typeof SERVICES_DATA[number] | null>(null);
+  const [currentPage, setCurrentPage] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
   const mouseX = useMotionValue(Infinity);
+  
+  const ITEMS_PER_PAGE = 4;
+  const totalPages = Math.ceil(SERVICES_DATA.length / ITEMS_PER_PAGE);
+  
+  const getCurrentPageServices = () => {
+    const start = currentPage * ITEMS_PER_PAGE;
+    const end = start + ITEMS_PER_PAGE;
+    return SERVICES_DATA.slice(start, end);
+  };
+  
+  const handlePrevPage = () => {
+    setCurrentPage((prev) => (prev === 0 ? totalPages - 1 : prev - 1));
+  };
+  
+  const handleNextPage = () => {
+    setCurrentPage((prev) => (prev === totalPages - 1 ? 0 : prev + 1));
+  };
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -369,8 +387,8 @@ export default function HorizontalScrollServices() {
           </p>
         </div>
 
-        {/* Mobile Grid Layout (hidden on md+) */}
-        <div className="md:hidden">
+        {/* Mobile Carousel Layout (hidden on md+) */}
+        <div className="md:hidden relative">
           <div 
             className="rounded-2xl px-3 py-4"
             style={{
@@ -381,57 +399,108 @@ export default function HorizontalScrollServices() {
               willChange: 'transform'
             }}
           >
-            <div className="grid grid-cols-4 gap-2">
-              {SERVICES_DATA.map((service) => (
-                <div
-                  key={service.id}
-                  className="cursor-pointer"
-                  onClick={() => setSelectedService(service)}
-                  data-testid={`card-service-${service.id}`}
-                >
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentPage}
+                initial={{ opacity: 0, x: 50 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -50 }}
+                transition={{ duration: 0.3 }}
+                className="grid grid-cols-4 gap-2"
+              >
+                {getCurrentPageServices().map((service) => (
                   <div
-                    className="luminous-card relative group h-full"
-                    style={{
-                      '--accent-color': service.accentColor,
-                      minHeight: '85px'
-                    } as React.CSSProperties}
+                    key={service.id}
+                    className="cursor-pointer"
+                    onClick={() => setSelectedService(service)}
+                    data-testid={`card-service-${service.id}`}
                   >
-                    <div className="luminous-layers">
-                      <div className="hex-pattern-overlay"></div>
-                      <div className="light-layers">
-                        <div className="srl"></div>
-                        <div className="srt"></div>
-                      </div>
-                    </div>
-                    
-                    <div className="card-content py-2 px-1 w-full h-full flex flex-col items-center justify-center relative z-10">
-                      <div className="icon-3d-container transition-all duration-400">
-                        <div 
-                          className="icon-circle-filled"
-                          style={{
-                            '--icon-color': service.accentColor,
-                            backgroundColor: service.accentColor,
-                            width: '2.5rem',
-                            height: '2.5rem'
-                          } as React.CSSProperties}
-                        >
-                          <service.icon 
-                            className="icon-cutout h-4 w-4" 
-                            style={{ color: '#1a1a1a' }} 
-                            data-testid={`icon-service-${service.id}`} 
-                          />
+                    <div
+                      className="luminous-card relative group h-full"
+                      style={{
+                        '--accent-color': service.accentColor,
+                        minHeight: '85px'
+                      } as React.CSSProperties}
+                    >
+                      <div className="luminous-layers">
+                        <div className="hex-pattern-overlay"></div>
+                        <div className="light-layers">
+                          <div className="srl"></div>
+                          <div className="srt"></div>
                         </div>
                       </div>
-                      <div className="mt-1.5 text-center">
-                        <span className="text-[9px] font-bold tracking-tight uppercase block leading-tight">
-                          {service.title}
-                        </span>
+                      
+                      <div className="card-content py-2 px-1 w-full h-full flex flex-col items-center justify-center relative z-10">
+                        <div className="icon-3d-container transition-all duration-400">
+                          <div 
+                            className="icon-circle-filled"
+                            style={{
+                              '--icon-color': service.accentColor,
+                              backgroundColor: service.accentColor,
+                              width: '2.5rem',
+                              height: '2.5rem'
+                            } as React.CSSProperties}
+                          >
+                            <service.icon 
+                              className="icon-cutout h-4 w-4" 
+                              style={{ color: '#1a1a1a' }} 
+                              data-testid={`icon-service-${service.id}`} 
+                            />
+                          </div>
+                        </div>
+                        <div className="mt-1.5 text-center">
+                          <span className="text-[9px] font-bold tracking-tight uppercase block leading-tight">
+                            {service.title}
+                          </span>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
+                ))}
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          {/* Navigation Arrows and Dots */}
+          <div className="flex justify-center items-center gap-3 mt-6">
+            <button
+              onClick={handlePrevPage}
+              className="w-10 h-10 rounded-lg border-2 border-white/30 flex items-center justify-center transition-all"
+              style={{
+                background: "rgba(15, 15, 15, 0.8)",
+                color: "#fff"
+              }}
+              aria-label="Previous page"
+              data-testid="button-services-prev"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+            
+            {/* Page Dots */}
+            <div className="flex gap-2">
+              {Array.from({ length: totalPages }).map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => setCurrentPage(idx)}
+                  className={`transition-all ${idx === currentPage ? 'w-6 h-2 bg-red-600' : 'w-2 h-2 bg-white/30'} rounded-full`}
+                  aria-label={`Go to page ${idx + 1}`}
+                  data-testid={`dot-services-${idx}`}
+                />
               ))}
             </div>
+
+            <button
+              onClick={handleNextPage}
+              className="w-10 h-10 rounded-lg border-2 border-white/30 flex items-center justify-center transition-all"
+              style={{
+                background: "rgba(15, 15, 15, 0.8)",
+                color: "#fff"
+              }}
+              aria-label="Next page"
+              data-testid="button-services-next"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </button>
           </div>
         </div>
 
