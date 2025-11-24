@@ -94,16 +94,16 @@ export default function StatCounter({ value, suffix = "", prefix = "", label, de
         />
       )}
 
-      <div className="relative h-full flex flex-col items-center justify-center p-3 md:p-6 z-10">
+      <div className="relative h-full flex flex-col items-center justify-center p-2 md:p-6 z-10">
         {/* Icon */}
         <motion.div
           initial={{ scale: 0, rotate: -180 }}
           animate={inView ? { scale: 1, rotate: 0 } : { scale: 0, rotate: -180 }}
           transition={{ duration: 0.6, delay: delay + 0.2 }}
-          className="mb-2 md:mb-4"
+          className="mb-1 md:mb-4"
         >
           <div
-            className="w-10 h-10 md:w-16 md:h-16 rounded-full flex items-center justify-center"
+            className="w-8 h-8 md:w-16 md:h-16 rounded-full flex items-center justify-center"
             style={{
               background: "linear-gradient(145deg, rgba(255, 0, 0, 0.2), rgba(255, 0, 0, 0.05))",
               border: "1px solid rgba(255, 0, 0, 0.3)",
@@ -115,7 +115,7 @@ export default function StatCounter({ value, suffix = "", prefix = "", label, de
             }}
           >
             <Icon 
-              className="w-5 h-5 md:w-8 md:h-8 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12" 
+              className="w-4 h-4 md:w-8 md:h-8 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12" 
               style={{ 
                 color: "#ff0000",
                 filter: "drop-shadow(0 2px 4px rgba(255, 0, 0, 0.5))"
@@ -126,7 +126,7 @@ export default function StatCounter({ value, suffix = "", prefix = "", label, de
 
         {/* Number */}
         <motion.div
-          className="text-3xl md:text-6xl font-black mb-1 md:mb-3"
+          className="text-2xl md:text-6xl font-black mb-0.5 md:mb-3"
           style={{
             color: "#ff0000",
             textShadow: "0 0 20px rgba(255, 0, 0, 0.5), 0 0 40px rgba(255, 0, 0, 0.3)",
@@ -140,7 +140,7 @@ export default function StatCounter({ value, suffix = "", prefix = "", label, de
 
         {/* Label */}
         <div 
-          className="text-[10px] md:text-base font-semibold text-foreground uppercase tracking-tight md:tracking-wider"
+          className="text-[8px] md:text-base font-semibold text-foreground uppercase tracking-tight md:tracking-wider"
           data-testid={`text-stat-label-${label.toLowerCase().replace(/\s/g, "-")}`}
         >
           {label}
