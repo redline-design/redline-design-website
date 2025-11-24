@@ -85,7 +85,7 @@ export function SliderCarousel({ slides }: SliderCarouselProps) {
           data-testid={`slide-${getSlideAtPosition(1).id}-active`}
         >
           {/* Mobile Navigation - Above Content */}
-          <div className="md:hidden flex items-center justify-center gap-3 pt-6 pb-4">
+          <div className="md:hidden flex items-center justify-center gap-3 pt-6 pb-4 relative z-50">
             {/* Mobile: Left Arrow */}
             <button
               onClick={handlePrev}
