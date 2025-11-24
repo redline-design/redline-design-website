@@ -84,26 +84,6 @@ export function SliderCarousel({ slides }: SliderCarouselProps) {
           }}
           data-testid={`slide-${getSlideAtPosition(1).id}-active`}
         >
-          {/* Navigation Bar - Desktop Only */}
-          <div className="slider-carousel-nav-bar md:static md:bottom-auto hidden md:flex" data-testid="slider-nav-bar">
-            {/* Dots */}
-            <div className="slider-carousel-nav-items">
-              {slides.map((slide, index) => (
-                <button 
-                  key={slide.id}
-                  onClick={() => handleNavClick(index)}
-                  disabled={isAnimating}
-                  className={`slider-carousel-nav-item ${index === activeSlideIndex ? 'active' : ''}`}
-                  data-testid={`nav-item-${index}`}
-                  aria-label={`Go to slide ${index + 1}: ${slide.title}`}
-                >
-                  <span className="slider-carousel-nav-number">{index + 1}</span>
-                  <span className="slider-carousel-nav-title">{slide.title}</span>
-                </button>
-              ))}
-            </div>
-          </div>
-
           {/* Mobile Navigation - Above Content */}
           <div className="md:hidden flex items-center justify-center gap-3 pt-6 pb-4">
             {/* Mobile: Left Arrow */}

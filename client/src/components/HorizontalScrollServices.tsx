@@ -406,7 +406,8 @@ export default function HorizontalScrollServices() {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -50 }}
                 transition={{ duration: 0.3 }}
-                className="grid grid-cols-3 gap-2"
+                className="grid grid-cols-3 gap-2 w-full"
+                style={{ gridAutoRows: 'minmax(60px, 60px)' }}
               >
                 {getCurrentPageServices().map((service) => (
                   <div
