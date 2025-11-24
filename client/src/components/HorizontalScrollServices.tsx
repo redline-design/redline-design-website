@@ -356,7 +356,7 @@ export default function HorizontalScrollServices() {
 
   return (
     <section 
-      className="pt-20 pb-12 px-4 sm:px-6 lg:px-8 relative overflow-x-auto"
+      className="pt-20 pb-12 px-4 sm:px-6 lg:px-8 relative"
       data-testid="section-services-horizontal"
     >
       <div className="max-w-7xl mx-auto">
@@ -369,8 +369,74 @@ export default function HorizontalScrollServices() {
           </p>
         </div>
 
-        {/* Dock-Style Cards Layout with Frosted Glass Background */}
-        <div className="flex justify-center">
+        {/* Mobile Grid Layout (hidden on md+) */}
+        <div className="md:hidden">
+          <div 
+            className="rounded-2xl px-4 py-6"
+            style={{
+              background: 'rgba(15, 15, 15, 0.8)',
+              border: '1px solid rgba(255, 255, 255, 0.1)',
+              boxShadow: '0 4px 12px rgba(0, 0, 0, 0.4)',
+              transform: 'translateZ(0)',
+              willChange: 'transform'
+            }}
+          >
+            <div className="grid grid-cols-3 gap-3">
+              {SERVICES_DATA.map((service) => (
+                <div
+                  key={service.id}
+                  className="cursor-pointer"
+                  onClick={() => setSelectedService(service)}
+                  data-testid={`card-service-${service.id}`}
+                >
+                  <div
+                    className="luminous-card relative group h-full"
+                    style={{
+                      '--accent-color': service.accentColor,
+                      minHeight: '100px'
+                    } as React.CSSProperties}
+                  >
+                    <div className="luminous-layers">
+                      <div className="hex-pattern-overlay"></div>
+                      <div className="light-layers">
+                        <div className="srl"></div>
+                        <div className="srt"></div>
+                      </div>
+                    </div>
+                    
+                    <div className="card-content py-3 px-2 w-full h-full flex flex-col items-center justify-center relative z-10">
+                      <div className="icon-3d-container transition-all duration-400">
+                        <div 
+                          className="icon-circle-filled"
+                          style={{
+                            '--icon-color': service.accentColor,
+                            backgroundColor: service.accentColor,
+                            width: '3rem',
+                            height: '3rem'
+                          } as React.CSSProperties}
+                        >
+                          <service.icon 
+                            className="icon-cutout h-5 w-5" 
+                            style={{ color: '#1a1a1a' }} 
+                            data-testid={`icon-service-${service.id}`} 
+                          />
+                        </div>
+                      </div>
+                      <div className="mt-2 text-center">
+                        <span className="text-[10px] font-bold tracking-tight uppercase block" style={{ lineHeight: '1.1' }}>
+                          {service.title}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Desktop Dock-Style Layout (hidden on mobile, shown on md+) */}
+        <div className="hidden md:flex justify-center">
           <div 
             className="relative inline-flex items-end justify-center gap-2 px-6 py-2 rounded-2xl overflow-visible"
             style={{
