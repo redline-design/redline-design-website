@@ -68,10 +68,10 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
         />
       </div>
 
-      <div className="mx-auto px-4 md:px-6 max-w-6xl relative z-10 py-16 md:py-20">
+      <div className="mx-auto px-4 md:px-6 max-w-6xl relative z-10 py-8 md:py-20">
         {/* Section Title */}
         <motion.div 
-          className="text-center mb-12"
+          className="text-center mb-6 md:mb-12"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
@@ -80,13 +80,13 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
           <h2 className="text-lg sm:text-xl md:text-2xl font-bold uppercase tracking-[0.3em] mb-4 red-glow-pulse" style={{ color: "#ff0000" }}>
             Why Choose Us
           </h2>
-          <p className="text-muted-foreground text-base md:text-lg mb-8 max-w-2xl mx-auto">
+          <p className="text-muted-foreground text-sm md:text-lg mb-4 md:mb-8 max-w-2xl mx-auto">
             Results-driven digital marketing that actually delivers measurable ROI
           </p>
         </motion.div>
 
         {/* Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-5">
           {cards.map((card, idx) => {
             const Icon = card.icon;
             const accentColor = card.accentColor || '#ff0000';
@@ -94,14 +94,14 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
             return (
               <motion.div
                 key={card.title}
-                initial={{ opacity: 0, y: 40 }}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ 
-                  duration: 0.6,
-                  delay: idx * 0.1,
+                  duration: 0.4,
+                  delay: idx * 0.05,
                   ease: "easeOut"
                 }}
-                viewport={{ once: true, margin: "-100px" }}
+                viewport={{ once: true, margin: "-50px" }}
                 style={{
                   willChange: "transform, opacity",
                   contain: "layout paint"
@@ -114,60 +114,42 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
                     background: "linear-gradient(145deg, rgba(25, 25, 25, 0.8), rgba(15, 15, 15, 0.8))",
                     border: "1px solid rgba(255, 255, 255, 0.1)",
                     boxShadow: `
-                      8px 8px 20px rgba(0, 0, 0, 0.4),
-                      -6px -6px 16px rgba(40, 40, 40, 0.08),
-                      inset 1px 1px 2px rgba(255, 255, 255, 0.05),
-                      inset -1px -1px 2px rgba(0, 0, 0, 0.2)
+                      4px 4px 12px rgba(0, 0, 0, 0.4),
+                      -2px -2px 8px rgba(40, 40, 40, 0.08),
+                      inset 1px 1px 2px rgba(255, 255, 255, 0.05)
                     `,
                     transition: "all 0.3s ease-out"
                   }}
                 >
-                  {/* Hover glow effect */}
-                  <div 
-                    className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                    style={{
-                      background: `radial-gradient(circle at center, ${accentColor}15 0%, transparent 70%)`,
-                    }}
-                  />
-
-                  <CardContent className="p-6 h-full flex flex-col relative z-10">
+                  <CardContent className="p-3 md:p-6 h-full flex flex-col relative z-10">
                     {/* Icon Container */}
-                    <motion.div 
-                      className="flex justify-center mb-6"
-                      whileHover={{ scale: 1.15, rotate: 8 }}
-                      transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                    >
+                    <div className="flex justify-center mb-2 md:mb-6">
                       <div 
-                        className="relative flex items-center justify-center"
+                        className="relative flex items-center justify-center w-[45px] h-[45px] md:w-[80px] md:h-[80px]"
                         style={{
-                          width: "80px",
-                          height: "80px",
-                          borderRadius: "16px",
+                          borderRadius: "12px",
                           background: `linear-gradient(145deg, rgba(255, 0, 0, 0.15), rgba(255, 0, 0, 0.05))`,
-                          border: `1.5px solid ${accentColor}40`,
+                          border: `1px solid ${accentColor}40`,
                           boxShadow: `
-                            8px 8px 20px rgba(0, 0, 0, 0.3),
-                            -4px -4px 12px rgba(${parseInt(accentColor.slice(1,3), 16)}, ${parseInt(accentColor.slice(3,5), 16)}, ${parseInt(accentColor.slice(5,7), 16)}, 0.1),
-                            inset 1px 1px 2px rgba(255, 255, 255, 0.05),
-                            0 0 24px ${accentColor}30
+                            2px 2px 8px rgba(0, 0, 0, 0.3),
+                            0 0 12px ${accentColor}20
                           `,
                         }}
                       >
                         <Icon 
-                          className="h-10 w-10"
+                          className="h-5 w-5 md:h-10 md:w-10"
                           style={{ 
                             color: accentColor,
-                            filter: `drop-shadow(0 0 8px ${accentColor}60)`
                           }}
                           data-testid={`icon-value-${card.title.toLowerCase().replace(/\s/g, "-")}`}
                         />
                       </div>
-                    </motion.div>
+                    </div>
 
                     {/* Title */}
                     <h3 
-                      className="text-xl font-black text-center mb-5 uppercase tracking-widest leading-tight"
-                      style={{ color: accentColor, letterSpacing: "0.05em" }}
+                      className="text-[10px] md:text-xl font-black text-center mb-2 md:mb-5 uppercase tracking-tight leading-tight"
+                      style={{ color: accentColor }}
                       data-testid={`text-value-title-${card.title.toLowerCase().replace(/\s/g, "-")}`}
                     >
                       {card.title}
@@ -175,37 +157,25 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
 
                     {/* Content - Bullets or Description */}
                     {card.bullets ? (
-                      <div className="flex-1 space-y-3">
-                        {card.bullets.map((bullet, idx) => (
-                          <motion.div 
-                            key={idx} 
-                            className="flex items-start gap-3"
-                            initial={{ opacity: 0, x: -10 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            transition={{ delay: idx * 0.05 }}
-                            viewport={{ once: true }}
+                      <div className="flex-1 space-y-1 md:space-y-3">
+                        {card.bullets.map((bullet, bulletIdx) => (
+                          <div 
+                            key={bulletIdx} 
+                            className="flex items-start gap-1 md:gap-3"
                           >
                             {/* Checkmark */}
-                            <motion.div 
-                              className="flex-shrink-0 mt-0.5 w-6 h-6 rounded-md flex items-center justify-center flex-none"
-                              whileHover={{ scale: 1.1 }}
+                            <div 
+                              className="flex-shrink-0 mt-0.5 w-3.5 h-3.5 md:w-6 md:h-6 rounded flex items-center justify-center flex-none"
                               style={{
                                 background: "linear-gradient(135deg, #00ff88 0%, #00dd77 100%)",
-                                boxShadow: `
-                                  0 4px 12px rgba(0, 255, 136, 0.25),
-                                  inset 1px 1px 2px rgba(255, 255, 255, 0.2),
-                                  inset -1px -1px 2px rgba(0, 0, 0, 0.2)
-                                `,
                               }}
                             >
                               <svg 
-                                width="14" 
-                                height="14" 
+                                width="8" 
+                                height="8" 
                                 viewBox="0 0 16 16"
-                                style={{ 
-                                  color: "#0a0a0a",
-                                  filter: "drop-shadow(0 0.5px 1px rgba(0, 0, 0, 0.2))"
-                                }}
+                                className="md:w-[14px] md:h-[14px]"
+                                style={{ color: "#0a0a0a" }}
                               >
                                 <path 
                                   d="M13 4L6 11L3 8" 
@@ -216,17 +186,17 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
                                   fill="none"
                                 />
                               </svg>
-                            </motion.div>
+                            </div>
                             {/* Text */}
-                            <span className="text-sm text-foreground/90 leading-relaxed font-medium">
+                            <span className="text-[10px] md:text-sm text-foreground/90 leading-tight md:leading-relaxed font-medium">
                               {bullet}
                             </span>
-                          </motion.div>
+                          </div>
                         ))}
                       </div>
                     ) : card.description ? (
                       <p 
-                        className="text-sm text-muted-foreground leading-relaxed flex-1"
+                        className="text-[10px] md:text-sm text-muted-foreground leading-tight md:leading-relaxed flex-1"
                         data-testid={`text-value-description-${card.title.toLowerCase().replace(/\s/g, "-")}`}
                       >
                         {card.description}
