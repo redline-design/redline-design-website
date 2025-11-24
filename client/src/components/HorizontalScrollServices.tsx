@@ -334,7 +334,7 @@ export default function HorizontalScrollServices() {
   const containerRef = useRef<HTMLDivElement>(null);
   const mouseX = useMotionValue(Infinity);
   
-  const ITEMS_PER_PAGE = 4;
+  const ITEMS_PER_PAGE = 3;
   const totalPages = Math.ceil(SERVICES_DATA.length / ITEMS_PER_PAGE);
   
   const getCurrentPageServices = () => {
@@ -406,7 +406,7 @@ export default function HorizontalScrollServices() {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -50 }}
                 transition={{ duration: 0.3 }}
-                className="grid grid-cols-4 gap-2"
+                className="grid grid-cols-3 gap-2"
               >
                 {getCurrentPageServices().map((service) => (
                   <div
