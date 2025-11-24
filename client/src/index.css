@@ -3086,9 +3086,13 @@
 
 @media (max-width: 768px) {
   .slider-carousel-container {
-    height: 400px;
+    height: 500px;
     max-width: 100%;
-    border-radius: 0;
+    width: 100%;
+  }
+  
+  .slider-carousel-slide {
+    border-radius: 16px;
   }
   
   .slider-carousel-item {
@@ -3096,57 +3100,77 @@
     height: 160px;
   }
   
-  .slider-carousel-item-2 {
-    left: 60%;
-  }
-  
+  .slider-carousel-item-2,
   .slider-carousel-item-3,
   .slider-carousel-item-4,
   .slider-carousel-item-5,
   .slider-carousel-item-6 {
-    left: calc(60% + 140px);
-    opacity: 0;
+    display: none;
   }
   
   .slider-carousel-content {
-    left: 40px;
-    width: 280px;
+    left: 20px;
+    right: 20px;
+    width: auto;
+    max-width: none;
   }
   
   .slider-carousel-title {
-    font-size: 28px;
+    font-size: 24px;
+    margin-bottom: 12px;
   }
   
   .slider-carousel-description {
     font-size: 14px;
+    margin-bottom: 16px;
   }
   
   .slider-carousel-button {
     padding: 10px 24px;
     font-size: 13px;
   }
+  
+  .slider-carousel-stats {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin: 16px 0;
+  }
 }
 
 @media (max-width: 640px) {
   .slider-carousel-container {
-    height: 350px;
+    height: 450px;
   }
   
   .slider-carousel-content {
-    left: 24px;
-    width: calc(100% - 48px);
+    left: 16px;
+    right: 16px;
+    width: auto;
   }
   
   .slider-carousel-title {
-    font-size: 24px;
+    font-size: 20px;
   }
   
-  .slider-carousel-item-2,
-  .slider-carousel-item-3,
-  .slider-carousel-item-4,
-  .slider-carousel-item-5,
-  .slider-carousel-item-6 {
-    opacity: 0;
+  .slider-carousel-description {
+    font-size: 13px;
+  }
+  
+  .slider-carousel-stats {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+  
+  .slider-carousel-stat-item {
+    padding: 8px;
+  }
+  
+  .slider-carousel-stat-value {
+    font-size: 20px;
+  }
+  
+  .slider-carousel-stat-label {
+    font-size: 10px;
   }
 }
 
@@ -3160,13 +3184,13 @@
 .slider-carousel-stat-item {
   text-align: center;
   padding: 12px;
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(25px);
-  -webkit-backdrop-filter: blur(25px);
+  background: rgba(0, 0, 0, 0.7);
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.3);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3),
               inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transform: translateZ(0);
+  willChange: transform;
 }
 
 .slider-carousel-stat-value {
