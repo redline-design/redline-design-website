@@ -94,7 +94,7 @@ export type BlogPost = typeof blogPosts.$inferSelect;
 export const portfolioItems = pgTable("portfolio_items", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   title: text("title").notNull(),
-  url: text("url").notNull(),
+  url: text("url"),
   screenshotUrl: text("screenshot_url"),
   logoUrl: text("logo_url"),
   description: text("description"),

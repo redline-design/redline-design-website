@@ -67,6 +67,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Switch } from "@/components/ui/switch";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
   Collapsible,
@@ -112,9 +113,10 @@ type FormData = z.infer<typeof formSchema>;
 
 const portfolioFormSchema = z.object({
   title: z.string().min(1, "Title is required"),
-  url: z.string().url("Must be a valid URL"),
+  url: z.string().url("Must be a valid URL").optional().or(z.literal("")),
   description: z.string().optional(),
   category: z.string().min(1, "Category is required"),
+  hasWebsite: z.boolean().default(true),
 });
 
 type PortfolioFormData = z.infer<typeof portfolioFormSchema>;
@@ -540,6 +542,7 @@ export default function Admin() {
       url: "",
       description: "",
       category: "",
+      hasWebsite: true,
     },
   });
 
@@ -557,9 +560,10 @@ export default function Admin() {
     if (editingPortfolioItem) {
       portfolioForm.reset({
         title: editingPortfolioItem.title,
-        url: editingPortfolioItem.url,
+        url: editingPortfolioItem.url || "",
         description: editingPortfolioItem.description || "",
         category: editingPortfolioItem.category,
+        hasWebsite: !!editingPortfolioItem.url,
       });
       setIsPortfolioDialogOpen(true);
     }
@@ -682,7 +686,7 @@ export default function Admin() {
       form.reset({
         title: post.title,
         slug: post.slug,
-        excerpt: post.excerpt,
+        excerpt: post.excerpt || "",
         content: post.content,
         category: post.category,
         author: post.author || "",
@@ -754,9 +758,10 @@ export default function Admin() {
       setEditingPortfolioItem(item);
       portfolioForm.reset({
         title: item.title,
-        url: item.url,
+        url: item.url || "",
         description: item.description || "",
         category: item.category,
+        hasWebsite: !!item.url,
       });
     } else {
       setEditingPortfolioItem(null);
@@ -765,6 +770,7 @@ export default function Admin() {
         url: "",
         description: "",
         category: "Web Design",
+        hasWebsite: true,
       });
     }
     setIsPortfolioDialogOpen(true);
@@ -772,8 +778,10 @@ export default function Admin() {
 
   const onPortfolioSubmit = (data: PortfolioFormData) => {
     const portfolioData: InsertPortfolioItem = {
-      ...data,
+      title: data.title,
+      url: data.hasWebsite && data.url ? data.url : null,
       description: data.description || null,
+      category: data.category,
       screenshotUrl: null,
       logoUrl: null,
       featured: false,
@@ -932,15 +940,17 @@ export default function Admin() {
           <CardContent>
             <div className="space-y-2">
               <div className="flex flex-wrap items-center gap-2">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => window.open(item.url, '_blank')}
-                  data-testid={`button-view-${item.id}`}
-                >
-                  <ExternalLink className="h-4 w-4 mr-1" />
-                  View Site
-                </Button>
+                {item.url && (
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => window.open(item.url!, '_blank')}
+                    data-testid={`button-view-${item.id}`}
+                  >
+                    <ExternalLink className="h-4 w-4 mr-1" />
+                    View Site
+                  </Button>
+                )}
                 <Button
                   variant="outline"
                   size="sm"
@@ -1907,21 +1917,45 @@ export default function Admin() {
 
               <FormField
                 control={portfolioForm.control}
-                name="url"
+                name="hasWebsite"
                 render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Website URL</FormLabel>
+                  <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
+                    <div className="space-y-0.5">
+                      <FormLabel className="text-base">Has Website URL</FormLabel>
+                      <p className="text-sm text-muted-foreground">
+                        Toggle off if you only want to upload an image and name
+                      </p>
+                    </div>
                     <FormControl>
-                      <Input
-                        {...field}
-                        placeholder="https://example.com"
-                        data-testid="input-portfolio-url"
+                      <Switch
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                        data-testid="switch-portfolio-has-website"
                       />
                     </FormControl>
-                    <FormMessage />
                   </FormItem>
                 )}
               />
+
+              {portfolioForm.watch("hasWebsite") && (
+                <FormField
+                  control={portfolioForm.control}
+                  name="url"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Website URL</FormLabel>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          placeholder="https://example.com"
+                          data-testid="input-portfolio-url"
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              )}
 
               <FormField
                 control={portfolioForm.control}
