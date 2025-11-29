@@ -36,11 +36,6 @@ function PortfolioCard({ item, index, totalItems, active, onClick }: PortfolioCa
           {item.title}
         </div>
         <div className="carousel-num">{String(index + 1).padStart(2, '0')}</div>
-        {item.category && (
-          <div className="carousel-category" data-testid={`portfolio-category-${item.id}`}>
-            {item.category}
-          </div>
-        )}
         <img
           src={item.screenshotUrl || '/placeholder-portfolio.png'}
           alt={item.title}
