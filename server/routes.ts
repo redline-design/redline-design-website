@@ -10,6 +10,7 @@ import fs from "fs/promises";
 import { optimizeUploadedFile } from "./imageOptimizer";
 import sanitizeHtml from "sanitize-html";
 import { uploadToCloudinary, isCloudinaryConfigured } from "./cloudinary";
+import { Resend } from 'resend';
 
 // API key middleware for external integrations
 const requireApiKey: RequestHandler = (req, res, next) => {
@@ -175,6 +176,39 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const validatedData = insertContactSubmissionSchema.parse(req.body);
       const submission = await storage.createContactSubmission(validatedData);
+      
+      // Send email notification
+      if (process.env.RESEND_API_KEY) {
+        try {
+          const resend = new Resend(process.env.RESEND_API_KEY);
+          const servicesText = validatedData.servicesInterested?.length 
+            ? validatedData.servicesInterested.join(', ')
+            : 'Not specified';
+          
+          await resend.emails.send({
+            from: 'Redline Design <notifications@redline.design>',
+            to: 'ryan@redline.design',
+            subject: `New Lead: ${validatedData.name}`,
+            html: `
+              <h2>New Contact Form Submission</h2>
+              <p><strong>Name:</strong> ${validatedData.name}</p>
+              <p><strong>Email:</strong> ${validatedData.email}</p>
+              <p><strong>Phone:</strong> ${validatedData.phone || 'Not provided'}</p>
+              <p><strong>Services Interested:</strong> ${servicesText}</p>
+              <p><strong>Message:</strong></p>
+              <p>${validatedData.message || 'No message provided'}</p>
+              <p><strong>SMS Consent:</strong> ${validatedData.smsConsent ? 'Yes' : 'No'}</p>
+              <hr>
+              <p><small>Submitted from redlinedesignllc.com</small></p>
+            `,
+          });
+          console.log("Lead notification email sent successfully");
+        } catch (emailError) {
+          console.error("Failed to send email notification:", emailError);
+          // Don't fail the submission if email fails
+        }
+      }
+      
       res.json(submission);
     } catch (error: any) {
       console.error("Error creating contact submission:", error);
