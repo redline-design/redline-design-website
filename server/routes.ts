@@ -9,6 +9,7 @@ import path from "path";
 import fs from "fs/promises";
 import { optimizeUploadedFile } from "./imageOptimizer";
 import sanitizeHtml from "sanitize-html";
+import { uploadToCloudinary, isCloudinaryConfigured } from "./cloudinary";
 
 // API key middleware for external integrations
 const requireApiKey: RequestHandler = (req, res, next) => {
@@ -472,19 +473,27 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ error: "No file uploaded" });
       }
 
+      if (!isCloudinaryConfigured()) {
+        return res.status(500).json({ error: "Cloud storage not configured. Please add Cloudinary credentials." });
+      }
+
       const optimizedPath = await optimizeUploadedFile(req.file, { 
         maxSizeKB: 100,
         format: 'webp'
       });
       
-      const filename = path.basename(optimizedPath);
-      const logoWebPath = `/attached_assets/portfolio_logos/${filename}`;
+      const cloudinaryResult = await uploadToCloudinary(optimizedPath, 'logos', {
+        maxWidth: 400,
+        quality: 85
+      });
+      
+      await fs.unlink(optimizedPath).catch(console.error);
+      
       const updatedItem = await storage.updatePortfolioItem(req.params.id, {
-        logoUrl: logoWebPath
+        logoUrl: cloudinaryResult.url
       });
 
       if (!updatedItem) {
-        await fs.unlink(optimizedPath);
         return res.status(404).json({ error: "Portfolio item not found" });
       }
 
@@ -530,19 +539,27 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ error: "No file uploaded" });
       }
 
+      if (!isCloudinaryConfigured()) {
+        return res.status(500).json({ error: "Cloud storage not configured. Please add Cloudinary credentials." });
+      }
+
       const optimizedPath = await optimizeUploadedFile(req.file, { 
         maxSizeKB: 150,
         format: 'webp'
       });
       
-      const filename = path.basename(optimizedPath);
-      const screenshotWebPath = `/attached_assets/portfolio_screenshots/${filename}`;
+      const cloudinaryResult = await uploadToCloudinary(optimizedPath, 'screenshots', {
+        maxWidth: 1200,
+        quality: 80
+      });
+      
+      await fs.unlink(optimizedPath).catch(console.error);
+      
       const updatedItem = await storage.updatePortfolioItem(req.params.id, {
-        screenshotUrl: screenshotWebPath
+        screenshotUrl: cloudinaryResult.url
       });
 
       if (!updatedItem) {
-        await fs.unlink(optimizedPath);
         return res.status(404).json({ error: "Portfolio item not found" });
       }
 
