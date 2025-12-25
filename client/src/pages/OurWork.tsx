@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Skeleton } from "@/components/ui/skeleton";
 import type { PortfolioItem } from "@shared/schema";
 import { useState, useEffect, useRef } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface PortfolioCardProps {
   item: PortfolioItem;
@@ -109,6 +110,20 @@ export default function OurWork() {
     setProgress(Math.max(0, Math.min(newProgress, 100)));
   };
 
+  const goToPrevious = () => {
+    if (portfolioItems.length <= 1) return;
+    const newActive = active > 0 ? active - 1 : portfolioItems.length - 1;
+    const newProgress = (newActive / (portfolioItems.length - 1)) * 100;
+    setProgress(Math.max(0, Math.min(newProgress, 100)));
+  };
+
+  const goToNext = () => {
+    if (portfolioItems.length <= 1) return;
+    const newActive = active < portfolioItems.length - 1 ? active + 1 : 0;
+    const newProgress = (newActive / (portfolioItems.length - 1)) * 100;
+    setProgress(Math.max(0, Math.min(newProgress, 100)));
+  };
+
   useEffect(() => {
     const carousel = carouselRef.current;
     if (!carousel) return;
@@ -160,6 +175,26 @@ export default function OurWork() {
 
   return (
     <div className="portfolio-page">
+      {/* Desktop Navigation Arrows */}
+      <div className="portfolio-nav-arrows" data-testid="portfolio-nav-arrows">
+        <button
+          onClick={goToPrevious}
+          className="portfolio-nav-btn"
+          aria-label="Previous project"
+          data-testid="button-portfolio-prev"
+        >
+          <ChevronLeft className="w-6 h-6" />
+        </button>
+        <button
+          onClick={goToNext}
+          className="portfolio-nav-btn"
+          aria-label="Next project"
+          data-testid="button-portfolio-next"
+        >
+          <ChevronRight className="w-6 h-6" />
+        </button>
+      </div>
+
       <div className="carousel" ref={carouselRef} data-testid="section-portfolio-carousel">
         {portfolioItems.map((item, index) => (
           <PortfolioCard

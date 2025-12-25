@@ -2624,6 +2624,56 @@
   font-variant-numeric: tabular-nums;
 }
 
+/* Desktop Navigation Arrows */
+.portfolio-nav-arrows {
+  display: none;
+}
+
+@media (min-width: 1025px) {
+  .portfolio-nav-arrows {
+    display: flex;
+    position: fixed;
+    top: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    gap: 1rem;
+    pointer-events: auto;
+  }
+
+  .portfolio-nav-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(20, 20, 20, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  }
+
+  .portfolio-nav-btn:hover {
+    background: hsl(var(--primary));
+    border-color: hsl(var(--primary));
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.4);
+  }
+
+  .portfolio-nav-btn:active {
+    transform: scale(0.95);
+  }
+
+  /* Larger images on desktop */
+  .carousel-item {
+    --width: clamp(600px, 70vw, 1100px);
+    --height: clamp(400px, 55vw, 700px);
+  }
+}
+
 @media (max-width: 768px) {
   .portfolio-progress {
     top: 1rem;
