@@ -149,6 +149,7 @@ export default function Admin() {
   const [isReviewDialogOpen, setIsReviewDialogOpen] = useState(false);
   const [editingReview, setEditingReview] = useState<Review | null>(null);
   const [deleteReview, setDeleteReview] = useState<Review | null>(null);
+  const [deleteContactSubmission, setDeleteContactSubmission] = useState<ContactSubmission | null>(null);
   
   // Collapsible section states (all collapsed by default)
   const [isEmployeeToolsOpen, setIsEmployeeToolsOpen] = useState(false);
@@ -232,6 +233,68 @@ export default function Admin() {
     },
   });
 
+  const deleteContactSubmissionMutation = useMutation({
+    mutationFn: async (id: string) => {
+      return await apiRequest("DELETE", `/api/contact-submissions/${id}`);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/contact-submissions"] });
+      toast({
+        title: "Success",
+        description: "Contact submission deleted",
+      });
+      setDeleteContactSubmission(null);
+    },
+    onError: (error) => {
+      if (isUnauthorizedError(error)) {
+        toast({
+          title: "Unauthorized",
+          description: "You are logged out. Logging in again...",
+          variant: "destructive",
+        });
+        setTimeout(() => {
+          window.location.href = "/api/login";
+        }, 500);
+        return;
+      }
+      toast({
+        title: "Error",
+        description: "Failed to delete submission",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const updateContactStatusMutation = useMutation({
+    mutationFn: async ({ id, status }: { id: string; status: string }) => {
+      return await apiRequest("PATCH", `/api/contact-submissions/${id}/status`, { status });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/contact-submissions"] });
+      toast({
+        title: "Success",
+        description: "Submission status updated",
+      });
+    },
+    onError: (error) => {
+      if (isUnauthorizedError(error)) {
+        toast({
+          title: "Unauthorized",
+          description: "You are logged out. Logging in again...",
+          variant: "destructive",
+        });
+        setTimeout(() => {
+          window.location.href = "/api/login";
+        }, 500);
+        return;
+      }
+      toast({
+        title: "Error",
+        description: "Failed to update status",
+        variant: "destructive",
+      });
+    },
+  });
 
   const uploadLogoMutation = useMutation({
     mutationFn: async ({ id, file }: { id: string; file: File }) => {
@@ -1647,6 +1710,40 @@ export default function Admin() {
                                     ✓ Consented to SMS communications
                                   </div>
                                 )}
+
+                                <div className="flex items-center gap-2 pt-2 border-t border-border/50">
+                                  {submission.status === 'new' ? (
+                                    <Button
+                                      size="sm"
+                                      variant="outline"
+                                      onClick={() => updateContactStatusMutation.mutate({ id: submission.id, status: 'responded' })}
+                                      disabled={updateContactStatusMutation.isPending}
+                                      data-testid={`button-mark-responded-${submission.id}`}
+                                    >
+                                      <CheckCircle2 className="h-4 w-4 mr-1" />
+                                      Mark as Responded
+                                    </Button>
+                                  ) : (
+                                    <Button
+                                      size="sm"
+                                      variant="ghost"
+                                      onClick={() => updateContactStatusMutation.mutate({ id: submission.id, status: 'new' })}
+                                      disabled={updateContactStatusMutation.isPending}
+                                      data-testid={`button-mark-new-${submission.id}`}
+                                    >
+                                      Mark as New
+                                    </Button>
+                                  )}
+                                  <Button
+                                    size="sm"
+                                    variant="ghost"
+                                    className="text-destructive hover:text-destructive"
+                                    onClick={() => setDeleteContactSubmission(submission)}
+                                    data-testid={`button-delete-submission-${submission.id}`}
+                                  >
+                                    <Trash2 className="h-4 w-4" />
+                                  </Button>
+                                </div>
                               </div>
                             </CardContent>
                           </Card>
@@ -2253,6 +2350,42 @@ export default function Admin() {
               data-testid="button-confirm-delete-review"
             >
               {deleteReviewMutation.isPending ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Deleting...
+                </>
+              ) : (
+                "Delete"
+              )}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
+      {/* Contact Submission Delete Confirmation Dialog */}
+      <AlertDialog
+        open={!!deleteContactSubmission}
+        onOpenChange={(open) => !open && setDeleteContactSubmission(null)}
+      >
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Delete Submission?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This will permanently delete the contact submission from "{deleteContactSubmission?.name}".
+              This action cannot be undone.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel data-testid="button-cancel-delete-submission">
+              Cancel
+            </AlertDialogCancel>
+            <AlertDialogAction
+              onClick={() => deleteContactSubmission && deleteContactSubmissionMutation.mutate(deleteContactSubmission.id)}
+              className="bg-destructive hover:bg-destructive/90"
+              disabled={deleteContactSubmissionMutation.isPending}
+              data-testid="button-confirm-delete-submission"
+            >
+              {deleteContactSubmissionMutation.isPending ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                   Deleting...

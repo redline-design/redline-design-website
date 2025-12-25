@@ -226,6 +226,37 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.patch("/api/contact-submissions/:id/status", isAuthenticated, async (req, res) => {
+    try {
+      const { status } = req.body;
+      const allowedStatuses = ['new', 'responded'];
+      if (!status || typeof status !== 'string' || !allowedStatuses.includes(status)) {
+        return res.status(400).json({ error: "Status must be 'new' or 'responded'" });
+      }
+      const updated = await storage.updateContactSubmissionStatus(req.params.id, status);
+      if (!updated) {
+        return res.status(404).json({ error: "Submission not found" });
+      }
+      res.json(updated);
+    } catch (error: any) {
+      console.error("Error updating contact submission status:", error);
+      res.status(500).json({ error: "Failed to update submission status" });
+    }
+  });
+
+  app.delete("/api/contact-submissions/:id", isAuthenticated, async (req, res) => {
+    try {
+      const deleted = await storage.deleteContactSubmission(req.params.id);
+      if (!deleted) {
+        return res.status(404).json({ error: "Submission not found" });
+      }
+      res.json({ success: true });
+    } catch (error: any) {
+      console.error("Error deleting contact submission:", error);
+      res.status(500).json({ error: "Failed to delete submission" });
+    }
+  });
+
   // Blog post endpoints
   app.get("/api/blog/posts", async (req: any, res) => {
     try {

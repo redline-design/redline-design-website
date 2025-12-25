@@ -314,6 +314,20 @@ export class DbStorage implements IStorage {
     const result = await db.insert(contactSubmissions).values(data).returning();
     return result[0];
   }
+
+  async updateContactSubmissionStatus(id: string, status: string): Promise<ContactSubmission | null> {
+    const result = await db
+      .update(contactSubmissions)
+      .set({ status })
+      .where(eq(contactSubmissions.id, id))
+      .returning();
+    return result[0] || null;
+  }
+
+  async deleteContactSubmission(id: string): Promise<boolean> {
+    const result = await db.delete(contactSubmissions).where(eq(contactSubmissions.id, id)).returning();
+    return result.length > 0;
+  }
 }
 
 export const storage = new DbStorage();
