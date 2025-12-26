@@ -110,18 +110,24 @@ export default function OurWork() {
     setProgress(Math.max(0, Math.min(newProgress, 100)));
   };
 
-  const goToPrevious = () => {
+  const goToPrevious = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
     if (portfolioItems.length <= 1) return;
-    const newActive = active > 0 ? active - 1 : portfolioItems.length - 1;
-    const newProgress = (newActive / (portfolioItems.length - 1)) * 100;
-    setProgress(Math.max(0, Math.min(newProgress, 100)));
+    const itemCount = portfolioItems.length;
+    const newActive = active > 0 ? active - 1 : itemCount - 1;
+    const newProgress = itemCount > 1 ? (newActive / (itemCount - 1)) * 100 : 0;
+    setProgress(newProgress);
   };
 
-  const goToNext = () => {
+  const goToNext = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
     if (portfolioItems.length <= 1) return;
-    const newActive = active < portfolioItems.length - 1 ? active + 1 : 0;
-    const newProgress = (newActive / (portfolioItems.length - 1)) * 100;
-    setProgress(Math.max(0, Math.min(newProgress, 100)));
+    const itemCount = portfolioItems.length;
+    const newActive = active < itemCount - 1 ? active + 1 : 0;
+    const newProgress = itemCount > 1 ? (newActive / (itemCount - 1)) * 100 : 0;
+    setProgress(newProgress);
   };
 
   useEffect(() => {
@@ -178,18 +184,20 @@ export default function OurWork() {
       {/* Desktop Navigation Arrows */}
       <div className="portfolio-nav-arrows" data-testid="portfolio-nav-arrows">
         <button
-          onClick={goToPrevious}
+          onClick={(e) => goToPrevious(e)}
           className="portfolio-nav-btn"
           aria-label="Previous project"
           data-testid="button-portfolio-prev"
+          type="button"
         >
           <ChevronLeft className="w-6 h-6" />
         </button>
         <button
-          onClick={goToNext}
+          onClick={(e) => goToNext(e)}
           className="portfolio-nav-btn"
           aria-label="Next project"
           data-testid="button-portfolio-next"
+          type="button"
         >
           <ChevronRight className="w-6 h-6" />
         </button>
