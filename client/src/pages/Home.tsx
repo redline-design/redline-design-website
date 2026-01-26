@@ -514,127 +514,92 @@ export default function Home() {
       <SectionDivider />
 
       <ScrollAnimatedSection>
-        <section id="partners" className="py-2 px-2 sm:px-3 lg:px-4" data-testid="section-partners">
-          <div className="relative mx-auto" style={{ width: "95%", maxWidth: "2400px" }}>
-            <div 
-              className="relative rounded-2xl px-8 py-12"
-              style={{
-                background: "#0a0a0a",
-                border: "1px solid rgba(255, 255, 255, 0.1)",
-                boxShadow: "0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1)",
-                overflow: "hidden",
-              }}
+        <section id="partners" className="py-16 md:py-24 px-4 md:px-8" data-testid="section-partners">
+          <div className="max-w-7xl mx-auto">
+            
+            {/* Partners Section */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+              className="text-center mb-16"
             >
-              {/* Animated hexagon background */}
-              <div className="absolute inset-0 overflow-hidden" style={{ background: "#0a0a0a" }}>
-                <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
-                  <defs>
-                    <pattern id="hexPatternPartners" x="0" y="0" width="100" height="86.6" patternUnits="userSpaceOnUse">
-                      <polygon
-                        points="50,0 93.3,25 93.3,75 50,100 6.7,75 6.7,25"
-                        fill="none"
-                        stroke="rgba(255, 0, 0, 0.2)"
-                        strokeWidth="1"
-                      />
-                      <polygon
-                        points="50,0 93.3,25 93.3,75 50,100 6.7,75 6.7,25"
-                        fill="rgba(255, 0, 0, 0.02)"
-                        stroke="none"
-                      >
-                        <animate
-                          attributeName="fill"
-                          values="rgba(255, 0, 0, 0.02);rgba(0, 136, 255, 0.05);rgba(0, 255, 136, 0.03);rgba(255, 0, 0, 0.02)"
-                          dur="8s"
-                          repeatCount="indefinite"
-                        />
-                      </polygon>
-                    </pattern>
-                    
-                    <pattern id="hexPatternPartnersOffset" x="50" y="43.3" width="100" height="86.6" patternUnits="userSpaceOnUse">
-                      <polygon
-                        points="50,0 93.3,25 93.3,75 50,100 6.7,75 6.7,25"
-                        fill="none"
-                        stroke="rgba(0, 136, 255, 0.2)"
-                        strokeWidth="1"
-                      />
-                      <polygon
-                        points="50,0 93.3,25 93.3,75 50,100 6.7,75 6.7,25"
-                        fill="rgba(0, 136, 255, 0.02)"
-                        stroke="none"
-                      >
-                        <animate
-                          attributeName="fill"
-                          values="rgba(0, 136, 255, 0.02);rgba(0, 255, 136, 0.05);rgba(255, 0, 0, 0.03);rgba(0, 136, 255, 0.02)"
-                          dur="8s"
-                          begin="2s"
-                          repeatCount="indefinite"
-                        />
-                      </polygon>
-                    </pattern>
-                  </defs>
-                  
-                  <rect width="100%" height="100%" fill="url(#hexPatternPartners)">
-                    <animateTransform
-                      attributeName="transform"
-                      type="translate"
-                      values="0,0; 25,43.3; 0,0"
-                      dur="20s"
-                      repeatCount="indefinite"
-                    />
-                  </rect>
-                  <rect width="100%" height="100%" fill="url(#hexPatternPartnersOffset)">
-                    <animateTransform
-                      attributeName="transform"
-                      type="translate"
-                      values="0,0; -25,-43.3; 0,0"
-                      dur="25s"
-                      repeatCount="indefinite"
-                    />
-                  </rect>
-                </svg>
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 mb-6">
+                <span className="text-xs font-medium text-white/60 uppercase tracking-widest">Trusted By</span>
               </div>
-
-              {/* Dark overlay */}
-              <div
-                className="absolute inset-0"
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 tracking-tight">
+                Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-400">Partners</span>
+              </h2>
+            </motion.div>
+            
+            <div className="mb-20">
+              <PartnerLogos />
+            </div>
+            
+            {/* Metrics Section */}
+            <div data-testid="section-metrics" className="mb-20">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                viewport={{ once: true }}
+                className="text-center mb-12"
+              >
+                <h3 className="text-xl md:text-2xl font-semibold text-white/90 mb-2">
+                  The Numbers Speak
+                </h3>
+                <p className="text-white/40 text-sm md:text-base max-w-md mx-auto">
+                  Our track record of delivering measurable results
+                </p>
+              </motion.div>
+              
+              <div 
+                className="relative rounded-2xl p-8 md:p-12"
                 style={{
-                  background: "rgba(0, 0, 0, 0.7)",
-                  transform: "translateZ(0)"
+                  background: "linear-gradient(180deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%)",
+                  border: "1px solid rgba(255,255,255,0.06)",
                 }}
-              />
-
-              {/* Content */}
-              <div className="relative z-10">
-                <div className="text-center mb-8">
-                  <h2 className="text-lg sm:text-xl md:text-2xl font-bold uppercase tracking-[0.3em] mb-4 red-glow-pulse" style={{ color: "#ff0000" }}>
-                    Some of Our Partners
-                  </h2>
-                </div>
-                <PartnerLogos />
+              >
+                {/* Subtle accent line */}
+                <div 
+                  className="absolute top-0 left-1/4 right-1/4 h-px"
+                  style={{
+                    background: "linear-gradient(90deg, transparent, rgba(255,0,0,0.5), transparent)"
+                  }}
+                />
                 
-                {/* Metrics Section */}
-                <div className="mt-12" data-testid="section-metrics">
-                  <div 
-                    className="md:grid md:grid-cols-2 lg:grid-cols-4 md:gap-8"
-                    style={{ 
-                      display: 'grid', 
-                      gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', 
-                      gap: '1rem' 
-                    }}
-                  >
-                    <StatCounter value={98} suffix="%" label="Client Satisfaction" icon={Heart} />
-                    <StatCounter value={7} suffix="x" label="Average ROI" delay={0.1} icon={TrendingUp} />
-                    <StatCounter value={15} suffix="+" label="Years of Experience" delay={0.2} icon={Award} />
-                    <StatCounter value={95} suffix="%" label="Client Retention" delay={0.3} icon={Users} />
-                  </div>
-                </div>
-
-                {/* Testimonials Section */}
-                <div className="mt-12">
-                  <TestimonialsCarousel />
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
+                  <StatCounter value={98} suffix="%" label="Client Satisfaction" icon={Heart} />
+                  <StatCounter value={7} suffix="x" label="Average ROI" delay={0.1} icon={TrendingUp} />
+                  <StatCounter value={15} suffix="+" label="Years of Experience" delay={0.2} icon={Award} />
+                  <StatCounter value={95} suffix="%" label="Client Retention" delay={0.3} icon={Users} />
                 </div>
               </div>
             </div>
+
+            {/* Testimonials Section */}
+            <div>
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                viewport={{ once: true }}
+                className="text-center mb-12"
+              >
+                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 mb-6">
+                  <span className="text-xs font-medium text-white/60 uppercase tracking-widest">Testimonials</span>
+                </div>
+                <h3 className="text-xl md:text-2xl font-semibold text-white/90 mb-2">
+                  What Our Clients Say
+                </h3>
+                <p className="text-white/40 text-sm md:text-base max-w-md mx-auto">
+                  Real feedback from businesses we've helped grow
+                </p>
+              </motion.div>
+              <TestimonialsCarousel />
+            </div>
+            
           </div>
         </section>
       </ScrollAnimatedSection>
