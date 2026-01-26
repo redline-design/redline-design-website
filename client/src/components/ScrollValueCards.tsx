@@ -81,40 +81,26 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
                   data-testid={`card-value-${card.title.toLowerCase().replace(/\s/g, "-")}`}
                 >
                   <Card 
-                    className="h-full relative group hover-elevate active-elevate-2 overflow-visible min-h-[320px]"
+                    className="h-full relative group overflow-visible min-h-[320px]"
                     style={{
-                      background: "rgba(20, 20, 20, 0.85)",
-                      border: "1px solid rgba(255, 255, 255, 0.08)",
-                      borderRadius: "16px",
-                      boxShadow: `
-                        8px 8px 24px rgba(0, 0, 0, 0.6),
-                        -4px -4px 12px rgba(255, 255, 255, 0.02),
-                        inset 1px 1px 1px rgba(255, 255, 255, 0.06),
-                        inset -1px -1px 1px rgba(0, 0, 0, 0.3)
-                      `,
-                      transition: "all 0.3s ease-out"
+                      background: "rgba(255, 255, 255, 0.03)",
+                      border: "1px solid rgba(255, 255, 255, 0.06)",
+                      borderRadius: "12px",
+                      transition: "all 0.2s ease"
                     }}
                   >
                     <CardContent className="p-5 h-full flex flex-col relative z-10">
                       {/* Icon Container */}
                       <div className="flex justify-center mb-4">
                         <div 
-                          className="relative flex items-center justify-center w-[60px] h-[60px]"
+                          className="flex items-center justify-center w-12 h-12 rounded-full"
                           style={{
-                            borderRadius: "12px",
-                            background: `linear-gradient(145deg, rgba(255, 0, 0, 0.15), rgba(255, 0, 0, 0.05))`,
-                            border: `1px solid ${accentColor}40`,
-                            boxShadow: `
-                              2px 2px 8px rgba(0, 0, 0, 0.3),
-                              0 0 12px ${accentColor}20
-                            `,
+                            background: `${accentColor}15`,
                           }}
                         >
                           <Icon 
-                            className="h-7 w-7"
-                            style={{ 
-                              color: accentColor,
-                            }}
+                            className="h-6 w-6"
+                            style={{ color: accentColor }}
                             data-testid={`icon-value-${card.title.toLowerCase().replace(/\s/g, "-")}`}
                           />
                         </div>
@@ -183,20 +169,10 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
           </AnimatePresence>
 
           {/* Navigation Arrows */}
-          <div className="flex justify-center items-center gap-4 mt-6">
+          <div className="flex justify-center items-center gap-6 mt-6">
             <button
               onClick={handlePrevCard}
-              className="w-12 h-12 rounded-full flex items-center justify-center transition-all"
-              style={{
-                background: "rgba(20, 20, 20, 0.9)",
-                border: "1px solid rgba(255, 255, 255, 0.1)",
-                boxShadow: `
-                  4px 4px 12px rgba(0, 0, 0, 0.5),
-                  -2px -2px 6px rgba(255, 255, 255, 0.02),
-                  inset 1px 1px 1px rgba(255, 255, 255, 0.05)
-                `,
-                color: "#fff"
-              }}
+              className="w-10 h-10 rounded-full flex items-center justify-center transition-colors text-white/60 hover:text-white hover:bg-white/10"
               aria-label="Previous card"
               data-testid="button-value-prev"
             >
@@ -209,7 +185,7 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
                 <button
                   key={idx}
                   onClick={() => setCurrentCardIndex(idx)}
-                  className={`transition-all ${idx === currentCardIndex ? 'w-6 h-2 bg-red-600' : 'w-2 h-2 bg-white/20'} rounded-full`}
+                  className={`transition-all rounded-full ${idx === currentCardIndex ? 'w-5 h-1.5 bg-red-500' : 'w-1.5 h-1.5 bg-white/20 hover:bg-white/40'}`}
                   aria-label={`Go to card ${idx + 1}`}
                   data-testid={`dot-value-${idx}`}
                 />
@@ -218,17 +194,7 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
 
             <button
               onClick={handleNextCard}
-              className="w-12 h-12 rounded-full flex items-center justify-center transition-all"
-              style={{
-                background: "rgba(20, 20, 20, 0.9)",
-                border: "1px solid rgba(255, 255, 255, 0.1)",
-                boxShadow: `
-                  4px 4px 12px rgba(0, 0, 0, 0.5),
-                  -2px -2px 6px rgba(255, 255, 255, 0.02),
-                  inset 1px 1px 1px rgba(255, 255, 255, 0.05)
-                `,
-                color: "#fff"
-              }}
+              className="w-10 h-10 rounded-full flex items-center justify-center transition-colors text-white/60 hover:text-white hover:bg-white/10"
               aria-label="Next card"
               data-testid="button-value-next"
             >
@@ -261,40 +227,26 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
                 data-testid={`card-value-${card.title.toLowerCase().replace(/\s/g, "-")}`}
               >
                 <Card 
-                  className="h-full relative group hover-elevate active-elevate-2 overflow-visible"
+                  className="h-full relative group overflow-visible"
                   style={{
-                    background: "rgba(20, 20, 20, 0.85)",
-                    border: "1px solid rgba(255, 255, 255, 0.08)",
-                    borderRadius: "16px",
-                    boxShadow: `
-                      8px 8px 24px rgba(0, 0, 0, 0.6),
-                      -4px -4px 12px rgba(255, 255, 255, 0.02),
-                      inset 1px 1px 1px rgba(255, 255, 255, 0.06),
-                      inset -1px -1px 1px rgba(0, 0, 0, 0.3)
-                    `,
-                    transition: "all 0.3s ease-out"
+                    background: "rgba(255, 255, 255, 0.03)",
+                    border: "1px solid rgba(255, 255, 255, 0.06)",
+                    borderRadius: "12px",
+                    transition: "all 0.2s ease"
                   }}
                 >
                   <CardContent className="p-3 md:p-6 h-full flex flex-col relative z-10">
                     {/* Icon Container */}
-                    <div className="flex justify-center mb-2 md:mb-6">
+                    <div className="flex justify-center mb-2 md:mb-5">
                       <div 
-                        className="relative flex items-center justify-center w-[45px] h-[45px] md:w-[80px] md:h-[80px]"
+                        className="flex items-center justify-center w-10 h-10 md:w-14 md:h-14 rounded-full"
                         style={{
-                          borderRadius: "12px",
-                          background: `linear-gradient(145deg, rgba(255, 0, 0, 0.15), rgba(255, 0, 0, 0.05))`,
-                          border: `1px solid ${accentColor}40`,
-                          boxShadow: `
-                            2px 2px 8px rgba(0, 0, 0, 0.3),
-                            0 0 12px ${accentColor}20
-                          `,
+                          background: `${accentColor}15`,
                         }}
                       >
                         <Icon 
-                          className="h-5 w-5 md:h-10 md:w-10"
-                          style={{ 
-                            color: accentColor,
-                          }}
+                          className="h-5 w-5 md:h-7 md:w-7"
+                          style={{ color: accentColor }}
                           data-testid={`icon-value-${card.title.toLowerCase().replace(/\s/g, "-")}`}
                         />
                       </div>
