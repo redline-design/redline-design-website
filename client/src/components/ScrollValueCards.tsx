@@ -44,39 +44,8 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
     <div 
       ref={containerRef} 
       className="relative w-full"
-      style={{
-        background: "linear-gradient(135deg, rgba(10, 10, 10, 0.95) 0%, rgba(15, 20, 30, 0.90) 50%, rgba(10, 15, 25, 0.95) 100%)",
-        position: "relative"
-      }}
       data-testid="container-value-cards"
     >
-      {/* Parallax overlay */}
-      <motion.div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          y: backgroundY,
-          willChange: "transform"
-        }}
-      />
-      
-      {/* Animated background elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div 
-          className="absolute top-0 left-10 w-72 h-72 rounded-full opacity-5"
-          style={{
-            background: "radial-gradient(circle, #ff0000, transparent)",
-            animation: "pulse 8s ease-in-out infinite"
-          }}
-        />
-        <div 
-          className="absolute bottom-0 right-10 w-72 h-72 rounded-full opacity-5"
-          style={{
-            background: "radial-gradient(circle, #0088ff, transparent)",
-            animation: "pulse 10s ease-in-out infinite 2s"
-          }}
-        />
-      </div>
-
       <div className="mx-auto px-4 md:px-6 max-w-6xl relative z-10 py-8 md:py-20">
         {/* Section Title */}
         <motion.div 
@@ -112,13 +81,16 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
                   data-testid={`card-value-${card.title.toLowerCase().replace(/\s/g, "-")}`}
                 >
                   <Card 
-                    className="h-full relative group hover-elevate active-elevate-2 overflow-hidden min-h-[320px]"
+                    className="h-full relative group hover-elevate active-elevate-2 overflow-visible min-h-[320px]"
                     style={{
-                      background: "rgba(15, 15, 15, 0.4)",
-                      border: "1px solid rgba(255, 255, 255, 0.2)",
+                      background: "rgba(20, 20, 20, 0.85)",
+                      border: "1px solid rgba(255, 255, 255, 0.08)",
+                      borderRadius: "16px",
                       boxShadow: `
-                        4px 4px 12px rgba(0, 0, 0, 0.3),
-                        inset 1px 1px 2px rgba(255, 255, 255, 0.05)
+                        8px 8px 24px rgba(0, 0, 0, 0.6),
+                        -4px -4px 12px rgba(255, 255, 255, 0.02),
+                        inset 1px 1px 1px rgba(255, 255, 255, 0.06),
+                        inset -1px -1px 1px rgba(0, 0, 0, 0.3)
                       `,
                       transition: "all 0.3s ease-out"
                     }}
@@ -211,18 +183,24 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
           </AnimatePresence>
 
           {/* Navigation Arrows */}
-          <div className="flex justify-center items-center gap-3 mt-6">
+          <div className="flex justify-center items-center gap-4 mt-6">
             <button
               onClick={handlePrevCard}
-              className="w-12 h-12 rounded-lg border-2 border-white/30 flex items-center justify-center transition-all"
+              className="w-12 h-12 rounded-full flex items-center justify-center transition-all"
               style={{
-                background: "rgba(15, 15, 15, 0.8)",
+                background: "rgba(20, 20, 20, 0.9)",
+                border: "1px solid rgba(255, 255, 255, 0.1)",
+                boxShadow: `
+                  4px 4px 12px rgba(0, 0, 0, 0.5),
+                  -2px -2px 6px rgba(255, 255, 255, 0.02),
+                  inset 1px 1px 1px rgba(255, 255, 255, 0.05)
+                `,
                 color: "#fff"
               }}
               aria-label="Previous card"
               data-testid="button-value-prev"
             >
-              <ChevronLeft className="w-6 h-6" />
+              <ChevronLeft className="w-5 h-5" />
             </button>
             
             {/* Dots */}
@@ -231,7 +209,7 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
                 <button
                   key={idx}
                   onClick={() => setCurrentCardIndex(idx)}
-                  className={`transition-all ${idx === currentCardIndex ? 'w-6 h-2 bg-red-600' : 'w-2 h-2 bg-white/30'} rounded-full`}
+                  className={`transition-all ${idx === currentCardIndex ? 'w-6 h-2 bg-red-600' : 'w-2 h-2 bg-white/20'} rounded-full`}
                   aria-label={`Go to card ${idx + 1}`}
                   data-testid={`dot-value-${idx}`}
                 />
@@ -240,15 +218,21 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
 
             <button
               onClick={handleNextCard}
-              className="w-12 h-12 rounded-lg border-2 border-white/30 flex items-center justify-center transition-all"
+              className="w-12 h-12 rounded-full flex items-center justify-center transition-all"
               style={{
-                background: "rgba(15, 15, 15, 0.8)",
+                background: "rgba(20, 20, 20, 0.9)",
+                border: "1px solid rgba(255, 255, 255, 0.1)",
+                boxShadow: `
+                  4px 4px 12px rgba(0, 0, 0, 0.5),
+                  -2px -2px 6px rgba(255, 255, 255, 0.02),
+                  inset 1px 1px 1px rgba(255, 255, 255, 0.05)
+                `,
                 color: "#fff"
               }}
               aria-label="Next card"
               data-testid="button-value-next"
             >
-              <ChevronRight className="w-6 h-6" />
+              <ChevronRight className="w-5 h-5" />
             </button>
           </div>
         </div>
@@ -277,14 +261,16 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
                 data-testid={`card-value-${card.title.toLowerCase().replace(/\s/g, "-")}`}
               >
                 <Card 
-                  className="h-full relative group hover-elevate active-elevate-2 overflow-hidden"
+                  className="h-full relative group hover-elevate active-elevate-2 overflow-visible"
                   style={{
-                    background: "linear-gradient(145deg, rgba(25, 25, 25, 0.8), rgba(15, 15, 15, 0.8))",
-                    border: "1px solid rgba(255, 255, 255, 0.1)",
+                    background: "rgba(20, 20, 20, 0.85)",
+                    border: "1px solid rgba(255, 255, 255, 0.08)",
+                    borderRadius: "16px",
                     boxShadow: `
-                      4px 4px 12px rgba(0, 0, 0, 0.4),
-                      -2px -2px 8px rgba(40, 40, 40, 0.08),
-                      inset 1px 1px 2px rgba(255, 255, 255, 0.05)
+                      8px 8px 24px rgba(0, 0, 0, 0.6),
+                      -4px -4px 12px rgba(255, 255, 255, 0.02),
+                      inset 1px 1px 1px rgba(255, 255, 255, 0.06),
+                      inset -1px -1px 1px rgba(0, 0, 0, 0.3)
                     `,
                     transition: "all 0.3s ease-out"
                   }}
