@@ -174,8 +174,11 @@ export default function ChatWidget() {
         whileHover={{ scale: 1.08 }}
         whileTap={{ scale: 0.92 }}
         style={{
-          background: 'rgba(255, 0, 0, 0.9)',
-          boxShadow: '0 8px 20px rgba(0, 0, 0, 0.5)',
+          background: 'rgba(10, 10, 10, 0.85)',
+          backdropFilter: 'blur(12px)',
+          WebkitBackdropFilter: 'blur(12px)',
+          border: '1px solid rgba(255, 255, 255, 0.1)',
+          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.05)',
           transform: 'translateZ(0)',
           willChange: 'transform'
         }}
