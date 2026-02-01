@@ -1,0 +1,70 @@
+Task: Add a content receiving API endpoint for Redline OS integration
+
+I need to add an API endpoint that allows our content management system (Redline OS) to automatically publish blog posts to this website.
+
+Requirements
+Create an API endpoint at /api/redline/content that:
+
+Accepts POST requests with blog post data
+Validates the API key from the X-Redline-API-Key header
+Creates new blog posts or updates existing ones
+Returns the post ID and URL
+Store the API key as an environment secret:
+
+REDLINE_API_KEY=ra_4200d84585a2d3fb83321aec85db6746dfcdd08c76ef4ae7e279f8e414bf9fc4
+API Contract
+Endpoint: POST /api/redline/content
+
+Headers:
+
+Content-Type: application/json
+X-Redline-API-Key: ra_4200d84585a2d3fb83321aec85db6746dfcdd08c76ef4ae7e279f8e414bf9fc4
+Request Body:
+
+{
+  "title": "Article Title",
+  "body": "<p>HTML content of the article...</p>",
+  "metaDescription": "SEO meta description for the article",
+  "slug": "article-title-slug",
+  "image_url": "https://example.com/featured-image.jpg",
+  "idempotencyKey": "unique-key-to-prevent-duplicates",
+  "remotePostId": "existing-post-id-for-updates"
+}
+Success Response (200):
+
+{
+  "postId": "generated-post-id",
+  "url": "https://www.redlinedesignllc.com/blog/article-title-slug"
+}
+Error Responses:
+
+401: { "error": "Invalid or missing API key" }
+400: { "error": "Title and body are required" }
+500: { "error": "Internal server error" }
+Implementation Notes
+Authentication: Check the X-Redline-API-Key header matches the environment variable REDLINE_API_KEY
+
+Slug handling: If no slug provided, generate from title (lowercase, replace spaces/special chars with hyphens)
+
+Update logic:
+
+If remotePostId is provided, update that existing post
+If a post with the same slug exists, update it
+Otherwise, create a new post
+Required fields: title and body are required, others are optional
+
+Blog URL pattern: Posts should be accessible at /blog/{slug}
+
+Database Schema (if you need to create a blog posts table)
+The blog posts table should have at minimum:
+
+id (primary key, UUID or auto-increment)
+title (text, required)
+content (text, HTML content)
+slug (text, unique, URL-friendly)
+excerpt or metaDescription (text, optional)
+featuredImage (text, URL, optional)
+status (text: 'draft' or 'published')
+publishedAt (timestamp)
+createdAt (timestamp)
+updatedAt (timestamp)
