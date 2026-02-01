@@ -474,6 +474,30 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Batch reorder portfolio items
+  app.post("/api/portfolio/reorder", isAuthenticated, async (req, res) => {
+    try {
+      const { orderedIds } = req.body;
+      if (!Array.isArray(orderedIds)) {
+        return res.status(400).json({ error: "orderedIds must be an array" });
+      }
+      
+      // Update each item's display order based on its position in the array
+      const updates = orderedIds.map((id: string, index: number) => 
+        storage.updatePortfolioItem(id, { displayOrder: index })
+      );
+      
+      await Promise.all(updates);
+      
+      // Return the updated list
+      const items = await storage.getPortfolioItems();
+      res.json(items);
+    } catch (error: any) {
+      console.error("Error reordering portfolio items:", error);
+      res.status(500).json({ error: "Failed to reorder portfolio items" });
+    }
+  });
+
   app.get("/api/portfolio", async (req, res) => {
     try {
       const items = await storage.getPortfolioItems();

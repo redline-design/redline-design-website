@@ -12,6 +12,23 @@ import { z } from "zod";
 import { motion } from "framer-motion";
 import { format } from "date-fns";
 import {
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  DragEndEvent,
+} from "@dnd-kit/core";
+import {
+  arrayMove,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  useSortable,
+  rectSortingStrategy,
+} from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
+import {
   Plus,
   Pencil,
   Trash2,
@@ -27,6 +44,7 @@ import {
   FileText,
   Briefcase,
   Mail,
+  GripVertical,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -453,15 +471,15 @@ export default function Admin() {
     },
   });
 
-  const updateDisplayOrderMutation = useMutation({
-    mutationFn: async ({ id, displayOrder }: { id: string; displayOrder: number }) => {
-      return await apiRequest("PATCH", `/api/portfolio/${id}/display-order`, { displayOrder });
+  const reorderPortfolioMutation = useMutation({
+    mutationFn: async (orderedIds: string[]) => {
+      return await apiRequest("POST", "/api/portfolio/reorder", { orderedIds });
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/portfolio"] });
       toast({
         title: "Success",
-        description: "Display order updated successfully",
+        description: "Order updated",
       });
     },
     onError: (error) => {
@@ -478,7 +496,7 @@ export default function Admin() {
       }
       toast({
         title: "Error",
-        description: "Failed to update display order",
+        description: "Failed to reorder items",
         variant: "destructive",
       });
     },
@@ -906,62 +924,58 @@ export default function Admin() {
     }
   };
 
-  // PortfolioCard component
-  const PortfolioCard = ({
+  // Sortable PortfolioCard component
+  const SortablePortfolioCard = ({
     item,
     index,
-    totalItems,
     onEdit,
     onDelete,
     onUploadScreenshot,
     onUploadLogo,
-    onDisplayOrderChange,
-    isUpdatingDisplayOrder,
     isUploadingScreenshot,
     isUploadingLogo,
   }: {
     item: PortfolioItem;
     index: number;
-    totalItems: number;
     onEdit: () => void;
     onDelete: () => void;
     onUploadScreenshot: (file: File) => void;
     onUploadLogo: (file: File) => void;
-    onDisplayOrderChange: (newOrder: number) => void;
-    isUpdatingDisplayOrder: boolean;
     isUploadingScreenshot: boolean;
     isUploadingLogo: boolean;
   }) => {
+    const {
+      attributes,
+      listeners,
+      setNodeRef,
+      transform,
+      transition,
+      isDragging,
+    } = useSortable({ id: item.id });
+
+    const style = {
+      transform: CSS.Transform.toString(transform),
+      transition,
+      opacity: isDragging ? 0.5 : 1,
+      zIndex: isDragging ? 1000 : 1,
+    };
+
     return (
-      <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: index * 0.05 }}
+      <div
+        ref={setNodeRef}
+        style={style}
         data-testid={`card-portfolio-${item.id}`}
       >
         <Card className="rounded-2xl backdrop-blur-md bg-card/40 border-border/50 shadow-lg hover-elevate h-full">
-          <div className="flex items-center justify-between p-4 border-b border-border/50 gap-2">
-            <div className="flex items-center gap-2 flex-1 min-w-0">
-              <span className="text-sm text-muted-foreground whitespace-nowrap">Display Order:</span>
-              <Select
-                value={item.displayOrder?.toString() || "0"}
-                onValueChange={(value) => onDisplayOrderChange(parseInt(value))}
-                disabled={isUpdatingDisplayOrder}
-              >
-                <SelectTrigger 
-                  className="w-24" 
-                  data-testid={`select-display-order-${item.id}`}
-                >
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {Array.from({ length: Math.max(totalItems, 20) }, (_, i) => i).map((order) => (
-                    <SelectItem key={order} value={order.toString()}>
-                      {order === 0 ? "0 (First)" : order}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+          <div className="flex items-center justify-between p-3 border-b border-border/50 gap-2">
+            <div 
+              {...attributes} 
+              {...listeners}
+              className="flex items-center gap-2 cursor-grab active:cursor-grabbing p-1 rounded hover:bg-muted/50 transition-colors"
+              data-testid={`drag-handle-${item.id}`}
+            >
+              <GripVertical className="w-5 h-5 text-muted-foreground" />
+              <span className="text-sm font-medium text-muted-foreground">#{index + 1}</span>
             </div>
             <Badge variant="secondary">{item.category}</Badge>
           </div>
@@ -1112,7 +1126,94 @@ export default function Admin() {
             </div>
           </CardContent>
         </Card>
-      </motion.div>
+      </div>
+    );
+  };
+
+  // DndContext wrapper for portfolio grid
+  const PortfolioDragDropGrid = ({
+    items,
+    onReorder,
+    onEdit,
+    onDelete,
+    onUploadScreenshot,
+    onUploadLogo,
+    uploadScreenshotPending,
+    uploadScreenshotId,
+    uploadLogoPending,
+    uploadLogoId,
+  }: {
+    items: PortfolioItem[];
+    onReorder: (orderedIds: string[]) => void;
+    onEdit: (item: PortfolioItem) => void;
+    onDelete: (item: PortfolioItem) => void;
+    onUploadScreenshot: (id: string, file: File) => void;
+    onUploadLogo: (id: string, file: File) => void;
+    uploadScreenshotPending: boolean;
+    uploadScreenshotId?: string;
+    uploadLogoPending: boolean;
+    uploadLogoId?: string;
+  }) => {
+    const [localItems, setLocalItems] = useState(items);
+    
+    useEffect(() => {
+      setLocalItems(items);
+    }, [items]);
+
+    const sensors = useSensors(
+      useSensor(PointerSensor, {
+        activationConstraint: {
+          distance: 8,
+        },
+      }),
+      useSensor(KeyboardSensor, {
+        coordinateGetter: sortableKeyboardCoordinates,
+      })
+    );
+
+    const handleDragEnd = (event: DragEndEvent) => {
+      const { active, over } = event;
+
+      if (over && active.id !== over.id) {
+        const oldIndex = localItems.findIndex((item) => item.id === active.id);
+        const newIndex = localItems.findIndex((item) => item.id === over.id);
+        
+        const newItems = arrayMove(localItems, oldIndex, newIndex);
+        setLocalItems(newItems);
+        
+        // Send the new order to the server
+        const orderedIds = newItems.map((item) => item.id);
+        onReorder(orderedIds);
+      }
+    };
+
+    return (
+      <DndContext
+        sensors={sensors}
+        collisionDetection={closestCenter}
+        onDragEnd={handleDragEnd}
+      >
+        <SortableContext items={localItems.map((item) => item.id)} strategy={rectSortingStrategy}>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {localItems.map((item, index) => (
+              <SortablePortfolioCard
+                key={item.id}
+                item={item}
+                index={index}
+                onEdit={() => onEdit(item)}
+                onDelete={() => onDelete(item)}
+                onUploadScreenshot={(file) => onUploadScreenshot(item.id, file)}
+                onUploadLogo={(file) => onUploadLogo(item.id, file)}
+                isUploadingScreenshot={uploadScreenshotPending && uploadScreenshotId === item.id}
+                isUploadingLogo={uploadLogoPending && uploadLogoId === item.id}
+              />
+            ))}
+          </div>
+        </SortableContext>
+        <p className="text-sm text-muted-foreground mt-4 text-center">
+          Drag and drop cards to reorder
+        </p>
+      </DndContext>
     );
   };
 
@@ -1588,29 +1689,18 @@ export default function Admin() {
               </Card>
             </motion.div>
           ) : (
-            <motion.div
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6 }}
-            >
-              {portfolioItems.map((item, index) => (
-                <PortfolioCard
-                  key={item.id}
-                  item={item}
-                  index={index}
-                  totalItems={portfolioItems.length}
-                  onEdit={() => handleOpenPortfolioDialog(item)}
-                  onDelete={() => setDeletePortfolioItem(item)}
-                  onUploadScreenshot={(file) => uploadScreenshotMutation.mutate({ id: item.id, file })}
-                  onUploadLogo={(file) => uploadLogoMutation.mutate({ id: item.id, file })}
-                  onDisplayOrderChange={(newOrder) => updateDisplayOrderMutation.mutate({ id: item.id, displayOrder: newOrder })}
-                  isUpdatingDisplayOrder={updateDisplayOrderMutation.isPending}
-                  isUploadingScreenshot={uploadScreenshotMutation.isPending && uploadScreenshotMutation.variables?.id === item.id}
-                  isUploadingLogo={uploadLogoMutation.isPending && uploadLogoMutation.variables?.id === item.id}
-                />
-              ))}
-            </motion.div>
+            <PortfolioDragDropGrid
+              items={portfolioItems}
+              onReorder={(orderedIds) => reorderPortfolioMutation.mutate(orderedIds)}
+              onEdit={(item) => handleOpenPortfolioDialog(item)}
+              onDelete={(item) => setDeletePortfolioItem(item)}
+              onUploadScreenshot={(id, file) => uploadScreenshotMutation.mutate({ id, file })}
+              onUploadLogo={(id, file) => uploadLogoMutation.mutate({ id, file })}
+              uploadScreenshotPending={uploadScreenshotMutation.isPending}
+              uploadScreenshotId={uploadScreenshotMutation.variables?.id}
+              uploadLogoPending={uploadLogoMutation.isPending}
+              uploadLogoId={uploadLogoMutation.variables?.id}
+            />
           )}
                 </CardContent>
               </CollapsibleContent>
