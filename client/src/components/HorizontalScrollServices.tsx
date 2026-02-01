@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from "framer-motion";
 import { Globe, TrendingUp, Search, Database, BarChart3, Palette, MessageSquare, Mail, Users, Bot, Code, Check, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -221,6 +222,7 @@ interface ServiceCardProps {
 function ServiceCard({ service, mouseX }: ServiceCardProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
+  const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
 
   const distance = useTransform(mouseX, (val: number) => {
     const bounds = ref.current?.getBoundingClientRect() ?? { x: 0, width: 0 };
@@ -234,30 +236,50 @@ function ServiceCard({ service, mouseX }: ServiceCardProps) {
   const width = useSpring(widthSync, { stiffness: 400, damping: 30 });
   const height = useSpring(heightSync, { stiffness: 400, damping: 30 });
 
+  const updateTooltipPosition = () => {
+    if (ref.current) {
+      const rect = ref.current.getBoundingClientRect();
+      setTooltipPosition({
+        x: rect.left + rect.width / 2,
+        y: rect.top
+      });
+    }
+  };
+
+  const handleMouseEnter = () => {
+    updateTooltipPosition();
+    setIsHovered(true);
+  };
+
   return (
     <motion.div
       ref={ref}
       style={{ width, height }}
       className="flex-shrink-0 relative"
       data-testid={`card-service-${service.id}`}
-      onMouseEnter={() => setIsHovered(true)}
+      onMouseEnter={handleMouseEnter}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Hover Details Box */}
-      <AnimatePresence>
-        {isHovered && (
+      {/* Hover Details Box - Rendered via Portal */}
+      {isHovered && createPortal(
+        <AnimatePresence>
           <motion.div
             initial={{ opacity: 0, y: 10, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.95 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
-            className="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 w-64 pointer-events-none"
-            style={{ zIndex: 9999 }}
+            className="fixed w-64 pointer-events-none"
+            style={{ 
+              zIndex: 99999,
+              left: tooltipPosition.x,
+              top: tooltipPosition.y - 12,
+              transform: 'translate(-50%, -100%)'
+            }}
           >
             <div 
               className="rounded-xl p-4 relative"
               style={{
-                background: "rgba(15, 15, 15, 0.95)",
+                background: "rgba(15, 15, 15, 0.98)",
                 backdropFilter: "blur(12px)",
                 WebkitBackdropFilter: "blur(12px)",
                 border: `1px solid ${service.accentColor}40`,
@@ -308,15 +330,16 @@ function ServiceCard({ service, mouseX }: ServiceCardProps) {
               <div 
                 className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-4 h-4 rotate-45"
                 style={{ 
-                  background: "rgba(15, 15, 15, 0.95)",
+                  background: "rgba(15, 15, 15, 0.98)",
                   borderRight: `1px solid ${service.accentColor}40`,
                   borderBottom: `1px solid ${service.accentColor}40`
                 }}
               />
             </div>
           </motion.div>
-        )}
-      </AnimatePresence>
+        </AnimatePresence>,
+        document.body
+      )}
 
       <a
         href={service.link}
