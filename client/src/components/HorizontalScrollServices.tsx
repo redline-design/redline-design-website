@@ -251,7 +251,8 @@ function ServiceCard({ service, mouseX }: ServiceCardProps) {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.95 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
-            className="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 w-64 z-50 pointer-events-none"
+            className="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 w-64 pointer-events-none"
+            style={{ zIndex: 9999 }}
           >
             <div 
               className="rounded-xl p-4 relative"
@@ -410,10 +411,11 @@ export default function HorizontalScrollServices() {
 
   return (
     <section 
-      className="pt-20 pb-12 px-4 sm:px-6 lg:px-8 relative"
+      className="pt-20 pb-12 px-4 sm:px-6 lg:px-8 relative overflow-visible"
       data-testid="section-services-horizontal"
+      style={{ zIndex: 1 }}
     >
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl mx-auto overflow-visible">
         {/* Desktop Title */}
         <div className="hidden md:block text-center mb-8">
           <h2 className="text-lg sm:text-xl md:text-2xl font-bold uppercase tracking-[0.3em] mb-4 red-glow-pulse" style={{ color: "#ff0000" }}>
@@ -552,15 +554,16 @@ export default function HorizontalScrollServices() {
         </div>
 
         {/* Desktop Dock-Style Layout */}
-        <div className="hidden md:flex justify-center">
+        <div className="hidden md:flex justify-center overflow-visible">
           <div 
-            className="relative inline-flex items-end justify-center gap-2 px-6 py-2 rounded-2xl overflow-visible"
+            className="relative inline-flex items-end justify-center gap-2 px-6 py-2 rounded-2xl"
             style={{
               background: 'rgba(15, 15, 15, 0.8)',
               border: '1px solid rgba(255, 255, 255, 0.1)',
               boxShadow: '0 4px 12px rgba(0, 0, 0, 0.4)',
               transform: 'translateZ(0)',
-              willChange: 'transform'
+              willChange: 'transform',
+              overflow: 'visible'
             }}
           >
             <div 
