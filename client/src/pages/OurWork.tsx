@@ -138,13 +138,7 @@ export default function OurWork() {
     queryKey: ["/api/portfolio"],
   });
 
-  const [selectedCategory, setSelectedCategory] = useState<string>("all");
-
-  const categories = ["all", ...Array.from(new Set(portfolioItems.map(item => item.category)))];
-  
-  const filteredItems = selectedCategory === "all" 
-    ? portfolioItems 
-    : portfolioItems.filter(item => item.category === selectedCategory);
+  const categories = Array.from(new Set(portfolioItems.map(item => item.category)));
 
   return (
     <div className="min-h-screen pt-24 pb-16 px-4 sm:px-6 lg:px-8">
@@ -165,32 +159,7 @@ export default function OurWork() {
           </p>
         </motion.div>
 
-        {/* Category Filter */}
-        {portfolioItems.length > 0 && (
-          <motion.div 
-            className="flex flex-wrap justify-center gap-2 mb-10"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          >
-            {categories.map((category) => (
-              <button
-                key={category}
-                onClick={() => setSelectedCategory(category)}
-                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
-                  selectedCategory === category
-                    ? "bg-red-600 text-white"
-                    : "bg-white/5 text-white/60 hover:bg-white/10 hover:text-white"
-                }`}
-                data-testid={`filter-${category}`}
-              >
-                {category === "all" ? "All Projects" : category}
-              </button>
-            ))}
-          </motion.div>
-        )}
-
-        {/* Portfolio Grid */}
+        {/* Portfolio Grid - No Tabs, Just Grid */}
         {isLoading ? (
           <PortfolioSkeleton />
         ) : portfolioItems.length === 0 ? (
@@ -205,10 +174,12 @@ export default function OurWork() {
         ) : (
           <motion.div 
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
-            layout
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
             data-testid="section-portfolio-grid"
           >
-            {filteredItems.map((item, index) => (
+            {portfolioItems.map((item, index) => (
               <PortfolioCard
                 key={item.id}
                 item={item}
@@ -239,7 +210,7 @@ export default function OurWork() {
               </div>
               <div className="w-px h-10 bg-white/10" />
               <div className="text-center">
-                <div className="text-3xl font-bold text-white">{categories.length - 1}</div>
+                <div className="text-3xl font-bold text-white">{categories.length}</div>
                 <div className="text-white/50 text-sm">Industries</div>
               </div>
               <div className="w-px h-10 bg-white/10" />
