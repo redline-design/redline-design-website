@@ -38,6 +38,7 @@ function PortfolioCard({ item, index }: PortfolioCardProps) {
             src={item.screenshotUrl}
             alt={item.title}
             className="w-full h-full object-cover"
+            loading="lazy"
             animate={{ scale: isHovered ? 1.05 : 1 }}
             transition={{ duration: 0.4 }}
             data-testid={`portfolio-image-${item.id}`}

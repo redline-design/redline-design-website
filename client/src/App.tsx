@@ -10,6 +10,7 @@ import DiagonalStripes from "@/components/DiagonalStripes";
 import AnimatedBackground from "@/components/AnimatedBackground";
 import ChatWidget from "@/components/ChatWidget";
 import ScrollProgressBar from "@/components/ScrollProgressBar";
+import StructuredData from "@/components/StructuredData";
 import { AnimatePresence, motion } from "framer-motion";
 
 const Home = lazy(() => import("@/pages/Home"));
@@ -36,6 +37,7 @@ const ConsultingPage = lazy(() => import("@/pages/services/consulting"));
 const AIAutomationPage = lazy(() => import("@/pages/services/ai-automation"));
 const AppDevelopmentPage = lazy(() => import("@/pages/services/app-development"));
 const SEOChecker = lazy(() => import("@/pages/SEOChecker"));
+const Sitemap = lazy(() => import("@/pages/Sitemap"));
 const NotFound = lazy(() => import("@/pages/not-found"));
 
 function Router() {
@@ -45,10 +47,14 @@ function Router() {
     <AnimatePresence mode="wait">
       <motion.div
         key={location}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 0.3, ease: "easeOut" }}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -20 }}
+        transition={{ 
+          duration: 0.4, 
+          ease: [0.22, 1, 0.36, 1],
+          opacity: { duration: 0.3 }
+        }}
       >
         <Switch>
       <Route path="/" component={Home} />
@@ -72,6 +78,7 @@ function Router() {
       <Route path="/book-a-demo" component={BookDemo} />
       <Route path="/onboarding" component={Onboarding} />
       <Route path="/digital-marketing" component={Articles} />
+      <Route path="/sitemap" component={Sitemap} />
       <Route path="/admin" component={Admin} />
       
       <Route path="/tos">
@@ -1020,6 +1027,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
+        <StructuredData />
         <CustomCursor />
         <ScrollProgressBar />
         <div className="flex flex-col min-h-screen relative">

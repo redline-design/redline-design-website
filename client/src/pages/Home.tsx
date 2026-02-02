@@ -2,6 +2,7 @@ import Hero from "@/components/Hero";
 import HorizontalScrollServices from "@/components/HorizontalScrollServices";
 import { SliderCarousel } from "@/components/SliderCarousel";
 import PartnerLogos from "@/components/PartnerLogos";
+import TrustBadges from "@/components/TrustBadges";
 import TestimonialsCarousel from "@/components/TestimonialsCarousel";
 import StatCounter from "@/components/StatCounter";
 import CTABand from "@/components/CTABand";
@@ -536,6 +537,9 @@ export default function Home() {
             <div className="mb-20">
               <PartnerLogos />
             </div>
+
+            {/* Trust Badges Section */}
+            <TrustBadges />
             
             {/* Metrics Section */}
             <div data-testid="section-metrics" className="mb-20">

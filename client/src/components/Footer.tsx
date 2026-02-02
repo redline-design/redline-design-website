@@ -22,6 +22,7 @@ const COMPANY = [
   { href: "/#partners", label: "Our Partners" },
   { href: "/onboarding", label: "Onboarding" },
   { href: "/book-a-demo", label: "Book a Demo" },
+  { href: "/sitemap", label: "Sitemap" },
 ];
 
 const POLICIES = [
