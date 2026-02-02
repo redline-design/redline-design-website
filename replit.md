@@ -24,8 +24,13 @@ The frontend is built with **React 18** and **TypeScript**, using **Vite** for f
 Key features include:
 - **Conversion-Focused Homepage**: Progressive disclosure for diverse user needs with a sticky conversion bar, beginner explainer, and detailed services deep dive.
 - **Scroll Animation System**: Smooth scroll-based animations using `SectionDivider` and `ScrollAnimatedSection` for enhanced visual flow across major pages (Homepage, Why Us, Service Pages).
+- **Page Transitions**: Enhanced y-axis movement transitions with custom easing [0.22, 1, 0.36, 1] and 0.4s duration for polished app-like navigation.
 - **Dedicated Service Pages**: Comprehensive system for 10 individual service pages (`ServicePageTemplate`) with consistent layout for details, CTAs, benefits, timeline, and investment.
-- **Modern Portfolio System**: Database-backed project showcase with responsive grid, interactive cards, and admin CRUD management.
+- **Service Card Micro-interactions**: Pulsing glow animations, subtle rotation (3deg), and icon scaling on hover for premium interactive feel.
+- **Trust Badges Section**: Displays Google Partner, Meta Partner, Shopify Partner, HubSpot Partner certifications with achievement stats.
+- **SEO Structured Data**: JSON-LD schema markup (Organization, WebSite, Service) via `StructuredData.tsx` component for enhanced search visibility.
+- **Sitemap Page**: Organized navigation page (`/sitemap`) with sections for Main Pages, Services, Resources, and Legal links.
+- **Modern Portfolio System**: Database-backed project showcase with responsive grid, interactive cards, lazy-loaded images, and admin CRUD management.
 - **Manual Customer Review Management**: Admin dashboard allows manual creation, editing, and deletion of customer testimonials.
 - **Admin Dashboard Reorganization**: Collapsible sections for improved usability and dedicated Employee Tools.
 
