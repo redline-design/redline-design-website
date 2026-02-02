@@ -331,7 +331,7 @@ export default function Blog() {
   const regularPosts = filteredPosts.filter(post => post !== featuredPost);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen">
       <HeroSection />
 
       <section className="py-8 px-4 sm:px-6 lg:px-8 sticky top-16 z-30 bg-background/80 backdrop-blur-xl border-b border-border/50" data-testid="section-blog-categories">
