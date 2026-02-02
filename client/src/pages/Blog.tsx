@@ -326,7 +326,7 @@ export default function Blog() {
     <div className="min-h-screen">
       <HeroSection />
 
-      <section className="py-8 px-4 sm:px-6 lg:px-8 sticky top-16 z-30 bg-background/80 backdrop-blur-xl border-b border-border/50" data-testid="section-blog-categories">
+      <section className="py-8 px-4 sm:px-6 lg:px-8 sticky top-16 z-30 backdrop-blur-md" data-testid="section-blog-categories">
         <div className="max-w-7xl mx-auto">
           <motion.div
             className="flex flex-wrap justify-center gap-2"
