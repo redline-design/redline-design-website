@@ -263,7 +263,7 @@ function ServiceCard({ icon: Icon, name, description, link, color, index }: Serv
               <h4 className="font-bold text-xl text-foreground mb-3 group-hover/card:text-primary transition-colors duration-300">
                 {name}
               </h4>
-              <p className="text-sm text-muted-foreground leading-relaxed mb-4 line-clamp-3">
+              <p className="text-sm text-muted-foreground leading-relaxed mb-5">
                 {description}
               </p>
               
@@ -548,25 +548,25 @@ export default function MarketingFunnel() {
       number: 1,
       title: "Attract & Capture",
       subtitle: "Top of Funnel",
-      description: "Get your brand in front of the right people at the right time. We drive qualified traffic to your business through proven digital channels.",
+      description: "Get your brand in front of the right people at the right time. We drive qualified traffic to your business through proven digital channels that deliver measurable results.",
       color: "from-red-600 to-red-500",
       services: [
         {
           icon: Search,
           name: "SEO",
-          description: "Rank higher in search results and attract organic traffic that converts.",
+          description: "Dominate search results with our proven SEO strategies. We optimize your site structure, content, and technical performance to drive organic traffic that actually converts into paying customers.",
           link: "/services/seo"
         },
         {
           icon: TrendingUp,
           name: "PPC Advertising",
-          description: "Targeted ads on Google and social platforms for immediate visibility.",
+          description: "Get instant visibility with targeted Google Ads and Meta campaigns. We manage your ad spend to maximize ROI, continuously optimizing bids, targeting, and creative to reduce cost per acquisition.",
           link: "/services/paid-advertising"
         },
         {
           icon: Share2,
           name: "Social Media",
-          description: "Build awareness and engage your audience across social platforms.",
+          description: "Build a loyal following and engage your audience where they spend their time. From content creation to community management, we help you stand out on Instagram, Facebook, LinkedIn, and TikTok.",
           link: "/services/social-media"
         }
       ],
@@ -580,13 +580,13 @@ export default function MarketingFunnel() {
       number: 2,
       title: "Convert & Engage",
       subtitle: "Your Digital Storefront",
-      description: "Turn visitors into leads with a high-converting website. Your website is your 24/7 salesperson—make every visit count.",
+      description: "Turn visitors into leads with a high-converting website. Your website is your 24/7 salesperson—make every visit count with designs that drive action.",
       color: "from-red-500 to-orange-500",
       services: [
         {
           icon: Globe,
           name: "Website Design",
-          description: "Fast, beautiful websites built to convert visitors into customers.",
+          description: "Get a stunning, lightning-fast website designed to convert. We build mobile-first, SEO-optimized sites with clear CTAs, trust signals, and user journeys engineered for maximum engagement and lead capture.",
           link: "/services/websites"
         }
       ],
@@ -600,13 +600,13 @@ export default function MarketingFunnel() {
       number: 3,
       title: "Nurture & Organize",
       subtitle: "Customer Management",
-      description: "Never lose track of a lead again. Organize your contacts, automate follow-ups, and build lasting relationships.",
+      description: "Never lose track of a lead again. Organize your contacts, automate follow-ups, and build lasting relationships that drive repeat business.",
       color: "from-orange-500 to-amber-500",
       services: [
         {
           icon: Database,
           name: "CRM Setup",
-          description: "Centralize all your customer data and interactions in one place.",
+          description: "Get complete control of your customer relationships. We set up and customize your CRM to track every interaction, automate lead scoring, and ensure no opportunity slips through the cracks.",
           link: "/services/crm"
         }
       ],
@@ -620,19 +620,19 @@ export default function MarketingFunnel() {
       number: 4,
       title: "Automate & Scale",
       subtitle: "Sales Process Optimization",
-      description: "Work smarter, not harder. Automate repetitive tasks, integrate AI, and streamline your entire sales process.",
+      description: "Work smarter, not harder. Automate repetitive tasks, integrate AI, and streamline your entire sales process to handle 10x the volume without hiring.",
       color: "from-amber-500 to-yellow-500",
       services: [
         {
           icon: Bot,
           name: "AI Integration",
-          description: "Custom AI solutions for chat, content, and customer service.",
+          description: "Leverage the power of AI to automate customer service, generate content, qualify leads, and provide 24/7 instant responses. Custom AI chatbots, email assistants, and intelligent routing at your service.",
           link: "/services/ai-automation"
         },
         {
           icon: Workflow,
           name: "Workflow Automation",
-          description: "Automate tasks, notifications, and handoffs between systems.",
+          description: "Connect your tools and eliminate manual busywork. We build custom automations for lead routing, follow-up sequences, task creation, notifications, and data sync across your entire tech stack.",
           link: "/services/ai-automation"
         }
       ],
@@ -646,13 +646,13 @@ export default function MarketingFunnel() {
       number: 5,
       title: "Measure & Optimize",
       subtitle: "Analytics & ROI",
-      description: "Know exactly what's working and what's not. Get clear reporting on your marketing ROI and make data-driven decisions.",
+      description: "Know exactly what's working and what's not. Get clear reporting on your marketing ROI and make data-driven decisions that accelerate growth.",
       color: "from-yellow-500 to-green-500",
       services: [
         {
           icon: BarChart3,
           name: "Analytics & Reporting",
-          description: "Custom dashboards showing your key metrics and ROI.",
+          description: "See your complete marketing picture in one place. Custom dashboards that track leads, conversions, revenue attribution, and ROI across every channel—with monthly insights and optimization recommendations.",
           link: "/services/analytics"
         }
       ],
