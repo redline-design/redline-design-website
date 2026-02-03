@@ -38,6 +38,7 @@ const AIAutomationPage = lazy(() => import("@/pages/services/ai-automation"));
 const AppDevelopmentPage = lazy(() => import("@/pages/services/app-development"));
 const SEOChecker = lazy(() => import("@/pages/SEOChecker"));
 const Sitemap = lazy(() => import("@/pages/Sitemap"));
+const MarketingFunnel = lazy(() => import("@/pages/MarketingFunnel"));
 const NotFound = lazy(() => import("@/pages/not-found"));
 
 function Router() {
@@ -79,6 +80,7 @@ function Router() {
       <Route path="/onboarding" component={Onboarding} />
       <Route path="/digital-marketing" component={Articles} />
       <Route path="/sitemap" component={Sitemap} />
+      <Route path="/marketing-funnel" component={MarketingFunnel} />
       <Route path="/admin" component={Admin} />
       
       <Route path="/tos">
