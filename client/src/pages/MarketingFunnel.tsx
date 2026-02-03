@@ -295,16 +295,16 @@ export default function MarketingFunnel() {
           <ScrollAnimatedSection>
             <div className="flex flex-wrap justify-center gap-6 py-8 mb-8 border-y border-border/30">
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <Users className="h-4 w-4 text-primary" />
-                <span>500+ Businesses Served</span>
-              </div>
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <TrendingUp className="h-4 w-4 text-primary" />
-                <span>Average 312% ROI</span>
+                <span>Average 7x ROI</span>
               </div>
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <Zap className="h-4 w-4 text-primary" />
-                <span>Results in 30 Days</span>
+                <span>1 Week Setup</span>
+              </div>
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <Target className="h-4 w-4 text-primary" />
+                <span>1 Stop Marketing Solution</span>
               </div>
             </div>
           </ScrollAnimatedSection>
