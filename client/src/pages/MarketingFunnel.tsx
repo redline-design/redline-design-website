@@ -169,42 +169,54 @@ function GrowthEngineVisualization() {
       label: "ATTRACT", 
       description: "SEO, PPC, Social",
       color: "from-red-600 to-red-500",
-      glowColor: "rgba(239, 68, 68, 0.5)"
+      glowColor: "rgba(239, 68, 68, 0.6)"
     },
     { 
       icon: Globe,
       label: "CONVERT", 
       description: "Your Website",
       color: "from-orange-500 to-amber-500",
-      glowColor: "rgba(249, 115, 22, 0.5)"
+      glowColor: "rgba(249, 115, 22, 0.6)"
     },
     { 
       icon: Database,
       label: "NURTURE", 
       description: "CRM & Email",
       color: "from-amber-500 to-yellow-500",
-      glowColor: "rgba(245, 158, 11, 0.5)"
+      glowColor: "rgba(245, 158, 11, 0.6)"
     },
     { 
       icon: Bot,
       label: "AUTOMATE", 
       description: "AI & Workflows",
       color: "from-yellow-500 to-lime-500",
-      glowColor: "rgba(234, 179, 8, 0.5)"
+      glowColor: "rgba(234, 179, 8, 0.6)"
     },
     { 
       icon: BarChart3,
       label: "OPTIMIZE", 
       description: "Analytics & ROI",
       color: "from-lime-500 to-green-500",
-      glowColor: "rgba(132, 204, 22, 0.5)"
+      glowColor: "rgba(132, 204, 22, 0.6)"
     },
   ];
 
+  const containerSize = 380;
+  const nodeSize = 80;
+  const radius = 145;
+
   return (
-    <div className="relative w-full max-w-xl mx-auto">
-      <div className="relative flex items-center justify-center">
-        <svg className="absolute w-full h-full" viewBox="0 0 400 400" style={{ transform: "rotate(-90deg)" }}>
+    <div className="relative w-full flex flex-col items-center">
+      <div 
+        className="relative"
+        style={{ width: containerSize, height: containerSize }}
+      >
+        <svg 
+          className="absolute inset-0" 
+          width={containerSize} 
+          height={containerSize} 
+          viewBox={`0 0 ${containerSize} ${containerSize}`}
+        >
           <defs>
             <linearGradient id="ringGradient" x1="0%" y1="0%" x2="100%" y2="0%">
               <stop offset="0%" stopColor="#ef4444" />
@@ -215,153 +227,145 @@ function GrowthEngineVisualization() {
             </linearGradient>
           </defs>
           <motion.circle
-            cx="200"
-            cy="200"
-            r="180"
+            cx={containerSize / 2}
+            cy={containerSize / 2}
+            r={radius + 25}
             fill="none"
             stroke="url(#ringGradient)"
-            strokeWidth="3"
+            strokeWidth="2"
             strokeLinecap="round"
+            strokeDasharray="8 4"
             initial={{ pathLength: 0, opacity: 0 }}
-            animate={{ pathLength: 1, opacity: 1 }}
-            transition={{ duration: 2, ease: "easeOut" }}
+            whileInView={{ pathLength: 1, opacity: 0.6 }}
+            viewport={{ once: true }}
+            transition={{ duration: 2.5, ease: "easeOut" }}
+            style={{ transform: "rotate(-90deg)", transformOrigin: "center" }}
           />
-        </svg>
-        
-        <div className="relative w-[320px] h-[320px] md:w-[380px] md:h-[380px]">
-          {stages.map((stage, index) => {
-            const angle = (index * 72 - 90) * (Math.PI / 180);
-            const radius = 140;
-            const x = Math.cos(angle) * radius;
-            const y = Math.sin(angle) * radius;
-            
-            return (
-              <motion.div
-                key={stage.label}
-                className="absolute"
-                style={{
-                  left: `calc(50% + ${x}px - 40px)`,
-                  top: `calc(50% + ${y}px - 40px)`,
-                }}
-                initial={{ opacity: 0, scale: 0 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6, delay: 0.3 + index * 0.15 }}
-                onMouseEnter={() => setActiveStage(index)}
-                onMouseLeave={() => setActiveStage(null)}
-              >
-                <motion.div
-                  className={`relative w-20 h-20 rounded-2xl bg-gradient-to-br ${stage.color} flex flex-col items-center justify-center cursor-pointer shadow-xl`}
-                  whileHover={{ scale: 1.15, zIndex: 10 }}
-                  animate={{
-                    boxShadow: activeStage === index 
-                      ? `0 0 40px ${stage.glowColor}` 
-                      : `0 10px 30px rgba(0,0,0,0.3)`
-                  }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <motion.div
-                    className="absolute inset-0 rounded-2xl bg-gradient-to-br from-white/30 to-transparent"
-                  />
-                  <stage.icon className="h-7 w-7 text-white mb-1 relative z-10" />
-                  <span className="text-[10px] font-bold text-white/90 relative z-10">{stage.label}</span>
-                </motion.div>
-                
-                <motion.div
-                  className="absolute -bottom-8 left-1/2 -translate-x-1/2 whitespace-nowrap"
-                  initial={{ opacity: 0, y: -5 }}
-                  animate={{ 
-                    opacity: activeStage === index ? 1 : 0.6,
-                    y: activeStage === index ? 0 : -5
-                  }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <span className="text-xs text-muted-foreground">{stage.description}</span>
-                </motion.div>
-              </motion.div>
-            );
-          })}
-          
-          <motion.div
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-            initial={{ opacity: 0, scale: 0.5 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 1 }}
-          >
-            <motion.div
-              className="relative"
-              animate={{ rotate: 360 }}
-              transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-            >
-              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-red-500 via-yellow-500 to-green-500 blur-xl opacity-50" 
-                style={{ width: 100, height: 100, margin: -10 }}
-              />
-            </motion.div>
-            <motion.div
-              className="relative w-20 h-20 rounded-full bg-gradient-to-br from-green-500 to-emerald-600 flex flex-col items-center justify-center shadow-2xl"
-              animate={{ 
-                boxShadow: [
-                  "0 0 30px rgba(34, 197, 94, 0.5)",
-                  "0 0 60px rgba(34, 197, 94, 0.8)",
-                  "0 0 30px rgba(34, 197, 94, 0.5)"
-                ]
-              }}
-              transition={{ duration: 2, repeat: Infinity }}
-            >
-              <Crown className="h-8 w-8 text-white mb-0.5" />
-              <span className="text-[10px] font-black text-white tracking-wide">REVENUE</span>
-            </motion.div>
-          </motion.div>
           
           {stages.map((_, index) => {
-            const angle1 = (index * 72 - 90) * (Math.PI / 180);
-            const angle2 = ((index + 1) * 72 - 90) * (Math.PI / 180);
-            const outerRadius = 120;
-            const innerRadius = 50;
+            const angle = (index * 72 - 90) * (Math.PI / 180);
+            const outerX = containerSize / 2 + Math.cos(angle) * (radius - 10);
+            const outerY = containerSize / 2 + Math.sin(angle) * (radius - 10);
+            const innerX = containerSize / 2 + Math.cos(angle) * 55;
+            const innerY = containerSize / 2 + Math.sin(angle) * 55;
             
             return (
-              <motion.div
-                key={`arrow-${index}`}
-                className="absolute top-1/2 left-1/2 pointer-events-none"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 0.3 }}
-                transition={{ duration: 0.5, delay: 1.5 + index * 0.1 }}
-              >
-                <svg width="300" height="300" style={{ position: 'absolute', left: -150, top: -150 }}>
-                  <defs>
-                    <linearGradient id={`arrowGrad${index}`} x1="0%" y1="0%" x2="100%" y2="0%">
-                      <stop offset="0%" stopColor="currentColor" stopOpacity="0.1" />
-                      <stop offset="100%" stopColor="currentColor" stopOpacity="0.4" />
-                    </linearGradient>
-                  </defs>
-                  <motion.path
-                    d={`M ${150 + Math.cos(angle1) * outerRadius} ${150 + Math.sin(angle1) * outerRadius} 
-                        Q 150 150 ${150 + Math.cos(angle1) * innerRadius} ${150 + Math.sin(angle1) * innerRadius}`}
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1"
-                    strokeDasharray="4 4"
-                    className="text-primary/30"
-                    initial={{ pathLength: 0 }}
-                    animate={{ pathLength: 1 }}
-                    transition={{ duration: 1, delay: 1.5 + index * 0.2 }}
-                  />
-                </svg>
-              </motion.div>
+              <motion.line
+                key={`line-${index}`}
+                x1={outerX}
+                y1={outerY}
+                x2={innerX}
+                y2={innerY}
+                stroke="currentColor"
+                strokeWidth="1"
+                strokeDasharray="4 6"
+                className="text-muted-foreground/30"
+                initial={{ pathLength: 0, opacity: 0 }}
+                whileInView={{ pathLength: 1, opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 1 + index * 0.1 }}
+              />
             );
           })}
-        </div>
+        </svg>
+        
+        {stages.map((stage, index) => {
+          const angle = (index * 72 - 90) * (Math.PI / 180);
+          const x = containerSize / 2 + Math.cos(angle) * radius - nodeSize / 2;
+          const y = containerSize / 2 + Math.sin(angle) * radius - nodeSize / 2;
+          
+          return (
+            <motion.div
+              key={stage.label}
+              className="absolute"
+              style={{ left: x, top: y, width: nodeSize, height: nodeSize }}
+              initial={{ opacity: 0, scale: 0 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 + index * 0.1, type: "spring", stiffness: 200 }}
+              onMouseEnter={() => setActiveStage(index)}
+              onMouseLeave={() => setActiveStage(null)}
+            >
+              <motion.div
+                className={`relative w-full h-full rounded-2xl bg-gradient-to-br ${stage.color} flex flex-col items-center justify-center cursor-pointer`}
+                whileHover={{ scale: 1.12 }}
+                animate={{
+                  boxShadow: activeStage === index 
+                    ? `0 0 40px ${stage.glowColor}, 0 8px 32px rgba(0,0,0,0.3)` 
+                    : `0 8px 24px rgba(0,0,0,0.25)`
+                }}
+                transition={{ duration: 0.25 }}
+              >
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-b from-white/25 to-transparent" />
+                <stage.icon className="h-7 w-7 text-white mb-1 relative z-10 drop-shadow-md" />
+                <span className="text-[10px] font-bold text-white relative z-10 drop-shadow-sm">{stage.label}</span>
+              </motion.div>
+              
+              <motion.div
+                className="absolute left-1/2 -translate-x-1/2 whitespace-nowrap pointer-events-none"
+                style={{ top: nodeSize + 8 }}
+                animate={{ 
+                  opacity: activeStage === index ? 1 : 0,
+                  y: activeStage === index ? 0 : -5
+                }}
+                transition={{ duration: 0.2 }}
+              >
+                <span className="text-xs font-medium text-foreground bg-card/90 backdrop-blur-sm px-3 py-1.5 rounded-full border border-border/50 shadow-lg">
+                  {stage.description}
+                </span>
+              </motion.div>
+            </motion.div>
+          );
+        })}
+        
+        <motion.div
+          className="absolute"
+          style={{ 
+            left: containerSize / 2 - 48, 
+            top: containerSize / 2 - 48,
+            width: 96,
+            height: 96
+          }}
+          initial={{ opacity: 0, scale: 0 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.8, type: "spring" }}
+        >
+          <motion.div
+            className="absolute inset-0 rounded-full"
+            animate={{ rotate: 360 }}
+            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+          >
+            <div className="absolute inset-[-10px] rounded-full bg-gradient-conic from-red-500 via-yellow-500 via-green-500 to-red-500 blur-xl opacity-40" 
+              style={{ background: "conic-gradient(from 0deg, #ef4444, #f97316, #eab308, #84cc16, #22c55e, #84cc16, #eab308, #f97316, #ef4444)" }}
+            />
+          </motion.div>
+          <motion.div
+            className="relative w-full h-full rounded-full bg-gradient-to-br from-green-500 via-emerald-500 to-green-600 flex flex-col items-center justify-center shadow-2xl border-2 border-white/20"
+            animate={{ 
+              boxShadow: [
+                "0 0 30px rgba(34, 197, 94, 0.4), 0 0 60px rgba(34, 197, 94, 0.2)",
+                "0 0 50px rgba(34, 197, 94, 0.6), 0 0 80px rgba(34, 197, 94, 0.3)",
+                "0 0 30px rgba(34, 197, 94, 0.4), 0 0 60px rgba(34, 197, 94, 0.2)"
+              ]
+            }}
+            transition={{ duration: 2.5, repeat: Infinity }}
+          >
+            <Crown className="h-9 w-9 text-white drop-shadow-lg" />
+            <span className="text-[9px] font-black text-white tracking-wider mt-0.5">REVENUE</span>
+          </motion.div>
+        </motion.div>
       </div>
       
-      <motion.div 
-        className="mt-12 text-center"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 2 }}
+      <motion.p 
+        className="text-sm text-muted-foreground mt-8"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, delay: 1.5 }}
       >
-        <p className="text-sm text-muted-foreground">
-          <span className="text-primary font-semibold">Hover</span> over each stage to learn more
-        </p>
-      </motion.div>
+        <span className="text-primary font-medium">Hover</span> each stage to explore
+      </motion.p>
     </div>
   );
 }
@@ -889,32 +893,11 @@ export default function MarketingFunnel() {
             </motion.div>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
             <HeroStatCard value={7} suffix="x" label="Average ROI" icon={TrendingUp} delay={1.0} />
             <HeroStatCard value={1} suffix=" Week" label="Setup Time" icon={Zap} delay={1.1} />
             <HeroStatCard value={1} suffix=" Stop" label="Complete Solution" icon={Target} delay={1.2} />
           </div>
-          
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 1.3 }}
-            className="max-w-2xl mx-auto"
-          >
-            <div className="relative">
-              <motion.div
-                className="absolute -inset-4 bg-gradient-to-br from-primary/20 via-orange-500/10 to-transparent blur-3xl"
-                animate={{ opacity: [0.3, 0.6, 0.3], scale: [1, 1.05, 1] }}
-                transition={{ duration: 5, repeat: Infinity }}
-              />
-              <div className="relative bg-card/60 backdrop-blur-2xl rounded-3xl border border-border/50 p-8 shadow-2xl">
-                <h3 className="text-center text-sm font-bold text-muted-foreground mb-8 uppercase tracking-[0.2em]">
-                  Your Growth Engine
-                </h3>
-                <GrowthEngineVisualization />
-              </div>
-            </div>
-          </motion.div>
         </motion.div>
         
         <motion.div
@@ -927,6 +910,48 @@ export default function MarketingFunnel() {
             <ChevronDown className="h-6 w-6 text-muted-foreground/50" />
           </div>
         </motion.div>
+      </section>
+      
+      <section className="relative py-24 md:py-32 px-4 sm:px-6 lg:px-8 overflow-hidden" data-testid="section-growth-engine">
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-primary/5 to-background" />
+        
+        <div className="max-w-4xl mx-auto relative">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="text-center mb-16"
+          >
+            <Badge className="bg-primary/10 text-primary border-primary/20 mb-4">
+              How It Works
+            </Badge>
+            <h2 className="text-4xl md:text-5xl font-black text-foreground mb-4">
+              Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-orange-500">Growth Engine</span>
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-xl mx-auto">
+              Five integrated services working together to drive revenue
+            </p>
+          </motion.div>
+          
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            <div className="relative">
+              <motion.div
+                className="absolute -inset-8 bg-gradient-to-br from-primary/15 via-orange-500/10 to-green-500/10 blur-3xl rounded-full"
+                animate={{ opacity: [0.4, 0.7, 0.4], scale: [1, 1.03, 1] }}
+                transition={{ duration: 6, repeat: Infinity }}
+              />
+              <div className="relative bg-card/70 backdrop-blur-2xl rounded-[2rem] border border-border/50 p-10 md:p-16 shadow-2xl">
+                <GrowthEngineVisualization />
+              </div>
+            </div>
+          </motion.div>
+        </div>
       </section>
 
       <section className="py-24 md:py-32 px-4 sm:px-6 lg:px-8 relative" data-testid="section-funnel-stages">
