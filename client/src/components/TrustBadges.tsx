@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { SiGoogle, SiMeta, SiShopify, SiHubspot } from "react-icons/si";
-import { Award, Shield, Star } from "lucide-react";
 
 const badges = [
   {
@@ -28,12 +27,6 @@ const badges = [
     description: "CRM & Marketing",
     color: "#FF7A59",
   },
-];
-
-const achievements = [
-  { icon: Award, value: "500+", label: "Projects Delivered" },
-  { icon: Star, value: "5.0", label: "Average Rating" },
-  { icon: Shield, value: "100%", label: "Client Satisfaction" },
 ];
 
 export default function TrustBadges() {
@@ -63,7 +56,7 @@ export default function TrustBadges() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {badges.map((badge, index) => (
             <motion.div
               key={badge.title}
@@ -96,27 +89,6 @@ export default function TrustBadges() {
                   border: `1px solid ${badge.color}30`
                 }}
               />
-            </motion.div>
-          ))}
-        </div>
-
-        <div className="grid grid-cols-3 gap-6 max-w-2xl mx-auto">
-          {achievements.map((achievement, index) => (
-            <motion.div
-              key={achievement.label}
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={inView ? { opacity: 1, scale: 1 } : {}}
-              transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
-              className="text-center"
-              data-testid={`achievement-${achievement.label.toLowerCase().replace(/\s/g, "-")}`}
-            >
-              <achievement.icon className="w-6 h-6 text-primary mx-auto mb-2" />
-              <div className="text-2xl md:text-3xl font-bold text-foreground">
-                {achievement.value}
-              </div>
-              <div className="text-xs text-muted-foreground">
-                {achievement.label}
-              </div>
             </motion.div>
           ))}
         </div>
