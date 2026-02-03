@@ -160,79 +160,207 @@ function AnimatedGradientMesh() {
   );
 }
 
-function FunnelVisualization3D() {
+function GrowthEngineVisualization() {
+  const [activeStage, setActiveStage] = useState<number | null>(null);
+  
   const stages = [
-    { width: "100%", label: "AWARENESS", color: "from-red-600 to-red-500", glow: "shadow-red-500/50" },
-    { width: "82%", label: "INTEREST", color: "from-red-500 to-orange-500", glow: "shadow-orange-500/50" },
-    { width: "64%", label: "CONSIDERATION", color: "from-orange-500 to-amber-500", glow: "shadow-amber-500/50" },
-    { width: "46%", label: "INTENT", color: "from-amber-500 to-yellow-500", glow: "shadow-yellow-500/50" },
-    { width: "28%", label: "CONVERSION", color: "from-yellow-500 to-green-500", glow: "shadow-green-500/50" },
+    { 
+      icon: Search,
+      label: "ATTRACT", 
+      description: "SEO, PPC, Social",
+      color: "from-red-600 to-red-500",
+      glowColor: "rgba(239, 68, 68, 0.5)"
+    },
+    { 
+      icon: Globe,
+      label: "CONVERT", 
+      description: "Your Website",
+      color: "from-orange-500 to-amber-500",
+      glowColor: "rgba(249, 115, 22, 0.5)"
+    },
+    { 
+      icon: Database,
+      label: "NURTURE", 
+      description: "CRM & Email",
+      color: "from-amber-500 to-yellow-500",
+      glowColor: "rgba(245, 158, 11, 0.5)"
+    },
+    { 
+      icon: Bot,
+      label: "AUTOMATE", 
+      description: "AI & Workflows",
+      color: "from-yellow-500 to-lime-500",
+      glowColor: "rgba(234, 179, 8, 0.5)"
+    },
+    { 
+      icon: BarChart3,
+      label: "OPTIMIZE", 
+      description: "Analytics & ROI",
+      color: "from-lime-500 to-green-500",
+      glowColor: "rgba(132, 204, 22, 0.5)"
+    },
   ];
 
   return (
-    <div className="relative w-full max-w-lg mx-auto perspective-1000">
-      <motion.div
-        className="relative"
-        initial={{ rotateX: 20 }}
-        animate={{ rotateX: [20, 15, 20] }}
-        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-        style={{ transformStyle: "preserve-3d" }}
-      >
-        {stages.map((stage, index) => (
+    <div className="relative w-full max-w-xl mx-auto">
+      <div className="relative flex items-center justify-center">
+        <svg className="absolute w-full h-full" viewBox="0 0 400 400" style={{ transform: "rotate(-90deg)" }}>
+          <defs>
+            <linearGradient id="ringGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#ef4444" />
+              <stop offset="25%" stopColor="#f97316" />
+              <stop offset="50%" stopColor="#eab308" />
+              <stop offset="75%" stopColor="#84cc16" />
+              <stop offset="100%" stopColor="#22c55e" />
+            </linearGradient>
+          </defs>
+          <motion.circle
+            cx="200"
+            cy="200"
+            r="180"
+            fill="none"
+            stroke="url(#ringGradient)"
+            strokeWidth="3"
+            strokeLinecap="round"
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={{ pathLength: 1, opacity: 1 }}
+            transition={{ duration: 2, ease: "easeOut" }}
+          />
+        </svg>
+        
+        <div className="relative w-[320px] h-[320px] md:w-[380px] md:h-[380px]">
+          {stages.map((stage, index) => {
+            const angle = (index * 72 - 90) * (Math.PI / 180);
+            const radius = 140;
+            const x = Math.cos(angle) * radius;
+            const y = Math.sin(angle) * radius;
+            
+            return (
+              <motion.div
+                key={stage.label}
+                className="absolute"
+                style={{
+                  left: `calc(50% + ${x}px - 40px)`,
+                  top: `calc(50% + ${y}px - 40px)`,
+                }}
+                initial={{ opacity: 0, scale: 0 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6, delay: 0.3 + index * 0.15 }}
+                onMouseEnter={() => setActiveStage(index)}
+                onMouseLeave={() => setActiveStage(null)}
+              >
+                <motion.div
+                  className={`relative w-20 h-20 rounded-2xl bg-gradient-to-br ${stage.color} flex flex-col items-center justify-center cursor-pointer shadow-xl`}
+                  whileHover={{ scale: 1.15, zIndex: 10 }}
+                  animate={{
+                    boxShadow: activeStage === index 
+                      ? `0 0 40px ${stage.glowColor}` 
+                      : `0 10px 30px rgba(0,0,0,0.3)`
+                  }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <motion.div
+                    className="absolute inset-0 rounded-2xl bg-gradient-to-br from-white/30 to-transparent"
+                  />
+                  <stage.icon className="h-7 w-7 text-white mb-1 relative z-10" />
+                  <span className="text-[10px] font-bold text-white/90 relative z-10">{stage.label}</span>
+                </motion.div>
+                
+                <motion.div
+                  className="absolute -bottom-8 left-1/2 -translate-x-1/2 whitespace-nowrap"
+                  initial={{ opacity: 0, y: -5 }}
+                  animate={{ 
+                    opacity: activeStage === index ? 1 : 0.6,
+                    y: activeStage === index ? 0 : -5
+                  }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <span className="text-xs text-muted-foreground">{stage.description}</span>
+                </motion.div>
+              </motion.div>
+            );
+          })}
+          
           <motion.div
-            key={stage.label}
-            className="flex justify-center mb-2"
-            initial={{ opacity: 0, scaleX: 0, z: -50 }}
-            whileInView={{ opacity: 1, scaleX: 1, z: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: index * 0.2, ease: [0.22, 1, 0.36, 1] }}
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 1 }}
           >
             <motion.div
-              className={`h-14 md:h-16 bg-gradient-to-r ${stage.color} rounded-lg relative overflow-hidden shadow-2xl ${stage.glow}`}
-              style={{ width: stage.width }}
-              whileHover={{ scale: 1.05, z: 20 }}
-              transition={{ duration: 0.3 }}
+              className="relative"
+              animate={{ rotate: 360 }}
+              transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
             >
-              <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/30 to-white/0"
-                animate={{ x: ["-200%", "200%"] }}
-                transition={{ duration: 3, delay: index * 0.4, repeat: Infinity, repeatDelay: 2 }}
+              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-red-500 via-yellow-500 to-green-500 blur-xl opacity-50" 
+                style={{ width: 100, height: 100, margin: -10 }}
               />
-              <motion.div
-                className="absolute inset-0 bg-gradient-to-b from-white/20 to-transparent"
-              />
-              <span className="absolute inset-0 flex items-center justify-center text-sm md:text-base font-black text-white tracking-wider drop-shadow-lg">
-                {stage.label}
-              </span>
+            </motion.div>
+            <motion.div
+              className="relative w-20 h-20 rounded-full bg-gradient-to-br from-green-500 to-emerald-600 flex flex-col items-center justify-center shadow-2xl"
+              animate={{ 
+                boxShadow: [
+                  "0 0 30px rgba(34, 197, 94, 0.5)",
+                  "0 0 60px rgba(34, 197, 94, 0.8)",
+                  "0 0 30px rgba(34, 197, 94, 0.5)"
+                ]
+              }}
+              transition={{ duration: 2, repeat: Infinity }}
+            >
+              <Crown className="h-8 w-8 text-white mb-0.5" />
+              <span className="text-[10px] font-black text-white tracking-wide">REVENUE</span>
             </motion.div>
           </motion.div>
-        ))}
-      </motion.div>
+          
+          {stages.map((_, index) => {
+            const angle1 = (index * 72 - 90) * (Math.PI / 180);
+            const angle2 = ((index + 1) * 72 - 90) * (Math.PI / 180);
+            const outerRadius = 120;
+            const innerRadius = 50;
+            
+            return (
+              <motion.div
+                key={`arrow-${index}`}
+                className="absolute top-1/2 left-1/2 pointer-events-none"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 0.3 }}
+                transition={{ duration: 0.5, delay: 1.5 + index * 0.1 }}
+              >
+                <svg width="300" height="300" style={{ position: 'absolute', left: -150, top: -150 }}>
+                  <defs>
+                    <linearGradient id={`arrowGrad${index}`} x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" stopColor="currentColor" stopOpacity="0.1" />
+                      <stop offset="100%" stopColor="currentColor" stopOpacity="0.4" />
+                    </linearGradient>
+                  </defs>
+                  <motion.path
+                    d={`M ${150 + Math.cos(angle1) * outerRadius} ${150 + Math.sin(angle1) * outerRadius} 
+                        Q 150 150 ${150 + Math.cos(angle1) * innerRadius} ${150 + Math.sin(angle1) * innerRadius}`}
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1"
+                    strokeDasharray="4 4"
+                    className="text-primary/30"
+                    initial={{ pathLength: 0 }}
+                    animate={{ pathLength: 1 }}
+                    transition={{ duration: 1, delay: 1.5 + index * 0.2 }}
+                  />
+                </svg>
+              </motion.div>
+            );
+          })}
+        </div>
+      </div>
       
-      <motion.div
-        className="flex justify-center mt-6"
+      <motion.div 
+        className="mt-12 text-center"
         initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8, delay: 1.2 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 2 }}
       >
-        <motion.div
-          className="flex flex-col items-center"
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
-        >
-          <ArrowDown className="h-8 w-8 text-green-500" />
-          <motion.div
-            className="mt-2 px-6 py-3 rounded-full bg-gradient-to-r from-green-500 to-emerald-500 shadow-2xl shadow-green-500/50"
-            animate={{ scale: [1, 1.05, 1] }}
-            transition={{ duration: 2, repeat: Infinity }}
-          >
-            <span className="text-lg font-black text-white flex items-center gap-2">
-              <Crown className="h-5 w-5" />
-              REVENUE
-            </span>
-          </motion.div>
-        </motion.div>
+        <p className="text-sm text-muted-foreground">
+          <span className="text-primary font-semibold">Hover</span> over each stage to learn more
+        </p>
       </motion.div>
     </div>
   );
@@ -505,9 +633,9 @@ export default function MarketingFunnel() {
     offset: ["start start", "end start"]
   });
   
-  const heroY = useTransform(scrollYProgress, [0, 1], [0, 200]);
-  const heroOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-  const heroScale = useTransform(scrollYProgress, [0, 0.5], [1, 0.95]);
+  const heroY = useTransform(scrollYProgress, [0, 1], [0, 100]);
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+  const heroScale = useTransform(scrollYProgress, [0, 0.8], [1, 0.98]);
 
   const funnelStages: FunnelStageProps[] = [
     {
@@ -783,7 +911,7 @@ export default function MarketingFunnel() {
                 <h3 className="text-center text-sm font-bold text-muted-foreground mb-8 uppercase tracking-[0.2em]">
                   Your Growth Engine
                 </h3>
-                <FunnelVisualization3D />
+                <GrowthEngineVisualization />
               </div>
             </div>
           </motion.div>
