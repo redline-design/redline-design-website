@@ -1,7 +1,8 @@
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform, useInView, useMotionValue, useSpring } from "framer-motion";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { useRef, useEffect, useState, useCallback } from "react";
 import { 
   Search, 
   TrendingUp, 
@@ -12,14 +13,320 @@ import {
   Workflow, 
   BarChart3, 
   ArrowRight, 
-  ArrowDown,
   Check,
   Target,
-  Users,
   Zap,
-  ChevronDown
+  ChevronDown,
+  Sparkles,
+  ArrowDown,
+  Rocket,
+  Crown,
+  Star
 } from "lucide-react";
-import ScrollAnimatedSection from "@/components/ScrollAnimatedSection";
+
+function useMousePosition() {
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const updateMousePosition = (e: MouseEvent) => {
+      setMousePosition({ x: e.clientX, y: e.clientY });
+    };
+
+    window.addEventListener("mousemove", updateMousePosition);
+    return () => window.removeEventListener("mousemove", updateMousePosition);
+  }, []);
+
+  return mousePosition;
+}
+
+function AnimatedCounter({ value, suffix = "", prefix = "" }: { value: number; suffix?: string; prefix?: string }) {
+  const [count, setCount] = useState(0);
+  const ref = useRef<HTMLSpanElement>(null);
+  const isInView = useInView(ref, { once: true });
+
+  useEffect(() => {
+    if (isInView) {
+      let start = 0;
+      const duration = 2000;
+      const startTime = performance.now();
+      
+      const animate = (currentTime: number) => {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const easeOut = 1 - Math.pow(1 - progress, 4);
+        setCount(Math.floor(easeOut * value));
+        
+        if (progress < 1) {
+          requestAnimationFrame(animate);
+        }
+      };
+      
+      requestAnimationFrame(animate);
+    }
+  }, [isInView, value]);
+
+  return <span ref={ref}>{prefix}{count}{suffix}</span>;
+}
+
+function ParticleField() {
+  const particles = Array.from({ length: 50 }, (_, i) => ({
+    id: i,
+    x: Math.random() * 100,
+    y: Math.random() * 100,
+    size: Math.random() * 4 + 1,
+    duration: Math.random() * 20 + 10,
+    delay: Math.random() * 5,
+  }));
+
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      {particles.map((particle) => (
+        <motion.div
+          key={particle.id}
+          className="absolute rounded-full bg-primary/30"
+          style={{
+            width: particle.size,
+            height: particle.size,
+            left: `${particle.x}%`,
+            top: `${particle.y}%`,
+          }}
+          animate={{
+            y: [0, -100, 0],
+            x: [0, Math.random() * 50 - 25, 0],
+            opacity: [0, 1, 0],
+            scale: [0, 1, 0],
+          }}
+          transition={{
+            duration: particle.duration,
+            delay: particle.delay,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+      ))}
+    </div>
+  );
+}
+
+function GlowingOrb({ delay, size, x, y, color = "primary" }: { delay: number; size: number; x: string; y: string; color?: string }) {
+  return (
+    <motion.div
+      className={`absolute rounded-full ${color === "primary" ? "bg-primary/30" : color === "orange" ? "bg-orange-500/20" : "bg-yellow-500/20"} blur-[100px]`}
+      style={{ width: size, height: size, left: x, top: y }}
+      animate={{
+        y: [0, -50, 0],
+        x: [0, 30, 0],
+        opacity: [0.2, 0.5, 0.2],
+        scale: [1, 1.2, 1],
+      }}
+      transition={{
+        duration: 8,
+        delay,
+        repeat: Infinity,
+        ease: "easeInOut",
+      }}
+    />
+  );
+}
+
+function AnimatedGradientMesh() {
+  return (
+    <div className="absolute inset-0 overflow-hidden">
+      <motion.div
+        className="absolute w-[800px] h-[800px] -top-[400px] -left-[400px]"
+        animate={{
+          background: [
+            "radial-gradient(circle, rgba(255,0,0,0.15) 0%, transparent 70%)",
+            "radial-gradient(circle, rgba(255,100,0,0.15) 0%, transparent 70%)",
+            "radial-gradient(circle, rgba(255,0,0,0.15) 0%, transparent 70%)",
+          ],
+          rotate: [0, 180, 360],
+        }}
+        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+      />
+      <motion.div
+        className="absolute w-[600px] h-[600px] -bottom-[300px] -right-[300px]"
+        animate={{
+          background: [
+            "radial-gradient(circle, rgba(255,150,0,0.1) 0%, transparent 70%)",
+            "radial-gradient(circle, rgba(255,0,0,0.1) 0%, transparent 70%)",
+            "radial-gradient(circle, rgba(255,150,0,0.1) 0%, transparent 70%)",
+          ],
+          rotate: [360, 180, 0],
+        }}
+        transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+      />
+    </div>
+  );
+}
+
+function FunnelVisualization3D() {
+  const stages = [
+    { width: "100%", label: "AWARENESS", color: "from-red-600 to-red-500", glow: "shadow-red-500/50" },
+    { width: "82%", label: "INTEREST", color: "from-red-500 to-orange-500", glow: "shadow-orange-500/50" },
+    { width: "64%", label: "CONSIDERATION", color: "from-orange-500 to-amber-500", glow: "shadow-amber-500/50" },
+    { width: "46%", label: "INTENT", color: "from-amber-500 to-yellow-500", glow: "shadow-yellow-500/50" },
+    { width: "28%", label: "CONVERSION", color: "from-yellow-500 to-green-500", glow: "shadow-green-500/50" },
+  ];
+
+  return (
+    <div className="relative w-full max-w-lg mx-auto perspective-1000">
+      <motion.div
+        className="relative"
+        initial={{ rotateX: 20 }}
+        animate={{ rotateX: [20, 15, 20] }}
+        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+        style={{ transformStyle: "preserve-3d" }}
+      >
+        {stages.map((stage, index) => (
+          <motion.div
+            key={stage.label}
+            className="flex justify-center mb-2"
+            initial={{ opacity: 0, scaleX: 0, z: -50 }}
+            whileInView={{ opacity: 1, scaleX: 1, z: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: index * 0.2, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <motion.div
+              className={`h-14 md:h-16 bg-gradient-to-r ${stage.color} rounded-lg relative overflow-hidden shadow-2xl ${stage.glow}`}
+              style={{ width: stage.width }}
+              whileHover={{ scale: 1.05, z: 20 }}
+              transition={{ duration: 0.3 }}
+            >
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/30 to-white/0"
+                animate={{ x: ["-200%", "200%"] }}
+                transition={{ duration: 3, delay: index * 0.4, repeat: Infinity, repeatDelay: 2 }}
+              />
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-b from-white/20 to-transparent"
+              />
+              <span className="absolute inset-0 flex items-center justify-center text-sm md:text-base font-black text-white tracking-wider drop-shadow-lg">
+                {stage.label}
+              </span>
+            </motion.div>
+          </motion.div>
+        ))}
+      </motion.div>
+      
+      <motion.div
+        className="flex justify-center mt-6"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8, delay: 1.2 }}
+      >
+        <motion.div
+          className="flex flex-col items-center"
+          animate={{ y: [0, 10, 0] }}
+          transition={{ duration: 2, repeat: Infinity }}
+        >
+          <ArrowDown className="h-8 w-8 text-green-500" />
+          <motion.div
+            className="mt-2 px-6 py-3 rounded-full bg-gradient-to-r from-green-500 to-emerald-500 shadow-2xl shadow-green-500/50"
+            animate={{ scale: [1, 1.05, 1] }}
+            transition={{ duration: 2, repeat: Infinity }}
+          >
+            <span className="text-lg font-black text-white flex items-center gap-2">
+              <Crown className="h-5 w-5" />
+              REVENUE
+            </span>
+          </motion.div>
+        </motion.div>
+      </motion.div>
+    </div>
+  );
+}
+
+interface ServiceCardProps {
+  icon: React.ElementType;
+  name: string;
+  description: string;
+  link: string;
+  color: string;
+  index: number;
+}
+
+function ServiceCard({ icon: Icon, name, description, link, color, index }: ServiceCardProps) {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  
+  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [10, -10]), { stiffness: 300, damping: 30 });
+  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-10, 10]), { stiffness: 300, damping: 30 });
+
+  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    if (!cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    mouseX.set(x);
+    mouseY.set(y);
+  }, [mouseX, mouseY]);
+
+  const handleMouseLeave = useCallback(() => {
+    mouseX.set(0);
+    mouseY.set(0);
+  }, [mouseX, mouseY]);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 40, rotateX: -15 }}
+      whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.7, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
+      style={{ perspective: 1000 }}
+    >
+      <Link href={link}>
+        <motion.div 
+          ref={cardRef}
+          className="group relative p-6 rounded-2xl bg-card/70 backdrop-blur-xl border border-border/50 h-full cursor-pointer overflow-hidden"
+          style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
+          onMouseMove={handleMouseMove}
+          onMouseLeave={handleMouseLeave}
+          whileHover={{ z: 50 }}
+        >
+          <motion.div
+            className={`absolute inset-0 bg-gradient-to-br ${color} opacity-0 group-hover:opacity-15 transition-all duration-500`}
+          />
+          <motion.div
+            className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+            style={{
+              background: "radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255,255,255,0.1) 0%, transparent 50%)"
+            }}
+          />
+          <div className="absolute inset-0 rounded-2xl border border-white/0 group-hover:border-white/10 transition-all duration-500" />
+          
+          <div className="relative" style={{ transform: "translateZ(20px)" }}>
+            <motion.div 
+              className={`w-14 h-14 rounded-xl bg-gradient-to-br ${color} flex items-center justify-center mb-5 shadow-xl`}
+              whileHover={{ rotate: [0, -10, 10, 0], scale: 1.1 }}
+              transition={{ duration: 0.5 }}
+            >
+              <Icon className="h-7 w-7 text-white" />
+            </motion.div>
+            
+            <h4 className="font-bold text-xl text-foreground mb-3 group-hover:text-primary transition-colors duration-300">
+              {name}
+            </h4>
+            <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+              {description}
+            </p>
+            
+            <motion.div
+              className="flex items-center gap-2 text-sm font-semibold text-primary"
+              initial={{ opacity: 0, x: -10 }}
+              whileHover={{ x: 5 }}
+            >
+              <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">Learn More</span>
+              <ArrowRight className="h-4 w-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            </motion.div>
+          </div>
+        </motion.div>
+      </Link>
+    </motion.div>
+  );
+}
 
 interface FunnelStageProps {
   number: number;
@@ -34,95 +341,181 @@ interface FunnelStageProps {
   }[];
   benefits: string[];
   isLast?: boolean;
+  color: string;
 }
 
-function FunnelStage({ number, title, subtitle, description, services, benefits, isLast = false }: FunnelStageProps) {
+function FunnelStage({ number, title, subtitle, description, services, benefits, isLast = false, color }: FunnelStageProps) {
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  
   return (
-    <ScrollAnimatedSection>
-      <div className="relative">
-        <div className="flex flex-col lg:flex-row gap-8 lg:gap-16 items-start">
-          <div className="lg:w-1/3">
-            <div className="sticky top-24">
-              <div className="flex items-center gap-4 mb-4">
-                <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center">
-                  <span className="text-xl font-bold text-primary">{number}</span>
-                </div>
-                <Badge variant="outline" className="text-xs border-primary/30 text-primary">
+    <div ref={ref} className="relative">
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={isInView ? { opacity: 1 } : {}}
+        transition={{ duration: 1 }}
+        className="flex flex-col lg:flex-row gap-10 lg:gap-20 items-start"
+      >
+        <div className="lg:w-1/3">
+          <div className="sticky top-24">
+            <motion.div 
+              className="flex items-start gap-5 mb-8"
+              initial={{ opacity: 0, x: -50 }}
+              animate={isInView ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
+              <div className="relative">
+                <motion.div
+                  className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${color} blur-2xl opacity-60`}
+                  animate={{ scale: [1, 1.3, 1], opacity: [0.4, 0.7, 0.4] }}
+                  transition={{ duration: 4, repeat: Infinity }}
+                />
+                <motion.div 
+                  className={`relative w-20 h-20 rounded-2xl bg-gradient-to-br ${color} flex items-center justify-center shadow-2xl`}
+                  whileHover={{ rotate: 5, scale: 1.05 }}
+                >
+                  <span className="text-3xl font-black text-white">{number}</span>
+                </motion.div>
+              </div>
+              <div className="pt-1">
+                <Badge className={`bg-gradient-to-r ${color} text-white border-0 mb-2 shadow-lg`}>
                   {subtitle}
                 </Badge>
+                <h3 className="text-3xl md:text-4xl font-black text-foreground leading-tight">
+                  {title}
+                </h3>
               </div>
-              <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
-                {title}
-              </h3>
-              <p className="text-muted-foreground mb-6">
-                {description}
-              </p>
-              <div className="space-y-2">
-                {benefits.map((benefit, i) => (
-                  <div key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
-                    <Check className="h-4 w-4 text-primary mt-0.5 shrink-0" />
-                    <span>{benefit}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-          
-          <div className="lg:w-2/3">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {services.map((service, index) => (
-                <motion.div
-                  key={service.name}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: index * 0.1 }}
+            </motion.div>
+            
+            <motion.p 
+              className="text-lg text-muted-foreground mb-8 leading-relaxed"
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.4 }}
+            >
+              {description}
+            </motion.p>
+            
+            <motion.div 
+              className="space-y-4"
+              initial={{ opacity: 0 }}
+              animate={isInView ? { opacity: 1 } : {}}
+              transition={{ duration: 0.6, delay: 0.5 }}
+            >
+              {benefits.map((benefit, i) => (
+                <motion.div 
+                  key={i} 
+                  className="flex items-start gap-4"
+                  initial={{ opacity: 0, x: -30 }}
+                  animate={isInView ? { opacity: 1, x: 0 } : {}}
+                  transition={{ duration: 0.5, delay: 0.6 + i * 0.1 }}
                 >
-                  <Link href={service.link}>
-                    <div className="group p-5 rounded-xl bg-card/50 border border-border/50 hover:border-primary/30 hover:bg-card/80 transition-all duration-300 h-full cursor-pointer">
-                      <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
-                        <service.icon className="h-5 w-5 text-primary" />
-                      </div>
-                      <h4 className="font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
-                        {service.name}
-                      </h4>
-                      <p className="text-sm text-muted-foreground">
-                        {service.description}
-                      </p>
-                    </div>
-                  </Link>
+                  <motion.div 
+                    className={`w-6 h-6 rounded-full bg-gradient-to-br ${color} flex items-center justify-center shrink-0 mt-0.5 shadow-lg`}
+                    whileHover={{ scale: 1.2 }}
+                  >
+                    <Check className="h-3.5 w-3.5 text-white" />
+                  </motion.div>
+                  <span className="text-muted-foreground">{benefit}</span>
                 </motion.div>
               ))}
-            </div>
+            </motion.div>
           </div>
         </div>
         
-        {!isLast && (
-          <div className="flex justify-center py-12">
-            <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              className="flex flex-col items-center gap-2"
-            >
-              <div className="h-16 w-px bg-gradient-to-b from-primary/50 to-primary/10" />
-              <ChevronDown className="h-5 w-5 text-primary/50 animate-bounce" />
-            </motion.div>
+        <div className="lg:w-2/3">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+            {services.map((service, index) => (
+              <ServiceCard
+                key={service.name}
+                {...service}
+                color={color}
+                index={index}
+              />
+            ))}
           </div>
-        )}
+        </div>
+      </motion.div>
+      
+      {!isLast && (
+        <div className="flex justify-center py-20">
+          <motion.div
+            initial={{ opacity: 0, scaleY: 0 }}
+            whileInView={{ opacity: 1, scaleY: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1 }}
+            className="flex flex-col items-center"
+          >
+            <div className="relative">
+              <motion.div
+                className={`absolute inset-0 w-2 bg-gradient-to-b ${color} blur-md`}
+                animate={{ opacity: [0.3, 0.8, 0.3] }}
+                transition={{ duration: 2, repeat: Infinity }}
+              />
+              <div className={`w-2 h-32 bg-gradient-to-b ${color} rounded-full shadow-lg`} />
+            </div>
+            <motion.div
+              animate={{ y: [0, 12, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+              className="mt-2"
+            >
+              <ChevronDown className="h-8 w-8 text-primary" />
+            </motion.div>
+          </motion.div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function HeroStatCard({ value, suffix, label, icon: Icon, delay }: { value: number; suffix: string; label: string; icon: React.ElementType; delay: number }) {
+  return (
+    <motion.div
+      className="relative group"
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, delay }}
+    >
+      <motion.div
+        className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+      />
+      <div className="relative bg-card/50 backdrop-blur-xl rounded-2xl border border-border/50 p-6 text-center">
+        <div className="flex items-center justify-center gap-3 mb-2">
+          <motion.div
+            className="w-10 h-10 rounded-xl bg-primary/20 flex items-center justify-center"
+            whileHover={{ rotate: 360 }}
+            transition={{ duration: 0.6 }}
+          >
+            <Icon className="h-5 w-5 text-primary" />
+          </motion.div>
+          <span className="text-4xl md:text-5xl font-black text-foreground">
+            <AnimatedCounter value={value} suffix={suffix} />
+          </span>
+        </div>
+        <span className="text-sm text-muted-foreground font-medium">{label}</span>
       </div>
-    </ScrollAnimatedSection>
+    </motion.div>
   );
 }
 
 export default function MarketingFunnel() {
+  const heroRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"]
+  });
+  
+  const heroY = useTransform(scrollYProgress, [0, 1], [0, 200]);
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+  const heroScale = useTransform(scrollYProgress, [0, 0.5], [1, 0.95]);
+
   const funnelStages: FunnelStageProps[] = [
     {
       number: 1,
       title: "Attract & Capture",
       subtitle: "Top of Funnel",
       description: "Get your brand in front of the right people at the right time. We drive qualified traffic to your business through proven digital channels.",
+      color: "from-red-600 to-red-500",
       services: [
         {
           icon: Search,
@@ -154,6 +547,7 @@ export default function MarketingFunnel() {
       title: "Convert & Engage",
       subtitle: "Your Digital Storefront",
       description: "Turn visitors into leads with a high-converting website. Your website is your 24/7 salesperson—make every visit count.",
+      color: "from-red-500 to-orange-500",
       services: [
         {
           icon: Globe,
@@ -173,6 +567,7 @@ export default function MarketingFunnel() {
       title: "Nurture & Organize",
       subtitle: "Customer Management",
       description: "Never lose track of a lead again. Organize your contacts, automate follow-ups, and build lasting relationships.",
+      color: "from-orange-500 to-amber-500",
       services: [
         {
           icon: Database,
@@ -192,6 +587,7 @@ export default function MarketingFunnel() {
       title: "Automate & Scale",
       subtitle: "Sales Process Optimization",
       description: "Work smarter, not harder. Automate repetitive tasks, integrate AI, and streamline your entire sales process.",
+      color: "from-amber-500 to-yellow-500",
       services: [
         {
           icon: Bot,
@@ -217,6 +613,7 @@ export default function MarketingFunnel() {
       title: "Measure & Optimize",
       subtitle: "Analytics & ROI",
       description: "Know exactly what's working and what's not. Get clear reporting on your marketing ROI and make data-driven decisions.",
+      color: "from-yellow-500 to-green-500",
       services: [
         {
           icon: BarChart3,
@@ -235,128 +632,318 @@ export default function MarketingFunnel() {
   ];
 
   return (
-    <div className="min-h-screen">
-      <section className="relative py-16 md:py-24 px-4 sm:px-6 lg:px-8 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-transparent" />
+    <div className="min-h-screen overflow-hidden relative">
+      <section ref={heroRef} className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 overflow-hidden">
+        <AnimatedGradientMesh />
+        <ParticleField />
         
-        <div className="max-w-6xl mx-auto relative">
-          <ScrollAnimatedSection>
-            <div className="text-center mb-12">
+        <GlowingOrb delay={0} size={500} x="5%" y="15%" color="primary" />
+        <GlowingOrb delay={2} size={400} x="75%" y="5%" color="orange" />
+        <GlowingOrb delay={4} size={350} x="85%" y="55%" color="primary" />
+        <GlowingOrb delay={1} size={450} x="-5%" y="65%" color="orange" />
+        
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,_var(--tw-gradient-stops))] from-primary/20 via-transparent to-transparent" />
+        </div>
+        
+        <motion.div 
+          className="max-w-7xl mx-auto relative z-10 py-20"
+          style={{ y: heroY, opacity: heroOpacity, scale: heroScale }}
+        >
+          <div className="text-center mb-16">
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1 }}
+            >
               <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6 }}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6"
+                className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-primary/10 border border-primary/30 mb-10"
+                whileHover={{ scale: 1.05 }}
+                animate={{ boxShadow: ["0 0 20px rgba(255,0,0,0)", "0 0 40px rgba(255,0,0,0.3)", "0 0 20px rgba(255,0,0,0)"] }}
+                transition={{ duration: 3, repeat: Infinity }}
               >
-                <Target className="h-4 w-4 text-primary" />
-                <span className="text-sm font-medium text-primary">Complete Marketing Solution</span>
+                <motion.div
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+                >
+                  <Sparkles className="h-5 w-5 text-primary" />
+                </motion.div>
+                <span className="text-base font-bold text-primary">Complete Marketing Solution</span>
+                <motion.div
+                  animate={{ rotate: -360 }}
+                  transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+                >
+                  <Star className="h-5 w-5 text-primary" />
+                </motion.div>
               </motion.div>
-              
-              <motion.h1
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.1 }}
-                className="text-4xl md:text-5xl lg:text-6xl font-black text-foreground mb-6 leading-tight"
+            </motion.div>
+            
+            <motion.h1
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.2 }}
+              className="text-6xl md:text-7xl lg:text-8xl font-black text-foreground mb-8 leading-[0.9] tracking-tight"
+            >
+              <motion.span
+                initial={{ opacity: 0, x: -50 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8, delay: 0.3 }}
               >
-                The Marketing Funnel<br />
-                <span className="text-primary">Built for Growth</span>
-              </motion.h1>
-              
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8"
+                The Marketing
+              </motion.span>
+              <br />
+              <motion.span 
+                className="relative inline-block"
+                initial={{ opacity: 0, x: 50 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8, delay: 0.5 }}
               >
-                From first impression to loyal customer—we handle every stage of your marketing funnel so you can focus on what you do best.
-              </motion.p>
-              
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-orange-500 to-red-500 bg-[length:200%_auto]" style={{ animation: "gradient 3s linear infinite" }}>
+                  Funnel
+                </span>
+                <motion.span
+                  className="absolute -inset-2 bg-gradient-to-r from-red-500/30 via-orange-500/30 to-red-500/30 blur-3xl -z-10"
+                  animate={{ opacity: [0.4, 0.8, 0.4], scale: [1, 1.1, 1] }}
+                  transition={{ duration: 3, repeat: Infinity }}
+                />
+              </motion.span>
+              <br />
+              <motion.span 
+                className="text-muted-foreground"
+                initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-                className="flex flex-wrap items-center justify-center gap-4"
+                transition={{ duration: 0.8, delay: 0.7 }}
               >
-                <Link href="/book-a-demo">
-                  <Button size="lg" className="font-semibold shadow-lg shadow-primary/25" data-testid="button-funnel-get-started">
+                Built for Growth
+              </motion.span>
+            </motion.h1>
+            
+            <motion.p
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.8 }}
+              className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto mb-12 leading-relaxed"
+            >
+              From first impression to loyal customer—we handle every stage of your marketing funnel so you can focus on what you do best.
+            </motion.p>
+            
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.9 }}
+              className="flex flex-wrap items-center justify-center gap-5 mb-16"
+            >
+              <Link href="/book-a-demo">
+                <motion.div 
+                  whileHover={{ scale: 1.05 }} 
+                  whileTap={{ scale: 0.98 }}
+                  className="relative group"
+                >
+                  <motion.div
+                    className="absolute -inset-1 bg-gradient-to-r from-red-500 to-orange-500 rounded-xl blur-lg opacity-70 group-hover:opacity-100 transition-opacity"
+                    animate={{ opacity: [0.5, 0.8, 0.5] }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                  />
+                  <Button size="lg" className="relative font-bold text-lg px-10 py-7 bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-red-400 border-0" data-testid="button-funnel-get-started">
+                    <Rocket className="mr-2 h-5 w-5" />
                     Get Started
-                    <ArrowRight className="ml-2 h-4 w-4" />
+                    <ArrowRight className="ml-2 h-5 w-5" />
                   </Button>
-                </Link>
-                <Link href="/services">
-                  <Button variant="outline" size="lg" className="font-semibold" data-testid="button-funnel-view-services">
+                </motion.div>
+              </Link>
+              <Link href="/services">
+                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }}>
+                  <Button variant="outline" size="lg" className="font-bold text-lg px-10 py-7 border-2" data-testid="button-funnel-view-services">
                     View All Services
                   </Button>
-                </Link>
-              </motion.div>
-            </div>
-          </ScrollAnimatedSection>
+                </motion.div>
+              </Link>
+            </motion.div>
+          </div>
           
-          <ScrollAnimatedSection>
-            <div className="flex flex-wrap justify-center gap-6 py-8 mb-8 border-y border-border/30">
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <TrendingUp className="h-4 w-4 text-primary" />
-                <span>Average 7x ROI</span>
-              </div>
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <Zap className="h-4 w-4 text-primary" />
-                <span>1 Week Setup</span>
-              </div>
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <Target className="h-4 w-4 text-primary" />
-                <span>1 Stop Marketing Solution</span>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-16">
+            <HeroStatCard value={7} suffix="x" label="Average ROI" icon={TrendingUp} delay={1.0} />
+            <HeroStatCard value={1} suffix=" Week" label="Setup Time" icon={Zap} delay={1.1} />
+            <HeroStatCard value={1} suffix=" Stop" label="Complete Solution" icon={Target} delay={1.2} />
+          </div>
+          
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 1.3 }}
+            className="max-w-2xl mx-auto"
+          >
+            <div className="relative">
+              <motion.div
+                className="absolute -inset-4 bg-gradient-to-br from-primary/20 via-orange-500/10 to-transparent blur-3xl"
+                animate={{ opacity: [0.3, 0.6, 0.3], scale: [1, 1.05, 1] }}
+                transition={{ duration: 5, repeat: Infinity }}
+              />
+              <div className="relative bg-card/60 backdrop-blur-2xl rounded-3xl border border-border/50 p-8 shadow-2xl">
+                <h3 className="text-center text-sm font-bold text-muted-foreground mb-8 uppercase tracking-[0.2em]">
+                  Your Growth Engine
+                </h3>
+                <FunnelVisualization3D />
               </div>
             </div>
-          </ScrollAnimatedSection>
-        </div>
+          </motion.div>
+        </motion.div>
+        
+        <motion.div
+          className="absolute bottom-10 left-1/2 -translate-x-1/2"
+          animate={{ y: [0, 15, 0] }}
+          transition={{ duration: 2, repeat: Infinity }}
+        >
+          <div className="flex flex-col items-center gap-2">
+            <span className="text-xs text-muted-foreground uppercase tracking-widest">Scroll to explore</span>
+            <ChevronDown className="h-6 w-6 text-muted-foreground/50" />
+          </div>
+        </motion.div>
       </section>
 
-      <section className="py-8 px-4 sm:px-6 lg:px-8" data-testid="section-funnel-stages">
-        <div className="max-w-6xl mx-auto">
+      <section className="py-24 md:py-32 px-4 sm:px-6 lg:px-8 relative" data-testid="section-funnel-stages">
+        <div className="max-w-7xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1 }}
+            className="text-center mb-24"
+          >
+            <motion.div
+              className="inline-block mb-6"
+              animate={{ rotate: [0, 5, -5, 0] }}
+              transition={{ duration: 5, repeat: Infinity }}
+            >
+              <Badge className="bg-gradient-to-r from-primary to-orange-500 text-white border-0 text-sm px-6 py-2 shadow-lg">
+                The Complete Journey
+              </Badge>
+            </motion.div>
+            <h2 className="text-5xl md:text-6xl lg:text-7xl font-black text-foreground mb-6">
+              Every Stage.{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-orange-500">
+                Covered.
+              </span>
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+              See how we transform strangers into loyal customers through our proven 5-stage process.
+            </p>
+          </motion.div>
+          
           {funnelStages.map((stage) => (
             <FunnelStage key={stage.number} {...stage} />
           ))}
         </div>
       </section>
 
-      <section className="py-16 md:py-24 px-4 sm:px-6 lg:px-8" data-testid="section-funnel-cta">
-        <div className="max-w-4xl mx-auto">
-          <ScrollAnimatedSection>
-            <div className="relative rounded-2xl overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-primary/10 to-transparent" />
-              <div className="absolute inset-0 bg-card/90 backdrop-blur-xl" />
-              <div className="absolute inset-0 border border-primary/20 rounded-2xl" />
+      <section className="py-24 md:py-40 px-4 sm:px-6 lg:px-8 relative overflow-hidden" data-testid="section-funnel-cta">
+        <div className="absolute inset-0">
+          <motion.div
+            className="absolute inset-0"
+            animate={{ 
+              background: [
+                "radial-gradient(ellipse 80% 50% at 50% 50%, rgba(255,0,0,0.15) 0%, transparent 70%)",
+                "radial-gradient(ellipse 60% 80% at 50% 50%, rgba(255,100,0,0.15) 0%, transparent 70%)",
+                "radial-gradient(ellipse 80% 50% at 50% 50%, rgba(255,0,0,0.15) 0%, transparent 70%)",
+              ]
+            }}
+            transition={{ duration: 10, repeat: Infinity }}
+          />
+        </div>
+        
+        <div className="max-w-5xl mx-auto relative">
+          <motion.div
+            initial={{ opacity: 0, y: 80 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1 }}
+          >
+            <div className="relative rounded-[3rem] overflow-hidden">
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-br from-primary/40 via-orange-500/20 to-transparent"
+                animate={{ opacity: [0.5, 0.8, 0.5] }}
+                transition={{ duration: 5, repeat: Infinity }}
+              />
+              <div className="absolute inset-0 bg-card/80 backdrop-blur-3xl" />
+              <div className="absolute inset-0 border-2 border-primary/30 rounded-[3rem]" />
               
-              <div className="relative p-8 md:p-12 text-center">
-                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary/20 to-primary/5 border border-primary/20 flex items-center justify-center mx-auto mb-6">
-                  <Target className="h-7 w-7 text-primary" />
-                </div>
+              <div className="relative p-12 md:p-20 text-center">
+                <motion.div 
+                  className="relative w-24 h-24 mx-auto mb-10"
+                  whileHover={{ rotate: 180 }}
+                  transition={{ duration: 0.8 }}
+                >
+                  <motion.div
+                    className="absolute inset-0 rounded-3xl bg-gradient-to-br from-red-500 to-orange-500 blur-2xl"
+                    animate={{ scale: [1, 1.4, 1], opacity: [0.5, 0.8, 0.5] }}
+                    transition={{ duration: 3, repeat: Infinity }}
+                  />
+                  <motion.div 
+                    className="relative w-full h-full rounded-3xl bg-gradient-to-br from-red-500 via-red-600 to-orange-500 flex items-center justify-center shadow-2xl"
+                    animate={{ rotate: [0, 5, -5, 0] }}
+                    transition={{ duration: 6, repeat: Infinity }}
+                  >
+                    <Crown className="h-12 w-12 text-white" />
+                  </motion.div>
+                </motion.div>
                 
-                <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-                  Ready for a Complete Solution?
-                </h2>
-                <p className="text-lg text-muted-foreground mb-8 max-w-xl mx-auto">
+                <motion.h2 
+                  className="text-4xl md:text-5xl lg:text-6xl font-black text-foreground mb-8 leading-tight"
+                >
+                  Ready for a
+                  <br />
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-orange-500 to-red-500">
+                    Complete Solution?
+                  </span>
+                </motion.h2>
+                
+                <motion.p 
+                  className="text-xl text-muted-foreground mb-12 max-w-2xl mx-auto leading-relaxed"
+                >
                   Stop piecing together different vendors. Get one team that handles your entire marketing funnel from start to finish.
-                </p>
+                </motion.p>
                 
-                <div className="flex flex-wrap items-center justify-center gap-4">
+                <motion.div
+                  className="flex flex-wrap items-center justify-center gap-5"
+                >
                   <Link href="/book-a-demo">
-                    <Button size="lg" className="font-semibold shadow-lg shadow-primary/25" data-testid="button-cta-book-demo">
-                      Book a Strategy Call
-                      <ArrowRight className="ml-2 h-5 w-5" />
-                    </Button>
+                    <motion.div 
+                      whileHover={{ scale: 1.05 }} 
+                      whileTap={{ scale: 0.98 }}
+                      className="relative group"
+                    >
+                      <motion.div
+                        className="absolute -inset-1 bg-gradient-to-r from-red-500 to-orange-500 rounded-xl blur-lg opacity-70 group-hover:opacity-100 transition-opacity"
+                        animate={{ opacity: [0.5, 0.8, 0.5] }}
+                        transition={{ duration: 2, repeat: Infinity }}
+                      />
+                      <Button size="lg" className="relative font-bold text-lg px-12 py-8 bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-red-400 border-0" data-testid="button-cta-book-demo">
+                        Book a Strategy Call
+                        <ArrowRight className="ml-2 h-5 w-5" />
+                      </Button>
+                    </motion.div>
                   </Link>
                   <Link href="/contact">
-                    <Button variant="outline" size="lg" className="font-semibold" data-testid="button-cta-contact">
-                      Contact Us
-                    </Button>
+                    <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }}>
+                      <Button variant="outline" size="lg" className="font-bold text-lg px-12 py-8 border-2" data-testid="button-cta-contact">
+                        Contact Us
+                      </Button>
+                    </motion.div>
                   </Link>
-                </div>
+                </motion.div>
               </div>
             </div>
-          </ScrollAnimatedSection>
+          </motion.div>
         </div>
       </section>
+      
+      <style>{`
+        @keyframes gradient {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+      `}</style>
     </div>
   );
 }
