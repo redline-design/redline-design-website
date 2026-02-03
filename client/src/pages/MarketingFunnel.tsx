@@ -702,33 +702,98 @@ export default function MarketingFunnel() {
         </motion.div>
       </section>
 
-      <section className="py-24 md:py-32 px-4 sm:px-6 lg:px-8 relative" data-testid="section-funnel-stages">
-        <div className="max-w-7xl mx-auto">
+      <section className="py-32 md:py-40 px-4 sm:px-6 lg:px-8 relative overflow-hidden" data-testid="section-funnel-stages">
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-gradient-radial from-primary/10 via-transparent to-transparent blur-3xl" />
+          <div className="absolute bottom-0 right-0 w-[800px] h-[800px] bg-gradient-radial from-orange-500/10 via-transparent to-transparent blur-3xl" />
+        </div>
+        
+        <div className="max-w-7xl mx-auto relative">
           <motion.div
-            initial={{ opacity: 0, y: 50 }}
+            initial={{ opacity: 0, y: 60 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 1 }}
-            className="text-center mb-24"
+            className="text-center mb-32"
           >
             <motion.div
-              className="inline-block mb-6"
-              animate={{ rotate: [0, 5, -5, 0] }}
-              transition={{ duration: 5, repeat: Infinity }}
+              className="inline-flex items-center gap-3 mb-8"
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
             >
-              <Badge className="bg-gradient-to-r from-primary to-orange-500 text-white border-0 text-sm px-6 py-2 shadow-lg">
+              <motion.div
+                className="w-12 h-[2px] bg-gradient-to-r from-transparent to-primary"
+                initial={{ scaleX: 0 }}
+                whileInView={{ scaleX: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.3 }}
+              />
+              <Badge className="bg-gradient-to-r from-primary to-orange-500 text-white border-0 text-sm px-6 py-2.5 shadow-xl shadow-primary/20">
                 The Complete Journey
               </Badge>
+              <motion.div
+                className="w-12 h-[2px] bg-gradient-to-l from-transparent to-orange-500"
+                initial={{ scaleX: 0 }}
+                whileInView={{ scaleX: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.3 }}
+              />
             </motion.div>
-            <h2 className="text-5xl md:text-6xl lg:text-7xl font-black text-foreground mb-6">
+            
+            <motion.h2 
+              className="text-5xl md:text-6xl lg:text-8xl font-black text-foreground mb-8 leading-[0.95]"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
               Every Stage.{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-orange-500">
-                Covered.
+              <span className="relative inline-block">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-orange-500 to-red-500 bg-[length:200%_auto]" style={{ animation: "gradient 4s linear infinite" }}>
+                  Covered.
+                </span>
+                <motion.span
+                  className="absolute -inset-4 bg-gradient-to-r from-red-500/20 via-orange-500/20 to-red-500/20 blur-2xl -z-10"
+                  animate={{ opacity: [0.4, 0.7, 0.4] }}
+                  transition={{ duration: 3, repeat: Infinity }}
+                />
               </span>
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              See how we transform strangers into loyal customers through our proven 5-stage process.
-            </p>
+            </motion.h2>
+            
+            <motion.p 
+              className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+            >
+              See how we transform strangers into loyal customers through our{" "}
+              <span className="text-foreground font-semibold">proven 5-stage process</span>.
+            </motion.p>
+            
+            <motion.div
+              className="flex items-center justify-center gap-3 mt-10"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.6 }}
+            >
+              {[1, 2, 3, 4, 5].map((num) => (
+                <motion.div
+                  key={num}
+                  className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary/20 to-orange-500/20 border border-primary/30 flex items-center justify-center"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: 0.6 + num * 0.1 }}
+                  whileHover={{ scale: 1.1, borderColor: "rgba(255, 0, 0, 0.6)" }}
+                >
+                  <span className="text-sm font-bold text-primary">{num}</span>
+                </motion.div>
+              ))}
+            </motion.div>
           </motion.div>
           
           {funnelStages.map((stage) => (
@@ -737,18 +802,34 @@ export default function MarketingFunnel() {
         </div>
       </section>
 
-      <section className="py-24 md:py-40 px-4 sm:px-6 lg:px-8 relative overflow-hidden" data-testid="section-funnel-cta">
+      <section className="py-32 md:py-48 px-4 sm:px-6 lg:px-8 relative overflow-hidden" data-testid="section-funnel-cta">
         <div className="absolute inset-0">
           <motion.div
             className="absolute inset-0"
             animate={{ 
               background: [
-                "radial-gradient(ellipse 80% 50% at 50% 50%, rgba(255,0,0,0.15) 0%, transparent 70%)",
-                "radial-gradient(ellipse 60% 80% at 50% 50%, rgba(255,100,0,0.15) 0%, transparent 70%)",
-                "radial-gradient(ellipse 80% 50% at 50% 50%, rgba(255,0,0,0.15) 0%, transparent 70%)",
+                "radial-gradient(ellipse 80% 50% at 50% 50%, rgba(255,0,0,0.12) 0%, transparent 70%)",
+                "radial-gradient(ellipse 60% 80% at 50% 50%, rgba(255,100,0,0.12) 0%, transparent 70%)",
+                "radial-gradient(ellipse 80% 50% at 50% 50%, rgba(255,0,0,0.12) 0%, transparent 70%)",
               ]
             }}
             transition={{ duration: 10, repeat: Infinity }}
+          />
+          
+          <motion.div
+            className="absolute top-20 left-[10%] w-32 h-32 rounded-full bg-gradient-to-br from-primary/20 to-transparent blur-2xl"
+            animate={{ y: [0, 30, 0], x: [0, 15, 0] }}
+            transition={{ duration: 8, repeat: Infinity }}
+          />
+          <motion.div
+            className="absolute bottom-20 right-[15%] w-40 h-40 rounded-full bg-gradient-to-br from-orange-500/20 to-transparent blur-2xl"
+            animate={{ y: [0, -25, 0], x: [0, -20, 0] }}
+            transition={{ duration: 10, repeat: Infinity }}
+          />
+          <motion.div
+            className="absolute top-1/2 left-[5%] w-24 h-24 rounded-full bg-gradient-to-br from-yellow-500/15 to-transparent blur-2xl"
+            animate={{ y: [0, 40, 0] }}
+            transition={{ duration: 12, repeat: Infinity }}
           />
         </div>
         
@@ -759,79 +840,153 @@ export default function MarketingFunnel() {
             viewport={{ once: true }}
             transition={{ duration: 1 }}
           >
-            <div className="relative rounded-[3rem] overflow-hidden">
+            <div className="relative">
               <motion.div
-                className="absolute inset-0 bg-gradient-to-br from-primary/40 via-orange-500/20 to-transparent"
-                animate={{ opacity: [0.5, 0.8, 0.5] }}
-                transition={{ duration: 5, repeat: Infinity }}
+                className="absolute -inset-4 bg-gradient-to-r from-primary/30 via-orange-500/20 to-primary/30 blur-3xl rounded-[4rem]"
+                animate={{ opacity: [0.3, 0.6, 0.3], scale: [1, 1.02, 1] }}
+                transition={{ duration: 6, repeat: Infinity }}
               />
-              <div className="absolute inset-0 bg-card/80 backdrop-blur-3xl" />
-              <div className="absolute inset-0 border-2 border-primary/30 rounded-[3rem]" />
               
-              <div className="relative p-12 md:p-20 text-center">
-                <motion.div 
-                  className="relative w-24 h-24 mx-auto mb-10"
-                  whileHover={{ rotate: 180 }}
-                  transition={{ duration: 0.8 }}
-                >
-                  <motion.div
-                    className="absolute inset-0 rounded-3xl bg-gradient-to-br from-red-500 to-orange-500 blur-2xl"
-                    animate={{ scale: [1, 1.4, 1], opacity: [0.5, 0.8, 0.5] }}
-                    transition={{ duration: 3, repeat: Infinity }}
-                  />
-                  <motion.div 
-                    className="relative w-full h-full rounded-3xl bg-gradient-to-br from-red-500 via-red-600 to-orange-500 flex items-center justify-center shadow-2xl"
-                    animate={{ rotate: [0, 5, -5, 0] }}
-                    transition={{ duration: 6, repeat: Infinity }}
-                  >
-                    <Crown className="h-12 w-12 text-white" />
-                  </motion.div>
-                </motion.div>
-                
-                <motion.h2 
-                  className="text-4xl md:text-5xl lg:text-6xl font-black text-foreground mb-8 leading-tight"
-                >
-                  Ready for a
-                  <br />
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-orange-500 to-red-500">
-                    Complete Solution?
-                  </span>
-                </motion.h2>
-                
-                <motion.p 
-                  className="text-xl text-muted-foreground mb-12 max-w-2xl mx-auto leading-relaxed"
-                >
-                  Stop piecing together different vendors. Get one team that handles your entire marketing funnel from start to finish.
-                </motion.p>
+              <div className="relative rounded-[2.5rem] overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/30 via-orange-500/15 to-transparent" />
+                <div className="absolute inset-0 bg-card/85 backdrop-blur-3xl" />
                 
                 <motion.div
-                  className="flex flex-wrap items-center justify-center gap-5"
-                >
-                  <Link href="/book-a-demo">
+                  className="absolute inset-0 opacity-30"
+                  style={{
+                    backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0L60 17.32V52.68L30 60L0 52.68V17.32L30 0z' fill='none' stroke='%23ff000010' stroke-width='1'/%3E%3C/svg%3E")`,
+                    backgroundSize: "60px 60px",
+                  }}
+                />
+                
+                <div className="absolute inset-[1px] border border-primary/20 rounded-[2.5rem]" />
+                
+                <div className="relative p-10 md:p-16 lg:p-24 text-center">
+                  <motion.div
+                    className="flex items-center justify-center gap-4 mb-10"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6 }}
+                  >
+                    <motion.div
+                      className="w-16 h-[1px] bg-gradient-to-r from-transparent via-primary to-transparent"
+                      initial={{ scaleX: 0 }}
+                      whileInView={{ scaleX: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 1, delay: 0.3 }}
+                    />
                     <motion.div 
-                      whileHover={{ scale: 1.05 }} 
-                      whileTap={{ scale: 0.98 }}
-                      className="relative group"
+                      className="relative"
+                      whileHover={{ scale: 1.1 }}
+                      transition={{ duration: 0.3 }}
                     >
                       <motion.div
-                        className="absolute -inset-1 bg-gradient-to-r from-red-500 to-orange-500 rounded-xl blur-lg opacity-70 group-hover:opacity-100 transition-opacity"
-                        animate={{ opacity: [0.5, 0.8, 0.5] }}
-                        transition={{ duration: 2, repeat: Infinity }}
+                        className="absolute inset-0 rounded-2xl bg-gradient-to-br from-red-500 to-orange-500 blur-xl"
+                        animate={{ scale: [1, 1.3, 1], opacity: [0.5, 0.8, 0.5] }}
+                        transition={{ duration: 3, repeat: Infinity }}
                       />
-                      <Button size="lg" className="relative font-bold text-lg px-12 py-8 bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-red-400 border-0" data-testid="button-cta-book-demo">
-                        Book a Strategy Call
-                        <ArrowRight className="ml-2 h-5 w-5" />
-                      </Button>
+                      <motion.div 
+                        className="relative w-16 h-16 rounded-2xl bg-gradient-to-br from-red-500 via-red-600 to-orange-500 flex items-center justify-center shadow-2xl"
+                        animate={{ rotate: [0, 3, -3, 0] }}
+                        transition={{ duration: 6, repeat: Infinity }}
+                      >
+                        <Crown className="h-8 w-8 text-white" />
+                      </motion.div>
                     </motion.div>
-                  </Link>
-                  <Link href="/contact">
-                    <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }}>
-                      <Button variant="outline" size="lg" className="font-bold text-lg px-12 py-8 border-2" data-testid="button-cta-contact">
-                        Contact Us
-                      </Button>
-                    </motion.div>
-                  </Link>
-                </motion.div>
+                    <motion.div
+                      className="w-16 h-[1px] bg-gradient-to-r from-transparent via-orange-500 to-transparent"
+                      initial={{ scaleX: 0 }}
+                      whileInView={{ scaleX: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 1, delay: 0.3 }}
+                    />
+                  </motion.div>
+                  
+                  <motion.h2 
+                    className="text-4xl md:text-5xl lg:text-7xl font-black text-foreground mb-6 leading-[1.1]"
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8, delay: 0.2 }}
+                  >
+                    Ready for a{" "}
+                    <span className="relative inline-block">
+                      <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-orange-500 to-red-500 bg-[length:200%_auto]" style={{ animation: "gradient 4s linear infinite" }}>
+                        Complete Solution?
+                      </span>
+                    </span>
+                  </motion.h2>
+                  
+                  <motion.p 
+                    className="text-lg md:text-xl text-muted-foreground mb-10 max-w-2xl mx-auto leading-relaxed"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8, delay: 0.3 }}
+                  >
+                    Stop piecing together different vendors. Get{" "}
+                    <span className="text-foreground font-semibold">one team</span> that handles your{" "}
+                    <span className="text-foreground font-semibold">entire marketing funnel</span> from start to finish.
+                  </motion.p>
+                  
+                  <motion.div
+                    className="flex flex-wrap items-center justify-center gap-4 md:gap-6"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8, delay: 0.4 }}
+                  >
+                    <Link href="/book-a-demo">
+                      <motion.div 
+                        whileHover={{ scale: 1.03, y: -2 }} 
+                        whileTap={{ scale: 0.98 }}
+                        className="relative group"
+                      >
+                        <motion.div
+                          className="absolute -inset-1 bg-gradient-to-r from-red-500 via-orange-500 to-red-500 rounded-2xl blur-lg opacity-60 group-hover:opacity-100 transition-opacity"
+                          animate={{ opacity: [0.4, 0.7, 0.4] }}
+                          transition={{ duration: 2, repeat: Infinity }}
+                        />
+                        <Button size="lg" className="relative font-bold text-base md:text-lg px-8 md:px-14 py-7 md:py-8 bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-red-400 border-0 rounded-xl shadow-2xl" data-testid="button-cta-book-demo">
+                          Book a Strategy Call
+                          <ArrowRight className="ml-2 h-5 w-5" />
+                        </Button>
+                      </motion.div>
+                    </Link>
+                    <Link href="/contact">
+                      <motion.div 
+                        whileHover={{ scale: 1.03, y: -2 }} 
+                        whileTap={{ scale: 0.98 }}
+                      >
+                        <Button variant="outline" size="lg" className="font-bold text-base md:text-lg px-8 md:px-14 py-7 md:py-8 border-2 rounded-xl backdrop-blur-sm" data-testid="button-cta-contact">
+                          Contact Us
+                        </Button>
+                      </motion.div>
+                    </Link>
+                  </motion.div>
+                  
+                  <motion.div
+                    className="flex items-center justify-center gap-6 mt-10 text-sm text-muted-foreground"
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: 0.6 }}
+                  >
+                    <div className="flex items-center gap-2">
+                      <Check className="h-4 w-4 text-green-500" />
+                      <span>Free consultation</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Check className="h-4 w-4 text-green-500" />
+                      <span>No obligation</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Check className="h-4 w-4 text-green-500" />
+                      <span>Custom strategy</span>
+                    </div>
+                  </motion.div>
+                </div>
               </div>
             </div>
           </motion.div>
