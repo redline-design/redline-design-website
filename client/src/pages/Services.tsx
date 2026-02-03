@@ -125,7 +125,7 @@ export default function Services() {
               gap: '1rem' 
             }}
           >
-            <StatCounter value={14} suffix="x" label="Average ROI" icon={BarChart} />
+            <StatCounter value={7} suffix="x" label="Average ROI" icon={BarChart} />
             <StatCounter value={350} suffix="%" label="Traffic Growth" icon={TrendingUp} delay={0.1} />
             <StatCounter value={2} suffix="x" label="Conversion Rate" icon={MousePointerClick} delay={0.2} />
             <StatCounter value={95} suffix="%" label="Client Retention" icon={Users} delay={0.3} />
@@ -168,7 +168,7 @@ export default function Services() {
               "A/B testing and conversion optimization",
             ]}
             outcomes={[
-              "8-14x return on ad spend (ROAS)",
+              "7x return on ad spend (ROAS)",
               "Lower cost per lead (CPL) over time",
               "Higher click-through rates (CTR)",
               "Better audience targeting and segmentation",

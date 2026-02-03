@@ -41,7 +41,7 @@ export default function Home() {
 
   // Simplified statistics - outcome-focused for beginners
   const stats = [
-    { value: "7x", label: "Average ROI", subtitle: "average 7x ROI, up to 14x seen", testId: "stat-roi" },
+    { value: "7x", label: "Average ROI", subtitle: "average 7x ROI across clients", testId: "stat-roi" },
     { value: "76%", label: "of consumers", subtitle: "research online before purchasing", testId: "stat-online-research" },
     { value: "3x", label: "More Leads", subtitle: "with digital vs traditional marketing", testId: "stat-lead-increase" },
     { value: "5.1B", label: "Social Users", subtitle: "active social media users worldwide", testId: "stat-social-users" },
@@ -68,13 +68,13 @@ export default function Home() {
     {
       id: 'roi',
       title: 'ROI That Stacks Up',
-      description: 'Our clients see an average return of 7x on their marketing spend, with some achieving up to 14x. We focus on revenue growth and customer acquisition.',
+      description: 'Our clients see an average return of 7x on their marketing spend. We focus on revenue growth and customer acquisition.',
       image: ppcImage,
       buttonText: 'Calculate Your ROI',
       buttonLink: '/services/ppc',
       stats: [
-        { value: '14x', label: 'Max ROI' },
-        { value: '7x', label: 'Average ROI' },
+        { value: '7x', label: 'Avg ROI' },
+        { value: '95%', label: 'Retention' },
         { value: '2.5x', label: 'Industry Avg' },
       ],
     },
@@ -203,9 +203,9 @@ export default function Home() {
       icon: Sparkles,
       content: (
         <div>
-          <h3 className="text-2xl font-bold mb-4">Returns up to 14x Your Investment</h3>
+          <h3 className="text-2xl font-bold mb-4">Returns of 7x Your Investment</h3>
           <p className="text-foreground mb-4">
-            Our clients see an average return of 7x on their marketing spend, with some achieving up to 14x. We focus on what matters: revenue growth and customer acquisition at scale.
+            Our clients see an average return of 7x on their marketing spend. We focus on what matters: revenue growth and customer acquisition at scale.
           </p>
           <ul className="space-y-2 text-foreground">
             <li className="flex items-start gap-2">
@@ -428,7 +428,7 @@ export default function Home() {
                 title: "Maximum ROI",
                 bullets: [
                   "Average 7x return on investment",
-                  "Some clients achieving up to 14x ROI",
+                  "Consistent 7x ROI across clients",
                   "Focus relentlessly on revenue growth",
                   "Data-driven optimization strategies",
                   "Continuous A/B testing & refinement",

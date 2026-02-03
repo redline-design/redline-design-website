@@ -7,7 +7,7 @@ export default function ValueTileExample() {
       <ValueTile
         icon={TrendingUp}
         title="Maximum ROI"
-        description="We've seen returns up to 14x."
+        description="We deliver 7x average ROI."
       />
       <ValueTile
         icon={DollarSign}

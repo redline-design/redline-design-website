@@ -15,7 +15,7 @@ export default function TabbedContentExample() {
           </p>
           <div className="grid grid-cols-3 gap-4 mt-6">
             <div className="text-center p-4 bg-card rounded-lg">
-              <div className="text-3xl font-bold text-primary">14x</div>
+              <div className="text-3xl font-bold text-primary">7x</div>
               <div className="text-sm text-muted-foreground">ROI</div>
             </div>
             <div className="text-center p-4 bg-card rounded-lg">
@@ -36,9 +36,9 @@ export default function TabbedContentExample() {
       icon: Sparkles,
       content: (
         <div>
-          <h3 className="text-2xl font-bold mb-4">Returns up to 14x Your Investment</h3>
+          <h3 className="text-2xl font-bold mb-4">Returns of 7x Your Investment</h3>
           <p className="text-muted-foreground mb-4">
-            Our clients see an average return of 8-14x on their marketing spend. We focus on what matters: revenue growth and customer acquisition at scale.
+            Our clients see an average return of 7x on their marketing spend. We focus on what matters: revenue growth and customer acquisition at scale.
           </p>
           <ul className="space-y-2 text-muted-foreground">
             <li className="flex items-start gap-2">

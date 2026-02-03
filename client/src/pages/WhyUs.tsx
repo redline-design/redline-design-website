@@ -52,7 +52,7 @@ function AnimatedCounter({ end, suffix = "", prefix = "", duration = 2 }: { end:
 }
 
 const STATS = [
-  { value: 14, suffix: "x", label: "Average ROI", icon: TrendingUp },
+  { value: 7, suffix: "x", label: "Average ROI", icon: TrendingUp },
   { value: 500, prefix: "$", suffix: "", label: "Starting Monthly", icon: DollarSign },
   { value: 24, suffix: "hr", label: "Avg Response Time", icon: Clock },
   { value: 98, suffix: "%", label: "Client Satisfaction", icon: Heart },
@@ -63,7 +63,7 @@ const DIFFERENTIATORS = [
     icon: Target,
     title: "Results-Obsessed",
     description: "We don't chase vanity metrics. Every strategy is built around driving real revenue and measurable business growth.",
-    highlight: "14x average ROI"
+    highlight: "7x average ROI"
   },
   {
     icon: Zap,
