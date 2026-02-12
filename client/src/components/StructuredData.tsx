@@ -55,7 +55,7 @@ const organizationData: OrganizationSchema = {
   description: "Full-stack digital marketing agency specializing in SEO, PPC, web design, social media marketing, and email marketing services.",
   sameAs: [
     "https://www.facebook.com/profile.php?id=61573886695631",
-    "https://www.instagram.com/redlinedesignllc"
+    "https://www.instagram.com/redlineprojectllc/"
   ],
   contactPoint: {
     "@type": "ContactPoint",

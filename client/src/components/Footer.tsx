@@ -67,7 +67,7 @@ const Footer = memo(function Footer() {
                 <FaFacebook className="h-6 w-6" />
               </a>
               <a
-                href="https://www.instagram.com/redlinedesignllc"
+                href="https://www.instagram.com/redlineprojectllc/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-muted-foreground hover:text-primary transition-colors"
