@@ -46,10 +46,11 @@ export default function StatCounter({ value, suffix = "", prefix = "", label, de
       data-testid={`stat-${label.toLowerCase().replace(/\s/g, "-")}`}
     >
       {/* Icon */}
-      <div className="mx-auto mb-3 md:mb-4">
+      <div className="mx-auto mb-4 md:mb-5">
         <Icon 
-          className="w-5 h-5 md:w-6 md:h-6 mx-auto" 
-          style={{ color: "rgba(255, 0, 0, 0.6)" }}
+          className="w-10 h-10 md:w-12 md:h-12 mx-auto" 
+          style={{ color: "rgba(255, 0, 0, 0.5)" }}
+          strokeWidth={1.5}
         />
       </div>
 
