@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Mail, Phone, MapPin } from "lucide-react";
+import { Mail, Phone, MapPin, Clock, ArrowRight } from "lucide-react";
 import ContactForm from "@/components/ContactForm";
 
 const contactDetails = [
@@ -26,62 +26,52 @@ const contactDetails = [
 export default function HomeContactSection() {
   return (
     <section
-      className="py-16 md:py-24 px-4 md:px-8"
+      className="py-20 md:py-32 px-4 md:px-8"
       data-testid="section-home-contact"
     >
-      <div className="max-w-7xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="text-center mb-12"
-        >
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 mb-6">
-            <span className="text-xs font-medium text-white/60 uppercase tracking-widest">
-              Contact Us
-            </span>
-          </div>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 tracking-tight">
-            Get In{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-400">
-              Touch
-            </span>
-          </h2>
-          <p className="text-white/60 text-sm md:text-base max-w-xl mx-auto">
-            Ready to grow your business? Reach out and let&apos;s talk strategy.
-          </p>
-        </motion.div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 lg:gap-12">
+      <div className="max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="lg:col-span-2 flex flex-col gap-6"
+            className="flex flex-col justify-center"
           >
-            <div className="space-y-6">
+            <h2
+              className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-6 tracking-tight"
+              data-testid="text-contact-heading"
+            >
+              Ready to{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-400">
+                Grow?
+              </span>
+            </h2>
+            <p
+              className="text-white/70 text-base md:text-lg leading-relaxed mb-10 max-w-lg"
+              data-testid="text-contact-subtitle"
+            >
+              Let's talk about your business goals and build a marketing
+              strategy that delivers real, measurable results.
+            </p>
+
+            <div className="space-y-5 mb-10">
               {contactDetails.map((detail) => {
                 const Icon = detail.icon;
-                const content = (
+                const inner = (
                   <div
                     key={detail.label}
-                    className="flex items-start gap-4 p-5 rounded-lg"
-                    style={{
-                      background: "rgba(255,255,255,0.03)",
-                      border: "1px solid rgba(255,255,255,0.06)",
-                    }}
+                    className="flex items-center gap-4"
                     data-testid={`contact-detail-${detail.label.toLowerCase()}`}
                   >
-                    <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-red-500/10 flex items-center justify-center">
+                    <div className="flex-shrink-0 w-11 h-11 rounded-full bg-red-500/10 border border-red-500/20 flex items-center justify-center">
                       <Icon className="w-5 h-5 text-red-500" />
                     </div>
                     <div>
-                      <p className="text-white/60 text-xs uppercase tracking-widest mb-1">
+                      <p className="text-white/50 text-xs uppercase tracking-widest mb-0.5">
                         {detail.label}
                       </p>
-                      <p className="text-white text-sm md:text-base">
+                      <p className="text-white font-medium text-sm md:text-base">
                         {detail.value}
                       </p>
                     </div>
@@ -93,47 +83,48 @@ export default function HomeContactSection() {
                     <a
                       key={detail.label}
                       href={detail.href}
-                      className="block transition-opacity hover:opacity-80"
+                      className="block group"
                       data-testid={`link-contact-${detail.label.toLowerCase()}`}
                     >
-                      {content}
+                      {inner}
                     </a>
                   );
                 }
 
-                return content;
+                return <div key={detail.label}>{inner}</div>;
               })}
             </div>
 
-            <div
-              className="p-5 rounded-lg mt-2"
-              style={{
-                background: "rgba(255,255,255,0.03)",
-                border: "1px solid rgba(255,255,255,0.06)",
-              }}
-            >
-              <p className="text-white/60 text-sm leading-relaxed">
-                Average response time is less than 24 business hours. We look
-                forward to learning about your business and building a strategy
-                that delivers real results.
-              </p>
+            <div className="flex items-center gap-3 text-white/40 text-sm">
+              <Clock className="w-4 h-4" />
+              <span>Average response time under 24 business hours</span>
             </div>
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.15 }}
             viewport={{ once: true }}
-            className="lg:col-span-3"
           >
             <div
-              className="p-6 md:p-8 rounded-lg"
+              className="p-7 md:p-9 rounded-2xl"
               style={{
-                background: "rgba(255,255,255,0.03)",
-                border: "1px solid rgba(255,255,255,0.06)",
+                background: "rgba(20, 20, 20, 0.95)",
+                border: "1px solid rgba(255, 255, 255, 0.08)",
               }}
             >
+              <div className="flex items-center gap-3 mb-7">
+                <div className="w-10 h-10 rounded-full bg-red-500/10 border border-red-500/20 flex items-center justify-center">
+                  <ArrowRight className="w-5 h-5 text-red-500" />
+                </div>
+                <div>
+                  <h3 className="text-white font-semibold text-lg" data-testid="text-form-title">
+                    Send us a message
+                  </h3>
+                  <p className="text-white/50 text-xs">We'll get back to you shortly</p>
+                </div>
+              </div>
               <ContactForm />
             </div>
           </motion.div>
