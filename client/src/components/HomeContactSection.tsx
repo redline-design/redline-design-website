@@ -12,8 +12,8 @@ const contactDetails = [
   {
     icon: Phone,
     label: "Phone",
-    value: "(888) 695-2710",
-    href: "tel:+18886952710",
+    value: "(208) 867-4526",
+    href: "tel:+12088674526",
   },
   {
     icon: MapPin,
