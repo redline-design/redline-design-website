@@ -12,6 +12,8 @@ import ScrollAnimatedSection from "@/components/ScrollAnimatedSection";
 import TextResolver from "@/components/TextResolver";
 import GlowCard from "@/components/GlowCard";
 import ScrollValueCards from "@/components/ScrollValueCards";
+import FAQ from "@/components/FAQ";
+import HomeContactSection from "@/components/HomeContactSection";
 import { BarChart3, Sparkles, Globe, DollarSign, Zap, Target, Users, Briefcase, TrendingUp, FileText, LineChart, MapPin, Smartphone, Eye, MousePointerClick, LayoutGrid, BarChart2, Monitor, Database, AlertTriangle, Heart, Award } from "lucide-react";
 import { SiGoogleads, SiMeta, SiLinkedin, SiTiktok, SiYoutube, SiX, SiReddit, SiPinterest } from "react-icons/si";
 import { motion } from "framer-motion";
@@ -396,11 +398,6 @@ export default function Home() {
     <div>
       <div style={{ position: 'relative', minHeight: '100vh' }}>
         <Hero />
-        <div className="layout">
-          <div className="layout-box">
-            High-end, full-service<br />digital marketing<br />for growing brands.
-          </div>
-        </div>
       </div>
 
       <ScrollAnimatedSection>
@@ -412,7 +409,7 @@ export default function Home() {
       <SectionDivider />
 
       <ScrollAnimatedSection>
-        <section className="py-2 px-2 sm:px-3 lg:px-4" data-testid="section-differentiators">
+        <section className="py-12 md:py-20 px-4 md:px-8" data-testid="section-differentiators">
           <SliderCarousel slides={sliderSlides} />
       </section>
       </ScrollAnimatedSection>
@@ -420,7 +417,7 @@ export default function Home() {
       <SectionDivider />
 
       <ScrollAnimatedSection>
-        <section className="py-2 px-2 sm:px-3 lg:px-4" data-testid="section-why-us">
+        <section className="py-12 md:py-20 px-4 md:px-8" data-testid="section-why-us">
           <ScrollValueCards
             cards={[
               {
@@ -606,6 +603,16 @@ export default function Home() {
             
           </div>
         </section>
+      </ScrollAnimatedSection>
+
+      <SectionDivider />
+      <ScrollAnimatedSection>
+        <FAQ />
+      </ScrollAnimatedSection>
+
+      <SectionDivider />
+      <ScrollAnimatedSection>
+        <HomeContactSection />
       </ScrollAnimatedSection>
 
       <StickyConversionBar />

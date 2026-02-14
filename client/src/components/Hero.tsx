@@ -67,8 +67,8 @@ export default function Hero() {
               className="w-full absolute inset-0"
               style={{
                 filter: 'brightness(1.8) saturate(2)',
-                animation: 'heroLogoShimmer 4s ease-in-out infinite',
-                opacity: 0.7
+                animation: 'heroLogoShimmer 6s ease-in-out infinite',
+                opacity: 0.35
               }}
             />
           </div>
