@@ -82,7 +82,7 @@ export default function StatCounter({ value, suffix = "", prefix = "", label, de
 
       {/* Label */}
       <div 
-        className="text-xs md:text-sm text-white/50 font-medium tracking-wide"
+        className="text-xs md:text-sm text-white/70 font-medium tracking-wide"
         data-testid={`text-stat-label-${label.toLowerCase().replace(/\s/g, "-")}`}
       >
         {label}

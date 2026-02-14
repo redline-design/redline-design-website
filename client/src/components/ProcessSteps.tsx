@@ -52,7 +52,7 @@ export default function ProcessSteps() {
               Works
             </span>
           </h2>
-          <p className="text-white/40 text-sm md:text-base max-w-xl mx-auto">
+          <p className="text-white/60 text-sm md:text-base max-w-xl mx-auto">
             From discovery to optimization, our proven four-step process
             delivers measurable results at every stage.
           </p>
@@ -93,7 +93,7 @@ export default function ProcessSteps() {
               <h3 className="text-lg font-semibold text-white mb-2">
                 {step.title}
               </h3>
-              <p className="text-white/50 text-sm leading-relaxed max-w-[260px]">
+              <p className="text-white/70 text-sm leading-relaxed max-w-[260px]">
                 {step.description}
               </p>
             </motion.div>

@@ -48,7 +48,7 @@ export default function HomeContactSection() {
               Touch
             </span>
           </h2>
-          <p className="text-white/40 text-sm md:text-base max-w-xl mx-auto">
+          <p className="text-white/60 text-sm md:text-base max-w-xl mx-auto">
             Ready to grow your business? Reach out and let&apos;s talk strategy.
           </p>
         </motion.div>
@@ -78,7 +78,7 @@ export default function HomeContactSection() {
                       <Icon className="w-5 h-5 text-red-500" />
                     </div>
                     <div>
-                      <p className="text-white/40 text-xs uppercase tracking-widest mb-1">
+                      <p className="text-white/60 text-xs uppercase tracking-widest mb-1">
                         {detail.label}
                       </p>
                       <p className="text-white text-sm md:text-base">

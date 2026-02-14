@@ -186,7 +186,7 @@ function TestimonialCard({ review }: TestimonialCardProps) {
               <h3 className="font-semibold text-sm text-white truncate" data-testid={`text-reviewer-name-${review.id}`}>
                 {review.name}
               </h3>
-              <p className="text-xs text-white/50 truncate">
+              <p className="text-xs text-white/70 truncate">
                 {review.role}{review.company && ` at ${review.company}`}
               </p>
             </div>

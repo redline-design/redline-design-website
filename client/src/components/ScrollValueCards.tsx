@@ -74,7 +74,7 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 tracking-tight">
             Results That <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-400">Speak</span>
           </h2>
-          <p className="text-white/50 text-sm md:text-base lg:text-lg max-w-xl mx-auto leading-relaxed">
+          <p className="text-white/70 text-sm md:text-base lg:text-lg max-w-xl mx-auto leading-relaxed">
             Data-driven strategies that deliver measurable growth and ROI
           </p>
         </motion.div>

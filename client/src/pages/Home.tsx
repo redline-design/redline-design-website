@@ -564,7 +564,7 @@ export default function Home() {
                 <h3 className="text-xl md:text-2xl font-semibold text-white/90 mb-2">
                   The Numbers Speak
                 </h3>
-                <p className="text-white/40 text-sm md:text-base max-w-md mx-auto">
+                <p className="text-white/60 text-sm md:text-base max-w-md mx-auto">
                   Our track record of delivering measurable results
                 </p>
               </motion.div>
@@ -608,7 +608,7 @@ export default function Home() {
                 <h3 className="text-xl md:text-2xl font-semibold text-white/90 mb-2">
                   What Our Clients Say
                 </h3>
-                <p className="text-white/40 text-sm md:text-base max-w-md mx-auto">
+                <p className="text-white/60 text-sm md:text-base max-w-md mx-auto">
                   Real feedback from businesses we've helped grow
                 </p>
               </motion.div>

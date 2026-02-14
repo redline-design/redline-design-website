@@ -100,7 +100,7 @@ function PortfolioCard({ item, index }: PortfolioCardProps) {
           )}
         </div>
         {item.description && (
-          <p className="text-white/50 text-sm mt-1.5 line-clamp-2">
+          <p className="text-white/70 text-sm mt-1.5 line-clamp-2">
             {item.description}
           </p>
         )}
@@ -170,7 +170,7 @@ export default function OurWork() {
             animate={{ opacity: 1 }}
             data-testid="portfolio-empty-state"
           >
-            <p className="text-lg text-white/50">No portfolio items to display yet.</p>
+            <p className="text-lg text-white/70">No portfolio items to display yet.</p>
           </motion.div>
         ) : (
           <motion.div 
@@ -207,17 +207,17 @@ export default function OurWork() {
             >
               <div className="text-center">
                 <div className="text-3xl font-bold text-white">{portfolioItems.length}+</div>
-                <div className="text-white/50 text-sm">Projects</div>
+                <div className="text-white/70 text-sm">Projects</div>
               </div>
               <div className="w-px h-10 bg-white/10" />
               <div className="text-center">
                 <div className="text-3xl font-bold text-white">{categories.length}</div>
-                <div className="text-white/50 text-sm">Industries</div>
+                <div className="text-white/70 text-sm">Industries</div>
               </div>
               <div className="w-px h-10 bg-white/10" />
               <div className="text-center">
                 <div className="text-3xl font-bold text-red-500">100%</div>
-                <div className="text-white/50 text-sm">Satisfaction</div>
+                <div className="text-white/70 text-sm">Satisfaction</div>
               </div>
             </div>
           </motion.div>

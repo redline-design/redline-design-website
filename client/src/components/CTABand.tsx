@@ -47,7 +47,7 @@ export default function CTABand({ title, subtitle, buttonText, buttonLink, phone
           </Button>
         </Link>
         {phoneNumber && phoneHref && (
-          <p className="mt-4 text-sm text-white/40">
+          <p className="mt-4 text-sm text-white/60">
             Or call us at{" "}
             <a href={phoneHref} className="text-white/70 hover:text-white transition-colors underline" data-testid="link-cta-phone">
               {phoneNumber}

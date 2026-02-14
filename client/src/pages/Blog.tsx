@@ -147,7 +147,7 @@ function BlogPostCard({ post, delay = 0, featured = false }: BlogPostCardProps) 
               </p>
               
               <div className="flex items-center justify-between pt-3 border-t border-white/10">
-                <div className="flex items-center gap-3 text-xs text-white/45">
+                <div className="flex items-center gap-3 text-xs text-white/60">
                   <div className="flex items-center gap-1">
                     <Calendar className="h-3 w-3" />
                     <span>{formattedDate}</span>

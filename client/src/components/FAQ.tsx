@@ -76,7 +76,7 @@ export default function FAQ() {
               Questions
             </span>
           </h2>
-          <p className="text-white/40 text-sm md:text-base max-w-xl mx-auto">
+          <p className="text-white/60 text-sm md:text-base max-w-xl mx-auto">
             Everything you need to know about working with Redline Design
           </p>
         </motion.div>

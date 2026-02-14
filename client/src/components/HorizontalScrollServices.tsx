@@ -317,11 +317,11 @@ function ServiceCard({ service, mouseX }: ServiceCardProps) {
               {/* Timeline & Investment */}
               <div className="flex gap-3 text-xs border-t border-white/10 pt-3">
                 <div>
-                  <span className="text-white/40 block">Timeline</span>
+                  <span className="text-white/60 block">Timeline</span>
                   <span className="text-white/80 font-medium">{service.details.timeline}</span>
                 </div>
                 <div>
-                  <span className="text-white/40 block">Investment</span>
+                  <span className="text-white/60 block">Investment</span>
                   <span className="text-white/80 font-medium">{service.details.investment}</span>
                 </div>
               </div>

@@ -30,7 +30,7 @@ export default function AboutBlurb() {
               Are
             </span>
           </h2>
-          <p className="text-white/50 text-base md:text-lg leading-relaxed max-w-2xl mx-auto mb-10">
+          <p className="text-white/70 text-base md:text-lg leading-relaxed max-w-2xl mx-auto mb-10">
             Redline Design was built on a simple idea: businesses deserve
             marketing that actually works. We're a team of strategists,
             designers, and data nerds who treat your budget like our own —
@@ -56,7 +56,7 @@ export default function AboutBlurb() {
                 <div className="text-2xl md:text-3xl font-bold text-white">
                   {stat.value}
                 </div>
-                <div className="text-xs text-white/40 uppercase tracking-wider mt-1">
+                <div className="text-xs text-white/60 uppercase tracking-wider mt-1">
                   {stat.label}
                 </div>
               </div>
