@@ -9,9 +9,11 @@ interface CTABandProps {
   subtitle?: string;
   buttonText: string;
   buttonLink: string;
+  phoneNumber?: string;
+  phoneHref?: string;
 }
 
-export default function CTABand({ title, subtitle, buttonText, buttonLink }: CTABandProps) {
+export default function CTABand({ title, subtitle, buttonText, buttonLink, phoneNumber, phoneHref }: CTABandProps) {
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.3 });
 
   return (
@@ -44,6 +46,14 @@ export default function CTABand({ title, subtitle, buttonText, buttonLink }: CTA
             <ArrowRight className="ml-1 h-4 w-4" />
           </Button>
         </Link>
+        {phoneNumber && phoneHref && (
+          <p className="mt-4 text-sm text-white/40">
+            Or call us at{" "}
+            <a href={phoneHref} className="text-white/70 hover:text-white transition-colors underline" data-testid="link-cta-phone">
+              {phoneNumber}
+            </a>
+          </p>
+        )}
       </div>
     </motion.div>
   );

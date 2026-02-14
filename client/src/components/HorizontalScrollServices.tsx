@@ -343,22 +343,14 @@ function ServiceCard({ service, mouseX }: ServiceCardProps) {
 
       <a
         href={service.link}
-        className="luminous-card cursor-pointer relative group h-full block"
+        className="cursor-pointer relative group h-full block rounded-xl transition-all duration-300"
         style={{
-          '--accent-color': service.accentColor
-        } as React.CSSProperties}
+          background: 'rgba(20, 20, 20, 0.9)',
+          border: `1px solid rgba(255, 255, 255, 0.08)`,
+        }}
       >
-        {/* Luminous card layers */}
-        <div className="luminous-layers">
-          <div className="hex-pattern-overlay"></div>
-          <div className="light-layers">
-            <div className="srl"></div>
-            <div className="srt"></div>
-          </div>
-        </div>
-        
         {/* Content */}
-        <div className="card-content py-0 px-2 w-full h-full flex flex-col items-center justify-center relative z-10">
+        <div className="py-0 px-2 w-full h-full flex flex-col items-center justify-center relative z-10">
           <div className="icon-3d-container transition-all duration-400">
             <div 
               className="icon-circle-filled"
@@ -488,22 +480,15 @@ export default function HorizontalScrollServices() {
                     data-testid={`card-service-${service.id}`}
                   >
                     <div
-                      className="luminous-card relative group h-full aspect-square"
+                      className="relative group h-full aspect-square rounded-xl transition-all duration-300"
                       style={{
-                        '--accent-color': service.accentColor,
+                        background: 'rgba(20, 20, 20, 0.9)',
+                        border: '1px solid rgba(255, 255, 255, 0.08)',
                         minHeight: '90px',
                         maxHeight: '90px'
-                      } as React.CSSProperties}
+                      }}
                     >
-                      <div className="luminous-layers">
-                        <div className="hex-pattern-overlay"></div>
-                        <div className="light-layers">
-                          <div className="srl"></div>
-                          <div className="srt"></div>
-                        </div>
-                      </div>
-                      
-                      <div className="card-content py-2 px-1 w-full h-full flex flex-col items-center justify-center gap-1 relative z-10">
+                      <div className="py-2 px-1 w-full h-full flex flex-col items-center justify-center gap-1 relative z-10">
                         <div className="icon-3d-container transition-all duration-400 flex-shrink-0">
                           <div 
                             className="icon-circle-filled"

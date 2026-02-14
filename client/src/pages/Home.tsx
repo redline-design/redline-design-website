@@ -13,7 +13,9 @@ import TextResolver from "@/components/TextResolver";
 import GlowCard from "@/components/GlowCard";
 import ScrollValueCards from "@/components/ScrollValueCards";
 import FAQ from "@/components/FAQ";
+import ProcessSteps from "@/components/ProcessSteps";
 import HomeContactSection from "@/components/HomeContactSection";
+import AboutBlurb from "@/components/AboutBlurb";
 import { BarChart3, Sparkles, Globe, DollarSign, Zap, Target, Users, Briefcase, TrendingUp, FileText, LineChart, MapPin, Smartphone, Eye, MousePointerClick, LayoutGrid, BarChart2, Monitor, Database, AlertTriangle, Heart, Award } from "lucide-react";
 import { SiGoogleads, SiMeta, SiLinkedin, SiTiktok, SiYoutube, SiX, SiReddit, SiPinterest } from "react-icons/si";
 import { motion } from "framer-motion";
@@ -417,6 +419,12 @@ export default function Home() {
       <SectionDivider />
 
       <ScrollAnimatedSection>
+        <AboutBlurb />
+      </ScrollAnimatedSection>
+
+      <SectionDivider />
+
+      <ScrollAnimatedSection>
         <section className="py-12 md:py-20 px-4 md:px-8" data-testid="section-why-us">
           <ScrollValueCards
             cards={[
@@ -507,6 +515,12 @@ export default function Home() {
             ]}
           />
       </section>
+      </ScrollAnimatedSection>
+
+      <SectionDivider />
+
+      <ScrollAnimatedSection>
+        <ProcessSteps />
       </ScrollAnimatedSection>
 
       <SectionDivider />
@@ -639,6 +653,8 @@ export default function Home() {
             subtitle="Let's discuss how we can grow your business with data-driven marketing."
             buttonText="Get Started"
             buttonLink="/book-a-demo"
+            phoneNumber="(208) 867-4526"
+            phoneHref="tel:+12088674526"
           />
         </section>
       </div>
