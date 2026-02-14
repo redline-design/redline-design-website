@@ -239,7 +239,7 @@ export default function HorizontalScrollServices() {
         </div>
 
         <motion.div
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -249,26 +249,26 @@ export default function HorizontalScrollServices() {
             <motion.div key={service.id} variants={cardVariants}>
               <a
                 href={service.link}
-                className="block h-full rounded-xl p-5 sm:p-6 transition-all duration-300 group hover-elevate"
+                className="block h-full rounded-xl p-6 sm:p-7 transition-all duration-300 group hover-elevate"
                 style={{
-                  background: "rgba(255, 255, 255, 0.03)",
-                  border: "1px solid rgba(255, 255, 255, 0.06)"
+                  background: "rgba(20, 20, 20, 0.95)",
+                  border: "1px solid rgba(255, 255, 255, 0.08)"
                 }}
                 data-testid={`card-service-${service.id}`}
               >
-                <div className="w-12 h-12 rounded-xl bg-red-500/10 border border-red-500/20 flex items-center justify-center mb-4">
+                <div className="w-12 h-12 rounded-xl bg-red-500/10 border border-red-500/20 flex items-center justify-center mb-5">
                   <service.icon className="w-6 h-6 text-red-500" />
                 </div>
 
-                <h3 className="text-white font-semibold text-lg mb-2">
+                <h3 className="text-white font-semibold text-lg mb-3">
                   {service.title}
                 </h3>
 
-                <p className="text-white/70 text-sm leading-relaxed mb-4">
+                <p className="text-white/90 text-sm leading-relaxed mb-5">
                   {service.description}
                 </p>
 
-                <span className="inline-flex items-center gap-1.5 text-red-400 text-sm group-hover:text-red-300 transition-colors">
+                <span className="inline-flex items-center gap-1.5 text-red-400 text-sm font-medium group-hover:text-red-300 transition-colors">
                   Learn More
                   <ArrowRight className="w-4 h-4" />
                 </span>
