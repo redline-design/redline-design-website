@@ -60,7 +60,7 @@ export default function ProcessSteps() {
 
         <div className="relative grid grid-cols-1 lg:grid-cols-4 gap-10 lg:gap-6">
           <div
-            className="hidden lg:block absolute top-[52px] left-[12.5%] right-[12.5%] h-px"
+            className="hidden lg:block absolute top-[36px] left-[12.5%] right-[12.5%] h-px"
             style={{
               background:
                 "linear-gradient(to right, rgba(255,0,0,0.3), rgba(255,255,255,0.1) 30%, rgba(255,255,255,0.1) 70%, rgba(255,0,0,0.3))",
@@ -78,14 +78,13 @@ export default function ProcessSteps() {
               data-testid={`process-step-${step.number}`}
             >
               <div
-                className="relative flex items-center justify-center w-[104px] h-[104px] rounded-full mb-6"
+                className="relative flex items-center justify-center w-[72px] h-[72px] rounded-full mb-6"
                 style={{
-                  background: "rgba(255, 0, 0, 0.05)",
-                  border: "2px solid rgba(255, 0, 0, 0.25)",
-                  boxShadow: "0 0 30px rgba(255, 0, 0, 0.08)",
+                  background: "#cc0000",
+                  boxShadow: "0 4px 20px rgba(255, 0, 0, 0.25)",
                 }}
               >
-                <span className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-400">
+                <span className="text-2xl font-bold text-white">
                   {step.number}
                 </span>
               </div>
