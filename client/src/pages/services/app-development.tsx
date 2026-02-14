@@ -1,32 +1,97 @@
-import ServicePageTemplate from "@/components/ServicePageTemplate";
-import { Code } from "lucide-react";
+import { Code, Layers, Maximize, Wrench } from "lucide-react";
+import { ServiceHero, BenefitsGrid, PricingSection, IncludedGrid, ServiceCTA } from "@/components/service-sections";
+
+const benefits = [
+  {
+    icon: Code,
+    title: "Custom Solutions",
+    description: "Purpose-built applications designed around your specific business processes, not the other way around.",
+  },
+  {
+    icon: Layers,
+    title: "Modern Tech Stack",
+    description: "Built with industry-leading technologies like React, Node.js, and cloud infrastructure for reliability and performance.",
+  },
+  {
+    icon: Maximize,
+    title: "Scalable Architecture",
+    description: "Designed to handle growth from day one, with clean code and modular architecture that's easy to maintain.",
+  },
+  {
+    icon: Wrench,
+    title: "Ongoing Support",
+    description: "We don't just build and disappear. Ongoing maintenance, updates, and support keep your application running smoothly.",
+  },
+];
+
+const plans = [
+  {
+    name: "Starter",
+    price: "$5,000",
+    period: ", One-time",
+    features: [
+      "Simple web application",
+      "Up to 5 core features",
+      "Responsive design",
+      "Basic authentication",
+      "30 days of support",
+    ],
+  },
+  {
+    name: "Professional",
+    price: "$15,000",
+    period: ", One-time",
+    popular: true,
+    features: [
+      "Complex web application",
+      "Up to 15 features",
+      "Custom integrations",
+      "Admin dashboard",
+      "User management",
+      "90 days of support",
+    ],
+  },
+  {
+    name: "Enterprise",
+    price: "Contact Us",
+    period: ", Custom pricing",
+    features: [
+      "Full-scale platform",
+      "Unlimited features",
+      "API development",
+      "Cloud infrastructure",
+      "Dedicated project manager",
+      "Ongoing maintenance",
+      "SLA guarantee",
+    ],
+  },
+];
+
+const techItems = [
+  { title: "React & Next.js" },
+  { title: "Node.js & Express" },
+  { title: "PostgreSQL & MongoDB" },
+  { title: "AWS & Cloud" },
+  { title: "REST & GraphQL APIs" },
+  { title: "CI/CD Pipeline" },
+];
 
 export default function AppDevelopmentPage() {
   return (
-    <div>
-      <div className="layout">
-        <div className="layout-box">
-          High-end, full-service<br />digital marketing<br />for growing brands.
-        </div>
-      </div>
-      <ServicePageTemplate
-        icon={Code}
+    <div className="min-h-screen">
+      <ServiceHero
         title="App Development"
-        tagline="Build exactly what you need, nothing you don't"
-        description="Bespoke software solutions tailored to your business needs."
-        whatYouGet={[
-          "Custom web and mobile applications",
-          "API development and integrations",
-          "Database design and optimization",
-          "User-friendly admin dashboards",
-          "Ongoing maintenance and support"
-        ]}
-        perfectFor="Businesses with unique processes that off-the-shelf solutions can't handle"
-        timeline="4-12 weeks depending on complexity"
-        investment="Starting at $5,000"
-        status="accepting"
-        accentColor="rgb(139, 92, 246)"
+        subtitle="Build Exactly What You Need"
+        description="From web applications to mobile apps, we build custom software solutions tailored to your business. Clean code, modern architecture, and scalable infrastructure that grows with you."
       />
+
+      <BenefitsGrid benefits={benefits} />
+
+      <PricingSection plans={plans} />
+
+      <IncludedGrid title="Technologies We Use" items={techItems} columns={3} />
+
+      <ServiceCTA />
     </div>
   );
 }

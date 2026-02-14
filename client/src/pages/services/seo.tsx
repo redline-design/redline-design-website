@@ -1,14 +1,14 @@
-import { Link } from "wouter";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Check, Clock, DollarSign, Target, ArrowRight, Search, AlertCircle, CheckCircle2, AlertTriangle, Globe } from "lucide-react";
-import { motion } from "framer-motion";
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
-import { Input } from "@/components/ui/input";
+import { Link } from "wouter";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
 import { CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { FileText, Settings, Link2, MapPin, BarChart3, Monitor, Search, Eye, Lightbulb, Globe, AlertCircle, CheckCircle2, AlertTriangle } from "lucide-react";
+import { motion } from "framer-motion";
+import { ServiceHero, BenefitsGrid, PricingSection, IncludedGrid, ServiceCTA } from "@/components/service-sections";
 
 interface SEOIssue {
   type: string;
@@ -52,9 +52,119 @@ interface SEOAnalysis {
   };
 }
 
+const benefits = [
+  {
+    icon: FileText,
+    title: "On-Page SEO",
+    description: "Comprehensive content and meta tag optimization to ensure every page communicates clearly with search engines and users alike.",
+  },
+  {
+    icon: Settings,
+    title: "Technical SEO",
+    description: "Site speed optimization, crawlability improvements, and structured data implementation for maximum search visibility.",
+  },
+  {
+    icon: Link2,
+    title: "Link Building",
+    description: "Strategic acquisition of high-authority backlinks that strengthen your domain and boost your rankings organically.",
+  },
+  {
+    icon: MapPin,
+    title: "Local SEO",
+    description: "Dominate local search results with optimized Google Business Profiles, local citations, and geo-targeted content.",
+  },
+];
+
+const plans = [
+  {
+    name: "Lunar",
+    price: "$1,500",
+    period: "/month",
+    features: [
+      "Keyword research & strategy",
+      "On-page optimization",
+      "Monthly reporting",
+      "Google Business Profile optimization",
+      "Up to 10 target keywords",
+      "Quarterly content strategy",
+    ],
+  },
+  {
+    name: "Orbital",
+    price: "$3,000",
+    period: "/month",
+    popular: true,
+    features: [
+      "Everything in Lunar",
+      "Technical SEO audits",
+      "Link building campaign",
+      "Content creation (2 posts/mo)",
+      "Up to 25 target keywords",
+      "Competitor analysis",
+      "Bi-weekly reporting",
+    ],
+  },
+  {
+    name: "Supernova",
+    price: "$5,000",
+    period: "/month",
+    features: [
+      "Everything in Orbital",
+      "Full technical overhaul",
+      "Aggressive link building",
+      "Content creation (4 posts/mo)",
+      "Unlimited target keywords",
+      "Local SEO multi-location",
+      "Weekly strategy calls",
+      "Dedicated SEO specialist",
+    ],
+  },
+];
+
+const includedItems = [
+  {
+    icon: BarChart3,
+    title: "Google Analytics Setup",
+    description: "Full GA4 configuration with custom event tracking and conversion goals",
+  },
+  {
+    icon: Monitor,
+    title: "Search Console Integration",
+    description: "Index monitoring, sitemap submission, and crawl error tracking",
+  },
+  {
+    icon: FileText,
+    title: "Monthly Reports",
+    description: "Detailed performance dashboards with actionable insights",
+  },
+  {
+    icon: Search,
+    title: "Keyword Tracking",
+    description: "Real-time rank tracking across target keywords and locations",
+  },
+  {
+    icon: Eye,
+    title: "Competitor Monitoring",
+    description: "Track competitor rankings, backlinks, and content strategies",
+  },
+  {
+    icon: Lightbulb,
+    title: "Content Recommendations",
+    description: "AI-powered topic suggestions based on search intent data",
+  },
+];
+
+const timelineStages = [
+  { month: 1, label: "Foundation" },
+  { month: 2, label: "Indexing" },
+  { month: 3, label: "Growth" },
+  { month: 4, label: "Momentum" },
+  { month: 5, label: "Authority" },
+  { month: 6, label: "Domination" },
+];
+
 export default function SEOPage() {
   const [url, setUrl] = useState("");
-  const accentColor = "rgb(110, 231, 183)";
 
   const analyzeMutation = useMutation({
     mutationFn: async (url: string) => {
@@ -85,132 +195,97 @@ export default function SEOPage() {
 
   return (
     <div className="min-h-screen">
-      <div className="layout">
-        <div className="layout-box">
-          High-end, full-service<br />digital marketing<br />for growing brands.
-        </div>
-      </div>
-      {/* Hero Section */}
-      <div className="relative overflow-hidden bg-gradient-to-br from-background/80 via-card/40 to-background/80 py-20 md:py-32">
-        <div className="absolute inset-0 bg-grid-white/5 [mask-image:linear-gradient(0deg,transparent,black)]" />
-        
-        <div className="container mx-auto px-4 relative z-10">
+      <ServiceHero
+        title="SEO Optimization"
+        subtitle="Dominate Search Rankings"
+        description="Build sustainable organic growth with comprehensive SEO strategies that put your business at the top of search results. We optimize every aspect of your online presence to drive qualified traffic and build lasting authority."
+      />
+
+      <BenefitsGrid benefits={benefits} />
+
+      <section className="py-16 md:py-24 px-4 md:px-8" data-testid="section-seo-timeline">
+        <div className="max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="max-w-4xl mx-auto text-center"
-          >
-            <div className="flex justify-center mb-6">
-              <div className="p-4 rounded-2xl bg-card/40 backdrop-blur-sm border border-border">
-                <Search className="w-12 h-12 md:w-16 md:h-16" style={{ color: accentColor }} />
-              </div>
-            </div>
-            
-            <Badge variant="secondary" className="mb-4">Join Waitlist</Badge>
-            
-            <h1 className="text-4xl md:text-6xl font-bold mb-6">SEO/SEM</h1>
-            
-            <p className="text-xl md:text-2xl text-muted-foreground mb-8">
-              Show up when customers are searching for you
-            </p>
-            
-            <p className="text-lg text-foreground/80 mb-8">
-              Get found everywhere, by everyone.
-            </p>
-            
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/contact" data-testid="link-hero-join-waitlist">
-                <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground gap-2" data-testid="button-hero-join-waitlist">
-                  Join Waitlist
-                  <ArrowRight className="w-4 h-4" />
-                </Button>
-              </Link>
-              <Link href="/book-a-demo" data-testid="link-hero-book-demo">
-                <Button size="lg" variant="outline" data-testid="button-hero-book-demo">Book a Demo</Button>
-              </Link>
-            </div>
-          </motion.div>
-        </div>
-      </div>
-
-      {/* Service Details */}
-      <div className="container mx-auto px-4 py-16 md:py-24">
-        <div className="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.4 }}
+            className="text-center mb-12"
           >
-            <Card className="p-8 h-full">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="p-2 rounded-lg bg-primary/10">
-                  <Check className="w-6 h-6 text-primary" />
-                </div>
-                <h2 className="text-2xl md:text-3xl font-bold">What You Get</h2>
-              </div>
-              
-              <ul className="space-y-4">
-                {[
-                  "Keyword research to find what your customers search",
-                  "On-page optimization for better rankings",
-                  "Content strategy that attracts organic traffic",
-                  "Local SEO for Google Maps visibility",
-                  "Monthly reports showing your progress"
-                ].map((item, index) => (
-                  <li key={index} className="flex items-start gap-3" data-testid={`list-benefit-${index}`}>
-                    <Check className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                    <span className="text-foreground">{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </Card>
+            <h2
+              className="text-3xl md:text-4xl font-bold text-white mb-3"
+              data-testid="text-timeline-heading"
+            >
+              SEO Growth Over Time
+            </h2>
+            <p className="text-white/50 text-base md:text-lg" data-testid="text-timeline-subtitle">
+              Watch your rankings climb month after month with our proven methodology
+            </p>
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="space-y-6"
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4"
           >
-            <Card className="p-8">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="p-2 rounded-lg bg-primary/10">
-                  <Target className="w-6 h-6 text-primary" />
-                </div>
-                <h3 className="text-xl font-bold">Perfect For</h3>
-              </div>
-              <p className="text-foreground">Businesses committed to long-term sustainable growth</p>
-            </Card>
+            {timelineStages.map((stage, index) => {
+              const minHeight = 60;
+              const maxHeight = 180;
+              const height = minHeight + ((maxHeight - minHeight) / (timelineStages.length - 1)) * index;
+              const opacity = 0.4 + (0.6 / (timelineStages.length - 1)) * index;
 
-            <Card className="p-8">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="p-2 rounded-lg bg-primary/10">
-                  <Clock className="w-6 h-6 text-primary" />
-                </div>
-                <h3 className="text-xl font-bold">Timeline</h3>
-              </div>
-              <p className="text-foreground">3-6 months to see significant results</p>
-            </Card>
-
-            <Card className="p-8">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="p-2 rounded-lg bg-primary/10">
-                  <DollarSign className="w-6 h-6 text-primary" />
-                </div>
-                <h3 className="text-xl font-bold">Investment</h3>
-              </div>
-              <p className="text-2xl font-bold text-primary">Starting at $700/month</p>
-            </Card>
+              return (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: index * 0.1 }}
+                  className="flex flex-col items-center"
+                  data-testid={`card-timeline-${index}`}
+                >
+                  <div className="flex-1 flex items-end w-full mb-3">
+                    <div
+                      className="w-full rounded-md"
+                      style={{
+                        height: `${height}px`,
+                        background: `linear-gradient(to top, rgba(239, 68, 68, ${opacity}), rgba(220, 38, 38, ${opacity * 0.7}))`,
+                        border: "1px solid rgba(239, 68, 68, 0.2)",
+                      }}
+                    />
+                  </div>
+                  <p
+                    className="text-xs text-white/40 font-medium"
+                    data-testid={`text-timeline-month-${index}`}
+                  >
+                    Month {stage.month}
+                  </p>
+                  <p
+                    className="text-sm font-semibold text-white"
+                    data-testid={`text-timeline-label-${index}`}
+                  >
+                    {stage.label}
+                  </p>
+                </motion.div>
+              );
+            })}
           </motion.div>
         </div>
-      </div>
+      </section>
 
-      {/* Free SEO Checker Tool - Integrated */}
-      <div className="bg-card/40 backdrop-blur-sm border-y border-border py-12 md:py-16">
-        <div className="container mx-auto px-4 max-w-5xl">
+      <PricingSection plans={plans} />
+
+      <IncludedGrid
+        title="What's Included in Every Plan"
+        subtitle="Every SEO plan comes loaded with essential tools and features"
+        items={includedItems}
+        columns={3}
+      />
+
+      <section className="py-12 md:py-16 px-4 md:px-8" data-testid="section-seo-checker">
+        <div className="max-w-5xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -220,9 +295,9 @@ export default function SEOPage() {
             <div className="text-center mb-8">
               <div className="flex items-center justify-center gap-2 mb-3">
                 <Globe className="w-8 h-8 text-primary" />
-                <h2 className="text-3xl md:text-4xl font-bold">Try Our Free SEO Checker</h2>
+                <h2 className="text-3xl md:text-4xl font-bold text-white" data-testid="text-seo-checker-heading">Try Our Free SEO Checker</h2>
               </div>
-              <p className="text-sm text-muted-foreground max-w-2xl mx-auto">
+              <p className="text-sm text-white/50 max-w-2xl mx-auto" data-testid="text-seo-checker-subtitle">
                 Get an instant SEO analysis of your website. See how you stack up before committing to our services.
               </p>
             </div>
@@ -244,8 +319,8 @@ export default function SEOPage() {
                     className="flex-1"
                     data-testid="input-url"
                   />
-                  <Button 
-                    type="submit" 
+                  <Button
+                    type="submit"
                     disabled={analyzeMutation.isPending}
                     data-testid="button-analyze"
                   >
@@ -283,7 +358,7 @@ export default function SEOPage() {
               >
                 <Card className="mb-3">
                   <CardHeader className="pb-3">
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-center justify-between gap-4 flex-wrap">
                       <div>
                         <CardTitle className="text-lg">Overall SEO Score</CardTitle>
                         <CardDescription className="break-all text-xs">
@@ -437,8 +512,8 @@ export default function SEOPage() {
                     <CardContent className="pb-3">
                       <div className="space-y-2">
                         {analyzeMutation.data.issues.map((issue, index) => (
-                          <div 
-                            key={index} 
+                          <div
+                            key={index}
                             className="p-2 bg-red-500/10 rounded-lg"
                             data-testid={`text-issue-${index}`}
                           >
@@ -466,8 +541,8 @@ export default function SEOPage() {
                     <CardContent className="pb-3">
                       <div className="space-y-2">
                         {analyzeMutation.data.warnings.map((warning, index) => (
-                          <div 
-                            key={index} 
+                          <div
+                            key={index}
                             className="p-2 bg-yellow-500/10 rounded-lg"
                             data-testid={`text-warning-${index}`}
                           >
@@ -495,8 +570,8 @@ export default function SEOPage() {
                     <CardContent className="pb-3">
                       <div className="space-y-2">
                         {analyzeMutation.data.passed.map((check, index) => (
-                          <div 
-                            key={index} 
+                          <div
+                            key={index}
                             className="p-2 bg-green-500/10 rounded-lg"
                             data-testid={`text-passed-${index}`}
                           >
@@ -531,34 +606,9 @@ export default function SEOPage() {
             )}
           </motion.div>
         </div>
-      </div>
+      </section>
 
-      {/* CTA Section */}
-      <div className="container mx-auto px-4 text-center py-16 md:py-24">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="max-w-3xl mx-auto"
-        >
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to Get Started?</h2>
-          <p className="text-lg text-muted-foreground mb-8">
-            Join our waitlist and be the first to know when we open up spots.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/contact" data-testid="link-cta-join-waitlist">
-              <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground gap-2" data-testid="button-cta-join-waitlist">
-                Join Waitlist
-                <ArrowRight className="w-4 h-4" />
-              </Button>
-            </Link>
-            <Link href="/" data-testid="link-cta-view-services">
-              <Button size="lg" variant="outline" data-testid="button-cta-view-services">View All Services</Button>
-            </Link>
-          </div>
-        </motion.div>
-      </div>
+      <ServiceCTA />
     </div>
   );
 }

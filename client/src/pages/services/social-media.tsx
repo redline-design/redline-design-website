@@ -1,359 +1,172 @@
-import { Link } from "wouter";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Check, Clock, DollarSign, Target, ArrowRight, MessageSquare } from "lucide-react";
+import { Calendar, Users, Target, BarChart3 } from "lucide-react";
 import { motion } from "framer-motion";
-import SectionDivider from "@/components/SectionDivider";
-import ScrollAnimatedSection from "@/components/ScrollAnimatedSection";
-import { 
-  SiFacebook, 
-  SiInstagram, 
-  SiX, 
-  SiLinkedin, 
-  SiTiktok, 
-  SiYoutube, 
-  SiPinterest, 
-  SiSnapchat,
-  SiThreads,
-  SiReddit,
-  SiGoogle
+import { ServiceHero, BenefitsGrid, PricingSection, ServiceCTA } from "@/components/service-sections";
+import {
+  SiFacebook,
+  SiInstagram,
+  SiX,
+  SiLinkedin,
+  SiTiktok,
+  SiYoutube,
+  SiPinterest,
 } from "react-icons/si";
+
+const benefits = [
+  {
+    icon: Calendar,
+    title: "Content Strategy",
+    description: "Develop a content calendar with engaging, on-brand posts tailored to each platform's unique audience and algorithm.",
+  },
+  {
+    icon: Users,
+    title: "Community Management",
+    description: "Build genuine relationships with your audience through responsive engagement, conversation, and community building.",
+  },
+  {
+    icon: Target,
+    title: "Paid Social Campaigns",
+    description: "Launch targeted advertising campaigns across social platforms to reach new audiences and drive measurable results.",
+  },
+  {
+    icon: BarChart3,
+    title: "Analytics & Reporting",
+    description: "Track every metric that matters with detailed monthly reports showing growth, engagement, and ROI.",
+  },
+];
 
 const platforms = [
   { name: "Facebook", icon: SiFacebook, color: "#1877F2" },
   { name: "Instagram", icon: SiInstagram, color: "#E4405F" },
-  { name: "X (Twitter)", icon: SiX, color: "#FFFFFF" },
+  { name: "X", icon: SiX, color: "#FFFFFF" },
   { name: "LinkedIn", icon: SiLinkedin, color: "#0A66C2" },
   { name: "TikTok", icon: SiTiktok, color: "#FFFFFF" },
   { name: "YouTube", icon: SiYoutube, color: "#FF0000" },
   { name: "Pinterest", icon: SiPinterest, color: "#E60023" },
-  { name: "Snapchat", icon: SiSnapchat, color: "#FFFC00" },
-  { name: "Threads", icon: SiThreads, color: "#FFFFFF" },
-  { name: "Reddit", icon: SiReddit, color: "#FF4500" },
-  { name: "Google My Business", icon: SiGoogle, color: "#4285F4" },
 ];
 
+const plans = [
+  {
+    name: "Lunar",
+    price: "$1,000",
+    period: "/month",
+    features: [
+      "3 platforms managed",
+      "12 posts per month",
+      "Basic content calendar",
+      "Community monitoring",
+      "Monthly reporting",
+    ],
+  },
+  {
+    name: "Orbital",
+    price: "$2,000",
+    period: "/month",
+    popular: true,
+    features: [
+      "5 platforms managed",
+      "20 posts per month",
+      "Custom content creation",
+      "Active community management",
+      "Paid social campaigns",
+      "Bi-weekly reporting",
+      "Influencer outreach",
+    ],
+  },
+  {
+    name: "Supernova",
+    price: "$3,500",
+    period: "/month",
+    features: [
+      "All platforms managed",
+      "30+ posts per month",
+      "Premium content (video + photo)",
+      "Full community management",
+      "Advanced paid campaigns",
+      "Weekly strategy calls",
+      "Dedicated social media manager",
+    ],
+  },
+];
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.08 },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.4 } },
+};
+
 export default function SocialMediaPage() {
-  const accentColor = "#ff0000";
-  
   return (
     <div className="min-h-screen">
-      <div className="layout">
-        <div className="layout-box">
-          High-end, full-service<br />digital marketing<br />for growing brands.
-        </div>
-      </div>
-      <ScrollAnimatedSection>
-        <div className="relative overflow-hidden pt-20 md:pt-32 pb-8 md:pb-12">
-        
-        <div className="container mx-auto px-4 relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="max-w-4xl mx-auto text-center"
-          >
-            <div className="flex justify-center mb-6">
-              <div 
-                className="p-4 rounded-2xl bg-card/40 backdrop-blur-sm border border-border"
-                data-testid="service-icon"
-              >
-                <MessageSquare className="w-12 h-12 md:w-16 md:h-16" style={{ color: '#3b82f6' }} />
-              </div>
-            </div>
-            
-            <h1 
-              className="text-4xl md:text-6xl font-bold mb-6"
-              data-testid="text-service-title"
-            >
-              Social Media Marketing
-            </h1>
-            
-            <p 
-              className="text-xl md:text-2xl text-muted-foreground mb-8"
-              data-testid="text-service-tagline"
-            >
-              Turn followers into customers
-            </p>
-            
-            <p className="text-lg text-foreground/80" data-testid="text-service-description">
-              Build your brand and engage your audience.
-            </p>
-          </motion.div>
-        </div>
-      </div>
-      </ScrollAnimatedSection>
+      <ServiceHero
+        title="Social Media Marketing"
+        subtitle="Build Your Brand Online"
+        description="Build your brand and engage your audience across all major social platforms. We create scroll-stopping content, manage communities, and run targeted campaigns that turn followers into customers."
+      />
 
-      <SectionDivider />
+      <BenefitsGrid benefits={benefits} />
 
-      <ScrollAnimatedSection>
-        <div className="container mx-auto px-4 py-16 md:py-24">
+      <section className="py-16 md:py-24 px-4 md:px-8" data-testid="section-platforms">
         <div className="max-w-6xl mx-auto">
-        <div className="grid md:grid-cols-2 gap-12">
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="card_wrapper h-full"
-          >
-            <div className="hover_color_bubble"></div>
-            <div className="solution_card h-full flex flex-col" data-testid="card-what-you-get">
-              <div className="card_content flex flex-col flex-1">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="icon_container">
-                    <Check className="w-6 h-6" />
-                  </div>
-                  <h2 className="text-2xl md:text-3xl font-bold">What You Get</h2>
-                </div>
-                
-                <ul className="space-y-3 mb-4">
-                  {[
-                    "Content calendar with engaging posts",
-                    "Professional copywriting and graphics",
-                    "Community management and engagement",
-                    "Paid social advertising campaigns",
-                    "Monthly performance analytics"
-                  ].map((item, index) => (
-                    <li 
-                      key={index} 
-                      className="flex items-start gap-3"
-                      data-testid={`list-item-benefit-${index}`}
-                    >
-                      <div className="checkbox-icon mt-0.5">
-                        <Check />
-                      </div>
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-                
-                <div className="mt-auto">
-                  <Link href="/contact" className="block">
-                    <button 
-                      className="neumorphic-button w-full"
-                      data-testid="button-get-started"
-                    >
-                      <span className="flex items-center justify-center gap-2">
-                        Get Started
-                        <ArrowRight className="w-4 h-4" />
-                      </span>
-                    </button>
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="space-y-6"
-          >
-            <div className="card_wrapper" data-testid="card-perfect-for">
-              <div className="hover_color_bubble"></div>
-              <div className="solution_card">
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <div className="icon_container flex-shrink-0 sm:mb-0 mb-0">
-                    <Target className="w-6 h-6" />
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="text-xl font-bold mb-2">Perfect For</h3>
-                    <p data-testid="text-perfect-for">
-                      Businesses looking to build brand awareness and community
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="card_wrapper" data-testid="card-timeline">
-              <div className="hover_color_bubble"></div>
-              <div className="solution_card">
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <div className="icon_container flex-shrink-0 sm:mb-0 mb-0">
-                    <Clock className="w-6 h-6" />
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="text-xl font-bold mb-2">Timeline</h3>
-                    <p data-testid="text-timeline">
-                      Ongoing monthly retainer
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="card_wrapper" data-testid="card-investment">
-              <div className="hover_color_bubble"></div>
-              <div className="solution_card">
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <div className="icon_container flex-shrink-0 sm:mb-0 mb-0">
-                    <DollarSign className="w-6 h-6" />
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="text-xl font-bold mb-2">Investment</h3>
-                    <p className="text-2xl font-bold text-primary" data-testid="text-investment">
-                      Starting at $1,000/month
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-        </div>
-        </div>
-      </ScrollAnimatedSection>
-
-      <SectionDivider />
-
-      <ScrollAnimatedSection>
-        <div className="container mx-auto px-4 py-16 md:py-24">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="max-w-7xl mx-auto text-center mb-16"
+            transition={{ duration: 0.4 }}
+            className="text-center mb-12"
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-6" data-testid="text-platforms-heading">
-              Platforms We Master
+            <h2
+              className="text-3xl md:text-4xl font-bold text-white mb-3"
+              data-testid="text-platforms-heading"
+            >
+              Platforms We Manage
             </h2>
-            <p className="text-lg text-muted-foreground mb-12" data-testid="text-platforms-description">
-              We create engaging content and manage campaigns across all major social platforms
+            <p className="text-white/50 text-base md:text-lg" data-testid="text-platforms-subtitle">
+              We create and manage content across all major social platforms
             </p>
-            
-            <div className="flex justify-center w-full px-4">
-              <div 
-                className="relative flex flex-nowrap items-end justify-center gap-2 sm:gap-3 md:gap-4 px-4 sm:px-6 py-4 rounded-2xl max-w-full"
+          </motion.div>
+
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-4"
+            data-testid="platforms-grid"
+          >
+            {platforms.map((platform, index) => (
+              <motion.div
+                key={platform.name}
+                variants={itemVariants}
+                className="flex flex-col items-center gap-3 p-5 rounded-md"
                 style={{
-                  background: 'rgba(255, 255, 255, 0.03)',
-                  backdropFilter: 'blur(20px)',
-                  WebkitBackdropFilter: 'blur(20px)',
-                  border: '1px solid rgba(255, 255, 255, 0.1)',
-                  boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.37)'
+                  background: "rgba(20, 20, 20, 0.95)",
+                  border: "1px solid rgba(255, 255, 255, 0.08)",
                 }}
-                data-testid="platforms-grid"
+                data-testid={`card-platform-${index}`}
               >
-                {platforms.map((platform, index) => (
-                  <motion.div
-                    key={platform.name}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.3, delay: index * 0.05 }}
-                    className="flex-shrink min-w-0"
-                    style={{
-                      width: 'clamp(4rem, 7vw, 7rem)',
-                      height: 'clamp(4rem, 7vw, 7rem)'
-                    }}
-                    data-testid={`platform-card-${platform.name.toLowerCase().replace(/\s+/g, '-')}`}
-                  >
-                    <div
-                      className="luminous-card relative group h-full"
-                      style={{
-                        '--accent-color': platform.color
-                      } as React.CSSProperties}
-                    >
-                      {/* Luminous card layers */}
-                      <div className="luminous-layers">
-                        {/* Hexagon Pattern Overlay */}
-                        <div className="hex-pattern-overlay"></div>
-                        
-                        {/* Light layers */}
-                        <div className="light-layers">
-                          <div className="srl"></div>
-                          <div className="srt"></div>
-                        </div>
-                      </div>
-                      
-                      {/* Content */}
-                      <div className="card-content py-0 px-2 w-full h-full flex flex-col items-center justify-center relative z-10">
-                        {/* 3D Icon with filled circle and cutout */}
-                        <div className="icon-3d-container transition-all duration-400">
-                          <div 
-                            className="icon-circle-filled"
-                            style={{
-                              '--icon-color': platform.color,
-                              backgroundColor: platform.color,
-                              width: 'clamp(2.5rem, 5vw, 4.5rem)',
-                              height: 'clamp(2.5rem, 5vw, 4.5rem)'
-                            } as React.CSSProperties}
-                          >
-                            <platform.icon 
-                              className="icon-cutout"
-                              style={{ 
-                                color: '#1a1a1a',
-                                width: 'clamp(1.25rem, 2.5vw, 2rem)',
-                                height: 'clamp(1.25rem, 2.5vw, 2rem)'
-                              }} 
-                            />
-                          </div>
-                        </div>
-                      </div>
-                      
-                      {/* Title as chat bubble above card - hidden by default, shown on hover */}
-                      <div className="service-title-bubble">
-                        <span className="text-xs font-bold tracking-tight whitespace-nowrap uppercase">
-                          {platform.name}
-                        </span>
-                      </div>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
+                <platform.icon
+                  className="w-8 h-8"
+                  style={{ color: platform.color }}
+                />
+                <span className="text-white/70 text-sm font-medium" data-testid={`text-platform-name-${index}`}>
+                  {platform.name}
+                </span>
+              </motion.div>
+            ))}
           </motion.div>
         </div>
-      </ScrollAnimatedSection>
+      </section>
 
-      <SectionDivider />
+      <PricingSection plans={plans} />
 
-      <ScrollAnimatedSection>
-        <div className="bg-card/40 backdrop-blur-sm border-y border-border py-16 md:py-24">
-        <div className="container mx-auto px-4 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="max-w-3xl mx-auto"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold mb-6" data-testid="text-cta-heading">
-              Ready to Get Started?
-            </h2>
-            <p className="text-lg text-muted-foreground mb-8" data-testid="text-cta-description">
-              Let's discuss how we can help grow your business with our proven strategies.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/contact">
-                <Button 
-                  size="lg"
-                  className="bg-primary hover:bg-primary/90 text-primary-foreground gap-2"
-                  data-testid="button-cta-contact"
-                >
-                  Contact Us
-                  <ArrowRight className="w-4 h-4" />
-                </Button>
-              </Link>
-              <Link href="/services">
-                <Button 
-                  size="lg"
-                  variant="outline"
-                  data-testid="button-view-all-services"
-                >
-                  View All Services
-                </Button>
-              </Link>
-            </div>
-          </motion.div>
-        </div>
-      </div>
-      </ScrollAnimatedSection>
+      <ServiceCTA />
     </div>
   );
 }

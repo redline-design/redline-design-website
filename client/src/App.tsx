@@ -36,6 +36,7 @@ const EmailMarketingPage = lazy(() => import("@/pages/services/email-marketing")
 const ConsultingPage = lazy(() => import("@/pages/services/consulting"));
 const AIAutomationPage = lazy(() => import("@/pages/services/ai-automation"));
 const AppDevelopmentPage = lazy(() => import("@/pages/services/app-development"));
+const ManagedITPage = lazy(() => import("@/pages/services/managed-it"));
 const SEOChecker = lazy(() => import("@/pages/SEOChecker"));
 const Sitemap = lazy(() => import("@/pages/Sitemap"));
 const MarketingFunnel = lazy(() => import("@/pages/MarketingFunnel"));
@@ -71,6 +72,7 @@ function Router() {
       <Route path="/services/consulting" component={ConsultingPage} />
       <Route path="/services/ai-automation" component={AIAutomationPage} />
       <Route path="/services/app-development" component={AppDevelopmentPage} />
+      <Route path="/services/managed-it" component={ManagedITPage} />
       <Route path="/contact" component={Contact} />
       <Route path="/seo-checker" component={SEOChecker} />
       <Route path="/why-us" component={WhyUs} />

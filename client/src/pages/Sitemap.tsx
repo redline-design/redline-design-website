@@ -3,7 +3,7 @@ import { Link } from "wouter";
 import { 
   Home, Briefcase, Users, FolderOpen, BookOpen, Mail, 
   Globe, TrendingUp, Search, Database, BarChart3, Palette,
-  MessageSquare, Bot, Code, FileText, Shield
+  MessageSquare, Bot, Code, FileText, Shield, Server
 } from "lucide-react";
 
 const sitemapData = [
@@ -32,6 +32,7 @@ const sitemapData = [
       { name: "AI & Automation", path: "/services/ai-automation", icon: Bot },
       { name: "App Development", path: "/services/app-development", icon: Code },
       { name: "Consulting", path: "/services/consulting", icon: Users },
+      { name: "Managed IT", path: "/services/managed-it", icon: Server },
     ]
   },
   {

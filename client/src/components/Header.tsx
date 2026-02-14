@@ -28,6 +28,7 @@ export default function Header() {
     { href: "/services/consulting", label: "Consulting" },
     { href: "/services/ai-automation", label: "AI Automation" },
     { href: "/services/app-development", label: "App Development" },
+    { href: "/services/managed-it", label: "Managed IT" },
   ];
 
   const navLinks = [

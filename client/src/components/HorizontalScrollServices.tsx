@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Globe, TrendingUp, Search, Database, BarChart3, Palette, MessageSquare, Mail, Users, Bot, ArrowRight } from "lucide-react";
+import { Globe, TrendingUp, Search, Database, BarChart3, Palette, MessageSquare, Mail, Users, Bot, ArrowRight, Server } from "lucide-react";
 
 const SERVICES_DATA = [
   {
@@ -188,8 +188,8 @@ const SERVICES_DATA = [
     title: "AI Solutions",
     description: "Harness the power of artificial intelligence to automate your marketing workflows. Smart funnels that nurture leads and close deals while you sleep.",
     tagline: "The future of business is here",
-    link: "/services/ai-solutions",
-    status: "waitlist" as const,
+    link: "/services/ai-automation",
+    status: "accepting" as const,
     accentColor: "rgb(14, 165, 233)",
     details: {
       whatYouGet: [
@@ -199,7 +199,27 @@ const SERVICES_DATA = [
         "Task automation"
       ],
       timeline: "2-4 weeks",
-      investment: "From $2,000/mo"
+      investment: "From $250/hr"
+    }
+  },
+  {
+    id: "managed-it",
+    icon: Server,
+    title: "Managed IT",
+    description: "Enterprise-grade infrastructure, proactive monitoring, and dedicated support. Stop worrying about servers, security, and downtime — we keep everything running.",
+    tagline: "Your mission control for technology",
+    link: "/services/managed-it",
+    status: "accepting" as const,
+    accentColor: "rgb(34, 197, 94)",
+    details: {
+      whatYouGet: [
+        "24/7 monitoring",
+        "Cybersecurity",
+        "Help desk support",
+        "Backup management"
+      ],
+      timeline: "Ongoing",
+      investment: "From $19/pc/mo"
     }
   }
 ];
