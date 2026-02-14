@@ -1,27 +1,32 @@
 import { motion } from "framer-motion";
+import { Search, Map, Rocket, RefreshCw } from "lucide-react";
 
 const steps = [
   {
     number: 1,
     title: "Discovery",
+    icon: Search,
     description:
       "We dive deep into your business, audience, and competitors to understand your unique market position and growth opportunities.",
   },
   {
     number: 2,
     title: "Strategy",
+    icon: Map,
     description:
       "Our team builds a custom roadmap aligned with your goals, combining data insights with proven marketing frameworks.",
   },
   {
     number: 3,
     title: "Launch",
+    icon: Rocket,
     description:
       "We execute with precision — deploying campaigns, building assets, and activating channels for maximum impact from day one.",
   },
   {
     number: 4,
     title: "Optimize",
+    icon: RefreshCw,
     description:
       "Continuous monitoring, A/B testing, and refinement ensure your campaigns keep improving and delivering stronger results.",
   },
@@ -84,9 +89,7 @@ export default function ProcessSteps() {
                   boxShadow: "0 4px 20px rgba(255, 0, 0, 0.25)",
                 }}
               >
-                <span className="text-2xl font-bold text-white">
-                  {step.number}
-                </span>
+                <step.icon className="w-7 h-7 text-white" />
               </div>
 
               <h3 className="text-lg font-semibold text-white mb-2">
