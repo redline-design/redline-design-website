@@ -411,7 +411,7 @@ export default function Home() {
       <SectionDivider />
 
       <ScrollAnimatedSection>
-        <section className="py-12 md:py-20 px-4 md:px-8" data-testid="section-differentiators">
+        <section className="py-20 md:py-32 px-4 md:px-8" data-testid="section-differentiators">
           <SliderCarousel slides={sliderSlides} />
       </section>
       </ScrollAnimatedSection>
@@ -425,7 +425,7 @@ export default function Home() {
       <SectionDivider />
 
       <ScrollAnimatedSection>
-        <section className="py-12 md:py-20 px-4 md:px-8" data-testid="section-why-us">
+        <section className="py-20 md:py-32 px-4 md:px-8" data-testid="section-why-us">
           <ScrollValueCards
             cards={[
               {
@@ -526,7 +526,7 @@ export default function Home() {
       <SectionDivider />
 
       <ScrollAnimatedSection>
-        <section id="partners" className="py-16 md:py-24 px-4 md:px-8" data-testid="section-partners">
+        <section id="partners" className="py-20 md:py-32 px-4 md:px-8" data-testid="section-partners">
           <div className="max-w-7xl mx-auto">
             
             {/* Partners Section */}
@@ -569,21 +569,7 @@ export default function Home() {
                 </p>
               </motion.div>
               
-              <div 
-                className="relative rounded-2xl p-8 md:p-12"
-                style={{
-                  background: "linear-gradient(180deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%)",
-                  border: "1px solid rgba(255,255,255,0.06)",
-                }}
-              >
-                {/* Subtle accent line */}
-                <div 
-                  className="absolute top-0 left-1/4 right-1/4 h-px"
-                  style={{
-                    background: "linear-gradient(90deg, transparent, rgba(255,0,0,0.5), transparent)"
-                  }}
-                />
-                
+              <div className="py-4 md:py-8">
                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
                   <StatCounter value={98} suffix="%" label="Client Satisfaction" icon={Heart} />
                   <StatCounter value={7} suffix="x" label="Average ROI" delay={0.1} icon={TrendingUp} />

@@ -46,25 +46,12 @@ export default function StatCounter({ value, suffix = "", prefix = "", label, de
       data-testid={`stat-${label.toLowerCase().replace(/\s/g, "-")}`}
     >
       {/* Icon */}
-      <motion.div
-        initial={{ scale: 0 }}
-        animate={inView ? { scale: 1 } : { scale: 0 }}
-        transition={{ duration: 0.4, delay: delay + 0.1, type: "spring", stiffness: 200 }}
-        className="mx-auto mb-3 md:mb-4"
-      >
-        <div
-          className="w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center mx-auto transition-all duration-300 group-hover:scale-110"
-          style={{
-            background: "linear-gradient(135deg, rgba(255, 0, 0, 0.15) 0%, rgba(255, 0, 0, 0.05) 100%)",
-            border: "1px solid rgba(255, 0, 0, 0.2)",
-          }}
-        >
-          <Icon 
-            className="w-5 h-5 md:w-6 md:h-6 transition-transform duration-300" 
-            style={{ color: "#ff0000" }}
-          />
-        </div>
-      </motion.div>
+      <div className="mx-auto mb-3 md:mb-4">
+        <Icon 
+          className="w-5 h-5 md:w-6 md:h-6 mx-auto" 
+          style={{ color: "rgba(255, 0, 0, 0.6)" }}
+        />
+      </div>
 
       {/* Number */}
       <motion.div

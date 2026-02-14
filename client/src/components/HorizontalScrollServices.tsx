@@ -1,17 +1,12 @@
-import { useState, useRef, useEffect } from "react";
-import { createPortal } from "react-dom";
-import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from "framer-motion";
-import { Globe, TrendingUp, Search, Database, BarChart3, Palette, MessageSquare, Mail, Users, Bot, Code, Check, ChevronLeft, ChevronRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import TextResolver from "@/components/TextResolver";
+import { motion } from "framer-motion";
+import { Globe, TrendingUp, Search, Database, BarChart3, Palette, MessageSquare, Mail, Users, Bot, ArrowRight } from "lucide-react";
 
-// Services data
 const SERVICES_DATA = [
   {
     id: "web",
     icon: Globe,
     title: "Websites",
-    description: "Unique websites at reasonable prices.",
+    description: "Custom-built websites that captivate visitors and convert them into loyal customers. From responsive design to e-commerce solutions, we build digital experiences that define your brand.",
     tagline: "Your digital storefront that works 24/7",
     link: "/services/websites",
     status: "accepting" as const,
@@ -31,7 +26,7 @@ const SERVICES_DATA = [
     id: "ppc",
     icon: TrendingUp,
     title: "Paid Advertising",
-    description: "Focusing on maximum ROI.",
+    description: "Precision-targeted pay-per-click campaigns that maximize your ROI. Our data-driven approach ensures every dollar works harder to bring qualified leads to your doorstep.",
     tagline: "Get customers today, not months from now",
     link: "/services/paid-advertising",
     status: "accepting" as const,
@@ -51,7 +46,7 @@ const SERVICES_DATA = [
     id: "seo",
     icon: Search,
     title: "SEO/SEM",
-    description: "Get found everywhere, by everyone.",
+    description: "Dominate search rankings with our comprehensive SEO strategies. We optimize every aspect of your online presence to drive organic traffic and build lasting authority.",
     tagline: "Show up when customers are searching",
     link: "/services/seo",
     status: "waitlist" as const,
@@ -71,7 +66,7 @@ const SERVICES_DATA = [
     id: "crm",
     icon: Database,
     title: "CRM",
-    description: "Streamline your customer relationships.",
+    description: "Seamless CRM integration that unifies your customer data and streamlines your sales pipeline. Connect every touchpoint for a 360-degree view of your customers.",
     tagline: "Never lose track of a lead again",
     link: "/services/crm",
     status: "accepting" as const,
@@ -91,7 +86,7 @@ const SERVICES_DATA = [
     id: "analytics",
     icon: BarChart3,
     title: "Analytics",
-    description: "Make data-driven decisions.",
+    description: "Transform raw data into actionable insights with unified dashboards. Connect all your marketing channels and track performance in real time with AI-powered analysis.",
     tagline: "Know exactly what's working",
     link: "/services/analytics",
     status: "accepting" as const,
@@ -111,7 +106,7 @@ const SERVICES_DATA = [
     id: "design",
     icon: Palette,
     title: "Design",
-    description: "Stand out from the competition.",
+    description: "Stunning visual identities that make your brand unforgettable. From logos to complete brand systems, we design assets that resonate with your audience.",
     tagline: "Visual identity that converts",
     link: "/services/design",
     status: "accepting" as const,
@@ -131,7 +126,7 @@ const SERVICES_DATA = [
     id: "social",
     icon: MessageSquare,
     title: "Social Media",
-    description: "Build your community.",
+    description: "Build and engage your community across every platform. We create content strategies that grow your following and turn followers into customers.",
     tagline: "Engage and grow your audience",
     link: "/services/social-media",
     status: "accepting" as const,
@@ -151,7 +146,7 @@ const SERVICES_DATA = [
     id: "email",
     icon: Mail,
     title: "Email Marketing",
-    description: "Nurture leads into customers.",
+    description: "Nurture leads into loyal customers with automated email sequences. Smart segmentation and A/B testing ensure every message drives engagement and revenue.",
     tagline: "Direct line to your audience",
     link: "/services/email-marketing",
     status: "accepting" as const,
@@ -171,7 +166,7 @@ const SERVICES_DATA = [
     id: "consulting",
     icon: Users,
     title: "Consulting",
-    description: "Expert marketing guidance.",
+    description: "Expert marketing guidance tailored to your unique business challenges. From strategy sessions to team training, we help you build internal marketing capabilities.",
     tagline: "Strategy tailored to you",
     link: "/services/consulting",
     status: "accepting" as const,
@@ -191,7 +186,7 @@ const SERVICES_DATA = [
     id: "ai",
     icon: Bot,
     title: "AI Solutions",
-    description: "Leverage cutting-edge AI.",
+    description: "Harness the power of artificial intelligence to automate your marketing workflows. Smart funnels that nurture leads and close deals while you sleep.",
     tagline: "The future of business is here",
     link: "/services/ai-solutions",
     status: "waitlist" as const,
@@ -209,387 +204,78 @@ const SERVICES_DATA = [
   }
 ];
 
-const BASE_WIDTH = 100;
-const BASE_HEIGHT = 100;
-const MAX_WIDTH = 150;
-const MAX_HEIGHT = 150;
-
-interface ServiceCardProps {
-  service: typeof SERVICES_DATA[number];
-  mouseX: any;
-}
-
-function ServiceCard({ service, mouseX }: ServiceCardProps) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [isHovered, setIsHovered] = useState(false);
-  const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
-
-  const distance = useTransform(mouseX, (val: number) => {
-    const bounds = ref.current?.getBoundingClientRect() ?? { x: 0, width: 0 };
-    const center = bounds.x + bounds.width / 2;
-    return Math.abs(val - center);
-  });
-
-  const widthSync = useTransform(distance, [0, 150], [MAX_WIDTH, BASE_WIDTH]);
-  const heightSync = useTransform(distance, [0, 150], [MAX_HEIGHT, BASE_HEIGHT]);
-
-  const width = useSpring(widthSync, { stiffness: 400, damping: 30 });
-  const height = useSpring(heightSync, { stiffness: 400, damping: 30 });
-
-  const updateTooltipPosition = () => {
-    if (ref.current) {
-      const rect = ref.current.getBoundingClientRect();
-      setTooltipPosition({
-        x: rect.left + rect.width / 2,
-        y: rect.top
-      });
+const containerVariants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.08
     }
-  };
+  }
+};
 
-  const handleMouseEnter = () => {
-    updateTooltipPosition();
-    setIsHovered(true);
-  };
-
-  return (
-    <motion.div
-      ref={ref}
-      style={{ width, height }}
-      className="flex-shrink-0 relative"
-      data-testid={`card-service-${service.id}`}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      {/* Hover Details Box - Rendered via Portal */}
-      {isHovered && createPortal(
-        <AnimatePresence>
-          <motion.div
-            initial={{ opacity: 0, y: 10, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 10, scale: 0.95 }}
-            transition={{ duration: 0.2, ease: "easeOut" }}
-            className="fixed w-64 pointer-events-none"
-            style={{ 
-              zIndex: 99999,
-              left: tooltipPosition.x,
-              top: tooltipPosition.y - 12,
-              transform: 'translate(-50%, -100%)'
-            }}
-          >
-            <div 
-              className="rounded-xl p-4 relative"
-              style={{
-                background: "rgba(15, 15, 15, 0.98)",
-                backdropFilter: "blur(12px)",
-                WebkitBackdropFilter: "blur(12px)",
-                border: `1px solid ${service.accentColor}40`,
-                boxShadow: `0 8px 32px rgba(0, 0, 0, 0.5), 0 0 20px ${service.accentColor}20`
-              }}
-            >
-              {/* Top accent line */}
-              <div 
-                className="absolute top-0 left-4 right-4 h-px"
-                style={{ background: `linear-gradient(90deg, transparent, ${service.accentColor}, transparent)` }}
-              />
-              
-              {/* Title */}
-              <div className="flex items-center gap-2 mb-3">
-                <service.icon className="w-4 h-4" style={{ color: service.accentColor }} />
-                <h4 className="font-bold text-white text-sm">{service.title}</h4>
-                {service.status === "waitlist" && (
-                  <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/10 text-white/60">Waitlist</span>
-                )}
-              </div>
-              
-              {/* Tagline */}
-              <p className="text-white/60 text-xs mb-3">{service.tagline}</p>
-              
-              {/* What You Get */}
-              <div className="space-y-1.5 mb-3">
-                {service.details.whatYouGet.slice(0, 3).map((item, idx) => (
-                  <div key={idx} className="flex items-start gap-2">
-                    <Check className="w-3 h-3 flex-shrink-0 mt-0.5" style={{ color: service.accentColor }} />
-                    <span className="text-white/70 text-xs leading-tight">{item}</span>
-                  </div>
-                ))}
-              </div>
-              
-              {/* Timeline & Investment */}
-              <div className="flex gap-3 text-xs border-t border-white/10 pt-3">
-                <div>
-                  <span className="text-white/60 block">Timeline</span>
-                  <span className="text-white/80 font-medium">{service.details.timeline}</span>
-                </div>
-                <div>
-                  <span className="text-white/60 block">Investment</span>
-                  <span className="text-white/80 font-medium">{service.details.investment}</span>
-                </div>
-              </div>
-              
-              {/* Arrow pointing down */}
-              <div 
-                className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-4 h-4 rotate-45"
-                style={{ 
-                  background: "rgba(15, 15, 15, 0.98)",
-                  borderRight: `1px solid ${service.accentColor}40`,
-                  borderBottom: `1px solid ${service.accentColor}40`
-                }}
-              />
-            </div>
-          </motion.div>
-        </AnimatePresence>,
-        document.body
-      )}
-
-      <a
-        href={service.link}
-        className="cursor-pointer relative group h-full block rounded-xl transition-all duration-300"
-        style={{
-          background: 'rgba(20, 20, 20, 0.9)',
-          border: `1px solid rgba(255, 255, 255, 0.08)`,
-        }}
-      >
-        {/* Content */}
-        <div className="py-0 px-2 w-full h-full flex flex-col items-center justify-center relative z-10">
-          <div className="icon-3d-container transition-all duration-400">
-            <div 
-              className="icon-circle-filled"
-              style={{
-                '--icon-color': service.accentColor,
-                backgroundColor: service.accentColor,
-                width: '4.5rem',
-                height: '4.5rem'
-              } as React.CSSProperties}
-            >
-              <service.icon 
-                className="icon-cutout h-8 w-8" 
-                style={{ color: '#1a1a1a' }} 
-                data-testid={`icon-service-${service.id}`} 
-              />
-            </div>
-          </div>
-        </div>
-        
-        {/* Title bubble on hover */}
-        <div className="service-title-bubble" data-testid={`text-service-title-${service.id}`}>
-          <span className="text-xs font-bold tracking-tight whitespace-nowrap uppercase">
-            {service.title}
-          </span>
-        </div>
-      </a>
-    </motion.div>
-  );
-}
+const cardVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: "easeOut" }
+  }
+};
 
 export default function HorizontalScrollServices() {
-  const [currentPage, setCurrentPage] = useState(0);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const mouseX = useMotionValue(Infinity);
-  
-  const ITEMS_PER_PAGE = 3;
-  const totalPages = Math.ceil(SERVICES_DATA.length / ITEMS_PER_PAGE);
-  
-  const getCurrentPageServices = () => {
-    const start = currentPage * ITEMS_PER_PAGE;
-    const end = start + ITEMS_PER_PAGE;
-    return SERVICES_DATA.slice(start, end);
-  };
-  
-  const handlePrevPage = () => {
-    setCurrentPage((prev) => (prev === 0 ? totalPages - 1 : prev - 1));
-  };
-  
-  const handleNextPage = () => {
-    setCurrentPage((prev) => (prev === totalPages - 1 ? 0 : prev + 1));
-  };
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      mouseX.set(e.clientX);
-    };
-
-    const handleMouseLeave = () => {
-      mouseX.set(Infinity);
-    };
-
-    const container = containerRef.current;
-    if (container) {
-      container.addEventListener('mousemove', handleMouseMove);
-      container.addEventListener('mouseleave', handleMouseLeave);
-      
-      return () => {
-        container.removeEventListener('mousemove', handleMouseMove);
-        container.removeEventListener('mouseleave', handleMouseLeave);
-      };
-    }
-  }, [mouseX]);
-
   return (
-    <section 
-      className="pt-20 pb-12 px-4 sm:px-6 lg:px-8 relative overflow-visible"
-      data-testid="section-services-horizontal"
-      style={{ zIndex: 1 }}
+    <section
+      className="py-20 px-4 sm:px-6 lg:px-8"
+      data-testid="section-services"
     >
-      <div className="max-w-7xl mx-auto overflow-visible">
-        {/* Desktop Title */}
-        <div className="hidden md:block text-center mb-8">
-          <h2 className="text-lg sm:text-xl md:text-2xl font-bold uppercase tracking-[0.3em] mb-4 red-glow-pulse" style={{ color: "#ff0000" }}>
-            <TextResolver text="What We Do" delay={0} timeout={15} iterations={2} />
+      <div className="max-w-7xl mx-auto">
+        <div className="text-center mb-14">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4">
+            Our Services
           </h2>
-          <p className="text-lg text-foreground">
-            <TextResolver text="Comprehensive digital marketing solutions to grow your business" delay={200} timeout={10} iterations={1} />
+          <p className="text-white/60 text-base sm:text-lg max-w-2xl mx-auto">
+            Comprehensive digital solutions to propel your business forward
           </p>
         </div>
 
-        {/* Mobile Carousel Layout */}
-        <div 
-          className="md:hidden relative rounded-2xl px-3 py-6 mt-8"
-          style={{
-            background: 'rgba(15, 15, 15, 0.8)',
-            border: '1px solid rgba(255, 255, 255, 0.1)',
-            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.4)',
-            transform: 'translateZ(0)',
-            willChange: 'transform'
-          }}
+        <motion.div
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
         >
-          {/* Title on mobile */}
-          <div className="text-center mb-6">
-            <h2 className="text-lg sm:text-xl font-bold uppercase tracking-[0.3em] mb-4 red-glow-pulse" style={{ color: "#ff0000" }}>
-              <TextResolver text="What We Do" delay={0} timeout={15} iterations={2} />
-            </h2>
-            <p className="text-lg text-foreground">
-              <TextResolver text="Comprehensive digital marketing solutions to grow your business" delay={200} timeout={10} iterations={1} />
-            </p>
-          </div>
-
-          <div>
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={currentPage}
-                initial={{ opacity: 0, x: 50 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -50 }}
-                transition={{ duration: 0.3 }}
-                className="flex flex-row items-center justify-center gap-1 w-full"
+          {SERVICES_DATA.map((service) => (
+            <motion.div key={service.id} variants={cardVariants}>
+              <a
+                href={service.link}
+                className="block h-full rounded-xl p-5 sm:p-6 transition-all duration-300 group hover-elevate"
+                style={{
+                  background: "rgba(255, 255, 255, 0.03)",
+                  border: "1px solid rgba(255, 255, 255, 0.06)"
+                }}
+                data-testid={`card-service-${service.id}`}
               >
-                {getCurrentPageServices().map((service) => (
-                  <a
-                    key={service.id}
-                    href={service.link}
-                    className="cursor-pointer flex-1"
-                    data-testid={`card-service-${service.id}`}
-                  >
-                    <div
-                      className="relative group h-full aspect-square rounded-xl transition-all duration-300"
-                      style={{
-                        background: 'rgba(20, 20, 20, 0.9)',
-                        border: '1px solid rgba(255, 255, 255, 0.08)',
-                        minHeight: '90px',
-                        maxHeight: '90px'
-                      }}
-                    >
-                      <div className="py-2 px-1 w-full h-full flex flex-col items-center justify-center gap-1 relative z-10">
-                        <div className="icon-3d-container transition-all duration-400 flex-shrink-0">
-                          <div 
-                            className="icon-circle-filled"
-                            style={{
-                              '--icon-color': service.accentColor,
-                              backgroundColor: service.accentColor,
-                              width: '2rem',
-                              height: '2rem'
-                            } as React.CSSProperties}
-                          >
-                            <service.icon 
-                              className="icon-cutout h-4 w-4" 
-                              style={{ color: '#1a1a1a' }} 
-                              data-testid={`icon-service-${service.id}`} 
-                            />
-                          </div>
-                        </div>
-                        <div className="text-center w-full">
-                          <span className="text-[8px] font-bold tracking-tighter uppercase block leading-tight">
-                            {service.title}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </a>
-                ))}
-              </motion.div>
-            </AnimatePresence>
-          </div>
+                <div className="w-12 h-12 rounded-xl bg-red-500/10 border border-red-500/20 flex items-center justify-center mb-4">
+                  <service.icon className="w-6 h-6 text-red-500" />
+                </div>
 
-          {/* Navigation */}
-          <div className="flex justify-center items-center gap-3 mt-6">
-            <button
-              onClick={handlePrevPage}
-              className="w-10 h-10 rounded-lg border-2 border-white/30 flex items-center justify-center transition-all"
-              style={{
-                background: "rgba(15, 15, 15, 0.8)",
-                color: "#fff"
-              }}
-              aria-label="Previous page"
-              data-testid="button-services-prev"
-            >
-              <ChevronLeft className="w-5 h-5" />
-            </button>
-            
-            <div className="flex gap-2">
-              {Array.from({ length: totalPages }).map((_, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => setCurrentPage(idx)}
-                  className={`transition-all ${idx === currentPage ? 'w-6 h-2 bg-red-600' : 'w-2 h-2 bg-white/30'} rounded-full`}
-                  aria-label={`Go to page ${idx + 1}`}
-                  data-testid={`dot-services-${idx}`}
-                />
-              ))}
-            </div>
+                <h3 className="text-white font-semibold text-lg mb-2">
+                  {service.title}
+                </h3>
 
-            <button
-              onClick={handleNextPage}
-              className="w-10 h-10 rounded-lg border-2 border-white/30 flex items-center justify-center transition-all"
-              style={{
-                background: "rgba(15, 15, 15, 0.8)",
-                color: "#fff"
-              }}
-              aria-label="Next page"
-              data-testid="button-services-next"
-            >
-              <ChevronRight className="w-5 h-5" />
-            </button>
-          </div>
-        </div>
+                <p className="text-white/70 text-sm leading-relaxed mb-4">
+                  {service.description}
+                </p>
 
-        {/* Desktop Dock-Style Layout */}
-        <div className="hidden md:flex justify-center overflow-visible">
-          <div 
-            className="relative inline-flex items-end justify-center gap-2 px-6 py-2 rounded-2xl"
-            style={{
-              background: 'rgba(15, 15, 15, 0.8)',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
-              boxShadow: '0 4px 12px rgba(0, 0, 0, 0.4)',
-              transform: 'translateZ(0)',
-              willChange: 'transform',
-              overflow: 'visible'
-            }}
-          >
-            <div 
-              ref={containerRef}
-              className="relative flex items-end justify-center gap-4 overflow-visible" 
-              data-testid="container-service-cards"
-              style={{ height: BASE_HEIGHT + 10 }}
-            >
-              {SERVICES_DATA.map((service) => (
-                <ServiceCard
-                  key={service.id}
-                  service={service}
-                  mouseX={mouseX}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
+                <span className="inline-flex items-center gap-1.5 text-red-400 text-sm group-hover:text-red-300 transition-colors">
+                  Learn More
+                  <ArrowRight className="w-4 h-4" />
+                </span>
+              </a>
+            </motion.div>
+          ))}
+        </motion.div>
       </div>
     </section>
   );
