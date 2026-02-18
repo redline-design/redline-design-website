@@ -117,12 +117,12 @@ export default function SectionTracker() {
             <button
               key={section.id}
               onClick={() => scrollTo(i)}
-              className="group relative flex items-center gap-3 py-[8px] cursor-pointer"
+              className="group relative flex items-center justify-end gap-3 py-[8px] cursor-pointer"
               aria-label={`Go to ${section.label}`}
               data-testid={`tracker-dot-${i}`}
             >
               <span
-                className="whitespace-nowrap text-[12px] font-semibold transition-all duration-300 leading-none"
+                className="whitespace-nowrap text-[12px] font-semibold transition-all duration-300 leading-none text-right"
                 style={{
                   color: isActive
                     ? "#ff0000"
@@ -135,7 +135,7 @@ export default function SectionTracker() {
                 {section.label}
               </span>
 
-              <div className="relative z-10 flex items-center justify-center w-[11px] h-[11px]">
+              <div className="relative z-10 flex-shrink-0 flex items-center justify-center w-[11px] h-[11px]">
                 <span
                   className="block rounded-full transition-all duration-300"
                   style={{
