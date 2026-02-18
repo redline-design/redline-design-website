@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation } from "wouter";
-import { Menu, X, ChevronDown, ArrowRight, Layers, Award, BookOpen, Home, Rocket } from "lucide-react";
+import { Menu, X, ChevronDown, ArrowRight, Layers, Award, BookOpen, Home, Rocket, Briefcase } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   DropdownMenu,
@@ -33,6 +33,7 @@ export default function Header() {
 
   const navLinks = [
     { href: "/why-us", label: "Why Us", icon: Award },
+    { href: "/our-work", label: "Our Work", icon: Briefcase },
     { href: "/blog", label: "Blog", icon: BookOpen },
   ];
 
