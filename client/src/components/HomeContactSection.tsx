@@ -30,13 +30,13 @@ export default function HomeContactSection() {
       data-testid="section-home-contact"
     >
       <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+        <div className="max-w-3xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="flex flex-col justify-center"
+            className="text-center mb-10"
           >
             <h2
               className="text-3xl sm:text-4xl md:text-5xl font-bold text-red-500 mb-6 tracking-tight section-heading-glow"
@@ -45,58 +45,53 @@ export default function HomeContactSection() {
               Ready to Grow?
             </h2>
             <p
-              className="text-white/70 text-base md:text-lg leading-relaxed mb-10 max-w-lg"
+              className="text-white/70 text-base md:text-lg leading-relaxed max-w-xl mx-auto"
               data-testid="text-contact-subtitle"
             >
               Let's talk about your business goals and build a marketing
               strategy that delivers real, measurable results.
             </p>
-
-            <div className="space-y-5 mb-10">
-              {contactDetails.map((detail) => {
-                const Icon = detail.icon;
-                const inner = (
-                  <div
-                    key={detail.label}
-                    className="flex items-center gap-4"
-                    data-testid={`contact-detail-${detail.label.toLowerCase()}`}
-                  >
-                    <div className="flex-shrink-0 w-11 h-11 rounded-full bg-red-500/10 border border-red-500/20 flex items-center justify-center">
-                      <Icon className="w-5 h-5 text-red-500" />
-                    </div>
-                    <div>
-                      <p className="text-white/50 text-xs uppercase tracking-widest mb-0.5">
-                        {detail.label}
-                      </p>
-                      <p className="text-white font-medium text-sm md:text-base">
-                        {detail.value}
-                      </p>
-                    </div>
-                  </div>
-                );
-
-                if (detail.href) {
-                  return (
-                    <a
-                      key={detail.label}
-                      href={detail.href}
-                      className="block group"
-                      data-testid={`link-contact-${detail.label.toLowerCase()}`}
-                    >
-                      {inner}
-                    </a>
-                  );
-                }
-
-                return <div key={detail.label}>{inner}</div>;
-              })}
-            </div>
-
-            <div className="flex items-center gap-3 text-white/40 text-sm">
-              <Clock className="w-4 h-4" />
-              <span>Average response time under 24 business hours</span>
-            </div>
           </motion.div>
+
+          <div className="flex flex-wrap items-center justify-center gap-6 mb-10">
+            {contactDetails.map((detail) => {
+              const Icon = detail.icon;
+              const inner = (
+                <div
+                  key={detail.label}
+                  className="flex items-center gap-3"
+                  data-testid={`contact-detail-${detail.label.toLowerCase()}`}
+                >
+                  <div className="flex-shrink-0 w-10 h-10 rounded-full bg-red-500/10 border border-red-500/20 flex items-center justify-center">
+                    <Icon className="w-4 h-4 text-red-500" />
+                  </div>
+                  <div>
+                    <p className="text-white/50 text-[10px] uppercase tracking-widest mb-0.5">
+                      {detail.label}
+                    </p>
+                    <p className="text-white font-medium text-sm">
+                      {detail.value}
+                    </p>
+                  </div>
+                </div>
+              );
+
+              if (detail.href) {
+                return (
+                  <a
+                    key={detail.label}
+                    href={detail.href}
+                    className="block group"
+                    data-testid={`link-contact-${detail.label.toLowerCase()}`}
+                  >
+                    {inner}
+                  </a>
+                );
+              }
+
+              return <div key={detail.label}>{inner}</div>;
+            })}
+          </div>
 
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -125,6 +120,11 @@ export default function HomeContactSection() {
               <ContactForm />
             </div>
           </motion.div>
+
+          <div className="flex items-center justify-center gap-3 text-white/40 text-sm mt-6">
+            <Clock className="w-4 h-4" />
+            <span>Average response time under 24 business hours</span>
+          </div>
         </div>
       </div>
     </section>
