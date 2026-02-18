@@ -3,11 +3,14 @@ import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 export default function AnimatedBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const mousePosRef = useRef({ x: -9999, y: -9999 });
+  const mousePosRef = useRef({ x: 0.5, y: 0.5 });
   const prefersReducedMotion = useReducedMotion();
 
   const handleMouseMove = useCallback((e: MouseEvent) => {
-    mousePosRef.current = { x: e.clientX, y: e.clientY };
+    mousePosRef.current = {
+      x: e.clientX / window.innerWidth,
+      y: e.clientY / window.innerHeight,
+    };
   }, []);
 
   useEffect(() => {
@@ -21,23 +24,16 @@ export default function AnimatedBackground() {
 
     let animationFrameId: number;
     let isTabVisible = true;
+    const startTime = Date.now();
 
     const handleVisibilityChange = () => {
       isTabVisible = !document.hidden;
     };
     document.addEventListener("visibilitychange", handleVisibilityChange);
 
-    const spacing = 32;
-    let cols = 0;
-    let rows = 0;
-    let dotIntensity: Float32Array = new Float32Array(0);
-
     const resizeCanvas = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
-      cols = Math.ceil(canvas.width / spacing) + 1;
-      rows = Math.ceil(canvas.height / spacing) + 1;
-      dotIntensity = new Float32Array(cols * rows);
     };
     resizeCanvas();
 
@@ -49,16 +45,8 @@ export default function AnimatedBackground() {
     window.addEventListener("resize", debouncedResize);
     window.addEventListener("mousemove", handleMouseMove, { passive: true });
 
-    const mouseLeave = () => {
-      mousePosRef.current = { x: -9999, y: -9999 };
-    };
-    window.addEventListener("mouseleave", mouseLeave);
-
     let lastFrameTime = 0;
     const frameInterval = 1000 / 30;
-    const glowRadius = 200;
-    const glowRadiusSq = glowRadius * glowRadius;
-    const lerpSpeed = 0.07;
 
     const animate = (currentTime: number) => {
       animationFrameId = requestAnimationFrame(animate);
@@ -70,122 +58,164 @@ export default function AnimatedBackground() {
 
       const w = canvas.width;
       const h = canvas.height;
+      const time = (Date.now() - startTime) * 0.001;
       const mx = mousePosRef.current.x;
       const my = mousePosRef.current.y;
 
       ctx.fillStyle = "#07070b";
       ctx.fillRect(0, 0, w, h);
 
-      const grad = ctx.createRadialGradient(w * 0.5, h * 0.35, 0, w * 0.5, h * 0.35, w * 0.6);
-      grad.addColorStop(0, "rgba(22, 4, 4, 0.18)");
-      grad.addColorStop(0.6, "rgba(10, 3, 3, 0.08)");
-      grad.addColorStop(1, "rgba(0, 0, 0, 0)");
-      ctx.fillStyle = grad;
-      ctx.fillRect(0, 0, w, h);
+      const horizonY = h * 0.42;
+      const vanishX = w * (0.5 + (mx - 0.5) * 0.15);
 
-      for (let row = 0; row < rows; row++) {
-        for (let col = 0; col < cols; col++) {
-          const idx = row * cols + col;
-          const x = col * spacing;
-          const y = row * spacing;
+      const topGrad = ctx.createLinearGradient(0, 0, 0, horizonY);
+      topGrad.addColorStop(0, "rgba(12, 4, 4, 0.15)");
+      topGrad.addColorStop(1, "rgba(20, 5, 5, 0.08)");
+      ctx.fillStyle = topGrad;
+      ctx.fillRect(0, 0, w, horizonY);
 
-          const dx = mx - x;
-          const dy = my - y;
-          const distSq = dx * dx + dy * dy;
+      const horizonGrad = ctx.createRadialGradient(vanishX, horizonY, 0, vanishX, horizonY, w * 0.5);
+      horizonGrad.addColorStop(0, "rgba(255, 25, 10, 0.06)");
+      horizonGrad.addColorStop(0.4, "rgba(255, 15, 5, 0.025)");
+      horizonGrad.addColorStop(1, "rgba(0, 0, 0, 0)");
+      ctx.fillStyle = horizonGrad;
+      ctx.fillRect(0, horizonY - h * 0.15, w, h * 0.3);
 
-          let target = 0;
-          if (distSq < glowRadiusSq) {
-            const dist = Math.sqrt(distSq);
-            target = 1 - dist / glowRadius;
-            target = target * target;
-          }
+      const gridRows = 40;
+      const gridCols = 30;
+      const scrollSpeed = 0.35;
+      const scrollOffset = (time * scrollSpeed) % 1;
 
-          dotIntensity[idx] += (target - dotIntensity[idx]) * lerpSpeed;
+      ctx.lineWidth = 0.7;
+
+      for (let i = 0; i <= gridRows; i++) {
+        let t = (i + scrollOffset) / gridRows;
+        t = t * t * t;
+        const y = horizonY + t * (h - horizonY) * 1.1;
+        if (y > h + 5) continue;
+
+        const perspectiveScale = t;
+        const halfWidth = w * 0.5 + perspectiveScale * w * 1.2;
+        const leftX = vanishX - halfWidth;
+        const rightX = vanishX + halfWidth;
+
+        const closeness = Math.min(1, t * 3);
+        const alpha = 0.03 + closeness * 0.08;
+        const redShift = Math.max(0, 1 - Math.abs(i % gridRows - gridRows * 0.3) / (gridRows * 0.2));
+
+        if (redShift > 0.3 && closeness > 0.1) {
+          ctx.strokeStyle = `rgba(255, 25, 12, ${alpha * 0.8})`;
+        } else {
+          ctx.strokeStyle = `rgba(130, 140, 170, ${alpha})`;
         }
+
+        ctx.beginPath();
+        ctx.moveTo(leftX, y);
+        ctx.lineTo(rightX, y);
+        ctx.stroke();
       }
 
-      ctx.lineWidth = 0.5;
-      for (let row = 0; row < rows; row++) {
-        for (let col = 0; col < cols; col++) {
-          const idx = row * cols + col;
-          const t = dotIntensity[idx];
-          const x = col * spacing;
-          const y = row * spacing;
+      for (let j = -gridCols; j <= gridCols; j++) {
+        const xFraction = j / gridCols;
+        const baseAlpha = 0.04 + (1 - Math.abs(xFraction)) * 0.05;
 
-          if (col < cols - 1) {
-            const rightT = dotIntensity[idx + 1];
-            const lineT = Math.max(t, rightT);
-            const lineAlpha = 0.025 + lineT * 0.12;
-            if (lineT > 0.05) {
-              const r = Math.round(130 + lineT * 125);
-              const g = Math.round(140 - lineT * 110);
-              const b = Math.round(170 - lineT * 140);
-              ctx.strokeStyle = `rgba(${r},${g},${b},${lineAlpha})`;
-            } else {
-              ctx.strokeStyle = `rgba(140, 148, 175, ${lineAlpha})`;
-            }
-            ctx.beginPath();
-            ctx.moveTo(x, y);
-            ctx.lineTo(x + spacing, y);
-            ctx.stroke();
-          }
+        const isCenter = Math.abs(j) <= 1;
 
-          if (row < rows - 1) {
-            const belowT = dotIntensity[idx + cols];
-            const lineT = Math.max(t, belowT);
-            const lineAlpha = 0.025 + lineT * 0.12;
-            if (lineT > 0.05) {
-              const r = Math.round(130 + lineT * 125);
-              const g = Math.round(140 - lineT * 110);
-              const b = Math.round(170 - lineT * 140);
-              ctx.strokeStyle = `rgba(${r},${g},${b},${lineAlpha})`;
-            } else {
-              ctx.strokeStyle = `rgba(140, 148, 175, ${lineAlpha})`;
-            }
-            ctx.beginPath();
-            ctx.moveTo(x, y);
-            ctx.lineTo(x, y + spacing);
-            ctx.stroke();
-          }
+        if (isCenter) {
+          ctx.strokeStyle = `rgba(255, 30, 15, ${baseAlpha * 1.5})`;
+        } else {
+          ctx.strokeStyle = `rgba(130, 140, 170, ${baseAlpha})`;
         }
+
+        ctx.beginPath();
+        ctx.moveTo(vanishX, horizonY);
+
+        const endX = vanishX + xFraction * w * 2.5;
+        const endY = h + 10;
+        ctx.lineTo(endX, endY);
+        ctx.stroke();
       }
 
-      for (let row = 0; row < rows; row++) {
-        for (let col = 0; col < cols; col++) {
-          const idx = row * cols + col;
-          const t = dotIntensity[idx];
-          const x = col * spacing;
-          const y = row * spacing;
+      const intersectionRows = 12;
+      for (let i = 0; i < intersectionRows; i++) {
+        let t = ((i + scrollOffset * 2) % intersectionRows) / intersectionRows;
+        t = t * t * t;
+        const y = horizonY + t * (h - horizonY) * 1.1;
+        if (y > h + 5 || y < horizonY) continue;
 
-          const baseAlpha = 0.12;
+        const perspectiveScale = t;
+        const halfWidth = w * 0.5 + perspectiveScale * w * 1.2;
 
-          if (t > 0.01) {
-            const alpha = baseAlpha + t * 0.7;
-            const r = Math.round(170 + t * 85);
-            const g = Math.round(178 - t * 148);
-            const b = Math.round(210 - t * 180);
-            const dotR = 1.2 + t * 1.8;
+        for (let j = -6; j <= 6; j++) {
+          const xFrac = j / 6;
+          const x = vanishX + xFrac * halfWidth;
+          if (x < -10 || x > w + 10) continue;
 
-            ctx.fillStyle = `rgba(${r},${g},${b},${alpha})`;
+          const closeness = Math.min(1, t * 3);
+          const dotAlpha = 0.1 + closeness * 0.35;
+          const dotR = 1 + closeness * 1.5;
+
+          const isAccent = (Math.abs(j) <= 1) || (i % 3 === 0 && Math.abs(j) % 3 === 0);
+
+          if (isAccent) {
+            ctx.fillStyle = `rgba(255, 50, 30, ${dotAlpha})`;
             ctx.beginPath();
-            ctx.arc(x, y, dotR, 0, Math.PI * 2);
+            ctx.arc(x, y, dotR * 1.2, 0, Math.PI * 2);
             ctx.fill();
 
-            if (t > 0.2) {
-              const glowAlpha = t * 0.15;
-              const glow = ctx.createRadialGradient(x, y, 0, x, y, 14);
-              glow.addColorStop(0, `rgba(255, 35, 15, ${glowAlpha})`);
+            if (closeness > 0.3) {
+              const glow = ctx.createRadialGradient(x, y, 0, x, y, dotR * 6);
+              glow.addColorStop(0, `rgba(255, 30, 10, ${dotAlpha * 0.3})`);
               glow.addColorStop(1, "rgba(255, 0, 0, 0)");
               ctx.fillStyle = glow;
-              ctx.fillRect(x - 14, y - 14, 28, 28);
+              ctx.fillRect(x - dotR * 6, y - dotR * 6, dotR * 12, dotR * 12);
             }
           } else {
-            ctx.fillStyle = `rgba(160, 168, 200, ${baseAlpha})`;
+            ctx.fillStyle = `rgba(160, 170, 200, ${dotAlpha * 0.5})`;
             ctx.beginPath();
-            ctx.arc(x, y, 1, 0, Math.PI * 2);
+            ctx.arc(x, y, dotR * 0.8, 0, Math.PI * 2);
             ctx.fill();
           }
         }
+      }
+
+      const particleCount = 20;
+      for (let i = 0; i < particleCount; i++) {
+        const seed = i * 7.31;
+        const px = (Math.sin(seed) * 0.5 + 0.5) * w;
+        const baseY = ((seed * 3.17) % 1);
+        const py = horizonY + baseY * (h - horizonY) * 0.9;
+        const drift = Math.sin(time * 0.3 + seed * 2.1) * 20;
+        const rise = Math.sin(time * 0.15 + seed) * 8;
+        const finalX = px + drift;
+        const finalY = py + rise;
+
+        if (finalY < horizonY || finalY > h) continue;
+
+        const closeness = (finalY - horizonY) / (h - horizonY);
+        const alpha = 0.08 + closeness * 0.15;
+        const size = 0.8 + closeness * 1.5;
+
+        const isRedParticle = i % 5 === 0;
+        if (isRedParticle) {
+          ctx.fillStyle = `rgba(255, 40, 20, ${alpha * 1.5})`;
+        } else {
+          ctx.fillStyle = `rgba(160, 175, 220, ${alpha})`;
+        }
+        ctx.beginPath();
+        ctx.arc(finalX, finalY, size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      const scanY = (time * 30) % (h - horizonY);
+      if (scanY > 0) {
+        const sy = horizonY + scanY;
+        const sg = ctx.createLinearGradient(0, sy - 10, 0, sy + 10);
+        sg.addColorStop(0, "rgba(255, 20, 10, 0)");
+        sg.addColorStop(0.5, "rgba(255, 20, 10, 0.02)");
+        sg.addColorStop(1, "rgba(255, 20, 10, 0)");
+        ctx.fillStyle = sg;
+        ctx.fillRect(0, sy - 10, w, 20);
       }
     };
 
@@ -194,7 +224,6 @@ export default function AnimatedBackground() {
     return () => {
       window.removeEventListener("resize", debouncedResize);
       window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("mouseleave", mouseLeave);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
       clearTimeout(resizeTimeout);
       cancelAnimationFrame(animationFrameId);
