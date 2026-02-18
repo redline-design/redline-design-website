@@ -178,9 +178,15 @@ export default function WhyUs() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
                 <DialogTrigger asChild>
-                  <Button size="lg" className="text-base px-8" data-testid="button-get-started">
+                  <div
+                    className="inline-flex items-center gap-2.5 px-8 py-3 text-base font-medium text-black rounded-md cursor-pointer transition-all hover:scale-[1.03] nav-glow-btn"
+                    style={{
+                      background: "linear-gradient(145deg, #ff0000, #cc0000)",
+                    }}
+                    data-testid="button-get-started"
+                  >
                     Get Started <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
+                  </div>
                 </DialogTrigger>
                 <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto backdrop-blur-2xl bg-background/90 border-white/20">
                   <DialogHeader>

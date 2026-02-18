@@ -654,9 +654,17 @@ export default function SEOPage() {
                     Our SEO experts will fix these issues and boost your rankings in 3-6 months
                   </p>
                   <div className="flex flex-col sm:flex-row gap-2 justify-center">
-                    <Button asChild data-testid="button-seo-get-started">
-                      <Link href="/contact" data-testid="link-seo-get-started">Get Started with SEO</Link>
-                    </Button>
+                    <Link href="/contact">
+                      <div
+                        className="inline-flex items-center gap-2 px-5 py-2 text-sm font-medium text-black rounded-md cursor-pointer transition-all hover:scale-[1.03] nav-glow-btn"
+                        style={{
+                          background: "linear-gradient(145deg, #ff0000, #cc0000)",
+                        }}
+                        data-testid="button-seo-get-started"
+                      >
+                        Get Started with SEO
+                      </div>
+                    </Link>
                     <Button asChild variant="outline" data-testid="button-seo-consultation">
                       <Link href="/contact" data-testid="link-seo-consultation">Get Free Consultation</Link>
                     </Button>

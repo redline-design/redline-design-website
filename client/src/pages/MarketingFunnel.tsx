@@ -778,11 +778,17 @@ export default function MarketingFunnel() {
                     animate={{ opacity: [0.5, 0.8, 0.5] }}
                     transition={{ duration: 2, repeat: Infinity }}
                   />
-                  <Button size="lg" className="relative font-bold text-lg px-10 py-7 bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-red-400 border-0" data-testid="button-funnel-get-started">
-                    <Rocket className="mr-2 h-5 w-5" />
+                  <div
+                    className="relative inline-flex items-center gap-2.5 px-10 py-4 text-lg font-bold text-black rounded-md cursor-pointer transition-all hover:scale-[1.03] nav-glow-btn"
+                    style={{
+                      background: "linear-gradient(145deg, #ff0000, #cc0000)",
+                    }}
+                    data-testid="button-funnel-get-started"
+                  >
+                    <Rocket className="h-5 w-5" />
                     Get Started
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </Button>
+                    <ArrowRight className="h-5 w-5" />
+                  </div>
                 </motion.div>
               </Link>
               <Link href="/services">

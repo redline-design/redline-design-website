@@ -87,14 +87,16 @@ export default function ServicePageTemplate({
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/contact">
-                <Button 
-                  size="lg" 
-                  className="bg-primary hover:bg-primary/90 text-primary-foreground gap-2"
+                <div
+                  className="inline-flex items-center gap-2.5 px-6 py-2.5 text-sm font-medium text-black rounded-md cursor-pointer transition-all hover:scale-[1.03] nav-glow-btn"
+                  style={{
+                    background: "linear-gradient(145deg, #ff0000, #cc0000)",
+                  }}
                   data-testid="button-get-started"
                 >
                   {status === "waitlist" ? "Join Waitlist" : "Get Started"}
                   <ArrowRight className="w-4 h-4" />
-                </Button>
+                </div>
               </Link>
               <Link href="/book-a-demo">
                 <Button 
@@ -209,14 +211,16 @@ export default function ServicePageTemplate({
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/contact">
-                <Button 
-                  size="lg"
-                  className="bg-primary hover:bg-primary/90 text-primary-foreground gap-2"
+                <div
+                  className="inline-flex items-center gap-2.5 px-6 py-2.5 text-sm font-medium text-black rounded-md cursor-pointer transition-all hover:scale-[1.03] nav-glow-btn"
+                  style={{
+                    background: "linear-gradient(145deg, #ff0000, #cc0000)",
+                  }}
                   data-testid="button-cta-contact"
                 >
                   {status === "waitlist" ? "Join Waitlist" : "Contact Us"}
                   <ArrowRight className="w-4 h-4" />
-                </Button>
+                </div>
               </Link>
               <Link href="/services">
                 <Button 

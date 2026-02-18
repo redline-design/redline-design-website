@@ -1,6 +1,6 @@
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Rocket } from "lucide-react";
 import { motion } from "framer-motion";
 
 interface ServiceCTAProps {
@@ -29,7 +29,7 @@ export default function ServiceCTA({
             {title}
           </h2>
           <p
-            className="text-white/60 text-base md:text-lg mb-10 leading-relaxed"
+            className="text-white/80 text-base md:text-lg mb-10 leading-relaxed"
             data-testid="text-cta-subtitle"
           >
             {subtitle}
@@ -37,10 +37,16 @@ export default function ServiceCTA({
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/contact">
-              <Button size="lg" className="gap-2" data-testid="button-cta-contact">
+              <div
+                className="inline-flex items-center gap-2.5 px-6 py-2.5 text-sm font-medium text-black rounded-md cursor-pointer transition-all hover:scale-[1.03] nav-glow-btn"
+                style={{
+                  background: "linear-gradient(145deg, #ff0000, #cc0000)",
+                }}
+                data-testid="button-cta-contact"
+              >
+                <Rocket className="h-5 w-5" />
                 Contact Us
-                <ArrowRight className="w-4 h-4" />
-              </Button>
+              </div>
             </Link>
             <Link href="/services">
               <Button size="lg" variant="outline" data-testid="button-cta-view-services">

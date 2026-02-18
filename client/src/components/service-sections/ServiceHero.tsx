@@ -1,6 +1,6 @@
 import { Link } from "wouter";
+import { ArrowRight, Rocket } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 
 interface ServiceHeroProps {
@@ -26,7 +26,7 @@ export default function ServiceHero({ title, subtitle, description }: ServiceHer
           </h1>
 
           <p
-            className="text-lg md:text-xl text-white/50 mb-4 max-w-2xl mx-auto"
+            className="text-lg md:text-xl text-white/80 mb-4 max-w-2xl mx-auto"
             data-testid="text-hero-subtitle"
           >
             {subtitle}
@@ -41,10 +41,16 @@ export default function ServiceHero({ title, subtitle, description }: ServiceHer
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/contact">
-              <Button size="lg" className="gap-2" data-testid="button-hero-get-started">
+              <div
+                className="inline-flex items-center gap-2.5 px-6 py-2.5 text-sm font-medium text-black rounded-md cursor-pointer transition-all hover:scale-[1.03] nav-glow-btn"
+                style={{
+                  background: "linear-gradient(145deg, #ff0000, #cc0000)",
+                }}
+                data-testid="button-hero-get-started"
+              >
+                <Rocket className="h-5 w-5" />
                 Get Started
-                <ArrowRight className="w-4 h-4" />
-              </Button>
+              </div>
             </Link>
             <Link href="/book-a-demo">
               <Button size="lg" variant="outline" data-testid="button-hero-book-demo">

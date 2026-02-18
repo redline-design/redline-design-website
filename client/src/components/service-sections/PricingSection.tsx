@@ -136,14 +136,27 @@ export default function PricingSection({ plans, footnote }: PricingSectionProps)
               </ul>
 
               <Link href={plan.buttonLink || "/contact"}>
-                <Button
-                  className="w-full gap-2"
-                  variant={plan.popular ? "default" : "outline"}
-                  data-testid={`button-plan-cta-${index}`}
-                >
-                  {plan.buttonText || "Get Started"}
-                  <ArrowRight className="w-4 h-4" />
-                </Button>
+                {plan.popular ? (
+                  <div
+                    className="w-full inline-flex items-center justify-center gap-2.5 px-6 py-2.5 text-sm font-medium text-black rounded-md cursor-pointer transition-all hover:scale-[1.03] nav-glow-btn"
+                    style={{
+                      background: "linear-gradient(145deg, #ff0000, #cc0000)",
+                    }}
+                    data-testid={`button-plan-cta-${index}`}
+                  >
+                    {plan.buttonText || "Get Started"}
+                    <ArrowRight className="w-4 h-4" />
+                  </div>
+                ) : (
+                  <Button
+                    className="w-full gap-2"
+                    variant="outline"
+                    data-testid={`button-plan-cta-${index}`}
+                  >
+                    {plan.buttonText || "Get Started"}
+                    <ArrowRight className="w-4 h-4" />
+                  </Button>
+                )}
               </Link>
             </motion.div>
           ))}
