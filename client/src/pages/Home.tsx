@@ -539,8 +539,8 @@ export default function Home() {
               <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 mb-6">
                 <span className="text-xs font-medium text-white/60 uppercase tracking-widest">Trusted By</span>
               </div>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 tracking-tight">
-                Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-400">Partners</span>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-red-500 mb-4 tracking-tight section-heading-glow">
+                Our Partners
               </h2>
             </motion.div>
             
