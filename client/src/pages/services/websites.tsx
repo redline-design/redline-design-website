@@ -1,6 +1,6 @@
 import { ServiceHero, BenefitsGrid, PricingSection, ServiceCTA } from "@/components/service-sections";
 import { motion } from "framer-motion";
-import { Smartphone, Zap, Search, Target } from "lucide-react";
+import { Smartphone, Zap, Search, Target, Palette, Code, Rocket } from "lucide-react";
 import {
   SiReact, SiWordpress, SiShopify, SiNextdotjs, SiTailwindcss, SiNodedotjs,
   SiWix, SiSquarespace, SiWebflow, SiFigma, SiAdobephotoshop, SiAdobeillustrator,
@@ -122,10 +122,10 @@ const technologies = [
 ];
 
 const processSteps = [
-  { step: "Discovery", description: "Understanding your goals, audience, and brand identity" },
-  { step: "Design", description: "Crafting wireframes and high-fidelity mockups" },
-  { step: "Development", description: "Building with clean, performant code" },
-  { step: "Launch", description: "Testing, optimization, and go-live" },
+  { step: "Discovery", icon: Search, description: "Understanding your goals, audience, and brand identity" },
+  { step: "Design", icon: Palette, description: "Crafting wireframes and high-fidelity mockups" },
+  { step: "Development", icon: Code, description: "Building with clean, performant code" },
+  { step: "Launch", icon: Rocket, description: "Testing, optimization, and go-live" },
 ];
 
 const containerVariants = {
@@ -154,56 +154,84 @@ export default function WebsitesPage() {
 
       <section className="py-16 md:py-24 px-4 md:px-8" data-testid="section-process">
         <div className="max-w-6xl mx-auto">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4 }}
-            className="text-3xl md:text-4xl font-bold text-red-500 text-center mb-12 section-heading-glow"
-            data-testid="text-process-heading"
-          >
-            Our Development Process
-          </motion.h2>
-
           <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+            className="text-center mb-16"
           >
-            {processSteps.map((item, index) => (
-              <motion.div
-                key={index}
-                variants={itemVariants}
-                className="p-6 md:p-8 rounded-md text-center"
-                style={{
-                  background: "rgba(20, 20, 20, 0.95)",
-                  border: "1px solid rgba(255, 255, 255, 0.08)",
-                }}
-                data-testid={`card-process-${index}`}
-              >
-                <div
-                  className="text-3xl font-bold text-red-500 mb-3"
-                  data-testid={`text-process-number-${index}`}
-                >
-                  {String(index + 1).padStart(2, "0")}
-                </div>
-                <h3
-                  className="text-lg font-semibold text-white mb-2"
-                  data-testid={`text-process-title-${index}`}
-                >
-                  {item.step}
-                </h3>
-                <p
-                  className="text-white/60 text-sm leading-relaxed"
-                  data-testid={`text-process-description-${index}`}
-                >
-                  {item.description}
-                </p>
-              </motion.div>
-            ))}
+            <h2
+              className="text-3xl md:text-4xl font-bold text-red-500 mb-4 tracking-tight section-heading-glow"
+              data-testid="text-process-heading"
+            >
+              Our Development Process
+            </h2>
+            <p className="text-white/80 text-sm md:text-base max-w-xl mx-auto">
+              From discovery to launch, our proven four-step process delivers results at every stage.
+            </p>
           </motion.div>
+
+          <div className="relative grid grid-cols-1 lg:grid-cols-4 gap-10 lg:gap-6">
+            <div
+              className="hidden lg:block absolute top-[36px] left-[12.5%] right-[12.5%] h-px"
+              style={{
+                background:
+                  "linear-gradient(to right, rgba(255,0,0,0.3), rgba(255,255,255,0.1) 30%, rgba(255,255,255,0.1) 70%, rgba(255,0,0,0.3))",
+              }}
+            />
+
+            {processSteps.map((item, index) => {
+              const StepIcon = item.icon;
+              return (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.15 }}
+                  viewport={{ once: true }}
+                  className="flex flex-col items-center text-center relative"
+                  data-testid={`card-process-${index}`}
+                >
+                  <div className="relative mb-6">
+                    <div
+                      className="relative flex items-center justify-center w-[72px] h-[72px] rounded-full"
+                      style={{
+                        background: "rgba(15, 15, 15, 0.9)",
+                        boxShadow: "0 0 20px rgba(255, 0, 0, 0.15)",
+                        border: "3px solid rgba(255, 0, 0, 0.7)",
+                      }}
+                    >
+                      <StepIcon className="w-7 h-7 text-red-500" />
+                    </div>
+                    <span
+                      className="absolute -top-1.5 -right-1.5 flex items-center justify-center w-6 h-6 rounded-full text-[11px] font-bold text-white"
+                      style={{
+                        background: "linear-gradient(145deg, #ff0000, #cc0000)",
+                        boxShadow: "0 0 8px rgba(255, 0, 0, 0.4)",
+                      }}
+                      data-testid={`text-process-number-${index}`}
+                    >
+                      {index + 1}
+                    </span>
+                  </div>
+
+                  <h3
+                    className="text-lg font-semibold text-white mb-2"
+                    data-testid={`text-process-title-${index}`}
+                  >
+                    {item.step}
+                  </h3>
+                  <p
+                    className="text-white/80 text-sm leading-relaxed max-w-[260px]"
+                    data-testid={`text-process-description-${index}`}
+                  >
+                    {item.description}
+                  </p>
+                </motion.div>
+              );
+            })}
+          </div>
         </div>
       </section>
 
