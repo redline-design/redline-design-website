@@ -12,7 +12,6 @@ import ScrollAnimatedSection from "@/components/ScrollAnimatedSection";
 import TextResolver from "@/components/TextResolver";
 import GlowCard from "@/components/GlowCard";
 import ScrollValueCards from "@/components/ScrollValueCards";
-import FAQ from "@/components/FAQ";
 import ProcessSteps from "@/components/ProcessSteps";
 import HomeContactSection from "@/components/HomeContactSection";
 import AboutBlurb from "@/components/AboutBlurb";
@@ -603,11 +602,6 @@ export default function Home() {
             
           </div>
         </section>
-      </ScrollAnimatedSection>
-
-      <SectionDivider />
-      <ScrollAnimatedSection>
-        <FAQ />
       </ScrollAnimatedSection>
 
       <SectionDivider />
