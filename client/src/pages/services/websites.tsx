@@ -160,7 +160,7 @@ export default function WebsitesPage() {
 
       <BenefitsGrid benefits={benefits} />
 
-      <section className="py-16 md:py-24 px-4 md:px-8" data-testid="section-process">
+      <section className="py-16 md:py-24 px-4 md:px-8" data-testid="section-process" data-section-label="Process">
         <div className="max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -245,7 +245,7 @@ export default function WebsitesPage() {
 
       <PricingSection plans={pricingPlans} />
 
-      <section className="py-16 md:py-24 px-4 md:px-8" data-testid="section-technologies">
+      <section className="py-16 md:py-24 px-4 md:px-8" data-testid="section-technologies" data-section-label="Tech Stack">
         <div className="max-w-6xl mx-auto">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
@@ -343,7 +343,7 @@ function PortfolioGallerySection() {
 
   if (isLoading) {
     return (
-      <section className="py-16 md:py-24 px-4 md:px-8" data-testid="section-portfolio-gallery">
+      <section className="py-16 md:py-24 px-4 md:px-8" data-testid="section-portfolio-gallery" data-section-label="Our Work">
         <div className="max-w-6xl mx-auto text-center">
           <div className="h-8 w-48 mx-auto rounded bg-white/10 animate-pulse mb-12" />
           <div className="flex gap-4 overflow-hidden">
@@ -363,7 +363,7 @@ function PortfolioGallerySection() {
 
   return (
     <>
-      <section className="py-16 md:py-24 overflow-hidden" data-testid="section-portfolio-gallery">
+      <section className="py-16 md:py-24 overflow-hidden" data-testid="section-portfolio-gallery" data-section-label="Our Work">
         <div className="max-w-6xl mx-auto px-4 md:px-8 mb-12">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

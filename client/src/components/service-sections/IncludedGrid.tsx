@@ -25,7 +25,7 @@ export default function IncludedGrid({ title, subtitle, items, columns = 3 }: In
   const { ref, inView } = useInView({ threshold: 0.15, triggerOnce: true });
 
   return (
-    <section className="py-16 md:py-24 px-4 md:px-8" data-testid="section-included" ref={ref}>
+    <section className="py-16 md:py-24 px-4 md:px-8" data-testid="section-included" data-section-label="Included" ref={ref}>
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

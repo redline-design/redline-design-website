@@ -104,7 +104,7 @@ export default function PaidAdvertisingPage() {
       <BenefitsGrid benefits={benefits} />
 
       {/* Platforms Section */}
-      <section className="py-16 md:py-24 px-4 md:px-8" data-testid="section-platforms">
+      <section className="py-16 md:py-24 px-4 md:px-8" data-testid="section-platforms" data-section-label="Platforms">
         <div className="max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -173,7 +173,7 @@ export default function PaidAdvertisingPage() {
       />
 
       {/* ROI Comparison - Animated Bar Infographic */}
-      <section className="py-16 md:py-24 px-4 md:px-8" data-testid="section-roi-comparison" ref={roiRef}>
+      <section className="py-16 md:py-24 px-4 md:px-8" data-testid="section-roi-comparison" data-section-label="ROI" ref={roiRef}>
         <div className="max-w-4xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -327,7 +327,7 @@ export default function PaidAdvertisingPage() {
       </section>
 
       {/* Funnel Infographic */}
-      <section className="py-16 md:py-24 px-4 md:px-8" data-testid="section-sales-funnel" ref={funnelRef}>
+      <section className="py-16 md:py-24 px-4 md:px-8" data-testid="section-sales-funnel" data-section-label="Funnel" ref={funnelRef}>
         <div className="max-w-4xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

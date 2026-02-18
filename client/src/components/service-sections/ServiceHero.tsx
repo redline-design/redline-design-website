@@ -11,7 +11,7 @@ interface ServiceHeroProps {
 
 export default function ServiceHero({ title, subtitle, description }: ServiceHeroProps) {
   return (
-    <section className="py-16 md:py-24 px-4 md:px-8" data-testid="section-service-hero">
+    <section className="py-16 md:py-24 px-4 md:px-8" data-testid="section-service-hero" data-section-label="Overview">
       <div className="max-w-7xl mx-auto text-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

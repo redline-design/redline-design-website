@@ -110,7 +110,7 @@ export default function ManagedITPage() {
 
       <BenefitsGrid benefits={benefits} />
 
-      <section className="py-16 md:py-24 px-4 md:px-8" data-testid="section-health-dashboard">
+      <section className="py-16 md:py-24 px-4 md:px-8" data-testid="section-health-dashboard" data-section-label="Dashboard">
         <div className="max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

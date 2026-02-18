@@ -134,7 +134,7 @@ export default function DesignPage() {
 
       <BenefitsGrid benefits={benefits} />
 
-      <section className="py-16 md:py-24 px-4 md:px-8" data-testid="section-branding-process">
+      <section className="py-16 md:py-24 px-4 md:px-8" data-testid="section-branding-process" data-section-label="Process">
         <div className="max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -198,7 +198,7 @@ export default function DesignPage() {
         <PricingSection plans={customDesignPlans} title="Custom Design" subtitle="Tailored design solutions for your unique needs" />
       </div>
 
-      <section className="py-16 md:py-24 px-4 md:px-8" data-testid="section-branding-stats">
+      <section className="py-16 md:py-24 px-4 md:px-8" data-testid="section-branding-stats" data-section-label="Stats">
         <div className="max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

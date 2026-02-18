@@ -98,7 +98,7 @@ export default function AIAutomationPage() {
 
       <BenefitsGrid benefits={benefits} />
 
-      <section className="py-16 md:py-24 px-4 md:px-8" data-testid="section-sales-funnel">
+      <section className="py-16 md:py-24 px-4 md:px-8" data-testid="section-sales-funnel" data-section-label="Funnel">
         <div className="max-w-4xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -228,7 +228,7 @@ export default function AIAutomationPage() {
         footnote="Projects typically range from 10-40 hours depending on complexity. We provide a detailed scope and estimate before starting."
       />
 
-      <section className="py-16 md:py-24 px-4 md:px-8" data-testid="section-use-cases">
+      <section className="py-16 md:py-24 px-4 md:px-8" data-testid="section-use-cases" data-section-label="Use Cases">
         <div className="max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

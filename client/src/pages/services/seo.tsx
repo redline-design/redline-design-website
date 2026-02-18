@@ -203,7 +203,7 @@ export default function SEOPage() {
 
       <BenefitsGrid benefits={benefits} />
 
-      <section className="py-16 md:py-24 px-4 md:px-8" data-testid="section-seo-timeline">
+      <section className="py-16 md:py-24 px-4 md:px-8" data-testid="section-seo-timeline" data-section-label="Timeline">
         <div className="max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -344,7 +344,7 @@ export default function SEOPage() {
         columns={3}
       />
 
-      <section className="py-12 md:py-16 px-4 md:px-8" data-testid="section-seo-checker">
+      <section className="py-12 md:py-16 px-4 md:px-8" data-testid="section-seo-checker" data-section-label="Analyzer">
         <div className="max-w-5xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

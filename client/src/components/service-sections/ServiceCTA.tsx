@@ -13,7 +13,7 @@ export default function ServiceCTA({
   subtitle = "Let's discuss how we can help transform your business. Reach out today for a free consultation.",
 }: ServiceCTAProps) {
   return (
-    <section className="py-16 md:py-24 px-4 md:px-8" data-testid="section-service-cta">
+    <section className="py-16 md:py-24 px-4 md:px-8" data-testid="section-service-cta" data-section-label="Get Started">
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

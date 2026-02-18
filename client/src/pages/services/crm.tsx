@@ -126,7 +126,7 @@ export default function CRMPage() {
       <BenefitsGrid benefits={benefits} />
 
       {/* CRM Ecosystem Infographic */}
-      <section className="py-16 md:py-24 px-4 md:px-8" data-testid="section-crm-ecosystem" ref={ecoRef}>
+      <section className="py-16 md:py-24 px-4 md:px-8" data-testid="section-crm-ecosystem" data-section-label="Ecosystem" ref={ecoRef}>
         <div className="max-w-5xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

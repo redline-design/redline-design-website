@@ -64,7 +64,7 @@ export default function BenefitsGrid({ benefits }: BenefitsGridProps) {
   const impactValues = [97, 94, 91, 88, 96, 93, 89, 95];
 
   return (
-    <section className="py-16 md:py-24 px-4 md:px-8" data-testid="section-benefits">
+    <section className="py-16 md:py-24 px-4 md:px-8" data-testid="section-benefits" data-section-label="Benefits">
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

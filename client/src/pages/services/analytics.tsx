@@ -219,7 +219,7 @@ export default function AnalyticsPage() {
 
       <BenefitsGrid benefits={benefits} />
 
-      <section className="py-16 md:py-24 px-4 md:px-8" data-testid="section-dashboard-preview">
+      <section className="py-16 md:py-24 px-4 md:px-8" data-testid="section-dashboard-preview" data-section-label="Dashboard">
         <div className="max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -465,7 +465,7 @@ export default function AnalyticsPage() {
         footnote="All plans include unlimited users and dashboards. Annual billing saves up to 20%."
       />
 
-      <section className="py-16 md:py-24 px-4 md:px-8" data-testid="section-data-sources">
+      <section className="py-16 md:py-24 px-4 md:px-8" data-testid="section-data-sources" data-section-label="Data Sources">
         <div className="max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
