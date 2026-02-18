@@ -46,21 +46,25 @@ export default function PricingSection({ plans, footnote, title, subtitle }: Pri
   return (
     <section className="py-16 md:py-24 px-4 md:px-8" data-testid="section-pricing" data-section-label="Pricing">
       <div className="max-w-7xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4 }}
-          className="text-center mb-12"
-        >
-          <h2
-            className="text-3xl md:text-4xl font-bold text-red-500 mb-3 section-heading-glow"
-            data-testid="text-pricing-heading"
-          >{title || "Pricing Plans"}</h2>
-          <p className="text-white/50 text-base md:text-lg" data-testid="text-pricing-subtitle">
-            {subtitle || "Transparent pricing tailored to your needs"}
-          </p>
-        </motion.div>
+        {title && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4 }}
+            className="text-center mb-12"
+          >
+            <h2
+              className="text-3xl md:text-4xl font-bold text-red-500 mb-3 section-heading-glow"
+              data-testid="text-pricing-heading"
+            >{title}</h2>
+            {subtitle && (
+              <p className="text-white/50 text-base md:text-lg" data-testid="text-pricing-subtitle">
+                {subtitle}
+              </p>
+            )}
+          </motion.div>
+        )}
 
         <motion.div
           variants={containerVariants}
