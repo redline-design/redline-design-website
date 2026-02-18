@@ -18,6 +18,8 @@ interface Plan {
 interface PricingSectionProps {
   plans: Plan[];
   footnote?: string;
+  title?: string;
+  subtitle?: string;
 }
 
 function getGridCols(count: number): string {
@@ -40,7 +42,7 @@ const itemVariants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.4 } },
 };
 
-export default function PricingSection({ plans, footnote }: PricingSectionProps) {
+export default function PricingSection({ plans, footnote, title, subtitle }: PricingSectionProps) {
   return (
     <section className="py-16 md:py-24 px-4 md:px-8" data-testid="section-pricing">
       <div className="max-w-7xl mx-auto">
@@ -54,9 +56,7 @@ export default function PricingSection({ plans, footnote }: PricingSectionProps)
           <h2
             className="text-3xl md:text-4xl font-bold text-red-500 mb-3 section-heading-glow"
             data-testid="text-pricing-heading"
-          >
-            Pricing Plans
-          </h2>
+          >Consulting</h2>
           <p className="text-white/50 text-base md:text-lg" data-testid="text-pricing-subtitle">
             Transparent pricing tailored to your needs
           </p>
