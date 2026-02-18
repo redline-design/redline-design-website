@@ -129,7 +129,7 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-red-500 mb-4 tracking-tight section-heading-glow">
             Results That Speak
           </h2>
-          <p className="text-white/70 text-sm md:text-base lg:text-lg max-w-xl mx-auto leading-relaxed">
+          <p className="text-white/90 text-sm md:text-base lg:text-lg max-w-xl mx-auto leading-relaxed">
             Data-driven strategies that deliver measurable growth and ROI
           </p>
         </motion.div>
@@ -176,7 +176,7 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
                       <div className="text-3xl font-bold text-white mb-1 font-mono">
                         <AnimatedCounter value={metric.value} suffix={metric.suffix} inView={true} />
                       </div>
-                      <div className="text-xs text-white/40 uppercase tracking-widest mb-3">{metric.label}</div>
+                      <div className="text-xs text-white/70 uppercase tracking-widest mb-3">{metric.label}</div>
 
                       <h3 className="text-lg font-bold text-white mb-4">{card.title}</h3>
 
@@ -185,7 +185,7 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
                           {card.bullets.map((bullet, bulletIdx) => (
                             <div key={bulletIdx} className="flex items-start gap-2.5">
                               <div className="flex-shrink-0 w-1 h-1 rounded-full mt-2" style={{ background: color }} />
-                              <span className="text-sm text-white/70 leading-relaxed">{bullet}</span>
+                              <span className="text-sm text-white/90 leading-relaxed">{bullet}</span>
                             </div>
                           ))}
                         </div>
@@ -325,12 +325,12 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
                           >
                             <AnimatedCounter value={metric.value} suffix={metric.suffix} inView={inView} />
                           </motion.div>
-                          <div className="text-[10px] lg:text-[11px] text-white/35 uppercase tracking-[0.15em] font-medium">
+                          <div className="text-[10px] lg:text-[11px] text-white/70 uppercase tracking-[0.15em] font-medium">
                             {metric.label}
                           </div>
                         </div>
 
-                        <div className="text-[10px] font-mono text-white/15 pt-0.5">
+                        <div className="text-[10px] font-mono text-white/50 pt-0.5">
                           0{idx + 1}
                         </div>
                       </div>
@@ -351,13 +351,13 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
                             initial={false}
                             animate={{
                               x: isActive ? 3 : 0,
-                              opacity: isActive ? 1 : 0.6,
+                              opacity: 1,
                               transition: { delay: bulletIdx * 0.02, duration: 0.3 },
                             }}
                           >
                             <motion.div
                               className="flex-shrink-0 w-[3px] h-[3px] rounded-full"
-                              style={{ background: isActive ? color : "rgba(255,255,255,0.25)" }}
+                              style={{ background: isActive ? color : "rgba(255,255,255,0.5)" }}
                               initial={false}
                               animate={{
                                 scale: isActive ? [1, 1.5, 1] : 1,
@@ -366,7 +366,7 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
                             />
                             <span
                               className="text-xs lg:text-[13px] leading-relaxed transition-colors duration-300"
-                              style={{ color: isActive ? "rgba(255,255,255,0.85)" : "rgba(255,255,255,0.45)" }}
+                              style={{ color: isActive ? "rgba(255,255,255,1)" : "rgba(255,255,255,0.8)" }}
                             >
                               {bullet}
                             </span>
@@ -388,7 +388,7 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
                           />
                           <span
                             className="text-[10px] uppercase tracking-[0.2em] font-medium transition-colors duration-300"
-                            style={{ color: isActive ? `${color}cc` : "rgba(255,255,255,0.2)" }}
+                            style={{ color: isActive ? `${color}cc` : "rgba(255,255,255,0.6)" }}
                           >
                             Active
                           </span>
@@ -425,7 +425,7 @@ export default function ScrollValueCards({ cards }: ScrollValueCardsProps) {
                 <div className="text-lg lg:text-xl font-bold text-white font-mono mb-0.5">
                   {stat.value}
                 </div>
-                <div className="text-[10px] text-white/30 uppercase tracking-[0.15em]">
+                <div className="text-[10px] text-white/70 uppercase tracking-[0.15em]">
                   {stat.label}
                 </div>
               </div>
