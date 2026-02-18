@@ -77,29 +77,27 @@ export default function PricingSection({ plans, footnote, title, subtitle }: Pri
             <motion.div
               key={index}
               variants={itemVariants}
-              className="relative p-6 md:p-8 rounded-md flex flex-col"
+              className="relative p-6 md:p-8 rounded-lg flex flex-col"
               style={{
                 background: "rgba(20, 20, 20, 0.95)",
-                border: "1px solid rgba(255, 255, 255, 0.08)",
-                ...(plan.popular
-                  ? {
-                      borderTop: "2px solid #ff0000",
-                      boxShadow: "0 -4px 20px rgba(255, 0, 0, 0.1)",
-                    }
-                  : {}),
+                border: "1px solid rgba(255, 0, 0, 0.2)",
+                boxShadow: "0 0 20px rgba(255, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.05)",
               }}
               data-testid={`card-plan-${index}`}
             >
-              {plan.popular && (
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                  <Badge variant="default" className="bg-red-600 text-white" data-testid={`badge-popular-${index}`}>
-                    Most Popular
-                  </Badge>
-                </div>
-              )}
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+                <Badge
+                  variant="default"
+                  className="bg-red-600 text-white shadow-lg"
+                  style={{ boxShadow: "0 0 12px rgba(255, 0, 0, 0.4)" }}
+                  data-testid={`badge-plan-${index}`}
+                >
+                  {plan.popular ? "Most Popular" : plans.length === 1 ? "Expert Service" : `Tier ${index + 1}`}
+                </Badge>
+              </div>
 
               <h3
-                className="text-lg font-semibold text-red-500 mb-2"
+                className="text-lg font-semibold text-red-500 mb-2 mt-2"
                 data-testid={`text-plan-name-${index}`}
               >
                 {plan.name}
@@ -140,27 +138,16 @@ export default function PricingSection({ plans, footnote, title, subtitle }: Pri
               </ul>
 
               <Link href={plan.buttonLink || "/contact"}>
-                {plan.popular ? (
-                  <div
-                    className="w-full inline-flex items-center justify-center gap-2.5 px-6 py-2.5 text-sm font-medium text-black rounded-md cursor-pointer transition-all hover:scale-[1.03] nav-glow-btn"
-                    style={{
-                      background: "linear-gradient(145deg, #ff0000, #cc0000)",
-                    }}
-                    data-testid={`button-plan-cta-${index}`}
-                  >
-                    {plan.buttonText || "Get Started"}
-                    <ArrowRight className="w-4 h-4" />
-                  </div>
-                ) : (
-                  <Button
-                    className="w-full gap-2"
-                    variant="outline"
-                    data-testid={`button-plan-cta-${index}`}
-                  >
-                    {plan.buttonText || "Get Started"}
-                    <ArrowRight className="w-4 h-4" />
-                  </Button>
-                )}
+                <div
+                  className="w-full inline-flex items-center justify-center gap-2.5 px-6 py-2.5 text-sm font-medium text-black rounded-md cursor-pointer transition-all hover:scale-[1.03] nav-glow-btn"
+                  style={{
+                    background: "linear-gradient(145deg, #ff0000, #cc0000)",
+                  }}
+                  data-testid={`button-plan-cta-${index}`}
+                >
+                  {plan.buttonText || "Get Started"}
+                  <ArrowRight className="w-4 h-4" />
+                </div>
               </Link>
             </motion.div>
           ))}
