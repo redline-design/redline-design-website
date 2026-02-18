@@ -1,63 +1,34 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
-import { useIsMobile } from "@/hooks/use-mobile";
-import { useInView } from "react-intersection-observer";
 
 export default function AnimatedBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const mousePosRef = useRef({ x: 0, y: 0 });
   const prefersReducedMotion = useReducedMotion();
-  const isMobile = useIsMobile();
-  const { ref: intersectionRef, inView } = useInView({
-    threshold: 0,
-    rootMargin: "100px",
-  });
-  const [containerRef, setContainerRef] = useState<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    if (containerRef) {
-      intersectionRef(containerRef);
-    }
-  }, [containerRef, intersectionRef]);
+    if (prefersReducedMotion) return;
 
-  const shouldAnimate = !prefersReducedMotion && inView;
-
-  useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas || !shouldAnimate) return;
+    if (!canvas) return;
 
-    const ctx = canvas.getContext("2d", { alpha: false, desynchronized: true });
+    const ctx = canvas.getContext("2d", { alpha: false });
     if (!ctx) return;
 
     let animationFrameId: number;
-    let needsResize = false;
     let isTabVisible = true;
-    let lastMouseMoveTime = Date.now();
-    let lastScrollTime = Date.now();
-    let isMouseActive = true;
 
     const handleVisibilityChange = () => {
       isTabVisible = !document.hidden;
     };
     document.addEventListener("visibilitychange", handleVisibilityChange);
 
-    const handleScroll = () => {
-      lastScrollTime = Date.now();
-    };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-
     const resizeCanvas = () => {
-      needsResize = true;
-    };
-
-    const applyResize = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
-      needsResize = false;
     };
+    resizeCanvas();
 
-    applyResize();
-    
     let resizeTimeout: number;
     const debouncedResize = () => {
       clearTimeout(resizeTimeout);
@@ -69,10 +40,8 @@ export default function AnimatedBackground() {
     const handleMouseMove = (e: MouseEvent) => {
       if (mouseThrottle) return;
       mouseThrottle = true;
-      setTimeout(() => mouseThrottle = false, 16);
+      setTimeout(() => (mouseThrottle = false), 16);
       mousePosRef.current = { x: e.clientX, y: e.clientY };
-      lastMouseMoveTime = Date.now();
-      isMouseActive = true;
     };
     window.addEventListener("mousemove", handleMouseMove, { passive: true });
 
@@ -117,26 +86,13 @@ export default function AnimatedBackground() {
     const animate = (currentTime: number) => {
       animationFrameId = requestAnimationFrame(animate);
 
-      if (!isTabVisible || prefersReducedMotion) {
-        return;
-      }
-
-      const timeSinceMouseMove = Date.now() - lastMouseMoveTime;
-      const timeSinceScroll = Date.now() - lastScrollTime;
-      const timeSinceActivity = Math.min(timeSinceMouseMove, timeSinceScroll);
-      isMouseActive = timeSinceActivity < 3000;
+      if (!isTabVisible) return;
 
       const elapsed = currentTime - lastFrameTime;
-      if (elapsed < frameInterval) {
-        return;
-      }
+      if (elapsed < frameInterval) return;
       lastFrameTime = currentTime - (elapsed % frameInterval);
 
-      if (needsResize) {
-        applyResize();
-      }
-
-      ctx.fillStyle = "#000000";
+      ctx.fillStyle = "#0a0a0a";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       const time = Date.now() * 0.001;
@@ -148,8 +104,12 @@ export default function AnimatedBackground() {
       for (let i = 0; i < dots.length; i++) {
         const dot = dots[i];
 
-        const driftX = Math.sin(time * 0.12 + dot.offset) * 8 + Math.sin(time * 0.07 + dot.offset * 1.7) * 5;
-        const driftY = Math.cos(time * 0.1 + dot.offset * 1.3) * 8 + Math.cos(time * 0.06 + dot.offset * 2.1) * 5;
+        const driftX =
+          Math.sin(time * 0.12 + dot.offset) * 8 +
+          Math.sin(time * 0.07 + dot.offset * 1.7) * 5;
+        const driftY =
+          Math.cos(time * 0.1 + dot.offset * 1.3) * 8 +
+          Math.cos(time * 0.06 + dot.offset * 2.1) * 5;
 
         dot.x = dot.baseX + driftX + dot.driftSpeedX * time * 10;
         dot.y = dot.baseY + driftY + dot.driftSpeedY * time * 10;
@@ -164,18 +124,14 @@ export default function AnimatedBackground() {
         const distanceSq = dx * dx + dy * dy;
 
         let mouseInfluence = 0;
-        let pushX = 0;
-        let pushY = 0;
 
         if (distanceSq < maxDistanceSq) {
           const distance = Math.sqrt(distanceSq);
-          mouseInfluence = 1 - (distance / maxDistance);
+          mouseInfluence = 1 - distance / maxDistance;
           const angle = Math.atan2(dy, dx);
           const pushStrength = mouseInfluence * 15;
-          pushX = -Math.cos(angle) * pushStrength;
-          pushY = -Math.sin(angle) * pushStrength;
-          dot.x += pushX;
-          dot.y += pushY;
+          dot.x += -Math.cos(angle) * pushStrength;
+          dot.y += -Math.sin(angle) * pushStrength;
         }
 
         const breath = Math.sin(time * 0.25 + dot.offset) * 0.03 + 0.03;
@@ -202,32 +158,28 @@ export default function AnimatedBackground() {
     return () => {
       window.removeEventListener("resize", debouncedResize);
       window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("scroll", handleScroll);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
       clearTimeout(resizeTimeout);
       cancelAnimationFrame(animationFrameId);
     };
-  }, [shouldAnimate]);
+  }, [prefersReducedMotion]);
 
-  if (!shouldAnimate) {
+  if (prefersReducedMotion) {
     return (
       <div
-        ref={setContainerRef}
         className="fixed inset-0 z-0 pointer-events-none"
         style={{
-          background: "linear-gradient(180deg, #000000 0%, #0a0a0a 100%)",
-          opacity: 1,
+          background: "linear-gradient(180deg, #0a0a0a 0%, #111111 100%)",
         }}
       />
     );
   }
 
   return (
-    <div ref={setContainerRef} className="fixed inset-0 z-0">
+    <div className="fixed inset-0 z-0">
       <canvas
         ref={canvasRef}
         className="w-full h-full pointer-events-none"
-        style={{ opacity: 1 }}
       />
     </div>
   );
