@@ -39,13 +39,10 @@ export default function HomeContactSection() {
             className="flex flex-col justify-center"
           >
             <h2
-              className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-6 tracking-tight"
+              className="text-3xl sm:text-4xl md:text-5xl font-bold text-red-500 mb-6 tracking-tight section-heading-glow"
               data-testid="text-contact-heading"
             >
-              Ready to{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-400">
-                Grow?
-              </span>
+              Ready to Grow?
             </h2>
             <p
               className="text-white/70 text-base md:text-lg leading-relaxed mb-10 max-w-lg"

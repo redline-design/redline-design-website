@@ -70,11 +70,8 @@ export default function FAQ() {
               FAQ
             </span>
           </div>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 tracking-tight">
-            Frequently Asked{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-400">
-              Questions
-            </span>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-red-500 mb-4 tracking-tight section-heading-glow">
+            Frequently Asked Questions
           </h2>
           <p className="text-white/60 text-sm md:text-base max-w-xl mx-auto">
             Everything you need to know about working with Redline Design

@@ -103,7 +103,7 @@ export default function AboutBlurb() {
           <h2 className="text-sm font-medium text-red-500 uppercase tracking-widest mb-4">
             About Redline Design
           </h2>
-          <p className="text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight leading-tight max-w-5xl mx-auto">
+          <p className="text-3xl sm:text-4xl md:text-5xl font-bold text-red-500 tracking-tight leading-tight max-w-5xl mx-auto section-heading-glow">
             Driving Measurable Growth Since Day One
           </p>
         </motion.div>

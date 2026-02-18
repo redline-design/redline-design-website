@@ -127,7 +127,7 @@ export default function ServicePageTemplate({
                 <div className="p-2 rounded-lg bg-primary/10">
                   <Check className="w-6 h-6 text-primary" />
                 </div>
-                <h2 className="text-2xl md:text-3xl font-bold">What You Get</h2>
+                <h2 className="text-2xl md:text-3xl font-bold text-red-500 section-heading-glow">What You Get</h2>
               </div>
               
               <ul className="space-y-4">
@@ -198,7 +198,7 @@ export default function ServicePageTemplate({
             transition={{ duration: 0.5 }}
             className="max-w-5xl mx-auto"
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-6" data-testid="text-cta-heading">
+            <h2 className="text-3xl md:text-4xl font-bold text-red-500 mb-6 section-heading-glow" data-testid="text-cta-heading">
               Ready to Get Started?
             </h2>
             <p className="text-lg text-muted-foreground mb-8" data-testid="text-cta-description">

@@ -23,7 +23,7 @@ export default function ServiceCTA({
           className="text-center max-w-4xl mx-auto"
         >
           <h2
-            className="text-3xl md:text-4xl font-bold text-white mb-4"
+            className="text-3xl md:text-4xl font-bold text-red-500 mb-4 section-heading-glow"
             data-testid="text-cta-heading"
           >
             {title}

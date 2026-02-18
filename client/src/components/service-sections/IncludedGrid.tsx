@@ -45,7 +45,7 @@ export default function IncludedGrid({ title, subtitle, items, columns = 3 }: In
           className="text-center mb-12"
         >
           <h2
-            className="text-3xl md:text-4xl font-bold text-white mb-3"
+            className="text-3xl md:text-4xl font-bold text-red-500 mb-3 section-heading-glow"
             data-testid="text-included-heading"
           >
             {title}

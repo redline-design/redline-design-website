@@ -51,11 +51,8 @@ export default function ProcessSteps() {
               Our Process
             </span>
           </div>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 tracking-tight">
-            How It{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-400">
-              Works
-            </span>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-red-500 mb-4 tracking-tight section-heading-glow">
+            How It Works
           </h2>
           <p className="text-white/60 text-sm md:text-base max-w-xl mx-auto">
             From discovery to optimization, our proven four-step process
