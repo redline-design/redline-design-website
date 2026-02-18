@@ -169,7 +169,7 @@ export default function PaidAdvertisingPage() {
 
       <PricingSection
         plans={pricingPlans}
-        footnote="No minimum spend required. We handle everything from creative to placement so you can focus on running your business."
+        footnote="Minimum spend is $1,000/mo per platform. We handle everything from creative to placement so you can focus on running your business."
       />
 
       {/* ROI Comparison - Animated Bar Infographic */}
