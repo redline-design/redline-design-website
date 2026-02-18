@@ -179,7 +179,7 @@ const SERVICES_DATA = [
         "Ongoing support"
       ],
       timeline: "Flexible",
-      investment: "From $150/hr"
+      investment: "From $250/hr"
     }
   },
   {

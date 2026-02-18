@@ -27,7 +27,7 @@ const benefits = [
 const plans = [
   {
     name: "Pit Stop Strategy",
-    price: "$200",
+    price: "$250",
     period: "/hour",
     description: "One-on-one consulting with a senior digital marketing strategist",
     features: [
