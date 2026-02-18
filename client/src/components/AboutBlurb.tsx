@@ -86,98 +86,185 @@ function AnimatedCounter({ value, suffix }: { value: number; suffix: string }) {
   );
 }
 
-function OrbitalAnimation() {
+function CircuitAnimation() {
+  const circuitPaths = [
+    "M 200 80 L 200 140 L 280 140 L 280 200",
+    "M 120 200 L 180 200 L 180 280 L 240 280",
+    "M 320 160 L 320 240 L 260 240 L 260 300",
+    "M 80 160 L 140 160 L 140 100 L 200 100",
+    "M 200 300 L 200 340 L 140 340 L 140 280",
+    "M 300 120 L 300 80 L 240 80",
+    "M 100 260 L 100 320 L 160 320",
+    "M 280 300 L 320 300 L 320 260",
+  ];
+
+  const nodePositions = [
+    { x: 200, y: 200, size: 18, primary: true },
+    { x: 200, y: 80, size: 6 },
+    { x: 280, y: 200, size: 8 },
+    { x: 120, y: 200, size: 7 },
+    { x: 240, y: 280, size: 6 },
+    { x: 320, y: 160, size: 5 },
+    { x: 260, y: 300, size: 6 },
+    { x: 80, y: 160, size: 5 },
+    { x: 200, y: 340, size: 5 },
+    { x: 140, y: 280, size: 6 },
+    { x: 300, y: 80, size: 5 },
+    { x: 100, y: 320, size: 5 },
+    { x: 320, y: 260, size: 5 },
+    { x: 200, y: 140, size: 5 },
+    { x: 280, y: 140, size: 5 },
+    { x: 140, y: 160, size: 5 },
+    { x: 200, y: 100, size: 5 },
+    { x: 240, y: 80, size: 5 },
+    { x: 160, y: 320, size: 5 },
+    { x: 320, y: 300, size: 5 },
+  ];
+
   return (
-    <div className="relative w-full aspect-square max-w-[400px] mx-auto" data-testid="orbital-animation">
-      <svg viewBox="0 0 400 400" className="w-full h-full" style={{ filter: "drop-shadow(0 0 40px rgba(255, 0, 0, 0.15))" }}>
+    <div className="relative w-full aspect-square max-w-[400px] mx-auto" data-testid="circuit-animation">
+      <svg viewBox="0 0 400 400" className="w-full h-full">
         <defs>
-          <radialGradient id="orbSphere" cx="40%" cy="35%" r="50%">
-            <stop offset="0%" stopColor="#ff4444" />
-            <stop offset="50%" stopColor="#cc0000" />
-            <stop offset="100%" stopColor="#440000" />
-          </radialGradient>
-          <radialGradient id="orbGlow" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="rgba(255,0,0,0.15)" />
+          <radialGradient id="coreGlow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="rgba(255,30,15,0.2)" />
             <stop offset="100%" stopColor="rgba(255,0,0,0)" />
           </radialGradient>
-          <linearGradient id="ringGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="rgba(255,0,0,0.3)" />
-            <stop offset="50%" stopColor="rgba(255,255,255,0.08)" />
-            <stop offset="100%" stopColor="rgba(255,0,0,0.2)" />
-          </linearGradient>
-          <linearGradient id="ringGrad2" x1="100%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="rgba(255,60,60,0.2)" />
-            <stop offset="50%" stopColor="rgba(255,255,255,0.05)" />
-            <stop offset="100%" stopColor="rgba(255,0,0,0.15)" />
-          </linearGradient>
+          <filter id="redGlow">
+            <feGaussianBlur stdDeviation="3" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+          <filter id="softGlow">
+            <feGaussianBlur stdDeviation="2" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
         </defs>
 
-        <circle cx="200" cy="200" r="140" fill="url(#orbGlow)" />
+        <circle cx="200" cy="200" r="160" fill="url(#coreGlow)" />
 
-        <motion.g
-          animate={{ rotate: 360 }}
-          transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-          style={{ transformOrigin: "200px 200px" }}
-        >
-          <ellipse cx="200" cy="200" rx="160" ry="60" fill="none" stroke="url(#ringGrad1)" strokeWidth="1" transform="rotate(-20, 200, 200)" />
-        </motion.g>
-
-        <motion.g
-          animate={{ rotate: -360 }}
-          transition={{ duration: 35, repeat: Infinity, ease: "linear" }}
-          style={{ transformOrigin: "200px 200px" }}
-        >
-          <ellipse cx="200" cy="200" rx="180" ry="45" fill="none" stroke="url(#ringGrad2)" strokeWidth="0.8" transform="rotate(30, 200, 200)" />
-        </motion.g>
-
-        <motion.g
-          animate={{ rotate: 360 }}
-          transition={{ duration: 45, repeat: Infinity, ease: "linear" }}
-          style={{ transformOrigin: "200px 200px" }}
-        >
-          <ellipse cx="200" cy="200" rx="190" ry="75" fill="none" stroke="rgba(255,255,255,0.04)" strokeWidth="0.6" strokeDasharray="4 8" transform="rotate(-45, 200, 200)" />
-        </motion.g>
-
-        <circle cx="200" cy="200" r="85" fill="url(#orbSphere)" />
-        <ellipse cx="185" cy="175" rx="30" ry="20" fill="rgba(255,255,255,0.08)" transform="rotate(-25, 185, 175)" />
-
-        <motion.g
-          animate={{ rotate: 360 }}
-          transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-          style={{ transformOrigin: "200px 200px" }}
-        >
-          <g transform="rotate(-20, 200, 200)">
-            <motion.circle
-              cx="360"
-              cy="200"
-              r="5"
-              fill="#ff4444"
-              style={{ filter: "drop-shadow(0 0 6px rgba(255,68,68,0.8))" }}
-              animate={{ r: [5, 6, 5] }}
-              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+        {circuitPaths.map((d, i) => (
+          <g key={`path-${i}`}>
+            <path
+              d={d}
+              fill="none"
+              stroke="rgba(130,140,170,0.12)"
+              strokeWidth="1"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+            <motion.path
+              d={d}
+              fill="none"
+              stroke={i % 3 === 0 ? "rgba(255,40,20,0.6)" : "rgba(160,175,220,0.4)"}
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeDasharray="20 200"
+              filter={i % 3 === 0 ? "url(#redGlow)" : "url(#softGlow)"}
+              animate={{ strokeDashoffset: [220, -220] }}
+              transition={{
+                duration: 2.5 + i * 0.4,
+                repeat: Infinity,
+                ease: "linear",
+                delay: i * 0.3,
+              }}
             />
           </g>
-        </motion.g>
+        ))}
 
-        <motion.g
-          animate={{ rotate: -360 }}
-          transition={{ duration: 35, repeat: Infinity, ease: "linear" }}
-          style={{ transformOrigin: "200px 200px" }}
-        >
-          <g transform="rotate(30, 200, 200)">
-            <circle cx="380" cy="200" r="3" fill="rgba(255,255,255,0.6)" style={{ filter: "drop-shadow(0 0 4px rgba(255,255,255,0.5))" }} />
-          </g>
-        </motion.g>
+        {nodePositions.map((node, i) => {
+          if (node.primary) {
+            return (
+              <g key={`node-${i}`}>
+                <motion.circle
+                  cx={node.x}
+                  cy={node.y}
+                  r={30}
+                  fill="none"
+                  stroke="rgba(255,30,15,0.15)"
+                  strokeWidth="1"
+                  animate={{ scale: [1, 1.12, 1], opacity: [0.15, 0.25, 0.15] }}
+                  transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                  style={{ transformOrigin: `${node.x}px ${node.y}px` }}
+                />
+                <motion.circle
+                  cx={node.x}
+                  cy={node.y}
+                  r={20}
+                  fill="none"
+                  stroke="rgba(255,30,15,0.25)"
+                  strokeWidth="1"
+                  strokeDasharray="3 5"
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
+                  style={{ transformOrigin: `${node.x}px ${node.y}px` }}
+                />
+                <circle cx={node.x} cy={node.y} r={node.size * 0.5} fill="#cc0000" filter="url(#redGlow)" />
+                <motion.circle
+                  cx={node.x}
+                  cy={node.y}
+                  r={node.size * 0.3}
+                  fill="#ff4444"
+                  animate={{ opacity: [0.8, 1, 0.8], scale: [0.85, 1.15, 0.85] }}
+                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                  style={{ transformOrigin: `${node.x}px ${node.y}px` }}
+                />
+              </g>
+            );
+          }
+          const isAccent = i % 4 === 0;
+          return (
+            <g key={`node-${i}`}>
+              {isAccent && (
+                <circle
+                  cx={node.x}
+                  cy={node.y}
+                  r={node.size + 4}
+                  fill="none"
+                  stroke="rgba(255,30,15,0.1)"
+                  strokeWidth="0.5"
+                />
+              )}
+              <motion.circle
+                cx={node.x}
+                cy={node.y}
+                r={node.size * 0.5}
+                fill={isAccent ? "#cc2200" : "rgba(160,170,210,0.6)"}
+                filter={isAccent ? "url(#redGlow)" : "url(#softGlow)"}
+                animate={{
+                  opacity: [0.5, 1, 0.5],
+                  scale: [0.8, 1.1, 0.8],
+                }}
+                transition={{
+                  duration: 2 + (i % 3) * 0.5,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: i * 0.15,
+                }}
+                style={{ transformOrigin: `${node.x}px ${node.y}px` }}
+              />
+            </g>
+          );
+        })}
 
-        <motion.g
-          animate={{ rotate: 360 }}
-          transition={{ duration: 45, repeat: Infinity, ease: "linear" }}
+        <motion.rect
+          x="186"
+          y="186"
+          width="28"
+          height="28"
+          rx="2"
+          fill="none"
+          stroke="rgba(255,40,20,0.3)"
+          strokeWidth="0.8"
+          animate={{ rotate: 45 }}
+          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
           style={{ transformOrigin: "200px 200px" }}
-        >
-          <g transform="rotate(-45, 200, 200)">
-            <circle cx="10" cy="200" r="2.5" fill="rgba(255,100,100,0.5)" style={{ filter: "drop-shadow(0 0 3px rgba(255,100,100,0.4))" }} />
-          </g>
-        </motion.g>
+        />
       </svg>
     </div>
   );
@@ -226,7 +313,7 @@ export default function AboutBlurb() {
             viewport={{ once: true }}
             className="flex justify-center"
           >
-            <OrbitalAnimation />
+            <CircuitAnimation />
           </motion.div>
         </div>
 
