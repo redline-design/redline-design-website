@@ -187,31 +187,15 @@ export default function DesignPage() {
       </section>
 
       <div data-testid="section-pricing-logo">
-        <PricingSection plans={logoPlans} />
+        <PricingSection plans={logoPlans} title="Logo Design" subtitle="Professional logo packages for every stage of your brand" />
       </div>
 
       <div data-testid="section-pricing-brand-guide">
-        <div className="max-w-6xl mx-auto px-4 md:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4 }}
-            className="text-center mb-0"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold text-red-500 mb-3 section-heading-glow" data-testid="text-pricing-brand-heading">
-              Brand Guide Packages
-            </h2>
-            <p className="text-white/50 text-base md:text-lg" data-testid="text-pricing-brand-subtitle">
-              Comprehensive brand identity systems — each tier builds on the last
-            </p>
-          </motion.div>
-        </div>
-        <PricingSection plans={brandGuidePlans} />
+        <PricingSection plans={brandGuidePlans} title="Brand Guide Packages" subtitle="Comprehensive brand identity systems — each tier builds on the last" />
       </div>
 
       <div data-testid="section-pricing-custom">
-        <PricingSection plans={customDesignPlans} />
+        <PricingSection plans={customDesignPlans} title="Custom Design" subtitle="Tailored design solutions for your unique needs" />
       </div>
 
       <section className="py-16 md:py-24 px-4 md:px-8" data-testid="section-branding-stats">

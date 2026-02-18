@@ -56,9 +56,9 @@ export default function PricingSection({ plans, footnote, title, subtitle }: Pri
           <h2
             className="text-3xl md:text-4xl font-bold text-red-500 mb-3 section-heading-glow"
             data-testid="text-pricing-heading"
-          >Consulting</h2>
+          >{title || "Pricing Plans"}</h2>
           <p className="text-white/50 text-base md:text-lg" data-testid="text-pricing-subtitle">
-            Transparent pricing tailored to your needs
+            {subtitle || "Transparent pricing tailored to your needs"}
           </p>
         </motion.div>
 
