@@ -76,7 +76,7 @@ export default function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6" data-testid="form-contact">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="space-y-2">
           <Label htmlFor="name">Name *</Label>
           <Input
@@ -100,19 +100,18 @@ export default function ContactForm() {
             data-testid="input-email"
           />
         </div>
-      </div>
-
-      <div className="space-y-2">
-        <Label htmlFor="phone">Phone *</Label>
-        <Input
-          id="phone"
-          type="tel"
-          value={formData.phone}
-          onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-          required
-          placeholder="(555) 123-4567"
-          data-testid="input-phone"
-        />
+        <div className="space-y-2">
+          <Label htmlFor="phone">Phone *</Label>
+          <Input
+            id="phone"
+            type="tel"
+            value={formData.phone}
+            onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+            required
+            placeholder="(555) 123-4567"
+            data-testid="input-phone"
+          />
+        </div>
       </div>
 
       <div className="space-y-3">
@@ -151,7 +150,7 @@ export default function ContactForm() {
           value={formData.message}
           onChange={(e) => setFormData({ ...formData, message: e.target.value })}
           placeholder="Tell us about your project..."
-          rows={5}
+          rows={3}
           data-testid="input-message"
         />
       </div>

@@ -1,27 +1,6 @@
 import { motion } from "framer-motion";
-import { Mail, Phone, MapPin, Clock, ArrowRight } from "lucide-react";
+import { Clock, ArrowRight, Rocket } from "lucide-react";
 import ContactForm from "@/components/ContactForm";
-
-const contactDetails = [
-  {
-    icon: Mail,
-    label: "Email",
-    value: "sales@redlinedesignllc.com",
-    href: "mailto:sales@redlinedesignllc.com",
-  },
-  {
-    icon: Phone,
-    label: "Phone",
-    value: "(208) 867-4526",
-    href: "tel:+12088674526",
-  },
-  {
-    icon: MapPin,
-    label: "Location",
-    value: "Serving clients nationwide",
-    href: null,
-  },
-];
 
 export default function HomeContactSection() {
   return (
@@ -31,7 +10,7 @@ export default function HomeContactSection() {
       data-section-label="Contact"
     >
       <div className="max-w-7xl mx-auto">
-        <div className="max-w-3xl mx-auto">
+        <div className="max-w-5xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -39,6 +18,18 @@ export default function HomeContactSection() {
             viewport={{ once: true }}
             className="text-center mb-10"
           >
+            <div className="flex justify-center mb-5">
+              <div
+                className="w-14 h-14 rounded-full flex items-center justify-center"
+                style={{
+                  background: "rgba(255, 0, 0, 0.1)",
+                  border: "1px solid rgba(255, 0, 0, 0.2)",
+                  boxShadow: "0 0 20px rgba(255, 0, 0, 0.1)",
+                }}
+              >
+                <Rocket className="w-6 h-6 text-red-500" />
+              </div>
+            </div>
             <h2
               className="text-3xl sm:text-4xl md:text-5xl font-bold text-red-500 mb-6 tracking-tight section-heading-glow"
               data-testid="text-contact-heading"
@@ -53,46 +44,6 @@ export default function HomeContactSection() {
               strategy that delivers real, measurable results.
             </p>
           </motion.div>
-
-          <div className="flex flex-wrap items-center justify-center gap-6 mb-10">
-            {contactDetails.map((detail) => {
-              const Icon = detail.icon;
-              const inner = (
-                <div
-                  key={detail.label}
-                  className="flex items-center gap-3"
-                  data-testid={`contact-detail-${detail.label.toLowerCase()}`}
-                >
-                  <div className="flex-shrink-0 w-10 h-10 rounded-full bg-red-500/10 border border-red-500/20 flex items-center justify-center">
-                    <Icon className="w-4 h-4 text-red-500" />
-                  </div>
-                  <div>
-                    <p className="text-white/50 text-[10px] uppercase tracking-widest mb-0.5">
-                      {detail.label}
-                    </p>
-                    <p className="text-white font-medium text-sm">
-                      {detail.value}
-                    </p>
-                  </div>
-                </div>
-              );
-
-              if (detail.href) {
-                return (
-                  <a
-                    key={detail.label}
-                    href={detail.href}
-                    className="block group"
-                    data-testid={`link-contact-${detail.label.toLowerCase()}`}
-                  >
-                    {inner}
-                  </a>
-                );
-              }
-
-              return <div key={detail.label}>{inner}</div>;
-            })}
-          </div>
 
           <motion.div
             initial={{ opacity: 0, y: 30 }}
