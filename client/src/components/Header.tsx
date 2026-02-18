@@ -80,6 +80,9 @@ export default function Header() {
               >
                 <Home className="h-7 w-7" />
                 Home
+                {location === "/" && (
+                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-6 h-0.5 rounded-full bg-red-500" style={{ boxShadow: "0 0 6px rgba(255,0,0,0.5)" }} />
+                )}
               </div>
             </Link>
 
@@ -96,6 +99,9 @@ export default function Header() {
                     Services
                     <ChevronDown className="h-3 w-3 transition-transform group-hover:translate-y-0.5" />
                   </span>
+                  {location.startsWith("/services") && (
+                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-6 h-0.5 rounded-full bg-red-500" style={{ boxShadow: "0 0 6px rgba(255,0,0,0.5)" }} />
+                  )}
                 </button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="center" className="w-56">
@@ -121,6 +127,9 @@ export default function Header() {
                 >
                   <link.icon className="h-7 w-7" />
                   {link.label}
+                  {location === link.href && (
+                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-6 h-0.5 rounded-full bg-red-500" style={{ boxShadow: "0 0 6px rgba(255,0,0,0.5)" }} />
+                  )}
                 </div>
               </Link>
             ))}
