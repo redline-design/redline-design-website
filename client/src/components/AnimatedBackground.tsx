@@ -206,21 +206,21 @@ export default function AnimatedBackground() {
         const wave2 = Math.cos((hex.baseY * 0.005) + (hex.baseX * 0.003) + time * 0.5) * 0.5 + 0.5;
         const wave3 = Math.sin((hex.baseX + hex.baseY) * 0.004 + time * 1.2 + hex.offset) * 0.5 + 0.5;
         
-        // Traveling pulse — a bright ring that sweeps across the grid
+        // Traveling pulse — a subtle ring that sweeps across the grid
         const pulseCenter = (time * 0.3) % 1;
         const normPos = ((hex.baseX / canvas.width) + (hex.baseY / canvas.height)) * 0.5;
         const pulseDist = Math.abs(normPos - pulseCenter);
-        const pulse = Math.max(0, 1 - pulseDist * 8) * 0.25;
+        const pulse = Math.max(0, 1 - pulseDist * 8) * 0.1;
 
         // Breathing — slow global oscillation
-        const breath = Math.sin(time * 0.3) * 0.08 + 0.08;
+        const breath = Math.sin(time * 0.3) * 0.03 + 0.03;
         
         const wave = (wave1 + wave2 + wave3) / 3;
         
-        let opacity = wave * 0.35 + breath + pulse + 0.06;
+        let opacity = wave * 0.15 + breath + pulse + 0.03;
         
         if (mouseInfluence > 0) {
-          opacity = Math.min(0.85, opacity + mouseInfluence * 0.45);
+          opacity = Math.min(0.4, opacity + mouseInfluence * 0.25);
         }
         
         const waveScale = wave * 0.15 + 0.85;
