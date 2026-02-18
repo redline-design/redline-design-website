@@ -1,8 +1,10 @@
 import { ServiceHero, BenefitsGrid, PricingSection, ServiceCTA } from "@/components/service-sections";
 import { motion } from "framer-motion";
-import { Smartphone, Zap, Search, Target, Palette, Code, Rocket, ArrowRight } from "lucide-react";
+import { Smartphone, Zap, Search, Target, Palette, Code, Rocket, ArrowRight, ChevronLeft, ChevronRight, X, Pause, Play } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "wouter";
+import { useState, useCallback, useEffect, useRef } from "react";
+import { AnimatePresence } from "framer-motion";
 import type { PortfolioItem } from "@shared/schema";
 import {
   SiReact, SiWordpress, SiShopify, SiNextdotjs, SiTailwindcss, SiNodedotjs,
@@ -307,6 +309,37 @@ function PortfolioGallerySection() {
   });
 
   const withScreenshots = items.filter((item) => item.screenshotUrl);
+  const [selectedItem, setSelectedItem] = useState<PortfolioItem | null>(null);
+  const [scrollDirection, setScrollDirection] = useState<1 | -1>(1);
+  const [isPaused, setIsPaused] = useState(false);
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  const handleKeyDown = useCallback(
+    (e: KeyboardEvent) => {
+      if (!selectedItem) return;
+      const idx = withScreenshots.findIndex((i) => i.id === selectedItem.id);
+      if (e.key === "Escape") setSelectedItem(null);
+      if (e.key === "ArrowRight" && idx < withScreenshots.length - 1)
+        setSelectedItem(withScreenshots[idx + 1]);
+      if (e.key === "ArrowLeft" && idx > 0)
+        setSelectedItem(withScreenshots[idx - 1]);
+    },
+    [selectedItem, withScreenshots]
+  );
+
+  useEffect(() => {
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [handleKeyDown]);
+
+  useEffect(() => {
+    if (selectedItem) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => { document.body.style.overflow = ""; };
+  }, [selectedItem]);
 
   if (isLoading) {
     return (
@@ -326,109 +359,256 @@ function PortfolioGallerySection() {
   if (withScreenshots.length === 0) return null;
 
   const duplicated = [...withScreenshots, ...withScreenshots];
+  const animationDuration = withScreenshots.length * 5;
 
   return (
-    <section className="py-16 md:py-24 overflow-hidden" data-testid="section-portfolio-gallery">
-      <div className="max-w-6xl mx-auto px-4 md:px-8 mb-12">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4 }}
-          className="text-center"
-        >
-          <h2
-            className="text-3xl md:text-4xl font-bold text-red-500 mb-3 section-heading-glow"
-            data-testid="text-portfolio-gallery-heading"
+    <>
+      <section className="py-16 md:py-24 overflow-hidden" data-testid="section-portfolio-gallery">
+        <div className="max-w-6xl mx-auto px-4 md:px-8 mb-12">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4 }}
+            className="text-center"
           >
-            Our Work
-          </h2>
-          <p
-            className="text-white/50 text-base md:text-lg mb-6"
-            data-testid="text-portfolio-gallery-subtitle"
-          >
-            Real websites we've built for real businesses
-          </p>
-          <Link href="/our-work">
-            <span
-              className="inline-flex items-center gap-2 text-sm font-medium text-red-500 hover:text-red-400 transition-colors cursor-pointer"
-              data-testid="link-view-all-work"
+            <h2
+              className="text-3xl md:text-4xl font-bold text-red-500 mb-3 section-heading-glow"
+              data-testid="text-portfolio-gallery-heading"
             >
-              View All Projects
-              <ArrowRight className="w-4 h-4" />
-            </span>
-          </Link>
-        </motion.div>
-      </div>
-
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-        className="relative"
-      >
-        <div className="absolute left-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
-          style={{ background: "linear-gradient(90deg, rgb(10,10,10), transparent)" }}
-        />
-        <div className="absolute right-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
-          style={{ background: "linear-gradient(270deg, rgb(10,10,10), transparent)" }}
-        />
-
-        <motion.div
-          className="flex gap-5"
-          animate={{ x: ["0%", "-50%"] }}
-          transition={{
-            x: {
-              duration: withScreenshots.length * 5,
-              repeat: Infinity,
-              ease: "linear",
-            },
-          }}
-        >
-          {duplicated.map((item, index) => (
-            <div
-              key={`${item.id}-${index}`}
-              className="flex-shrink-0 w-72 md:w-96 group relative overflow-hidden rounded-lg"
-              data-testid={`gallery-item-${index}`}
+              Our Work
+            </h2>
+            <p
+              className="text-white/50 text-base md:text-lg mb-6"
+              data-testid="text-portfolio-gallery-subtitle"
             >
-              <div
-                className="relative overflow-hidden rounded-lg"
-                style={{
-                  border: "1px solid rgba(255, 255, 255, 0.08)",
-                }}
-              >
-                <div className="aspect-[16/10] overflow-hidden">
-                  <img
-                    src={item.screenshotUrl!}
-                    alt={item.title}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    loading="lazy"
-                  />
-                </div>
-
-                <div
-                  className="p-3"
-                  style={{ background: "rgba(15, 15, 15, 0.95)" }}
+              Real websites we've built for real businesses
+            </p>
+            <div className="flex items-center justify-center gap-4">
+              <Link href="/our-work">
+                <span
+                  className="inline-flex items-center gap-2 text-sm font-medium text-red-500 hover:text-red-400 transition-colors cursor-pointer"
+                  data-testid="link-view-all-work"
                 >
-                  <div className="flex items-center gap-2">
-                    {item.logoUrl && (
-                      <img
-                        src={item.logoUrl}
-                        alt={`${item.title} logo`}
-                        className="h-5 w-auto object-contain rounded"
-                      />
-                    )}
-                    <span className="text-sm font-medium text-white truncate">
-                      {item.title}
+                  View All Projects
+                  <ArrowRight className="w-4 h-4" />
+                </span>
+              </Link>
+            </div>
+          </motion.div>
+        </div>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="relative"
+        >
+          <div className="absolute left-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
+            style={{ background: "linear-gradient(90deg, rgb(10,10,10), transparent)" }}
+          />
+          <div className="absolute right-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
+            style={{ background: "linear-gradient(270deg, rgb(10,10,10), transparent)" }}
+          />
+
+          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2">
+            <button
+              onClick={() => setScrollDirection(-1)}
+              className={`w-8 h-8 rounded-full flex items-center justify-center transition-all ${
+                scrollDirection === -1
+                  ? "bg-red-600 text-white"
+                  : "bg-white/10 text-white/60 hover:bg-white/20"
+              }`}
+              data-testid="button-scroll-left"
+              aria-label="Scroll left"
+            >
+              <ChevronLeft className="w-4 h-4" />
+            </button>
+            <button
+              onClick={() => setIsPaused(!isPaused)}
+              className={`w-8 h-8 rounded-full flex items-center justify-center transition-all ${
+                isPaused
+                  ? "bg-red-600 text-white"
+                  : "bg-white/10 text-white/60 hover:bg-white/20"
+              }`}
+              data-testid="button-scroll-pause"
+              aria-label={isPaused ? "Play" : "Pause"}
+            >
+              {isPaused ? <Play className="w-3.5 h-3.5" /> : <Pause className="w-3.5 h-3.5" />}
+            </button>
+            <button
+              onClick={() => setScrollDirection(1)}
+              className={`w-8 h-8 rounded-full flex items-center justify-center transition-all ${
+                scrollDirection === 1
+                  ? "bg-red-600 text-white"
+                  : "bg-white/10 text-white/60 hover:bg-white/20"
+              }`}
+              data-testid="button-scroll-right"
+              aria-label="Scroll right"
+            >
+              <ChevronRight className="w-4 h-4" />
+            </button>
+          </div>
+
+          <motion.div
+            ref={scrollRef}
+            className="flex gap-5 pb-14"
+            animate={isPaused ? {} : { x: scrollDirection === 1 ? ["0%", "-50%"] : ["-50%", "0%"] }}
+            transition={{
+              x: {
+                duration: animationDuration,
+                repeat: Infinity,
+                ease: "linear",
+              },
+            }}
+          >
+            {duplicated.map((item, index) => (
+              <div
+                key={`${item.id}-${index}`}
+                className="flex-shrink-0 w-72 md:w-96 group relative overflow-hidden rounded-lg cursor-pointer"
+                onClick={() => setSelectedItem(item)}
+                data-testid={`gallery-item-${index}`}
+              >
+                <div
+                  className="relative overflow-hidden rounded-lg"
+                  style={{
+                    border: "1px solid rgba(255, 255, 255, 0.08)",
+                  }}
+                >
+                  <div className="aspect-[16/10] overflow-hidden">
+                    <img
+                      src={item.screenshotUrl!}
+                      alt={item.title}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      loading="lazy"
+                    />
+                  </div>
+
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 flex items-center justify-center">
+                    <span className="text-white font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-sm">
+                      Click to expand
                     </span>
+                  </div>
+
+                  <div
+                    className="p-3"
+                    style={{ background: "rgba(15, 15, 15, 0.95)" }}
+                  >
+                    <div className="flex items-center gap-2">
+                      {item.logoUrl && (
+                        <img
+                          src={item.logoUrl}
+                          alt={`${item.title} logo`}
+                          className="h-5 w-auto object-contain rounded"
+                        />
+                      )}
+                      <span className="text-sm font-medium text-white truncate">
+                        {item.title}
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </motion.div>
         </motion.div>
-      </motion.div>
-    </section>
+      </section>
+
+      <AnimatePresence>
+        {selectedItem && (
+          <motion.div
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-8"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+          >
+            <div
+              className="absolute inset-0 bg-black/90 backdrop-blur-sm"
+              onClick={() => setSelectedItem(null)}
+            />
+
+            <button
+              onClick={() => setSelectedItem(null)}
+              className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors"
+              data-testid="button-lightbox-close"
+              aria-label="Close"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            {(() => {
+              const idx = withScreenshots.findIndex((i) => i.id === selectedItem.id);
+              return (
+                <>
+                  {idx > 0 && (
+                    <button
+                      onClick={() => setSelectedItem(withScreenshots[idx - 1])}
+                      className="absolute left-2 md:left-6 z-10 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors"
+                      data-testid="button-lightbox-prev"
+                      aria-label="Previous"
+                    >
+                      <ChevronLeft className="w-5 h-5" />
+                    </button>
+                  )}
+                  {idx < withScreenshots.length - 1 && (
+                    <button
+                      onClick={() => setSelectedItem(withScreenshots[idx + 1])}
+                      className="absolute right-2 md:right-6 z-10 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors"
+                      data-testid="button-lightbox-next"
+                      aria-label="Next"
+                    >
+                      <ChevronRight className="w-5 h-5" />
+                    </button>
+                  )}
+                </>
+              );
+            })()}
+
+            <motion.div
+              className="relative z-10 max-w-5xl w-full"
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              key={selectedItem.id}
+            >
+              <div
+                className="overflow-hidden rounded-lg"
+                style={{ border: "1px solid rgba(255, 255, 255, 0.1)" }}
+              >
+                <img
+                  src={selectedItem.screenshotUrl!}
+                  alt={selectedItem.title}
+                  className="w-full h-auto max-h-[75vh] object-contain bg-black"
+                  data-testid="lightbox-image"
+                />
+                <div
+                  className="p-4 flex items-center gap-3"
+                  style={{ background: "rgba(15, 15, 15, 0.98)" }}
+                >
+                  {selectedItem.logoUrl && (
+                    <img
+                      src={selectedItem.logoUrl}
+                      alt={`${selectedItem.title} logo`}
+                      className="h-7 w-auto object-contain rounded"
+                    />
+                  )}
+                  <div>
+                    <h3 className="text-white font-semibold text-lg" data-testid="lightbox-title">
+                      {selectedItem.title}
+                    </h3>
+                    {selectedItem.description && (
+                      <p className="text-white/50 text-sm mt-0.5">{selectedItem.description}</p>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }
