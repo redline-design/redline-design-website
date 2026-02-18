@@ -1,5 +1,5 @@
-import { useState, useEffect, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect, useCallback, useRef } from "react";
+import { motion } from "framer-motion";
 
 interface TrackedSection {
   id: string;
@@ -11,6 +11,7 @@ export default function SectionTracker() {
   const [sections, setSections] = useState<TrackedSection[]>([]);
   const [activeIndex, setActiveIndex] = useState(0);
   const [visible, setVisible] = useState(false);
+  const activeIndexRef = useRef(0);
 
   const scanSections = useCallback(() => {
     const elements = document.querySelectorAll("[data-section-label]");
@@ -41,18 +42,45 @@ export default function SectionTracker() {
 
   useEffect(() => {
     if (sections.length === 0) return;
+
     const handleScroll = () => {
-      const scrollY = window.scrollY + window.innerHeight * 0.4;
+      const viewportMiddle = window.scrollY + window.innerHeight * 0.35;
       let current = 0;
+      let closestDist = Infinity;
+
       for (let i = 0; i < sections.length; i++) {
-        const rect = sections[i].element.getBoundingClientRect();
-        const top = rect.top + window.scrollY;
-        if (scrollY >= top) {
+        const el = sections[i].element;
+        const rect = el.getBoundingClientRect();
+        const elTop = rect.top + window.scrollY;
+        const elBottom = elTop + rect.height;
+        const elCenter = elTop + rect.height * 0.3;
+
+        if (viewportMiddle >= elTop && viewportMiddle <= elBottom) {
+          const dist = Math.abs(viewportMiddle - elCenter);
+          if (dist < closestDist) {
+            closestDist = dist;
+            current = i;
+          }
+        } else if (viewportMiddle >= elTop) {
           current = i;
         }
       }
-      setActiveIndex(current);
+
+      if (window.scrollY < 100) {
+        current = 0;
+      }
+
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      if (window.scrollY >= docHeight - 50) {
+        current = sections.length - 1;
+      }
+
+      if (current !== activeIndexRef.current) {
+        activeIndexRef.current = current;
+        setActiveIndex(current);
+      }
     };
+
     window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
@@ -61,7 +89,8 @@ export default function SectionTracker() {
   const scrollTo = (index: number) => {
     const el = sections[index]?.element;
     if (!el) return;
-    const top = el.getBoundingClientRect().top + window.scrollY - 100;
+    const rect = el.getBoundingClientRect();
+    const top = rect.top + window.scrollY - 80;
     window.scrollTo({ top, behavior: "smooth" });
   };
 
