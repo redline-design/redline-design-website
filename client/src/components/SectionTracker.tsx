@@ -72,12 +72,12 @@ export default function SectionTracker() {
       initial={{ opacity: 0, x: 20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.5, delay: 1 }}
-      className="fixed right-6 top-1/2 -translate-y-1/2 z-40 hidden lg:flex flex-col items-end"
+      className="fixed right-6 top-[40%] -translate-y-1/2 z-40 hidden lg:flex flex-col items-end"
       data-testid="section-tracker"
     >
       <div className="relative flex flex-col gap-0">
         <div
-          className="absolute left-[4px] top-[6px] bottom-[6px] w-px"
+          className="absolute right-[5px] top-[8px] bottom-[8px] w-px"
           style={{ background: "rgba(255,255,255,0.08)" }}
         />
 
@@ -88,30 +88,12 @@ export default function SectionTracker() {
             <button
               key={section.id}
               onClick={() => scrollTo(i)}
-              className="group relative flex items-center gap-3 py-[7px] cursor-pointer"
+              className="group relative flex items-center gap-3 py-[8px] cursor-pointer"
               aria-label={`Go to ${section.label}`}
               data-testid={`tracker-dot-${i}`}
             >
-              <div className="relative z-10 flex items-center justify-center w-[9px] h-[9px]">
-                <span
-                  className="block rounded-full transition-all duration-300"
-                  style={{
-                    width: isActive ? 9 : 5,
-                    height: isActive ? 9 : 5,
-                    background: isActive
-                      ? "#ff0000"
-                      : isPast
-                        ? "rgba(255, 0, 0, 0.4)"
-                        : "rgba(255,255,255,0.2)",
-                    boxShadow: isActive
-                      ? "0 0 8px rgba(255,0,0,0.6), 0 0 20px rgba(255,0,0,0.2)"
-                      : "none",
-                  }}
-                />
-              </div>
-
               <span
-                className="whitespace-nowrap text-[11px] font-medium transition-all duration-300 leading-none"
+                className="whitespace-nowrap text-[12px] font-semibold transition-all duration-300 leading-none"
                 style={{
                   color: isActive
                     ? "#ff0000"
@@ -123,6 +105,24 @@ export default function SectionTracker() {
               >
                 {section.label}
               </span>
+
+              <div className="relative z-10 flex items-center justify-center w-[11px] h-[11px]">
+                <span
+                  className="block rounded-full transition-all duration-300"
+                  style={{
+                    width: isActive ? 11 : 6,
+                    height: isActive ? 11 : 6,
+                    background: isActive
+                      ? "#ff0000"
+                      : isPast
+                        ? "rgba(255, 0, 0, 0.4)"
+                        : "rgba(255,255,255,0.2)",
+                    boxShadow: isActive
+                      ? "0 0 8px rgba(255,0,0,0.6), 0 0 20px rgba(255,0,0,0.2)"
+                      : "none",
+                  }}
+                />
+              </div>
             </button>
           );
         })}
