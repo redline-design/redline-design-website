@@ -1,6 +1,6 @@
 import { ServiceHero, BenefitsGrid, PricingSection, ServiceCTA } from "@/components/service-sections";
 import { motion, useMotionValue, useTransform, animate } from "framer-motion";
-import { BarChart3, Sparkles, Plug, TrendingUp, ArrowUp, ArrowDown, Activity, Users, DollarSign, Eye } from "lucide-react";
+import { BarChart3, Sparkles, Plug, TrendingUp, ArrowUp, ArrowDown, Activity, Users, DollarSign, Eye, Megaphone, LineChart, Share2, Briefcase, ShoppingCart, Search } from "lucide-react";
 import { useEffect, useState, useRef } from "react";
 
 const benefits = [
@@ -195,12 +195,12 @@ function AnimatedCounter({ value, prefix = "", suffix = "", display }: { value: 
 }
 
 const dataSourceCategories = [
-  { title: "Advertising", items: ["Google Ads", "Meta Ads", "LinkedIn Ads", "TikTok Ads"] },
-  { title: "Analytics", items: ["Google Analytics 4", "Adobe Analytics", "Mixpanel", "Amplitude"] },
-  { title: "Social Media", items: ["Instagram", "Facebook", "LinkedIn", "X (Twitter)"] },
-  { title: "CRM & Sales", items: ["HubSpot", "Salesforce", "Close CRM", "Pipedrive"] },
-  { title: "E-Commerce", items: ["Shopify", "WooCommerce", "Stripe", "PayPal"] },
-  { title: "SEO", items: ["Google Search Console", "SEMrush", "Ahrefs", "Moz"] },
+  { title: "Advertising", icon: Megaphone, items: ["Google Ads", "Meta Ads", "LinkedIn Ads", "TikTok Ads"] },
+  { title: "Analytics", icon: LineChart, items: ["Google Analytics 4", "Adobe Analytics", "Mixpanel", "Amplitude"] },
+  { title: "Social Media", icon: Share2, items: ["Instagram", "Facebook", "LinkedIn", "X (Twitter)"] },
+  { title: "CRM & Sales", icon: Briefcase, items: ["HubSpot", "Salesforce", "Close CRM", "Pipedrive"] },
+  { title: "E-Commerce", icon: ShoppingCart, items: ["Shopify", "WooCommerce", "Stripe", "PayPal"] },
+  { title: "SEO", icon: Search, items: ["Google Search Console", "SEMrush", "Ahrefs", "Moz"] },
 ];
 
 const cardStyle = {
@@ -488,41 +488,121 @@ export default function AnalyticsPage() {
             </p>
           </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-          >
-            {dataSourceCategories.map((category, index) => (
-              <div
-                key={index}
-                className="p-6 rounded-md"
-                style={cardStyle}
-                data-testid={`card-datasource-${index}`}
-              >
-                <h3
-                  className="text-lg font-semibold text-white mb-4"
-                  data-testid={`text-datasource-title-${index}`}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {dataSourceCategories.map((category, index) => {
+              const Icon = category.icon;
+              return (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 15 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: index * 0.08 }}
+                  className="relative overflow-hidden rounded-lg group"
+                  data-testid={`card-datasource-${index}`}
                 >
-                  {category.title}
-                </h3>
-                <ul className="space-y-2">
-                  {category.items.map((item, itemIndex) => (
-                    <li
-                      key={itemIndex}
-                      className="text-white/60 text-sm flex items-center gap-2"
-                      data-testid={`text-datasource-item-${index}-${itemIndex}`}
-                    >
-                      <span className="w-1.5 h-1.5 rounded-full bg-red-500/60 flex-shrink-0" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </motion.div>
+                  <div
+                    className="absolute inset-0"
+                    style={{
+                      background: "rgba(20, 20, 20, 0.95)",
+                      border: "1px solid rgba(255, 255, 255, 0.06)",
+                      borderRadius: "0.5rem",
+                    }}
+                  />
+
+                  <div
+                    className="absolute left-0 top-0 bottom-0 w-[3px] rounded-l-lg"
+                    style={{ background: "linear-gradient(180deg, #ff0000, rgba(255,0,0,0.3))" }}
+                  />
+
+                  <div className="absolute inset-0 opacity-[0.04] pointer-events-none"
+                    style={{
+                      backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 24px, rgba(255,255,255,0.5) 24px, rgba(255,255,255,0.5) 25px),
+                        repeating-linear-gradient(90deg, transparent, transparent 24px, rgba(255,255,255,0.5) 24px, rgba(255,255,255,0.5) 25px)`,
+                    }}
+                  />
+
+                  <motion.div
+                    className="absolute inset-0 pointer-events-none"
+                    style={{
+                      background: "linear-gradient(180deg, transparent 0%, rgba(255,0,0,0.03) 50%, transparent 100%)",
+                      height: "40%",
+                    }}
+                    animate={{ y: ["-40%", "200%"] }}
+                    transition={{ duration: 3, repeat: Infinity, repeatDelay: 2, ease: "linear" }}
+                  />
+
+                  <div className="relative z-10 p-5">
+                    <div className="flex items-center gap-3 mb-4">
+                      <div
+                        className="w-9 h-9 rounded flex items-center justify-center"
+                        style={{
+                          background: "rgba(255,0,0,0.1)",
+                          border: "1px solid rgba(255,0,0,0.2)",
+                        }}
+                      >
+                        <Icon className="w-4 h-4 text-red-500" />
+                      </div>
+                      <h3
+                        className="text-sm font-bold text-white uppercase tracking-wider"
+                        data-testid={`text-datasource-title-${index}`}
+                      >
+                        {category.title}
+                      </h3>
+                      <motion.div
+                        className="ml-auto flex items-center gap-1.5"
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: index * 0.08 + 0.5 }}
+                      >
+                        <span className="text-[10px] font-mono text-green-400/80 uppercase tracking-wider hidden sm:inline">Connected</span>
+                        <motion.div
+                          className="w-1.5 h-1.5 rounded-full bg-green-400"
+                          animate={{ scale: [1, 1.4, 1], opacity: [0.7, 1, 0.7] }}
+                          transition={{ duration: 2, delay: index * 0.3, repeat: Infinity, repeatDelay: 3 }}
+                          style={{ boxShadow: "0 0 6px rgba(74,222,128,0.6)" }}
+                        />
+                      </motion.div>
+                    </div>
+
+                    <div className="space-y-0">
+                      {category.items.map((item, itemIndex) => (
+                        <motion.div
+                          key={itemIndex}
+                          initial={{ opacity: 0, x: -8 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          viewport={{ once: true }}
+                          transition={{ duration: 0.3, delay: index * 0.08 + itemIndex * 0.06 + 0.2 }}
+                          className="flex items-center gap-3 py-2 border-b border-white/[0.04] last:border-b-0"
+                          data-testid={`text-datasource-item-${index}-${itemIndex}`}
+                        >
+                          <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0"
+                            style={{ background: "rgba(255,0,0,0.08)" }}
+                          >
+                            <Plug className="w-2.5 h-2.5 text-red-500/60" />
+                          </div>
+                          <span className="text-white/80 text-sm font-medium flex-1">{item}</span>
+                          <div className="flex items-center gap-1">
+                            <div className="w-8 h-[3px] rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.06)" }}>
+                              <motion.div
+                                className="h-full rounded-full"
+                                style={{ background: "linear-gradient(90deg, #ff0000, rgba(255,0,0,0.5))" }}
+                                initial={{ width: 0 }}
+                                whileInView={{ width: "100%" }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.6, delay: index * 0.08 + itemIndex * 0.1 + 0.4 }}
+                              />
+                            </div>
+                          </div>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
         </div>
       </section>
 
