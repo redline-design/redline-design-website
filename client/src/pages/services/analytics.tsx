@@ -32,7 +32,7 @@ const benefits = [
 
 const plans = [
   {
-    name: "Cruiser",
+    name: "Starter",
     price: "$199",
     period: "/month",
     features: [
@@ -46,12 +46,12 @@ const plans = [
     ],
   },
   {
-    name: "Turbo",
+    name: "Growth",
     price: "$499",
     period: "/month",
     popular: true,
     features: [
-      "Everything in Cruiser",
+      "Everything in Starter",
       "AI-powered performance summaries",
       "Advanced filtering",
       "Benchmarking against industry peers",
@@ -61,11 +61,11 @@ const plans = [
     ],
   },
   {
-    name: "Redline",
+    name: "Pro",
     price: "Custom",
     buttonText: "Contact Us",
     features: [
-      "Everything in Turbo",
+      "Everything in Growth",
       "100 data sources included",
       "15-minute sync intervals",
       "White-label branding",

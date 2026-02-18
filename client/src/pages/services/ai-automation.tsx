@@ -57,7 +57,7 @@ const useCases = [
 
 const pricingPlans = [
   {
-    name: "Nitro Lab",
+    name: "AI Studio",
     price: "$250",
     period: "/hour",
     description: "Expert-led AI automation and sales funnel development tailored to your business",

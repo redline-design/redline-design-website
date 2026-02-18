@@ -38,7 +38,7 @@ const dashboardMetrics = [
 
 const plans = [
   {
-    name: "Cruiser",
+    name: "Starter",
     price: "$19",
     period: "/computer/month",
     features: [
@@ -48,7 +48,7 @@ const plans = [
     ],
   },
   {
-    name: "Turbo",
+    name: "Growth",
     price: "$29",
     period: "/computer/month",
     popular: true,
@@ -61,11 +61,11 @@ const plans = [
     ],
   },
   {
-    name: "Redline",
+    name: "Pro",
     price: "$39",
     period: "/computer/month",
     features: [
-      "Everything in Turbo",
+      "Everything in Growth",
       "Full Backup Management",
       "Automated Remediation of Common Problems",
       "Web Filtering",

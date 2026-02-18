@@ -26,7 +26,7 @@ const benefits = [
 
 const plans = [
   {
-    name: "Cruiser",
+    name: "Starter",
     price: "$5,000",
     period: ", One-time",
     features: [
@@ -38,7 +38,7 @@ const plans = [
     ],
   },
   {
-    name: "Turbo",
+    name: "Growth",
     price: "$15,000",
     period: ", One-time",
     popular: true,
@@ -52,7 +52,7 @@ const plans = [
     ],
   },
   {
-    name: "Redline",
+    name: "Pro",
     price: "Contact Us",
     period: ", Custom pricing",
     features: [

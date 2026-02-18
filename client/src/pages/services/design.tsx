@@ -35,7 +35,7 @@ const processSteps = [
 
 const logoPlans = [
   {
-    name: "Spark Plug",
+    name: "Essentials",
     price: "$400",
     period: "One-time",
     features: [
@@ -50,7 +50,7 @@ const logoPlans = [
 
 const brandGuidePlans = [
   {
-    name: "Piston",
+    name: "Professional",
     price: "$800",
     period: "One-time",
     features: [
@@ -62,12 +62,12 @@ const brandGuidePlans = [
     ],
   },
   {
-    name: "Dragstrip",
+    name: "Premium",
     price: "$1,500",
     period: "One-time",
     popular: true,
     features: [
-      "Everything in Piston",
+      "Everything in Professional",
       "Custom logo design included",
       "Social media templates",
       "Business card design",
@@ -76,11 +76,11 @@ const brandGuidePlans = [
     ],
   },
   {
-    name: "Pole Position",
+    name: "Elite",
     price: "$2,500",
     period: "One-time",
     features: [
-      "Everything in Dragstrip",
+      "Everything in Premium",
       "Extended collateral design",
       "Presentation templates",
       "Packaging guidelines",

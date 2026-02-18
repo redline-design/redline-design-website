@@ -41,7 +41,7 @@ const platforms = [
 
 const pricingPlans = [
   {
-    name: "Full Throttle",
+    name: "Performance Max",
     price: "25%",
     period: "of total ad spend",
     description: "Full-service PPC management — we handle everything so you can focus on growing your business",
