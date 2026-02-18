@@ -57,7 +57,7 @@ const useCases = [
 
 const pricingPlans = [
   {
-    name: "AI Studio",
+    name: "Custom AI Integration/Training",
     price: "$250",
     period: "/hour",
     description: "Expert-led AI automation and sales funnel development tailored to your business",
