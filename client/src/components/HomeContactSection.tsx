@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Clock, ArrowRight, Rocket } from "lucide-react";
+import { Clock, Rocket } from "lucide-react";
 import ContactForm from "@/components/ContactForm";
 
 export default function HomeContactSection() {
@@ -58,17 +58,6 @@ export default function HomeContactSection() {
                 border: "1px solid rgba(255, 255, 255, 0.08)",
               }}
             >
-              <div className="flex items-center gap-3 mb-7">
-                <div className="w-10 h-10 rounded-full bg-red-500/10 border border-red-500/20 flex items-center justify-center">
-                  <ArrowRight className="w-5 h-5 text-red-500" />
-                </div>
-                <div>
-                  <h3 className="text-white font-semibold text-lg" data-testid="text-form-title">
-                    Send us a message
-                  </h3>
-                  <p className="text-white/50 text-xs">We'll get back to you shortly</p>
-                </div>
-              </div>
               <ContactForm />
             </div>
           </motion.div>
