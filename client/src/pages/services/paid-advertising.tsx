@@ -62,9 +62,9 @@ const pricingPlans = [
 
 const funnelSteps = [
   { title: "Impressions", description: "Your ads seen by thousands", icon: Eye, value: "50K+", width: "100%" },
-  { title: "Clicks", description: "Engaged visitors to your site", icon: MousePointer, value: "5K+", width: "65%" },
-  { title: "Leads", description: "Qualified prospects captured", icon: UserCheck, value: "500+", width: "38%" },
-  { title: "Conversions", description: "Revenue-generating customers", icon: DollarSign, value: "150+", width: "20%" },
+  { title: "Clicks", description: "Engaged visitors to your site", icon: MousePointer, value: "5K+", width: "82%" },
+  { title: "Leads", description: "Qualified prospects captured", icon: UserCheck, value: "500+", width: "64%" },
+  { title: "Conversions", description: "Revenue-generating customers", icon: DollarSign, value: "150+", width: "48%" },
 ];
 
 function AnimatedCounter({ value, inView }: { value: number; inView: boolean }) {
