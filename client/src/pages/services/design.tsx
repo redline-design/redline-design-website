@@ -187,19 +187,6 @@ export default function DesignPage() {
       </section>
 
       <div data-testid="section-pricing-logo">
-        <div className="max-w-6xl mx-auto px-4 md:px-8 pt-16 md:pt-24">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4 }}
-            className="text-center mb-0"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold text-red-500 mb-3 section-heading-glow" data-testid="text-pricing-logo-heading">
-              Logo Design
-            </h2>
-          </motion.div>
-        </div>
         <PricingSection plans={logoPlans} />
       </div>
 
