@@ -101,14 +101,14 @@ const plans = [
 ];
 
 const includedItems = [
-  { title: "Email Templates" },
-  { title: "SMS Campaigns" },
-  { title: "Call Recording & Tracking" },
-  { title: "Sales Pipeline Stages" },
-  { title: "Lead Scoring Rules" },
-  { title: "Automated Follow-ups" },
-  { title: "Custom Dashboards" },
-  { title: "Team Training Sessions" },
+  { title: "Email Templates", icon: Mail },
+  { title: "SMS Campaigns", icon: Smartphone },
+  { title: "Call Recording & Tracking", icon: Phone },
+  { title: "Sales Pipeline Stages", icon: Filter },
+  { title: "Lead Scoring Rules", icon: BarChart3 },
+  { title: "Automated Follow-ups", icon: GitBranch },
+  { title: "Custom Dashboards", icon: Layers },
+  { title: "Team Training Sessions", icon: Users },
 ];
 
 export default function CRMPage() {

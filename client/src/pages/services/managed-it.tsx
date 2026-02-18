@@ -1,4 +1,4 @@
-import { Shield, Server, Headphones, Clock } from "lucide-react";
+import { Shield, Server, Headphones, Clock, Monitor, Cloud, Mail, DatabaseBackup, ShieldCheck, FileKey, HandshakeIcon } from "lucide-react";
 import { motion } from "framer-motion";
 import { ServiceHero, BenefitsGrid, PricingSection, IncludedGrid, ServiceCTA } from "@/components/service-sections";
 
@@ -76,14 +76,14 @@ const plans = [
 ];
 
 const includedItems = [
-  { title: "Servers & Workstations" },
-  { title: "Network Infrastructure" },
-  { title: "Cloud Environments" },
-  { title: "Email & Collaboration Tools" },
-  { title: "Data Backup & Recovery" },
-  { title: "Security & Compliance" },
-  { title: "Software Licensing" },
-  { title: "Vendor Coordination" },
+  { title: "Servers & Workstations", icon: Server },
+  { title: "Network Infrastructure", icon: Monitor },
+  { title: "Cloud Environments", icon: Cloud },
+  { title: "Email & Collaboration Tools", icon: Mail },
+  { title: "Data Backup & Recovery", icon: DatabaseBackup },
+  { title: "Security & Compliance", icon: ShieldCheck },
+  { title: "Software Licensing", icon: FileKey },
+  { title: "Vendor Coordination", icon: HandshakeIcon },
 ];
 
 const containerVariants = {

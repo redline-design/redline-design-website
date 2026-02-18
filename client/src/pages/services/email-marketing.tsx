@@ -1,4 +1,4 @@
-import { Zap, Users, FlaskConical, BarChart3 } from "lucide-react";
+import { Zap, Users, FlaskConical, BarChart3, Palette, ListChecks, Rocket, ShieldCheck, LineChart, UserX } from "lucide-react";
 import { ServiceHero, BenefitsGrid, PricingSection, IncludedGrid, ServiceCTA } from "@/components/service-sections";
 
 const benefits = [
@@ -69,12 +69,12 @@ const plans = [
 ];
 
 const includedItems = [
-  { title: "Template Design" },
-  { title: "List Management" },
-  { title: "Deliverability Optimization" },
-  { title: "Spam Compliance" },
-  { title: "Analytics Dashboard" },
-  { title: "Unsubscribe Management" },
+  { title: "Template Design", icon: Palette },
+  { title: "List Management", icon: ListChecks },
+  { title: "Deliverability Optimization", icon: Rocket },
+  { title: "Spam Compliance", icon: ShieldCheck },
+  { title: "Analytics Dashboard", icon: LineChart },
+  { title: "Unsubscribe Management", icon: UserX },
 ];
 
 export default function EmailMarketingPage() {
