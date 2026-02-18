@@ -147,22 +147,11 @@ export default function AnimatedBackground() {
         return;
       }
 
-      // Pause animation if no mouse or scroll activity for 3 seconds to save GPU
+      // Track mouse activity for intensity scaling (animation never fully stops)
       const timeSinceMouseMove = Date.now() - lastMouseMoveTime;
       const timeSinceScroll = Date.now() - lastScrollTime;
       const timeSinceActivity = Math.min(timeSinceMouseMove, timeSinceScroll);
-      
-      if (timeSinceActivity > 3000 && isMouseActive) {
-        isMouseActive = false;
-        // Keep last rendered frame visible, just stop animating
-        return;
-      } else if (timeSinceActivity > 3000) {
-        // Keep paused - last frame stays visible
-        return;
-      } else if (!isMouseActive) {
-        // Resume animation
-        isMouseActive = true;
-      }
+      isMouseActive = timeSinceActivity < 3000;
 
       // FPS throttling
       const elapsed = currentTime - lastFrameTime;
@@ -208,27 +197,42 @@ export default function AnimatedBackground() {
           displacementY = -Math.sin(angle) * pushStrength;
         }
 
-        // Create diagonal wave pattern
-        const waveX = Math.sin((hex.baseX * 0.005) + (hex.baseY * 0.003) + time) * 0.5 + 0.5;
-        const waveY = Math.cos((hex.baseY * 0.005) + (hex.baseX * 0.003) + time * 0.7) * 0.5 + 0.5;
+        // Ambient drift — subtle position wobble even when idle
+        const driftX = Math.sin(time * 0.4 + hex.offset) * 3 + Math.sin(time * 0.17 + hex.offset * 2.3) * 2;
+        const driftY = Math.cos(time * 0.35 + hex.offset * 1.7) * 3 + Math.cos(time * 0.2 + hex.offset * 0.9) * 2;
+
+        // Layered wave pattern — multiple overlapping waves for organic feel
+        const wave1 = Math.sin((hex.baseX * 0.005) + (hex.baseY * 0.003) + time * 0.8) * 0.5 + 0.5;
+        const wave2 = Math.cos((hex.baseY * 0.005) + (hex.baseX * 0.003) + time * 0.5) * 0.5 + 0.5;
+        const wave3 = Math.sin((hex.baseX + hex.baseY) * 0.004 + time * 1.2 + hex.offset) * 0.5 + 0.5;
         
-        const wave = (waveX + waveY) * 0.5;
+        // Traveling pulse — a bright ring that sweeps across the grid
+        const pulseCenter = (time * 0.3) % 1;
+        const normPos = ((hex.baseX / canvas.width) + (hex.baseY / canvas.height)) * 0.5;
+        const pulseDist = Math.abs(normPos - pulseCenter);
+        const pulse = Math.max(0, 1 - pulseDist * 8) * 0.25;
+
+        // Breathing — slow global oscillation
+        const breath = Math.sin(time * 0.3) * 0.08 + 0.08;
         
-        let opacity = wave * 0.4 + 0.05;
+        const wave = (wave1 + wave2 + wave3) / 3;
+        
+        let opacity = wave * 0.35 + breath + pulse + 0.06;
         
         if (mouseInfluence > 0) {
-          opacity = Math.min(0.8, opacity + mouseInfluence * 0.4);
+          opacity = Math.min(0.85, opacity + mouseInfluence * 0.45);
         }
         
         const waveScale = wave * 0.15 + 0.85;
+        const breathScale = Math.sin(time * 0.25 + hex.offset) * 0.04;
         const mouseScale = mouseInfluence * 0.2;
-        const scale = waveScale + mouseScale;
+        const scale = waveScale + breathScale + mouseScale;
         const currentRadius = hexRadius * scale;
 
-        hex.x = hex.baseX + displacementX;
-        hex.y = hex.baseY + displacementY;
+        hex.x = hex.baseX + displacementX + driftX;
+        hex.y = hex.baseY + displacementY + driftY;
 
-        const hue = (hex.baseX / canvas.width) * 60 + 180;
+        const hue = (hex.baseX / canvas.width) * 60 + 180 + Math.sin(time * 0.2) * 15;
 
         drawHexagon(hex.x, hex.y, currentRadius, opacity, hue);
       }
