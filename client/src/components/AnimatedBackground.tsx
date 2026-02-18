@@ -89,21 +89,21 @@ export default function AnimatedBackground() {
       driftSpeedY: number;
     }
 
-    const dotCount = 100;
+    const dotCount = 120;
     const dots: Dot[] = [];
 
     for (let i = 0; i < dotCount; i++) {
-      const isRed = Math.random() < 0.18;
+      const isRed = Math.random() < 0.2;
       dots.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
         baseX: Math.random() * canvas.width,
         baseY: Math.random() * canvas.height,
-        radius: 1 + Math.random() * 2,
+        radius: 1 + Math.random() * 2.5,
         isRed,
         baseOpacity: isRed
-          ? 0.04 + Math.random() * 0.06
-          : 0.03 + Math.random() * 0.05,
+          ? 0.12 + Math.random() * 0.15
+          : 0.08 + Math.random() * 0.12,
         offset: Math.random() * Math.PI * 2,
         driftSpeedX: (Math.random() - 0.5) * 0.15,
         driftSpeedY: (Math.random() - 0.5) * 0.15,
@@ -178,11 +178,11 @@ export default function AnimatedBackground() {
           dot.y += pushY;
         }
 
-        const breath = Math.sin(time * 0.25 + dot.offset) * 0.015 + 0.015;
+        const breath = Math.sin(time * 0.25 + dot.offset) * 0.03 + 0.03;
         let opacity = dot.baseOpacity + breath;
 
         if (mouseInfluence > 0) {
-          opacity = Math.min(0.3, opacity + mouseInfluence * 0.15);
+          opacity = Math.min(0.5, opacity + mouseInfluence * 0.25);
         }
 
         if (dot.isRed) {
