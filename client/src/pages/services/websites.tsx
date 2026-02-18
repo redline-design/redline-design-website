@@ -412,48 +412,9 @@ function PortfolioGallerySection() {
             style={{ background: "linear-gradient(270deg, rgb(10,10,10), transparent)" }}
           />
 
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2">
-            <button
-              onClick={() => setScrollDirection(-1)}
-              className={`w-8 h-8 rounded-full flex items-center justify-center transition-all ${
-                scrollDirection === -1
-                  ? "bg-red-600 text-white"
-                  : "bg-white/10 text-white/60 hover:bg-white/20"
-              }`}
-              data-testid="button-scroll-left"
-              aria-label="Scroll left"
-            >
-              <ChevronLeft className="w-4 h-4" />
-            </button>
-            <button
-              onClick={() => setIsPaused(!isPaused)}
-              className={`w-8 h-8 rounded-full flex items-center justify-center transition-all ${
-                isPaused
-                  ? "bg-red-600 text-white"
-                  : "bg-white/10 text-white/60 hover:bg-white/20"
-              }`}
-              data-testid="button-scroll-pause"
-              aria-label={isPaused ? "Play" : "Pause"}
-            >
-              {isPaused ? <Play className="w-3.5 h-3.5" /> : <Pause className="w-3.5 h-3.5" />}
-            </button>
-            <button
-              onClick={() => setScrollDirection(1)}
-              className={`w-8 h-8 rounded-full flex items-center justify-center transition-all ${
-                scrollDirection === 1
-                  ? "bg-red-600 text-white"
-                  : "bg-white/10 text-white/60 hover:bg-white/20"
-              }`}
-              data-testid="button-scroll-right"
-              aria-label="Scroll right"
-            >
-              <ChevronRight className="w-4 h-4" />
-            </button>
-          </div>
-
           <motion.div
             ref={scrollRef}
-            className="flex gap-5 pb-14"
+            className="flex gap-5"
             animate={isPaused ? {} : { x: scrollDirection === 1 ? ["0%", "-50%"] : ["-50%", "0%"] }}
             transition={{
               x: {
@@ -512,6 +473,45 @@ function PortfolioGallerySection() {
               </div>
             ))}
           </motion.div>
+
+          <div className="flex items-center justify-center gap-2 mt-6">
+            <button
+              onClick={() => setScrollDirection(-1)}
+              className={`w-8 h-8 rounded-full flex items-center justify-center transition-all ${
+                scrollDirection === -1
+                  ? "bg-red-600 text-white"
+                  : "bg-white/10 text-white/60 hover:bg-white/20"
+              }`}
+              data-testid="button-scroll-left"
+              aria-label="Scroll left"
+            >
+              <ChevronLeft className="w-4 h-4" />
+            </button>
+            <button
+              onClick={() => setIsPaused(!isPaused)}
+              className={`w-8 h-8 rounded-full flex items-center justify-center transition-all ${
+                isPaused
+                  ? "bg-red-600 text-white"
+                  : "bg-white/10 text-white/60 hover:bg-white/20"
+              }`}
+              data-testid="button-scroll-pause"
+              aria-label={isPaused ? "Play" : "Pause"}
+            >
+              {isPaused ? <Play className="w-3.5 h-3.5" /> : <Pause className="w-3.5 h-3.5" />}
+            </button>
+            <button
+              onClick={() => setScrollDirection(1)}
+              className={`w-8 h-8 rounded-full flex items-center justify-center transition-all ${
+                scrollDirection === 1
+                  ? "bg-red-600 text-white"
+                  : "bg-white/10 text-white/60 hover:bg-white/20"
+              }`}
+              data-testid="button-scroll-right"
+              aria-label="Scroll right"
+            >
+              <ChevronRight className="w-4 h-4" />
+            </button>
+          </div>
         </motion.div>
       </section>
 
