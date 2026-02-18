@@ -72,12 +72,12 @@ export default function Header() {
           >
             <Link href="/">
               <div
-                className={`relative px-4 py-2 text-sm font-medium transition-colors cursor-pointer flex items-center gap-2.5 ${
+                className={`relative px-5 py-2 text-xs font-medium transition-colors cursor-pointer flex flex-col items-center gap-1 ${
                   location === "/" ? "text-red-500" : "text-white/70 hover:text-white"
                 }`}
                 data-testid="link-nav-home-btn"
               >
-                <Home className="h-6 w-6" />
+                <Home className="h-7 w-7" />
                 Home
               </div>
             </Link>
@@ -85,14 +85,16 @@ export default function Header() {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <button
-                  className={`relative px-4 py-2 text-sm font-medium transition-colors group flex items-center gap-2.5 ${
+                  className={`relative px-5 py-2 text-xs font-medium transition-colors group flex flex-col items-center gap-1 ${
                     location.startsWith("/services") ? "text-red-500" : "text-white/70 hover:text-white"
                   }`}
                   data-testid="button-nav-services"
                 >
-                  <Layers className="h-6 w-6" />
-                  Services
-                  <ChevronDown className="h-3.5 w-3.5 transition-transform group-hover:translate-y-0.5" />
+                  <Layers className="h-7 w-7" />
+                  <span className="flex items-center gap-1">
+                    Services
+                    <ChevronDown className="h-3 w-3 transition-transform group-hover:translate-y-0.5" />
+                  </span>
                 </button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="center" className="w-56">
@@ -111,12 +113,12 @@ export default function Header() {
             {navLinks.map((link) => (
               <Link key={link.href} href={link.href}>
                 <div
-                  className={`relative px-4 py-2 text-sm font-medium transition-colors cursor-pointer flex items-center gap-2.5 ${
+                  className={`relative px-5 py-2 text-xs font-medium transition-colors cursor-pointer flex flex-col items-center gap-1 ${
                     location === link.href ? "text-red-500" : "text-white/70 hover:text-white"
                   }`}
                   data-testid={`link-nav-${link.label.toLowerCase().replace(/\s/g, "-")}`}
                 >
-                  <link.icon className="h-6 w-6" />
+                  <link.icon className="h-7 w-7" />
                   {link.label}
                 </div>
               </Link>
