@@ -347,70 +347,102 @@ export default function PaidAdvertisingPage() {
             </p>
           </motion.div>
 
-          <div className="space-y-3 max-w-3xl mx-auto">
+          <div className="space-y-0 max-w-3xl mx-auto">
             {funnelSteps.map((step, index) => {
               const StepIcon = step.icon;
-              const opacity = 0.15 + index * 0.15;
+              const intensity = 0.08 + index * 0.12;
+              const isLast = index === funnelSteps.length - 1;
               return (
                 <motion.div
                   key={step.title}
-                  initial={{ opacity: 0, y: 20, scaleX: 0.8 }}
-                  animate={funnelInView ? { opacity: 1, y: 0, scaleX: 1 } : {}}
-                  transition={{ duration: 0.6, delay: index * 0.15, ease: [0.22, 1, 0.36, 1] }}
+                  initial={{ opacity: 0, scaleX: 0.7 }}
+                  animate={funnelInView ? { opacity: 1, scaleX: 1 } : {}}
+                  transition={{ duration: 0.7, delay: index * 0.18, ease: [0.22, 1, 0.36, 1] }}
                   className="relative mx-auto"
                   style={{ width: step.width }}
                   data-testid={`card-funnel-step-${index}`}
                 >
                   <div
-                    className="relative rounded-lg overflow-hidden px-5 py-4 flex items-center gap-4 transition-all duration-300 group cursor-pointer"
+                    className="relative overflow-hidden px-6 py-5 md:px-8 md:py-6"
                     style={{
-                      background: `rgba(255, 0, 0, ${opacity})`,
-                      border: `1px solid rgba(255, 0, 0, ${opacity + 0.1})`,
+                      background: `rgba(255, 0, 0, ${intensity})`,
+                      borderLeft: `1px solid rgba(255, 0, 0, ${intensity + 0.15})`,
+                      borderRight: `1px solid rgba(255, 0, 0, ${intensity + 0.15})`,
+                      borderTop: index === 0 ? `1px solid rgba(255, 0, 0, ${intensity + 0.15})` : "none",
+                      borderBottom: isLast ? `1px solid rgba(255, 0, 0, ${intensity + 0.15})` : "none",
                     }}
                   >
-                    {/* Grid overlay */}
-                    <div className="absolute inset-0 opacity-20">
-                      {Array.from({ length: 10 }).map((_, i) => (
+                    {/* Horizontal scan lines */}
+                    <div className="absolute inset-0 pointer-events-none" style={{ opacity: 0.15 }}>
+                      {Array.from({ length: 8 }).map((_, i) => (
                         <div
                           key={i}
-                          className="absolute top-0 bottom-0 border-r"
-                          style={{ left: `${(i + 1) * 10}%`, borderColor: "rgba(255,255,255,0.05)" }}
+                          className="absolute left-0 right-0 h-px"
+                          style={{ top: `${(i + 1) * 11}%`, background: "rgba(255,255,255,0.15)" }}
                         />
                       ))}
                     </div>
 
-                    {/* Scan line */}
+                    {/* Vertical grid lines */}
+                    <div className="absolute inset-0 pointer-events-none" style={{ opacity: 0.1 }}>
+                      {Array.from({ length: 12 }).map((_, i) => (
+                        <div
+                          key={i}
+                          className="absolute top-0 bottom-0 w-px"
+                          style={{ left: `${(i + 1) * 8}%`, background: "rgba(255,255,255,0.12)" }}
+                        />
+                      ))}
+                    </div>
+
+                    {/* Sweeping scan bar */}
                     <motion.div
-                      className="absolute inset-y-0 w-[20%]"
-                      initial={{ left: "-20%" }}
-                      animate={funnelInView ? { left: ["- 20%", "120%"] } : {}}
+                      className="absolute inset-y-0 w-[15%] pointer-events-none"
+                      initial={{ left: "-15%" }}
+                      animate={funnelInView ? { left: ["-15%", "115%"] } : {}}
                       transition={{
-                        duration: 3,
-                        delay: index * 0.3 + 1,
+                        duration: 2.5,
+                        delay: index * 0.4 + 1.2,
                         repeat: Infinity,
-                        repeatDelay: 5,
+                        repeatDelay: 4 + index,
                         ease: "linear",
                       }}
                       style={{
-                        background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent)",
+                        background: "linear-gradient(90deg, transparent, rgba(255,0,0,0.12), rgba(255,255,255,0.06), transparent)",
                       }}
                     />
 
-                    <div className="relative z-10 flex items-center gap-4 w-full">
+                    {/* Left edge glow */}
+                    <div
+                      className="absolute left-0 top-0 bottom-0 w-px"
+                      style={{
+                        background: `rgba(255, 0, 0, ${0.4 + index * 0.15})`,
+                        boxShadow: `0 0 6px rgba(255,0,0,${0.2 + index * 0.1})`,
+                      }}
+                    />
+                    {/* Right edge glow */}
+                    <div
+                      className="absolute right-0 top-0 bottom-0 w-px"
+                      style={{
+                        background: `rgba(255, 0, 0, ${0.4 + index * 0.15})`,
+                        boxShadow: `0 0 6px rgba(255,0,0,${0.2 + index * 0.1})`,
+                      }}
+                    />
+
+                    <div className="relative z-10 flex items-center gap-5 w-full">
                       <div
-                        className="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center"
+                        className="flex-shrink-0 w-11 h-11 md:w-12 md:h-12 rounded flex items-center justify-center"
                         style={{
-                          background: `rgba(255, 0, 0, ${0.3 + index * 0.15})`,
-                          border: "1px solid rgba(255,0,0,0.4)",
-                          boxShadow: index === funnelSteps.length - 1 ? "0 0 15px rgba(255,0,0,0.3)" : "none",
+                          background: `rgba(255, 0, 0, ${0.2 + index * 0.12})`,
+                          border: `1px solid rgba(255,0,0,${0.3 + index * 0.1})`,
+                          boxShadow: isLast ? "0 0 20px rgba(255,0,0,0.25), inset 0 0 8px rgba(255,0,0,0.1)" : "none",
                         }}
                       >
-                        <StepIcon className="w-5 h-5 text-white" />
+                        <StepIcon className="w-5 h-5 md:w-6 md:h-6 text-white" />
                       </div>
 
                       <div className="flex-1 min-w-0">
                         <h3
-                          className="text-sm md:text-base font-semibold text-white"
+                          className="text-sm md:text-base font-bold text-white tracking-wide uppercase"
                           data-testid={`text-funnel-title-${index}`}
                         >
                           {step.title}
@@ -424,29 +456,37 @@ export default function PaidAdvertisingPage() {
                       </div>
 
                       <div className="flex-shrink-0 text-right">
-                        <span
-                          className="text-lg md:text-xl font-bold font-mono"
+                        <motion.span
+                          className="text-xl md:text-2xl font-bold font-mono block"
                           style={{
-                            color: index === funnelSteps.length - 1 ? "#ff0000" : "rgba(255,255,255,0.9)",
-                            textShadow: index === funnelSteps.length - 1 ? "0 0 12px rgba(255,0,0,0.4)" : "none",
+                            color: isLast ? "#ff0000" : "rgba(255,255,255,0.95)",
+                            textShadow: isLast ? "0 0 15px rgba(255,0,0,0.5)" : "none",
                           }}
+                          initial={{ opacity: 0 }}
+                          animate={funnelInView ? { opacity: 1 } : {}}
+                          transition={{ delay: index * 0.2 + 0.8 }}
                           data-testid={`text-funnel-value-${index}`}
                         >
                           {step.value}
-                        </span>
+                        </motion.span>
                       </div>
                     </div>
                   </div>
 
-                  {index < funnelSteps.length - 1 && (
-                    <div className="flex justify-center py-1">
-                      <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={funnelInView ? { opacity: 1 } : {}}
-                        transition={{ delay: index * 0.15 + 0.4 }}
-                      >
-                        <ArrowRight className="w-4 h-4 text-red-500/40 rotate-90" />
-                      </motion.div>
+                  {/* Connector lines between stages */}
+                  {!isLast && (
+                    <div className="flex justify-center">
+                      <div className="flex flex-col items-center">
+                        <div className="w-px h-2" style={{ background: `rgba(255,0,0,${0.3 + index * 0.1})` }} />
+                        <motion.div
+                          initial={{ scale: 0 }}
+                          animate={funnelInView ? { scale: 1 } : {}}
+                          transition={{ delay: index * 0.18 + 0.5 }}
+                        >
+                          <ArrowRight className="w-3 h-3 text-red-500/50 rotate-90" />
+                        </motion.div>
+                        <div className="w-px h-2" style={{ background: `rgba(255,0,0,${0.3 + index * 0.1})` }} />
+                      </div>
                     </div>
                   )}
                 </motion.div>
