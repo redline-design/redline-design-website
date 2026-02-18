@@ -4,7 +4,6 @@ import { SliderCarousel } from "@/components/SliderCarousel";
 import PartnerLogos from "@/components/PartnerLogos";
 import TrustBadges from "@/components/TrustBadges";
 import TestimonialsCarousel from "@/components/TestimonialsCarousel";
-import StatCounter from "@/components/StatCounter";
 import CTABand from "@/components/CTABand";
 import StickyConversionBar from "@/components/StickyConversionBar";
 import SectionDivider from "@/components/SectionDivider";
@@ -15,7 +14,7 @@ import ScrollValueCards from "@/components/ScrollValueCards";
 import ProcessSteps from "@/components/ProcessSteps";
 import HomeContactSection from "@/components/HomeContactSection";
 import AboutBlurb from "@/components/AboutBlurb";
-import { BarChart3, Sparkles, Globe, DollarSign, Zap, Target, Users, Briefcase, TrendingUp, FileText, LineChart, MapPin, Smartphone, Eye, MousePointerClick, LayoutGrid, BarChart2, Monitor, Database, AlertTriangle, Heart, Award } from "lucide-react";
+import { BarChart3, Sparkles, Globe, DollarSign, Zap, Target, Users, Briefcase, TrendingUp, FileText, LineChart, MapPin, Smartphone, Eye, MousePointerClick, LayoutGrid, BarChart2, Monitor, Database, AlertTriangle, Heart } from "lucide-react";
 import { SiGoogleads, SiMeta, SiLinkedin, SiTiktok, SiYoutube, SiX, SiReddit, SiPinterest } from "react-icons/si";
 import { motion } from "framer-motion";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
@@ -558,7 +557,7 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
                 viewport={{ once: true }}
-                className="text-center mb-12"
+                className="text-center mb-14"
               >
                 <h3 className="text-xl md:text-2xl font-semibold text-white/90 mb-2">
                   The Numbers Speak
@@ -568,13 +567,49 @@ export default function Home() {
                 </p>
               </motion.div>
               
-              <div className="py-4 md:py-8">
-                <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
-                  <StatCounter value={98} suffix="%" label="Client Satisfaction" icon={Heart} />
-                  <StatCounter value={7} suffix="x" label="Average ROI" delay={0.1} icon={TrendingUp} />
-                  <StatCounter value={15} suffix="+" label="Years of Experience" delay={0.2} icon={Award} />
-                  <StatCounter value={95} suffix="%" label="Client Retention" delay={0.3} icon={Users} />
-                </div>
+              <div className="max-w-2xl mx-auto flex flex-col gap-6">
+                {[
+                  { label: "Client Satisfaction", value: 98, suffix: "%", icon: Heart, color: "#ff0000" },
+                  { label: "Client Retention", value: 95, suffix: "%", icon: Users, color: "#ff3333" },
+                  { label: "Campaign Success Rate", value: 92, suffix: "%", icon: Target, color: "#ff5555" },
+                  { label: "Average ROI", value: 700, suffix: "%", displayValue: "7x", icon: TrendingUp, color: "#cc0000" },
+                ].map((stat, index) => (
+                  <motion.div
+                    key={stat.label}
+                    initial={{ opacity: 0, x: -30 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                    viewport={{ once: true }}
+                    className="group"
+                    data-testid={`stat-bar-${stat.label.toLowerCase().replace(/\s+/g, "-")}`}
+                  >
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="flex items-center gap-2.5">
+                        <stat.icon className="w-4 h-4" style={{ color: stat.color }} />
+                        <span className="text-sm font-medium text-white/80">{stat.label}</span>
+                      </div>
+                      <span className="text-sm font-bold text-white">
+                        {stat.displayValue || `${stat.value}${stat.suffix}`}
+                      </span>
+                    </div>
+                    <div
+                      className="relative w-full h-2 rounded-full overflow-hidden"
+                      style={{ background: "rgba(255,255,255,0.06)" }}
+                    >
+                      <motion.div
+                        className="absolute inset-y-0 left-0 rounded-full"
+                        initial={{ width: 0 }}
+                        whileInView={{ width: `${Math.min(stat.value, 100)}%` }}
+                        transition={{ duration: 1.2, delay: index * 0.15, ease: [0.22, 1, 0.36, 1] }}
+                        viewport={{ once: true }}
+                        style={{
+                          background: `linear-gradient(90deg, ${stat.color}88, ${stat.color})`,
+                          boxShadow: `0 0 12px ${stat.color}44, 0 0 4px ${stat.color}66`,
+                        }}
+                      />
+                    </div>
+                  </motion.div>
+                ))}
               </div>
             </div>
 
