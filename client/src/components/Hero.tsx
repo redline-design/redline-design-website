@@ -105,15 +105,16 @@ export default function Hero() {
       >
         <Link href="/book-a-demo">
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-            <Button 
-              size="lg" 
-              variant="default" 
-              className="text-base px-8 py-6 font-semibold" 
+            <div
+              className="inline-flex items-center gap-2.5 px-8 py-3 text-base font-semibold text-black rounded-md cursor-pointer nav-glow-btn"
+              style={{
+                background: "linear-gradient(145deg, #ff0000, #cc0000)",
+              }}
               data-testid="button-hero-book-demo"
             >
               <CalendarCheck className="w-5 h-5" />
               Book Your Free Consultation
-            </Button>
+            </div>
           </motion.div>
         </Link>
       </motion.div>
