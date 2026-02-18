@@ -250,7 +250,7 @@ export default function HorizontalScrollServices() {
     >
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-14">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 italic">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-red-500 mb-4 italic section-heading-glow">
             Our Services
           </h2>
           <p className="text-white/50 text-base sm:text-lg max-w-2xl mx-auto">
