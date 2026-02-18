@@ -1,5 +1,3 @@
-import { Link } from "wouter";
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Check, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
@@ -137,7 +135,7 @@ export default function PricingSection({ plans, footnote, title, subtitle }: Pri
                 ))}
               </ul>
 
-              <Link href={plan.buttonLink || "/contact"}>
+              <a href="#contact-form" onClick={(e) => { e.preventDefault(); document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth' }); }}>
                 <div
                   className="w-full inline-flex items-center justify-center gap-2.5 px-6 py-2.5 text-sm font-medium text-black rounded-md cursor-pointer transition-all hover:scale-[1.03] nav-glow-btn"
                   style={{
@@ -148,7 +146,7 @@ export default function PricingSection({ plans, footnote, title, subtitle }: Pri
                   {plan.buttonText || "Get Started"}
                   <ArrowRight className="w-4 h-4" />
                 </div>
-              </Link>
+              </a>
             </motion.div>
           ))}
         </motion.div>

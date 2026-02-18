@@ -91,7 +91,7 @@ export default function AppDevelopmentPage() {
 
       <IncludedGrid title="Technologies We Use" items={techItems} columns={3} />
 
-      <ServiceCTA />
+      <ServiceCTA preSelectedServices={["web-design"]} />
     </div>
   );
 }

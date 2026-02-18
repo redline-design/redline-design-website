@@ -496,7 +496,7 @@ export default function PaidAdvertisingPage() {
         </div>
       </section>
 
-      <ServiceCTA />
+      <ServiceCTA preSelectedServices={["ppc"]} />
     </div>
   );
 }

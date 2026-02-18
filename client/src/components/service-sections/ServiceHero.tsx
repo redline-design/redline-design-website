@@ -1,6 +1,4 @@
-import { Link } from "wouter";
-import { ArrowRight, Rocket } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Rocket } from "lucide-react";
 import { motion } from "framer-motion";
 
 interface ServiceHeroProps {
@@ -40,7 +38,7 @@ export default function ServiceHero({ title, subtitle, description }: ServiceHer
           </p>
 
           <div className="flex justify-center">
-            <Link href="/contact">
+            <a href="#contact-form" onClick={(e) => { e.preventDefault(); document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth' }); }}>
               <div
                 className="inline-flex items-center gap-2.5 px-6 py-2.5 text-sm font-medium text-black rounded-md cursor-pointer transition-all hover:scale-[1.03] nav-glow-btn"
                 style={{
@@ -51,7 +49,7 @@ export default function ServiceHero({ title, subtitle, description }: ServiceHer
                 <Rocket className="h-5 w-5" />
                 Get Started
               </div>
-            </Link>
+            </a>
           </div>
         </motion.div>
       </div>

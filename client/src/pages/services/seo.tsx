@@ -680,7 +680,7 @@ export default function SEOPage() {
         </div>
       </section>
 
-      <ServiceCTA />
+      <ServiceCTA preSelectedServices={["seo"]} />
     </div>
   );
 }

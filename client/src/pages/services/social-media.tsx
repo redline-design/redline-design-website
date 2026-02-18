@@ -166,7 +166,7 @@ export default function SocialMediaPage() {
 
       <PricingSection plans={plans} />
 
-      <ServiceCTA />
+      <ServiceCTA preSelectedServices={["social-media"]} />
     </div>
   );
 }

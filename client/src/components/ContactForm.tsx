@@ -29,7 +29,11 @@ const services: Service[] = [
   { id: "analytics", name: "Analytics & Data Analysis", icon: BarChart3 },
 ];
 
-export default function ContactForm() {
+interface ContactFormProps {
+  preSelectedServices?: string[];
+}
+
+export default function ContactForm({ preSelectedServices = [] }: ContactFormProps) {
   const { toast } = useToast();
   const [formData, setFormData] = useState({
     name: "",
@@ -37,7 +41,7 @@ export default function ContactForm() {
     phone: "",
     message: "",
     smsConsent: false,
-    servicesInterested: [] as string[],
+    servicesInterested: preSelectedServices,
   });
 
   const toggleService = (serviceId: string) => {

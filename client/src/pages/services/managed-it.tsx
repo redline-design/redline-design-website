@@ -178,7 +178,7 @@ export default function ManagedITPage() {
         columns={4}
       />
 
-      <ServiceCTA />
+      <ServiceCTA preSelectedServices={["analytics"]} />
     </div>
   );
 }

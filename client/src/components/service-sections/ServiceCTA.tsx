@@ -1,55 +1,88 @@
-import { Link } from "wouter";
-import { Button } from "@/components/ui/button";
-import { ArrowRight, Rocket } from "lucide-react";
+import { ArrowRight, Clock, Rocket } from "lucide-react";
 import { motion } from "framer-motion";
+import ContactForm from "@/components/ContactForm";
 
 interface ServiceCTAProps {
   title?: string;
   subtitle?: string;
+  preSelectedServices?: string[];
 }
 
 export default function ServiceCTA({
   title = "Ready to Get Started?",
   subtitle = "Let's discuss how we can help transform your business. Reach out today for a free consultation.",
+  preSelectedServices = [],
 }: ServiceCTAProps) {
   return (
-    <section className="py-16 md:py-24 px-4 md:px-8" data-testid="section-service-cta" data-section-label="Get Started">
+    <section id="contact-form" className="py-16 md:py-24 px-4 md:px-8" data-testid="section-service-cta" data-section-label="Contact">
       <div className="max-w-7xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="text-center max-w-4xl mx-auto"
-        >
-          <h2
-            className="text-3xl md:text-4xl font-bold text-red-500 mb-4 section-heading-glow"
-            data-testid="text-cta-heading"
+        <div className="max-w-5xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center mb-10"
           >
-            {title}
-          </h2>
-          <p
-            className="text-white/80 text-base md:text-lg mb-10 leading-relaxed"
-            data-testid="text-cta-subtitle"
-          >
-            {subtitle}
-          </p>
-
-          <div className="flex justify-center">
-            <Link href="/contact">
+            <div className="flex justify-center mb-5">
               <div
-                className="inline-flex items-center gap-2.5 px-6 py-2.5 text-sm font-medium text-black rounded-md cursor-pointer transition-all hover:scale-[1.03] nav-glow-btn"
+                className="w-14 h-14 rounded-full flex items-center justify-center"
                 style={{
-                  background: "linear-gradient(145deg, #ff0000, #cc0000)",
+                  background: "rgba(255, 0, 0, 0.1)",
+                  border: "1px solid rgba(255, 0, 0, 0.2)",
+                  boxShadow: "0 0 20px rgba(255, 0, 0, 0.1)",
                 }}
-                data-testid="button-cta-contact"
               >
-                <Rocket className="h-5 w-5" />
-                Contact Us
+                <Rocket className="w-6 h-6 text-red-500" />
               </div>
-            </Link>
+            </div>
+            <h2
+              className="text-3xl sm:text-4xl md:text-5xl font-bold text-red-500 mb-6 tracking-tight section-heading-glow"
+              data-testid="text-cta-heading"
+            >
+              {title}
+            </h2>
+            <p
+              className="text-white/70 text-base md:text-lg leading-relaxed max-w-xl mx-auto"
+              data-testid="text-cta-subtitle"
+            >
+              {subtitle}
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.15 }}
+            viewport={{ once: true }}
+          >
+            <div
+              className="p-7 md:p-9 rounded-2xl"
+              style={{
+                background: "rgba(20, 20, 20, 0.95)",
+                border: "1px solid rgba(255, 255, 255, 0.08)",
+              }}
+            >
+              <div className="flex items-center gap-3 mb-7">
+                <div className="w-10 h-10 rounded-full bg-red-500/10 border border-red-500/20 flex items-center justify-center">
+                  <ArrowRight className="w-5 h-5 text-red-500" />
+                </div>
+                <div>
+                  <h3 className="text-white font-semibold text-lg" data-testid="text-form-title">
+                    Send us a message
+                  </h3>
+                  <p className="text-white/50 text-xs">We'll get back to you shortly</p>
+                </div>
+              </div>
+              <ContactForm preSelectedServices={preSelectedServices} />
+            </div>
+          </motion.div>
+
+          <div className="flex items-center justify-center gap-3 text-white/40 text-sm mt-6">
+            <Clock className="w-4 h-4" />
+            <span>Average response time under 24 business hours</span>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

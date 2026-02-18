@@ -60,7 +60,7 @@ export default function ConsultingPage() {
         footnote="Retainer packages available for ongoing consulting. Contact us for custom arrangements."
       />
 
-      <ServiceCTA />
+      <ServiceCTA preSelectedServices={["analytics"]} />
     </div>
   );
 }

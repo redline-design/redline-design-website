@@ -394,7 +394,7 @@ export default function AIAutomationPage() {
         </div>
       </section>
 
-      <ServiceCTA />
+      <ServiceCTA preSelectedServices={["ai-automation"]} />
     </div>
   );
 }

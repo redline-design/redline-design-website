@@ -294,7 +294,7 @@ export default function CRMPage() {
         columns={4}
       />
 
-      <ServiceCTA />
+      <ServiceCTA preSelectedServices={["crm-setup"]} />
     </div>
   );
 }

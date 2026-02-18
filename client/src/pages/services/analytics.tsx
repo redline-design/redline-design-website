@@ -606,7 +606,7 @@ export default function AnalyticsPage() {
         </div>
       </section>
 
-      <ServiceCTA />
+      <ServiceCTA preSelectedServices={["analytics"]} />
     </div>
   );
 }

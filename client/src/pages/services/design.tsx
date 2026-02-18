@@ -245,7 +245,7 @@ export default function DesignPage() {
         </div>
       </section>
 
-      <ServiceCTA />
+      <ServiceCTA preSelectedServices={["branding"]} />
     </div>
   );
 }

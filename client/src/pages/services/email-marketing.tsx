@@ -92,7 +92,7 @@ export default function EmailMarketingPage() {
 
       <IncludedGrid title="Every Plan Includes" items={includedItems} />
 
-      <ServiceCTA />
+      <ServiceCTA preSelectedServices={["email-marketing"]} />
     </div>
   );
 }
