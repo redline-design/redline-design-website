@@ -36,15 +36,16 @@ export default function CTABand({ title, subtitle, buttonText, buttonLink, phone
           </p>
         )}
         <Link href={buttonLink}>
-          <Button 
-            size="sm" 
-            variant="default" 
-            className="font-semibold" 
+          <div
+            className="inline-flex items-center gap-2.5 px-6 py-2.5 text-sm font-semibold text-black rounded-md cursor-pointer transition-all hover:scale-[1.03] nav-glow-btn"
+            style={{
+              background: "linear-gradient(145deg, #ff0000, #cc0000)",
+            }}
             data-testid="button-cta"
           >
             {buttonText}
-            <ArrowRight className="ml-1 h-4 w-4" />
-          </Button>
+            <ArrowRight className="h-4 w-4" />
+          </div>
         </Link>
         {phoneNumber && phoneHref && (
           <p className="mt-4 text-sm text-white/60">
