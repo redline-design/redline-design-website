@@ -170,12 +170,12 @@ export default function IncludedGrid({ title, subtitle, items, columns = 3 }: In
                       animate={inView ? { opacity: 1 } : {}}
                       transition={{ delay: index * 0.08 + 0.6 }}
                     >
-                      <span className="text-[10px] font-mono text-red-500/70 uppercase tracking-wider hidden sm:inline">Included</span>
+                      <span className="text-[10px] font-mono text-green-400/80 uppercase tracking-wider hidden sm:inline">Included</span>
                       <motion.div
-                        className="w-1.5 h-1.5 rounded-full bg-red-500"
+                        className="w-1.5 h-1.5 rounded-full bg-green-400"
                         animate={inView ? { scale: [1, 1.4, 1], opacity: [0.7, 1, 0.7] } : {}}
                         transition={{ duration: 2, delay: index * 0.2, repeat: Infinity, repeatDelay: 3 }}
-                        style={{ boxShadow: "0 0 6px rgba(255,0,0,0.5)" }}
+                        style={{ boxShadow: "0 0 6px rgba(74,222,128,0.6)" }}
                       />
                     </motion.div>
                   </div>
