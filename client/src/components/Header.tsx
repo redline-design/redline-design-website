@@ -67,20 +67,32 @@ export default function Header() {
           </Link>
 
           <nav
-            className="hidden md:flex items-center gap-2 absolute left-1/2 -translate-x-1/2"
+            className="hidden md:flex items-center gap-1 absolute left-1/2 -translate-x-1/2"
             data-testid="nav-desktop"
           >
+            <Link href="/">
+              <div
+                className={`relative px-4 py-2 text-sm font-medium transition-colors cursor-pointer flex items-center gap-2.5 ${
+                  location === "/" ? "text-red-500" : "text-white/70 hover:text-white"
+                }`}
+                data-testid="link-nav-home-btn"
+              >
+                <Home className="h-6 w-6" />
+                Home
+              </div>
+            </Link>
+
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <button
-                  className={`relative px-4 py-2 text-sm font-medium transition-colors group flex items-center gap-2 ${
+                  className={`relative px-4 py-2 text-sm font-medium transition-colors group flex items-center gap-2.5 ${
                     location.startsWith("/services") ? "text-red-500" : "text-white/70 hover:text-white"
                   }`}
                   data-testid="button-nav-services"
                 >
-                  <Layers className="h-4 w-4" />
+                  <Layers className="h-6 w-6" />
                   Services
-                  <ChevronDown className="h-3 w-3 transition-transform group-hover:translate-y-0.5" />
+                  <ChevronDown className="h-3.5 w-3.5 transition-transform group-hover:translate-y-0.5" />
                 </button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="center" className="w-56">
@@ -99,12 +111,12 @@ export default function Header() {
             {navLinks.map((link) => (
               <Link key={link.href} href={link.href}>
                 <div
-                  className={`relative px-4 py-2 text-sm font-medium transition-colors cursor-pointer flex items-center gap-2 ${
+                  className={`relative px-4 py-2 text-sm font-medium transition-colors cursor-pointer flex items-center gap-2.5 ${
                     location === link.href ? "text-red-500" : "text-white/70 hover:text-white"
                   }`}
                   data-testid={`link-nav-${link.label.toLowerCase().replace(/\s/g, "-")}`}
                 >
-                  <link.icon className="h-4 w-4" />
+                  <link.icon className="h-6 w-6" />
                   {link.label}
                 </div>
               </Link>
@@ -114,14 +126,14 @@ export default function Header() {
           <div className="hidden md:flex items-center shrink-0">
             <Link href="/book-a-demo">
               <div
-                className="px-5 py-2 text-sm font-medium text-white rounded-full cursor-pointer flex items-center gap-2 transition-all hover:opacity-90"
+                className="px-5 py-2.5 text-sm font-medium text-white rounded-full cursor-pointer flex items-center gap-2.5 transition-all hover:opacity-90"
                 style={{
                   background: "linear-gradient(145deg, #ff0000, #cc0000)",
                   boxShadow: "0 2px 10px rgba(255, 0, 0, 0.25)",
                 }}
                 data-testid="button-nav-get-started"
               >
-                <Rocket className="h-4 w-4" />
+                <Rocket className="h-6 w-6" />
                 Get Started
               </div>
             </Link>
