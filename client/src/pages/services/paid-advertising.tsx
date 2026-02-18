@@ -1,8 +1,10 @@
 import { ServiceHero, BenefitsGrid, PricingSection, ServiceCTA } from "@/components/service-sections";
 import { motion } from "framer-motion";
-import { Target, RefreshCw, BarChart3, Globe, ArrowRight } from "lucide-react";
+import { Target, RefreshCw, BarChart3, Globe, ArrowRight, Eye, MousePointer, UserCheck, DollarSign } from "lucide-react";
 import { SiGoogleads, SiMeta, SiTiktok, SiLinkedin, SiYoutube, SiX, SiYelp, SiPinterest } from "react-icons/si";
 import { Monitor } from "lucide-react";
+import { useRef, useState } from "react";
+import { useInView } from "react-intersection-observer";
 
 const benefits = [
   {
@@ -59,26 +61,38 @@ const pricingPlans = [
 ];
 
 const funnelSteps = [
-  { title: "Impressions", description: "Your ads seen by thousands" },
-  { title: "Clicks", description: "Engaged visitors to your site" },
-  { title: "Leads", description: "Qualified prospects captured" },
-  { title: "Conversions", description: "Revenue-generating customers" },
+  { title: "Impressions", description: "Your ads seen by thousands", icon: Eye, value: "50K+", width: "100%" },
+  { title: "Clicks", description: "Engaged visitors to your site", icon: MousePointer, value: "5K+", width: "65%" },
+  { title: "Leads", description: "Qualified prospects captured", icon: UserCheck, value: "500+", width: "38%" },
+  { title: "Conversions", description: "Revenue-generating customers", icon: DollarSign, value: "150+", width: "20%" },
 ];
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.1 },
-  },
-};
+function AnimatedCounter({ value, inView }: { value: number; inView: boolean }) {
+  const [count, setCount] = useState(0);
+  const hasAnimated = useRef(false);
 
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.4 } },
-};
+  if (inView && !hasAnimated.current) {
+    hasAnimated.current = true;
+    const duration = 1800;
+    const startTime = performance.now();
+    const animate = (now: number) => {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setCount(Math.round(eased * value));
+      if (progress < 1) requestAnimationFrame(animate);
+    };
+    requestAnimationFrame(animate);
+  }
+
+  return <span className="tabular-nums">{count}</span>;
+}
 
 export default function PaidAdvertisingPage() {
+  const [hoveredPlatform, setHoveredPlatform] = useState<number | null>(null);
+  const { ref: roiRef, inView: roiInView } = useInView({ threshold: 0.3, triggerOnce: true });
+  const { ref: funnelRef, inView: funnelInView } = useInView({ threshold: 0.2, triggerOnce: true });
+
   return (
     <div data-testid="page-paid-advertising">
       <ServiceHero
@@ -89,6 +103,7 @@ export default function PaidAdvertisingPage() {
 
       <BenefitsGrid benefits={benefits} />
 
+      {/* Platforms Section */}
       <section className="py-16 md:py-24 px-4 md:px-8" data-testid="section-platforms">
         <div className="max-w-6xl mx-auto">
           <motion.div
@@ -104,39 +119,51 @@ export default function PaidAdvertisingPage() {
             >
               Platforms We Manage
             </h2>
-            <p className="text-white/50 text-base md:text-lg" data-testid="text-platforms-subtitle">
-              Advertise where your customers are
+            <p className="text-white/80 text-base md:text-lg" data-testid="text-platforms-subtitle">
+              We run campaigns across every major advertising platform
             </p>
           </motion.div>
 
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4"
-          >
+          <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-9 gap-3 md:gap-4">
             {platforms.map((platform, index) => {
               const Icon = platform.icon;
+              const isHovered = hoveredPlatform === index;
               return (
                 <motion.div
                   key={platform.name}
-                  variants={itemVariants}
-                  className="flex flex-col items-center gap-3 p-6 rounded-md"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: index * 0.05 }}
+                  onMouseEnter={() => setHoveredPlatform(index)}
+                  onMouseLeave={() => setHoveredPlatform(null)}
+                  className="flex flex-col items-center gap-3 p-5 rounded-xl transition-all duration-300 cursor-pointer"
                   style={{
-                    background: "rgba(20, 20, 20, 0.95)",
-                    border: "1px solid rgba(255, 255, 255, 0.08)",
+                    background: isHovered ? "rgba(30, 30, 30, 0.95)" : "rgba(15, 15, 15, 0.8)",
+                    border: isHovered ? `1px solid ${platform.color}40` : "1px solid rgba(255, 255, 255, 0.06)",
+                    transform: isHovered ? "translateY(-4px)" : "translateY(0)",
+                    boxShadow: isHovered ? `0 12px 40px -10px ${platform.color}25` : "none",
                   }}
                   data-testid={`card-platform-${index}`}
                 >
-                  <Icon className="w-8 h-8" style={{ color: platform.color }} />
-                  <span className="text-white/70 text-sm font-medium" data-testid={`text-platform-name-${index}`}>
+                  <Icon
+                    className="w-8 h-8 transition-all duration-300"
+                    style={{
+                      color: platform.color,
+                      filter: isHovered ? `drop-shadow(0 0 10px ${platform.color}60)` : "none",
+                    }}
+                  />
+                  <span
+                    className="text-xs font-medium text-center leading-tight transition-colors duration-300"
+                    style={{ color: isHovered ? "rgba(255,255,255,0.95)" : "rgba(255,255,255,0.7)" }}
+                    data-testid={`text-platform-name-${index}`}
+                  >
                     {platform.name}
                   </span>
                 </motion.div>
               );
             })}
-          </motion.div>
+          </div>
         </div>
       </section>
 
@@ -145,14 +172,15 @@ export default function PaidAdvertisingPage() {
         footnote="No minimum spend required. We handle everything from creative to placement so you can focus on running your business."
       />
 
-      <section className="py-16 md:py-24 px-4 md:px-8" data-testid="section-roi-comparison">
-        <div className="max-w-6xl mx-auto">
+      {/* ROI Comparison - Animated Bar Infographic */}
+      <section className="py-16 md:py-24 px-4 md:px-8" data-testid="section-roi-comparison" ref={roiRef}>
+        <div className="max-w-4xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.4 }}
-            className="text-center mb-12"
+            className="text-center mb-14"
           >
             <h2
               className="text-3xl md:text-4xl font-bold text-red-500 mb-3 section-heading-glow"
@@ -160,64 +188,137 @@ export default function PaidAdvertisingPage() {
             >
               ROI Comparison
             </h2>
-            <p className="text-white/50 text-base md:text-lg" data-testid="text-roi-subtitle">
+            <p className="text-white/80 text-base md:text-lg" data-testid="text-roi-subtitle">
               See how our results stack up against the industry average
             </p>
           </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto mb-10"
-          >
-            <div
-              className="p-8 rounded-md text-center flex flex-col items-center justify-center"
-              style={{
-                background: "rgba(20, 20, 20, 0.95)",
-                border: "1px solid rgba(255, 255, 255, 0.08)",
-              }}
+          <div className="space-y-8 mb-12">
+            {/* Industry Average */}
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
               data-testid="card-roi-industry"
             >
-              <p className="text-white/50 text-sm font-medium uppercase tracking-wider mb-4" data-testid="text-roi-industry-label">
-                Industry Average ROI
-              </p>
-              <p className="text-5xl md:text-6xl font-bold text-white/40 mb-3" data-testid="text-roi-industry-value">
-                2x
-              </p>
-              <p className="text-white/30 text-xs" data-testid="text-roi-industry-source">
+              <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center gap-3">
+                  <div className="w-2 h-2 rounded-full bg-white/30" />
+                  <span className="text-sm font-medium text-white/70" data-testid="text-roi-industry-label">
+                    Industry Average ROI
+                  </span>
+                </div>
+                <span className="text-2xl md:text-3xl font-bold text-white/50 font-mono" data-testid="text-roi-industry-value">
+                  <AnimatedCounter value={2} inView={roiInView} />x
+                </span>
+              </div>
+              <div
+                className="relative w-full h-4 rounded overflow-hidden"
+                style={{
+                  background: "rgba(255,255,255,0.04)",
+                  border: "1px solid rgba(255,255,255,0.06)",
+                }}
+              >
+                <div className="absolute inset-0 flex">
+                  {Array.from({ length: 14 }).map((_, i) => (
+                    <div key={i} className="h-full border-r" style={{ width: `${100 / 14}%`, borderColor: "rgba(255,255,255,0.03)" }} />
+                  ))}
+                </div>
+                <motion.div
+                  className="absolute inset-y-0 left-0"
+                  initial={{ width: 0 }}
+                  animate={roiInView ? { width: "28.5%" } : { width: 0 }}
+                  transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
+                  style={{ background: "linear-gradient(90deg, rgba(255,255,255,0.15), rgba(255,255,255,0.35))" }}
+                >
+                  <div
+                    className="absolute right-0 top-0 bottom-0 w-1"
+                    style={{
+                      background: "rgba(255,255,255,0.6)",
+                      boxShadow: "0 0 6px rgba(255,255,255,0.3)",
+                    }}
+                  />
+                </motion.div>
+              </div>
+              <p className="text-white/40 text-xs mt-2" data-testid="text-roi-industry-source">
                 Source: Google Economic Impact Study
               </p>
-            </div>
+            </motion.div>
 
-            <div
-              className="p-8 rounded-md text-center flex flex-col items-center justify-center"
-              style={{
-                background: "rgba(20, 20, 20, 0.95)",
-                border: "1px solid rgba(255, 0, 0, 0.3)",
-                boxShadow: "0 0 30px rgba(255, 0, 0, 0.08)",
-              }}
+            {/* Redline Design ROI */}
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
               data-testid="card-roi-redline"
             >
-              <p className="text-white/50 text-sm font-medium uppercase tracking-wider mb-4" data-testid="text-roi-redline-label">
-                Redline Design ROI
-              </p>
-              <p className="text-6xl md:text-8xl font-bold text-red-500 mb-3" data-testid="text-roi-redline-value">
-                7x
-              </p>
-              <p className="text-white/50 text-xs" data-testid="text-roi-redline-source">
+              <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center gap-3">
+                  <div className="w-2 h-2 rounded-full bg-red-500" style={{ boxShadow: "0 0 8px rgba(255,0,0,0.6)" }} />
+                  <span className="text-sm font-medium text-white/90" data-testid="text-roi-redline-label">
+                    Redline Design ROI
+                  </span>
+                </div>
+                <span className="text-3xl md:text-4xl font-bold text-red-500 font-mono" data-testid="text-roi-redline-value" style={{ textShadow: "0 0 20px rgba(255,0,0,0.4)" }}>
+                  <AnimatedCounter value={7} inView={roiInView} />x
+                </span>
+              </div>
+              <div
+                className="relative w-full h-4 rounded overflow-hidden"
+                style={{
+                  background: "rgba(255,255,255,0.04)",
+                  border: "1px solid rgba(255,0,0,0.15)",
+                }}
+              >
+                <div className="absolute inset-0 flex">
+                  {Array.from({ length: 14 }).map((_, i) => (
+                    <div key={i} className="h-full border-r" style={{ width: `${100 / 14}%`, borderColor: "rgba(255,255,255,0.03)" }} />
+                  ))}
+                </div>
+                <motion.div
+                  className="absolute inset-y-0 left-0"
+                  initial={{ width: 0 }}
+                  animate={roiInView ? { width: "100%" } : { width: 0 }}
+                  transition={{ duration: 1.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                  style={{ background: "linear-gradient(90deg, #ff000044, #ff0000aa, #ff0000)" }}
+                >
+                  <motion.div
+                    className="absolute inset-y-0 w-[30%] right-0"
+                    initial={{ opacity: 0 }}
+                    animate={roiInView ? { opacity: [0, 0.5, 0] } : { opacity: 0 }}
+                    transition={{ duration: 2, delay: 2.2, repeat: Infinity, repeatDelay: 3 }}
+                    style={{ background: "linear-gradient(90deg, transparent, #ff0000, rgba(255,255,255,0.4))" }}
+                  />
+                  <div
+                    className="absolute right-0 top-0 bottom-0 w-1"
+                    style={{
+                      background: "rgba(255,200,200,0.9)",
+                      boxShadow: "0 0 8px #ff0000, 0 0 16px rgba(255,0,0,0.5), 0 0 2px rgba(255,255,255,0.8)",
+                    }}
+                  />
+                </motion.div>
+              </div>
+              <p className="text-white/60 text-xs mt-2" data-testid="text-roi-redline-source">
                 3.5x the industry average
               </p>
-            </div>
-          </motion.div>
+            </motion.div>
+          </div>
+
+          {/* Scale markers */}
+          <div className="flex justify-between max-w-4xl mx-auto mb-4 px-1">
+            {[0, 1, 2, 3, 4, 5, 6, 7].map((n) => (
+              <span key={n} className="text-[10px] font-mono text-white/25">{n}x</span>
+            ))}
+          </div>
 
           <motion.p
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.4, delay: 0.3 }}
-            className="text-center text-white/60 text-sm md:text-base max-w-2xl mx-auto leading-relaxed"
+            transition={{ duration: 0.4, delay: 0.5 }}
+            className="text-center text-white/80 text-sm md:text-base max-w-2xl mx-auto leading-relaxed"
             data-testid="text-roi-summary"
           >
             For every $1 spent on Google Ads, businesses earn an average of $2. Our clients average $7.
@@ -225,14 +326,15 @@ export default function PaidAdvertisingPage() {
         </div>
       </section>
 
-      <section className="py-16 md:py-24 px-4 md:px-8" data-testid="section-sales-funnel">
-        <div className="max-w-6xl mx-auto">
+      {/* Funnel Infographic */}
+      <section className="py-16 md:py-24 px-4 md:px-8" data-testid="section-sales-funnel" ref={funnelRef}>
+        <div className="max-w-4xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.4 }}
-            className="text-center mb-12"
+            className="text-center mb-14"
           >
             <h2
               className="text-3xl md:text-4xl font-bold text-red-500 mb-3 section-heading-glow"
@@ -240,56 +342,117 @@ export default function PaidAdvertisingPage() {
             >
               How We Maximize Your ROI
             </h2>
-            <p className="text-white/50 text-base md:text-lg" data-testid="text-funnel-subtitle">
+            <p className="text-white/80 text-base md:text-lg" data-testid="text-funnel-subtitle">
               Our proven funnel optimization turns ad spend into revenue
             </p>
           </motion.div>
 
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-0"
-          >
-            {funnelSteps.map((step, index) => (
-              <motion.div
-                key={step.title}
-                variants={itemVariants}
-                className="relative flex flex-col items-center text-center p-6"
-                data-testid={`card-funnel-step-${index}`}
-              >
-                <div
-                  className="w-14 h-14 rounded-full flex items-center justify-center mb-4 text-xl font-bold"
-                  style={{
-                    background: `rgba(255, 0, 0, ${0.1 + index * 0.08})`,
-                    border: `1px solid rgba(255, 0, 0, ${0.2 + index * 0.1})`,
-                    color: "#ff0000",
-                  }}
-                  data-testid={`text-funnel-number-${index}`}
+          <div className="space-y-3 max-w-3xl mx-auto">
+            {funnelSteps.map((step, index) => {
+              const StepIcon = step.icon;
+              const opacity = 0.15 + index * 0.15;
+              return (
+                <motion.div
+                  key={step.title}
+                  initial={{ opacity: 0, y: 20, scaleX: 0.8 }}
+                  animate={funnelInView ? { opacity: 1, y: 0, scaleX: 1 } : {}}
+                  transition={{ duration: 0.6, delay: index * 0.15, ease: [0.22, 1, 0.36, 1] }}
+                  className="relative mx-auto"
+                  style={{ width: step.width }}
+                  data-testid={`card-funnel-step-${index}`}
                 >
-                  {index + 1}
-                </div>
-                <h3
-                  className="text-lg font-semibold text-white mb-2"
-                  data-testid={`text-funnel-title-${index}`}
-                >
-                  {step.title}
-                </h3>
-                <p
-                  className="text-white/50 text-sm"
-                  data-testid={`text-funnel-description-${index}`}
-                >
-                  {step.description}
-                </p>
-                {index < funnelSteps.length - 1 && (
-                  <div className="hidden md:flex absolute right-0 translate-x-1/2 z-10" style={{ top: "52px", transform: "translateX(50%) translateY(-50%)" }}>
-                    <ArrowRight className="w-5 h-5 text-red-500/60" />
+                  <div
+                    className="relative rounded-lg overflow-hidden px-5 py-4 flex items-center gap-4 transition-all duration-300 group cursor-pointer"
+                    style={{
+                      background: `rgba(255, 0, 0, ${opacity})`,
+                      border: `1px solid rgba(255, 0, 0, ${opacity + 0.1})`,
+                    }}
+                  >
+                    {/* Grid overlay */}
+                    <div className="absolute inset-0 opacity-20">
+                      {Array.from({ length: 10 }).map((_, i) => (
+                        <div
+                          key={i}
+                          className="absolute top-0 bottom-0 border-r"
+                          style={{ left: `${(i + 1) * 10}%`, borderColor: "rgba(255,255,255,0.05)" }}
+                        />
+                      ))}
+                    </div>
+
+                    {/* Scan line */}
+                    <motion.div
+                      className="absolute inset-y-0 w-[20%]"
+                      initial={{ left: "-20%" }}
+                      animate={funnelInView ? { left: ["- 20%", "120%"] } : {}}
+                      transition={{
+                        duration: 3,
+                        delay: index * 0.3 + 1,
+                        repeat: Infinity,
+                        repeatDelay: 5,
+                        ease: "linear",
+                      }}
+                      style={{
+                        background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent)",
+                      }}
+                    />
+
+                    <div className="relative z-10 flex items-center gap-4 w-full">
+                      <div
+                        className="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center"
+                        style={{
+                          background: `rgba(255, 0, 0, ${0.3 + index * 0.15})`,
+                          border: "1px solid rgba(255,0,0,0.4)",
+                          boxShadow: index === funnelSteps.length - 1 ? "0 0 15px rgba(255,0,0,0.3)" : "none",
+                        }}
+                      >
+                        <StepIcon className="w-5 h-5 text-white" />
+                      </div>
+
+                      <div className="flex-1 min-w-0">
+                        <h3
+                          className="text-sm md:text-base font-semibold text-white"
+                          data-testid={`text-funnel-title-${index}`}
+                        >
+                          {step.title}
+                        </h3>
+                        <p
+                          className="text-white/70 text-xs md:text-sm hidden sm:block"
+                          data-testid={`text-funnel-description-${index}`}
+                        >
+                          {step.description}
+                        </p>
+                      </div>
+
+                      <div className="flex-shrink-0 text-right">
+                        <span
+                          className="text-lg md:text-xl font-bold font-mono"
+                          style={{
+                            color: index === funnelSteps.length - 1 ? "#ff0000" : "rgba(255,255,255,0.9)",
+                            textShadow: index === funnelSteps.length - 1 ? "0 0 12px rgba(255,0,0,0.4)" : "none",
+                          }}
+                          data-testid={`text-funnel-value-${index}`}
+                        >
+                          {step.value}
+                        </span>
+                      </div>
+                    </div>
                   </div>
-                )}
-              </motion.div>
-            ))}
-          </motion.div>
+
+                  {index < funnelSteps.length - 1 && (
+                    <div className="flex justify-center py-1">
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={funnelInView ? { opacity: 1 } : {}}
+                        transition={{ delay: index * 0.15 + 0.4 }}
+                      >
+                        <ArrowRight className="w-4 h-4 text-red-500/40 rotate-90" />
+                      </motion.div>
+                    </div>
+                  )}
+                </motion.div>
+              );
+            })}
+          </div>
         </div>
       </section>
 
