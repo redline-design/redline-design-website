@@ -183,9 +183,6 @@ export default function ContactForm() {
         {submitMutation.isPending ? "Sending..." : "Send Message"}
       </Button>
 
-      <p className="text-sm text-center text-muted-foreground">
-        Average response in &lt;24 business hours
-      </p>
     </form>
   );
 }

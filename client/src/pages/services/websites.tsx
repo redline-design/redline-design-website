@@ -1,7 +1,12 @@
 import { ServiceHero, BenefitsGrid, PricingSection, ServiceCTA } from "@/components/service-sections";
 import { motion } from "framer-motion";
 import { Smartphone, Zap, Search, Target } from "lucide-react";
-import { SiReact, SiWordpress, SiShopify, SiNextdotjs, SiTailwindcss, SiNodedotjs } from "react-icons/si";
+import {
+  SiReact, SiWordpress, SiShopify, SiNextdotjs, SiTailwindcss, SiNodedotjs,
+  SiWix, SiSquarespace, SiWebflow, SiFigma, SiAdobephotoshop, SiAdobeillustrator,
+  SiGoogleanalytics, SiGoogleads, SiMeta, SiMailchimp, SiHubspot, SiStripe,
+  SiPhp, SiMysql, SiMongodb, SiAmazonwebservices, SiCloudflare, SiVercel
+} from "react-icons/si";
 
 const benefits = [
   {
@@ -91,11 +96,29 @@ const pricingPlans = [
 
 const technologies = [
   { name: "React", icon: SiReact, color: "#61DAFB" },
+  { name: "Next.js", icon: SiNextdotjs, color: "#FFFFFF" },
   { name: "WordPress", icon: SiWordpress, color: "#21759B" },
   { name: "Shopify", icon: SiShopify, color: "#96BF48" },
-  { name: "Next.js", icon: SiNextdotjs, color: "#FFFFFF" },
+  { name: "Webflow", icon: SiWebflow, color: "#4353FF" },
+  { name: "Wix", icon: SiWix, color: "#0C6EFC" },
+  { name: "Squarespace", icon: SiSquarespace, color: "#FFFFFF" },
   { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4" },
   { name: "Node.js", icon: SiNodedotjs, color: "#339933" },
+  { name: "PHP", icon: SiPhp, color: "#777BB4" },
+  { name: "MySQL", icon: SiMysql, color: "#4479A1" },
+  { name: "MongoDB", icon: SiMongodb, color: "#47A248" },
+  { name: "Figma", icon: SiFigma, color: "#F24E1E" },
+  { name: "Photoshop", icon: SiAdobephotoshop, color: "#31A8FF" },
+  { name: "Illustrator", icon: SiAdobeillustrator, color: "#FF9A00" },
+  { name: "Google Analytics", icon: SiGoogleanalytics, color: "#E37400" },
+  { name: "Google Ads", icon: SiGoogleads, color: "#4285F4" },
+  { name: "Meta Ads", icon: SiMeta, color: "#0081FB" },
+  { name: "Mailchimp", icon: SiMailchimp, color: "#FFE01B" },
+  { name: "HubSpot", icon: SiHubspot, color: "#FF7A59" },
+  { name: "Stripe", icon: SiStripe, color: "#635BFF" },
+  { name: "AWS", icon: SiAmazonwebservices, color: "#FF9900" },
+  { name: "Cloudflare", icon: SiCloudflare, color: "#F38020" },
+  { name: "Vercel", icon: SiVercel, color: "#FFFFFF" },
 ];
 
 const processSteps = [
@@ -204,7 +227,7 @@ export default function WebsitesPage() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6"
+            className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4"
           >
             {technologies.map((tech, index) => {
               const Icon = tech.icon;
