@@ -379,20 +379,24 @@ export default function SEOPage() {
                     className="flex-1"
                     data-testid="input-url"
                   />
-                  <Button
+                  <button
                     type="submit"
                     disabled={analyzeMutation.isPending}
+                    className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium text-black rounded-md transition-all hover:scale-[1.03] nav-glow-btn disabled:opacity-50 disabled:hover:scale-100"
+                    style={{
+                      background: "linear-gradient(145deg, #ff0000, #cc0000)",
+                    }}
                     data-testid="button-analyze"
                   >
                     {analyzeMutation.isPending ? (
                       <>Analyzing...</>
                     ) : (
                       <>
-                        <Search className="w-4 h-4 mr-2" />
+                        <Search className="w-4 h-4" />
                         Analyze
                       </>
                     )}
-                  </Button>
+                  </button>
                 </form>
               </CardContent>
             </Card>
