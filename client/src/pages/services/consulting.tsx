@@ -56,6 +56,8 @@ export default function ConsultingPage() {
 
       <PricingSection
         plans={plans}
+        title="Misc Hourly Work"
+        subtitle="Flexible hourly support for any project need"
         footnote="Retainer packages available for ongoing consulting. Contact us for custom arrangements."
       />
 
