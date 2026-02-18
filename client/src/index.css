@@ -4553,6 +4553,26 @@
   }
 }
 
+.nav-active-bar {
+  height: 2px;
+  border-radius: 1px;
+  background: linear-gradient(90deg, rgba(255,0,0,0.2), #ff0000, rgba(255,0,0,0.2));
+  background-size: 200% 100%;
+  animation: navBarShimmer 3s ease-in-out infinite;
+  box-shadow: 0 0 8px rgba(255,0,0,0.5), 0 0 16px rgba(255,0,0,0.2);
+}
+
+@keyframes navBarShimmer {
+  0%, 100% {
+    background-position: 0% 50%;
+    box-shadow: 0 0 8px rgba(255,0,0,0.5), 0 0 16px rgba(255,0,0,0.2);
+  }
+  50% {
+    background-position: 100% 50%;
+    box-shadow: 0 0 12px rgba(255,0,0,0.7), 0 0 24px rgba(255,0,0,0.3);
+  }
+}
+
 /* Section Heading Glow */
 .section-heading-glow {
   text-shadow:
