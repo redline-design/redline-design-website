@@ -407,7 +407,7 @@ export default function Home() {
         </div>
       </ScrollAnimatedSection>
 
-      <SectionDivider />
+      <SectionDivider variant="red" />
 
       <ScrollAnimatedSection>
         <section className="py-20 md:py-32 px-4 md:px-8" data-testid="section-differentiators" data-section-label="Solutions">
@@ -415,13 +415,13 @@ export default function Home() {
       </section>
       </ScrollAnimatedSection>
 
-      <SectionDivider />
+      <SectionDivider variant="subtle" />
 
       <ScrollAnimatedSection>
         <AboutBlurb />
       </ScrollAnimatedSection>
 
-      <SectionDivider />
+      <SectionDivider variant="red" />
 
       <ScrollAnimatedSection>
         <section className="py-20 md:py-32 px-4 md:px-8" data-testid="section-why-us" data-section-label="Why Us">
@@ -516,13 +516,13 @@ export default function Home() {
       </section>
       </ScrollAnimatedSection>
 
-      <SectionDivider />
+      <SectionDivider variant="subtle" />
 
       <ScrollAnimatedSection>
         <ProcessSteps />
       </ScrollAnimatedSection>
 
-      <SectionDivider />
+      <SectionDivider variant="red" />
 
       <ScrollAnimatedSection>
         <section id="partners" className="py-20 md:py-32 px-4 md:px-8" data-testid="section-partners" data-section-label="Partners">
@@ -604,7 +604,7 @@ export default function Home() {
         </section>
       </ScrollAnimatedSection>
 
-      <SectionDivider />
+      <SectionDivider variant="subtle" />
       <ScrollAnimatedSection>
         <HomeContactSection />
       </ScrollAnimatedSection>

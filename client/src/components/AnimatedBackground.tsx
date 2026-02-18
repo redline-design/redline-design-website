@@ -14,14 +14,12 @@ export default function AnimatedBackground() {
   });
   const [containerRef, setContainerRef] = useState<HTMLDivElement | null>(null);
 
-  // Combine refs
   useEffect(() => {
     if (containerRef) {
       intersectionRef(containerRef);
     }
   }, [containerRef, intersectionRef]);
 
-  // Skip animation only for reduced motion preference
   const shouldAnimate = !prefersReducedMotion && inView;
 
   useEffect(() => {
@@ -36,15 +34,13 @@ export default function AnimatedBackground() {
     let isTabVisible = true;
     let lastMouseMoveTime = Date.now();
     let lastScrollTime = Date.now();
-    let isMouseActive = true; // Start active
+    let isMouseActive = true;
 
-    // Check if tab is visible
     const handleVisibilityChange = () => {
       isTabVisible = !document.hidden;
     };
     document.addEventListener("visibilitychange", handleVisibilityChange);
 
-    // Track scroll activity to keep animation alive during scroll
     const handleScroll = () => {
       lastScrollTime = Date.now();
     };
@@ -69,91 +65,67 @@ export default function AnimatedBackground() {
     };
     window.addEventListener("resize", debouncedResize);
 
-    // Track mouse position with throttling and activity detection
     let mouseThrottle = false;
     const handleMouseMove = (e: MouseEvent) => {
       if (mouseThrottle) return;
       mouseThrottle = true;
-      setTimeout(() => mouseThrottle = false, 16); // ~60fps
+      setTimeout(() => mouseThrottle = false, 16);
       mousePosRef.current = { x: e.clientX, y: e.clientY };
       lastMouseMoveTime = Date.now();
       isMouseActive = true;
     };
     window.addEventListener("mousemove", handleMouseMove, { passive: true });
 
-    // Hexagon grid with wave animation - reduced density for better performance
-    const hexRadius = 40; // Slightly larger hexagons
-    const hexHeight = hexRadius * 2;
-    const hexWidth = Math.sqrt(3) * hexRadius;
-    const hexSpacing = 15; // Increased spacing for fewer hexagons
-
-    interface HexCell {
+    interface Dot {
       x: number;
       y: number;
-      offset: number;
       baseX: number;
       baseY: number;
+      radius: number;
+      isRed: boolean;
+      baseOpacity: number;
+      offset: number;
+      driftSpeedX: number;
+      driftSpeedY: number;
     }
 
-    const hexGrid: HexCell[] = [];
-    
-    // Create honeycomb grid - reduced density by 40% for performance
-    const cols = Math.ceil(canvas.width / (hexWidth + hexSpacing)) + 1;
-    const rows = Math.ceil(canvas.height / (hexHeight * 0.75 + hexSpacing)) + 1;
+    const dotCount = 100;
+    const dots: Dot[] = [];
 
-    for (let row = 0; row < rows; row++) {
-      for (let col = 0; col < cols; col++) {
-        const x = col * (hexWidth + hexSpacing) + (row % 2) * ((hexWidth + hexSpacing) / 2);
-        const y = row * (hexHeight * 0.75 + hexSpacing);
-        hexGrid.push({
-          x,
-          y,
-          baseX: x,
-          baseY: y,
-          offset: Math.random() * Math.PI * 2
-        });
-      }
+    for (let i = 0; i < dotCount; i++) {
+      const isRed = Math.random() < 0.18;
+      dots.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        baseX: Math.random() * canvas.width,
+        baseY: Math.random() * canvas.height,
+        radius: 1 + Math.random() * 2,
+        isRed,
+        baseOpacity: isRed
+          ? 0.04 + Math.random() * 0.06
+          : 0.03 + Math.random() * 0.05,
+        offset: Math.random() * Math.PI * 2,
+        driftSpeedX: (Math.random() - 0.5) * 0.15,
+        driftSpeedY: (Math.random() - 0.5) * 0.15,
+      });
     }
 
-    const drawHexagon = (x: number, y: number, radius: number, opacity: number, hue: number) => {
-      ctx.beginPath();
-      for (let i = 0; i < 6; i++) {
-        const angle = (Math.PI / 3) * i - Math.PI / 6;
-        const xPos = x + radius * Math.cos(angle);
-        const yPos = y + radius * Math.sin(angle);
-        if (i === 0) {
-          ctx.moveTo(xPos, yPos);
-        } else {
-          ctx.lineTo(xPos, yPos);
-        }
-      }
-      ctx.closePath();
-      // Mix of white and subtle color based on position
-      ctx.strokeStyle = `hsla(${hue}, 70%, 70%, ${opacity})`;
-      ctx.lineWidth = 1.5;
-      ctx.stroke();
-    };
-
-    // FPS limiting for better performance
     let lastFrameTime = 0;
-    const targetFPS = 30; // Cap at 30fps for smooth but performant animation
+    const targetFPS = 30;
     const frameInterval = 1000 / targetFPS;
 
     const animate = (currentTime: number) => {
       animationFrameId = requestAnimationFrame(animate);
 
-      // Skip animation when tab is not visible or user prefers reduced motion
       if (!isTabVisible || prefersReducedMotion) {
         return;
       }
 
-      // Track mouse activity for intensity scaling (animation never fully stops)
       const timeSinceMouseMove = Date.now() - lastMouseMoveTime;
       const timeSinceScroll = Date.now() - lastScrollTime;
       const timeSinceActivity = Math.min(timeSinceMouseMove, timeSinceScroll);
       isMouseActive = timeSinceActivity < 3000;
 
-      // FPS throttling
       const elapsed = currentTime - lastFrameTime;
       if (elapsed < frameInterval) {
         return;
@@ -170,71 +142,58 @@ export default function AnimatedBackground() {
       const time = Date.now() * 0.001;
       const mouseX = mousePosRef.current.x;
       const mouseY = mousePosRef.current.y;
-      const maxDistance = 200;
+      const maxDistance = 150;
       const maxDistanceSq = maxDistance * maxDistance;
 
-      // Draw hexagon grid with wave effect and mouse interaction
-      for (let i = 0; i < hexGrid.length; i++) {
-        const hex = hexGrid[i];
-        
-        // Calculate distance from mouse (squared to avoid expensive sqrt)
-        const dx = mouseX - hex.baseX;
-        const dy = mouseY - hex.baseY;
+      for (let i = 0; i < dots.length; i++) {
+        const dot = dots[i];
+
+        const driftX = Math.sin(time * 0.12 + dot.offset) * 8 + Math.sin(time * 0.07 + dot.offset * 1.7) * 5;
+        const driftY = Math.cos(time * 0.1 + dot.offset * 1.3) * 8 + Math.cos(time * 0.06 + dot.offset * 2.1) * 5;
+
+        dot.x = dot.baseX + driftX + dot.driftSpeedX * time * 10;
+        dot.y = dot.baseY + driftY + dot.driftSpeedY * time * 10;
+
+        if (dot.x < -20) dot.baseX += canvas.width + 40;
+        if (dot.x > canvas.width + 20) dot.baseX -= canvas.width + 40;
+        if (dot.y < -20) dot.baseY += canvas.height + 40;
+        if (dot.y > canvas.height + 20) dot.baseY -= canvas.height + 40;
+
+        const dx = mouseX - dot.x;
+        const dy = mouseY - dot.y;
         const distanceSq = dx * dx + dy * dy;
 
-        // Mouse displacement effect
-        let displacementX = 0;
-        let displacementY = 0;
         let mouseInfluence = 0;
+        let pushX = 0;
+        let pushY = 0;
 
         if (distanceSq < maxDistanceSq) {
           const distance = Math.sqrt(distanceSq);
           mouseInfluence = 1 - (distance / maxDistance);
           const angle = Math.atan2(dy, dx);
-          const pushStrength = mouseInfluence * 30;
-          
-          displacementX = -Math.cos(angle) * pushStrength;
-          displacementY = -Math.sin(angle) * pushStrength;
+          const pushStrength = mouseInfluence * 15;
+          pushX = -Math.cos(angle) * pushStrength;
+          pushY = -Math.sin(angle) * pushStrength;
+          dot.x += pushX;
+          dot.y += pushY;
         }
 
-        // Ambient drift — subtle position wobble even when idle
-        const driftX = Math.sin(time * 0.4 + hex.offset) * 3 + Math.sin(time * 0.17 + hex.offset * 2.3) * 2;
-        const driftY = Math.cos(time * 0.35 + hex.offset * 1.7) * 3 + Math.cos(time * 0.2 + hex.offset * 0.9) * 2;
+        const breath = Math.sin(time * 0.25 + dot.offset) * 0.015 + 0.015;
+        let opacity = dot.baseOpacity + breath;
 
-        // Layered wave pattern — multiple overlapping waves for organic feel
-        const wave1 = Math.sin((hex.baseX * 0.005) + (hex.baseY * 0.003) + time * 0.8) * 0.5 + 0.5;
-        const wave2 = Math.cos((hex.baseY * 0.005) + (hex.baseX * 0.003) + time * 0.5) * 0.5 + 0.5;
-        const wave3 = Math.sin((hex.baseX + hex.baseY) * 0.004 + time * 1.2 + hex.offset) * 0.5 + 0.5;
-        
-        // Traveling pulse — a subtle ring that sweeps across the grid
-        const pulseCenter = (time * 0.3) % 1;
-        const normPos = ((hex.baseX / canvas.width) + (hex.baseY / canvas.height)) * 0.5;
-        const pulseDist = Math.abs(normPos - pulseCenter);
-        const pulse = Math.max(0, 1 - pulseDist * 8) * 0.1;
-
-        // Breathing — slow global oscillation
-        const breath = Math.sin(time * 0.3) * 0.03 + 0.03;
-        
-        const wave = (wave1 + wave2 + wave3) / 3;
-        
-        let opacity = wave * 0.15 + breath + pulse + 0.03;
-        
         if (mouseInfluence > 0) {
-          opacity = Math.min(0.4, opacity + mouseInfluence * 0.25);
+          opacity = Math.min(0.3, opacity + mouseInfluence * 0.15);
         }
-        
-        const waveScale = wave * 0.15 + 0.85;
-        const breathScale = Math.sin(time * 0.25 + hex.offset) * 0.04;
-        const mouseScale = mouseInfluence * 0.2;
-        const scale = waveScale + breathScale + mouseScale;
-        const currentRadius = hexRadius * scale;
 
-        hex.x = hex.baseX + displacementX + driftX;
-        hex.y = hex.baseY + displacementY + driftY;
+        if (dot.isRed) {
+          ctx.fillStyle = `rgba(255, 80, 60, ${opacity})`;
+        } else {
+          ctx.fillStyle = `rgba(255, 255, 255, ${opacity})`;
+        }
 
-        const hue = (hex.baseX / canvas.width) * 60 + 180 + Math.sin(time * 0.2) * 15;
-
-        drawHexagon(hex.x, hex.y, currentRadius, opacity, hue);
+        ctx.beginPath();
+        ctx.arc(dot.x, dot.y, dot.radius, 0, Math.PI * 2);
+        ctx.fill();
       }
     };
 
@@ -250,7 +209,6 @@ export default function AnimatedBackground() {
     };
   }, [shouldAnimate]);
 
-  // Show static fallback for mobile/reduced-motion
   if (!shouldAnimate) {
     return (
       <div
