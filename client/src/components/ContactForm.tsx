@@ -1,11 +1,10 @@
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { Link } from "wouter";
-import { Search, Target, Share2, Mail, Monitor, Palette, FileText, Bot, Users, BarChart3, LucideIcon } from "lucide-react";
+import { Search, Target, Share2, Mail, Monitor, Palette, FileText, Bot, Users, BarChart3, LucideIcon, ArrowRight } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useMutation } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
@@ -19,14 +18,14 @@ interface Service {
 const services: Service[] = [
   { id: "seo", name: "SEO", icon: Search },
   { id: "ppc", name: "PPC", icon: Target },
-  { id: "social-media", name: "Social Media Marketing", icon: Share2 },
-  { id: "email-marketing", name: "Email Marketing", icon: Mail },
-  { id: "web-design", name: "Website Design & Development", icon: Monitor },
-  { id: "branding", name: "Branding & Design", icon: Palette },
-  { id: "content-creation", name: "Content Creation", icon: FileText },
-  { id: "ai-automation", name: "AI Automation", icon: Bot },
-  { id: "crm-setup", name: "CRM Setup & Automation", icon: Users },
-  { id: "analytics", name: "Analytics & Data Analysis", icon: BarChart3 },
+  { id: "social-media", name: "Social Media", icon: Share2 },
+  { id: "email-marketing", name: "Email", icon: Mail },
+  { id: "web-design", name: "Web Design", icon: Monitor },
+  { id: "branding", name: "Branding", icon: Palette },
+  { id: "content-creation", name: "Content", icon: FileText },
+  { id: "ai-automation", name: "AI", icon: Bot },
+  { id: "crm-setup", name: "CRM", icon: Users },
+  { id: "analytics", name: "Analytics", icon: BarChart3 },
 ];
 
 interface ContactFormProps {
@@ -40,7 +39,7 @@ export default function ContactForm({ preSelectedServices = [] }: ContactFormPro
     email: "",
     phone: "",
     message: "",
-    smsConsent: false,
+    smsConsent: true,
     servicesInterested: preSelectedServices,
   });
 
@@ -62,7 +61,7 @@ export default function ContactForm({ preSelectedServices = [] }: ContactFormPro
         title: "Message sent successfully!",
         description: "We'll get back to you within 24 business hours.",
       });
-      setFormData({ name: "", email: "", phone: "", message: "", smsConsent: false, servicesInterested: [] });
+      setFormData({ name: "", email: "", phone: "", message: "", smsConsent: true, servicesInterested: [] });
     },
     onError: (error: any) => {
       toast({
@@ -79,48 +78,38 @@ export default function ContactForm({ preSelectedServices = [] }: ContactFormPro
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6" data-testid="form-contact">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="space-y-2">
-          <Label htmlFor="name">Name *</Label>
-          <Input
-            id="name"
-            value={formData.name}
-            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-            required
-            placeholder="John Doe"
-            data-testid="input-name"
-          />
-        </div>
-        <div className="space-y-2">
-          <Label htmlFor="email">Email *</Label>
-          <Input
-            id="email"
-            type="email"
-            value={formData.email}
-            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-            required
-            placeholder="john@example.com"
-            data-testid="input-email"
-          />
-        </div>
-        <div className="space-y-2">
-          <Label htmlFor="phone">Phone *</Label>
-          <Input
-            id="phone"
-            type="tel"
-            value={formData.phone}
-            onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-            required
-            placeholder="(555) 123-4567"
-            data-testid="input-phone"
-          />
-        </div>
+    <form onSubmit={handleSubmit} className="space-y-4" data-testid="form-contact">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+        <Input
+          id="name"
+          value={formData.name}
+          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+          required
+          placeholder="Name *"
+          data-testid="input-name"
+        />
+        <Input
+          id="email"
+          type="email"
+          value={formData.email}
+          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+          required
+          placeholder="Email *"
+          data-testid="input-email"
+        />
+        <Input
+          id="phone"
+          type="tel"
+          value={formData.phone}
+          onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+          required
+          placeholder="Phone *"
+          data-testid="input-phone"
+        />
       </div>
 
-      <div className="space-y-3">
-        <Label>Services Interested In</Label>
-        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-3">
+      <div>
+        <div className="grid grid-cols-5 sm:grid-cols-10 gap-2">
           {services.map((service) => {
             const Icon = service.icon;
             const isSelected = formData.servicesInterested.includes(service.id);
@@ -129,64 +118,56 @@ export default function ContactForm({ preSelectedServices = [] }: ContactFormPro
                 key={service.id}
                 type="button"
                 onClick={() => toggleService(service.id)}
-                className={`
-                  flex flex-col items-center justify-center gap-2 p-3 rounded-lg border-2 transition-all duration-300
-                  ${isSelected 
-                    ? 'bg-green-500/10 border-green-500 text-green-500' 
-                    : 'bg-muted/20 border-muted-foreground/20 text-muted-foreground hover:border-muted-foreground/40'
-                  }
-                `}
+                className="flex flex-col items-center justify-center gap-1 p-2 rounded-md transition-all duration-200"
+                style={{
+                  background: isSelected ? "rgba(255, 0, 0, 0.12)" : "rgba(255, 255, 255, 0.03)",
+                  border: isSelected ? "1px solid rgba(255, 0, 0, 0.4)" : "1px solid rgba(255, 255, 255, 0.08)",
+                }}
                 data-testid={`button-service-${service.id}`}
                 title={service.name}
               >
-                <Icon className="h-6 w-6" />
-                <span className="text-xs text-center leading-tight">{service.name}</span>
+                <Icon className="h-4 w-4" style={{ color: isSelected ? "#ff0000" : "rgba(255,255,255,0.4)" }} />
+                <span className="text-[9px] leading-tight text-center" style={{ color: isSelected ? "#ff0000" : "rgba(255,255,255,0.35)" }}>{service.name}</span>
               </button>
             );
           })}
         </div>
       </div>
 
-      <div className="space-y-2">
-        <Label htmlFor="message">Message</Label>
-        <Textarea
-          id="message"
-          value={formData.message}
-          onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-          placeholder="Tell us about your project..."
-          rows={3}
-          data-testid="input-message"
-        />
-      </div>
+      <Textarea
+        id="message"
+        value={formData.message}
+        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+        placeholder="Tell us about your project..."
+        rows={2}
+        data-testid="input-message"
+      />
 
-      <div className="flex items-start gap-3 p-4 bg-muted/30 rounded-lg">
+      <div className="flex items-center gap-2">
         <Checkbox
           id="smsConsent"
           checked={formData.smsConsent}
           onCheckedChange={(checked) => setFormData({ ...formData, smsConsent: checked as boolean })}
+          className="h-3.5 w-3.5"
           data-testid="checkbox-sms-consent"
         />
-        <div className="text-sm text-muted-foreground">
-          <Label htmlFor="smsConsent" className="font-normal">
-            You agree to receive automated follow-up, reminder, and promotional messages at the phone number provided.
-            Consent is not a condition of purchase. Reply STOP to end or HELP for help. Message and data rates may apply.
-            View our{" "}
-            <Link href="/tos">
-              <span className="text-primary hover:underline">Terms of Service</span>
-            </Link>{" "}
-            and{" "}
-            <Link href="/privacy">
-              <span className="text-primary hover:underline">Privacy Policy</span>
-            </Link>
-            .
-          </Label>
-        </div>
+        <Label htmlFor="smsConsent" className="font-normal text-[10px] text-white/30 leading-tight cursor-pointer">
+          I agree to receive follow-up messages. Reply STOP to end. <Link href="/tos"><span className="text-red-500/50 hover:underline">Terms</span></Link> & <Link href="/privacy"><span className="text-red-500/50 hover:underline">Privacy</span></Link>
+        </Label>
       </div>
 
-      <Button type="submit" size="lg" className="w-full" disabled={submitMutation.isPending} data-testid="button-submit-contact">
+      <button
+        type="submit"
+        disabled={submitMutation.isPending}
+        className="w-full inline-flex items-center justify-center gap-2.5 px-6 py-2.5 text-sm font-medium text-black rounded-md cursor-pointer transition-all hover:scale-[1.03] nav-glow-btn disabled:opacity-50 disabled:hover:scale-100"
+        style={{
+          background: "linear-gradient(145deg, #ff0000, #cc0000)",
+        }}
+        data-testid="button-submit-contact"
+      >
         {submitMutation.isPending ? "Sending..." : "Send Message"}
-      </Button>
-
+        <ArrowRight className="w-4 h-4" />
+      </button>
     </form>
   );
 }
