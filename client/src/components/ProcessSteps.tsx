@@ -80,13 +80,13 @@ export default function ProcessSteps() {
               data-testid={`process-step-${step.number}`}
             >
               <div
-                className="relative flex items-center justify-center w-[72px] h-[72px] rounded-full mb-6"
+                className="relative flex items-center justify-center w-[72px] h-[72px] rounded-full mb-6 ring-2 ring-red-500/60"
                 style={{
-                  background: "#cc0000",
-                  boxShadow: "0 4px 20px rgba(255, 0, 0, 0.25)",
+                  background: "rgba(15, 15, 15, 0.9)",
+                  boxShadow: "0 0 20px rgba(255, 0, 0, 0.15)",
                 }}
               >
-                <step.icon className="w-7 h-7 text-white" />
+                <step.icon className="w-7 h-7 text-red-500" />
               </div>
 
               <h3 className="text-lg font-semibold text-white mb-2">
