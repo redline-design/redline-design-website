@@ -26,7 +26,7 @@ const benefits = [
 
 const plans = [
   {
-    name: "Lunar",
+    name: "Cruiser",
     price: "$500",
     period: "/month",
     features: [
@@ -38,7 +38,7 @@ const plans = [
     ],
   },
   {
-    name: "Orbital",
+    name: "Turbo",
     price: "$1,000",
     period: "/month",
     popular: true,
@@ -53,7 +53,7 @@ const plans = [
     ],
   },
   {
-    name: "Supernova",
+    name: "Redline",
     price: "$2,000",
     period: "/month",
     features: [

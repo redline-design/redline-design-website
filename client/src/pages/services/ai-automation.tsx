@@ -57,7 +57,7 @@ const useCases = [
 
 const pricingPlans = [
   {
-    name: "Nebula Lab",
+    name: "Nitro Lab",
     price: "$250",
     period: "/hour",
     description: "Expert-led AI automation and sales funnel development tailored to your business",

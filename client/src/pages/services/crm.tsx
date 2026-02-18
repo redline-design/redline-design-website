@@ -54,7 +54,7 @@ const ecosystemItems = [
 
 const plans = [
   {
-    name: "Lunar",
+    name: "Cruiser",
     price: "$49",
     period: "/user/month",
     features: [
@@ -67,12 +67,12 @@ const plans = [
     ],
   },
   {
-    name: "Orbital",
+    name: "Turbo",
     price: "$109",
     period: "/user/month",
     popular: true,
     features: [
-      "Everything in Lunar",
+      "Everything in Cruiser",
       "Up to 10 pipelines",
       "Power Dialer",
       "AI Email Assistant",
@@ -82,11 +82,11 @@ const plans = [
     ],
   },
   {
-    name: "Supernova",
+    name: "Redline",
     price: "$149",
     period: "/user/month",
     features: [
-      "Everything in Orbital",
+      "Everything in Turbo",
       "Up to 25 pipelines",
       "Predictive Dialer",
       "Call coaching & transcription",

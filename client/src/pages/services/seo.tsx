@@ -77,7 +77,7 @@ const benefits = [
 
 const plans = [
   {
-    name: "Lunar",
+    name: "Cruiser",
     price: "$1,500",
     period: "/month",
     features: [
@@ -90,12 +90,12 @@ const plans = [
     ],
   },
   {
-    name: "Orbital",
+    name: "Turbo",
     price: "$3,000",
     period: "/month",
     popular: true,
     features: [
-      "Everything in Lunar",
+      "Everything in Cruiser",
       "Technical SEO audits",
       "Link building campaign",
       "Content creation (2 posts/mo)",
@@ -105,11 +105,11 @@ const plans = [
     ],
   },
   {
-    name: "Supernova",
+    name: "Redline",
     price: "$5,000",
     period: "/month",
     features: [
-      "Everything in Orbital",
+      "Everything in Turbo",
       "Full technical overhaul",
       "Aggressive link building",
       "Content creation (4 posts/mo)",

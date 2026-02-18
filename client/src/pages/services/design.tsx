@@ -35,7 +35,7 @@ const processSteps = [
 
 const logoPlans = [
   {
-    name: "Meteor",
+    name: "Spark Plug",
     price: "$400",
     period: "One-time",
     features: [
@@ -50,7 +50,7 @@ const logoPlans = [
 
 const brandGuidePlans = [
   {
-    name: "Constellation",
+    name: "Piston",
     price: "$800",
     period: "One-time",
     features: [
@@ -62,12 +62,12 @@ const brandGuidePlans = [
     ],
   },
   {
-    name: "Galaxy",
+    name: "Dragstrip",
     price: "$1,500",
     period: "One-time",
     popular: true,
     features: [
-      "Everything in Constellation",
+      "Everything in Piston",
       "Custom logo design included",
       "Social media templates",
       "Business card design",
@@ -76,11 +76,11 @@ const brandGuidePlans = [
     ],
   },
   {
-    name: "Cosmos",
+    name: "Pole Position",
     price: "$2,500",
     period: "One-time",
     features: [
-      "Everything in Galaxy",
+      "Everything in Dragstrip",
       "Extended collateral design",
       "Presentation templates",
       "Packaging guidelines",
@@ -92,7 +92,7 @@ const brandGuidePlans = [
 
 const customDesignPlans = [
   {
-    name: "Stardust Studio",
+    name: "Pit Crew Studio",
     price: "$250",
     period: "/hour",
     description: "Need something specific? Our design team is available for custom projects of any scope.",

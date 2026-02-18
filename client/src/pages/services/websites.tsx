@@ -33,7 +33,7 @@ const benefits = [
 
 const pricingPlans = [
   {
-    name: "Lunar",
+    name: "Cruiser",
     price: "$1,000",
     period: "One-time",
     features: [
@@ -47,7 +47,7 @@ const pricingPlans = [
     buttonLink: "/contact"
   },
   {
-    name: "Orbital",
+    name: "Turbo",
     price: "$2,000",
     period: "One-time",
     popular: true,
@@ -63,7 +63,7 @@ const pricingPlans = [
     buttonLink: "/contact"
   },
   {
-    name: "Stellar",
+    name: "V8",
     price: "$3,000",
     period: "One-time",
     features: [
@@ -78,7 +78,7 @@ const pricingPlans = [
     buttonLink: "/contact"
   },
   {
-    name: "Supernova",
+    name: "Redline",
     price: "Contact Us",
     period: "Custom pricing",
     features: [
