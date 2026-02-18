@@ -44,7 +44,8 @@ const pricingPlans = [
       "Mobile responsive",
       "Contact form",
       "Basic SEO setup",
-      "2 rounds of revisions"
+      "2 rounds of revisions",
+      "$25/mo hosting included"
     ],
     buttonText: "Get Started",
     buttonLink: "/contact"
@@ -60,7 +61,8 @@ const pricingPlans = [
       "CMS integration",
       "Advanced SEO",
       "Analytics setup",
-      "3 rounds of revisions"
+      "3 rounds of revisions",
+      "$25/mo hosting included"
     ],
     buttonText: "Get Started",
     buttonLink: "/contact"
@@ -75,7 +77,8 @@ const pricingPlans = [
       "Custom animations",
       "Blog integration",
       "Priority support",
-      "Unlimited revisions"
+      "Unlimited revisions",
+      "$25/mo hosting included"
     ],
     buttonText: "Get Started",
     buttonLink: "/contact"
