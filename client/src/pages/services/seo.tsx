@@ -228,49 +228,109 @@ export default function SEOPage() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4"
+            className="relative grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4"
           >
             {timelineStages.map((stage, index) => {
               const minHeight = 60;
               const maxHeight = 180;
               const height = minHeight + ((maxHeight - minHeight) / (timelineStages.length - 1)) * index;
-              const opacity = 0.4 + (0.6 / (timelineStages.length - 1)) * index;
+              const percentage = Math.round(20 + (80 / (timelineStages.length - 1)) * index);
 
               return (
                 <motion.div
                   key={index}
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: index * 0.1 }}
+                  transition={{ duration: 0.5, delay: index * 0.12 }}
                   className="flex flex-col items-center"
                   data-testid={`card-timeline-${index}`}
                 >
                   <div className="flex-1 flex items-end w-full mb-3">
-                    <div
-                      className="w-full rounded-md"
-                      style={{
-                        height: `${height}px`,
-                        background: `linear-gradient(to top, rgba(239, 68, 68, ${opacity}), rgba(220, 38, 38, ${opacity * 0.7}))`,
-                        border: "1px solid rgba(239, 68, 68, 0.2)",
-                      }}
-                    />
+                    <div className="relative w-full overflow-hidden rounded-md" style={{ height: `${height}px` }}>
+                      <motion.div
+                        className="absolute bottom-0 left-0 w-full"
+                        initial={{ height: 0 }}
+                        whileInView={{ height: "100%" }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8, delay: 0.3 + index * 0.15, ease: [0.22, 1, 0.36, 1] }}
+                        style={{
+                          background: `linear-gradient(to top, rgba(255, 0, 0, 0.7), rgba(255, 0, 0, 0.15))`,
+                          borderLeft: "1px solid rgba(255, 0, 0, 0.3)",
+                          borderRight: "1px solid rgba(255, 0, 0, 0.3)",
+                          borderTop: "1px solid rgba(255, 0, 0, 0.5)",
+                        }}
+                      >
+                        <div
+                          className="absolute inset-0"
+                          style={{
+                            backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 8px, rgba(255,255,255,0.03) 8px, rgba(255,255,255,0.03) 9px)`,
+                          }}
+                        />
+                        <motion.div
+                          className="absolute left-0 w-full h-[2px]"
+                          style={{
+                            background: "linear-gradient(90deg, transparent, rgba(255, 0, 0, 0.8), transparent)",
+                            boxShadow: "0 0 8px rgba(255, 0, 0, 0.4)",
+                          }}
+                          animate={{ top: ["0%", "100%", "0%"] }}
+                          transition={{ duration: 3 + index * 0.5, repeat: Infinity, ease: "linear" }}
+                        />
+                        <div className="absolute top-2 left-0 right-0 text-center">
+                          <motion.span
+                            className="text-[10px] font-mono font-bold tracking-wider"
+                            style={{ color: "rgba(255, 255, 255, 0.7)" }}
+                            initial={{ opacity: 0 }}
+                            whileInView={{ opacity: 1 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: 1 + index * 0.15 }}
+                          >
+                            {percentage}%
+                          </motion.span>
+                        </div>
+                      </motion.div>
+                      <motion.div
+                        className="absolute bottom-0 left-0 w-full h-[1px]"
+                        style={{ background: "rgba(255, 0, 0, 0.3)" }}
+                        initial={{ scaleX: 0 }}
+                        whileInView={{ scaleX: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, delay: index * 0.1 }}
+                      />
+                    </div>
                   </div>
-                  <p
-                    className="text-xs text-white/40 font-medium"
+                  <motion.p
+                    className="text-[10px] font-mono text-red-500/60 font-medium tracking-wider"
                     data-testid={`text-timeline-month-${index}`}
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.6 + index * 0.1 }}
                   >
-                    Month {stage.month}
-                  </p>
-                  <p
+                    M{stage.month}
+                  </motion.p>
+                  <motion.p
                     className="text-sm font-semibold text-white"
                     data-testid={`text-timeline-label-${index}`}
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.7 + index * 0.1 }}
                   >
                     {stage.label}
-                  </p>
+                  </motion.p>
                 </motion.div>
               );
             })}
+            <div
+              className="absolute inset-0 pointer-events-none"
+              style={{
+                backgroundImage: `
+                  repeating-linear-gradient(90deg, rgba(255,0,0,0.03) 0px, rgba(255,0,0,0.03) 1px, transparent 1px, transparent 60px),
+                  repeating-linear-gradient(0deg, rgba(255,0,0,0.03) 0px, rgba(255,0,0,0.03) 1px, transparent 1px, transparent 60px)
+                `,
+              }}
+            />
           </motion.div>
         </div>
       </section>
