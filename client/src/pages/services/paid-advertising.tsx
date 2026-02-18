@@ -283,7 +283,7 @@ export default function PaidAdvertisingPage() {
                   {step.description}
                 </p>
                 {index < funnelSteps.length - 1 && (
-                  <div className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 z-10">
+                  <div className="hidden md:flex absolute right-0 translate-x-1/2 z-10" style={{ top: "52px", transform: "translateX(50%) translateY(-50%)" }}>
                     <ArrowRight className="w-5 h-5 text-red-500/60" />
                   </div>
                 )}
