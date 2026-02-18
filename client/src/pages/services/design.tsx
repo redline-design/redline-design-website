@@ -211,19 +211,6 @@ export default function DesignPage() {
       </div>
 
       <div data-testid="section-pricing-custom">
-        <div className="max-w-6xl mx-auto px-4 md:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4 }}
-            className="text-center mb-0"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold text-red-500 mb-3 section-heading-glow" data-testid="text-pricing-custom-heading">
-              Custom Design Work
-            </h2>
-          </motion.div>
-        </div>
         <PricingSection plans={customDesignPlans} />
       </div>
 
