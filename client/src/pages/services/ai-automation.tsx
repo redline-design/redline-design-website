@@ -1,6 +1,6 @@
 import { ServiceHero, BenefitsGrid, PricingSection, ServiceCTA } from "@/components/service-sections";
 import { motion } from "framer-motion";
-import { Zap, Filter, Bot, GraduationCap, Mail, Calendar, UserPlus } from "lucide-react";
+import { Zap, Filter, Bot, GraduationCap, Mail, Calendar, UserPlus, Eye, Lightbulb, Scale, MousePointerClick } from "lucide-react";
 
 const benefits = [
   {
@@ -26,10 +26,10 @@ const benefits = [
 ];
 
 const funnelStages = [
-  { label: "Awareness", description: "Attract prospects through targeted content and advertising", width: "100%" },
-  { label: "Interest", description: "Engage leads with valuable resources and personalized outreach", width: "80%" },
-  { label: "Decision", description: "Present compelling offers and address objections automatically", width: "60%" },
-  { label: "Action", description: "Convert with optimized checkout and onboarding flows", width: "40%" },
+  { label: "Awareness", description: "Attract prospects through targeted content and advertising", width: "100%", icon: Eye },
+  { label: "Interest", description: "Engage leads with valuable resources and personalized outreach", width: "80%", icon: Lightbulb },
+  { label: "Decision", description: "Present compelling offers and address objections automatically", width: "60%", icon: Scale },
+  { label: "Action", description: "Convert with optimized checkout and onboarding flows", width: "40%", icon: MousePointerClick },
 ];
 
 const useCases = [
@@ -128,32 +128,97 @@ export default function AIAutomationPage() {
             viewport={{ once: true }}
             className="flex flex-col items-center gap-3"
           >
-            {funnelStages.map((stage, index) => (
-              <motion.div
-                key={index}
-                variants={itemVariants}
-                className="rounded-md p-5 md:p-6 text-center"
-                style={{
-                  width: stage.width,
-                  background: `linear-gradient(135deg, rgba(220, 38, 38, ${0.15 - index * 0.03}), rgba(20, 20, 20, 0.95))`,
-                  border: "1px solid rgba(255, 255, 255, 0.08)",
-                }}
-                data-testid={`card-funnel-stage-${index}`}
-              >
-                <h3
-                  className="text-lg font-semibold text-white mb-1"
-                  data-testid={`text-funnel-stage-title-${index}`}
+            {funnelStages.map((stage, index) => {
+              const Icon = stage.icon;
+              return (
+                <motion.div
+                  key={index}
+                  variants={itemVariants}
+                  className="relative overflow-hidden rounded-lg"
+                  style={{
+                    width: stage.width,
+                  }}
+                  data-testid={`card-funnel-stage-${index}`}
                 >
-                  {stage.label}
-                </h3>
-                <p
-                  className="text-white/60 text-sm"
-                  data-testid={`text-funnel-stage-description-${index}`}
-                >
-                  {stage.description}
-                </p>
-              </motion.div>
-            ))}
+                  <div
+                    className="absolute inset-0 rounded-lg"
+                    style={{
+                      background: `linear-gradient(135deg, rgba(220, 38, 38, ${0.15 - index * 0.03}), rgba(20, 20, 20, 0.95))`,
+                      border: "1px solid rgba(255, 255, 255, 0.08)",
+                    }}
+                  />
+
+                  <div className="absolute inset-0 opacity-[0.03] pointer-events-none"
+                    style={{
+                      backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 20px, rgba(255,255,255,0.5) 20px, rgba(255,255,255,0.5) 21px),
+                        repeating-linear-gradient(90deg, transparent, transparent 20px, rgba(255,255,255,0.5) 20px, rgba(255,255,255,0.5) 21px)`,
+                    }}
+                  />
+
+                  <motion.div
+                    className="absolute inset-0 pointer-events-none"
+                    style={{
+                      background: "linear-gradient(90deg, transparent 0%, rgba(255,0,0,0.04) 50%, transparent 100%)",
+                      width: "40%",
+                    }}
+                    animate={{ x: ["-40%", "300%"] }}
+                    transition={{ duration: 2.5, repeat: Infinity, repeatDelay: 3, ease: "linear" }}
+                  />
+
+                  <div className="relative z-10 flex items-center gap-4 p-5 md:p-6">
+                    <motion.div
+                      className="flex-shrink-0 w-11 h-11 rounded flex items-center justify-center"
+                      style={{
+                        background: "rgba(255,0,0,0.1)",
+                        border: "1px solid rgba(255,0,0,0.25)",
+                        boxShadow: "0 0 12px rgba(255,0,0,0.1)",
+                      }}
+                      animate={{
+                        boxShadow: [
+                          "0 0 8px rgba(255,0,0,0.1)",
+                          "0 0 16px rgba(255,0,0,0.25)",
+                          "0 0 8px rgba(255,0,0,0.1)",
+                        ],
+                      }}
+                      transition={{ duration: 2.5, repeat: Infinity, delay: index * 0.4 }}
+                    >
+                      <Icon className="w-5 h-5 text-red-500" />
+                    </motion.div>
+
+                    <div className="flex-1 text-left">
+                      <h3
+                        className="text-lg font-semibold text-white mb-0.5"
+                        data-testid={`text-funnel-stage-title-${index}`}
+                      >
+                        {stage.label}
+                      </h3>
+                      <p
+                        className="text-white/60 text-sm"
+                        data-testid={`text-funnel-stage-description-${index}`}
+                      >
+                        {stage.description}
+                      </p>
+                    </div>
+
+                    <motion.div
+                      className="flex-shrink-0 flex items-center gap-1.5"
+                      initial={{ opacity: 0 }}
+                      whileInView={{ opacity: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: index * 0.15 + 0.5 }}
+                    >
+                      <span className="text-[10px] font-mono text-green-400/80 uppercase tracking-wider hidden sm:inline">Active</span>
+                      <motion.div
+                        className="w-1.5 h-1.5 rounded-full bg-green-400"
+                        animate={{ scale: [1, 1.4, 1], opacity: [0.7, 1, 0.7] }}
+                        transition={{ duration: 2, delay: index * 0.3, repeat: Infinity, repeatDelay: 3 }}
+                        style={{ boxShadow: "0 0 6px rgba(74,222,128,0.6)" }}
+                      />
+                    </motion.div>
+                  </div>
+                </motion.div>
+              );
+            })}
           </motion.div>
         </div>
       </section>
