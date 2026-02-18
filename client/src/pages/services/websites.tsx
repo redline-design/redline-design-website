@@ -47,7 +47,7 @@ const pricingPlans = [
       "Contact form",
       "Basic SEO setup",
       "2 rounds of revisions",
-      "$25/mo hosting included"
+      "$25/mo hosting"
     ],
     buttonText: "Get Started",
     buttonLink: "/contact"
@@ -64,7 +64,7 @@ const pricingPlans = [
       "Advanced SEO",
       "Analytics setup",
       "3 rounds of revisions",
-      "$25/mo hosting included"
+      "$25/mo hosting"
     ],
     buttonText: "Get Started",
     buttonLink: "/contact"
@@ -80,7 +80,7 @@ const pricingPlans = [
       "Blog integration",
       "Priority support",
       "Unlimited revisions",
-      "$25/mo hosting included"
+      "$25/mo hosting"
     ],
     buttonText: "Get Started",
     buttonLink: "/contact"
