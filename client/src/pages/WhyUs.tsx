@@ -127,7 +127,7 @@ export default function WhyUs() {
   const currentReview = reviews[currentReviewIndex];
 
   return (
-    <div className="pt-16">
+    <div className="pt-20">
       {/* Hero Section */}
       <section 
         className="relative py-24 px-4 sm:px-6 lg:px-8 overflow-hidden"
