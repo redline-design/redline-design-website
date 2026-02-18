@@ -57,7 +57,7 @@ export default function FAQ() {
       className="py-16 md:py-24 px-4 md:px-8"
       data-testid="section-faq"
     >
-      <div className="max-w-3xl mx-auto">
+      <div className="max-w-4xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}

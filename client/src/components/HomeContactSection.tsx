@@ -29,7 +29,7 @@ export default function HomeContactSection() {
       className="py-20 md:py-32 px-4 md:px-8"
       data-testid="section-home-contact"
     >
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
           <motion.div
             initial={{ opacity: 0, y: 30 }}

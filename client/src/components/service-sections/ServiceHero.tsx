@@ -16,7 +16,7 @@ export default function ServiceHero({ title, subtitle, description }: ServiceHer
 
   return (
     <section className="py-16 md:py-24 px-4 md:px-8" data-testid="section-service-hero">
-      <div className="max-w-6xl mx-auto text-center">
+      <div className="max-w-7xl mx-auto text-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

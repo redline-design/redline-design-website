@@ -32,7 +32,7 @@ export default function TrustBadges() {
       className="py-16 px-4 sm:px-6 lg:px-8"
       data-testid="section-trust-badges"
     >
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}

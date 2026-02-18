@@ -44,7 +44,7 @@ export default function ServicePageTemplate({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="max-w-4xl mx-auto text-center"
+            className="max-w-6xl mx-auto text-center"
           >
             <div className="flex justify-center mb-6">
               <div 
@@ -115,7 +115,7 @@ export default function ServicePageTemplate({
 
       <ScrollAnimatedSection>
         <div className="container mx-auto px-4 py-16 md:py-24">
-        <div className="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto">
+        <div className="grid md:grid-cols-2 gap-12 max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -196,7 +196,7 @@ export default function ServicePageTemplate({
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="max-w-3xl mx-auto"
+            className="max-w-5xl mx-auto"
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-6" data-testid="text-cta-heading">
               Ready to Get Started?

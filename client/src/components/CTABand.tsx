@@ -26,7 +26,7 @@ export default function CTABand({ title, subtitle, buttonText, buttonLink, phone
       data-testid="section-cta-band"
     >
       {/* Content */}
-      <div className="relative z-10 max-w-4xl mx-auto">
+      <div className="relative z-10 max-w-6xl mx-auto">
         <h2 className="text-lg sm:text-xl md:text-2xl font-bold uppercase tracking-[0.3em] mb-3 red-glow-pulse" style={{ color: "#ff0000" }} data-testid="text-cta-title">
           {title}
         </h2>

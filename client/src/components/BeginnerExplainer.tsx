@@ -10,7 +10,7 @@ export default function BeginnerExplainer() {
 
   return (
     <section className="py-16 px-4 sm:px-6 lg:px-8 bg-background" data-testid="section-beginner-explainer">
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-6xl mx-auto">
         <Card className="bg-card/60 backdrop-blur-md border-primary/20">
           <CardContent className="p-6 sm:p-8">
             <button

@@ -92,7 +92,7 @@ export default function AboutBlurb() {
       className="py-20 md:py-32 px-4 md:px-8"
       data-testid="section-about-blurb"
     >
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -103,7 +103,7 @@ export default function AboutBlurb() {
           <h2 className="text-sm font-medium text-red-500 uppercase tracking-widest mb-4">
             About Redline Design
           </h2>
-          <p className="text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight leading-tight max-w-4xl mx-auto">
+          <p className="text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight leading-tight max-w-5xl mx-auto">
             Driving Measurable Growth Since Day One
           </p>
         </motion.div>
@@ -113,7 +113,7 @@ export default function AboutBlurb() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.15 }}
           viewport={{ once: true }}
-          className="max-w-3xl mx-auto text-center mb-16"
+          className="max-w-4xl mx-auto text-center mb-16"
         >
           <p className="text-white/60 text-base md:text-lg leading-relaxed mb-6">
             Redline Design was founded with a singular mission: to break the
