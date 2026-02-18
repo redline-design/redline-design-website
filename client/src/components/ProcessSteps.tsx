@@ -80,14 +80,26 @@ export default function ProcessSteps() {
               className="flex flex-col items-center text-center relative"
               data-testid={`process-step-${step.number}`}
             >
-              <div
-                className="relative flex items-center justify-center w-[72px] h-[72px] rounded-full mb-6 ring-2 ring-red-500/60"
-                style={{
-                  background: "rgba(15, 15, 15, 0.9)",
-                  boxShadow: "0 0 20px rgba(255, 0, 0, 0.15)",
-                }}
-              >
-                <step.icon className="w-7 h-7 text-red-500" />
+              <div className="relative mb-6">
+                <div
+                  className="relative flex items-center justify-center w-[72px] h-[72px] rounded-full"
+                  style={{
+                    background: "rgba(15, 15, 15, 0.9)",
+                    boxShadow: "0 0 20px rgba(255, 0, 0, 0.15)",
+                    border: "3px solid rgba(255, 0, 0, 0.7)",
+                  }}
+                >
+                  <step.icon className="w-7 h-7 text-red-500" />
+                </div>
+                <span
+                  className="absolute -top-1.5 -right-1.5 flex items-center justify-center w-6 h-6 rounded-full text-[11px] font-bold text-white"
+                  style={{
+                    background: "linear-gradient(145deg, #ff0000, #cc0000)",
+                    boxShadow: "0 0 8px rgba(255, 0, 0, 0.4)",
+                  }}
+                >
+                  {step.number}
+                </span>
               </div>
 
               <h3 className="text-lg font-semibold text-white mb-2">
