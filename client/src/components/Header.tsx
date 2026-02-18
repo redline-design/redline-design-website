@@ -62,7 +62,7 @@ export default function Header() {
               <img
                 src={redlineLogo}
                 alt="Redline Design"
-                className="h-7 sm:h-8 w-auto"
+                className="h-10 sm:h-12 w-auto"
               />
             </div>
           </Link>
