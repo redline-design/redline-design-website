@@ -95,7 +95,7 @@ export default function PricingSection({ plans, footnote, title, subtitle }: Pri
               )}
 
               <h3
-                className="text-lg font-semibold text-white mb-2"
+                className="text-lg font-semibold text-red-500 mb-2"
                 data-testid={`text-plan-name-${index}`}
               >
                 {plan.name}
