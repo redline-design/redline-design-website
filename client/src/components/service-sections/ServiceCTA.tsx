@@ -35,7 +35,7 @@ export default function ServiceCTA({
             {subtitle}
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex justify-center">
             <Link href="/contact">
               <div
                 className="inline-flex items-center gap-2.5 px-6 py-2.5 text-sm font-medium text-black rounded-md cursor-pointer transition-all hover:scale-[1.03] nav-glow-btn"
@@ -47,11 +47,6 @@ export default function ServiceCTA({
                 <Rocket className="h-5 w-5" />
                 Contact Us
               </div>
-            </Link>
-            <Link href="/services">
-              <Button size="lg" variant="outline" data-testid="button-cta-view-services">
-                View All Services
-              </Button>
             </Link>
           </div>
         </motion.div>

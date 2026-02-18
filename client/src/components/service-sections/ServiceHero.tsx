@@ -39,7 +39,7 @@ export default function ServiceHero({ title, subtitle, description }: ServiceHer
             {description}
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex justify-center">
             <Link href="/contact">
               <div
                 className="inline-flex items-center gap-2.5 px-6 py-2.5 text-sm font-medium text-black rounded-md cursor-pointer transition-all hover:scale-[1.03] nav-glow-btn"
@@ -51,11 +51,6 @@ export default function ServiceHero({ title, subtitle, description }: ServiceHer
                 <Rocket className="h-5 w-5" />
                 Get Started
               </div>
-            </Link>
-            <Link href="/book-a-demo">
-              <Button size="lg" variant="outline" data-testid="button-hero-book-demo">
-                Book a Demo
-              </Button>
             </Link>
           </div>
         </motion.div>
