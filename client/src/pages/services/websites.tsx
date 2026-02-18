@@ -1,6 +1,9 @@
 import { ServiceHero, BenefitsGrid, PricingSection, ServiceCTA } from "@/components/service-sections";
 import { motion } from "framer-motion";
-import { Smartphone, Zap, Search, Target, Palette, Code, Rocket } from "lucide-react";
+import { Smartphone, Zap, Search, Target, Palette, Code, Rocket, ArrowRight } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import { Link } from "wouter";
+import type { PortfolioItem } from "@shared/schema";
 import {
   SiReact, SiWordpress, SiShopify, SiNextdotjs, SiTailwindcss, SiNodedotjs,
   SiWix, SiSquarespace, SiWebflow, SiFigma, SiAdobephotoshop, SiAdobeillustrator,
@@ -288,7 +291,141 @@ export default function WebsitesPage() {
         </div>
       </section>
 
+      <PortfolioGallerySection />
+
       <ServiceCTA />
     </div>
+  );
+}
+
+function PortfolioGallerySection() {
+  const { data: items = [], isLoading } = useQuery<PortfolioItem[]>({
+    queryKey: ["/api/portfolio"],
+  });
+
+  const withScreenshots = items.filter((item) => item.screenshotUrl);
+
+  if (isLoading) {
+    return (
+      <section className="py-16 md:py-24 px-4 md:px-8" data-testid="section-portfolio-gallery">
+        <div className="max-w-6xl mx-auto text-center">
+          <div className="h-8 w-48 mx-auto rounded bg-white/10 animate-pulse mb-12" />
+          <div className="flex gap-4 overflow-hidden">
+            {[1, 2, 3, 4].map((i) => (
+              <div key={i} className="flex-shrink-0 w-80 aspect-[16/10] rounded-lg bg-white/5 animate-pulse" />
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (withScreenshots.length === 0) return null;
+
+  const duplicated = [...withScreenshots, ...withScreenshots];
+
+  return (
+    <section className="py-16 md:py-24 overflow-hidden" data-testid="section-portfolio-gallery">
+      <div className="max-w-6xl mx-auto px-4 md:px-8 mb-12">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4 }}
+          className="text-center"
+        >
+          <h2
+            className="text-3xl md:text-4xl font-bold text-red-500 mb-3 section-heading-glow"
+            data-testid="text-portfolio-gallery-heading"
+          >
+            Our Work
+          </h2>
+          <p
+            className="text-white/50 text-base md:text-lg mb-6"
+            data-testid="text-portfolio-gallery-subtitle"
+          >
+            Real websites we've built for real businesses
+          </p>
+          <Link href="/our-work">
+            <span
+              className="inline-flex items-center gap-2 text-sm font-medium text-red-500 hover:text-red-400 transition-colors cursor-pointer"
+              data-testid="link-view-all-work"
+            >
+              View All Projects
+              <ArrowRight className="w-4 h-4" />
+            </span>
+          </Link>
+        </motion.div>
+      </div>
+
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+        className="relative"
+      >
+        <div className="absolute left-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
+          style={{ background: "linear-gradient(90deg, rgb(10,10,10), transparent)" }}
+        />
+        <div className="absolute right-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
+          style={{ background: "linear-gradient(270deg, rgb(10,10,10), transparent)" }}
+        />
+
+        <motion.div
+          className="flex gap-5"
+          animate={{ x: ["0%", "-50%"] }}
+          transition={{
+            x: {
+              duration: withScreenshots.length * 5,
+              repeat: Infinity,
+              ease: "linear",
+            },
+          }}
+        >
+          {duplicated.map((item, index) => (
+            <div
+              key={`${item.id}-${index}`}
+              className="flex-shrink-0 w-72 md:w-96 group relative overflow-hidden rounded-lg"
+              data-testid={`gallery-item-${index}`}
+            >
+              <div
+                className="relative overflow-hidden rounded-lg"
+                style={{
+                  border: "1px solid rgba(255, 255, 255, 0.08)",
+                }}
+              >
+                <div className="aspect-[16/10] overflow-hidden">
+                  <img
+                    src={item.screenshotUrl!}
+                    alt={item.title}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                </div>
+
+                <div
+                  className="p-3"
+                  style={{ background: "rgba(15, 15, 15, 0.95)" }}
+                >
+                  <div className="flex items-center gap-2">
+                    {item.logoUrl && (
+                      <img
+                        src={item.logoUrl}
+                        alt={`${item.title} logo`}
+                        className="h-5 w-auto object-contain rounded"
+                      />
+                    )}
+                    <span className="text-sm font-medium text-white truncate">
+                      {item.title}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </motion.div>
+      </motion.div>
+    </section>
   );
 }
