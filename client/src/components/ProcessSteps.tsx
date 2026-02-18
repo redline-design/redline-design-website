@@ -37,6 +37,7 @@ export default function ProcessSteps() {
     <section
       className="py-16 md:py-24 px-4 md:px-8"
       data-testid="section-process"
+      data-section-label="Process"
     >
       <div className="max-w-7xl mx-auto">
         <motion.div

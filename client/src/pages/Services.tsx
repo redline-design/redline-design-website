@@ -94,7 +94,7 @@ function ServiceSection({ id, icon: Icon, title, description, features, outcomes
 export default function Services() {
   return (
     <div className="pt-20">
-      <section className="py-20 px-4 sm:px-6 lg:px-8 text-center" data-testid="section-services-intro">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 text-center" data-testid="section-services-intro" data-section-label="Overview">
         <div className="max-w-4xl mx-auto">
           <motion.h1
             className="text-4xl md:text-5xl lg:text-6xl font-black text-foreground mb-6"
@@ -115,7 +115,7 @@ export default function Services() {
         </div>
       </section>
 
-      <section className="py-12 px-4 sm:px-6 lg:px-8 bg-card/50" data-testid="section-metrics">
+      <section className="py-12 px-4 sm:px-6 lg:px-8 bg-card/50" data-testid="section-metrics" data-section-label="Results">
         <div className="max-w-7xl mx-auto">
           <div 
             className="md:grid md:grid-cols-2 lg:grid-cols-4 md:gap-8"
@@ -133,7 +133,7 @@ export default function Services() {
         </div>
       </section>
 
-      <section className="py-20 px-4 sm:px-6 lg:px-8 relative" data-testid="section-service-details">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 relative" data-testid="section-service-details" data-section-label="Our Services">
         <div className="max-w-5xl mx-auto">
           <ServiceSection
             id="seo"
@@ -242,7 +242,7 @@ export default function Services() {
       </section>
 
       {/* Process Timeline */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-card/20" data-testid="section-process-timeline">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-card/20" data-testid="section-process-timeline" data-section-label="Process">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-lg sm:text-xl md:text-2xl font-bold uppercase tracking-[0.3em] mb-4 red-glow-pulse" style={{ color: "#ff0000" }}>
@@ -455,7 +455,7 @@ export default function Services() {
         </div>
       </section>
 
-      <section className="py-20 px-4 sm:px-6 lg:px-8" data-testid="section-services-cta">
+      <section className="py-20 px-4 sm:px-6 lg:px-8" data-testid="section-services-cta" data-section-label="Get Started">
         <div className="max-w-7xl mx-auto">
           <CTABand
             title="Ready to Get Started?"

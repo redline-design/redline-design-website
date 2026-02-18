@@ -91,6 +91,7 @@ export default function AboutBlurb() {
     <section
       className="py-20 md:py-32 px-4 md:px-8"
       data-testid="section-about-blurb"
+      data-section-label="About Us"
     >
       <div className="max-w-7xl mx-auto">
         <motion.div

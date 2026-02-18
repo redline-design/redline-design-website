@@ -10,6 +10,7 @@ import DiagonalStripes from "@/components/DiagonalStripes";
 import AnimatedBackground from "@/components/AnimatedBackground";
 import ChatWidget from "@/components/ChatWidget";
 import ScrollProgressBar from "@/components/ScrollProgressBar";
+import SectionTracker from "@/components/SectionTracker";
 import StructuredData from "@/components/StructuredData";
 import { AnimatePresence, motion } from "framer-motion";
 
@@ -1034,6 +1035,7 @@ function App() {
         <StructuredData />
         <CustomCursor />
         <ScrollProgressBar />
+        <SectionTracker />
         <div className="flex flex-col min-h-screen relative">
           <AnimatedBackground />
           <DiagonalStripes />

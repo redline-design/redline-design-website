@@ -142,7 +142,7 @@ export default function OurWork() {
   const categories = Array.from(new Set(portfolioItems.map(item => item.category)));
 
   return (
-    <div className="min-h-screen pt-24 pb-16 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen pt-24 pb-16 px-4 sm:px-6 lg:px-8" data-section-label="Portfolio">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <motion.div 

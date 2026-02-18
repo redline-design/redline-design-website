@@ -132,6 +132,7 @@ export default function WhyUs() {
       <section 
         className="relative py-24 px-4 sm:px-6 lg:px-8 overflow-hidden"
         data-testid="section-why-us-hero"
+        data-section-label="Overview"
       >
         {/* Gradient Background */}
         <div 
@@ -200,7 +201,7 @@ export default function WhyUs() {
       </section>
 
       {/* Stats Section */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 border-y border-white/10" data-testid="section-stats">
+      <section className="py-16 px-4 sm:px-6 lg:px-8 border-y border-white/10" data-testid="section-stats" data-section-label="Stats">
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {STATS.map((stat, index) => (
@@ -237,7 +238,7 @@ export default function WhyUs() {
       </section>
 
       {/* What Sets Us Apart */}
-      <section className="py-24 px-4 sm:px-6 lg:px-8" data-testid="section-differentiators">
+      <section className="py-24 px-4 sm:px-6 lg:px-8" data-testid="section-differentiators" data-section-label="What Sets Us Apart">
         <div className="max-w-6xl mx-auto">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
@@ -317,6 +318,7 @@ export default function WhyUs() {
         className="py-24 px-4 sm:px-6 lg:px-8"
         style={{ background: "rgba(255, 0, 0, 0.02)" }}
         data-testid="section-process"
+        data-section-label="Process"
       >
         <div className="max-w-6xl mx-auto">
           <motion.div 
@@ -370,7 +372,7 @@ export default function WhyUs() {
       </section>
 
       {/* Capabilities */}
-      <section className="py-24 px-4 sm:px-6 lg:px-8" data-testid="section-capabilities">
+      <section className="py-24 px-4 sm:px-6 lg:px-8" data-testid="section-capabilities" data-section-label="Capabilities">
         <div className="max-w-6xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <motion.div
@@ -441,6 +443,7 @@ export default function WhyUs() {
           className="py-24 px-4 sm:px-6 lg:px-8"
           style={{ background: "rgba(255, 0, 0, 0.02)" }}
           data-testid="section-testimonial"
+          data-section-label="Testimonials"
         >
           <div className="max-w-4xl mx-auto">
             <motion.div
@@ -539,7 +542,7 @@ export default function WhyUs() {
       )}
 
       {/* Final CTA */}
-      <section className="py-24 px-4 sm:px-6 lg:px-8" data-testid="section-final-cta">
+      <section className="py-24 px-4 sm:px-6 lg:px-8" data-testid="section-final-cta" data-section-label="Get Started">
         <div className="max-w-4xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}

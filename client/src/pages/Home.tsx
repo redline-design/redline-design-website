@@ -397,12 +397,12 @@ export default function Home() {
 
   return (
     <div>
-      <div style={{ position: 'relative', minHeight: '100vh' }}>
+      <div data-section-label="Home" style={{ position: 'relative', minHeight: '100vh' }}>
         <Hero />
       </div>
 
       <ScrollAnimatedSection>
-        <div id="learn-more">
+        <div id="learn-more" data-section-label="Services">
           <HorizontalScrollServices />
         </div>
       </ScrollAnimatedSection>
@@ -410,7 +410,7 @@ export default function Home() {
       <SectionDivider />
 
       <ScrollAnimatedSection>
-        <section className="py-20 md:py-32 px-4 md:px-8" data-testid="section-differentiators">
+        <section className="py-20 md:py-32 px-4 md:px-8" data-testid="section-differentiators" data-section-label="Solutions">
           <SliderCarousel slides={sliderSlides} />
       </section>
       </ScrollAnimatedSection>
@@ -424,7 +424,7 @@ export default function Home() {
       <SectionDivider />
 
       <ScrollAnimatedSection>
-        <section className="py-20 md:py-32 px-4 md:px-8" data-testid="section-why-us">
+        <section className="py-20 md:py-32 px-4 md:px-8" data-testid="section-why-us" data-section-label="Why Us">
           <ScrollValueCards
             cards={[
               {
@@ -525,7 +525,7 @@ export default function Home() {
       <SectionDivider />
 
       <ScrollAnimatedSection>
-        <section id="partners" className="py-20 md:py-32 px-4 md:px-8" data-testid="section-partners">
+        <section id="partners" className="py-20 md:py-32 px-4 md:px-8" data-testid="section-partners" data-section-label="Partners">
           <div className="max-w-7xl mx-auto">
             
             {/* Partners Section */}
@@ -611,7 +611,7 @@ export default function Home() {
 
       <StickyConversionBar />
 
-      <div className="w-full" data-testid="section-cta-footer" style={{
+      <div className="w-full" data-testid="section-cta-footer" data-section-label="Get Started" style={{
         background: 'linear-gradient(180deg, rgb(26, 26, 26) 0%, rgb(18, 18, 18) 50%, rgb(15, 15, 15) 100%)',
         boxShadow: '0 -2px 8px rgba(0, 0, 0, 0.3)',
         borderTop: '1px solid rgba(255, 0, 0, 0.2)',

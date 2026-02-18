@@ -5,7 +5,7 @@ export default function About() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-card/30 backdrop-blur-sm" data-testid="section-about-hero">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-card/30 backdrop-blur-sm" data-testid="section-about-hero" data-section-label="About">
         <div className="max-w-7xl mx-auto text-center">
           <motion.h1 
             className="text-lg sm:text-xl md:text-2xl font-bold uppercase tracking-[0.3em] mb-4 red-glow-pulse"
@@ -28,7 +28,7 @@ export default function About() {
       </section>
 
       {/* Mission Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8" data-testid="section-about-mission">
+      <section className="py-20 px-4 sm:px-6 lg:px-8" data-testid="section-about-mission" data-section-label="Mission">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <motion.div
@@ -83,7 +83,7 @@ export default function About() {
       </section>
 
       {/* What Sets Us Apart */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-card/20" data-testid="section-about-differentiation">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-card/20" data-testid="section-about-differentiation" data-section-label="Why Us">
         <div className="max-w-4xl mx-auto">
           <motion.h2
             className="text-3xl font-bold text-foreground mb-12 text-center"

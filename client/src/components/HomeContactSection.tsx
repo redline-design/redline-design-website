@@ -28,6 +28,7 @@ export default function HomeContactSection() {
     <section
       className="py-20 md:py-32 px-4 md:px-8"
       data-testid="section-home-contact"
+      data-section-label="Contact"
     >
       <div className="max-w-7xl mx-auto">
         <div className="max-w-3xl mx-auto">

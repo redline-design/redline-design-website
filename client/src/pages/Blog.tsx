@@ -320,7 +320,7 @@ export default function Blog() {
     <div className="min-h-screen">
       <HeroSection />
 
-      <section className="py-4 px-4 sm:px-6 lg:px-8 sticky top-16 z-30" data-testid="section-blog-categories">
+      <section className="py-4 px-4 sm:px-6 lg:px-8 sticky top-16 z-30" data-testid="section-blog-categories" data-section-label="Categories">
         <div className="max-w-7xl mx-auto">
           <motion.div
             className="flex flex-wrap justify-center gap-2"
@@ -350,7 +350,7 @@ export default function Blog() {
         </div>
       </section>
 
-      <section className="py-8 px-4 sm:px-6 lg:px-8" data-testid="section-blog-posts">
+      <section className="py-8 px-4 sm:px-6 lg:px-8" data-testid="section-blog-posts" data-section-label="Articles">
         <div className="max-w-7xl mx-auto">
           {isLoading ? (
             <LoadingSkeleton />
@@ -385,7 +385,7 @@ export default function Blog() {
         </div>
       </section>
 
-      <section className="py-16 px-4 sm:px-6 lg:px-8" data-testid="section-newsletter">
+      <section className="py-16 px-4 sm:px-6 lg:px-8" data-testid="section-newsletter" data-section-label="Newsletter">
         <div className="max-w-3xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
