@@ -593,20 +593,62 @@ export default function Home() {
                       </span>
                     </div>
                     <div
-                      className="relative w-full h-2 rounded-full overflow-hidden"
-                      style={{ background: "rgba(255,255,255,0.06)" }}
+                      className="relative w-full h-3 rounded overflow-hidden"
+                      style={{
+                        background: "rgba(255,255,255,0.04)",
+                        border: "1px solid rgba(255,255,255,0.06)",
+                      }}
                     >
+                      {/* Grid lines */}
+                      <div className="absolute inset-0 flex">
+                        {Array.from({ length: 20 }).map((_, i) => (
+                          <div
+                            key={i}
+                            className="h-full border-r"
+                            style={{
+                              width: "5%",
+                              borderColor: "rgba(255,255,255,0.03)",
+                            }}
+                          />
+                        ))}
+                      </div>
+
+                      {/* Animated fill */}
                       <motion.div
-                        className="absolute inset-y-0 left-0 rounded-full"
+                        className="absolute inset-y-0 left-0"
                         initial={{ width: 0 }}
                         whileInView={{ width: `${Math.min(stat.value, 100)}%` }}
-                        transition={{ duration: 1.2, delay: index * 0.15, ease: [0.22, 1, 0.36, 1] }}
+                        transition={{ duration: 1.4, delay: index * 0.15, ease: [0.22, 1, 0.36, 1] }}
                         viewport={{ once: true }}
                         style={{
-                          background: `linear-gradient(90deg, ${stat.color}88, ${stat.color})`,
-                          boxShadow: `0 0 12px ${stat.color}44, 0 0 4px ${stat.color}66`,
+                          background: `linear-gradient(90deg, ${stat.color}55, ${stat.color}cc, ${stat.color})`,
                         }}
-                      />
+                      >
+                        {/* Scan line effect */}
+                        <motion.div
+                          className="absolute inset-y-0 w-[30%] right-0"
+                          initial={{ opacity: 0 }}
+                          whileInView={{ opacity: [0, 0.6, 0] }}
+                          transition={{
+                            duration: 2,
+                            delay: index * 0.15 + 1.4,
+                            repeat: Infinity,
+                            repeatDelay: 3,
+                          }}
+                          viewport={{ once: true }}
+                          style={{
+                            background: `linear-gradient(90deg, transparent, ${stat.color}, rgba(255,255,255,0.4))`,
+                          }}
+                        />
+                        {/* Trailing edge glow */}
+                        <div
+                          className="absolute right-0 top-0 bottom-0 w-1"
+                          style={{
+                            background: "rgba(255,255,255,0.8)",
+                            boxShadow: `0 0 8px ${stat.color}, 0 0 16px ${stat.color}80, 0 0 2px rgba(255,255,255,0.9)`,
+                          }}
+                        />
+                      </motion.div>
                     </div>
                   </motion.div>
                 ))}
