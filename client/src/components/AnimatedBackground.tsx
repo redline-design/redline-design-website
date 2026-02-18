@@ -17,6 +17,7 @@ export default function AnimatedBackground() {
 
     let animationFrameId: number;
     let isTabVisible = true;
+    const startTime = Date.now();
 
     const handleVisibilityChange = () => {
       isTabVisible = !document.hidden;
@@ -58,24 +59,24 @@ export default function AnimatedBackground() {
       driftSpeedY: number;
     }
 
-    const dotCount = 150;
+    const dotCount = 160;
     const dots: Dot[] = [];
 
     for (let i = 0; i < dotCount; i++) {
-      const isRed = Math.random() < 0.22;
+      const isRed = Math.random() < 0.25;
       dots.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
         baseX: Math.random() * canvas.width,
         baseY: Math.random() * canvas.height,
-        radius: 1.5 + Math.random() * 3,
+        radius: isRed ? 2 + Math.random() * 3 : 1.5 + Math.random() * 2,
         isRed,
         baseOpacity: isRed
-          ? 0.3 + Math.random() * 0.3
-          : 0.15 + Math.random() * 0.2,
+          ? 0.5 + Math.random() * 0.4
+          : 0.25 + Math.random() * 0.3,
         offset: Math.random() * Math.PI * 2,
-        driftSpeedX: (Math.random() - 0.5) * 0.15,
-        driftSpeedY: (Math.random() - 0.5) * 0.15,
+        driftSpeedX: (Math.random() - 0.5) * 0.12,
+        driftSpeedY: (Math.random() - 0.5) * 0.12,
       });
     }
 
@@ -95,31 +96,35 @@ export default function AnimatedBackground() {
       const w = canvas.width;
       const h = canvas.height;
 
-      ctx.fillStyle = "#080808";
+      const bgGrad = ctx.createLinearGradient(0, 0, 0, h);
+      bgGrad.addColorStop(0, "#0d0d0f");
+      bgGrad.addColorStop(0.4, "#0a0a0c");
+      bgGrad.addColorStop(1, "#08080a");
+      ctx.fillStyle = bgGrad;
       ctx.fillRect(0, 0, w, h);
 
-      const grad = ctx.createRadialGradient(w * 0.5, h * 0.3, 0, w * 0.5, h * 0.3, w * 0.7);
-      grad.addColorStop(0, "rgba(30, 5, 5, 0.4)");
-      grad.addColorStop(0.5, "rgba(15, 5, 5, 0.2)");
-      grad.addColorStop(1, "rgba(0, 0, 0, 0)");
-      ctx.fillStyle = grad;
+      const vignette = ctx.createRadialGradient(w * 0.5, h * 0.35, w * 0.1, w * 0.5, h * 0.35, w * 0.8);
+      vignette.addColorStop(0, "rgba(40, 5, 5, 0.25)");
+      vignette.addColorStop(0.5, "rgba(20, 3, 3, 0.12)");
+      vignette.addColorStop(1, "rgba(0, 0, 0, 0)");
+      ctx.fillStyle = vignette;
       ctx.fillRect(0, 0, w, h);
 
-      const time = Date.now() * 0.001;
+      const time = (Date.now() - startTime) * 0.001;
       const mouseX = mousePosRef.current.x;
       const mouseY = mousePosRef.current.y;
-      const maxDistance = 180;
+      const maxDistance = 200;
       const maxDistanceSq = maxDistance * maxDistance;
 
       for (let i = 0; i < dots.length; i++) {
         const dot = dots[i];
 
         const driftX =
-          Math.sin(time * 0.12 + dot.offset) * 10 +
-          Math.sin(time * 0.07 + dot.offset * 1.7) * 6;
+          Math.sin(time * 0.12 + dot.offset) * 12 +
+          Math.sin(time * 0.07 + dot.offset * 1.7) * 7;
         const driftY =
-          Math.cos(time * 0.1 + dot.offset * 1.3) * 10 +
-          Math.cos(time * 0.06 + dot.offset * 2.1) * 6;
+          Math.cos(time * 0.1 + dot.offset * 1.3) * 12 +
+          Math.cos(time * 0.06 + dot.offset * 2.1) * 7;
 
         dot.x = dot.baseX + driftX + dot.driftSpeedX * time * 10;
         dot.y = dot.baseY + driftY + dot.driftSpeedY * time * 10;
@@ -139,32 +144,46 @@ export default function AnimatedBackground() {
           const distance = Math.sqrt(distanceSq);
           mouseInfluence = 1 - distance / maxDistance;
           const angle = Math.atan2(dy, dx);
-          const pushStrength = mouseInfluence * 20;
+          const pushStrength = mouseInfluence * 25;
           dot.x += -Math.cos(angle) * pushStrength;
           dot.y += -Math.sin(angle) * pushStrength;
         }
 
-        const breath = Math.sin(time * 0.3 + dot.offset) * 0.05 + 0.05;
+        const breath = Math.sin(time * 0.3 + dot.offset) * 0.08 + 0.08;
         let opacity = dot.baseOpacity + breath;
 
         if (mouseInfluence > 0) {
-          opacity = Math.min(0.8, opacity + mouseInfluence * 0.4);
+          opacity = Math.min(1.0, opacity + mouseInfluence * 0.5);
         }
 
-        const r = dot.radius + (mouseInfluence > 0 ? mouseInfluence * 2 : 0);
+        const r = dot.radius + (mouseInfluence > 0 ? mouseInfluence * 3 : 0);
 
         if (dot.isRed) {
-          const glow = ctx.createRadialGradient(dot.x, dot.y, 0, dot.x, dot.y, r * 3);
-          glow.addColorStop(0, `rgba(255, 50, 30, ${opacity})`);
-          glow.addColorStop(0.5, `rgba(255, 30, 20, ${opacity * 0.3})`);
-          glow.addColorStop(1, `rgba(255, 0, 0, 0)`);
+          const glowRadius = r * 4;
+          const glow = ctx.createRadialGradient(dot.x, dot.y, 0, dot.x, dot.y, glowRadius);
+          glow.addColorStop(0, `rgba(255, 40, 20, ${opacity})`);
+          glow.addColorStop(0.3, `rgba(255, 20, 10, ${opacity * 0.5})`);
+          glow.addColorStop(0.6, `rgba(200, 0, 0, ${opacity * 0.15})`);
+          glow.addColorStop(1, "rgba(150, 0, 0, 0)");
           ctx.fillStyle = glow;
-          ctx.fillRect(dot.x - r * 3, dot.y - r * 3, r * 6, r * 6);
+          ctx.fillRect(dot.x - glowRadius, dot.y - glowRadius, glowRadius * 2, glowRadius * 2);
+
+          ctx.fillStyle = `rgba(255, 100, 80, ${Math.min(1, opacity * 1.2)})`;
+          ctx.beginPath();
+          ctx.arc(dot.x, dot.y, r * 0.6, 0, Math.PI * 2);
+          ctx.fill();
         } else {
-          ctx.fillStyle = `rgba(255, 255, 255, ${opacity})`;
+          ctx.fillStyle = `rgba(200, 200, 220, ${opacity})`;
           ctx.beginPath();
           ctx.arc(dot.x, dot.y, r, 0, Math.PI * 2);
           ctx.fill();
+
+          if (r > 2) {
+            ctx.fillStyle = `rgba(200, 200, 220, ${opacity * 0.15})`;
+            ctx.beginPath();
+            ctx.arc(dot.x, dot.y, r * 2.5, 0, Math.PI * 2);
+            ctx.fill();
+          }
         }
       }
     };
@@ -185,7 +204,7 @@ export default function AnimatedBackground() {
       <div
         className="fixed inset-0 z-0 pointer-events-none"
         style={{
-          background: "linear-gradient(180deg, #0a0a0a 0%, #111111 100%)",
+          background: "linear-gradient(180deg, #0d0d0f 0%, #08080a 100%)",
         }}
       />
     );
