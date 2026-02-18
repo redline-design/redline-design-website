@@ -126,7 +126,7 @@ export default function Header() {
           <div className="hidden md:flex items-center shrink-0">
             <Link href="/book-a-demo">
               <div
-                className="px-6 py-2.5 text-sm font-medium text-white rounded-md cursor-pointer flex items-center gap-2.5 transition-all hover:scale-[1.03] nav-glow-btn"
+                className="px-6 py-2.5 text-sm font-medium text-black rounded-md cursor-pointer flex items-center gap-2.5 transition-all hover:scale-[1.03] nav-glow-btn"
                 style={{
                   background: "linear-gradient(145deg, #ff0000, #cc0000)",
                 }}
