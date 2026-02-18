@@ -9,7 +9,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useScrollValue } from "@/hooks/use-scroll";
-import redlineLogo from "@assets/RedlineLogoFull_1763765504169.png";
+import redlineLogo from "@assets/Redline_Short_Logo_1771441235439.png";
 
 export default function Header() {
   const { isScrolled, showHeader } = useScrollValue(['isScrolled', 'showHeader']);
