@@ -103,7 +103,7 @@ export default function PricingSection({ plans, footnote, title, subtitle }: Pri
 
               <div className="mb-1">
                 <span
-                  className="text-3xl md:text-4xl font-bold text-white"
+                  className="text-3xl md:text-4xl font-bold text-white whitespace-nowrap"
                   data-testid={`text-plan-price-${index}`}
                 >
                   {plan.price}
