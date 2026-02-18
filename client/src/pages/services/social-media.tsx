@@ -122,7 +122,7 @@ export default function SocialMediaPage() {
             className="text-center mb-12"
           >
             <h2
-              className="text-3xl md:text-4xl font-bold text-white mb-3"
+              className="text-3xl md:text-4xl font-bold text-red-500 mb-3 section-heading-glow"
               data-testid="text-platforms-heading"
             >
               Platforms We Manage

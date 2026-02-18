@@ -10,10 +10,6 @@ interface ServiceHeroProps {
 }
 
 export default function ServiceHero({ title, subtitle, description }: ServiceHeroProps) {
-  const words = title.split(" ");
-  const lastWord = words.pop();
-  const leadingWords = words.join(" ");
-
   return (
     <section className="py-16 md:py-24 px-4 md:px-8" data-testid="section-service-hero">
       <div className="max-w-7xl mx-auto text-center">
@@ -23,13 +19,10 @@ export default function ServiceHero({ title, subtitle, description }: ServiceHer
           transition={{ duration: 0.5 }}
         >
           <h1
-            className="text-4xl md:text-6xl font-bold text-white mb-6 tracking-tight"
+            className="text-4xl md:text-6xl font-bold text-red-500 mb-6 tracking-tight section-heading-glow"
             data-testid="text-hero-title"
           >
-            {leadingWords}{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-400">
-              {lastWord}
-            </span>
+            {title}
           </h1>
 
           <p

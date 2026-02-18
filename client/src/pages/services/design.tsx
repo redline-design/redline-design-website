@@ -143,7 +143,7 @@ export default function DesignPage() {
             transition={{ duration: 0.4 }}
             className="text-center mb-12"
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-3" data-testid="text-process-heading">
+            <h2 className="text-3xl md:text-4xl font-bold text-red-500 mb-3 section-heading-glow" data-testid="text-process-heading">
               Our Branding Process
             </h2>
             <p className="text-white/50 text-base md:text-lg" data-testid="text-process-subtitle">
@@ -195,7 +195,7 @@ export default function DesignPage() {
             transition={{ duration: 0.4 }}
             className="text-center mb-0"
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-3" data-testid="text-pricing-logo-heading">
+            <h2 className="text-3xl md:text-4xl font-bold text-red-500 mb-3 section-heading-glow" data-testid="text-pricing-logo-heading">
               Logo Design
             </h2>
           </motion.div>
@@ -212,7 +212,7 @@ export default function DesignPage() {
             transition={{ duration: 0.4 }}
             className="text-center mb-0"
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-3" data-testid="text-pricing-brand-heading">
+            <h2 className="text-3xl md:text-4xl font-bold text-red-500 mb-3 section-heading-glow" data-testid="text-pricing-brand-heading">
               Brand Guide Packages
             </h2>
             <p className="text-white/50 text-base md:text-lg" data-testid="text-pricing-brand-subtitle">
@@ -232,7 +232,7 @@ export default function DesignPage() {
             transition={{ duration: 0.4 }}
             className="text-center mb-0"
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-3" data-testid="text-pricing-custom-heading">
+            <h2 className="text-3xl md:text-4xl font-bold text-red-500 mb-3 section-heading-glow" data-testid="text-pricing-custom-heading">
               Custom Design Work
             </h2>
           </motion.div>
@@ -249,7 +249,7 @@ export default function DesignPage() {
             transition={{ duration: 0.4 }}
             className="text-center mb-12"
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-3" data-testid="text-stats-heading">
+            <h2 className="text-3xl md:text-4xl font-bold text-red-500 mb-3 section-heading-glow" data-testid="text-stats-heading">
               What Makes Great Branding
             </h2>
             <p className="text-white/50 text-base md:text-lg" data-testid="text-stats-subtitle">

@@ -124,7 +124,7 @@ export default function AnalyticsPage() {
             className="text-center mb-12"
           >
             <h2
-              className="text-3xl md:text-4xl font-bold text-white mb-3"
+              className="text-3xl md:text-4xl font-bold text-red-500 mb-3 section-heading-glow"
               data-testid="text-dashboard-heading"
             >
               Your Dashboard at a Glance
@@ -156,7 +156,7 @@ export default function AnalyticsPage() {
                 </p>
                 <div className="flex items-end gap-3">
                   <span
-                    className="text-3xl font-bold text-white"
+                    className="text-3xl font-bold text-red-500 section-heading-glow"
                     data-testid={`text-kpi-value-${index}`}
                   >
                     {kpi.value}
@@ -188,7 +188,7 @@ export default function AnalyticsPage() {
               </p>
               <div className="flex items-end gap-3 mb-4">
                 <span
-                  className="text-3xl font-bold text-white"
+                  className="text-3xl font-bold text-red-500 section-heading-glow"
                   data-testid="text-kpi-value-channel"
                 >
                   4.7x
@@ -231,7 +231,7 @@ export default function AnalyticsPage() {
             className="text-center mb-12"
           >
             <h2
-              className="text-3xl md:text-4xl font-bold text-white mb-3"
+              className="text-3xl md:text-4xl font-bold text-red-500 mb-3 section-heading-glow"
               data-testid="text-datasources-heading"
             >
               Connect Your Data Sources
