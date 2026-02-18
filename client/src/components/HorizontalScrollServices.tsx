@@ -250,16 +250,16 @@ export default function HorizontalScrollServices() {
     >
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-14">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 italic">
             Our Services
           </h2>
-          <p className="text-white/60 text-base sm:text-lg max-w-2xl mx-auto">
+          <p className="text-white/50 text-base sm:text-lg max-w-2xl mx-auto">
             Comprehensive digital solutions to propel your business forward
           </p>
         </div>
 
         <motion.div
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -269,28 +269,33 @@ export default function HorizontalScrollServices() {
             <motion.div key={service.id} variants={cardVariants}>
               <a
                 href={service.link}
-                className="block h-full rounded-xl p-6 sm:p-7 transition-all duration-300 group hover-elevate"
+                className="block h-full rounded-lg px-5 py-6 transition-all duration-300 group hover-elevate text-center"
                 style={{
-                  background: "rgba(20, 20, 20, 0.95)",
+                  background: "rgba(15, 20, 30, 0.7)",
                   border: "1px solid rgba(255, 255, 255, 0.08)"
                 }}
                 data-testid={`card-service-${service.id}`}
               >
-                <div className="w-12 h-12 rounded-xl bg-red-500/10 border border-red-500/20 flex items-center justify-center mb-5">
-                  <service.icon className="w-6 h-6 text-red-500" />
+                <div className="w-10 h-10 rounded-lg mx-auto mb-4 flex items-center justify-center"
+                  style={{
+                    background: "rgba(255, 60, 60, 0.1)",
+                    border: "1px solid rgba(255, 60, 60, 0.2)"
+                  }}
+                >
+                  <service.icon className="w-5 h-5 text-red-500" />
                 </div>
 
-                <h3 className="text-white font-semibold text-lg mb-3">
+                <h3 className="text-white font-bold text-sm mb-2.5">
                   {service.title}
                 </h3>
 
-                <p className="text-white/90 text-sm leading-relaxed mb-5">
+                <p className="text-white/50 text-xs leading-relaxed mb-4 line-clamp-3">
                   {service.description}
                 </p>
 
-                <span className="inline-flex items-center gap-1.5 text-red-400 text-sm font-medium group-hover:text-red-300 transition-colors">
+                <span className="inline-flex items-center gap-1 text-red-400 text-xs font-medium group-hover:text-red-300 transition-colors">
                   Learn More
-                  <ArrowRight className="w-4 h-4" />
+                  <ArrowRight className="w-3 h-3" />
                 </span>
               </a>
             </motion.div>
