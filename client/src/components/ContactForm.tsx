@@ -8,6 +8,7 @@ import { Search, Target, Share2, Mail, Monitor, Palette, FileText, Bot, Users, B
 import { useToast } from "@/hooks/use-toast";
 import { useMutation } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
+import { trackContactFormSubmission, trackServiceSelection } from "@/lib/analytics";
 
 interface Service {
   id: string;
@@ -50,6 +51,9 @@ export default function ContactForm({ preSelectedServices = [] }: ContactFormPro
         ? prev.servicesInterested.filter(id => id !== serviceId)
         : [...prev.servicesInterested, serviceId]
     }));
+        // Track service interest selection
+        const isSelecting = !formData.servicesInterested.includes(serviceId);
+        trackServiceSelection(serviceId, isSelecting);
   };
 
   const submitMutation = useMutation({
@@ -57,6 +61,8 @@ export default function ContactForm({ preSelectedServices = [] }: ContactFormPro
       return await apiRequest("POST", "/api/contact", data);
     },
     onSuccess: () => {
+            // Track successful form submission as conversion
+            trackContactFormSubmission(formData.servicesInterested);
       toast({
         title: "Message sent successfully!",
         description: "We'll get back to you within 24 business hours.",
