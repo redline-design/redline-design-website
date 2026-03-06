@@ -73,7 +73,7 @@ export default function Home() {
       description: 'Our clients see an average return of 7x on their marketing spend. We focus on revenue growth and customer acquisition.',
       image: ppcImage,
       buttonText: 'Calculate Your ROI',
-      buttonLink: '/services/ppc',
+      buttonLink: '/services/paid-advertising',
       stats: [
         { value: '7x', label: 'Avg ROI' },
         { value: '95%', label: 'Retention' },
