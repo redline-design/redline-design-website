@@ -10,7 +10,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { motion } from "framer-motion";
-import { format } from "date-fns";
+import { format as _format, isValid } from "date-fns"; const safeFormat = (date: any, fmt: string) => { try { const d = new Date(date); return isValid(d) ? _format(d, fmt) : "N/A"; } catch { return "N/A"; } };
 import {
   DndContext,
   closestCenter,
@@ -1584,7 +1584,7 @@ export default function Admin() {
                       <div className="flex items-center gap-2 text-xs text-muted-foreground mb-4">
                         <Calendar className="h-3 w-3" />
                         <span>
-                          {format(new Date(post.createdAt), "MMM d, yyyy")}
+                          {safeFormat(post.createdAt, "MMM d, yyyy")}
                         </span>
                       </div>
                       <div className="flex flex-wrap items-center gap-2">
@@ -1767,7 +1767,7 @@ export default function Admin() {
                                     <div className="space-y-1 text-sm text-muted-foreground">
                                       <p>Email: {submission.email}</p>
                                       <p>Phone: {submission.phone}</p>
-                                      <p className="text-xs">Submitted: {format(new Date(submission.createdAt), 'MMM d, yyyy h:mm a')}</p>
+                                      <p className="text-xs">Submitted: {safeFormat(submission.createdAt, 'MMM d, yyyy h:mm a')}</p>
                                     </div>
                                   </div>
                                   <Badge variant={submission.status === 'new' ? 'default' : 'secondary'}>
