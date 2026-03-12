@@ -46,5 +46,5 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(401).json({ error: "Not authenticated" });
   }
 
-  return res.status(200).json({ id: 1, username: "admin" });
+  return res.status(200).json({ id: "admin", email: "admin@redlinedesignllc.com", firstName: "Admin", lastName: "", profileImageUrl: "", createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() });
 }
