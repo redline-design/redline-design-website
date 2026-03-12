@@ -5,6 +5,18 @@ import crypto from "crypto";
 const DATABASE_URL = process.env.NEON_DATABASE_URL || process.env.DATABASE_URL;
 const SECRET = process.env.ADMIN_PASSWORD || "fallback-secret";
 
+function snakeToCamel(obj: any): any {
+  if (Array.isArray(obj)) return obj.map(snakeToCamel);
+  if (obj !== null && typeof obj === 'object') {
+    return Object.keys(obj).reduce((acc: any, key: string) => {
+      const camelKey = key.replace(/_([a-z])/g, (_, c) => c.toUpperCase());
+      acc[camelKey] = obj[key];
+      return acc;
+    }, {});
+  }
+  return obj;
+}
+
 function verifyToken(token: string): boolean {
   try {
     const [timestamp, signature] = token.split(".");
@@ -49,7 +61,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method === "GET") {
     try {
       const submissions = await sql`SELECT * FROM contact_submissions ORDER BY created_at DESC`;
-      return res.status(200).json(submissions);
+      return res.status(200).json(snakeToCamel(submissions));
     } catch (error: any) {
       console.error("Error fetching contact submissions:", error);
       return res.status(500).json({ error: "Failed to fetch submissions" });
@@ -57,7 +69,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   if (req.method === "DELETE") {
-    // Extract ID from URL path: /api/contact-submissions/[id]
     const url = new URL(req.url || "", `http://${req.headers.host}`);
     const pathParts = url.pathname.split("/");
     const id = pathParts[pathParts.length - 1];
@@ -87,7 +98,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     try {
       const result = await sql`UPDATE contact_submissions SET status = ${status} WHERE id = ${id} RETURNING *`;
-      return res.status(200).json(result[0]);
+      return res.status(200).json(snakeToCamel(result[0]));
     } catch (error: any) {
       console.error("Error updating submission:", error);
       return res.status(500).json({ error: "Failed to update submission" });
