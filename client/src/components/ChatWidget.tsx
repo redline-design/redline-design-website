@@ -206,7 +206,7 @@ export default function ChatWidget() {
             {/* Brightened logo overlay */}
             <img 
               src={logoImage} 
-              alt="" 
+              alt="image" 
               loading="lazy" 
               className="w-9 h-9 object-contain absolute"
               style={{
