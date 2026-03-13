@@ -1076,6 +1076,7 @@ function App() {
           <AnimatedBackground />
           <DiagonalStripes />
           <Header />
+    <meta name="description" content="Redline Design LLC — Full-service digital marketing agency in Salt Lake City, UT. SEO, PPC, web design, and social media management that drives results." />
           <main className="flex-1 relative z-10">
             <Suspense fallback={<LoadingFallback />}>
               <Router />
