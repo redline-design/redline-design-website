@@ -196,6 +196,17 @@ function Router() {
               <p className="mb-4"><strong>15.5. Notices:</strong> All notices required under this Agreement must be in writing and delivered to the addresses specified in the SOW or as otherwise designated by the parties. Email notice is acceptable if receipt is confirmed. For notices to Redline Design, please use ryan@redline.design</p>
               <p className="mb-4"><strong>15.6. Force Majeure:</strong> Neither party shall be liable for any delay or failure to perform resulting from causes outside its reasonable control, such as acts of God, war, terrorism, riots, embargos, acts of civil or military authorities, fire, floods, accidents, or strikes.</p>
               <p className="mb-4"><strong>15.7. Relationship of Parties:</strong> The parties are independent contractors. Nothing in these ToS creates a partnership, joint venture, agency, or employment relationship between the parties.</p>
+              <h3 className="text-xl font-semibold text-white mt-8 mb-3">16. Redline Design LLC SMS Business Communications</h3>
+              <p className="text-gray-300 mb-4">
+                By providing your mobile phone number to Redline Design LLC or texting START to our business number,
+                you consent to receive recurring SMS business communications via Jarvis AI on behalf of Redline Design LLC.
+                Message frequency varies based on your business interactions. Mobile opt-in data and consent will NOT be
+                shared with any third parties or affiliates for marketing purposes. Msg &amp; data rates may apply.
+                Reply <strong>HELP</strong> for assistance or contact us at ryan@redline.design.
+                Reply <strong>STOP</strong> at any time to opt out of all SMS communications.
+                For additional help, contact Redline Design LLC at ryan@redline.design or call our business line.
+                View our <a href="/privacy" className="text-blue-400 hover:text-blue-300">Privacy Policy</a> for full data handling details.
+              </p>
             </div>
           }
         />
@@ -304,6 +315,16 @@ function Router() {
               <p className="mb-4">For questions or concerns, contact:</p>
               <p className="mb-2"><strong>Email:</strong> redline@redline.design</p>
               <p className="mb-4"><strong>Address:</strong> 55 N Merchant St #444, American Fork, Utah, 84003</p>
+              <h3 className="text-xl font-semibold text-white mt-8 mb-3">13. SMS and Mobile Communications</h3>
+              <p className="text-gray-300 mb-4">
+                Redline Design LLC may send SMS messages to mobile numbers you provide for business communication purposes.
+                By providing your number or opting in, you consent to receive recurring business-related SMS messages.
+                Message frequency varies. Msg &amp; data rates may apply.
+                <strong>Mobile opt-in data and consent will NOT be shared with any third parties</strong> for their own marketing
+                or promotional purposes. Your mobile number is used solely for direct business communications between you
+                and Redline Design LLC. You may opt out at any time by replying <strong>STOP</strong> to any message,
+                or contact us at ryan@redline.design to be removed from SMS communications.
+              </p>
             </div>
           }
         />
